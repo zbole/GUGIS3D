@@ -37,7 +37,7 @@ import {
 import type { CityDocument } from "./cityModel";
 import type { SceneHandle } from "./BuildingScene";
 import { solidGeometry, solidCorners } from "./geometry";
-import { type BuildingDocument, type SceneNode, type Solid } from "./model";
+import { hasBuildingOverview, type BuildingDocument, type SceneNode, type Solid } from "./model";
 import { buildingColor, type BuildingColorMode } from "./buildingAppearance";
 import { functionSolid, terrainColors, type TerrainPatch } from "./environment";
 import {
@@ -477,8 +477,9 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
         new Matrix4(),
       );
       const points: Cartesian3[] = [];
-      const renderNodes: SceneNode[] = doc.overview
-        ? Object.keys(doc.overview).map((key) => ({
+      const overview = hasBuildingOverview(doc) ? doc.overview : undefined;
+      const renderNodes: SceneNode[] = overview
+        ? Object.keys(overview).map((key) => ({
             id: `overview_${key}`,
             name: key,
             category: key === "roof" ? "roof" : "wall",
@@ -488,7 +489,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
         : doc.nodes;
       for (const node of renderNodes) {
         if (!node.template || !node.position) continue;
-        const solid = (doc.overview ?? doc.templates)[node.template],
+        const solid = (overview ?? doc.templates)[node.template],
           id = `${item.id}/${node.id}`,
           color = Color.fromCssColorString(
             buildingColor(node.category, doc.parameters.kind, item.asset, colorModeRef.current, solid.color),
@@ -521,7 +522,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
           }),
         );
         meta.push({ id, cityId: item.id, group, category: node.category, kind: doc.parameters.kind,
-          asset: item.asset, fallback: solid.color, overview: !!doc.overview });
+          asset: item.asset, fallback: solid.color, overview: !!overview });
         const vertices = cached.corners;
         points.push(
           ...vertices.map((p) =>
@@ -745,8 +746,8 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     if (!renderFailed.current) setError("");
     const owned = new Map<string, DetailedBuilding>();
     detailedBuildings.current = owned;
-    const candidates = city.instances.filter(item => !!city.assets[item.asset].overview);
-    const permanent = city.instances.filter(item => !city.assets[item.asset].overview);
+    const candidates = city.instances.filter(item => hasBuildingOverview(city.assets[item.asset]));
+    const permanent = city.instances.filter(item => !hasBuildingOverview(city.assets[item.asset]));
     const permanentComponents = permanent.reduce((n, item) => n + city.assets[item.asset].nodes.filter(node => node.template && node.position).length, 0);
     const componentCounts = new Map(candidates.map(item => [item.id,
       city.assets[item.asset].nodes.filter(node => node.template && node.position).length]));

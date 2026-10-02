@@ -1,6 +1,6 @@
 import { Cartesian3, Matrix4, Transforms } from "@cesium/engine";
 import type { CityDocument, Placement } from "./cityModel";
-import type { BuildingDocument, Solid } from "./model";
+import { hasBuildingOverview, type BuildingDocument, type Solid } from "./model";
 import type { AnalysisPoint, PathAnalysis } from "./terrainAnalysis";
 import { functionSolid, type FeatureAsset, type FeaturePlacement, type Terrain } from "./environment";
 import { terrainIndex, type TerrainHit } from "./terrainMath";
@@ -122,7 +122,7 @@ function buildingHintRadius(document: BuildingDocument) {
   // An overview is the authored building silhouette. Use its cheap outer
   // shapes as a broad-phase bound, then verify candidates with all components.
   // Models without an overview take the exact path.
-  value = document.overview ? Math.max(1, ...Object.values(document.overview).map(solid => vertexBounds(solid).radius)) + 8
+  value = hasBuildingOverview(document) ? Math.max(1, ...Object.values(document.overview).map(solid => vertexBounds(solid).radius)) + 8
     : buildingEnvelope(document).radius;
   buildingHintCache.set(document, value);
   return value;

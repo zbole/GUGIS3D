@@ -133,6 +133,43 @@ test("feature selection creates no geometry and never moves the camera", () => {
   );
   f.close();
 });
+
+test("an empty overview renders real components and remains pickable when automatic detail is toggled", async t => {
+  const sceneCity = {
+    ...city,
+    assets: { simple: { ...city.assets.simple, overview: {} } },
+    environment: undefined,
+  };
+  const source = JSON.stringify(sceneCity), selected = [], ref = React.createRef();
+  const f = fixture({ city: sceneCity, ref, onSelect: id => selected.push(id) });
+  t.after(() => f.close());
+  const batch = f.viewer.scene.primitives.values.find(p => p.getGeometryInstanceAttributes("building/wall"));
+  assert.ok(batch, "an empty overview must fall back to the real component geometry");
+  assert.equal(batch.getGeometryInstanceAttributes("building/wall").show[0], 1);
+  assert.match(JSON.stringify(f.renderer.toJSON()), /自动精细 · 1 栋 · 1 个构件/);
+  const count = viewState.primitives.length, flights = f.viewer.camera.flights.length;
+  for (const fullDetails of [false, true]) {
+    f.update({ fullDetails });
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 220)); });
+    assert.ok(f.viewer.scene.primitives.values.includes(batch));
+    assert.equal(batch.getGeometryInstanceAttributes("building/wall").show[0], 1);
+    assert.equal(viewState.primitives.length, count, "the fallback must not also enter the detail queue");
+  }
+  assert.equal(f.viewer.camera.flights.length, flights);
+  f.viewer.picked = { id: "building/wall" };
+  act(() => viewState.handlers.at(-1).actions.get(ScreenSpaceEventType.LEFT_CLICK)({ position: {} }));
+  assert.deepEqual(selected, ["building"]);
+  const color = [...batch.getGeometryInstanceAttributes("building/wall").color];
+  f.update({ selected: "building" });
+  assert.notDeepEqual([...batch.getGeometryInstanceAttributes("building/wall").color], color);
+  act(() => ref.current.focusBuilding("building"));
+  const sphere = f.viewer.camera.flights.at(-1)[0];
+  assert.ok(Number.isFinite(sphere.radius) && sphere.radius > 0);
+  const center = Cartographic.fromCartesian(sphere.center);
+  assert.ok(Math.abs(center.longitude * 180 / Math.PI + 2.603) < 1e-6);
+  assert.ok(Math.abs(center.latitude * 180 / Math.PI - 51.454) < 1e-6);
+  assert.equal(JSON.stringify(sceneCity), source, "view fallback must preserve the imported archive");
+});
 test("saving a feature retains building batches, terrain and wire entities; building edits retain feature markers", () => {
   const f = fixture({ selectedFeature: "one", terrainWire: true });
   const initialBatches = [...f.viewer.scene.primitives.values];

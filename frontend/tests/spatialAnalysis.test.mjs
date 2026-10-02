@@ -107,6 +107,20 @@ test("section corridor keeps native ground separate from model envelope and resp
   assert.equal(analyzeCitySection(c, offsetRoute, profile, 60).objects.length, 2);
 });
 
+test("empty overviews use real component bounds when filtering a section corridor", () => {
+  const c = city();
+  c.instances = c.instances.slice(0, 1);
+  c.environment.features = [];
+  c.assets.house = { ...document, templates: { wall: { ...document.templates.wall, size: [80, 80, 10] } } };
+  const route = [point(10, 75), point(150, 75)];
+  const expected = analyzeCitySection(c, route, profile, 10);
+  assert.equal(expected.buildings, 1, "the route crosses the model envelope away from its origin");
+  const imported = { ...c, assets: { house: { ...c.assets.house, overview: {} } } };
+  const source = JSON.stringify(imported);
+  assert.deepEqual(analyzeCitySection(imported, route, profile, 10), expected);
+  assert.equal(JSON.stringify(imported), source, "the fallback must not rewrite imported data");
+});
+
 test("terrain NoData makes source elevations and burial unknown, without inventing a height", () => {
   const c = city(); c.environment.terrain = { ...terrain, patches: [] };
   const result = queryCityPoint(c, point(80, 50));

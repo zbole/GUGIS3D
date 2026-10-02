@@ -70,6 +70,12 @@ export interface BuildingDocument {
   nodes: SceneNode[];
   overview?: Record<string, Solid>;
 }
+
+/** Empty overview maps are valid archives, but provide no usable coarse model. */
+export function hasBuildingOverview(document: BuildingDocument): document is BuildingDocument & { overview: Record<string, Solid> } {
+  return !!document.overview && Object.keys(document.overview).length > 0;
+}
+
 export type FloorMode = "all" | "focus" | "isolate" | "lift" | "hide";
 export interface SceneView {
   mode: FloorMode;
