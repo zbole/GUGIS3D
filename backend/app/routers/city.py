@@ -252,6 +252,11 @@ async def refine(request: Request):
 @router.post("/geojson")
 async def import_geojson(request:Request):
     collection=await parse(request,GeoJSONImport)
+    return await run_in_threadpool(convert_geojson,collection)
+
+
+def convert_geojson(collection):
+    """Convert the complete batch and encode its response outside the event loop."""
     documents=[];issues=[]
     for index,feature in enumerate(collection.features):
         try:
@@ -280,4 +285,5 @@ async def import_geojson(request:Request):
     if issues:
         # Fail the complete batch so an incomplete neighbourhood is never silently saved.
         raise HTTPException(422,"导入未应用。"+"；".join(issues[:8]))
-    return {"documents":documents}
+    return Response(json.dumps({"documents":documents},ensure_ascii=False,allow_nan=False,
+                               separators=(",",":")).encode("utf-8"),media_type="application/json")
