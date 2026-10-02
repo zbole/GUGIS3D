@@ -146,12 +146,16 @@
 .cmp-mini-grid strong { color: #80e5d7; font-size: 28px; letter-spacing: -.05em; }
 .cmp-mini-grid span { font-size: 10px; color: #a2c3c7; line-height: 1.5; }
 .cmp-analysis-card .cmp-card-foot { border: 0; margin: 18px 0 0; padding: 0; color: #9fbfc4; }
-.cmp-snapshot { display: flex; align-items: center; gap: 14px; margin-top: 16px; padding: 15px 19px; background: #eaf5f2; border: 1px solid #cbe2dd; border-radius: 7px; }
-.cmp-snapshot.changed { background: #fff4eb; border-color: #f0d4b6; }.cmp-snapshot.offline { background: #f0f2f2; border-color: #d8e1e1; }
-.cmp-snapshot-icon { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 6px; background: #d7ece8; color: #187a7d; }
+.cmp-snapshot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 16px; padding: 15px 19px; background: #eaf5f2; border: 1px solid #cbe2dd; border-radius: 7px; }
+.cmp-snapshot.changed { background: #fff4eb; border-color: #f0d4b6; }.cmp-snapshot.offline, .cmp-snapshot.checking, .cmp-snapshot.paused { background: #f0f2f2; border-color: #d8e1e1; }
+.cmp-snapshot-icon { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 6px; background: #d7ece8; color: #187a7d; }
 .cmp-snapshot > div { display: flex; flex-direction: column; min-width: 0; }
+.cmp-snapshot-copy { flex: 1 1 180px; }
 .cmp-snapshot strong { font-size: 12px; color: #325d62; }.cmp-snapshot small { font: 11px/1.6 Consolas, monospace; color: #6a8588; white-space: normal; overflow-wrap: anywhere; }
+.cmp-snapshot-note { font-size: 11px; line-height: 1.6; color: #617d80; }
 .cmp-snapshot-pill { margin-left: auto; border: 1px solid #abd2ca; color: #317a74; border-radius: 3px; padding: 4px 8px; font: 700 9px Consolas, monospace; letter-spacing: .06em; }
+.cmp-snapshot .cmp-snapshot-recheck { flex-shrink: 0; padding: 7px 10px; border: 1px solid #98bbb6; border-radius: 4px; background: #fff; color: #325d62; font-size: 11px; cursor: pointer; }
+.cmp-snapshot-recheck:disabled { opacity: .6; cursor: wait; }
 .cmp-compare { border-top: 1px solid #dce9e9; }
 .cmp-result-table-wrap { width: 100%; overflow-x: auto; margin: 0 0 18px; border: 1px solid #d5e4e4; border-radius: 9px; background: #fff; box-shadow: 0 12px 32px #17394307; }
 .cmp-result-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 740px; }

@@ -17,6 +17,7 @@ import terrainSuite from "../../../shared/terrain-comparison-overview.json";
 import { workspaceHref } from "../studio/workspaceNavigation";
 import TerrainComparisonLoader from "./TerrainComparisonLoader";
 import ComparisonOverview from "./ComparisonOverview";
+import { useProjectFreshness } from "./useProjectFreshness";
 import "./compare.css";
 
 const sources = {
@@ -169,14 +170,9 @@ function CityIllustration() {
 
 export default function CompareShowcase() {
   const [selected, setSelected] = useState<(typeof cases)[number]["id"]>("scene");
-  const [freshness, setFreshness] = useState<"checking" | "current" | "changed" | "offline">("checking");
+  const { freshness, recheck } = useProjectFreshness(evidence.revision, import.meta.env.VITE_API_BASE_URL ?? "/api");
   useEffect(() => {
     document.title = "GUGIS3D × ArcGIS · 证据对比";
-    const base = (import.meta.env.VITE_API_BASE_URL ?? "/api").replace(/\/$/, "");
-    fetch(`${base}/city/revision`, { signal: AbortSignal.timeout(7000) })
-      .then(response => response.ok ? response.json() : Promise.reject(new Error("Revision unavailable")))
-      .then((result: { revision: string }) => setFreshness(result.revision === evidence.revision ? "current" : "changed"))
-      .catch(() => setFreshness("offline"));
   }, []);
   const active = cases.find(item => item.id === selected) ?? cases[0];
   const ActiveIcon = active.icon;
@@ -200,12 +196,12 @@ export default function CompareShowcase() {
             <h1 id="cmp-title">让城市模型<br/><span>看得见，</span><br/>也算得清。</h1>
             <p className="cmp-hero-description">以布里斯托起始街区为样本，把 GUGIS3D 的结构化建模与 ArcGIS 官方产品能力放在同一张证据板上。功能逐项对照，数值公开边界，结果可以复核。</p>
             <div className="cmp-hero-actions"><a href="#comparison-overview" className="cmp-btn cmp-btn-dark">查看对比结果 <ArrowRight size={18}/></a><a href="#evidence" className="cmp-btn cmp-btn-light">查看城市数据 <ArrowDown size={18}/></a></div>
-            <div className="cmp-proofline"><span><Check size={15}/> 当前项目快照</span><span><Check size={15}/> 官方 ArcGIS 文档</span><span><Check size={15}/> 可复现实验脚本</span></div>
+            <div className="cmp-proofline"><span><Check size={15}/> 已保存项目快照</span><span><Check size={15}/> 官方 ArcGIS 文档</span><span><Check size={15}/> 可复现实验脚本</span></div>
           </div>
           <CityIllustration/>
         </section>
 
-        <section className="cmp-statstrip" aria-label="当前城市快照关键数据">
+        <section className="cmp-statstrip" aria-label="已保存城市快照关键数据">
           <div><strong>{evidence.city.buildings}</strong><span>栋建筑</span><small>布里斯托起始街区</small></div>
           <div><strong>{(evidence.city.placedComponents / 1000).toFixed(1)}<i>K</i></strong><span>构件实例</span><small>来自共享模型定义</small></div>
           <div><strong>{evidence.city.terrainPatches.toLocaleString()}</strong><span>地形面片</span><small>原生地形表达</small></div>
@@ -245,7 +241,7 @@ export default function CompareShowcase() {
         <TerrainComparisonLoader />
 
         <section className="cmp-section cmp-evidence" id="evidence">
-          <div className="cmp-section-heading"><div><p className="cmp-kicker">02 / 城市数据实测</p><h2>再看街区结构。</h2></div><p>以下数字来自当前 GUGIS 起始街区快照。柱状图的参照对象是相同几何展开后的独立点线／实体网格，<strong>不是 ArcGIS 软件的内存用量</strong>。</p></div>
+          <div className="cmp-section-heading"><div><p className="cmp-kicker">02 / 城市数据实测</p><h2>再看街区结构。</h2></div><p>以下数字来自已保存的 GUGIS 起始街区快照。柱状图的参照对象是相同几何展开后的独立点线／实体网格，<strong>不是 ArcGIS 软件的内存用量</strong>。</p></div>
           <div className="cmp-evidence-grid">
             <article className="cmp-memory-card">
               <div className="cmp-card-top"><span><BarChart3 size={17}/> 保留数据堆</span><span className="cmp-measured"><span/> 3 次独立进程 · 中位数</span></div>
@@ -260,7 +256,18 @@ export default function CompareShowcase() {
               <p className="cmp-card-foot">这是 GUGIS 功能运行结果；ArcGIS 尚未用相同数据、硬件和任务实测。</p>
             </article>
           </div>
-          <div className={`cmp-snapshot ${freshness}`}><span className="cmp-snapshot-icon"><Database size={16}/></span><div><strong>{freshness === "current" ? "实测快照与当前项目一致" : freshness === "changed" ? "项目已改变：本页结果属于已保存快照" : freshness === "offline" ? "当前项目未连接：展示已保存的实测快照" : "正在校对当前项目修订号"}</strong><small>SHA-256 {evidence.revision.slice(0, 16)}… · {evidence.city.buildings} 栋 · Node {evidence.memory.runtime}</small></div><span className="cmp-snapshot-pill">{freshness === "current" ? "当前" : freshness === "changed" ? "历史" : "快照"}</span></div>
+          <div className={`cmp-snapshot ${freshness}`}>
+            <span className="cmp-snapshot-icon"><Database size={16}/></span>
+            <div className="cmp-snapshot-copy" role="status" aria-live="polite" aria-atomic="true" aria-busy={freshness === "checking"}>
+              <strong>{freshness === "current" ? "实测快照与当前项目一致" : freshness === "changed" ? "项目已改变：本页结果属于已保存快照" : freshness === "offline" ? "无法校对当前项目：展示已保存的实测快照" : freshness === "paused" ? "页面已暂停校对：展示已保存的实测快照" : "正在校对当前项目修订号"}</strong>
+              <small>SHA-256 {evidence.revision.slice(0, 16)}… · {evidence.city.buildings} 栋 · Node {evidence.memory.runtime}</small>
+              <span className="cmp-snapshot-note">返回页面时自动校对；重新校对只检查修订号，不会重新测量或修改项目。</span>
+            </div>
+            <span className="cmp-snapshot-pill">{freshness === "current" ? "当前" : freshness === "changed" ? "历史" : freshness === "checking" ? "校对中" : "快照"}</span>
+            <button type="button" className="cmp-snapshot-recheck" onClick={recheck} disabled={freshness === "checking" || freshness === "paused"}>
+              {freshness === "checking" ? "正在校对…" : freshness === "offline" ? "重试校对" : "重新校对"}
+            </button>
+          </div>
         </section>
 
         <section className="cmp-section cmp-compare" id="comparison">
