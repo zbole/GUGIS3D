@@ -110,7 +110,15 @@ def write_snapshot(document, content, stats, base_revision):
         versions=CITY_DIR/"versions";versions.mkdir(exist_ok=True)
         for snapshot in (previous,content):
             path=versions/f"{revision(snapshot)}.gugis.json"
-            if not path.exists():atomic_write(path,snapshot)
+            if path.exists():
+                # A filename is not proof that a recoverable copy exists. Do
+                # not overwrite the formal city or silently repair user files.
+                if path.read_bytes() != snapshot:
+                    raise HTTPException(409, detail={
+                        'code': 'snapshot_integrity',
+                        'message': f'历史快照校验失败（{path.name}），正式城市未覆盖。请先导出当前项目备份，再检查 .local/city/versions 中的损坏版本。',
+                    })
+            else:atomic_write(path,snapshot)
         atomic_write(CITY_DIR/"current.gugis.json",content)
         _validated_snapshot=(revision(content),document)
         _archive_snapshot=(revision(content),content,stats)
@@ -128,10 +136,13 @@ async def validate(request:Request):
 def export():
     with lock:
         content,_=read_current()
-        versions=CITY_DIR/"versions";versions.mkdir(exist_ok=True)
-        path=versions/f"{revision(content)}.gugis.json"
-        if not path.exists():atomic_write(path,content)
-    return FileResponse(path,media_type="application/json",filename="Bristol-city.gugis.json")
+        digest=revision(content)
+    # Serve the exact validated formal snapshot, not an unchecked history file.
+    # Immutable response bytes also remain consistent if another request saves.
+    return Response(content, media_type="application/json", headers={
+        'Content-Disposition': 'attachment; filename="Bristol-city.gugis.json"',
+        'X-GUGIS-City-Revision': digest,
+    })
 
 
 @router.get("/schema")
@@ -244,10 +255,17 @@ async def import_geojson(request:Request):
     documents=[];issues=[]
     for index,feature in enumerate(collection.features):
         try:
-            geometry=feature.get("geometry") or {};properties=feature.get("properties") or {}
+            if feature.get("type") != "Feature":
+                raise ValueError("每个要素必须声明 type 为 Feature")
+            geometry=feature.get("geometry");properties=feature.get("properties")
+            if properties is None:properties={}
+            if not isinstance(geometry,dict) or not isinstance(properties,dict):
+                raise ValueError("geometry 和 properties 必须是对象；properties 可为 null")
             if geometry.get("type") != "Polygon":
                 raise ValueError("仅支持单 Polygon；请先拆分 MultiPolygon")
             rings=geometry.get("coordinates",[])
+            if not isinstance(rings,list) or any(not isinstance(ring,list) for ring in rings):
+                raise ValueError("Polygon coordinates 必须是坐标环数组")
             if len(rings)!=1:raise ValueError("内环 / 庭院需拆分为无孔多边形后导入")
             ring=rings[0]
             if len(ring)<4 or ring[0]!=ring[-1]:raise ValueError("多边形必须首尾闭合")

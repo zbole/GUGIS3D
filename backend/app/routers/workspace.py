@@ -144,8 +144,14 @@ def commit_draft(token: DraftToken):
         receipt = dict(draft_revision=token.revision, revision=city.revision(packed), bytes=len(packed))
         # Write the intent first. It is a completed receipt only when the current
         # file hash matches; a crash before replacement leaves the draft retryable.
-        city.atomic_write(city.CITY_DIR/'draft-commit.json', json.dumps(receipt).encode())
+        # A no-op target already matches, so publish its receipt only after all
+        # snapshot checks/writes succeed. Retrying an interrupted no-op is safe.
+        noop = receipt['revision'] == city.revision(previous)
+        if not noop:
+            city.atomic_write(city.CITY_DIR/'draft-commit.json', json.dumps(receipt).encode())
         result = city.write_snapshot(document, packed, stats, pending.base_revision)
+        if noop:
+            city.atomic_write(city.CITY_DIR/'draft-commit.json', json.dumps(receipt).encode())
         try:
             draft_path().unlink()
         except OSError:

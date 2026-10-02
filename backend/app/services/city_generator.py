@@ -19,8 +19,27 @@ def triangulate_ring(points):
         changed=False
         for i in range(len(p)):
             if abs(cross(p[i-1],p[i],p[(i+1)%len(p)]))<1e-7:
+                a,b,c=p[i-1],p[i],p[(i+1)%len(p)]
+                if sum((b[k]-a[k])*(b[k]-c[k]) for k in range(2))>1e-12:
+                    raise ValueError("Footprint has overlapping or backtracking edges")
                 p.pop(i); changed=True; break
     if not 3<=len(p)<=120: raise ValueError("Footprint must have 3–120 non-collinear vertices")
+    # Ear clipping assumes a simple polygon; positive total mesh volume alone
+    # cannot reject crossing walls or an inward-facing final roof triangle.
+    # Check after removing only redundant collinear vertices to keep this
+    # quadratic check bounded by the documented 120-vertex limit.
+    tolerance=1e-7  # metres, below the exported coordinate precision
+    def on_segment(a,b,q):
+        return (abs(cross(a,b,q))<=tolerance*max(1,math.dist(a,b))
+                and all(min(a[k],b[k])-tolerance<=q[k]<=max(a[k],b[k])+tolerance for k in range(2)))
+    for i,a in enumerate(p):
+        b=p[(i+1)%len(p)]
+        for j in range(i+1,len(p)):
+            if j==i+1 or (i==0 and j==len(p)-1):continue
+            c,d=p[j],p[(j+1)%len(p)]
+            crossing=cross(a,b,c)*cross(a,b,d)<0 and cross(c,d,a)*cross(c,d,b)<0
+            if crossing or on_segment(a,b,c) or on_segment(a,b,d) or on_segment(c,d,a) or on_segment(c,d,b):
+                raise ValueError("Footprint is self-intersecting or has touching/overlapping edges")
     if sum(p[i][0]*p[(i+1)%len(p)][1]-p[(i+1)%len(p)][0]*p[i][1] for i in range(len(p)))<0: p.reverse()
     remaining=list(range(len(p))); faces=[]
     while len(remaining)>3:
@@ -30,11 +49,17 @@ def triangulate_ring(points):
             if any(min(cross(p[a],p[b],p[j]),cross(p[b],p[c],p[j]),cross(p[c],p[a],p[j]))>=-1e-8 for j in remaining if j not in (a,b,c)): continue
             faces.append([a,b,c]);remaining.pop(k);break
         else: raise ValueError("Footprint is self-intersecting or cannot be triangulated")
+    if cross(*(p[i] for i in remaining))<=1e-8:
+        raise ValueError("Footprint is degenerate or cannot be triangulated")
     faces.append(remaining)
     return p,faces
 
 
 def footprint_document(ring, name, height=10, source="用户提供的 GeoJSON", height_source="假设高度"):
+    if any(not isinstance(q,(list,tuple)) or len(q)<2
+           or any(isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) for v in q[:2])
+           or not (-180<=q[0]<=180 and -85<=q[1]<=85) for q in ring):
+        raise ValueError("Footprint coordinates must be finite WGS84 longitude / latitude within the supported bounds")
     lon=sum(q[0] for q in ring)/len(ring);lat=sum(q[1] for q in ring)/len(ring)
     sx=111320*math.cos(math.radians(lat)); sy=111320
     points,top=triangulate_ring([((x-lon)*sx,(y-lat)*sy) for x,y,*_ in ring])

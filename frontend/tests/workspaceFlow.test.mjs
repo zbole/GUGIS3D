@@ -439,6 +439,18 @@ test("path drawing and clearing are read-only previews, including without terrai
   f.close();
 });
 
+test("requesting an export does not claim that the browser download already succeeded", async () => {
+  const f = await mount();
+  try {
+    const download = f.root.findAllByType("a").find(node => node.props.href === "test-export");
+    act(() => download.props.onClick());
+    assert.match(text(f.root), /已请求导出正式城市，请确认浏览器下载完成/);
+    assert.doesNotMatch(text(f.root), /整座城市已导出/);
+    assert.equal(writes, 0);
+    assert.equal(stages, 0);
+  } finally { f.close(); }
+});
+
 test("a failed analysis can be retried without redrawing or writing the city", async () => {
   const originalWorker = globalThis.Worker;
   globalThis.Worker = class { constructor() { throw new Error("Analysis worker unavailable"); } };

@@ -19,7 +19,9 @@ async function request<T>(path: string, body?: unknown): Promise<T> {
     const p = await r.json().catch(() => ({ detail: r.statusText }));
     throw new Error(
       r.status === 409
-        ? "另一窗口已修改项目，请先重新载入。当前草稿仍保留，未覆盖已保存的数据。"
+        ? p.detail?.code === "snapshot_integrity" && typeof p.detail.message === "string"
+          ? p.detail.message
+          : "另一窗口已修改项目，请先重新载入。当前草稿仍保留，未覆盖已保存的数据。"
         : `${r.status}：${
             typeof p.detail === "string"
               ? p.detail

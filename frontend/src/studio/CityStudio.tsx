@@ -771,7 +771,7 @@ export default function CityStudio() {
             className={`button-link primary ${busy ? "disabled" : ""}`}
             href={cityExportUrl}
             download
-            onClick={() => setNotice("整座城市已导出；本地项目仍可继续编辑")}
+            onClick={() => setNotice("已请求导出正式城市，请确认浏览器下载完成；本地项目仍可继续编辑")}
           >
             <Download size={16} />
             导出整个城市
