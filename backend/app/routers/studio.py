@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException, Request, Response
-from fastapi.responses import FileResponse
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 import hashlib
+import os
 import re
 from pydantic import ValidationError
 
@@ -48,10 +49,24 @@ async def save(request: Request):
     file_id = hashlib.sha256(content).hexdigest()
     EXPORT_DIR.mkdir(parents=True, exist_ok=True)
     destination = EXPORT_DIR / f"{file_id}.gugis.json"
-    # Content-addressed files: saving again is idempotent and never overwrites another version.
-    if not destination.exists():
-        with destination.open("xb") as output:
-            output.write(content)
+    # A hash filename alone is not proof that an earlier save finished intact.
+    if destination.exists():
+        if destination.read_bytes() != content:
+            raise HTTPException(409, "Stored object file integrity check failed; the existing file was not overwritten")
+    else:
+        temporary = None
+        try:
+            # Publish only a complete file. Close before replace for Windows support.
+            with NamedTemporaryFile(mode="wb", dir=EXPORT_DIR, prefix=f".{file_id}.",
+                                    suffix=".tmp", delete=False) as output:
+                temporary = Path(output.name)
+                output.write(content)
+                output.flush()
+                os.fsync(output.fileno())
+            os.replace(temporary, destination)
+        finally:
+            if temporary is not None:
+                temporary.unlink(missing_ok=True)
     return {"id": file_id, "filename": destination.name, "directory": str(EXPORT_DIR),
             "bytes": len(content), "download_path": f"/studio/files/{file_id}"}
 
@@ -63,7 +78,13 @@ def download(file_id: str):
     path = EXPORT_DIR / f"{file_id}.gugis.json"
     if not path.is_file():
         raise HTTPException(404, "Object file not found")
-    return FileResponse(path, media_type="application/json", filename=path.name)
+    content = path.read_bytes()
+    if hashlib.sha256(content).hexdigest() != file_id:
+        raise HTTPException(409, "Stored object file integrity check failed; the file was left unchanged")
+    # Serve the bytes we verified, rather than reopening the path later.
+    return Response(content, media_type="application/json", headers={
+        "Content-Disposition": f'attachment; filename="{path.name}"',
+    })
 
 
 @router.get("/example")
