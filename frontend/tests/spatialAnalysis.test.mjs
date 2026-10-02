@@ -55,6 +55,42 @@ test("joint query traces native terrain, building envelope, road and underground
   assert.equal(result.inspected.id, "duct-1");
 });
 
+test("dense point queries retain the inspected building within the twelve-result budget", () => {
+  for (const clickedX of [80, 150]) {
+    const c = city();
+    c.instances = Array.from({ length: 12 }, (_, i) => ({ ...c.instances[0],
+      id: `near-${i}`, ...point(i + 1, 50) }));
+    c.instances.push({ ...c.instances[0], id: "clicked", ...point(clickedX, 50) });
+    const inspected = { layer: "building", id: "clicked", component: "wall" };
+    const result = queryCityPoint(c, point(0, 50), 100, inspected);
+    assert.equal(result.buildings.length, 12);
+    assert.equal(new Set(result.buildings.map(o => o.id)).size, 12);
+    assert.ok(result.buildings.some(o => o.id === "clicked" && o.components === 1));
+    assert.ok(!result.buildings.some(o => o.id === "near-11"));
+    assert.deepEqual(result.inspected, inspected);
+    assert.deepEqual(result.buildings.map(o => o.distance), result.buildings.map(o => o.distance).sort((a, b) => a - b));
+    const ordinary = queryCityPoint(c, point(0, 50), 100);
+    assert.deepEqual(ordinary.buildings.map(o => o.id), c.instances.slice(0, 12).map(o => o.id));
+  }
+});
+
+test("dense mixed-layer feature queries retain the clicked component inside and outside the radius", () => {
+  for (const clickedX of [80, 150]) {
+    const c = city(), prototype = c.environment.features[0];
+    c.environment.features = Array.from({ length: 12 }, (_, i) => ({ ...prototype,
+      id: `near-${i}`, layer: "surface", ...point(i + 1, 50) }));
+    c.environment.features.push({ ...prototype, id: "clicked", ...point(clickedX, 50) });
+    const inspected = { layer: "underground", id: "clicked", component: "solid" };
+    const result = queryCityPoint(c, point(0, 50), 100, inspected);
+    assert.equal(result.features.length, 12);
+    assert.equal(new Set(result.features.map(o => o.id)).size, 12);
+    assert.ok(result.features.some(o => o.id === "clicked" && o.layer === "underground" && o.components === 1));
+    assert.ok(!result.features.some(o => o.id === "near-11"));
+    assert.deepEqual(result.inspected, inspected);
+    assert.deepEqual(result.features.map(o => o.distance), result.features.map(o => o.distance).sort((a, b) => a - b));
+  }
+});
+
 test("section corridor keeps native ground separate from model envelope and respects width and route ends", () => {
   const c = city(), route = [point(10, 50), point(150, 50)];
   const section = analyzeCitySection(c, route, profile, 10);

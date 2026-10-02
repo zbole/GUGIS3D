@@ -174,6 +174,15 @@ function nearestOnSegment(p: XY, a: XY, b: XY) {
   return { distance: Math.hypot(p.x - a.x - t * dx, p.y - a.y - t * dy), fraction: t,
     length: Math.sqrt(length2) };
 }
+function nearestQueryObjects(objects: SpatialObject[], inspected: PointQuery["inspected"]): SpatialObject[] {
+  objects.sort((a, b) => a.distance - b.distance);
+  const nearest = objects.slice(0, 12);
+  const picked = inspected && objects.find(object => object.id === inspected.id && object.layer === inspected.layer);
+  // Keep the picked model's semantics available even when its origin is farther
+  // away than twelve neighbours (or lies outside the ordinary query radius).
+  if (picked && !nearest.includes(picked)) nearest[nearest.length - 1] = picked;
+  return nearest;
+}
 export function queryCityPoint(city: CityDocument, position: AnalysisPoint, radius = 100,
   inspected: PointQuery["inspected"] = null): PointQuery {
   if (!(Number.isFinite(radius) && radius > 0 && radius <= 2000)) throw new RangeError("查询半径须在 0–2000 米之间。");
@@ -181,16 +190,16 @@ export function queryCityPoint(city: CityDocument, position: AnalysisPoint, radi
   const at = (lon: number, lat: number) => toXY(inverse, lon, lat);
   const distance = (lon: number, lat: number) => { const p = at(lon, lat); return Math.hypot(p.x, p.y); };
   const terrain = city.environment?.terrain;
-  const buildings = city.instances.flatMap(item => {
+  const buildings = nearestQueryObjects(city.instances.flatMap(item => {
     const d = distance(item.longitude, item.latitude);
     return d <= radius ||
       (inspected?.layer === "building" && inspected.id === item.id) ? [buildingObject(city, item, d)] : [];
-  }).sort((a, b) => a.distance - b.distance).slice(0, 12);
-  const features = (city.environment?.features ?? []).flatMap(item => {
+  }), inspected);
+  const features = nearestQueryObjects((city.environment?.features ?? []).flatMap(item => {
     const d = distance(item.longitude, item.latitude);
     return d <= radius ||
-      (inspected?.layer !== "building" && inspected?.id === item.id) ? [featureObject(city, item, d)] : [];
-  }).sort((a, b) => a.distance - b.distance).slice(0, 12);
+      (inspected?.layer === item.layer && inspected.id === item.id) ? [featureObject(city, item, d)] : [];
+  }), inspected);
   let nearestRoad: PointQuery["nearestRoad"] = null;
   for (const road of city.roads) for (let i = 1; i < road.coordinates.length; i++) {
     const a = at(...road.coordinates[i - 1]), b = at(...road.coordinates[i]);
