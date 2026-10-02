@@ -1,0 +1,436 @@
+{
+  "$defs": {
+    "BuildingParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "default": "语义住宅示范楼",
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "kind": {
+          "default": "tower",
+          "enum": [
+            "tower",
+            "villa",
+            "georgian",
+            "victorian",
+            "wills",
+            "cabot",
+            "cathedral",
+            "tudor",
+            "warehouse",
+            "chapel",
+            "civic",
+            "footprint",
+            "urban"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "scale": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0.5,
+          "title": "Scale",
+          "type": "number"
+        },
+        "floors": {
+          "default": 12,
+          "maximum": 30,
+          "minimum": 1,
+          "title": "Floors",
+          "type": "integer"
+        },
+        "units": {
+          "default": 2,
+          "maximum": 4,
+          "minimum": 1,
+          "title": "Units",
+          "type": "integer"
+        },
+        "floor_height": {
+          "default": 3.2,
+          "maximum": 4.5,
+          "minimum": 2.5,
+          "title": "Floor Height",
+          "type": "number"
+        },
+        "longitude": {
+          "default": -2.5879,
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Longitude",
+          "type": "number"
+        },
+        "latitude": {
+          "default": 51.4545,
+          "maximum": 85,
+          "minimum": -85,
+          "title": "Latitude",
+          "type": "number"
+        },
+        "altitude": {
+          "default": 0,
+          "maximum": 9000,
+          "minimum": -500,
+          "title": "Altitude",
+          "type": "number"
+        },
+        "heading": {
+          "default": 0,
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Heading",
+          "type": "number"
+        }
+      },
+      "title": "BuildingParameters",
+      "type": "object"
+    },
+    "SemanticNode": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent"
+        },
+        "name": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "building",
+            "unit",
+            "floor",
+            "dwelling",
+            "room",
+            "slab",
+            "wall",
+            "window",
+            "door",
+            "balcony",
+            "railing",
+            "roof",
+            "stair",
+            "column",
+            "ornament"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "floor": {
+          "anyOf": [
+            {
+              "maximum": 30,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Floor"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "maximum": 4,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "template": {
+          "anyOf": [
+            {
+              "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template"
+        },
+        "position": {
+          "anyOf": [
+            {
+              "maxItems": 3,
+              "minItems": 3,
+              "prefixItems": [
+                {
+                  "maximum": 10000,
+                  "minimum": -10000,
+                  "type": "number"
+                },
+                {
+                  "maximum": 10000,
+                  "minimum": -10000,
+                  "type": "number"
+                },
+                {
+                  "maximum": 10000,
+                  "minimum": -10000,
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Position"
+        },
+        "rotation_z": {
+          "default": 0,
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Rotation Z",
+          "type": "number"
+        },
+        "attributes": {
+          "additionalProperties": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "maxProperties": 20,
+          "propertyNames": {
+            "maxLength": 60
+          },
+          "title": "Attributes",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "category"
+      ],
+      "title": "SemanticNode",
+      "type": "object"
+    },
+    "SolidTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "box",
+            "mesh"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "color": {
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "title": "Color",
+          "type": "string"
+        },
+        "size": {
+          "anyOf": [
+            {
+              "maxItems": 3,
+              "minItems": 3,
+              "prefixItems": [
+                {
+                  "maximum": 10000,
+                  "minimum": -10000,
+                  "type": "number"
+                },
+                {
+                  "maximum": 10000,
+                  "minimum": -10000,
+                  "type": "number"
+                },
+                {
+                  "maximum": 10000,
+                  "minimum": -10000,
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Size"
+        },
+        "vertices": {
+          "anyOf": [
+            {
+              "items": {
+                "maxItems": 3,
+                "minItems": 3,
+                "prefixItems": [
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  },
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  },
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  }
+                ],
+                "type": "array"
+              },
+              "maxItems": 256,
+              "minItems": 4,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vertices"
+        },
+        "triangles": {
+          "anyOf": [
+            {
+              "items": {
+                "maxItems": 3,
+                "minItems": 3,
+                "prefixItems": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "type": "array"
+              },
+              "maxItems": 512,
+              "minItems": 4,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Triangles"
+        }
+      },
+      "required": [
+        "kind",
+        "color"
+      ],
+      "title": "SolidTemplate",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "gugis-studio",
+      "title": "Format",
+      "type": "string"
+    },
+    "version": {
+      "enum": [
+        "1.0",
+        "1.1",
+        "1.2"
+      ],
+      "title": "Version",
+      "type": "string"
+    },
+    "coordinate_system": {
+      "const": "ENU_METERS_WGS84",
+      "title": "Coordinate System",
+      "type": "string"
+    },
+    "parameters": {
+      "$ref": "#/$defs/BuildingParameters"
+    },
+    "templates": {
+      "maxProperties": 1024,
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]{1,64}$": {
+          "$ref": "#/$defs/SolidTemplate"
+        }
+      },
+      "title": "Templates",
+      "type": "object"
+    },
+    "nodes": {
+      "items": {
+        "$ref": "#/$defs/SemanticNode"
+      },
+      "maxItems": 12000,
+      "minItems": 1,
+      "title": "Nodes",
+      "type": "array"
+    },
+    "overview": {
+      "anyOf": [
+        {
+          "maxProperties": 8,
+          "patternProperties": {
+            "^[a-zA-Z0-9_-]{1,64}$": {
+              "$ref": "#/$defs/SolidTemplate"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Overview"
+    }
+  },
+  "required": [
+    "format",
+    "version",
+    "coordinate_system",
+    "parameters",
+    "templates",
+    "nodes"
+  ],
+  "title": "BuildingDocument",
+  "type": "object"
+}

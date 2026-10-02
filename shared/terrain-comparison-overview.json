@@ -1,0 +1,151 @@
+{
+  "schema": "gugis-terrain-comparison-suite-v1",
+  "bundleId": "f11f44921cbfb1becba1235156e450272726700db1e32d2ac4a3f6753309b1fa",
+  "cityRevision": "111386c0f6a024c5c1139de92dbb564c3a8d98a38b3e9e9b7696024bf4382827",
+  "demonstration": true,
+  "verticalDatum": "local",
+  "packageBytes": 6305558,
+  "packageSha256": "b9f90c505185542e3906ed8e35cef8ecc7084e45245f9aba6e3153c5da84b937",
+  "derivativeMethod": {
+    "frame": "native local ENU",
+    "horizontalJacobianStepMetres": 0.5,
+    "aspectMinimumSlopeDegrees": 0.1,
+    "boundaryParameterTolerance": 1e-7,
+    "summaryPolicy": "exclude native cell and mesh triangle edges; exclude near-flat directions",
+    "aspectConvention": "downslope, clockwise from local north; signed shortest angular difference"
+  },
+  "statistics": {
+    "count": {
+      "ruled-strip": 1248,
+      "triangle-strip": 121,
+      "triangle-fan": 0
+    },
+    "points": 2809,
+    "indices": 8146,
+    "triangles": 5408,
+    "indexSaving": 49.79043392504931
+  },
+  "reportSha256": "8e414c8ce877037eded70b4090c563e388ed673d0beb02d5b25f177e2c927edc",
+  "variants": [
+    {
+      "ruledSubdivisions": 1,
+      "gugisTerrainBytes": 176666,
+      "multipatchFilesBytes": 599038,
+      "maxRuledHeightErrorMetres": 0.1615700000000011,
+      "storageSavingPercent": 70.50838177210794,
+      "queries": {
+        "queryCount": 1685,
+        "matchedCount": 1681,
+        "nativeValidCount": 1681,
+        "multipatchValidCount": 1681,
+        "coverageMismatchCount": 0,
+        "sampledMaxAbsHeightErrorMetres": 0.1305028521081013,
+        "sampledRmsHeightErrorMetres": 0.011829454281177591,
+        "derivatives": {
+          "slopeMatchedCount": 1681,
+          "boundaryExcludedCount": 0,
+          "slope": {
+            "maxAbsDegrees": 0.9385374454288797,
+            "rmsDegrees": 0.11079656124798638
+          },
+          "aspectMatchedCount": 1678,
+          "nearFlatExcludedCount": 3,
+          "aspect": {
+            "maxAbsDegrees": 36.378212434094394,
+            "rmsDegrees": 2.9536545402902425
+          }
+        }
+      }
+    },
+    {
+      "ruledSubdivisions": 2,
+      "gugisTerrainBytes": 176666,
+      "multipatchFilesBytes": 1257982,
+      "maxRuledHeightErrorMetres": 0.040392500000000275,
+      "storageSavingPercent": 85.9563968323871,
+      "queries": {
+        "queryCount": 1685,
+        "matchedCount": 1681,
+        "nativeValidCount": 1681,
+        "multipatchValidCount": 1681,
+        "coverageMismatchCount": 0,
+        "sampledMaxAbsHeightErrorMetres": 0.027887496858294725,
+        "sampledRmsHeightErrorMetres": 0.0028598720389461153,
+        "derivatives": {
+          "slopeMatchedCount": 1681,
+          "boundaryExcludedCount": 0,
+          "slope": {
+            "maxAbsDegrees": 0.45397549278245286,
+            "rmsDegrees": 0.0541794475907518
+          },
+          "aspectMatchedCount": 1679,
+          "nearFlatExcludedCount": 2,
+          "aspect": {
+            "maxAbsDegrees": 23.475732385101026,
+            "rmsDegrees": 1.4709178668851555
+          }
+        }
+      }
+    },
+    {
+      "ruledSubdivisions": 4,
+      "gugisTerrainBytes": 176666,
+      "multipatchFilesBytes": 3534334,
+      "maxRuledHeightErrorMetres": 0.010098125000000069,
+      "storageSavingPercent": 95.00143449939932,
+      "queries": {
+        "queryCount": 1685,
+        "matchedCount": 1681,
+        "nativeValidCount": 1681,
+        "multipatchValidCount": 1681,
+        "coverageMismatchCount": 0,
+        "sampledMaxAbsHeightErrorMetres": 0.00656720428412072,
+        "sampledRmsHeightErrorMetres": 0.0006985495292494331,
+        "derivatives": {
+          "slopeMatchedCount": 1681,
+          "boundaryExcludedCount": 0,
+          "slope": {
+            "maxAbsDegrees": 0.21908967538251645,
+            "rmsDegrees": 0.02721392475533545
+          },
+          "aspectMatchedCount": 1679,
+          "nearFlatExcludedCount": 2,
+          "aspect": {
+            "maxAbsDegrees": 12.184447262934214,
+            "rmsDegrees": 0.7948265425938429
+          }
+        }
+      }
+    },
+    {
+      "ruledSubdivisions": 8,
+      "gugisTerrainBytes": 176666,
+      "multipatchFilesBytes": 11920894,
+      "maxRuledHeightErrorMetres": 0.002524531250000017,
+      "storageSavingPercent": 98.51801383352624,
+      "queries": {
+        "queryCount": 1685,
+        "matchedCount": 1681,
+        "nativeValidCount": 1681,
+        "multipatchValidCount": 1681,
+        "coverageMismatchCount": 0,
+        "sampledMaxAbsHeightErrorMetres": 0.0020855902727419107,
+        "sampledRmsHeightErrorMetres": 0.00018404496499341386,
+        "derivatives": {
+          "slopeMatchedCount": 1681,
+          "boundaryExcludedCount": 0,
+          "slope": {
+            "maxAbsDegrees": 0.10553895924757484,
+            "rmsDegrees": 0.013699505134088982
+          },
+          "aspectMatchedCount": 1679,
+          "nearFlatExcludedCount": 2,
+          "aspect": {
+            "maxAbsDegrees": 4.177887592777324,
+            "rmsDegrees": 0.3803812883926333
+          }
+        }
+      }
+    }
+  ]
+}

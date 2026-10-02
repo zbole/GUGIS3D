@@ -6,19 +6,23 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "test:worker": "node scripts/verify-analysis-worker.mjs"
   },
   "dependencies": {
+    "@cesium/engine": "26.0.0",
     "@vitejs/plugin-react": "^4.3.1",
     "cesium": "^1.120.0",
     "lucide-react": "^0.468.0",
-    "vite-plugin-cesium": "^1.2.23",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "vite-plugin-cesium": "^1.2.23"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "react-test-renderer": "18.3.1",
     "typescript": "^5.5.4",
     "vite": "^5.4.0"
   }

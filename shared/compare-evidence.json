@@ -1,0 +1,69 @@
+{
+  "revision": "111386c0f6a024c5c1139de92dbb564c3a8d98a38b3e9e9b7696024bf4382827",
+  "archive": "布里斯托起始街区（并非整座城市）",
+  "city": {
+    "buildings": 616,
+    "modelDefinitions": 606,
+    "roads": 544,
+    "geometryLibraryRecords": 10191,
+    "terrainPatches": 1369,
+    "functionFeatures": 7,
+    "placedComponents": 140175
+  },
+  "provenance": {
+    "scope": "Brandon Hill / Park Street / College Green 周边的起始街区；非全市完整模型",
+    "terrainFile": "",
+    "terrainAccuracy": ""
+  },
+  "memory": {
+    "method": "fresh-process-retained-v8-data-heap",
+    "runs": 3,
+    "runtime": "v24.13.0",
+    "sharedBytes": 121831840,
+    "independentWireBytes": 673040328,
+    "independentMeshBytes": 739079704,
+    "wireSavingPercent": 81.89828529858913,
+    "meshSavingPercent": 83.51573729590605
+  },
+  "terrainBenchmark": {
+    "method": "gugis-terrain-json-vs-esri-multipatch-triangle-strip",
+    "cityRevision": "111386c0f6a024c5c1139de92dbb564c3a8d98a38b3e9e9b7696024bf4382827",
+    "terrainName": "布里斯托范围 · 方法演示地形（非实测）",
+    "demonstration": true,
+    "terrainSource": "解析高程函数生成，仅演示两类面带与查询",
+    "horizontalCrs": "EPSG:27700",
+    "verticalDatum": "local",
+    "ruledSubdivisions": 2,
+    "controlPoints": 2809,
+    "nativePatches": 1369,
+    "ruledPatches": 1248,
+    "triangleStrips": 121,
+    "nativeTriangles": 5408,
+    "multipatchParts": 5113,
+    "multipatchVertexEntries": 30610,
+    "multipatchTriangles": 20384,
+    "gugisTerrainBytes": 176666,
+    "multipatchFilesBytes": 1257982,
+    "storageSavingPercent": 85.9563968323871,
+    "maxRuledHeightErrorMetres": 0.040392500000000275,
+    "rmsRuledHeightErrorMetres": 0.00320218308529977,
+    "packageBytes": 332544,
+    "readBackVerified": true,
+    "note": "磁盘格式比较；MultiPatch 在此由同一 GUGIS 控制网导出。未运行 ArcGIS Pro，不能推断其内存或帧率。误差为直纹曲面相对三角带离散的参数域高程误差。",
+    "packageSha256": "c5e9dac91e167d9cb7d8ada59d41f40f1a7ea1b8087d6fc89826a52a1aec51d7"
+  },
+  "terrainSuiteBundleId": "f11f44921cbfb1becba1235156e450272726700db1e32d2ac4a3f6753309b1fa",
+  "analysis": {
+    "routeMetres": 107.7,
+    "terrainCoverage": 1,
+    "corridorMetres": 30,
+    "selectedObjects": 7,
+    "modelIntersectionSegments": 43,
+    "intersectionUnavailable": null
+  },
+  "roundTripPassed": {
+    "buildingsPreserved": true,
+    "terrainPatchesPreserved": true,
+    "functionComponentsPreserved": true
+  }
+}

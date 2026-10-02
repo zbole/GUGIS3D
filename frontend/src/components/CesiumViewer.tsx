@@ -4,6 +4,7 @@ import {
   Cartographic,
   Color,
   Entity,
+  ImageryLayer,
   HeadingPitchRoll,
   HorizontalOrigin,
   LabelStyle,
@@ -12,6 +13,8 @@ import {
   ScreenSpaceEventHandler,
   ScreenSpaceEventType,
   Transforms,
+  TileMapServiceImageryProvider,
+  buildModuleUrl,
   VerticalOrigin,
   Viewer
 } from "cesium";
@@ -84,9 +87,9 @@ function objectHeight(obj: GugisObject): number {
 
 function addBox(viewer: Viewer, obj: GugisObject, material: Color): Entity {
   const size = Array.isArray(obj.geometry.size_m) ? (obj.geometry.size_m as number[]) : [12, 12, objectHeight(obj)];
-  const [lon, lat] = obj.base_point;
+  const [lon, lat, altitude] = obj.base_point;
   const height = Number(size[2] ?? objectHeight(obj));
-  const position = Cartesian3.fromDegrees(lon, lat, height / 2);
+  const position = Cartesian3.fromDegrees(lon, lat, altitude + height / 2);
   return viewer.entities.add({
     id: obj.object_id,
     name: obj.name,
@@ -280,6 +283,7 @@ const CesiumViewer = forwardRef<CesiumViewerHandle, CesiumViewerProps>(function 
     if (!containerRef.current || viewerRef.current) return;
 
     const viewer = new Viewer(containerRef.current, {
+      baseLayer: ImageryLayer.fromProviderAsync(TileMapServiceImageryProvider.fromUrl(buildModuleUrl("Assets/Textures/NaturalEarthII"))),
       animation: false,
       baseLayerPicker: false,
       fullscreenButton: false,

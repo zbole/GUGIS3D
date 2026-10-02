@@ -1,0 +1,10 @@
+# Keep benchmark JSON bytes and SHA-256 checks identical on Windows and Linux.
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.zip binary
+*.pdf binary
+*.docx binary

@@ -1,0 +1,12 @@
+{
+  "wall": "#d8b58d",
+  "window": "#368dcc",
+  "door": "#be4d67",
+  "roof": "#665495",
+  "slab": "#88ad98",
+  "stair": "#dd8a35",
+  "column": "#66b4b6",
+  "ornament": "#eadb9b",
+  "balcony": "#9db755",
+  "railing": "#42566b"
+}

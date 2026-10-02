@@ -1,0 +1,1448 @@
+{
+  "$defs": {
+    "BuildingDocument": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "const": "gugis-studio",
+          "title": "Format",
+          "type": "string"
+        },
+        "version": {
+          "enum": [
+            "1.0",
+            "1.1",
+            "1.2"
+          ],
+          "title": "Version",
+          "type": "string"
+        },
+        "coordinate_system": {
+          "const": "ENU_METERS_WGS84",
+          "title": "Coordinate System",
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/$defs/BuildingParameters"
+        },
+        "templates": {
+          "maxProperties": 1024,
+          "minProperties": 1,
+          "patternProperties": {
+            "^[a-zA-Z0-9_-]{1,64}$": {
+              "$ref": "#/$defs/SolidTemplate"
+            }
+          },
+          "title": "Templates",
+          "type": "object"
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/SemanticNode"
+          },
+          "maxItems": 12000,
+          "minItems": 1,
+          "title": "Nodes",
+          "type": "array"
+        },
+        "overview": {
+          "anyOf": [
+            {
+              "maxProperties": 8,
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]{1,64}$": {
+                  "$ref": "#/$defs/SolidTemplate"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Overview"
+        }
+      },
+      "required": [
+        "format",
+        "version",
+        "coordinate_system",
+        "parameters",
+        "templates",
+        "nodes"
+      ],
+      "title": "BuildingDocument",
+      "type": "object"
+    },
+    "BuildingParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "default": "语义住宅示范楼",
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "kind": {
+          "default": "tower",
+          "enum": [
+            "tower",
+            "villa",
+            "georgian",
+            "victorian",
+            "wills",
+            "cabot",
+            "cathedral",
+            "tudor",
+            "warehouse",
+            "chapel",
+            "civic",
+            "footprint",
+            "urban"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "scale": {
+          "default": 1,
+          "maximum": 2,
+          "minimum": 0.5,
+          "title": "Scale",
+          "type": "number"
+        },
+        "floors": {
+          "default": 12,
+          "maximum": 30,
+          "minimum": 1,
+          "title": "Floors",
+          "type": "integer"
+        },
+        "units": {
+          "default": 2,
+          "maximum": 4,
+          "minimum": 1,
+          "title": "Units",
+          "type": "integer"
+        },
+        "floor_height": {
+          "default": 3.2,
+          "maximum": 4.5,
+          "minimum": 2.5,
+          "title": "Floor Height",
+          "type": "number"
+        },
+        "longitude": {
+          "default": -2.5879,
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Longitude",
+          "type": "number"
+        },
+        "latitude": {
+          "default": 51.4545,
+          "maximum": 85,
+          "minimum": -85,
+          "title": "Latitude",
+          "type": "number"
+        },
+        "altitude": {
+          "default": 0,
+          "maximum": 9000,
+          "minimum": -500,
+          "title": "Altitude",
+          "type": "number"
+        },
+        "heading": {
+          "default": 0,
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Heading",
+          "type": "number"
+        }
+      },
+      "title": "BuildingParameters",
+      "type": "object"
+    },
+    "CityDocument": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "const": "gugis-city",
+          "title": "Format",
+          "type": "string"
+        },
+        "version": {
+          "const": "1.0",
+          "title": "Version",
+          "type": "string"
+        },
+        "coordinate_system": {
+          "const": "ENU_METERS_WGS84",
+          "title": "Coordinate System",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "assets": {
+          "maxProperties": 3000,
+          "patternProperties": {
+            "^[a-zA-Z0-9_-]{1,64}$": {
+              "$ref": "#/$defs/BuildingDocument"
+            }
+          },
+          "title": "Assets",
+          "type": "object"
+        },
+        "instances": {
+          "items": {
+            "$ref": "#/$defs/Placement"
+          },
+          "maxItems": 5000,
+          "title": "Instances",
+          "type": "array"
+        },
+        "roads": {
+          "items": {
+            "$ref": "#/$defs/Road"
+          },
+          "maxItems": 3000,
+          "title": "Roads",
+          "type": "array"
+        },
+        "metadata": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "maxProperties": 30,
+          "title": "Metadata",
+          "type": "object"
+        },
+        "environment": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Environment"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "format",
+        "version",
+        "coordinate_system",
+        "name",
+        "assets",
+        "instances"
+      ],
+      "title": "CityDocument",
+      "type": "object"
+    },
+    "Environment": {
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Version",
+          "type": "string"
+        },
+        "terrain": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Terrain"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "feature_assets": {
+          "maxProperties": 1000,
+          "patternProperties": {
+            "^[a-zA-Z0-9_-]{1,64}$": {
+              "$ref": "#/$defs/FeatureAsset"
+            }
+          },
+          "title": "Feature Assets",
+          "type": "object"
+        },
+        "features": {
+          "items": {
+            "$ref": "#/$defs/FeaturePlacement"
+          },
+          "maxItems": 5000,
+          "title": "Features",
+          "type": "array"
+        },
+        "drape_buildings": {
+          "default": true,
+          "title": "Drape Buildings",
+          "type": "boolean"
+        }
+      },
+      "title": "Environment",
+      "type": "object"
+    },
+    "FeatureAsset": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "lamp",
+            "arched-door",
+            "curved-balcony",
+            "round-plaza"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "components": {
+          "items": {
+            "$ref": "#/$defs/FunctionPrimitive"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Components",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "kind",
+        "components"
+      ],
+      "title": "FeatureAsset",
+      "type": "object"
+    },
+    "FeaturePlacement": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "asset": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Asset",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "longitude": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Longitude",
+          "type": "number"
+        },
+        "latitude": {
+          "maximum": 85,
+          "minimum": -85,
+          "title": "Latitude",
+          "type": "number"
+        },
+        "altitude": {
+          "default": 0,
+          "maximum": 9000,
+          "minimum": -500,
+          "title": "Altitude",
+          "type": "number"
+        },
+        "heading": {
+          "default": 0,
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Heading",
+          "type": "number"
+        },
+        "scale": {
+          "default": 1,
+          "maximum": 20,
+          "minimum": 0.1,
+          "title": "Scale",
+          "type": "number"
+        },
+        "layer": {
+          "default": "surface",
+          "enum": [
+            "surface",
+            "underground"
+          ],
+          "title": "Layer",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "asset",
+        "name",
+        "longitude",
+        "latitude"
+      ],
+      "title": "FeaturePlacement",
+      "type": "object"
+    },
+    "FunctionPrimitive": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "category": {
+          "maxLength": 30,
+          "minLength": 1,
+          "title": "Category",
+          "type": "string"
+        },
+        "function": {
+          "enum": [
+            "sphere",
+            "cylinder",
+            "annular-prism",
+            "arch-prism",
+            "box"
+          ],
+          "title": "Function",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "maxProperties": 8,
+          "title": "Parameters",
+          "type": "object"
+        },
+        "position": {
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "maximum": 10000,
+              "minimum": -10000,
+              "type": "number"
+            },
+            {
+              "maximum": 10000,
+              "minimum": -10000,
+              "type": "number"
+            },
+            {
+              "maximum": 10000,
+              "minimum": -10000,
+              "type": "number"
+            }
+          ],
+          "title": "Position",
+          "type": "array"
+        },
+        "color": {
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "title": "Color",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "category",
+        "function",
+        "parameters",
+        "position",
+        "color"
+      ],
+      "title": "FunctionPrimitive",
+      "type": "object"
+    },
+    "GeometryBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "geometry": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Geometry",
+          "type": "string"
+        },
+        "color": {
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "title": "Color",
+          "type": "string"
+        },
+        "size": {
+          "anyOf": [
+            {
+              "maxItems": 3,
+              "minItems": 3,
+              "prefixItems": [
+                {
+                  "exclusiveMinimum": 0,
+                  "maximum": 10000,
+                  "type": "number"
+                },
+                {
+                  "exclusiveMinimum": 0,
+                  "maximum": 10000,
+                  "type": "number"
+                },
+                {
+                  "exclusiveMinimum": 0,
+                  "maximum": 10000,
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Size"
+        }
+      },
+      "required": [
+        "geometry",
+        "color"
+      ],
+      "title": "GeometryBinding",
+      "type": "object"
+    },
+    "Placement": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "asset": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Asset",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "longitude": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Longitude",
+          "type": "number"
+        },
+        "latitude": {
+          "maximum": 85,
+          "minimum": -85,
+          "title": "Latitude",
+          "type": "number"
+        },
+        "altitude": {
+          "default": 0,
+          "maximum": 9000,
+          "minimum": -500,
+          "title": "Altitude",
+          "type": "number"
+        },
+        "heading": {
+          "default": 0,
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Heading",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "asset",
+        "name",
+        "longitude",
+        "latitude"
+      ],
+      "title": "Placement",
+      "type": "object"
+    },
+    "PooledBuilding": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "const": "gugis-studio",
+          "title": "Format",
+          "type": "string"
+        },
+        "version": {
+          "enum": [
+            "1.0",
+            "1.1",
+            "1.2"
+          ],
+          "title": "Version",
+          "type": "string"
+        },
+        "coordinate_system": {
+          "const": "ENU_METERS_WGS84",
+          "title": "Coordinate System",
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/$defs/BuildingParameters"
+        },
+        "templates": {
+          "maxProperties": 1024,
+          "minProperties": 1,
+          "patternProperties": {
+            "^[a-zA-Z0-9_-]{1,64}$": {
+              "$ref": "#/$defs/GeometryBinding"
+            }
+          },
+          "title": "Templates",
+          "type": "object"
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/SemanticNode"
+          },
+          "maxItems": 12000,
+          "minItems": 1,
+          "title": "Nodes",
+          "type": "array"
+        },
+        "overview": {
+          "anyOf": [
+            {
+              "maxProperties": 8,
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]{1,64}$": {
+                  "$ref": "#/$defs/GeometryBinding"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Overview"
+        }
+      },
+      "required": [
+        "format",
+        "version",
+        "coordinate_system",
+        "parameters",
+        "templates",
+        "nodes"
+      ],
+      "title": "PooledBuilding",
+      "type": "object"
+    },
+    "PooledCity": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "const": "gugis-city",
+          "title": "Format",
+          "type": "string"
+        },
+        "version": {
+          "enum": [
+            "1.1",
+            "1.2"
+          ],
+          "title": "Version",
+          "type": "string"
+        },
+        "coordinate_system": {
+          "const": "ENU_METERS_WGS84",
+          "title": "Coordinate System",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "geometry_library": {
+          "maxProperties": 50000,
+          "patternProperties": {
+            "^[a-zA-Z0-9_-]{1,64}$": {
+              "$ref": "#/$defs/SharedGeometry"
+            }
+          },
+          "title": "Geometry Library",
+          "type": "object"
+        },
+        "assets": {
+          "maxProperties": 3000,
+          "patternProperties": {
+            "^[a-zA-Z0-9_-]{1,64}$": {
+              "$ref": "#/$defs/PooledBuilding"
+            }
+          },
+          "title": "Assets",
+          "type": "object"
+        },
+        "instances": {
+          "items": {
+            "$ref": "#/$defs/Placement"
+          },
+          "maxItems": 5000,
+          "title": "Instances",
+          "type": "array"
+        },
+        "roads": {
+          "items": {
+            "$ref": "#/$defs/Road"
+          },
+          "maxItems": 3000,
+          "title": "Roads",
+          "type": "array"
+        },
+        "metadata": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "maxProperties": 30,
+          "title": "Metadata",
+          "type": "object"
+        },
+        "environment": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Environment"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "format",
+        "version",
+        "coordinate_system",
+        "name",
+        "geometry_library",
+        "assets",
+        "instances"
+      ],
+      "title": "PooledCity",
+      "type": "object"
+    },
+    "Road": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 100,
+          "title": "Name",
+          "type": "string"
+        },
+        "width": {
+          "maximum": 50,
+          "minimum": 1,
+          "title": "Width",
+          "type": "number"
+        },
+        "coordinates": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          },
+          "maxItems": 1000,
+          "minItems": 2,
+          "title": "Coordinates",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "width",
+        "coordinates"
+      ],
+      "title": "Road",
+      "type": "object"
+    },
+    "SemanticNode": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent"
+        },
+        "name": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "building",
+            "unit",
+            "floor",
+            "dwelling",
+            "room",
+            "slab",
+            "wall",
+            "window",
+            "door",
+            "balcony",
+            "railing",
+            "roof",
+            "stair",
+            "column",
+            "ornament"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "floor": {
+          "anyOf": [
+            {
+              "maximum": 30,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Floor"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "maximum": 4,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "template": {
+          "anyOf": [
+            {
+              "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Template"
+        },
+        "position": {
+          "anyOf": [
+            {
+              "maxItems": 3,
+              "minItems": 3,
+              "prefixItems": [
+                {
+                  "maximum": 10000,
+                  "minimum": -10000,
+                  "type": "number"
+                },
+                {
+                  "maximum": 10000,
+                  "minimum": -10000,
+                  "type": "number"
+                },
+                {
+                  "maximum": 10000,
+                  "minimum": -10000,
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Position"
+        },
+        "rotation_z": {
+          "default": 0,
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Rotation Z",
+          "type": "number"
+        },
+        "attributes": {
+          "additionalProperties": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "maxProperties": 20,
+          "propertyNames": {
+            "maxLength": 60
+          },
+          "title": "Attributes",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "category"
+      ],
+      "title": "SemanticNode",
+      "type": "object"
+    },
+    "SharedGeometry": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "box",
+            "box-set",
+            "mesh"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "bounds": {
+          "anyOf": [
+            {
+              "items": {
+                "maxItems": 6,
+                "minItems": 6,
+                "prefixItems": [
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  },
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  },
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  },
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  },
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  },
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  }
+                ],
+                "type": "array"
+              },
+              "maxItems": 32,
+              "minItems": 1,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bounds"
+        },
+        "vertices": {
+          "anyOf": [
+            {
+              "items": {
+                "maxItems": 3,
+                "minItems": 3,
+                "prefixItems": [
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  },
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  },
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  }
+                ],
+                "type": "array"
+              },
+              "maxItems": 256,
+              "minItems": 4,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vertices"
+        },
+        "triangles": {
+          "anyOf": [
+            {
+              "items": {
+                "maxItems": 3,
+                "minItems": 3,
+                "prefixItems": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "type": "array"
+              },
+              "maxItems": 512,
+              "minItems": 4,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Triangles"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "SharedGeometry",
+      "type": "object"
+    },
+    "SolidTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "box",
+            "mesh"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "color": {
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "title": "Color",
+          "type": "string"
+        },
+        "size": {
+          "anyOf": [
+            {
+              "maxItems": 3,
+              "minItems": 3,
+              "prefixItems": [
+                {
+                  "maximum": 10000,
+                  "minimum": -10000,
+                  "type": "number"
+                },
+                {
+                  "maximum": 10000,
+                  "minimum": -10000,
+                  "type": "number"
+                },
+                {
+                  "maximum": 10000,
+                  "minimum": -10000,
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Size"
+        },
+        "vertices": {
+          "anyOf": [
+            {
+              "items": {
+                "maxItems": 3,
+                "minItems": 3,
+                "prefixItems": [
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  },
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  },
+                  {
+                    "maximum": 10000,
+                    "minimum": -10000,
+                    "type": "number"
+                  }
+                ],
+                "type": "array"
+              },
+              "maxItems": 256,
+              "minItems": 4,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vertices"
+        },
+        "triangles": {
+          "anyOf": [
+            {
+              "items": {
+                "maxItems": 3,
+                "minItems": 3,
+                "prefixItems": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "type": "array"
+              },
+              "maxItems": 512,
+              "minItems": 4,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Triangles"
+        }
+      },
+      "required": [
+        "kind",
+        "color"
+      ],
+      "title": "SolidTemplate",
+      "type": "object"
+    },
+    "Terrain": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "version": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Version",
+          "type": "string"
+        },
+        "longitude": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Longitude",
+          "type": "number"
+        },
+        "latitude": {
+          "maximum": 85,
+          "minimum": -85,
+          "title": "Latitude",
+          "type": "number"
+        },
+        "vertical_datum": {
+          "enum": [
+            "ODN",
+            "ellipsoidal",
+            "local",
+            "unknown"
+          ],
+          "title": "Vertical Datum",
+          "type": "string"
+        },
+        "reference_height": {
+          "maximum": 9000,
+          "minimum": -500,
+          "title": "Reference Height",
+          "type": "number"
+        },
+        "source": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "maxProperties": 30,
+          "title": "Source",
+          "type": "object"
+        },
+        "demonstration": {
+          "title": "Demonstration",
+          "type": "boolean"
+        },
+        "points": {
+          "items": {
+            "maxItems": 3,
+            "minItems": 3,
+            "prefixItems": [
+              {
+                "maximum": 10000,
+                "minimum": -10000,
+                "type": "number"
+              },
+              {
+                "maximum": 10000,
+                "minimum": -10000,
+                "type": "number"
+              },
+              {
+                "maximum": 10000,
+                "minimum": -10000,
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          },
+          "maxItems": 300000,
+          "minItems": 3,
+          "title": "Points",
+          "type": "array"
+        },
+        "patches": {
+          "items": {
+            "$ref": "#/$defs/TerrainPatch"
+          },
+          "maxItems": 150000,
+          "minItems": 1,
+          "title": "Patches",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "longitude",
+        "latitude",
+        "vertical_datum",
+        "reference_height",
+        "source",
+        "demonstration",
+        "points",
+        "patches"
+      ],
+      "title": "Terrain",
+      "type": "object"
+    },
+    "TerrainPatch": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "ruled-strip",
+            "triangle-strip",
+            "triangle-fan"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "left": {
+          "anyOf": [
+            {
+              "items": {
+                "maximum": 300000,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 128,
+              "minItems": 2,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Left"
+        },
+        "right": {
+          "anyOf": [
+            {
+              "items": {
+                "maximum": 300000,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 128,
+              "minItems": 2,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Right"
+        },
+        "indices": {
+          "anyOf": [
+            {
+              "items": {
+                "maximum": 300000,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 256,
+              "minItems": 3,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Indices"
+        },
+        "hub": {
+          "anyOf": [
+            {
+              "maximum": 300000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Hub"
+        },
+        "ring": {
+          "anyOf": [
+            {
+              "items": {
+                "maximum": 300000,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "maxItems": 128,
+              "minItems": 3,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ring"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "title": "TerrainPatch",
+      "type": "object"
+    }
+  },
+  "discriminator": {
+    "mapping": {
+      "1.0": "#/$defs/CityDocument",
+      "1.1": "#/$defs/PooledCity",
+      "1.2": "#/$defs/PooledCity"
+    },
+    "propertyName": "version"
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/CityDocument"
+    },
+    {
+      "$ref": "#/$defs/PooledCity"
+    }
+  ]
+}

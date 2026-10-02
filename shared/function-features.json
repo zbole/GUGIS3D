@@ -1,0 +1,191 @@
+{
+  "lamp": {
+    "name": "球灯与灯柱",
+    "kind": "lamp",
+    "components": [
+      {
+        "id": "base",
+        "category": "底座",
+        "function": "cylinder",
+        "parameters": {
+          "radius": 0.32,
+          "height": 0.3
+        },
+        "position": [0, 0, 0.15],
+        "color": "#92715c"
+      },
+      {
+        "id": "pole",
+        "category": "灯柱",
+        "function": "cylinder",
+        "parameters": {
+          "radius": 0.075,
+          "height": 4
+        },
+        "position": [0, 0, 2.3],
+        "color": "#3f657d"
+      },
+      {
+        "id": "collar",
+        "category": "连接件",
+        "function": "cylinder",
+        "parameters": {
+          "radius": 0.16,
+          "height": 0.15
+        },
+        "position": [0, 0, 4.3],
+        "color": "#a17dc0"
+      },
+      {
+        "id": "globe",
+        "category": "球形灯罩",
+        "function": "sphere",
+        "parameters": {
+          "radius": 0.36
+        },
+        "position": [0, 0, 4.65],
+        "color": "#f2d88c"
+      }
+    ]
+  },
+  "arched-door": {
+    "name": "半圆拱门",
+    "kind": "arched-door",
+    "components": [
+      {
+        "id": "arch",
+        "category": "拱券",
+        "function": "arch-prism",
+        "parameters": {
+          "inner_radius": 1.1,
+          "outer_radius": 1.4,
+          "depth": 0.5
+        },
+        "position": [0, 0, 2.2],
+        "color": "#c6a879"
+      },
+      {
+        "id": "left",
+        "category": "门柱",
+        "function": "box",
+        "parameters": {
+          "width": 0.3,
+          "depth": 0.5,
+          "height": 2.2
+        },
+        "position": [-1.25, 0, 1.1],
+        "color": "#896c8c"
+      },
+      {
+        "id": "right",
+        "category": "门柱",
+        "function": "box",
+        "parameters": {
+          "width": 0.3,
+          "depth": 0.5,
+          "height": 2.2
+        },
+        "position": [1.25, 0, 1.1],
+        "color": "#896c8c"
+      },
+      {
+        "id": "threshold",
+        "category": "门槛",
+        "function": "box",
+        "parameters": {
+          "width": 2.8,
+          "depth": 0.65,
+          "height": 0.12
+        },
+        "position": [0, 0, 0.06],
+        "color": "#89ada0"
+      }
+    ]
+  },
+  "curved-balcony": {
+    "name": "弧形阳台",
+    "kind": "curved-balcony",
+    "components": [
+      {
+        "id": "slab",
+        "category": "阳台板",
+        "function": "annular-prism",
+        "parameters": {
+          "inner_radius": 0,
+          "outer_radius": 2.8,
+          "angle": 180,
+          "height": 0.2
+        },
+        "position": [0, 0, 0.1],
+        "color": "#92b85d"
+      },
+      {
+        "id": "rail",
+        "category": "弧形栏板",
+        "function": "annular-prism",
+        "parameters": {
+          "inner_radius": 2.65,
+          "outer_radius": 2.8,
+          "angle": 180,
+          "height": 1.1
+        },
+        "position": [0, 0, 0.75],
+        "color": "#527a92"
+      },
+      {
+        "id": "rim",
+        "category": "扶手",
+        "function": "annular-prism",
+        "parameters": {
+          "inner_radius": 2.61,
+          "outer_radius": 2.84,
+          "angle": 180,
+          "height": 0.08
+        },
+        "position": [0, 0, 1.34],
+        "color": "#c58c41"
+      }
+    ]
+  },
+  "round-plaza": {
+    "name": "圆形广场",
+    "kind": "round-plaza",
+    "components": [
+      {
+        "id": "paving",
+        "category": "铺装",
+        "function": "cylinder",
+        "parameters": {
+          "radius": 12,
+          "height": 0.18
+        },
+        "position": [0, 0, 0.09],
+        "color": "#c2b49c"
+      },
+      {
+        "id": "edge",
+        "category": "环形路缘",
+        "function": "annular-prism",
+        "parameters": {
+          "inner_radius": 12,
+          "outer_radius": 12.45,
+          "angle": 360,
+          "height": 0.28
+        },
+        "position": [0, 0, 0.14],
+        "color": "#58877b"
+      },
+      {
+        "id": "centre",
+        "category": "中心圆盘",
+        "function": "cylinder",
+        "parameters": {
+          "radius": 2.2,
+          "height": 0.25
+        },
+        "position": [0, 0, 0.125],
+        "color": "#ba7d64"
+      }
+    ]
+  }
+}

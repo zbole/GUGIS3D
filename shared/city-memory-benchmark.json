@@ -1,0 +1,317 @@
+{
+  "method": "fresh-process-retained-v8-data-heap",
+  "runtime": "v24.13.0",
+  "platform": "win32",
+  "architecture": "x64",
+  "file_sha256": "485f64f1bd5e8e2e74a3d4a7ba4b5f6529797d2ddc40ac55b5ca9cc2c0555701",
+  "runs": 3,
+  "assumptions": [
+    "Full city geometry and semantic data are loaded; no Cesium, DOM, GPU, history, transient parse strings or archive file bytes included.",
+    "Each baseline building and component owns its vertices; indexed edges share vertices within that component. No cross-component or cross-building geometry deduplication.",
+    "Wireframes omit coplanar triangulation diagonals using a 1e-12 normal-dot tolerance; a box has 8 vertices and 12 edges.",
+    "wire omits faces; mesh has only indexed triangles; edges_faces keeps both edges and triangles.",
+    "Shared mode uses the application's actual decodeCity output, including expanded box sets, overview geometry, colors and semantic nodes.",
+    "Building georeferencing, roads and provenance are retained in all modes. Component transforms are baked into baseline coordinates in building-local metres.",
+    "Retained memory is heapUsed plus arrayBuffers after three forced GCs minus a clean-process baseline. This is not browser process RAM or VRAM.",
+    "Numeric payload is an additional fixed-width estimate: Float64 coordinates/transforms, Uint32 indices/references, 4-byte RGBA. It excludes strings, object overhead and common city/semantic fields."
+  ],
+  "measurements": {
+    "shared": {
+      "median_bytes": 120991752,
+      "min_bytes": 120991752,
+      "max_bytes": 120991752,
+      "samples": [
+        {
+          "mode": "shared",
+          "heap_bytes": 120991752,
+          "array_buffer_bytes": 0,
+          "retained_bytes": 120991752,
+          "instances": 615,
+          "component_instances": 139429,
+          "numeric_payload": {
+            "vertices": 330650,
+            "edges": 0,
+            "triangles": 495984,
+            "local_component_records": 136139,
+            "coordinates_bytes": 7935600,
+            "edge_indices_bytes": 0,
+            "face_indices_bytes": 5951808,
+            "size_bytes": 327528,
+            "transform_bytes": 4356448,
+            "reference_bytes": 544556,
+            "color_bytes": 105032,
+            "bytes": 19220972
+          }
+        },
+        {
+          "mode": "shared",
+          "heap_bytes": 120991752,
+          "array_buffer_bytes": 0,
+          "retained_bytes": 120991752,
+          "instances": 615,
+          "component_instances": 139429,
+          "numeric_payload": {
+            "vertices": 330650,
+            "edges": 0,
+            "triangles": 495984,
+            "local_component_records": 136139,
+            "coordinates_bytes": 7935600,
+            "edge_indices_bytes": 0,
+            "face_indices_bytes": 5951808,
+            "size_bytes": 327528,
+            "transform_bytes": 4356448,
+            "reference_bytes": 544556,
+            "color_bytes": 105032,
+            "bytes": 19220972
+          }
+        },
+        {
+          "mode": "shared",
+          "heap_bytes": 120991752,
+          "array_buffer_bytes": 0,
+          "retained_bytes": 120991752,
+          "instances": 615,
+          "component_instances": 139429,
+          "numeric_payload": {
+            "vertices": 330650,
+            "edges": 0,
+            "triangles": 495984,
+            "local_component_records": 136139,
+            "coordinates_bytes": 7935600,
+            "edge_indices_bytes": 0,
+            "face_indices_bytes": 5951808,
+            "size_bytes": 327528,
+            "transform_bytes": 4356448,
+            "reference_bytes": 544556,
+            "color_bytes": 105032,
+            "bytes": 19220972
+          }
+        }
+      ]
+    },
+    "wire": {
+      "median_bytes": 671232064,
+      "min_bytes": 671231800,
+      "max_bytes": 671253472,
+      "samples": [
+        {
+          "mode": "wire",
+          "heap_bytes": 671231800,
+          "array_buffer_bytes": 0,
+          "retained_bytes": 671231800,
+          "instances": 615,
+          "component_instances": 139429,
+          "numeric_payload": {
+            "vertices": 3393798,
+            "edges": 5091770,
+            "triangles": 0,
+            "local_component_records": 139429,
+            "coordinates_bytes": 81451152,
+            "edge_indices_bytes": 40734160,
+            "face_indices_bytes": 0,
+            "size_bytes": 0,
+            "transform_bytes": 0,
+            "reference_bytes": 0,
+            "color_bytes": 562516,
+            "bytes": 122747828
+          }
+        },
+        {
+          "mode": "wire",
+          "heap_bytes": 671232064,
+          "array_buffer_bytes": 0,
+          "retained_bytes": 671232064,
+          "instances": 615,
+          "component_instances": 139429,
+          "numeric_payload": {
+            "vertices": 3393798,
+            "edges": 5091770,
+            "triangles": 0,
+            "local_component_records": 139429,
+            "coordinates_bytes": 81451152,
+            "edge_indices_bytes": 40734160,
+            "face_indices_bytes": 0,
+            "size_bytes": 0,
+            "transform_bytes": 0,
+            "reference_bytes": 0,
+            "color_bytes": 562516,
+            "bytes": 122747828
+          }
+        },
+        {
+          "mode": "wire",
+          "heap_bytes": 671253472,
+          "array_buffer_bytes": 0,
+          "retained_bytes": 671253472,
+          "instances": 615,
+          "component_instances": 139429,
+          "numeric_payload": {
+            "vertices": 3393798,
+            "edges": 5091770,
+            "triangles": 0,
+            "local_component_records": 139429,
+            "coordinates_bytes": 81451152,
+            "edge_indices_bytes": 40734160,
+            "face_indices_bytes": 0,
+            "size_bytes": 0,
+            "transform_bytes": 0,
+            "reference_bytes": 0,
+            "color_bytes": 562516,
+            "bytes": 122747828
+          }
+        }
+      ]
+    },
+    "mesh": {
+      "median_bytes": 736972216,
+      "min_bytes": 736972216,
+      "max_bytes": 736972792,
+      "samples": [
+        {
+          "mode": "mesh",
+          "heap_bytes": 736972216,
+          "array_buffer_bytes": 0,
+          "retained_bytes": 736972216,
+          "instances": 615,
+          "component_instances": 139429,
+          "numeric_payload": {
+            "vertices": 3393798,
+            "edges": 0,
+            "triangles": 5089020,
+            "local_component_records": 139429,
+            "coordinates_bytes": 81451152,
+            "edge_indices_bytes": 0,
+            "face_indices_bytes": 61068240,
+            "size_bytes": 0,
+            "transform_bytes": 0,
+            "reference_bytes": 0,
+            "color_bytes": 562516,
+            "bytes": 143081908
+          }
+        },
+        {
+          "mode": "mesh",
+          "heap_bytes": 736972216,
+          "array_buffer_bytes": 0,
+          "retained_bytes": 736972216,
+          "instances": 615,
+          "component_instances": 139429,
+          "numeric_payload": {
+            "vertices": 3393798,
+            "edges": 0,
+            "triangles": 5089020,
+            "local_component_records": 139429,
+            "coordinates_bytes": 81451152,
+            "edge_indices_bytes": 0,
+            "face_indices_bytes": 61068240,
+            "size_bytes": 0,
+            "transform_bytes": 0,
+            "reference_bytes": 0,
+            "color_bytes": 562516,
+            "bytes": 143081908
+          }
+        },
+        {
+          "mode": "mesh",
+          "heap_bytes": 736972792,
+          "array_buffer_bytes": 0,
+          "retained_bytes": 736972792,
+          "instances": 615,
+          "component_instances": 139429,
+          "numeric_payload": {
+            "vertices": 3393798,
+            "edges": 0,
+            "triangles": 5089020,
+            "local_component_records": 139429,
+            "coordinates_bytes": 81451152,
+            "edge_indices_bytes": 0,
+            "face_indices_bytes": 61068240,
+            "size_bytes": 0,
+            "transform_bytes": 0,
+            "reference_bytes": 0,
+            "color_bytes": 562516,
+            "bytes": 143081908
+          }
+        }
+      ]
+    },
+    "edges_faces": {
+      "median_bytes": 1085107072,
+      "min_bytes": 1085105344,
+      "max_bytes": 1085108704,
+      "samples": [
+        {
+          "mode": "edges_faces",
+          "heap_bytes": 1085105344,
+          "array_buffer_bytes": 0,
+          "retained_bytes": 1085105344,
+          "instances": 615,
+          "component_instances": 139429,
+          "numeric_payload": {
+            "vertices": 3393798,
+            "edges": 5091770,
+            "triangles": 5089020,
+            "local_component_records": 139429,
+            "coordinates_bytes": 81451152,
+            "edge_indices_bytes": 40734160,
+            "face_indices_bytes": 61068240,
+            "size_bytes": 0,
+            "transform_bytes": 0,
+            "reference_bytes": 0,
+            "color_bytes": 562516,
+            "bytes": 183816068
+          }
+        },
+        {
+          "mode": "edges_faces",
+          "heap_bytes": 1085107072,
+          "array_buffer_bytes": 0,
+          "retained_bytes": 1085107072,
+          "instances": 615,
+          "component_instances": 139429,
+          "numeric_payload": {
+            "vertices": 3393798,
+            "edges": 5091770,
+            "triangles": 5089020,
+            "local_component_records": 139429,
+            "coordinates_bytes": 81451152,
+            "edge_indices_bytes": 40734160,
+            "face_indices_bytes": 61068240,
+            "size_bytes": 0,
+            "transform_bytes": 0,
+            "reference_bytes": 0,
+            "color_bytes": 562516,
+            "bytes": 183816068
+          }
+        },
+        {
+          "mode": "edges_faces",
+          "heap_bytes": 1085108704,
+          "array_buffer_bytes": 0,
+          "retained_bytes": 1085108704,
+          "instances": 615,
+          "component_instances": 139429,
+          "numeric_payload": {
+            "vertices": 3393798,
+            "edges": 5091770,
+            "triangles": 5089020,
+            "local_component_records": 139429,
+            "coordinates_bytes": 81451152,
+            "edge_indices_bytes": 40734160,
+            "face_indices_bytes": 61068240,
+            "size_bytes": 0,
+            "transform_bytes": 0,
+            "reference_bytes": 0,
+            "color_bytes": 562516,
+            "bytes": 183816068
+          }
+        }
+      ]
+    }
+  },
+  "saving_percent": {
+    "wire": 81.97467634680812,
+    "mesh": 83.58258976753609,
+    "edges_faces": 88.8497867978138
+  }
+}

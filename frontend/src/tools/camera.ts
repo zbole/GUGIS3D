@@ -1,10 +1,10 @@
-import { Cartesian3, Math as CesiumMath, Viewer } from "cesium";
+import { BoundingSphere, Cartesian3, HeadingPitchRange, Math as CesiumMath, Viewer } from "cesium";
 
 export const BRISTOL_VIEW = {
-  destination: Cartesian3.fromDegrees(-2.5879, 51.4545, 650),
+  destination: Cartesian3.fromDegrees(-2.5879, 51.45165, 350),
   orientation: {
     heading: 0,
-    pitch: -0.75,
+    pitch: CesiumMath.toRadians(-46),
     roll: 0
   }
 };
@@ -15,7 +15,9 @@ const BRISTOL_CENTER = {
 };
 
 export function resetCamera(viewer: Viewer): void {
-  viewer.camera.flyTo(BRISTOL_VIEW);
+  viewer.camera.flyToBoundingSphere(new BoundingSphere(Cartesian3.fromDegrees(-2.5879,51.4545,25),145), {
+    offset: new HeadingPitchRange(CesiumMath.toRadians(20),CesiumMath.toRadians(-45),480), duration: .7
+  });
 }
 
 export function topView(viewer: Viewer): void {
@@ -31,15 +33,7 @@ export function topView(viewer: Viewer): void {
 }
 
 export function obliqueView(viewer: Viewer): void {
-  viewer.camera.flyTo({
-    destination: Cartesian3.fromDegrees(-2.5892, 51.45355, 520),
-    orientation: {
-      heading: CesiumMath.toRadians(28),
-      pitch: CesiumMath.toRadians(-45),
-      roll: 0
-    },
-    duration: 0.8
-  });
+  resetCamera(viewer);
 }
 
 export function streetLevelView(viewer: Viewer): void {

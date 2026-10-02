@@ -1,0 +1,81 @@
+.project-status {
+  flex: 0 0 auto;
+  min-width: 0;
+  margin: 0 18px 10px;
+  color: #203344;
+  background: #fff;
+  border: 1px solid #dce4eb;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.project-status__summary {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) auto auto 14px;
+  align-items: center;
+  gap: 16px;
+  padding: 11px 14px;
+  cursor: pointer;
+  list-style: none;
+}
+.project-status__summary::-webkit-details-marker { display: none; }
+.project-status__summary:focus-visible { outline: 3px solid #58abb7; outline-offset: 2px; }
+.project-status__identity, .project-status__location { display: grid; min-width: 0; gap: 3px; }
+.project-status__title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; color: #687c8e; font-size: 11px; }
+.project-status__title strong { color: #203344; font-size: 14px; overflow-wrap: anywhere; }
+.project-status__scope { overflow: hidden; color: #617487; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.project-status__counts { display: grid; grid-template-columns: repeat(4, auto); gap: 17px; }
+.project-status__counts > span { display: grid; grid-template-columns: auto auto auto; align-items: baseline; gap: 3px; white-space: nowrap; }
+.project-status__counts > span > span { color: #687c8e; font-size: 11px; }
+.project-status__counts strong { font-size: 15px; font-variant-numeric: tabular-nums; }
+.project-status__counts small { color: #687c8e; font-size: 10px; }
+.project-status__badge { display: inline-block; padding: 4px 8px; color: #35626a; background: #eff6f6; border-radius: 5px; font-size: 11px; white-space: nowrap; }
+.project-status__badge.is-pending { color: #85571d; background: #fff5e7; }
+.project-status__disclosure { color: #687c8e; font-size: 18px; line-height: 1; transition: transform .15s; }
+.project-status[open] .project-status__disclosure { transform: rotate(180deg); }
+.project-status__body { padding: 13px 14px 14px; border-top: 1px solid #e5ebef; }
+.project-status__overview { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+.project-status__location > span { color: #425a6c; overflow-wrap: anywhere; }
+.project-status__location small { color: #687c8e; font-size: 11px; overflow-wrap: anywhere; }
+.project-status__state { display: grid; gap: 5px; margin: 0; }
+.project-status__state > div { display: grid; grid-template-columns: 95px minmax(0, 1fr); align-items: start; gap: 8px; }
+.project-status__state dt { color: #687c8e; }
+.project-status__state dd { min-width: 0; margin: 0; overflow-wrap: anywhere; }
+.project-status__state dd.is-allowed { color: #226759; }
+.project-status__state dd.is-pending { color: #85571d; }
+.project-status__save-reason { margin: 10px 0; padding: 8px 10px; color: #50687a; background: #f6f8fa; border-radius: 5px; font-size: 12px; }
+.project-status__sources { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.project-status__source { display: grid; align-content: start; gap: 4px; min-width: 0; padding: 9px 10px; border: 1px solid #e4eaf0; border-radius: 5px; }
+.project-status__source-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 5px; }
+.project-status__source-heading strong { font-size: 12px; }
+.project-status__source-kind { color: #617487; font-size: 11px; }
+.project-status__source-kind.is-demonstration { color: #85571d; }
+.project-status__source-kind.is-measured, .project-status__source-kind.is-user-imported { color: #226759; }
+.project-status__source > small { color: #687c8e; font-size: 11px; overflow-wrap: anywhere; }
+.project-status__draft-note { margin: 9px 0 0; color: #85571d; font-size: 11px; }
+.project-status__actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+.project-status .project-status__actions button { min-height: 34px; padding: 6px 11px; color: #425a6c; background: #fff; border: 1px solid #dce4eb; border-radius: 5px; font-size: 12px; cursor: pointer; }
+.project-status .project-status__actions button[aria-current="page"] { color: #176a77; background: #eff6f6; border-color: #afd0d4; }
+.project-status .project-status__actions button:disabled { opacity: .5; cursor: default; }
+.project-status .project-status__actions button:focus-visible { outline: 3px solid #58abb7; outline-offset: 2px; }
+@media (max-width: 1000px) {
+  .project-status__summary { grid-template-columns: minmax(0, 1fr) auto 14px; gap: 10px; }
+  .project-status__identity { grid-column: 1; }
+  .project-status__badge { grid-column: 2; grid-row: 1; }
+  .project-status__disclosure { grid-column: 3; grid-row: 1; }
+  .project-status__counts { grid-column: 1 / -1; justify-content: start; gap: 21px; }
+  .project-status__sources { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .project-status { margin: 0 10px 8px; }
+  .project-status__summary { padding: 10px; }
+  .project-status__title { display: grid; gap: 1px; }
+  .project-status__counts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 17px; }
+  .project-status__counts > span { justify-content: start; }
+  .project-status__body { padding: 10px; }
+  .project-status__overview { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .project-status__sources { gap: 6px; }
+  .project-status__source { padding: 8px; }
+  .project-status__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project-status .project-status__actions button { min-height: 40px; }
+}

@@ -1,7 +1,7 @@
 import fallbackData from "../data/sample_gugis_objects.json";
 import type { GugisObject, Layer } from "../types/gugis";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "/api";
 
 function normalizeFallbackObjects(): GugisObject[] {
   return ((fallbackData as unknown as { objects: GugisObject[] }).objects ?? []);
@@ -50,6 +50,16 @@ export async function getObjects(): Promise<GugisObject[]> {
   } catch (error) {
     console.warn("Falling back to bundled sample objects", error);
     return normalizeFallbackObjects();
+  }
+}
+
+export async function getLegacyScene(): Promise<{objects: GugisObject[]; layers: Layer[]; source: string}> {
+  try {
+    const [objects, layers] = await Promise.all([request<GugisObject[]>("/objects"), request<Layer[]>("/layers")]);
+    return {objects, layers, source: "Local API connected"};
+  } catch {
+    const objects = normalizeFallbackObjects();
+    return {objects, layers: buildFallbackLayers(objects), source: "Offline bundled sample"};
   }
 }
 

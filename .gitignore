@@ -3,5 +3,12 @@ dist/
 build/
 .env
 .env.local
+.env.*
+!.env.example
 .vscode/
 .DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+.local/
+*.log
