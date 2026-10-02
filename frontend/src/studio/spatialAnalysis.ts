@@ -1,6 +1,6 @@
 import { Cartesian3, Matrix4, Transforms } from "@cesium/engine";
 import type { CityDocument, Placement } from "./cityModel";
-import { hasBuildingOverview, type BuildingDocument, type Solid } from "./model";
+import type { BuildingDocument, Solid } from "./model";
 import type { AnalysisPoint, PathAnalysis } from "./terrainAnalysis";
 import { functionSolid, type FeatureAsset, type FeaturePlacement, type Terrain } from "./environment";
 import { terrainIndex, type TerrainHit } from "./terrainMath";
@@ -62,7 +62,6 @@ export interface EnvelopeClearance {
 type XY = { x: number; y: number };
 type Envelope = { radius: number; minZ: number; maxZ: number; components: number };
 const buildingCache = new WeakMap<BuildingDocument, Envelope>();
-const buildingHintCache = new WeakMap<BuildingDocument, number>();
 const featureCache = new WeakMap<FeatureAsset, Envelope>();
 const terrainCache = new WeakMap<Terrain, ReturnType<typeof terrainIndex>>();
 function index(terrain: Terrain) {
@@ -101,11 +100,15 @@ function buildingEnvelope(document: BuildingDocument): Envelope {
   let value = buildingCache.get(document);
   if (value) return value;
   let radius = 0, minZ = Infinity, maxZ = -Infinity, components = 0;
+  // Many nodes instance the same template. Derive each shape's bounds once
+  // while building the cached model envelope.
+  const templateBounds = new Map<string, ReturnType<typeof vertexBounds>>();
   for (const node of document.nodes) {
     if (!node.template || !node.position) continue;
     const solid = document.templates[node.template];
     if (!solid) continue;
-    const bounds = vertexBounds(solid);
+    let bounds = templateBounds.get(node.template);
+    if (!bounds) { bounds = vertexBounds(solid); templateBounds.set(node.template, bounds); }
     radius = Math.max(radius, Math.hypot(node.position[0], node.position[1]) + bounds.radius);
     minZ = Math.min(minZ, node.position[2] + bounds.minZ);
     maxZ = Math.max(maxZ, node.position[2] + bounds.maxZ);
@@ -114,17 +117,6 @@ function buildingEnvelope(document: BuildingDocument): Envelope {
   value = { radius: Math.max(radius, 1), minZ: Number.isFinite(minZ) ? minZ : 0,
     maxZ: Number.isFinite(maxZ) ? maxZ : 0, components };
   buildingCache.set(document, value);
-  return value;
-}
-function buildingHintRadius(document: BuildingDocument) {
-  let value = buildingHintCache.get(document);
-  if (value !== undefined) return value;
-  // An overview is the authored building silhouette. Use its cheap outer
-  // shapes as a broad-phase bound, then verify candidates with all components.
-  // Models without an overview take the exact path.
-  value = hasBuildingOverview(document) ? Math.max(1, ...Object.values(document.overview).map(solid => vertexBounds(solid).radius)) + 8
-    : buildingEnvelope(document).radius;
-  buildingHintCache.set(document, value);
   return value;
 }
 function primitiveBounds(component: FeatureAsset["components"][number]) {
@@ -233,7 +225,8 @@ export function analyzeCitySection(city: CityDocument, points: AnalysisPoint[], 
   const objects: SectionObject[] = [];
   for (const item of city.instances) {
     const spot = nearest(item.longitude, item.latitude);
-    if (spot.offset > width / 2 + buildingHintRadius(city.assets[item.asset])) continue;
+    // Display overviews are not guaranteed to enclose all stored components.
+    // Only the cached component envelope can safely reject section candidates.
     if (spot.offset > width / 2 + buildingEnvelope(city.assets[item.asset]).radius) continue;
     objects.push({ ...buildingObject(city, item, spot.offset), ...spot });
   }

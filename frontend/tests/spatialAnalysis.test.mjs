@@ -121,6 +121,52 @@ test("empty overviews use real component bounds when filtering a section corrido
   assert.equal(JSON.stringify(imported), source, "the fallback must not rewrite imported data");
 });
 
+test("an undersized display overview cannot exclude real components from a section corridor", () => {
+  const c = city();
+  c.instances = c.instances.slice(0, 1);
+  c.environment.features = [];
+  c.assets.house = { ...document, version: "1.2", templates: { wall: { ...document.templates.wall, size: [80, 80, 10] } } };
+  const route = [point(10, 75), point(150, 75)];
+  const expected = analyzeCitySection(c, route, profile, 10);
+  assert.equal(expected.buildings, 1);
+  const overview = { small: { kind: "box", size: [1, 1, 1], color: "#987654" } };
+  const imported = { ...c, assets: { house: { ...c.assets.house, overview } } };
+  const source = JSON.stringify(imported);
+  assert.deepEqual(analyzeCitySection(imported, route, profile, 10), expected);
+  assert.deepEqual(analyzeCitySection(imported, route, profile, 10), expected, "cached envelopes preserve the result");
+  assert.equal(JSON.stringify(imported), source, "analysis never expands or replaces display geometry");
+});
+
+test("repeated component templates compute shape bounds once and retain all instance extents", () => {
+  const c = city();
+  let shapeReads = 0;
+  c.assets.house = { ...document,
+    templates: { wall: { kind: "box", color: "#987654", get size() { shapeReads++; return [10, 10, 10]; } } },
+    nodes: [
+      { ...document.nodes[0], id: "west", position: [-20, 0, 5] },
+      { ...document.nodes[0], id: "east", position: [20, 0, 15] },
+    ],
+  };
+  const result = queryCityPoint(c, point(80, 50), 200);
+  assert.equal(result.buildings.length, 2);
+  for (const building of result.buildings) {
+    assert.equal(building.components, 2);
+    assert.equal(building.bottom, 100);
+    assert.equal(building.top, 120);
+    assert.equal(building.radius, 20 + Math.hypot(10, 10) / 2);
+  }
+  assert.equal(shapeReads, 1, "template shape bounds and model envelopes are reused");
+  analyzeCitySection(c, [point(10, 50), point(150, 50)], profile, 30);
+  assert.equal(shapeReads, 1, "section analysis reuses the validated component envelope");
+  const replacement = { ...c, assets: { house: { ...c.assets.house,
+    templates: { wall: { kind: "box", color: "#987654", size: [100, 100, 10] } },
+  } } };
+  const updated = queryCityPoint(replacement, point(80, 50), 200).buildings[0];
+  assert.equal(updated.radius, 20 + Math.hypot(100, 100) / 2, "a replaced document recomputes the same template key");
+  assert.equal(updated.components, 2);
+  assert.equal(queryCityPoint(c, point(80, 50), 200).buildings[0].radius, result.buildings[0].radius);
+});
+
 test("terrain NoData makes source elevations and burial unknown, without inventing a height", () => {
   const c = city(); c.environment.terrain = { ...terrain, patches: [] };
   const result = queryCityPoint(c, point(80, 50));
