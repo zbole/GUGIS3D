@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { analyzePath, type AnalysisPoint, type PathAnalysis } from "./terrainAnalysis";
 import type { Terrain } from "./environment";
 
@@ -8,6 +8,8 @@ export function usePathAnalysis(points: AnalysisPoint[], terrain?: Terrain, spac
   const sentTerrain = useRef<Terrain | null | undefined>();
   const pending = useRef<number | null>(null);
   const serial = useRef(0);
+  const [attempt, setAttempt] = useState(0);
+  const retry = useCallback(() => setAttempt(value => value + 1), []);
   const [state, setState] = useState<{ result: PathAnalysis | null; busy: boolean; error: string }>({ result: null, busy: false, error: "" });
   function stopWorker() {
     worker.current?.terminate();
@@ -41,7 +43,7 @@ export function usePathAnalysis(points: AnalysisPoint[], terrain?: Terrain, spac
             if (worker.current !== activeWorker) return;
             const failedRequest = pending.current === serial.current;
             stopWorker();
-            if (failedRequest) setState({ result: null, busy: false, error: "分析线程启动失败，请撤回一个点后重试。" });
+            if (failedRequest) setState({ result: null, busy: false, error: "分析线程启动失败，请重新计算剖面。" });
           };
         }
         const request = { id, points, spacing, ...(sentTerrain.current !== terrain ? { terrain: terrain ?? null } : {}) };
@@ -59,6 +61,6 @@ export function usePathAnalysis(points: AnalysisPoint[], terrain?: Terrain, spac
       // way to stop its CPU work immediately when the route is edited/cleared.
       if (pending.current === id) stopWorker();
     };
-  }, [points, terrain, spacing]);
-  return state;
+  }, [points, terrain, spacing, attempt]);
+  return { ...state, retry };
 }

@@ -439,6 +439,40 @@ test("path drawing and clearing are read-only previews, including without terrai
   f.close();
 });
 
+test("a failed analysis can be retried without redrawing or writing the city", async () => {
+  const originalWorker = globalThis.Worker;
+  globalThis.Worker = class { constructor() { throw new Error("Analysis worker unavailable"); } };
+  const f = await mount();
+  try {
+    const originalSaved = structuredClone(saved);
+    await act(async () => button(f.root, "空间分析").props.onClick());
+    await act(async () => button(f.root, "开始绘制").props.onClick());
+    const route = [
+      { longitude: -2.603, latitude: 51.454, altitude: 0 },
+      { longitude: -2.6027, latitude: 51.4543, altitude: 4 },
+    ];
+    act(() => route.forEach(point => globalThis.workspaceScene.onAnalysisPoint(point)));
+    await waitForAnalysis();
+    assert.match(text(f.root), /Analysis worker unavailable/);
+    assert.equal(globalThis.workspaceScene.analysisProfile, null);
+    assert.equal(button(f.root, "重新计算剖面").props.disabled, false);
+    delete globalThis.Worker; // The fallback now succeeds without altering the route.
+    await act(async () => button(f.root, "重新计算剖面").props.onClick());
+    await waitForAnalysis();
+    assert.equal(button(f.root, "重新计算剖面"), undefined);
+    assert.doesNotMatch(text(f.root), /Analysis worker unavailable/);
+    assert.deepEqual(globalThis.workspaceScene.analysisPoints, route);
+    assert.ok(globalThis.workspaceScene.analysisProfile.horizontalDistance > 30);
+    assert.equal(writes, 0);
+    assert.equal(stages, 0);
+    assert.deepEqual(saved, originalSaved);
+  } finally {
+    f.close();
+    if (originalWorker === undefined) delete globalThis.Worker;
+    else globalThis.Worker = originalWorker;
+  }
+});
+
 test("explicit analysis save survives remount, updates one record, and deletion can be undone", async () => {
   const first = await mount();
   await drawAnalysis(first);

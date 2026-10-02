@@ -79,7 +79,9 @@ test("editing and clearing terminate busy analysis, while obsolete errors cannot
     act(() => renderer.update(React.createElement(Probe, { points: [], spacing: 10 })));
     assert.equal(second.terminated, true, "clearing must stop CPU work, not merely hide its result");
     act(() => second.onerror());
-    assert.deepEqual(state, { result: null, busy: false, error: "" });
+    assert.equal(state.result, null);
+    assert.equal(state.busy, false);
+    assert.equal(state.error, "");
     await settle();
     assert.equal(workers.length, 2, "an empty route must not launch a replacement");
     act(() => renderer.update(React.createElement(Probe, { points, spacing: 10 })));
@@ -116,7 +118,7 @@ test("worker post failures discard the broken instance and retry with a fresh te
     assert.equal(workers[0].terminated, true);
     assert.equal(state.busy, false);
     assert.equal(state.error, "Cannot send analysis data");
-    act(() => renderer.update(React.createElement(Probe, { points: [...points] })));
+    act(() => state.retry());
     await settle();
     assert.equal(workers.length, 2);
     assert.equal(workers[1].messages[0].terrain, terrain);

@@ -880,6 +880,7 @@ export default function CityStudio() {
           <aside className="studio-left">
             {tab === "analysis" ? (<>
               {(savedAnalyses.error || analysisState.error) && <p className="analysis-caution" role="alert">{savedAnalyses.error || analysisState.error}</p>}
+              {analysisState.error && !savedAnalyses.error && <button disabled={busy || analysisState.busy} onClick={analysisState.retry}>重新计算剖面</button>}
               {analysisState.busy && <p className="analysis-hint" role="status">正在后台计算原生剖面…</p>}
               <div className="spatial-tabs" role="group" aria-label="空间分析类型">
                 <button className={analysisView === "route" ? "active" : ""} aria-pressed={analysisView === "route"} onClick={() => { setAnalysisView("route"); setSpatialPicking(false); }}>路线剖面</button>
