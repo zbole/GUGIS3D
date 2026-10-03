@@ -1,7 +1,7 @@
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import analysis, export, layers, objects, studio, city, workspace
+from .routers import analysis, export, layers, objects, studio, city, workspace, render_tiles
 from .services import city_workspaces
 
 app = FastAPI(
@@ -37,3 +37,6 @@ app.include_router(workspace.router)
 app.include_router(city_workspaces.router)
 app.include_router(city.router, prefix='/cities/{city_id}', dependencies=[Depends(city_workspaces.select_workspace)])
 app.include_router(workspace.router, prefix='/cities/{city_id}', dependencies=[Depends(city_workspaces.select_workspace)])
+
+# Prebuilt read-only derivatives never initialize or rewrite formal projects.
+app.include_router(render_tiles.router)
