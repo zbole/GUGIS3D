@@ -28,6 +28,29 @@ London `osm1149973649` also has a 0.5 m tag, but is an unsupported building part
 and is omitted. It is not the retained low-height correction above. Each omitted
 OSM way and its reason are recorded in the candidate's import receipt.
 
+### Why the two pre-existing complex outlines stay omitted
+
+The retained source identifies way `364313092` as Westminster Abbey and leaves
+way `367642706` unnamed. Removing only repeated closure coordinates leaves
+546 and 159 distinct source vertices. Read-only diagnostics found both rings
+triangulatable without inventing points or simplifying their boundaries, within
+the existing local projection/rounding convention.
+
+Their full closed extrusions would require 1,092 vertices / 2,180 triangles and
+318 vertices / 632 triangles respectively. Both exceed the existing per-mesh
+format limits of 256 vertices / 512 triangles. Increasing only the converter's
+120-point cap would therefore fail later validation, rather than recover valid
+imports. The current redundant-point cleanup reduces the Abbey to 539 ring
+points, which still exceeds those limits after extrusion.
+
+This investigation created no candidate or render package and changed no format
+limits. A future capacity change needs coordinated importer/schema/resource
+budgets, exact-boundary and round-trip tests, and visual/resource acceptance.
+The retained ways contain no holes, but the snapshot omits multipolygon
+relations, so they do not establish whether the complete real buildings have
+courtyards or other unrepresented parts. London v2 remains 814 buildings with
+eleven recorded source omissions.
+
 Both versions remain local district samples. Query rectangles and actual imported
 extents are distinct, and neither establishes an authoritative city boundary or
 complete coverage. No surveyed DEM is supplied. Heights obtained from source
