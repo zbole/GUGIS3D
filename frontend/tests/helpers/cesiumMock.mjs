@@ -1,8 +1,9 @@
 // Keep Cesium's real geometry/matrix/entity types. Substitute only the GPU viewer
 // and primitive lifecycle so React updates can be tested without a browser.
 export * from "cesium";
+import { realCamera } from "./realCamera.mjs";
 import { Cartesian3, Event, EntityCollection, Transforms, Matrix4, Ray, Intersect, Cartographic } from "cesium";
-export const viewState = { viewers: [], primitives: [], handlers: [] };
+export const viewState = { viewers: [], primitives: [], handlers: [], realCameraDimensions: null };
 export class Primitive {
   constructor(options) {
     this.options = options;
@@ -42,7 +43,9 @@ export class Viewer {
       positionWC: Cartesian3.fromDegrees(-2.603, 51.454, 1000),
       get positionCartographic() { return Cartographic.fromCartesian(this.positionWC); },
       heading: 18 * Math.PI / 180, pitch: -45 * Math.PI / 180, roll: 0,
-      sets: [], cancellations: 0,
+      sets: [], frames: [], cancellations: 0,
+      viewBoundingSphere: (...args) => this.camera.frames.push(args),
+      lookAtTransform: () => {},
       cancelFlight: () => { this.camera.cancellations++; },
       setView: options => {
         this.camera.sets.push(options);
@@ -85,6 +88,24 @@ export class Viewer {
       requestRender() {},
       pick: () => this.picked,
     };
+    if (viewState.realCameraDimensions) {
+      const [width, height] = viewState.realCameraDimensions;
+      const camera = realCamera(width, height);
+      this.scene.canvas = camera._scene.canvas;
+      camera.sets = []; camera.frames = []; camera.flights = []; camera.cancellations = 0;
+      for (const [method, records] of [["setView", "sets"], ["viewBoundingSphere", "frames"]]) {
+        const original = camera[method].bind(camera);
+        camera[method] = (...args) => { camera[records].push(args); const result = original(...args); camera.changed.raiseEvent(); return result; };
+      }
+      const cancel = camera.cancelFlight.bind(camera);
+      camera.cancelFlight = () => { camera.cancellations++; cancel(); };
+      // No render loop/tween clock. Explicit flights settle synchronously using
+      // the same target math so these tests need no browser or GPU.
+      camera.flyToBoundingSphere = (sphere, options) => {
+        camera.flights.push([sphere, options]); camera.viewBoundingSphere(sphere, options.offset); camera.lookAtTransform(Matrix4.IDENTITY);
+      };
+      this.camera = camera;
+    }
     viewState.viewers.push(this);
   }
   isDestroyed() {

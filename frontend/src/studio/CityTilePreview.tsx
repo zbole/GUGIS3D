@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { cameraBookmarkUrl, noCameraNavigation, type CameraNavigation, type CameraPose } from "./cameraBookmark";
-import CityScene, { type CitySceneHandle } from "./CityScene";
+import { cameraBookmarkUrl, noCameraNavigation, type CameraNavigation } from "./cameraBookmark";
+import { defaultCameraTarget } from "./cameraFraming";
+import CityScene, { type CitySceneHandle, type CameraViewRequest } from "./CityScene";
 import LoadedBuildingInspector from "./LoadedBuildingInspector";
 import { loadedBuildings } from "./loadedBuildings";
 import { useTileLoadingControl } from "./useTileLoadingControl";
@@ -51,13 +52,13 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onWorkspaceSt
   const invalidCity = !!bookmark && bookmark.city !== workspace.id;
   const cameraKey = `${cameraNavigation.sequence}:${attempt}:${dismissedSequence === cameraNavigation.sequence ? "default" : "link"}`;
   const blocked = result.kind === "invalid" || invalidCity || mismatch || failedCamera === cameraKey;
-  const cameraRequest = useMemo(() => {
+  const cameraRequest = useMemo<CameraViewRequest | undefined>(() => {
     if (blocked || !manifest) return undefined;
     if (bookmark) return { sequence: cameraKey, pose: bookmark.pose };
-    // Initial ordinary entry keeps legacy framing. History/default navigation
-    // explicitly restores the city center, not a previously loaded tile extent.
+    // Default navigation aims at the verified sample footprint. A camera placed
+    // above its center with an oblique pitch would look past the sample.
     if (cameraNavigation.sequence > 0 || dismissedSequence !== null) return { sequence: cameraKey,
-      pose: [center.longitude, center.latitude, 1600, 18, -45, 0] as CameraPose };
+      target: defaultCameraTarget(manifest.bounds_wgs84, center) };
     return undefined;
   }, [blocked, manifest, cameraKey, bookmark, cameraNavigation.sequence, dismissedSequence, center]);
   const gate = useRef({ blocked, sequence: cameraRequest?.sequence });

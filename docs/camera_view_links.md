@@ -42,6 +42,14 @@ burst. Later tile arrivals preserve that camera. A newer accepted history/hash
 navigation cancels obsolete viewport reporting and restores the newer pose.
 Both same-city and cross-city navigation are handled explicitly.
 
+Default navigation is a distinct **target-centred** request derived from the
+verified package footprint. Cesium computes the camera's offset/range using the
+real viewport frustum, then the scene restores its world-coordinate transform.
+The city target must not be used as the camera position while applying an oblique
+view angle: that would point past the sample and can leave Bristol with no
+intersecting tiles on landscape screens. Explicit bookmark poses remain exact
+camera positions and are not converted into target requests.
+
 Capture requires a finite ellipsoid footprint. A restored pose with no finite
 footprint is not used to start automatic tile acquisition; the UI asks the
 viewer to adjust or choose the current default view. The receiver computes its
@@ -69,3 +77,11 @@ later restoration, stale requests, same-city Back/Forward/hash events, busy-edit
 guards, mismatch/default behavior, selection-pin clearing, pause and clipboard
 failure. Scene tests use real Cesium geometry with a GPU-free viewer double.
 Actual browser/WebGL interaction remains a separate acceptance step.
+
+Default-framing regressions additionally use real Cesium Camera projection/math
+against the retained three-city manifest fixtures, for both loading profiles at
+1040×500, 800×500, 1400×400 and 390×700. All 24 cases must intersect sample tiles,
+select a nonempty budget-bounded set and aim the centre ray at the target. The
+0.01 m test tolerance measures numerical camera/ellipsoid agreement, not survey
+accuracy. Component tests derive their default footprints from the same real
+camera math for ordinary entry, city switching and explicit default recovery.

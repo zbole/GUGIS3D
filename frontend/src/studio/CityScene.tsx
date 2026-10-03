@@ -35,6 +35,7 @@ import {
   ArcType,
 } from "cesium";
 import type { CityDocument } from "./cityModel";
+import { frameCameraTarget, type CameraTarget } from "./cameraFraming";
 import { validateCameraPose, type CameraPose } from "./cameraBookmark";
 import type { RenderView } from "./renderTileClient";
 import type { SceneHandle } from "./BuildingScene";
@@ -64,6 +65,7 @@ export interface CitySceneHandle extends SceneHandle {
   focusFeature: (id: string) => void;
   focusBuilding: (id: string) => void;
 }
+export type CameraViewRequest = { sequence: string } & ({ pose: CameraPose } | { target: CameraTarget });
 interface Props {
   city: Pick<CityDocument, "assets" | "instances" | "roads" | "environment">;
   center?: GeographicPosition;
@@ -95,7 +97,7 @@ interface Props {
   spatialPoint?: AnalysisPoint | null;
   /** Read-only viewport loading; never modifies editor city state. */
   onViewBounds?: (view: RenderView, cameraSequence?: string) => void;
-  cameraRequest?: { sequence: string; pose: CameraPose };
+  cameraRequest?: CameraViewRequest;
   showGround?: boolean;
   renderOnly?: boolean;
   onSpatialPoint?: (point: AnalysisPoint | null, picked: string | null) => void;
@@ -236,12 +238,23 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     v.camera.cancelFlight();
     v.camera.setView({ destination: Cartesian3.fromDegrees(checked[0], checked[1], checked[2]),
       orientation: { heading: CM.toRadians(checked[3]), pitch: CM.toRadians(checked[4]), roll: CM.toRadians(checked[5]) } });
+    finishCameraChange(v);
+    return true;
+  }
+  function finishCameraChange(v: Viewer) {
     initialized.current = true; // Initial framing and later tile arrivals cannot override restoration.
     v.scene.requestRender();
     // setView may synchronously raise changed, scheduling another report.
     if (viewportTimer.current !== undefined) clearTimeout(viewportTimer.current);
     viewportTimer.current = setTimeout(() => reportViewport.current?.(), 180);
-    return true;
+  }
+  function setCameraTarget(target: CameraTarget) {
+    const v = viewer.current;
+    if (!v || v.isDestroyed()) return;
+    if (viewportTimer.current !== undefined) clearTimeout(viewportTimer.current);
+    v.camera.cancelFlight();
+    frameCameraTarget(v.camera, target);
+    finishCameraChange(v);
   }
   function fit(top = false, focus = false) {
     const v = viewer.current,
@@ -420,7 +433,10 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
   }, []);
   useEffect(() => {
     cameraSequence.current = cameraRequest?.sequence;
-    if (cameraRequest) setCameraPose(cameraRequest.pose);
+    if (cameraRequest) {
+      if ("pose" in cameraRequest) setCameraPose(cameraRequest.pose);
+      else setCameraTarget(cameraRequest.target);
+    }
   }, [cameraRequest?.sequence]);
   useEffect(() => {
     const v = viewer.current;

@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import React from "react";
 import { act, create } from "react-test-renderer";
-import { Rectangle, ScreenSpaceEventType } from "cesium";
+import { Rectangle, ScreenSpaceEventType, Cartesian2, Cartesian3, Ellipsoid, Matrix4 } from "cesium";
 import { componentBundle } from "./helpers/componentBundle.mjs";
 import { viewState } from "./helpers/cesiumMock.mjs";
 
@@ -501,7 +501,7 @@ test("revision mismatch, invalid link and wrong city block tile reads until expl
   f.click("使用当前默认视角"); footprint(f.viewer, 0);
   await until(() => f.requests.length === 2, "explicit default can start bounded tile reads");
   assert.ok(f.requests[1].url.endsWith("/tiles/x0_y0"));
-  assert.equal(f.viewer.camera.sets.length, 1);
+  assert.equal(f.viewer.camera.frames.length, 1);
   f.assertReadOnly();
 });
 
@@ -746,3 +746,81 @@ test("unknown caller profiles use balanced ceilings and never accept custom nume
   assert.equal(f.viewer, viewer, "equivalent normalized defaults retain the same independent session");
   assert.equal(f.requests.length, 4); f.assertReadOnly();
 });
+
+// These regressions use the actual retained manifests and Cesium's real Camera
+// maths. No hand-written viewport rectangle can conceal off-target framing.
+const retainedPackages = Object.fromEntries(await Promise.all(["bristol", "london", "birmingham"].map(async city => {
+  const bytes = await readFile(new URL(`./fixtures/render-manifests/${city}.json`, import.meta.url));
+  return [city, { manifest: JSON.parse(bytes), manifestResponse() {
+    return new Response(bytes, { headers: { etag: `"${hash(bytes)}"`, "content-length": String(bytes.length) } });
+  } }];
+})));
+function enableRealCamera(t, dimensions) {
+  const previous = viewState.realCameraDimensions;
+  viewState.realCameraDimensions = dimensions;
+  t.after(() => { viewState.realCameraDimensions = previous; });
+}
+function assertSampleTarget(f, pkg, dimensions, profile) {
+  const [width, height] = dimensions, [west, south, east, north] = pkg.manifest.bounds_wgs84;
+  const point = f.viewer.camera.pickEllipsoid(new Cartesian2(width / 2, height / 2), Ellipsoid.WGS84);
+  assert.ok(point, "real camera center intersects the ellipsoid");
+  assert.ok(Cartesian3.distance(point, Cartesian3.fromDegrees((west + east) / 2, (south + north) / 2)) < .01,
+    "camera is aimed at the actual retained sample");
+  assert.ok(Matrix4.equals(f.viewer.camera.transform, Matrix4.IDENTITY));
+  const footprint = f.viewer.camera.computeViewRectangle(Ellipsoid.WGS84);
+  assert.ok(footprint, "default has a real finite footprint");
+  const count = Number(/当前视口目标 (\d+)/.exec(f.status)?.[1]);
+  assert.ok(count > 0 && count <= (profile === "economy" ? 2 : 8));
+  assert.equal(f.viewer.camera.frames.length, 1);
+  assert.equal(f.viewer.camera.sets.length, 0, "default uses target framing, never an arbitrary position above it");
+  assert.equal(f.viewer.camera.flights.length, 0, "initial fit cannot overwrite target restoration");
+}
+for (const city of ["bristol", "london", "birmingham"]) for (const profile of ["balanced", "economy"]) {
+  for (const dimensions of [[1040, 500], [800, 500], [1400, 400], [390, 700]]) {
+    test(`${city} ${profile} ${dimensions.join("x")} ordinary entry and explicit current default stream the real sample`, async t => {
+      enableRealCamera(t, dimensions);
+      const f = fixture(t, city, { sequence: 1, result: { kind: "none" } }, profile), pkg = retainedPackages[city];
+      await f.manifest(pkg);
+      assert.equal(f.requests.length, 1, "normal UI entry waits for target-centered viewport reporting");
+      await until(() => f.requests.length > 1, "real camera footprint triggers sample tile reads");
+      assertSampleTarget(f, pkg, dimensions, profile);
+      const oldTiles = f.requests.filter(request => request.url.includes("/tiles/"));
+      assert.ok(oldTiles.length <= (profile === "economy" ? 1 : 3));
+      const firstViewer = f.viewer;
+      f.navigate(cameraNavigation(2, city, "0".repeat(64)));
+      assert.match(f.content, /来源修订与当前渲染包不一致/);
+      assert.equal(firstViewer.isDestroyed(), true);
+      assert.ok(oldTiles.every(request => request.options.signal.aborted));
+      for (const request of oldTiles) await f.respond(request, new Response("cancelled old view", { status: 503 }));
+      const beforeDefault = f.requests.length;
+      f.click("使用当前默认视角");
+      assert.equal(f.requests.length, beforeDefault, "default choice also waits for the actual new viewport");
+      await until(() => f.requests.length > beforeDefault, "current default resumes on-target reads");
+      assertSampleTarget(f, pkg, dimensions, profile);
+      assert.equal(f.requests.filter(request => request.url.endsWith("/manifest")).length, 1);
+      f.assertReadOnly();
+    });
+  }
+}
+for (const profile of ["balanced", "economy"]) for (const dimensions of [[1040, 500], [390, 700]]) {
+  test(`${profile} ${dimensions.join("x")} city switching frames each actual sample and releases prior camera sessions`, async t => {
+    enableRealCamera(t, dimensions);
+    const f = fixture(t, "bristol", { sequence: 1, result: { kind: "none" } }, profile);
+    for (const [index, city] of ["bristol", "london", "birmingham"].entries()) {
+      if (index) {
+        const oldViewer = f.viewer, oldRequests = [...f.requests];
+        f.update(city); f.navigate({ sequence: index + 1, result: { kind: "none" } });
+        assert.equal(oldViewer.isDestroyed(), true);
+        assert.ok(oldRequests.every(request => request.options.signal.aborted));
+      }
+      const pkg = retainedPackages[city];
+      await f.manifest(pkg);
+      const before = f.requests.length;
+      await until(() => f.requests.length > before, `${city} actual viewport starts tile reads`);
+      assertSampleTarget(f, pkg, dimensions, profile);
+      assert.ok(f.requests.at(-1).url.startsWith(`/api/cities/${city}/render/${pkg.manifest.revision}/tiles/`));
+    }
+    assert.equal(f.viewers.length, 3);
+    f.assertReadOnly();
+  });
+}

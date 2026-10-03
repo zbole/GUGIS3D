@@ -683,3 +683,26 @@ test("camera handles restore initial and later poses without initial fit, stale 
   f.viewer.camera.computeViewRectangle = () => ({ west: NaN, south: 0, east: 1, north: 1 });
   assert.equal(ref.current.getCameraPose(), null, "non-finite footprint also refuses capture");
 });
+
+
+test("real camera preserves an arbitrary bookmarked pose instead of applying target framing", async t => {
+  const previousDimensions = viewState.realCameraDimensions;
+  viewState.realCameraDimensions = [1040, 500];
+  t.after(() => { viewState.realCameraDimensions = previousDimensions; });
+  const ref = React.createRef(), reports = [], pose = [-74, 40.7, 1800, 120, -70, 5];
+  const f = fixture({ ref, renderOnly: true, fullDetails: false, cameraRequest: { sequence: "exact-bookmark", pose },
+    onViewBounds: (view, sequence) => reports.push({ view, sequence }) });
+  t.after(() => f.close());
+  const restored = ref.current.getCameraPose();
+  assert.ok(restored, "valid oblique bookmark retains its own ellipsoid footprint");
+  pose.forEach((expected, index) => assert.ok(Math.abs(restored[index] - expected) < .000001));
+  assert.equal(f.viewer.camera.frames.length, 0);
+  assert.equal(f.viewer.camera.sets.length, 1);
+  assert.equal(f.viewer.camera.flights.length, 0);
+  await act(async () => { await new Promise(resolve => setTimeout(resolve, 220)); });
+  assert.deepEqual(reports.map(report => report.sequence), ["exact-bookmark"]);
+  assert.ok(reports[0].view.bounds[0] < -73, "explicit bookmarks are not silently moved back to the city");
+  f.update({ city: { ...city, instances: [...city.instances] } });
+  assert.equal(f.viewer.camera.sets.length, 1);
+  assert.equal(f.viewer.camera.frames.length, 0);
+});
