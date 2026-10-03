@@ -1,0 +1,36 @@
+{
+  "city_id": "london",
+  "coverage_label": "Westminster / Whitehall",
+  "query_bbox_south_west_north_east": [
+    51.496,
+    -0.138,
+    51.508,
+    -0.123
+  ],
+  "bbox": [
+    -0.138,
+    51.496,
+    -0.123,
+    51.508
+  ],
+  "centre_lon_lat": [
+    -0.1305,
+    51.502
+  ],
+  "query": "[out:json][timeout:90];(way[\"building\"](51.496,-0.138,51.508,-0.123);way[\"highway\"][\"name\"](51.496,-0.138,51.508,-0.123););out tags geom;",
+  "source_url": "https://overpass-api.de/api/interpreter",
+  "downloaded_at": "2026-10-03T04:33:17.306766+00:00",
+  "osm_timestamp": "2026-10-03T04:31:51Z",
+  "sha256": "5db34df2aa145ee5a5f5f4afc47e3b565d704c7d8f924d89d8a9341499ad942a",
+  "bytes": 1072304,
+  "elements": 1589,
+  "building_ways": 825,
+  "road_ways": 762,
+  "scope": "Bounding-box sample; no city-wide coverage claim. Building ways only; multipolygon relations and terrain are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 5.297,
+  "previous_attempts": []
+}

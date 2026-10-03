@@ -5,7 +5,7 @@ export type ProjectFreshness = "checking" | "current" | "changed" | "offline" | 
 const revisionPattern = /^[a-f0-9]{64}$/;
 
 /** Read-only comparison against saved evidence; never reload or change that evidence. */
-export function useProjectFreshness(snapshotRevision: string, apiBase = "/api") {
+export function useProjectFreshness(snapshotRevision: string, apiBase = "/api", cityPrefix = "/city") {
   const [freshness, setFreshness] = useState<ProjectFreshness>("checking");
   const checkRef = useRef<(() => void) | null>(null);
   const recheck = useCallback(() => { checkRef.current?.(); }, []);
@@ -41,7 +41,7 @@ export function useProjectFreshness(snapshotRevision: string, apiBase = "/api") 
         setFreshness("offline");
       }, 7000);
       try {
-        const response = await fetch(`${apiBase.replace(/\/$/, "")}/city/revision`, {
+        const response = await fetch(`${apiBase.replace(/\/$/, "")}${cityPrefix}/revision`, {
           method: "GET", cache: "no-store", signal: request.controller.signal,
         });
         if (!response.ok) throw new Error("Revision unavailable");
@@ -84,7 +84,7 @@ export function useProjectFreshness(snapshotRevision: string, apiBase = "/api") 
       window.removeEventListener("blur", onBlur);
       document.removeEventListener("visibilitychange", onVisibilityChange);
     };
-  }, [snapshotRevision, apiBase]);
+  }, [snapshotRevision, apiBase, cityPrefix]);
 
   return { freshness, recheck };
 }

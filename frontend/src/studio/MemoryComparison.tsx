@@ -1,7 +1,19 @@
 import { ChevronDown } from "lucide-react";
 import { memoryComparison, memoryMB } from "./memoryBenchmark";
 
-export default function MemoryComparison({ revision }: { revision: string }) {
+export default function MemoryComparison({ revision, cityId = "bristol" }: { revision: string; cityId?: string }) {
+  if (cityId !== "bristol") return (
+    <details className="memory-comparison">
+      <summary>
+        <span className="memory-label">城市数据内存对比</span>
+        <span className="memory-stale">当前城市内存基准待测</span>
+        <span className="memory-toggle">测量说明 <ChevronDown size={16} aria-hidden="true" /></span>
+      </summary>
+      <div className="memory-details">
+        <p className="memory-method">此城市尚无独立点线与共享几何的同源内存测量报告。下方实例、模型和几何记录数量属于当前城市；内存占用与节省比例将在生成该城市的基准后展示。</p>
+      </div>
+    </details>
+  );
   const result = memoryComparison(revision);
   return (
     <details className="memory-comparison">

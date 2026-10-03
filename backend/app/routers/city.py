@@ -14,6 +14,7 @@ from ..studio_models import BuildingDocument
 from ..city_models import CityWrite, GeoJSONImport
 from ..services.city_generator import seed_city, footprint_document
 from ..services.city_archive import CITY_ADAPTER, load_city, expand_city, archive_bytes, pack_city
+from ..services import city_workspaces
 
 router=APIRouter(prefix="/city",tags=["Persistent city projects"])
 CITY_DIR=Path(__file__).resolve().parents[3]/".local"/"city"
@@ -21,6 +22,28 @@ SEED=Path(__file__).resolve().parents[2]/"data"/"bristol.gugis.json"
 lock=threading.RLock()
 _validated_snapshot = None
 _archive_snapshot = None
+
+
+def current_directory():
+    return city_workspaces.directory(CITY_DIR)
+
+
+def current_seed():
+    return city_workspaces.seed_path(SEED)
+
+
+def benchmark_directory():
+    # Preserve Bristol's existing immutable experiment packages.
+    return CITY_DIR.parent / 'benchmark' if city_workspaces.ACTIVE_CITY.get() == 'bristol' else current_directory() / 'benchmark'
+
+
+def project_bounds():
+    return city_workspaces.crop_bounds()
+
+
+def project_center():
+    west, south, east, north = project_bounds()
+    return ((west + east) / 2, (south + north) / 2)
 
 
 def revision(content):return hashlib.sha256(content).hexdigest()
@@ -35,10 +58,15 @@ def atomic_write(path, content):
 
 def read_current():
     global _validated_snapshot
-    CITY_DIR.mkdir(parents=True,exist_ok=True)
-    path=CITY_DIR/"current.gugis.json"
+    current_directory().mkdir(parents=True,exist_ok=True)
+    path=current_directory()/"current.gugis.json"
     if not path.exists():
-        content=archive_bytes(load_city(SEED.read_bytes())) if SEED.exists() else archive_bytes(seed_city())
+        source=current_seed()
+        if source.exists():
+            initial=load_city(source.read_bytes())
+        else:
+            initial=seed_city() if city_workspaces.ACTIVE_CITY.get() == 'bristol' else city_workspaces.empty_document()
+        content=archive_bytes(initial)
         atomic_write(path,content)
     content=path.read_bytes()
     digest=revision(content)
@@ -46,7 +74,7 @@ def read_current():
         doc=_validated_snapshot[1]
     else:
         try: doc=load_city(content)
-        except ValidationError as e:raise HTTPException(500,"Saved city is invalid. Recover a version from .local/city/versions; current file was not overwritten.") from e
+        except ValidationError as e:raise HTTPException(500,f"Saved city is invalid. Recover a version from {current_directory() / 'versions'}; current file was not overwritten.") from e
         _validated_snapshot=(digest,doc)
     return content,doc
 
@@ -82,7 +110,7 @@ def current():
 def current_revision():
     """Lightweight freshness check for published benchmark snapshots."""
     with lock:
-        path=CITY_DIR/"current.gugis.json"
+        path=current_directory()/"current.gugis.json"
         if not path.exists():
             read_current()
         return {"revision": revision(path.read_bytes())}
@@ -107,7 +135,7 @@ def write_snapshot(document, content, stats, base_revision):
         previous,_=read_current()
         if revision(previous)!=base_revision and revision(previous)!=revision(content):
             raise HTTPException(409,"City changed in another window. Reload the saved project before retrying; your draft has not been applied.")
-        versions=CITY_DIR/"versions";versions.mkdir(exist_ok=True)
+        versions=current_directory()/"versions";versions.mkdir(exist_ok=True)
         for snapshot in (previous,content):
             path=versions/f"{revision(snapshot)}.gugis.json"
             if path.exists():
@@ -116,13 +144,13 @@ def write_snapshot(document, content, stats, base_revision):
                 if path.read_bytes() != snapshot:
                     raise HTTPException(409, detail={
                         'code': 'snapshot_integrity',
-                        'message': f'历史快照校验失败（{path.name}），正式城市未覆盖。请先导出当前项目备份，再检查 .local/city/versions 中的损坏版本。',
+                        'message': f'历史快照校验失败（{path.name}），正式城市未覆盖。请先导出当前项目备份，再检查 {versions} 中的损坏版本。',
                     })
             else:atomic_write(path,snapshot)
-        atomic_write(CITY_DIR/"current.gugis.json",content)
+        atomic_write(current_directory()/"current.gugis.json",content)
         _validated_snapshot=(revision(content),document)
         _archive_snapshot=(revision(content),content,stats)
-        return {"revision":revision(content),"bytes":len(content),"storage":stats,"directory":str(CITY_DIR),"filename":"current.gugis.json"}
+        return {"revision":revision(content),"bytes":len(content),"storage":stats,"directory":str(current_directory()),"filename":"current.gugis.json"}
 
 
 @router.post("/validate")
@@ -140,7 +168,7 @@ def export():
     # Serve the exact validated formal snapshot, not an unchecked history file.
     # Immutable response bytes also remain consistent if another request saves.
     return Response(content, media_type="application/json", headers={
-        'Content-Disposition': 'attachment; filename="Bristol-city.gugis.json"',
+        'Content-Disposition': f'attachment; filename="{city_workspaces.ACTIVE_CITY.get()}-city.gugis.json"',
         'X-GUGIS-City-Revision': digest,
     })
 
@@ -152,7 +180,9 @@ def schema():return CITY_ADAPTER.json_schema()
 @router.get('/terrain/demo')
 def terrain_demo():
     from ..services.terrain_builder import demo_terrain
-    return {'terrain':demo_terrain().model_dump(mode='json',exclude_none=True)}
+    workspace = city_workspaces.workspace_entry(city_workspaces.ACTIVE_CITY.get())
+    return {'terrain':demo_terrain(center=workspace['center_wgs84'],
+                                  name=f"{workspace['name']}范围 · 方法演示地形（非实测）").model_dump(mode='json',exclude_none=True)}
 
 
 @router.post('/terrain/upgrade')
@@ -172,7 +202,7 @@ async def terrain_benchmark_download(snapshot: str | None = Query(default=None, 
     with lock:
         content, document = read_current()
         if snapshot and snapshot != revision(content):
-            version = CITY_DIR / 'versions' / f'{snapshot}.gugis.json'
+            version = current_directory() / 'versions' / f'{snapshot}.gugis.json'
             if not version.exists():
                 raise HTTPException(404, '对比快照不存在；当前项目不能替代历史测量数据')
             content = version.read_bytes()
@@ -183,7 +213,7 @@ async def terrain_benchmark_download(snapshot: str | None = Query(default=None, 
         digest = revision(content)
     if terrain is None:
         raise HTTPException(404, '当前城市没有地形')
-    directory = CITY_DIR.parent / 'benchmark'
+    directory = benchmark_directory()
     directory.mkdir(parents=True, exist_ok=True)
     package = directory / f'terrain-{digest[:16]}.zip'
     if not package.exists():
@@ -193,7 +223,7 @@ async def terrain_benchmark_download(snapshot: str | None = Query(default=None, 
             os.replace(temporary, package)
         finally:
             temporary.unlink(missing_ok=True)
-    return FileResponse(package, media_type='application/zip', filename='Bristol-terrain-MultiPatch.zip')
+    return FileResponse(package, media_type='application/zip', filename=f'{city_workspaces.ACTIVE_CITY.get()}-terrain-MultiPatch.zip')
 
 
 @router.get('/terrain/benchmark-suite.zip')
@@ -202,7 +232,7 @@ def terrain_comparison_download(snapshot: str = Query(pattern=r'^[0-9a-f]{64}$')
     """The multi-resolution package is tied to the displayed evidence snapshot."""
     from zipfile import BadZipFile, ZipFile
     suffix = f'-{bundle}' if bundle else ''
-    package = CITY_DIR.parent / 'benchmark' / f'terrain-suite-{snapshot[:16]}{suffix}.zip'
+    package = benchmark_directory() / f'terrain-suite-{snapshot[:16]}{suffix}.zip'
     if not package.exists():
         raise HTTPException(404, '该修订号尚未生成地形对比实验包')
     try:
@@ -232,7 +262,10 @@ async def terrain_import(request: Request, filename: str = Query(max_length=200)
         content.extend(chunk)
         if len(content)>128*1024*1024: raise HTTPException(413,'DEM 超过 128 MiB，请先裁剪栅格')
     try:
-        terrain=await run_in_threadpool(import_dem,bytes(content),filename,source_crs,datum,stride)
+        workspace = await run_in_threadpool(city_workspaces.workspace_entry, city_workspaces.ACTIVE_CITY.get())
+        terrain=await run_in_threadpool(import_dem,bytes(content),filename,source_crs,datum,stride,
+                                       clip_bounds=workspace['query_bbox_wgs84'],
+                                       center=workspace['center_wgs84'], coverage_label=workspace['coverage_label'])
         return {'terrain':terrain.model_dump(mode='json',exclude_none=True)}
     except Exception as error:
         raise HTTPException(422,str(error)[:350]) from error

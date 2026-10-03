@@ -1,0 +1,29 @@
+{
+  "city_id": "birmingham",
+  "source_sha256": "6aa13a5ed45e46a1b78e26aecff41b3d0d265ce3ac8eaf6d9dd676321ea50731",
+  "source_building_ways": 809,
+  "imported_buildings": 809,
+  "imported_roads": 479,
+  "query_bbox_wgs84": [
+    -1.914,
+    52.476,
+    -1.901,
+    52.488
+  ],
+  "actual_data_bbox_wgs84": [
+    -1.9186071,
+    52.474702,
+    -1.8998589,
+    52.4895005
+  ],
+  "height_policy": {
+    "height-tag": 52,
+    "levels-derived": 133,
+    "assumed": 624
+  },
+  "omitted_buildings": [],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 1715239,
+  "gugis_sha256": "a5d38bcdcec5a1181db4f56f98414612709c5f51a0a642fe89d35f89965809fd"
+}

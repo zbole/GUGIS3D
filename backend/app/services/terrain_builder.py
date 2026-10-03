@@ -78,11 +78,12 @@ def upgrade_legacy_fans(terrain: Terrain) -> Terrain:
                                    'patches': [p.model_dump(exclude_none=True) for p in patches]})
 
 
-def demo_terrain():
+def demo_terrain(*, center=None, name=None):
     axis=np.linspace(-650,650,53)
     x,y=np.meshgrid(axis,axis)
     z=12+45*np.exp(-((x+180)**2+(y-30)**2)/38000)+8*np.exp(-((x-100)**2+(y-350)**2)/20000)+0.008*y
-    return from_grid(x,y,z,name='布里斯托范围 · 方法演示地形（非实测）',longitude=-2.603,latitude=51.454,
+    longitude,latitude = center or (-2.603,51.454)
+    return from_grid(x,y,z,name=name or '布里斯托范围 · 方法演示地形（非实测）',longitude=longitude,latitude=latitude,
                      datum='local',demonstration=True,source={
                          '来源':'解析高程函数生成，仅演示直纹面带与三角带查询',
                          '精度':'不是布里斯托真实地形，不能用于地理测量或工程分析',
@@ -91,12 +92,21 @@ def demo_terrain():
                      })
 
 
-def import_dem(content, filename, source_crs='', datum='unknown', stride=10):
+def import_dem(content, filename, source_crs='', datum='unknown', stride=10, *, clip_bounds=None, center=None, coverage_label=None):
     from rasterio.io import MemoryFile
     from rasterio.windows import from_bounds, Window
     from rasterio.transform import xy
     from rasterio.enums import Resampling
     from pyproj import CRS, Transformer
+    geographic_bounds = tuple(clip_bounds or (-2.614,51.446,-2.592,51.462))
+    if (len(geographic_bounds) != 4 or not all(math.isfinite(v) for v in geographic_bounds)
+        or not -180 <= geographic_bounds[0] < geographic_bounds[2] <= 180
+        or not -85 <= geographic_bounds[1] < geographic_bounds[3] <= 85):
+        raise ValueError('城市 DEM 裁剪范围必须为有效 WGS84 边界')
+    lon0,lat0 = center or ((geographic_bounds[0]+geographic_bounds[2])/2,
+                          (geographic_bounds[1]+geographic_bounds[3])/2)
+    if not (math.isfinite(lon0) and math.isfinite(lat0) and -180 <= lon0 <= 180 and -85 <= lat0 <= 85):
+        raise ValueError('城市地形基点必须为有效 WGS84 经度 / 纬度')
     # MemoryFile limits this importer to in-memory raster data, never VRT/remote references.
     driver = 'GTiff' if content[:4] in (b'II*\x00',b'MM\x00*',b'II+\x00',b'MM\x00+') else 'AAIGrid'
     if driver == 'AAIGrid' and not content.lstrip().lower().startswith(b'ncols'):
@@ -112,10 +122,10 @@ def import_dem(content, filename, source_crs='', datum='unknown', stride=10):
             if abs(transform.b)>1e-10 or abs(transform.d)>1e-10 or transform.a<=0 or transform.e>=0:
                 raise ValueError('请先将 DEM 重投影为北向上的规则网格')
             to_source=Transformer.from_crs(4326,crs,always_xy=True)
-            bounds=to_source.transform_bounds(-2.614,51.446,-2.592,51.462,densify_pts=21)
+            bounds=to_source.transform_bounds(*geographic_bounds,densify_pts=21)
             window=from_bounds(*bounds, transform=transform).round_offsets().round_lengths()
             try: window=window.intersection(Window(0,0,dataset.width,dataset.height))
-            except Exception as error: raise ValueError('DEM 与布里斯托起始街区不相交') from error
+            except Exception as error: raise ValueError('DEM 与当前城市工作区裁剪范围不相交') from error
             rows,cols=math.ceil(window.height/stride),math.ceil(window.width/stride)
             if rows*cols>300000:
                 raise ValueError(f'裁剪后仍有 {rows*cols:,} 个采样点，请增大采样步长（当前 {stride}）')
@@ -132,7 +142,6 @@ def import_dem(content, filename, source_crs='', datum='unknown', stride=10):
             to_geo=Transformer.from_crs(crs,4326,always_xy=True)
             lon,lat=to_geo.transform(np.asarray(sx).reshape(rows,cols),np.asarray(sy).reshape(rows,cols))
             # Horizontal ENU coordinates from WGS84 at zero ellipsoid height.
-            lon0,lat0=-2.603,51.454
             to_ecef=Transformer.from_crs(4979,4978,always_xy=True)
             ex,ey,ez=to_ecef.transform(lon,lat,np.zeros_like(lon))
             ox,oy,oz=to_ecef.transform(lon0,lat0,0)
@@ -145,7 +154,8 @@ def import_dem(content, filename, source_crs='', datum='unknown', stride=10):
                 '源坐标系':str(crs), '源像元尺寸':f'{abs(transform.a):g} × {abs(transform.e):g}（源坐标系单位）',
                 '采样':'nearest 重采样；步长 '+str(stride)+' 像元；'+str(cols)+' × '+str(rows),
                 '分类规则':'最大相邻坡度 ≤0.15 用直纹面带；较陡区域用三角带',
-                '覆盖范围':'仅导入布里斯托起始街区及周边；NoData 单元保留空洞',
+                '覆盖范围':(coverage_label or '布里斯托起始街区及周边')+'；仅导入当前工作区裁剪范围，NoData 单元保留空洞',
+                '裁剪边界WGS84':str(list(geographic_bounds)),
                 '高程单位':'米；已应用栅格 scale / offset',
                 '垂直处理':'保留源高程；显示时减去 reference_height，未转换为 WGS84 椭球高',
                 '水平转换精度':f'PROJ 报告 {to_geo.accuracy:g} m（-1 表示未知；未保证测绘精度）',

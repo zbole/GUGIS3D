@@ -1,0 +1,38 @@
+{
+  "city_id": "london",
+  "source_sha256": "5db34df2aa145ee5a5f5f4afc47e3b565d704c7d8f924d89d8a9341499ad942a",
+  "source_building_ways": 825,
+  "imported_buildings": 823,
+  "imported_roads": 762,
+  "query_bbox_wgs84": [
+    -0.138,
+    51.496,
+    -0.123,
+    51.508
+  ],
+  "actual_data_bbox_wgs84": [
+    -0.1406102,
+    51.4948591,
+    -0.1199859,
+    51.5087403
+  ],
+  "height_policy": {
+    "height-tag": 17,
+    "levels-derived": 334,
+    "assumed": 472
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 364313092,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 367642706,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 1951713,
+  "gugis_sha256": "eae9915aebbbbeaa4d5bd8998e339b112b42dbb08b64ed4145014d86d4e8c050"
+}

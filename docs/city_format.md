@@ -4,7 +4,7 @@
 
 含函数地物或地形的项目写入 **City 1.2**，保留现有共享建筑库，并增加 environment。数学定义、DEM 处理及验证边界见 [城市环境扩展](environment_format.md)。不含环境的旧项目继续保存为 1.1。
 
-城市是可持续修改的数据文件。前端查看完整项目；制作或导入的建筑会追加为实例，更新单栋不会替换邻楼。修改完成后通过后端写入 `.local/city/current.gugis.json`，刷新或重新启动可恢复。
+城市是可持续修改的数据文件。前端查看当前城市的完整项目；制作或导入的建筑会追加为实例，更新单栋不会替换邻楼。布里斯托继续写入 `.local/city/current.gugis.json`；伦敦、伯明翰分别写入 `.local/cities/{city_id}/current.gugis.json`，刷新或重新启动可恢复。三城只挂载当前场景，各自保留草稿和历史；数据计数、来源与范围见 [三城独立工作区](multi_city_workspaces.md)。
 
 本项目采用自定义 JSON 格式；不声称与尚未提供规范的原 C++ `.gugis` / `.index` 二进制格式兼容。轮廓细化模型使用 `gugis-studio` 1.2，读取兼容 Studio 1.0 / 1.1 文件；原有参数样式仍可使用 1.1。
 
@@ -36,7 +36,7 @@
 
 - 每次已应用的添加、更新、复制、删除、撤销、导入都会保存。尚未提交的表单草稿不属于城市文件。
 - 后端校验后先保留新旧快照，再写临时文件、刷新到磁盘并原子替换当前文件。
-- 快照位于 `.local/city/versions/{sha256}.gugis.json`，可用“导入城市 / 建筑”恢复。快照不会自动清理。
+- 快照位于所选城市目录的 `versions/{sha256}.gugis.json`；布里斯托原 `.local/city/versions` 路径不变。可通过历史面板预览后确认恢复，或用“导入城市 / 建筑”恢复。快照不会自动清理。
 - 保存携带内容哈希版本。如果另一窗口已写入，返回 409，拒绝覆盖；当前草稿保留，重新载入后可再应用。
 - 页面提供最近 10 次本次会话修改的撤销；刷新后仍可从版本文件恢复。
 - 损坏当前文件会明确报错，不会静默恢复默认示例。
@@ -72,6 +72,8 @@ GeoJSON 几何转换与响应 JSON 编码使用既有后台线程池，避免转
 
 ## 起始数据及真实性
 
+本节描述布里斯托种子。伦敦 823 栋 / 762 条道路、伯明翰 809 栋 / 479 条道路为 2026-10-03 保留的真实 OSM 中心街区轮廓样本，采用 LoD1 体量；不代表全城，未附实测 DEM，亦未完成内部或立面复原。伦敦 2 栋转换遗漏、来源哈希、高度估算与 ODbL 归属见 [三城数据说明](multi_city_workspaces.md)。
+
 保留的 OSM 查询覆盖 Brandon Hill、Park Street、College Green 周边，选取距核心中心最近的 600 个可转换闭合 way 建筑轮廓，以及 544 个道路 way 记录。不是布里斯托全市模型，未获取 multipolygon 关系。高度读取 `height`，其次按 `building:levels × 3.2 m` 推算，缺失则假设三层。各对象保存高度依据。数据时间保留在文件 metadata 中。
 
 Wills Memorial Building、Cabot Tower、Bristol Cathedral 的定位参考保留的 OSM 轮廓，外形按公开资料制作，包括塔楼、八角构件、尖拱窗、侧廊、扶壁和屋顶。尺寸、内部空间和分段均为建模假设；没有声称测绘精度。12 栋乔治式 / 维多利亚式街屋是单独标注的设计示范，不代表对应位置真实现状。
@@ -85,6 +87,8 @@ Wills Memorial Building、Cabot Tower、Bristol Cathedral 的定位参考保留�
 - [Bristol Cathedral：历史](https://bristol-cathedral.co.uk/history/)
 
 ## 接口及独立制作
+
+以下 `/city` 接口保留兼容并指向布里斯托。三城页面使用 `/cities/{city_id}/city` 前缀，后缀、版本检查及保存语义相同；`GET /cities` 只返回工作区摘要。城市标识为 `bristol`、`london`、`birmingham`，未知标识返回 404。
 
 | 接口 | 用途 |
 |---|---|

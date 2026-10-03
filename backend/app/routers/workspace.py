@@ -64,7 +64,7 @@ class DraftToken(StrictModel):
     revision: str = Field(pattern=r'^[a-f0-9]{64}$')
 
 def draft_path():
-    return city.CITY_DIR / 'pending-draft.json'
+    return city.current_directory() / 'pending-draft.json'
 
 def draft_revision():
     return city.revision(draft_path().read_bytes()) if draft_path().exists() else None
@@ -74,12 +74,12 @@ def read_envelope(content):
     try:
         return DraftEnvelope.model_validate_json(content)
     except (ValueError, ValidationError) as error:
-        raise HTTPException(422, '独立草稿校验失败，原文件仍保留在 .local/city/pending-draft.json；正式城市可继续读取') from error
+        raise HTTPException(422, f'独立草稿校验失败，原文件仍保留在 {draft_path()}；正式城市可继续读取') from error
 
 
 def read_receipt():
     try:
-        return json.loads((city.CITY_DIR/'draft-commit.json').read_bytes())
+        return json.loads((city.current_directory()/'draft-commit.json').read_bytes())
     except (OSError, ValueError):
         return {}
 
@@ -133,7 +133,7 @@ def commit_draft(token: DraftToken):
         if receipt.get('draft_revision') == token.revision and receipt.get('revision') == city.revision(previous):
             # A lost HTTP response can be retried after cleanup or server restart.
             _, stats = pack_city(document)
-            return {**receipt, 'storage': stats, 'directory': str(city.CITY_DIR), 'filename': 'current.gugis.json'}
+            return {**receipt, 'storage': stats, 'directory': str(city.current_directory()), 'filename': 'current.gugis.json'}
         if draft_revision() != token.revision:
             raise HTTPException(409, '草稿已改变或不存在，请重新载入')
         pending = read_envelope(draft_path().read_bytes())
@@ -148,10 +148,10 @@ def commit_draft(token: DraftToken):
         # snapshot checks/writes succeed. Retrying an interrupted no-op is safe.
         noop = receipt['revision'] == city.revision(previous)
         if not noop:
-            city.atomic_write(city.CITY_DIR/'draft-commit.json', json.dumps(receipt).encode())
+            city.atomic_write(city.current_directory()/'draft-commit.json', json.dumps(receipt).encode())
         result = city.write_snapshot(document, packed, stats, pending.base_revision)
         if noop:
-            city.atomic_write(city.CITY_DIR/'draft-commit.json', json.dumps(receipt).encode())
+            city.atomic_write(city.current_directory()/'draft-commit.json', json.dumps(receipt).encode())
         try:
             draft_path().unlink()
         except OSError:
@@ -173,7 +173,7 @@ def versions(offset: int = Query(0, ge=0), limit: int = Query(20, ge=1, le=50)):
     with city.lock:
         content, _ = city.read_current()
         digest = city.revision(content)
-        directory = city.CITY_DIR/'versions'
+        directory = city.current_directory()/'versions'
         files = sorted((p for p in directory.glob('*.gugis.json') if re.fullmatch(r'[a-f0-9]{64}\.gugis\.json', p.name)), key=lambda p: p.stat().st_mtime_ns, reverse=True)
         entries = [dict(revision=p.name.split('.')[0], modified_at=datetime.fromtimestamp(p.stat().st_mtime, timezone.utc).isoformat(), bytes=p.stat().st_size, current=p.name.startswith(digest)) for p in files[offset:offset+limit]]
         return {'versions':entries, 'has_more':offset+limit<len(files)}
@@ -183,7 +183,7 @@ def version(revision: str):
     if revision != 'baseline' and not re.fullmatch('[a-f0-9]{64}', revision):
         raise HTTPException(404, '找不到这个历史版本')
     with city.lock:
-        path = city.SEED if revision == 'baseline' else city.CITY_DIR/'versions'/f'{revision}.gugis.json'
+        path = city.current_seed() if revision == 'baseline' else city.current_directory()/'versions'/f'{revision}.gugis.json'
         if not path.is_file(): raise HTTPException(404, '历史版本不存在')
         content = path.read_bytes()
         if revision != 'baseline' and city.revision(content) != revision:

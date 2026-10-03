@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { listVersions, type CityVersion } from "./cityApi";
+import { listVersions as legacyListVersions, type CityApi, type CityVersion } from "./cityApi";
 export default function RecoveryPanel({
   busy,
   onPreview,
+  api,
+  baselineLabel,
 }: {
   busy: boolean;
   onPreview: (id: string, label: string, buildingsOnly?: boolean) => void;
+  api?: Pick<CityApi, "listVersions">;
+  baselineLabel?: string;
 }) {
+  const listVersions = api?.listVersions ?? legacyListVersions;
   // A new request identity also reloads the same page without exposing old rows.
   const [request, setRequest] = useState({ offset: 0 });
   const latestRequest = useRef(request);
@@ -35,7 +40,7 @@ export default function RecoveryPanel({
     return () => {
       active = false;
     };
-  }, [request, offset]);
+  }, [request, offset, listVersions]);
   const changePage = (nextOffset: number) => {
     if (busy || loading || latestRequest.current !== request) return;
     const next = { offset: nextOffset };
@@ -66,10 +71,10 @@ export default function RecoveryPanel({
       <button
         disabled={busy || loading}
         onClick={() =>
-          preview("baseline", "恢复内置初始城市（615 栋，不含后加地形）")
+          preview("baseline", baselineLabel ? `恢复${baselineLabel}` : "恢复内置初始城市（615 栋，不含后加地形）")
         }
       >
-        预览内置初始城市
+        {baselineLabel ? `预览${baselineLabel}` : "预览内置初始城市"}
       </button>
       {loading && <p role="status">读取版本列表…</p>}
       {error && <p role="alert">版本列表读取失败：{error}</p>}

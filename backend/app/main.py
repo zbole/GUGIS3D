@@ -1,7 +1,8 @@
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .routers import analysis, export, layers, objects, studio, city, workspace
+from .services import city_workspaces
 
 app = FastAPI(
     title="gugis-webgis API",
@@ -30,3 +31,9 @@ app.include_router(export.router)
 app.include_router(studio.router)
 app.include_router(city.router)
 app.include_router(workspace.router)
+
+# Every prefixed request retains its own context in async and worker-thread code.
+# Legacy /city endpoints continue to target Bristol for existing clients.
+app.include_router(city_workspaces.router)
+app.include_router(city.router, prefix='/cities/{city_id}', dependencies=[Depends(city_workspaces.select_workspace)])
+app.include_router(workspace.router, prefix='/cities/{city_id}', dependencies=[Depends(city_workspaces.select_workspace)])

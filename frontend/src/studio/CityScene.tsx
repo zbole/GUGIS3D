@@ -62,6 +62,7 @@ export interface CitySceneHandle extends SceneHandle {
 }
 interface Props {
   city: CityDocument;
+  center?: GeographicPosition;
   selected: string | null;
   onSelect: (id: string | null) => void;
   context: boolean;
@@ -102,6 +103,7 @@ interface DetailedBuilding {
 export default forwardRef<CitySceneHandle, Props>(function CityScene(
   {
     city,
+    center = { longitude: -2.603, latitude: 51.454 },
     selected,
     onSelect,
     context,
@@ -445,7 +447,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       sets: GeometryInstance[][] = [[], []],
       meta: (Omit<(typeof parts.current)[number], "batch"> & { group: number })[] = [];
     const lightFrame = Transforms.eastNorthUpToFixedFrame(
-      Cartesian3.fromDegrees(-2.603, 51.454),
+      Cartesian3.fromDegrees(center.longitude, center.latitude),
     );
     const direction = Matrix4.multiplyByPointAsVector(
       lightFrame,
@@ -617,7 +619,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     }
     bounds.current = allPoints.length
       ? BoundingSphere.fromPoints(allPoints)
-      : new BoundingSphere(Cartesian3.fromDegrees(-2.603, 51.454), 300);
+      : new BoundingSphere(Cartesian3.fromDegrees(center.longitude, center.latitude), 300);
     // A flat local ground plane keeps context offline and avoids inventing terrain elevations.
     const inverse = Matrix4.inverse(lightFrame, new Matrix4());
     const local = allPoints.map((p) =>
@@ -646,7 +648,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
         material: Color.fromCssColorString("#c8cebd"),
       },
       orientation: Transforms.headingPitchRollQuaternion(
-        Cartesian3.fromDegrees(-2.603, 51.454),
+        Cartesian3.fromDegrees(center.longitude, center.latitude),
         new HeadingPitchRoll(0, 0, 0),
       ),
     });
@@ -734,6 +736,8 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     };
   }, [
     city.instances,
+    center.longitude,
+    center.latitude,
     city.assets,
     city.roads,
     terrain,

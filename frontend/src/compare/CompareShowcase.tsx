@@ -18,6 +18,8 @@ import { workspaceHref } from "../studio/workspaceNavigation";
 import TerrainComparisonLoader from "./TerrainComparisonLoader";
 import ComparisonOverview from "./ComparisonOverview";
 import { useProjectFreshness } from "./useProjectFreshness";
+import { cityWorkspaceHref, defaultCityWorkspace, type CityWorkspace } from "../studio/cityWorkspaces";
+import type { CityApi } from "../studio/cityApi";
 import "./compare.css";
 
 const sources = {
@@ -168,9 +170,21 @@ function CityIllustration() {
   );
 }
 
-export default function CompareShowcase() {
+export default function CompareShowcase({ workspace = defaultCityWorkspace, api }: { workspace?: CityWorkspace; api?: CityApi } = {}) {
+  if (workspace.id !== "bristol") return <div className="city-comparison-pending">
+    <span>GUGIS3D × ArcGIS / {workspace.name}</span>
+    <h1>{workspace.status === "pending" ? "城市数据待导入，" : "已导入城市数据，"}<br />对比实验待建立。</h1>
+    <p>{workspace.coverage_label}。当前未生成此城市的同源基准报告；布里斯托的存储节省、查询精度及剖面结果只对应布里斯托样本。</p>
+    <a href={cityWorkspaceHref(workspace.id)}>进入{workspace.name}三维工作区 →</a>
+    <a href="/compare">查看布里斯托已核验的对比证据 →</a>
+  </div>;
+  return <BristolComparison api={api} />;
+}
+
+function BristolComparison({ api }: { api?: CityApi }) {
+  const terrainDownload = api ? `${api.terrainMultipatchUrl}?snapshot=${evidence.revision}` : terrainPackageUrl;
   const [selected, setSelected] = useState<(typeof cases)[number]["id"]>("scene");
-  const { freshness, recheck } = useProjectFreshness(evidence.revision, import.meta.env.VITE_API_BASE_URL ?? "/api");
+  const { freshness, recheck } = useProjectFreshness(evidence.revision, import.meta.env.VITE_API_BASE_URL ?? "/api", api ? "/cities/bristol/city" : "/city");
   useEffect(() => {
     document.title = "GUGIS3D × ArcGIS · 证据对比";
   }, []);
@@ -232,7 +246,7 @@ export default function CompareShowcase() {
                 <text x="307" y="143">MultiPatch / 离散三角带</text>
               </svg>
               <div className="cmp-terrain-metrics"><div><strong>{evidence.terrainBenchmark.controlPoints.toLocaleString()}</strong><span>共享控制点</span></div><div><strong>{evidence.terrainBenchmark.ruledPatches.toLocaleString()} + {evidence.terrainBenchmark.triangleStrips.toLocaleString()}</strong><span>直纹面带 + 三角带</span></div><div><strong>{(evidence.terrainBenchmark.maxRuledHeightErrorMetres * 100).toFixed(2)} cm</strong><span>三角带离散最大高程差</span></div></div>
-              <div className="cmp-terrain-actions"><a href={terrainPackageUrl} className="cmp-case-demo">下载 2×2 对照文件 <ArrowDown size={15}/></a><a href={sources.multipatch} target="_blank" rel="noreferrer">查看 Esri 格式规范 <ExternalLink size={14}/></a></div>
+              <div className="cmp-terrain-actions"><a href={terrainDownload} className="cmp-case-demo">下载 2×2 对照文件 <ArrowDown size={15}/></a><a href={sources.multipatch} target="_blank" rel="noreferrer">查看 Esri 格式规范 <ExternalLink size={14}/></a></div>
             </article>
           </div>
           <p className="cmp-terrain-disclaimer">本次地形是合成演示数据，非真实 Bristol DTM。{evidence.terrainBenchmark.storageSavingPercent.toFixed(1)}% 仅指此快照的未压缩文件体积；最大高程差是相对 GUGIS 原生直纹曲面的离散误差，不能理解为实测地形误差。尚未在 ArcGIS Pro 内实测加载、内存、帧率或查询速度。</p>

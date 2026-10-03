@@ -1,0 +1,36 @@
+{
+  "city_id": "birmingham",
+  "coverage_label": "Civic centre / Jewellery Quarter",
+  "query_bbox_south_west_north_east": [
+    52.476,
+    -1.914,
+    52.488,
+    -1.901
+  ],
+  "bbox": [
+    -1.914,
+    52.476,
+    -1.901,
+    52.488
+  ],
+  "centre_lon_lat": [
+    -1.9075,
+    52.482
+  ],
+  "query": "[out:json][timeout:90];(way[\"building\"](52.476,-1.914,52.488,-1.901);way[\"highway\"][\"name\"](52.476,-1.914,52.488,-1.901););out tags geom;",
+  "source_url": "https://overpass-api.de/api/interpreter",
+  "downloaded_at": "2026-10-03T04:33:30.674476+00:00",
+  "osm_timestamp": "2026-10-03T04:31:51Z",
+  "sha256": "6aa13a5ed45e46a1b78e26aecff41b3d0d265ce3ac8eaf6d9dd676321ea50731",
+  "bytes": 871108,
+  "elements": 1296,
+  "building_ways": 809,
+  "road_ways": 479,
+  "scope": "Bounding-box sample; no city-wide coverage claim. Building ways only; multipolygon relations and terrain are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 13.36,
+  "previous_attempts": []
+}

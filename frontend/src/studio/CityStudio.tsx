@@ -50,22 +50,9 @@ import {
   putBuilding,
   removeBuilding,
 } from "./cityModel";
-import {
-  cityExportUrl,
-  loadCity,
-  persistCity,
-  validateCity,
-  importGeoJSON,
-  refineBuilding,
-  loadDraft,
-  persistDraft,
-  discardDraft,
-  commitDraft,
-  loadVersion,
-  generateBlock,
-  type CityDraft,
-  type DraftEditor,
-} from "./cityApi";
+import * as legacyCityApi from "./cityApi";
+import type { CityApi, CityDraft, DraftEditor } from "./cityApi";
+import { cityCenter, citySourceLicense, cityWorkspaceHref, defaultCityWorkspace, heightPolicyLabel, type CityWorkspace } from "./cityWorkspaces";
 import {
   generateBuilding,
   validateDocument,
@@ -79,33 +66,41 @@ import type { BuildingColorMode } from "./buildingAppearance";
 import { type WorkspaceTab } from "./workspaceNavigation";
 import { useWorkspaceNavigation } from "./useWorkspaceNavigation";
 
-const newDraft = (): Parameters => ({
+const newDraft = (center = cityCenter(defaultCityWorkspace)): Parameters => ({
   name: "乔治式住宅 · 新建",
   kind: "georgian",
   floors: 3,
   units: 1,
   floor_height: 3.4,
   scale: 1,
-  longitude: -2.6084,
-  latitude: 51.4527,
+  ...center,
   altitude: 0,
   heading: 0,
 });
-export default function CityStudio() {
+export default function CityStudio({ workspace = defaultCityWorkspace, api = legacyCityApi, onWorkspaceState, onRevisionChange }: {
+  workspace?: CityWorkspace;
+  api?: CityApi;
+  onWorkspaceState?: (id: string, busy: boolean, hasDraft: boolean) => void;
+  onRevisionChange?: () => void;
+} = {}) {
+  const center = cityCenter(workspace);
+  const sourceLicense = citySourceLicense(workspace);
+  const { cityExportUrl, loadCity, persistCity, validateCity, importGeoJSON, refineBuilding,
+    loadDraft, persistDraft, discardDraft, commitDraft, loadVersion, generateBlock } = api;
+
   const [city, setCity] = useState<CityDocument | null>(null),
     [storage, setStorage] = useState<StorageStatistics | null>(null),
     [revision, setRevision] = useState(""),
-    [active, setActive] = useState<string | null>("wills");
+    [active, setActive] = useState<string | null>(workspace.id === "bristol" ? "wills" : null);
   const [tab, setTab] = useWorkspaceNavigation();
   const [mode, setMode] = useState<"add" | "update">("add"),
-    [draft, setDraft] = useState<Parameters>(newDraft),
+    [draft, setDraft] = useState<Parameters>(() => newDraft(center)),
     [editId, setEditId] = useState<string | null>(null),
     [placing, setPlacing] = useState(false),
     [addedId, setAddedId] = useState<string | null>(null),
     [objectLink, setObjectLink] = useState("");
   const [environmentPosition, setEnvironmentPosition] = useState({
-      longitude: -2.6091,
-      latitude: 51.4538,
+      ...center,
       altitude: 0,
     }),
     [selectedFeature, setSelectedFeature] = useState<string | null>(null),
@@ -117,6 +112,7 @@ export default function CityStudio() {
   const [isolateFeature, setIsolateFeature] = useState(false);
   const [showFeatureMarkers, setShowFeatureMarkers] = useState(true);
   const [environmentEditing, setEnvironmentEditing] = useState(false);
+  const [environmentWorking, setEnvironmentWorking] = useState(false);
   const [expandedScene, setExpandedScene] = useState(false);
   const [colorMode, setColorMode] = useState<BuildingColorMode>("material");
   const [fullDetails, setFullDetails] = useState(true);
@@ -173,6 +169,19 @@ export default function CityStudio() {
     scene = useRef<CitySceneHandle>(null),
     sceneRegion = useRef<HTMLElement>(null),
     locked = useRef(false);
+  const mounted = useRef(true);
+  const loadSequence = useRef(0);
+  const previousRevision = useRef("");
+  useEffect(() => {
+    mounted.current = true;
+    return () => { mounted.current = false; ++loadSequence.current; };
+  }, []);
+  useEffect(() => { onWorkspaceState?.(workspace.id, busy || environmentWorking, !!preview); }, [workspace.id, busy, environmentWorking, !!preview, onWorkspaceState]);
+  useEffect(() => {
+    if (!revision || revision === previousRevision.current) return;
+    previousRevision.current = revision;
+    onRevisionChange?.();
+  }, [revision, onRevisionChange]);
   useEffect(() => {
     // Stop tools when leaving a workspace, but retain the editor and analysis route.
     setExpandedScene(false);
@@ -288,10 +297,12 @@ export default function CityStudio() {
     } catch (error) { setError(error instanceof Error ? error.message : String(error)); }
   }
   async function reload() {
+    const requestId = ++loadSequence.current;
     setBusy(true);
     setError("");
     try {
       const [formal, pendingResult] = await Promise.allSettled([loadCity(), loadDraft()]);
+      if (!mounted.current || requestId !== loadSequence.current) return;
       if (formal.status === "rejected") throw formal.reason;
       const r = formal.value;
       const pending = pendingResult.status === "fulfilled" ? pendingResult.value : null;
@@ -312,7 +323,8 @@ export default function CityStudio() {
         setActive(pending.editor.instance_id);
         setAddedId(pending.editor.mode === "add" ? pending.editor.instance_id : null);
       } else {
-        setDraft(newDraft());
+        setDraft(newDraft(center));
+        setActive(r.document.instances.find(item => item.id === "wills")?.id ?? r.document.instances[0]?.id ?? null);
         setMode("add");
         setEditId(null);
         setAddedId(null);
@@ -323,9 +335,9 @@ export default function CityStudio() {
           : "已恢复本地项目 · 所有数据均可继续编辑",
       );
     } catch (e) {
-      setError(String(e));
+      if (mounted.current && requestId === loadSequence.current) setError(String(e));
     } finally {
-      setBusy(false);
+      if (mounted.current && requestId === loadSequence.current) setBusy(false);
     }
   }
   useEffect(() => {
@@ -512,7 +524,7 @@ export default function CityStudio() {
   function add() {
     setMode("add");
     setEditId(null);
-    setDraft({ ...newDraft(), ...scene.current?.centerPosition() });
+    setDraft({ ...newDraft(center), ...scene.current?.centerPosition() });
     setPlacing(false);
     setTab("author");
   }
@@ -740,7 +752,7 @@ export default function CityStudio() {
       </header>
       <div className="studio-titlebar">
         <div>
-          <span className="eyebrow">BRISTOL <span>/</span> CITY WORKSPACE</span>
+          <span className="eyebrow">{workspace.city_name?.toUpperCase() ?? workspace.id.toUpperCase()} <span>/</span> CITY WORKSPACE</span>
           <h1>{city?.name ?? "正在载入城市项目"}</h1>
           <p>
             {city?.instances.length ?? 0} 栋建筑 <span>／</span> {detailed}{" "}
@@ -748,7 +760,7 @@ export default function CityStudio() {
           </p>
         </div>
         <div className="file-actions">
-          <a className="button-link compare-launch" href="/compare" title="查看 GUGIS3D 与 ArcGIS 的证据对比">
+          <a className="button-link compare-launch" href={cityWorkspaceHref(workspace.id, "/compare")} title="查看 GUGIS3D 与 ArcGIS 的证据对比">
             <ScanLine size={16} /> 对比展示
           </a>
           <button
@@ -786,8 +798,15 @@ export default function CityStudio() {
       <ProjectStatusPanel city={displayCity} revision={revision} hasDraft={!!preview}
         draftLabel={preview?.label} draftUnavailable={draftUnavailable}
         canSave={!!city && !preview && !draftUnavailable} busy={busy} activeWorkspace={tab}
-        sources={{ terrain: terrainSource }}
+        scopeLabel={workspace.coverage_label}
+        sources={{ terrain: terrainSource, buildings: workspace.id === "bristol" ? undefined : { kind: "user-imported", detail: `${workspace.source ?? "导入数据"}；初始数据为轮廓体量，自行制作或修改的模型见各对象属性，建筑内部未整体核验。` }, roads: workspace.id === "bristol" ? undefined : { kind: "user-imported", detail: workspace.source ?? "导入道路数据" } }}
         onAction={action => action === "recovery" ? setRecovery(true) : setTab(action)} />
+      {workspace.id !== "bristol" && <section className="city-workspace-data-note" aria-label="当前城市数据覆盖与精度">
+        <strong>{workspace.status === "pending" ? "待导入数据" : "真实轮廓 · 起始街区"}</strong>
+        <p>{workspace.status === "pending" ? "此城市暂未取得数据。可导入 GeoJSON、GUGIS 城市或建筑文件；正式数据与草稿只属于当前城市。"
+          : `${workspace.coverage_label}。初始导入：${heightPolicyLabel(workspace.height_policy)}。LoD1 轮廓体量不代表精细建筑内部，真实 DTM 尚需单独导入。`}</p>
+        {sourceLicense && <a href={sourceLicense.url} target="_blank" rel="noreferrer">{sourceLicense.label}</a>}
+      </section>}
       {recovery && (
         <div className="recovery-drawer" id="city-history">
           <button className="recovery-close" aria-label="关闭历史版本" onClick={() => {
@@ -795,6 +814,8 @@ export default function CityStudio() {
             historyButton.current?.focus();
           }}><X size={17} /></button>
         <RecoveryPanel
+          api={api}
+          baselineLabel={`${workspace.name}内置初始数据`}
           busy={busy || !!preview}
           onPreview={(id, label, buildingsOnly) =>
             void previewVersion(id, label, buildingsOnly)
@@ -886,19 +907,22 @@ export default function CityStudio() {
                 <button className={analysisView === "route" ? "active" : ""} aria-pressed={analysisView === "route"} onClick={() => { setAnalysisView("route"); setSpatialPicking(false); }}>路线剖面</button>
                 <button className={analysisView === "unified" ? "active" : ""} aria-pressed={analysisView === "unified"} onClick={() => { setAnalysisView("unified"); setAnalysisDrawing(false); }}>城市联合剖面</button>
               </div>
-              {analysisView === "route" ? <AnalysisPanel points={analysisPoints} result={analysisState.result} terrain={analysisTerrain}
+              {analysisView === "route" ? <AnalysisPanel cityName={workspace.name} points={analysisPoints} result={analysisState.result} terrain={analysisTerrain}
                 drawing={analysisDrawing} busy={busy} canSave={!preview && !draftUnavailable && !savedAnalyses.error}
                 records={savedAnalyses.records} selectedId={analysisId} fingerprint={fingerprint}
                 onDrawing={setAnalysisDrawing} onUndo={() => { setAnalysisPoints(p => p.slice(0, -1)); setAnalysisId(null); }}
                 onClear={() => { setAnalysisPoints([]); setAnalysisDrawing(false); setAnalysisId(null); setAnalysisSpacing(5); }}
                 onHover={hoverAnalysis} onSave={saveAnalysis} onOpen={openAnalysis} onDelete={(id) => void deleteAnalysis(id)} />
-              : <SpatialPanel city={displayCity!} points={analysisPoints} terrain={analysisTerrain} query={spatialResult} section={sectionResult} profile={analysisState.result}
+              : <SpatialPanel cityName={workspace.name} city={displayCity!} points={analysisPoints} terrain={analysisTerrain} query={spatialResult} section={sectionResult} profile={analysisState.result}
                   width={sectionWidth} setWidth={setSectionWidth} picking={spatialPicking} setPicking={setSpatialPicking}
                   onFocus={focusSpatialObject} onSave={saveAnalysis} canSave={!preview && !draftUnavailable && !savedAnalyses.error}
                   busy={busy || analysisState.busy} selectedName={savedAnalyses.records.find(record => record.id === analysisId)?.name ?? null}
                   hasSavedRecord={!!analysisId} onEnvironment={() => { setSpatialPicking(false); setTab("environment"); }} />}
             </>) : tab === "environment" ? (
               <EnvironmentPanel
+                api={api}
+                cityName={workspace.name}
+                onBusyChange={setEnvironmentWorking}
                 environment={displayCity!.environment}
                 initialSection={typeof window !== "undefined" && new URLSearchParams(window.location.search).get("view") === "terrain" ? "terrain" : undefined}
                 busy={busy || !!preview}
@@ -1020,7 +1044,7 @@ export default function CityStudio() {
             <div className="scene-topline">
               <div>
                 <span className="live-dot" />
-                布里斯托城市项目<small>WGS84 · 离线实体数据</small>
+                {workspace.name}城市项目<small>WGS84 · 离线实体数据</small>
               </div>
               <div className="scene-tools">
                 <button
@@ -1061,6 +1085,7 @@ export default function CityStudio() {
                 onRetry={() => setSceneRevision(value => value + 1)}
                 ref={scene}
                 city={displayCity!}
+                center={center}
                 colorMode={colorMode}
                 fullDetails={fullDetails}
                 selected={active}
@@ -1371,7 +1396,7 @@ export default function CityStudio() {
           </aside>
         </div>
       )}
-      {city && <MemoryComparison revision={revision} />}
+      {city && <MemoryComparison cityId={workspace.id} revision={revision} />}
       {city && (
         <div className="city-summary">
           <span>

@@ -7,6 +7,7 @@ import { traceCityObject, type SectionTrace } from "./sectionTrace";
 import "./spatial.css";
 
 type Props = {
+  cityName?: string;
   city: CityDocument;
   points: AnalysisPoint[];
   terrain?: Terrain;
@@ -117,8 +118,8 @@ function SectionChart({ profile, section, trace, focus }: { profile: PathAnalysi
   </svg><p className="spatial-chart-legend"><i className="building" />建筑 <i className="surface" />地上地物 <i className="underground" />地下设计地物 <i className="ground" />源地形 {trace?.segments.length ? <><i className="cutline" />所选模型交线</> : null}</p></div>;
 }
 export default function SpatialPanel({ city, points, terrain, query, section, profile, width, setWidth, picking, setPicking,
-  onFocus, onSave, canSave, busy, selectedName, hasSavedRecord, onEnvironment }: Props) {
-  const [name, setName] = useState("布里斯托 · 城市联合剖面");
+  onFocus, onSave, canSave, busy, selectedName, hasSavedRecord, onEnvironment, cityName = "布里斯托" }: Props) {
+  const [name, setName] = useState(`${cityName} · 城市联合剖面`);
   const [saving, setSaving] = useState(false), [message, setMessage] = useState("");
   const [chosen, setChosen] = useState<SpatialObject | null>(null);
   const focus = (object: SpatialObject) => { setChosen(object); onFocus(object); };

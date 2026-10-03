@@ -6,6 +6,7 @@ import type { SavedAnalysis } from "./analysisStore";
 import "./analysis.css";
 
 type Props = {
+  cityName?: string;
   points: AnalysisPoint[];
   result: PathAnalysis | null;
   terrain?: Terrain;
@@ -147,7 +148,7 @@ function ProfileChart({ result, onHover }: { result: PathAnalysis; onHover: Prop
 
 export default function AnalysisPanel(props: Props) {
   const { points, result, terrain, drawing, busy, canSave, records, selectedId, fingerprint, onDrawing, onUndo, onClear, onHover, onSave, onOpen, onDelete } = props;
-  const [name, setName] = useState("布里斯托地形剖面");
+  const [name, setName] = useState(`${props.cityName ?? "布里斯托"}地形剖面`);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const selectedName = records.find((record) => record.id === selectedId)?.name;

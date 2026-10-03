@@ -9,7 +9,8 @@ import {
   type FeatureAsset,
 } from "./environment";
 import { terrainStatistics, type TerrainHit } from "./terrainMath";
-import { demoTerrain, importTerrain, terrainMultipatchUrl, upgradeLegacyTerrain } from "./cityApi";
+import * as legacyCityApi from "./cityApi";
+import type { CityApi } from "./cityApi";
 import { featureErrors } from "./featureEditing";
 import FunctionExplanation from "./FunctionExplanation";
 import { terrainLineColors } from "./terrainTopology";
@@ -68,6 +69,9 @@ export default function EnvironmentPanel({
   hit,
   onEditingChange,
   initialSection,
+  api = legacyCityApi,
+  cityName = "布里斯托",
+  onBusyChange,
 }: {
   environment?: Environment;
   busy: boolean;
@@ -89,12 +93,18 @@ export default function EnvironmentPanel({
   hit: TerrainHit | null;
   onEditingChange: (editing: boolean) => void;
   initialSection?: "terrain" | "features";
+  api?: CityApi;
+  cityName?: string;
+  onBusyChange?: (busy: boolean) => void;
 }) {
+  const { demoTerrain, importTerrain, terrainMultipatchUrl, upgradeLegacyTerrain } = api;
   const [section, setSection] = useState<"terrain" | "features">(() =>
       initialSection ?? (environment?.features.length ? "features" : "terrain"),
     ),
     [working, setWorking] = useState(false),
     [error, setError] = useState("");
+  useEffect(() => { onBusyChange?.(working); }, [working, onBusyChange]);
+  useEffect(() => () => { onBusyChange?.(false); }, [onBusyChange]);
   const [asset, setAsset] = useState<FeatureAsset>(() =>
       structuredClone(featurePresets.lamp),
     ),
@@ -244,32 +254,32 @@ export default function EnvironmentPanel({
           id: "function_plaza",
           asset: "round-plaza",
           name: "函数示例 · 圆形广场",
-          longitude: -2.6091,
-          latitude: 51.4538,
+          longitude: position.longitude,
+          latitude: position.latitude,
           altitude: 0,
         },
         {
           id: "function_arch",
           asset: "arched-door",
           name: "函数示例 · 拱门",
-          longitude: -2.6091,
-          latitude: 51.45394,
+          longitude: position.longitude,
+          latitude: position.latitude + 0.00014,
           altitude: 0,
         },
         {
           id: "function_balcony",
           asset: "curved-balcony",
           name: "函数示例 · 弧形阳台构件",
-          longitude: -2.6089,
-          latitude: 51.4538,
+          longitude: position.longitude + 0.0002,
+          latitude: position.latitude,
           altitude: 2.5,
         },
         ...[0, 1, 2, 3].map((i) => ({
           id: `function_lamp${i}`,
           asset: "lamp",
           name: `函数示例 · 路灯 ${i + 1}`,
-          longitude: -2.6091 + Math.cos((i * Math.PI) / 2) * 0.0002,
-          latitude: 51.4538 + Math.sin((i * Math.PI) / 2) * 0.00013,
+          longitude: position.longitude + Math.cos((i * Math.PI) / 2) * 0.0002,
+          latitude: position.latitude + Math.sin((i * Math.PI) / 2) * 0.00013,
           altitude: 0,
         })),
       ].map((f) => ({ ...f, scale: 1, heading: 0, layer: "surface" as const }));
@@ -344,7 +354,7 @@ export default function EnvironmentPanel({
               <summary>导入 Digimap / DEM</summary>
               <p className="muted">
                 选择裸地 DTM；支持 .tif /
-                .asc，高程单位为米。自动裁剪到布里斯托起始街区。
+                .asc，高程单位为米。自动裁剪到{cityName}当前工作区的采集范围。
               </p>
               <label>
                 源坐标系
@@ -416,7 +426,7 @@ export default function EnvironmentPanel({
                   }
                 >
                   {terrain.demonstration
-                    ? "方法演示 · 非布里斯托实测地形"
+                    ? `方法演示 · 非${cityName}实测地形`
                     : "用户 DEM · 已保留来源与采样信息"}
                 </p>
                 <dl className="environment-stats">
@@ -439,7 +449,7 @@ export default function EnvironmentPanel({
                 </dl>
                 {stats.count["triangle-fan"] > 0 && <button className="full" disabled={disabled}
                   onClick={() => void convertLegacyTerrain()}>转换旧三角扇为三角带（保留原三角面）</button>}
-                <a className="button-link full" href={terrainMultipatchUrl} download="Bristol-terrain-MultiPatch.zip">
+                <a className="button-link full" href={terrainMultipatchUrl} download>
                   下载 ArcGIS Pro 对照数据 · MultiPatch 三角带
                 </a>
                 <p className="muted">
