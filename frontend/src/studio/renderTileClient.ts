@@ -332,11 +332,14 @@ export class RenderTileStream {
     const pinned = selected ? this.wanted.find(d => this.cache.get(d.id)?.tile.instances.some(i => i.id === selected))?.id : undefined;
     const plan = chooseViewportTiles(this.manifest, view, this.budget, pinned);
     this.candidates = plan.candidates;
-    if (plan.chosen.map(t => t.id).join("|") !== this.wanted.map(t => t.id).join("|")) {
+    const chosenIds = new Set(plan.chosen.map(t => t.id));
+    // Only membership changes invalidate pending reads; priority changes keep
+    // their epoch but still update the order used by the request queue.
+    if (chosenIds.size !== this.wanted.length || this.wanted.some(t => !chosenIds.has(t.id))) {
       this.epoch++;
       for (const p of this.pending.values()) p.controller.abort();
-      this.wanted = plan.chosen;
     }
+    this.wanted = plan.chosen;
     if (this.retryOnResume) {
       for (const t of this.wanted) this.failures.delete(t.id);
       this.retryOnResume = false;
@@ -362,7 +365,9 @@ export class RenderTileStream {
   private emit() {
     if (this.disposed) return;
     const tiles = this.wanted.flatMap(t => this.cache.has(t.id) ? [this.cache.get(t.id)!.tile] : []);
-    if (tiles.length !== this.lastTiles.length || tiles.some((t, i) => t !== this.lastTiles[i])) this.lastTiles = tiles;
+    // Scene projection depends on this array's identity, not request priority.
+    // Keep resident order stable, but publish replacements even for equal IDs.
+    if (tiles.length !== this.lastTiles.length || tiles.some(t => !this.lastTiles.includes(t))) this.lastTiles = tiles;
     this.notify({ tiles: this.lastTiles, paused: this.paused, wanted: this.wanted.length, candidates: this.candidates,
       omitted: this.candidates - this.wanted.length,
       loading: this.paused ? 0 : this.wanted.filter(t => !this.cache.has(t.id) && !this.failures.has(t.id)).length,

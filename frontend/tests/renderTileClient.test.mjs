@@ -89,6 +89,90 @@ test("queue bounds concurrency, aborts obsolete views and rejects stale transpor
   assert.ok(h.current().activeBytes <= tileBudget.activeBytes); assert.ok(h.current().cacheTiles <= 3);
   assert.ok(h.requests.every(r => r.url.startsWith("/api/cities/london/render/")));
 });
+test("resident tile array stays identical across priority reorders, loaded selection and pause", async t => {
+  const f = fixture(3), h = harness(f, { ...tileBudget, activeTiles: 3, cacheTiles: 3, concurrency: 3 });
+  t.after(() => h.stream.dispose());
+  h.stream.setView(view()); h.requests.forEach(h.finish); await settle();
+  const resident = h.current().tiles, states = h.states.length, bytes = h.current().activeBytes;
+  assert.deepEqual(resident.map(tile => tile.tile_id), ["x0_y0", "x1_y0", "x2_y0"]);
+  for (const x of [.02, 0, .01, .02]) h.stream.setView(view(x));
+  h.stream.setView(view(), "building2");
+  h.stream.setView(view(), null); h.stream.retry();
+  h.stream.setPaused(true); h.stream.setView(view(.02), "building1"); h.stream.setPaused(false);
+  assert.ok(h.states.slice(states).every(state => state.tiles === resident));
+  assert.deepEqual(resident.map(tile => tile.tile_id), ["x0_y0", "x1_y0", "x2_y0"], "published order is not mutated for request priority");
+  assert.equal(h.requests.length, 3); assert.equal(h.current().activeBytes, bytes);
+  assert.equal(h.current().cacheTiles, 3); assert.equal(h.current().cacheBytes, bytes);
+  assert.equal(h.current().wanted, 3); assert.equal(h.current().loading, 0);
+});
+test("same chosen membership keeps pending reads and pumps new priority without refetching", async t => {
+  const f = fixture(3), h = harness(f, { ...tileBudget, activeTiles: 3, cacheTiles: 3, concurrency: 1 });
+  t.after(() => h.stream.dispose());
+  h.stream.setView(view()); assert.deepEqual(h.requests.map(request => request.id), ["x0_y0"]);
+  h.stream.setView(view(.02));
+  assert.equal(h.requests[0].signal.aborted, false); assert.equal(h.requests.length, 1);
+  h.finish(h.requests[0]); await settle();
+  assert.deepEqual(h.requests.map(request => request.id), ["x0_y0", "x2_y0"]);
+  const firstResident = h.current().tiles;
+  assert.equal(firstResident[0].tile_id, "x0_y0");
+  h.stream.setView(view(.01));
+  assert.equal(h.current().tiles, firstResident); assert.equal(h.requests[1].signal.aborted, false);
+  h.finish(h.requests[1]); await settle();
+  assert.deepEqual(h.requests.map(request => request.id), ["x0_y0", "x2_y0", "x1_y0"]);
+  const partialResident = h.current().tiles;
+  h.stream.setView(view(.02));
+  assert.equal(h.current().tiles, partialResident, "multiple resident references stay stable while priority changes");
+  assert.equal(h.requests[2].signal.aborted, false);
+  h.finish(h.requests[2]); await settle();
+  assert.notEqual(h.current().tiles, partialResident, "new residency still invalidates the projection");
+  assert.deepEqual(h.current().tiles.map(tile => tile.tile_id).sort(), ["x0_y0", "x1_y0", "x2_y0"]);
+  assert.equal(h.requests.length, 3); assert.equal(h.current().loading, 0); assert.equal(h.current().failures.length, 0);
+});
+test("different chosen membership still invalidates every pending read including overlapping IDs", async t => {
+  const h = harness(fixture(3)); t.after(() => h.stream.dispose());
+  h.stream.setView(view()); assert.deepEqual(h.requests.map(request => request.id), ["x0_y0", "x1_y0"]);
+  h.stream.setView(view(.02));
+  assert.ok(h.requests.every(request => request.signal.aborted)); assert.equal(h.requests.length, 2);
+  h.finish(h.requests[1]); await settle();
+  assert.equal(h.current().tiles.length, 0); assert.equal(h.current().cacheTiles, 0);
+  assert.equal(h.requests[2].id, "x2_y0");
+  h.finish(h.requests[0]); await settle();
+  assert.equal(h.current().tiles.length, 0); assert.equal(h.requests[3].id, "x1_y0");
+  h.finish(h.requests[2]); h.finish(h.requests[3]); await settle();
+  assert.deepEqual(h.current().tiles.map(tile => tile.tile_id), ["x2_y0", "x1_y0"]);
+  assert.equal(h.current().loading, 0); assert.equal(h.current().failures.length, 0);
+});
+test("evicted and refetched tile objects publish fresh arrays and retain no stale references", async t => {
+  const h = harness(fixture(2), { ...tileBudget, activeTiles: 1, cacheTiles: 1, concurrency: 1 });
+  t.after(() => h.stream.dispose());
+  h.stream.setView(view()); h.finish(h.requests[0]); await settle();
+  const original = h.current().tiles;
+  h.stream.setView(view(.01));
+  assert.notEqual(h.current().tiles, original); assert.equal(h.current().tiles.length, 0);
+  h.finish(h.requests[1]); await settle();
+  assert.equal(h.current().tiles[0].tile_id, "x1_y0");
+  h.stream.setView(view()); h.finish(h.requests[2]); await settle();
+  const refetched = h.current().tiles;
+  assert.notEqual(refetched, original); assert.notEqual(refetched[0], original[0]);
+  assert.deepEqual(refetched[0], original[0]);
+  h.stream.setView(view()); assert.equal(h.current().tiles, refetched);
+  assert.deepEqual(h.requests.map(request => request.id), ["x0_y0", "x1_y0", "x0_y0"]);
+});
+test("equal-ID resident replacements publish their exact new object references", async t => {
+  const h = harness(fixture(2)); t.after(() => h.stream.dispose());
+  h.stream.setView(view()); h.requests.forEach(h.finish); await settle();
+  const original = h.current().tiles, replacement = structuredClone(original[0]);
+  // Normal eviction emits an empty/different set first. Replace one cache entry
+  // directly to guard the identity comparison against an ID-only shortcut.
+  h.stream.cache.get(replacement.tile_id).tile = replacement;
+  h.stream.setView(view(.01));
+  const replaced = h.current().tiles;
+  assert.notEqual(replaced, original); assert.deepEqual(replaced.map(tile => tile.tile_id), ["x1_y0", "x0_y0"]);
+  assert.equal(replaced[0], original[1]); assert.equal(replaced[1], replacement);
+  assert.equal(replaced.includes(original[0]), false);
+  h.stream.setView(view()); assert.equal(h.current().tiles, replaced);
+  assert.equal(h.requests.length, 2);
+});
 test("LRU reuses recent tiles and independently enforces cache count and encoded bytes", async t => {
   const f = fixture(4), h = harness(f, { ...tileBudget, activeTiles: 1, cacheTiles: 2, concurrency: 1 }); t.after(() => h.stream.dispose());
   for (const x of [0, .01, 0, .02, .01]) {
