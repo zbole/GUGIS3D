@@ -1,7 +1,7 @@
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import analysis, export, layers, objects, studio, city, workspace, render_tiles
+from .routers import analysis, export, layers, objects, studio, city, workspace, render_tiles, coverage
 from .services import city_workspaces
 
 app = FastAPI(
@@ -40,3 +40,6 @@ app.include_router(workspace.router, prefix='/cities/{city_id}', dependencies=[D
 
 # Prebuilt read-only derivatives never initialize or rewrite formal projects.
 app.include_router(render_tiles.router)
+
+# National membership and optional receipts are read-only readiness metadata.
+app.include_router(coverage.router)

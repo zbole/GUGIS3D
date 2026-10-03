@@ -1,0 +1,819 @@
+{
+  "schema": "gugis-uk-city-registry-v1",
+  "source": {
+    "title": "List of cities (HTML)",
+    "url": "https://www.gov.uk/government/publications/list-of-cities/list-of-cities-html",
+    "publisher": "Cabinet Office",
+    "published_at": "2022-08-29",
+    "verified_at": "2026-10-03",
+    "license": "Open Government Licence v3.0",
+    "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "attribution": "Contains public sector information licensed under the Open Government Licence v3.0. Source: Cabinet Office, List of cities (HTML), © Crown copyright 2022.",
+    "scope": "United Kingdom entries only; excludes Crown Dependencies and Overseas Territories. Membership snapshot only, without boundary geometry.",
+    "conferral_caveat": "The source includes Platinum Jubilee Civic Honours Competition approvals whose formal conferral might still have been pending at publication. This snapshot does not independently verify conferral.",
+    "name_note": "Source names are retained; asterisks denoting Lord Mayoralty or Lord Provostship are annotations rather than name characters. Aliases are separate conveniences, not replacement official names."
+  },
+  "country_counts": {
+    "England": 55,
+    "Northern Ireland": 6,
+    "Scotland": 8,
+    "Wales": 7
+  },
+  "cities": [
+    {
+      "id": "uk-eng-bath",
+      "source_name": "Bath",
+      "display_name": "Bath",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-birmingham",
+      "source_name": "Birmingham",
+      "display_name": "Birmingham",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-bradford",
+      "source_name": "Bradford",
+      "display_name": "Bradford",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-brighton-and-hove",
+      "source_name": "Brighton & Hove",
+      "display_name": "Brighton & Hove",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [
+        "Brighton and Hove"
+      ],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-bristol",
+      "source_name": "Bristol",
+      "display_name": "Bristol",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-cambridge",
+      "source_name": "Cambridge",
+      "display_name": "Cambridge",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-canterbury",
+      "source_name": "Canterbury",
+      "display_name": "Canterbury",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-carlisle",
+      "source_name": "Carlisle",
+      "display_name": "Carlisle",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-chelmsford",
+      "source_name": "Chelmsford",
+      "display_name": "Chelmsford",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-chester",
+      "source_name": "Chester",
+      "display_name": "Chester",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-chichester",
+      "source_name": "Chichester",
+      "display_name": "Chichester",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-colchester",
+      "source_name": "Colchester",
+      "display_name": "Colchester",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-coventry",
+      "source_name": "Coventry",
+      "display_name": "Coventry",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-derby",
+      "source_name": "Derby",
+      "display_name": "Derby",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-doncaster",
+      "source_name": "Doncaster",
+      "display_name": "Doncaster",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-durham",
+      "source_name": "Durham",
+      "display_name": "Durham",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-ely",
+      "source_name": "Ely",
+      "display_name": "Ely",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-exeter",
+      "source_name": "Exeter",
+      "display_name": "Exeter",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-gloucester",
+      "source_name": "Gloucester",
+      "display_name": "Gloucester",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-hereford",
+      "source_name": "Hereford",
+      "display_name": "Hereford",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-kingston-upon-hull",
+      "source_name": "Kingston-upon-Hull",
+      "display_name": "Kingston-upon-Hull",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [
+        "Hull",
+        "Kingston upon Hull"
+      ],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-lancaster",
+      "source_name": "Lancaster",
+      "display_name": "Lancaster",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-leeds",
+      "source_name": "Leeds",
+      "display_name": "Leeds",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-leicester",
+      "source_name": "Leicester",
+      "display_name": "Leicester",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-lichfield",
+      "source_name": "Lichfield",
+      "display_name": "Lichfield",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-lincoln",
+      "source_name": "Lincoln",
+      "display_name": "Lincoln",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-liverpool",
+      "source_name": "Liverpool",
+      "display_name": "Liverpool",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-london",
+      "source_name": "London",
+      "display_name": "London",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [
+        "City of London"
+      ],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-manchester",
+      "source_name": "Manchester",
+      "display_name": "Manchester",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-milton-keynes",
+      "source_name": "Milton Keynes",
+      "display_name": "Milton Keynes",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-newcastle-upon-tyne",
+      "source_name": "Newcastle-upon-Tyne",
+      "display_name": "Newcastle-upon-Tyne",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [
+        "Newcastle upon Tyne"
+      ],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-norwich",
+      "source_name": "Norwich",
+      "display_name": "Norwich",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-nottingham",
+      "source_name": "Nottingham",
+      "display_name": "Nottingham",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-oxford",
+      "source_name": "Oxford",
+      "display_name": "Oxford",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-peterborough",
+      "source_name": "Peterborough",
+      "display_name": "Peterborough",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-plymouth",
+      "source_name": "Plymouth",
+      "display_name": "Plymouth",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-portsmouth",
+      "source_name": "Portsmouth",
+      "display_name": "Portsmouth",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-preston",
+      "source_name": "Preston",
+      "display_name": "Preston",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-ripon",
+      "source_name": "Ripon",
+      "display_name": "Ripon",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-salford",
+      "source_name": "Salford",
+      "display_name": "Salford",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-salisbury",
+      "source_name": "Salisbury",
+      "display_name": "Salisbury",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-sheffield",
+      "source_name": "Sheffield",
+      "display_name": "Sheffield",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-southampton",
+      "source_name": "Southampton",
+      "display_name": "Southampton",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-southend-on-sea",
+      "source_name": "Southend-on-Sea",
+      "display_name": "Southend-on-Sea",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-st-albans",
+      "source_name": "St Albans",
+      "display_name": "St Albans",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-stoke-on-trent",
+      "source_name": "Stoke on Trent",
+      "display_name": "Stoke on Trent",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [
+        "Stoke-on-Trent"
+      ],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-sunderland",
+      "source_name": "Sunderland",
+      "display_name": "Sunderland",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-truro",
+      "source_name": "Truro",
+      "display_name": "Truro",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-wakefield",
+      "source_name": "Wakefield",
+      "display_name": "Wakefield",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-wells",
+      "source_name": "Wells",
+      "display_name": "Wells",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-westminster",
+      "source_name": "Westminster",
+      "display_name": "Westminster",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [
+        "City of Westminster"
+      ],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-eng-winchester",
+      "source_name": "Winchester",
+      "display_name": "Winchester",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-wolverhampton",
+      "source_name": "Wolverhampton",
+      "display_name": "Wolverhampton",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-worcester",
+      "source_name": "Worcester",
+      "display_name": "Worcester",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-eng-york",
+      "source_name": "York",
+      "display_name": "York",
+      "country": "England",
+      "country_code": "ENG",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-nir-armagh",
+      "source_name": "Armagh",
+      "display_name": "Armagh",
+      "country": "Northern Ireland",
+      "country_code": "NIR",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-nir-bangor",
+      "source_name": "Bangor",
+      "display_name": "Bangor",
+      "country": "Northern Ireland",
+      "country_code": "NIR",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-nir-belfast",
+      "source_name": "Belfast",
+      "display_name": "Belfast",
+      "country": "Northern Ireland",
+      "country_code": "NIR",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-nir-lisburn",
+      "source_name": "Lisburn",
+      "display_name": "Lisburn",
+      "country": "Northern Ireland",
+      "country_code": "NIR",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-nir-londonderry",
+      "source_name": "Londonderry",
+      "display_name": "Londonderry",
+      "country": "Northern Ireland",
+      "country_code": "NIR",
+      "aliases": [
+        "Derry"
+      ],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-nir-newry",
+      "source_name": "Newry",
+      "display_name": "Newry",
+      "country": "Northern Ireland",
+      "country_code": "NIR",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-sct-aberdeen",
+      "source_name": "Aberdeen",
+      "display_name": "Aberdeen",
+      "country": "Scotland",
+      "country_code": "SCT",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-sct-dundee",
+      "source_name": "Dundee",
+      "display_name": "Dundee",
+      "country": "Scotland",
+      "country_code": "SCT",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-sct-dunfermline",
+      "source_name": "Dunfermline",
+      "display_name": "Dunfermline",
+      "country": "Scotland",
+      "country_code": "SCT",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-sct-edinburgh",
+      "source_name": "Edinburgh",
+      "display_name": "Edinburgh",
+      "country": "Scotland",
+      "country_code": "SCT",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-sct-glasgow",
+      "source_name": "Glasgow",
+      "display_name": "Glasgow",
+      "country": "Scotland",
+      "country_code": "SCT",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-sct-inverness",
+      "source_name": "Inverness",
+      "display_name": "Inverness",
+      "country": "Scotland",
+      "country_code": "SCT",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-sct-perth",
+      "source_name": "Perth",
+      "display_name": "Perth",
+      "country": "Scotland",
+      "country_code": "SCT",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-sct-stirling",
+      "source_name": "Stirling",
+      "display_name": "Stirling",
+      "country": "Scotland",
+      "country_code": "SCT",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-wls-bangor",
+      "source_name": "Bangor",
+      "display_name": "Bangor",
+      "country": "Wales",
+      "country_code": "WLS",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-wls-cardiff",
+      "source_name": "Cardiff",
+      "display_name": "Cardiff",
+      "country": "Wales",
+      "country_code": "WLS",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-wls-newport",
+      "source_name": "Newport",
+      "display_name": "Newport",
+      "country": "Wales",
+      "country_code": "WLS",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-wls-st-asaph",
+      "source_name": "St Asaph",
+      "display_name": "St Asaph",
+      "country": "Wales",
+      "country_code": "WLS",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-wls-st-davids",
+      "source_name": "St Davids",
+      "display_name": "St Davids",
+      "country": "Wales",
+      "country_code": "WLS",
+      "aliases": [],
+      "source_annotation": null
+    },
+    {
+      "id": "uk-wls-swansea",
+      "source_name": "Swansea",
+      "display_name": "Swansea",
+      "country": "Wales",
+      "country_code": "WLS",
+      "aliases": [],
+      "source_annotation": {
+        "marker": "*",
+        "meaning": "Also awarded a Lord Mayoralty or Lord Provostship"
+      }
+    },
+    {
+      "id": "uk-wls-wrexham",
+      "source_name": "Wrexham",
+      "display_name": "Wrexham",
+      "country": "Wales",
+      "country_code": "WLS",
+      "aliases": [],
+      "source_annotation": null
+    }
+  ]
+}
