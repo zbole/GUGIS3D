@@ -146,3 +146,28 @@ source exclusions and provenance, unchanged three-workspace routes, byte-for-byt
 source preservation, no project initialization, sample failures, bounded receipt
 failure isolation and non-coverage claims. Receipt checker tests use synthetic
 polygons only, not actual city boundaries.
+
+
+## Initial-page progress view
+
+The city-selection page includes a collapsed “英国城市接入进度” section. Opening it
+makes one bounded, read-only `/coverage/uk-cities` request. It does not request
+city models, create workspaces, download boundaries or expand the three active
+city choices. Country/name/alias filtering happens locally; the two Bangors
+remain distinct. The London row has no association with the Westminster/Whitehall
+sample, while Westminster shows the explicitly unverified legacy `london`
+association. Source publication and verification dates are shown separately.
+
+Unavailable or invalid sample counts remain unknown. Unsupported receipt I/O is
+shown as not checked on the current platform, not as invalid boundary geometry.
+Collapse/unmount aborts reads; obsolete responses cannot replace a newer result.
+An explicit refresh retries failures and identifies previously read data while a
+refresh is pending or failed. Client validation rejects unsupported complete or
+percentage claims rather than displaying names, rectangles or receipts as proof
+of coverage.
+
+This view and the receipt tooling are readiness work only. No additional real
+city datasets or boundaries were acquired, and no official-city coverage was
+assessed. Progress beyond this checkpoint needs a justified boundary definition
+and legitimately supplied source/boundary data, plus topology and completeness
+validation. Blocked dataset-download routes were not retried or bypassed.

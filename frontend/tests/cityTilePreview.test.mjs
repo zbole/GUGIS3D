@@ -195,7 +195,7 @@ test("cross-tile duplicates count once and a manifest recheck cannot retain a cu
   assert.doesNotMatch(f.content, /新鲜度未知/);
   await f.tile(pkg, "x0_y0", 1);
   await f.tile(pkg, "x1_y0", 1);
-  await until(() => f.status.includes("2 / 2 瓦片"), "both duplicate-bearing tiles are loaded");
+  await until(() => /已加载 1 \/ 1 栋（跨瓦片去重），2 \/ 2 瓦片/.test(f.status), "both duplicate-bearing tiles are loaded, not merely targeted");
   assert.match(f.status, /已加载 1 \/ 1 栋（跨瓦片去重），2 \/ 2 瓦片/);
   assert.equal(geometryIds(f.viewer).filter(id => id === "london-building-0/wall").length, 1);
   f.click("重新检查渲染包");

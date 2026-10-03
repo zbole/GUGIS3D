@@ -2,6 +2,8 @@
 
 2026-10-03 后续：网站先选择城市（单选 / 多选），只载入当前工作区；建筑按视域和数量预算分配粗模，保留选中对象与细节上限。可选[轻量只读分块浏览](docs/render_tiles.md)，仅按视域请求已生成的建筑缓存，明确缺少道路和地形；完整编辑模式仍可切换使用。[入口、渲染预算与验证边界](docs/city_selection_rendering.md)。来源审计识别了旧种子的部分竖向建模问题；原始来源和现有项目不自动覆盖，[审计与非默认候选版本](docs/city_source_validation.md)明确记录修正与遗漏。
 
+全国接入准备：新增 [Cabinet Office 76 城名单与只读进度](docs/uk_city_coverage.md)，入口页展开后可按地区和名称筛选；仍只有三个现有样本工作区，全部城市边界覆盖尚未评估。[边界回执工具](docs/city_boundary_receipts.md)仅校验用户提供文件的完整性和结构，不判断拓扑、权威归属或全城覆盖；其安全文件读写当前需要 POSIX 环境，Windows 会明确显示未检查。
+
 2026-10-03：新增伦敦 Westminster / Whitehall 与伯明翰 Civic centre / Jewellery Quarter 的真实 OSM 中心街区样本。顶部切换布里斯托、伦敦、伯明翰独立工作区；每城单独保存正式数据、草稿与历史，三维场景仅挂载当前城市。[三城数据范围、来源与复现](docs/multi_city_workspaces.md)
 
 2026-10-03：合并 DOT 八轮更新，修复空简模建筑显示与剖面漏选，完善历史记录、分析重试、对比快照校对和文件保存保护；已完成 Windows 测试及本地浏览器交互验收。[简要更新说明](docs/updates_2026-10-03.md)

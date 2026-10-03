@@ -1,5 +1,8 @@
+import { lazy, Suspense } from "react";
 import { citySourceLicense, type CityId, type CityWorkspace } from "./cityWorkspaces";
 import "./citySelection.css";
+
+const UkCoverageProgress = lazy(() => import("./UkCoverageProgress"));
 
 export default function CitySelection({ cities, selected, multiple, error, previewMode, onPreviewModeChange, onMultiple, onSelect, onEnter, onRetry }: {
   cities: CityWorkspace[];
@@ -37,6 +40,7 @@ export default function CitySelection({ cities, selected, multiple, error, previ
           <small className="city-selection-source">{source?.label ?? city.source ?? "当前项目数据"}</small>
         </label>;
       })}</div>
+      <Suspense fallback={<p>正在载入接入进度面板…</p>}><UkCoverageProgress /></Suspense>
       <label className="city-selection-mode"><input type="checkbox" checked={previewMode}
         aria-label="轻量分块浏览（只读）" onChange={event => onPreviewModeChange(event.target.checked)} />
         <span><strong>轻量分块浏览（只读）</strong><small>仅请求视域附近的建筑分块；需已生成渲染缓存。关闭后载入完整可编辑项目。</small></span>
