@@ -13,6 +13,10 @@ const outfile = fileURLToPath(new URL("../node_modules/.cache/gugis-tests/render
 await build({ entryPoints: [fileURLToPath(new URL("../src/studio/renderTileClient.ts", import.meta.url))],
   outfile, bundle: true, format: "esm", platform: "node", packages: "external" });
 const { loadRenderManifest, RenderTileStream, renderTilesToCity, tileBudget } = await import(pathToFileURL(outfile).href);
+const inspectorFile = fileURLToPath(new URL("../node_modules/.cache/gugis-tests/loaded-buildings-integration.mjs", import.meta.url));
+await build({ entryPoints: [fileURLToPath(new URL("../src/studio/loadedBuildings.ts", import.meta.url))],
+  outfile: inspectorFile, bundle: true, format: "esm", platform: "node", packages: "external" });
+const { loadedBuildings, loadedBuildingPage, LOADED_BUILDINGS_PAGE_SIZE } = await import(pathToFileURL(inspectorFile).href);
 const sha = value => createHash("sha256").update(value).digest("hex");
 const results = [];
 for (const cityId of ["bristol", "london", "birmingham"]) {
@@ -39,8 +43,9 @@ for (const cityId of ["bristol", "london", "birmingham"]) {
     } finally { concurrent--; }
   };
   const { manifest } = await loadRenderManifest(cityId, new AbortController().signal, "/api", fetcher);
-  let settle;
+  let settle, lastState;
   const stream = new RenderTileStream(manifest, state => {
+    lastState = state;
     assert.ok(state.activeBytes <= tileBudget.activeBytes);
     assert.ok(state.cacheBytes <= tileBudget.cacheBytes);
     assert.ok(state.cacheTiles <= tileBudget.cacheTiles);
@@ -48,10 +53,11 @@ for (const cityId of ["bristol", "london", "birmingham"]) {
     else if (!state.loading && state.wanted) settle?.resolve(state);
   }, { fetcher });
   const view = { bounds: null, center: { longitude: manifest.grid.origin_wgs84[0], latitude: manifest.grid.origin_wgs84[1] } };
-  const wait = (next, selected = null) => new Promise((resolve, reject) => {
+  const wait = (next, selected = null, resume = false) => new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(Error(`${cityId}: stream did not settle`)), 10000);
     settle = { resolve: state => { clearTimeout(timer); resolve(state); }, reject: error => { clearTimeout(timer); reject(error); } };
     stream.setView(next, selected);
+    if (resume) stream.setPaused(false);
   });
   try {
     const initial = await wait(view);
@@ -60,16 +66,27 @@ for (const cityId of ["bristol", "london", "birmingham"]) {
     assert.equal(scene.roads.length, 0);
     assert.ok(scene.instances.length > 0 && scene.instances.length <= manifest.counts.buildings);
     assert.equal(new Set(scene.instances.map(i => i.id)).size, scene.instances.length);
+    const inspected = loadedBuildings(manifest, initial.tiles);
+    assert.equal(inspected.length, scene.instances.length);
+    assert.ok(loadedBuildingPage(inspected, "", 0).items.length <= LOADED_BUILDINGS_PAGE_SIZE);
     const selected = scene.instances[0].id;
+    assert.ok(loadedBuildingPage(inspected, selected, 0).items.some(i => i.placement.id === selected));
     const far = { bounds: [view.center.longitude + .1, view.center.latitude + .1, view.center.longitude + .11, view.center.latitude + .11], center: view.center };
-    const pinned = await wait(far, selected);
+    const beforePause = requests.length;
+    stream.setPaused(true); stream.setView(far, selected);
+    assert.equal(requests.length, beforePause, "paused camera updates do not request geometry");
+    assert.equal(lastState.paused, true); assert.equal(lastState.loading, 0);
+    assert.equal(lastState.tiles, initial.tiles, "paused scene remains inspectable");
+    const pinned = await wait(far, selected, true);
     assert.ok(renderTilesToCity(manifest, pinned.tiles).instances.some(i => i.id === selected), "selection is retained offscreen inside the tile budget");
     assert.ok(peakConcurrent <= tileBudget.concurrency);
     results.push({ city_id: cityId, source_revision: manifest.revision, source_buildings: manifest.counts.buildings,
       initial_loaded_buildings: scene.instances.length, initial_tiles: initial.tiles.length,
       initial_source_bytes: initial.activeBytes, source_archive_bytes: manifest.source_byte_length,
       package_quality_warnings: manifest.quality_warnings.length, peak_concurrent_requests: peakConcurrent,
-      full_city_requests: 0, selected_building_retained_after_pan: true });
+      full_city_requests: 0, selected_building_retained_after_pan: true,
+      inspector_loaded_unique_buildings: inspected.length, inspector_max_page_rows: LOADED_BUILDINGS_PAGE_SIZE,
+      pause_preserves_scene_without_new_requests: true });
   } finally { stream.dispose(); }
 }
 console.log(JSON.stringify({ mode: "real-package bytes through a fetch double; no GPU or browser timing", results }, null, 2));

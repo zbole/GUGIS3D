@@ -6,6 +6,11 @@ initial city-selection page, or switch from the workspace toolbar. The existing
 full editor remains a separate mode. A mode/city switch releases the previous
 viewer; it never loads three city models together.
 
+The [loaded-building inspector and loading controls](lightweight_city_exploration.md)
+add local name/ID search, 25-row pages, explicit focus, source-placement details,
+manual pause/resume and automatic pause while the page is hidden. Search reads
+only currently resident tiles; it never requests a full-city substitute.
+
 This path does **not** increase the editable CityDocument limits, claim whole-city
 coverage, or replace the self-contained formal project. Original seeds, current
 files, drafts, histories, IDs, OSM attribution and geometry remain unchanged.

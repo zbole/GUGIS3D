@@ -13,9 +13,40 @@
 .tile-preview-warning, .tile-preview-error { color: #815123; }
 .tile-preview-error { padding: 12px 18px; background: #fff2da; font-size: 12px; }
 .tile-preview-error ul { padding-left: 18px; }
-.tile-preview-scene { position: relative; flex: 1 0 400px; min-height: 400px; }
+.tile-preview-content { display: flex; flex: 1 0 500px; min-height: 500px; }
+.tile-preview-scene { position: relative; flex: 1 1 0; min-width: 0; min-height: 400px; }
 .tile-preview-scene > p { padding: 20px; }
-@media (max-width: 700px) { .tile-preview-heading { flex-direction: column; gap: 8px; } .tile-preview-provenance { max-height: 200px; } }
+.tile-building-inspector { box-sizing: border-box; flex: 0 0 320px; width: 320px; max-height: 850px; overflow: auto; padding: 14px; border-right: 1px solid #ccd5ce; background: #f8faf6; font-size: 12px; line-height: 1.55; }
+.tile-building-inspector h2 { margin: 0 0 6px; font-size: 15px; }
+.tile-building-inspector h3 { margin: 0 0 8px; font-size: 13px; }
+.tile-building-inspector p { margin: 7px 0; }
+.tile-building-scope, .tile-building-empty { color: #526a60; }
+.tile-building-inspector label { display: block; margin-top: 12px; font-weight: 600; }
+.tile-building-search { display: flex; align-items: center; gap: 6px; margin-top: 5px; }
+.tile-building-search input { box-sizing: border-box; min-width: 0; width: 100%; padding: 7px; border: 1px solid #9aafa2; border-radius: 5px; color: #263c35; background: white; font: inherit; }
+.tile-building-search button { flex-shrink: 0; }
+.city-tile-preview button:focus-visible, .tile-building-search input:focus-visible { outline: 3px solid #2e7160; outline-offset: 2px; }
+.tile-building-inspector button:disabled { cursor: default; }
+.tile-building-result-count { font-size: 11px; color: #526a60; }
+.tile-building-list { list-style: none; padding: 0; margin: 8px 0; max-height: 230px; overflow: auto; }
+.tile-building-list li { margin: 4px 0; }
+.tile-building-list button { display: block; width: 100%; text-align: left; padding: 8px; }
+.tile-building-list button[aria-pressed="true"] { border-color: #377764; background: #dcece1; box-shadow: inset 3px 0 #377764; }
+.tile-building-list strong, .tile-building-list span { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.tile-building-list span { font-size: 11px; color: #526a60; }
+.tile-building-pages, .tile-building-controls { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.tile-building-details { margin-top: 16px; padding-top: 12px; border-top: 1px solid #ccd5ce; }
+.tile-building-details dl { margin: 12px 0; }
+.tile-building-details dt { margin-top: 6px; font-weight: 600; color: #526a60; }
+.tile-building-details dd { margin: 0; overflow-wrap: anywhere; }
+.tile-building-details p { color: #526a60; font-size: 11px; }
+@media (max-width: 700px) {
+  .tile-preview-heading { flex-direction: column; gap: 8px; }
+  .tile-preview-provenance { max-height: 200px; }
+  .tile-preview-content { flex-direction: column; flex-basis: auto; }
+  .tile-building-inspector { flex: none; width: 100%; max-height: 430px; border-right: none; border-bottom: 1px solid #ccd5ce; }
+  .tile-preview-scene { flex-basis: 400px; }
+}
 /* Direct tile entry must not depend on the lazy editor's studio.css chunk. */
 .tile-preview-scene .building-scene, .tile-preview-scene .scene-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .tile-preview-scene .camera-distance { position: absolute; right: 12px; top: 12px; padding: 5px 8px; background: #ffffffe6; font-size: 11px; pointer-events: none; }

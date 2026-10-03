@@ -349,6 +349,79 @@ test("unverified manifest bytes and unsafe source links never become trusted sce
   f.assertReadOnly();
 });
 
+function pageVisibility(t, hidden = false) {
+  const original = Object.getOwnPropertyDescriptor(globalThis, "document"), listeners = new Set();
+  const doc = { hidden,
+    addEventListener(name, callback) { if (name === "visibilitychange") listeners.add(callback); },
+    removeEventListener(name, callback) { if (name === "visibilitychange") listeners.delete(callback); } };
+  Object.defineProperty(globalThis, "document", { configurable: true, value: doc });
+  t.after(() => { if (original) Object.defineProperty(globalThis, "document", original); else delete globalThis.document; });
+  return { listeners, set(value) { doc.hidden = value; act(() => { for (const callback of listeners) callback(); }); } };
+}
+
+test("manual pause keeps geometry and inspector available, then resumes from the latest camera", async t => {
+  const f = fixture(t), pkg = renderPackage();
+  await f.manifest(pkg); await f.tile(pkg, "x0_y0", 1);
+  const viewer = f.viewer, outstanding = f.requests.find(request => request.url.endsWith("/tiles/x1_y0"));
+  f.click("暂停瓦片读取");
+  assert.equal(outstanding.options.signal.aborted, true);
+  assert.match(f.status, /已暂停瓦片读取，保持已加载画面/);
+  assert.match(f.content, /仅查询当前驻留瓦片中的 1 栋/);
+  await f.respond(outstanding, pkg.tileResponse("x1_y0"));
+  assert.match(f.status, /已加载 1 \/ 2 栋/);
+  const requests = f.requests.length;
+  viewer.camera.computeViewRectangle = () => Rectangle.fromDegrees(-2.600, 51.453, -2.598, 51.455);
+  await act(async () => { viewer.camera.moveEnd.raiseEvent(); await new Promise(resolve => setTimeout(resolve, 230)); });
+  assert.equal(f.requests.length, requests);
+  assert.deepEqual(geometryIds(viewer), ["bristol-building-0/wall"]);
+  f.click("恢复瓦片读取");
+  await until(() => f.requests.length === requests + 1, "resume reads the newly visible tile");
+  assert.ok(f.requests.at(-1).url.endsWith("/tiles/x1_y0"));
+  await f.tile(pkg, "x1_y0", 1);
+  assert.equal(f.viewer, viewer);
+  assert.deepEqual(geometryIds(viewer), ["bristol-building-1/wall"]);
+  assert.doesNotMatch(f.status, /已暂停|自动暂停/); f.assertReadOnly();
+});
+
+test("an initially hidden preview reads its manifest but defers all geometry until visible", async t => {
+  const visibility = pageVisibility(t, true), f = fixture(t), pkg = renderPackage("bristol", { tiles: 1 });
+  await f.manifest(pkg);
+  assert.equal(f.requests.length, 1); assert.equal(visibility.listeners.size, 1);
+  assert.match(f.status, /页面已隐藏，自动暂停瓦片读取/);
+  visibility.set(false);
+  await until(() => f.requests.length === 2, "visible page resumes tile acquisition");
+  await f.tile(pkg, "x0_y0", 1);
+  f.unmount(); assert.equal(visibility.listeners.size, 0); f.assertReadOnly();
+});
+
+test("visibility changes preserve manual pause and a new city resets only the manual choice", async t => {
+  const visibility = pageVisibility(t), f = fixture(t), pkg = renderPackage("bristol", { tiles: 1 });
+  await f.manifest(pkg); await f.tile(pkg, "x0_y0", 1);
+  f.click("暂停瓦片读取"); visibility.set(true); visibility.set(false);
+  assert.match(f.status, /已暂停瓦片读取/);
+  assert.ok(f.root.findAllByType("button").some(button => text(button) === "恢复瓦片读取" && button.props["aria-pressed"]));
+  visibility.set(true); f.click("恢复瓦片读取");
+  assert.match(f.status, /页面已隐藏，自动暂停瓦片读取/);
+  visibility.set(false); assert.doesNotMatch(f.status, /已暂停|自动暂停/);
+  f.click("暂停瓦片读取"); f.update("london");
+  const next = renderPackage("london", { tiles: 1 }); await f.manifest(next);
+  assert.equal(visibility.listeners.size, 1);
+  assert.doesNotMatch(f.status, /已暂停|自动暂停/);
+  assert.ok(f.requests.at(-1).url.includes("/cities/london/render/") && f.requests.at(-1).url.includes("/tiles/"));
+  f.assertReadOnly();
+});
+
+test("manifest recheck while manually paused cannot restart geometry reads", async t => {
+  const f = fixture(t), pkg = renderPackage("bristol", { tiles: 1 });
+  await f.manifest(pkg); await f.tile(pkg, "x0_y0", 1);
+  f.click("暂停瓦片读取"); f.click("重新检查渲染包");
+  const requests = f.requests.length; await f.manifest(pkg);
+  assert.equal(f.requests.length, requests);
+  assert.match(f.status, /已加载 0 \/ 1 栋/); assert.match(f.status, /已暂停瓦片读取/);
+  f.click("恢复瓦片读取"); await until(() => f.requests.length === requests + 1, "explicit resume starts the new session");
+  await f.tile(pkg, "x0_y0", 1); f.assertReadOnly();
+});
+
 // React's GPU-free renderer cannot calculate layout, so independently guard the
 // direct-entry CSS chunk against a zero-height Cesium canvas or editor dependency.
 test("direct tile entry owns scoped scene sizing without depending on editor CSS", async () => {

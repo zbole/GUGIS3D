@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import CityScene, { type CitySceneHandle } from "./CityScene";
+import LoadedBuildingInspector from "./LoadedBuildingInspector";
+import { loadedBuildings } from "./loadedBuildings";
+import { useTileLoadingControl } from "./useTileLoadingControl";
 import { cityCenter, heightPolicyLabel, type CityWorkspace } from "./cityWorkspaces";
 import { loadRenderManifest, RenderPackageUnavailable, RenderTileStream, renderTilesToCity, tileBudget,
   type RenderManifest, type RenderView, type TileStreamState } from "./renderTileClient";
@@ -30,9 +33,17 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
   const [loadingManifest, setLoadingManifest] = useState(true);
   const [attempt, setAttempt] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
+  const { manualPaused, pageHidden, paused, setManualPaused } = useTileLoadingControl();
+  const pausedRef = useRef(paused); pausedRef.current = paused;
+  const projection = useMemo(() => manifest ? renderTilesToCity(manifest, streamState.tiles) : null, [manifest, streamState.tiles]);
+  const buildings = useMemo(() => manifest ? loadedBuildings(manifest, streamState.tiles) : [], [manifest, streamState.tiles]);
+  const loadedIds = useRef(new Set<string>());
+  loadedIds.current = new Set(buildings.map(building => building.placement.id));
+  const activeSelected = selected && loadedIds.current.has(selected) ? selected : null;
   const scene = useRef<CitySceneHandle>(null), stream = useRef<RenderTileStream | null>(null);
-  const selectedRef = useRef(selected); selectedRef.current = selected;
+  const selectedRef = useRef(activeSelected); selectedRef.current = activeSelected;
   const view = useRef<RenderView>({ bounds: null, center });
+  useEffect(() => { stream.current?.setPaused(paused); }, [paused]);
   useEffect(() => {
     // Read-only requests are cancellable. Never lock workspace navigation or claim a draft.
     onWorkspaceState?.(workspace.id, false, false);
@@ -41,7 +52,7 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
     const controller = new AbortController();
     let active = true, session: RenderTileStream | null = null;
     setLoadingManifest(true); setError(""); setUnavailable(false); setManifest(null);
-    setStreamState(emptyStream); setSelected(null);
+    setStreamState(emptyStream); setSelected(null); selectedRef.current = null;
     const timeout = setTimeout(() => controller.abort(), 20000);
     const base = (import.meta.env?.VITE_API_BASE_URL ?? "/api").replace(/\/$/, "");
     void loadRenderManifest(workspace.id, controller.signal, base).then(result => {
@@ -49,7 +60,9 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
       clearTimeout(timeout);
       setManifest(result.manifest); setFreshness(result.freshness);
       session = new RenderTileStream(result.manifest, state => { if (active) setStreamState(state); }, { base });
-      stream.current = session; session.setView(view.current);
+      stream.current = session;
+      // A newly checked manifest must not start tile reads behind a pause.
+      session.setPaused(pausedRef.current); session.setView(view.current);
     }).catch(reason => {
       if (!active) return;
       setUnavailable(reason instanceof RenderPackageUnavailable);
@@ -61,9 +74,14 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
     view.current = next; stream.current?.setView(next, selectedRef.current);
   }, []);
   const onSelect = useCallback((id: string | null) => {
+    // Ignore a scene/list callback for a building already evicted from this session.
+    if (id !== null && !loadedIds.current.has(id)) return;
     selectedRef.current = id; setSelected(id); stream.current?.setView(view.current, id);
   }, []);
-  const projection = useMemo(() => manifest ? renderTilesToCity(manifest, streamState.tiles) : null, [manifest, streamState.tiles]);
+  useEffect(() => { if (selected && !activeSelected) onSelect(null); }, [selected, activeSelected, onSelect]);
+  const onFocus = useCallback((id: string) => {
+    if (loadedIds.current.has(id)) scene.current?.focusBuilding(id);
+  }, []);
   const source = workspace.id === "bristol" ? "backend/data/bristol.gugis.json" : `backend/data/cities/${workspace.id}.gugis.json`;
   const attribution = manifest?.attribution;
   const sourceLink = safeLink(attribution?.license_url ?? "") ?? safeLink(attribution?.metadata.source_url ?? "");
@@ -73,17 +91,22 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
       <div><strong>{workspace.name} · 只读分块浏览</strong><p>{workspace.coverage_label} · 当前视口按需读取，保留源几何</p></div>
       <div className="tile-preview-actions">
         {projection && <button type="button" onClick={() => scene.current?.reset()}>已加载范围</button>}
-        {selected && <button type="button" onClick={() => onSelect(null)}>取消建筑选择</button>}
+        {activeSelected && <button type="button" onClick={() => onSelect(null)}>取消建筑选择</button>}
+        {manifest && <button type="button" aria-pressed={manualPaused} onClick={() => setManualPaused(value => !value)}>
+          {manualPaused ? "恢复瓦片读取" : "暂停瓦片读取"}
+        </button>}
         <button type="button" disabled={loadingManifest} onClick={() => setAttempt(value => value + 1)}>重新检查渲染包</button>
       </div>
     </header>
     <div className="tile-preview-status" role="status" aria-live="polite">
       {loadingManifest ? "正在读取有界渲染清单…" : manifest ? <>
         已加载 {projection?.instances.length ?? 0} / {manifest.counts.buildings} 栋（跨瓦片去重），{streamState.tiles.length} / {manifest.counts.tiles} 瓦片
-        {` · 当前视口目标 ${streamState.wanted} / ${streamState.candidates} 瓦片 · ${streamState.loading} 个待加载`}
+        {` · ${paused ? "暂停前视口目标" : "当前视口目标"} ${streamState.wanted} / ${streamState.candidates} 瓦片 · ${streamState.loading} 个待加载`}
+        {paused && <strong> · {pageHidden ? "页面已隐藏，自动暂停瓦片读取" : "已暂停瓦片读取，保持已加载画面"}</strong>}
         {partial && <strong> · 局部加载，并非完整覆盖</strong>}
         {streamState.omitted > 0 && <strong> · 预算暂缓 {streamState.omitted} 瓦片，缩小视口或移动相机继续读取</strong>}
         <small>驻留源字节 {megabytes(streamState.activeBytes)} / {megabytes(tileBudget.activeBytes)} MiB · 缓存 {streamState.cacheTiles} / {tileBudget.cacheTiles} 瓦片，{megabytes(streamState.cacheBytes)} / {megabytes(tileBudget.cacheBytes)} MiB · 最多 {tileBudget.concurrency} 个并发请求；非 GPU / JS 内存测量</small>
+        {paused && <small>相机与建筑详情仍可使用；恢复后按最新视口继续读取。手动暂停不会因页面重新显示而取消。</small>}
       </> : "尚未加载几何"}
     </div>
     {error && <div className="tile-preview-error" role="alert"><strong>{error}</strong>
@@ -95,7 +118,7 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
     {streamState.failures.length > 0 && <div className="tile-preview-error" role="alert">
       <strong>{streamState.failures.length} 个瓦片未加载；画面仍不完整</strong>
       <ul>{streamState.failures.map(f => <li key={f.id}>{f.id}：{f.message}</li>)}</ul>
-      <button type="button" onClick={() => stream.current?.retry()}>重试失败瓦片</button>
+      <button type="button" disabled={paused} onClick={() => stream.current?.retry()}>重试失败瓦片</button>
     </div>}
     {manifest && <details className="tile-preview-provenance" open>
       <summary>来源修订与缺失图层</summary>
@@ -110,9 +133,13 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
       {manifest.quality_warnings.map((warning, i) => <p className="tile-preview-warning" key={`${warning.code}-${i}`}>{warning.message}</p>)}
       <small>上述质量警告只适用于此完整来源修订；浏览器未修正源模型。选中建筑保留包内全部构件（若有既有总览，则为总览构件），并固定一个关联瓦片，仍受瓦片硬预算限制。</small>
     </details>}
-    <div className="tile-preview-scene">
-      {projection ? <CityScene ref={scene} city={projection} center={center} selected={selected} onSelect={onSelect}
-        context fullDetails={false} showGround={false} renderOnly onViewBounds={onViewBounds} /> : <p>几何将在渲染包验证通过后显示</p>}
+    <div className="tile-preview-content">
+      {manifest && <LoadedBuildingInspector key={`${manifest.city_id}:${manifest.revision}:${attempt}`}
+        buildings={buildings} manifest={manifest} selected={activeSelected} onSelect={onSelect} onFocus={onFocus} />}
+      <div className="tile-preview-scene">
+        {projection ? <CityScene ref={scene} city={projection} center={center} selected={activeSelected} onSelect={onSelect}
+          context fullDetails={false} showGround={false} renderOnly onViewBounds={onViewBounds} /> : <p>几何将在渲染包验证通过后显示</p>}
+      </div>
     </div>
   </section>;
 }

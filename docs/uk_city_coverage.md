@@ -153,8 +153,12 @@ polygons only, not actual city boundaries.
 The city-selection page includes a collapsed “英国城市接入进度” section. Opening it
 makes one bounded, read-only `/coverage/uk-cities` request. It does not request
 city models, create workspaces, download boundaries or expand the three active
-city choices. Country/name/alias filtering happens locally; the two Bangors
-remain distinct. The London row has no association with the Westminster/Whitehall
+city choices. Country/name/alias, sample-status and boundary-receipt-status
+filters combine locally, with result counts and a clear-all action; the two
+Bangors remain distinct. Unsupported-platform receipt reads have their own
+filter and are not grouped with failed validation. Filters survive refresh,
+retry and panel reopening without requesting any city model. The London row has
+no association with the Westminster/Whitehall
 sample, while Westminster shows the explicitly unverified legacy `london`
 association. Source publication and verification dates are shown separately.
 
