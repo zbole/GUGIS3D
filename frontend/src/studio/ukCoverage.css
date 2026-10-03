@@ -1,1 +1,27 @@
-.uk-coverage-progress{border:1px solid #d3e0e5;border-radius:9px;margin:22px 0;background:#fff;font-size:12px;line-height:1.7}.uk-coverage-progress>summary{padding:13px 17px;cursor:pointer;font-weight:600;color:#345461}.uk-coverage-progress>summary small{font-weight:400;color:#708692;margin-left:12px}.uk-coverage-body{padding:0 17px 15px}.uk-coverage-body p{color:#647d89;margin:8px 0}.uk-coverage-body .uk-coverage-counts{font-weight:600;color:#345a68;font-size:13px}.uk-coverage-filters{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:15px 0}.uk-coverage-filters label{display:flex;align-items:center;gap:7px}.uk-coverage-filters input,.uk-coverage-filters select{padding:7px 10px;border:1px solid #cedde2;border-radius:5px;background:#fbfcfd;color:#345461;max-width:210px}.uk-coverage-table-wrap{max-height:380px;overflow:auto;border:1px solid #e1e9ed;border-radius:5px}.uk-coverage-table-wrap table{border-collapse:collapse;width:100%;min-width:660px;text-align:left;font-size:11px}.uk-coverage-table-wrap th,.uk-coverage-table-wrap td{padding:9px 11px;border-bottom:1px solid #e5ecef;vertical-align:top}.uk-coverage-table-wrap thead th{position:sticky;top:0;background:#edf3f5;z-index:1}.uk-coverage-table-wrap tbody th{font-weight:500;min-width:140px}.uk-coverage-table-wrap small{display:block;max-width:290px;color:#788d97;font-weight:400;margin-top:4px}.uk-coverage-body .uk-coverage-source{font-size:10px;line-height:1.8;margin-top:14px}.uk-coverage-source a{color:#246e80}.uk-coverage-body .uk-coverage-result-count{font-size:10px}.uk-coverage-progress button:disabled{cursor:not-allowed}.uk-coverage-progress input:focus-visible,.uk-coverage-progress select:focus-visible{outline:3px solid #207783;outline-offset:2px}@media(max-width:620px){.uk-coverage-progress>summary small{display:block;margin:3px 0 0}.uk-coverage-filters{gap:9px}.uk-coverage-filters label{width:100%}.uk-coverage-filters input,.uk-coverage-filters select{flex:1;max-width:none}}
+.uk-coverage-progress{border:1px solid #d3e0e5;border-radius:9px;margin:22px 0;background:#fff;font-size:12px;line-height:1.7;min-width:0}
+.uk-coverage-progress>summary{padding:13px 17px;cursor:pointer;font-weight:600;color:#345461}
+.uk-coverage-progress>summary small{font-weight:400;color:#708692;margin-left:12px}
+.uk-coverage-body{padding:0 17px 15px;min-width:0}
+.uk-coverage-body p{color:#647d89;margin:8px 0}
+.uk-coverage-body .uk-coverage-counts{font-weight:600;color:#345a68;font-size:13px}
+.uk-coverage-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px 14px;margin:15px 0}
+.uk-coverage-filters label{display:flex;flex-direction:column;gap:4px;min-width:0;color:#345461}
+.uk-coverage-filters input,.uk-coverage-filters select{box-sizing:border-box;width:100%;min-width:0;min-height:36px;padding:7px 10px;border:1px solid #cedde2;border-radius:5px;background:#fbfcfd;color:#345461}
+.uk-coverage-filter-actions{grid-column:1/-1;display:flex;gap:9px;flex-wrap:wrap}
+.uk-coverage-filter-actions button{min-height:36px}
+.uk-coverage-table-wrap{max-height:380px;overflow:auto;border:1px solid #e1e9ed;border-radius:5px}
+.uk-coverage-table-wrap table{border-collapse:collapse;width:100%;min-width:660px;text-align:left;font-size:11px}
+.uk-coverage-table-wrap th,.uk-coverage-table-wrap td{padding:9px 11px;border-bottom:1px solid #e5ecef;vertical-align:top}
+.uk-coverage-table-wrap thead th{position:sticky;top:0;background:#edf3f5;z-index:1}
+.uk-coverage-table-wrap tbody th{font-weight:500;min-width:140px}
+.uk-coverage-table-wrap small{display:block;max-width:290px;color:#788d97;font-weight:400;margin-top:4px}
+.uk-coverage-body .uk-coverage-empty{padding:8px 11px}
+.uk-coverage-body .uk-coverage-source{font-size:10px;line-height:1.8;margin-top:14px;overflow-wrap:anywhere}
+.uk-coverage-source a{color:#246e80}
+.uk-coverage-body .uk-coverage-result-count{font-size:11px}
+.uk-coverage-progress button:disabled{cursor:not-allowed}
+.uk-coverage-progress input:focus-visible,.uk-coverage-progress select:focus-visible,.uk-coverage-progress button:focus-visible,.uk-coverage-progress summary:focus-visible,.uk-coverage-table-wrap:focus-visible{outline:3px solid #207783;outline-offset:2px}
+@media(max-width:620px){
+  .uk-coverage-progress>summary small{display:block;margin:3px 0 0}
+  .uk-coverage-filters{grid-template-columns:minmax(0,1fr);gap:9px}
+}

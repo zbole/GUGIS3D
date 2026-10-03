@@ -22,6 +22,26 @@ export interface UkReadiness {
   samples: ReadinessSample[];
   cities: ReadinessCity[];
 }
+export type ReadinessSampleStatus = ReadinessCity["sample"]["state"];
+export type ReadinessBoundaryStatus = ReadinessCity["boundary"]["state"] | "unsupported-platform";
+export interface ReadinessStatusFilters {
+  sample?: ReadinessSampleStatus | "";
+  boundary?: ReadinessBoundaryStatus | "";
+}
+export const sampleStatusLabels: Record<ReadinessSampleStatus, string> = {
+  available: "相关样本可用", missing: "尚无可用样本数据", invalid: "样本数据异常",
+  unavailable: "样本状态不可用", none: "尚无关联样本",
+};
+export const boundaryStatusLabels: Record<ReadinessBoundaryStatus, string> = {
+  "not-recorded": "未记录边界", "receipt-recorded": "已有结构检查回执",
+  "validation-failed": "回执校验失败", "unsupported-platform": "当前平台未检查",
+};
+// Unsupported receipt I/O is encoded as a failed read by the API, but says
+// nothing about the validity of the file or its geometry. Keep it separate in
+// both the local filter and the label displayed for a city.
+export function boundaryReadinessStatus(city: ReadinessCity): ReadinessBoundaryStatus {
+  return city.boundary.reason_code === "unsupported-platform" ? "unsupported-platform" : city.boundary.state;
+}
 export const countryNames: Record<ReadinessCountry, string> = { England: "英格兰", Scotland: "苏格兰", Wales: "威尔士", "Northern Ireland": "北爱尔兰" };
 const countries = Object.keys(countryNames) as ReadinessCountry[];
 const countryCodes: Record<ReadinessCountry, string> = { England: "ENG", Scotland: "SCT", Wales: "WLS", "Northern Ireland": "NIR" };
@@ -70,9 +90,11 @@ export function parseUkReadiness(value: unknown): UkReadiness {
     value.samples.every((s: ReadinessSample) => value.cities.some((c: ReadinessCity) => c.id === s.related_city_id && c.sample.workspace_ids.includes(s.workspace_id))), "样本关联与可用数不一致");
   return value as UkReadiness;
 }
-export function filterReadinessCities(cities: ReadinessCity[], country: string, query: string): ReadinessCity[] {
+export function filterReadinessCities(cities: ReadinessCity[], country: string, query: string, statuses: ReadinessStatusFilters = {}): ReadinessCity[] {
   const needle = query.trim().toLocaleLowerCase();
-  return cities.filter(city => (!country || city.country === country) && (!needle ||
+  return cities.filter(city => (!country || city.country === country) &&
+    (!statuses.sample || city.sample.state === statuses.sample) &&
+    (!statuses.boundary || boundaryReadinessStatus(city) === statuses.boundary) && (!needle ||
     [city.source_name, city.display_name, ...city.aliases].some(value => value.toLocaleLowerCase().includes(needle))));
 }
 export async function loadUkReadiness(signal: AbortSignal): Promise<UkReadiness> {
