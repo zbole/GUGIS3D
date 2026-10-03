@@ -123,6 +123,179 @@ test("dispose aborts pending reads and suppresses all late callbacks", async () 
   const states = h.states.length; h.stream.dispose(); assert.ok(h.requests.every(r => r.signal.aborted));
   h.requests.forEach(h.finish); await settle(); assert.equal(h.states.length, states); assert.equal(h.requests.length, 2);
 });
+test("pause freezes verified scene/cache and discards late responses until the latest copied view resumes", async t => {
+  const f = fixture(6), h = harness(f, { ...tileBudget, activeTiles: 3, cacheTiles: 3, concurrency: 3 });
+  t.after(() => h.stream.dispose());
+  h.stream.setView(view()); h.finish(h.requests[0]); await settle();
+  const tiles = h.current().tiles, bytes = h.current().activeBytes;
+  h.stream.setPaused(true);
+  assert.equal(h.current().paused, true); assert.equal(h.current().loading, 0);
+  assert.equal(h.current().tiles, tiles); assert.ok(h.requests.slice(1).every(r => r.signal.aborted));
+  h.stream.setView(view(.03));
+  const latest = view(.05, [.029, 50.999, .051, 51.001]);
+  h.stream.setView(latest); latest.center.longitude = 0; latest.bounds[0] = -.001;
+  const frozen = h.current(), stateCount = h.states.length;
+  let cancelled = 0;
+  h.requests[1].resolve(new Response(new ReadableStream({ cancel() { cancelled++; } })));
+  h.requests[2].reject(new Error("Obsolete network failure")); await settle();
+  assert.equal(cancelled, 1); assert.equal(h.states.length, stateCount);
+  assert.equal(h.current(), frozen); assert.equal(h.current().activeBytes, bytes);
+  assert.equal(h.current().cacheTiles, 1); assert.equal(h.current().failures.length, 0);
+  h.stream.setPaused(false);
+  assert.equal(h.current().paused, false);
+  assert.deepEqual(h.requests.slice(3).map(r => r.id), ["x5_y0", "x4_y0", "x3_y0"]);
+  h.requests.slice(3).forEach(h.finish); await settle();
+  assert.deepEqual(h.current().tiles.map(t => t.tile_id), ["x5_y0", "x4_y0", "x3_y0"]);
+  assert.equal(h.current().candidates, 3); assert.equal(h.current().loading, 0);
+  assert.ok(h.states.every(s => s.tiles.length <= 3 && s.cacheTiles <= 3 &&
+    s.activeBytes <= tileBudget.activeBytes && s.cacheBytes <= tileBudget.cacheBytes));
+});
+test("pause before the first view defers all reads and resumes only the newest view", async t => {
+  const h = harness(fixture(4)); t.after(() => h.stream.dispose());
+  h.stream.setPaused(false); assert.equal(h.states.length, 0);
+  h.stream.setPaused(true); h.stream.setPaused(true);
+  h.stream.setView(view()); h.stream.setView(view(.03)); h.stream.retry();
+  assert.equal(h.requests.length, 0); assert.equal(h.current().loading, 0);
+  h.stream.setPaused(false); h.stream.setPaused(false);
+  assert.deepEqual(h.requests.map(r => r.id), ["x3_y0", "x2_y0"]);
+  h.requests.forEach(h.finish); await settle(); assert.equal(h.current().tiles.length, 2);
+});
+test("rapid pause/resume retains all three physical slots until each cancelled transport settles", async t => {
+  const h = harness(fixture(4), { ...tileBudget, activeTiles: 3, cacheTiles: 3, concurrency: 3 });
+  t.after(() => h.stream.dispose()); h.stream.setView(view());
+  for (let i = 0; i < 5; i++) { h.stream.setPaused(true); h.stream.setPaused(false); }
+  assert.equal(h.requests.length, 3); assert.ok(h.requests.every(r => r.signal.aborted));
+  h.finish(h.requests[0]); await settle();
+  assert.equal(h.requests.length, 4); assert.equal(h.requests[3].id, "x0_y0");
+  assert.equal(h.current().tiles.length, 0);
+  h.stream.setPaused(true); h.stream.setPaused(false);
+  assert.equal(h.requests.length, 4);
+  h.requests[1].reject(new DOMException("Cancelled", "AbortError")); await settle();
+  assert.equal(h.requests.length, 5); assert.equal(h.requests[4].id, "x1_y0");
+  h.finish(h.requests[2]); h.finish(h.requests[3]); await settle();
+  assert.equal(h.requests.length, 7); assert.equal(h.current().tiles.length, 0);
+  assert.equal(h.current().failures.length, 0);
+  h.requests.slice(4).forEach(h.finish); await settle();
+  assert.equal(h.current().tiles.length, 3); assert.equal(h.current().loading, 0);
+});
+test("a late response keeps its concurrency slot until body cancellation finishes", async t => {
+  const h = harness(fixture(3), { ...tileBudget, activeTiles: 1, cacheTiles: 1, concurrency: 1 });
+  t.after(() => h.stream.dispose());
+  h.stream.setView(view()); h.stream.setPaused(true); h.stream.setView(view(.02)); h.stream.setPaused(false);
+  let finishCancel, cancelled = 0;
+  h.requests[0].resolve(new Response(new ReadableStream({
+    cancel() { cancelled++; return new Promise(resolve => { finishCancel = resolve; }); },
+  })));
+  await settle(); assert.equal(cancelled, 1); assert.equal(h.requests.length, 1);
+  finishCancel(); await settle();
+  assert.equal(h.requests.length, 2); assert.equal(h.requests[1].id, "x2_y0");
+  h.finish(h.requests[1]); await settle();
+  assert.equal(h.current().tiles[0].tile_id, "x2_y0"); assert.equal(h.current().failures.length, 0);
+});
+test("pause cancels a pending body read and does not manufacture a timeout failure", async t => {
+  const f = fixture(1), h = harness(f); t.after(() => h.stream.dispose());
+  let cancelled = 0;
+  h.stream.setView(view());
+  h.requests[0].resolve(new Response(new ReadableStream({
+    start(controller) { controller.enqueue(f.contents.get("x0_y0").bytes.slice(0, 12)); },
+    cancel() { cancelled++; },
+  })));
+  await settle(); h.stream.setPaused(true); const states = h.states.length; await settle();
+  assert.equal(cancelled, 1); assert.equal(h.states.length, states); assert.equal(h.current().cacheTiles, 0);
+  assert.equal(h.current().failures.length, 0);
+  h.stream.setPaused(false); assert.equal(h.requests.length, 2);
+  h.finish(h.requests[1]); await settle(); assert.equal(h.current().tiles.length, 1);
+});
+test("an interrupted body read keeps its physical slot until the original cancellation settles", async t => {
+  const h = harness(fixture(2), { ...tileBudget, activeTiles: 1, cacheTiles: 1, concurrency: 1 });
+  t.after(() => h.stream.dispose());
+  let finishCancel, cancelled = 0;
+  h.stream.setView(view());
+  h.requests[0].resolve(new Response(new ReadableStream({
+    cancel() { cancelled++; return new Promise(resolve => { finishCancel = resolve; }); },
+  })));
+  await settle();
+  h.stream.setPaused(true); h.stream.setView(view(.01)); h.stream.setPaused(false);
+  await settle();
+  assert.equal(cancelled, 1); assert.equal(h.requests.length, 1);
+  assert.equal(h.current().failures.length, 0); assert.equal(h.current().cacheTiles, 0);
+  finishCancel(); await settle();
+  assert.equal(h.requests.length, 2); assert.equal(h.requests[1].id, "x1_y0");
+  h.finish(h.requests[1]); await settle(); assert.equal(h.current().tiles.length, 1);
+});
+test("pause during SHA verification cannot publish the stale verified tile after resume", async t => {
+  const h = harness(fixture(1), { ...tileBudget, activeTiles: 1, cacheTiles: 1, concurrency: 1 });
+  t.after(() => h.stream.dispose());
+  const digest = crypto.subtle.digest.bind(crypto.subtle); let finishDigest;
+  const mocked = t.mock.method(crypto.subtle, "digest", (...args) => new Promise(resolve => {
+    finishDigest = () => resolve(digest(...args));
+  }));
+  h.stream.setView(view()); h.finish(h.requests[0]); await settle();
+  assert.equal(typeof finishDigest, "function");
+  h.stream.setPaused(true); h.stream.setPaused(false);
+  assert.equal(h.requests.length, 1);
+  finishDigest(); mocked.mock.restore(); await settle();
+  assert.equal(h.current().cacheTiles, 0); assert.equal(h.current().failures.length, 0);
+  assert.equal(h.requests.length, 2);
+  h.finish(h.requests[1]); await settle(); assert.equal(h.current().tiles.length, 1);
+});
+test("selection changes while paused retain or clear the frozen selected tile within one-tile budget", async t => {
+  const f = fixture(3), h = harness(f, { ...tileBudget, activeTiles: 1, cacheTiles: 2, concurrency: 1 });
+  t.after(() => h.stream.dispose());
+  h.stream.setView(view()); h.finish(h.requests[0]); await settle();
+  const frozen = h.current().tiles, remote = view(.02, [.019, 50.999, .021, 51.001]);
+  h.stream.setPaused(true); h.stream.setView(remote, "building0");
+  assert.equal(h.current().tiles, frozen);
+  h.stream.setPaused(false);
+  assert.equal(h.requests.length, 1); assert.equal(h.current().tiles, frozen);
+  assert.equal(h.current().wanted, 1); assert.equal(h.current().omitted, 1);
+  h.stream.setPaused(true); h.stream.setView(remote, "building0"); h.stream.setView(remote, null);
+  assert.equal(h.current().tiles, frozen);
+  h.stream.setPaused(false); assert.equal(h.requests[1].id, "x2_y0");
+  h.finish(h.requests[1]); await settle();
+  assert.equal(h.current().tiles[0].tile_id, "x2_y0");
+  h.stream.setPaused(true); h.stream.setView(view()); h.stream.setPaused(false);
+  assert.equal(h.requests.length, 2); assert.equal(h.current().tiles[0], frozen[0]);
+});
+test("pause alone retains failures; explicit retry while paused waits for resume and retries the latest plan", async t => {
+  const h = harness(fixture(2), { ...tileBudget, activeTiles: 1, cacheTiles: 2, concurrency: 1 });
+  t.after(() => h.stream.dispose());
+  h.stream.setView(view()); h.requests[0].reject(new Error("Network unavailable")); await settle();
+  h.stream.setPaused(true); h.stream.setPaused(false);
+  assert.equal(h.requests.length, 1); assert.match(h.current().failures[0].message, /Network unavailable/);
+  h.stream.setView(view(.01)); h.finish(h.requests[1]); await settle();
+  h.stream.setPaused(true); h.stream.retry(); h.stream.retry(); h.stream.setView(view());
+  assert.equal(h.requests.length, 2); assert.equal(h.current().tiles[0].tile_id, "x1_y0");
+  assert.equal(h.current().loading, 0);
+  h.stream.setPaused(false);
+  assert.equal(h.requests.length, 3); assert.equal(h.requests[2].id, "x0_y0");
+  assert.equal(h.current().failures.length, 0);
+  h.finish(h.requests[2]); await settle(); assert.equal(h.current().tiles[0].tile_id, "x0_y0");
+});
+test("actual deadline expiry still reports a retryable timeout and respects unsettled transport slots", async t => {
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const h = harness(fixture(1)); t.after(() => h.stream.dispose());
+  h.stream.setView(view()); t.mock.timers.tick(20000);
+  assert.equal(h.requests[0].signal.aborted, true); assert.equal(h.requests.length, 1);
+  h.requests[0].reject(new DOMException("Cancelled", "AbortError"));
+  await new Promise(resolve => setImmediate(resolve));
+  assert.match(h.current().failures[0].message, /超时/); assert.equal(h.current().loading, 0);
+  h.stream.retry(); assert.equal(h.requests.length, 2);
+  h.stream.setPaused(true); t.mock.timers.tick(20000);
+  h.requests[1].reject(new DOMException("Cancelled", "AbortError"));
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(h.current().failures.length, 0); assert.equal(h.current().paused, true);
+});
+test("repeated dispose while paused suppresses queued views, retries and every late callback", async () => {
+  const h = harness(fixture(3)); h.stream.setView(view()); h.stream.setPaused(true);
+  h.stream.setView(view(.02)); h.stream.retry();
+  const states = h.states.length;
+  h.stream.dispose(); h.stream.dispose(); h.stream.setPaused(false); h.stream.setPaused(true);
+  h.stream.setView(view()); h.stream.retry();
+  h.requests.forEach(h.finish); await settle();
+  assert.equal(h.states.length, states); assert.equal(h.requests.length, 2);
+  assert.ok(h.requests.every(r => r.signal.aborted));
+});
 test("cross-tile dedupe retains final references and rejects all conflicting identity kinds", () => {
   const f = fixture(2), a = f.contents.get("x0_y0").tile, duplicate = structuredClone(a); duplicate.tile_id = "x1_y0";
   const merged = renderTilesToCity(f.manifest, [a, duplicate]); assert.equal(merged.instances.length, 1);

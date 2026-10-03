@@ -89,7 +89,10 @@ export async function readBoundedBytes(response: Response, maxBytes: number, sig
   requireValue(response.body, "浏览器不支持有界流式读取");
   const reader = response.body.getReader(), chunks: Uint8Array[] = [];
   let total = 0;
-  const cancel = () => { void reader.cancel().catch(() => {}); };
+  // Repeated cancel() calls can resolve before the original underlying cancel
+  // finishes. Retain that first promise so the queue keeps its physical slot.
+  let cancellation: Promise<void> | undefined;
+  const cancel = () => cancellation ??= reader.cancel().catch(() => {});
   signal.addEventListener("abort", cancel, { once: true });
   try {
     while (true) {
@@ -106,7 +109,7 @@ export async function readBoundedBytes(response: Response, maxBytes: number, sig
     let offset = 0;
     for (const chunk of chunks) { result.set(chunk, offset); offset += chunk.length; }
     return result;
-  } catch (error) { await reader.cancel().catch(() => {}); throw error; }
+  } catch (error) { await cancel(); throw error; }
   finally { signal.removeEventListener("abort", cancel); reader.releaseLock(); }
 }
 function decode(bytes: Uint8Array): unknown { return JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes)); }
@@ -257,6 +260,7 @@ export interface TileStreamState {
   tiles: readonly RenderTile[]; wanted: number; candidates: number; omitted: number;
   loading: number; activeBytes: number; cacheTiles: number; cacheBytes: number;
   failures: ReadonlyArray<{ id: string; message: string }>;
+  paused?: boolean;
 }
 interface CachedTile { tile: RenderTile; bytes: number; touched: number }
 /** Bounded read-only queue. An epoch invalidates all obsolete responses, even transports ignoring abort. */
@@ -274,6 +278,10 @@ export class RenderTileStream {
   private epoch = 0;
   private clock = 0;
   private disposed = false;
+  private paused = false;
+  private latestView: RenderView | null = null;
+  private latestSelected: string | null = null;
+  private retryOnResume = false;
   private lastTiles: readonly RenderTile[] = [];
   constructor(manifest: RenderManifest, notify: (state: TileStreamState) => void, options: { fetcher?: typeof fetch; base?: string; budget?: TileBudget } = {}) {
     this.manifest = manifest; this.notify = notify; this.fetcher = options.fetcher ?? fetch;
@@ -285,6 +293,29 @@ export class RenderTileStream {
   }
   setView(view: RenderView, selected: string | null = null) {
     if (this.disposed) return;
+    // Keep camera updates while paused, but leave the displayed plan and its
+    // verified residency untouched until resume. Snapshot caller-owned input.
+    this.latestView = { bounds: view.bounds ? [...view.bounds] : null, center: { ...view.center } };
+    this.latestSelected = selected;
+    if (this.paused) return;
+    this.applyView(this.latestView, this.latestSelected);
+  }
+  /** Freeze verified tiles and stop reads without releasing unsettled transports' slots. */
+  setPaused(paused: boolean) {
+    if (this.disposed || this.paused === paused) return;
+    this.paused = paused;
+    if (paused) {
+      this.epoch++;
+      for (const p of this.pending.values()) p.controller.abort();
+      this.emit();
+    } else if (this.latestView) {
+      this.applyView(this.latestView, this.latestSelected);
+    } else {
+      this.retryOnResume = false;
+      this.emit();
+    }
+  }
+  private applyView(view: RenderView, selected: string | null) {
     const pinned = selected ? this.wanted.find(d => this.cache.get(d.id)?.tile.instances.some(i => i.id === selected))?.id : undefined;
     const plan = chooseViewportTiles(this.manifest, view, this.budget, pinned);
     this.candidates = plan.candidates;
@@ -293,32 +324,41 @@ export class RenderTileStream {
       for (const p of this.pending.values()) p.controller.abort();
       this.wanted = plan.chosen;
     }
+    if (this.retryOnResume) {
+      for (const t of this.wanted) this.failures.delete(t.id);
+      this.retryOnResume = false;
+    }
     for (const t of this.wanted) { const cached = this.cache.get(t.id); if (cached) cached.touched = ++this.clock; }
     this.pump(); this.emit();
   }
   retry() {
     if (this.disposed) return;
     for (const t of this.wanted) this.failures.delete(t.id);
+    // An explicit retry while frozen also applies to the latest desired plan
+    // when resumed, including camera changes made after clicking retry.
+    if (this.paused) this.retryOnResume = true;
     this.pump(); this.emit();
   }
   dispose() {
+    if (this.disposed) return;
     this.disposed = true; this.epoch++;
     for (const p of this.pending.values()) p.controller.abort();
     this.cache.clear(); this.failures.clear(); this.wanted = []; this.lastTiles = [];
+    this.latestView = null; this.latestSelected = null; this.retryOnResume = false;
   }
   private emit() {
     if (this.disposed) return;
     const tiles = this.wanted.flatMap(t => this.cache.has(t.id) ? [this.cache.get(t.id)!.tile] : []);
     if (tiles.length !== this.lastTiles.length || tiles.some((t, i) => t !== this.lastTiles[i])) this.lastTiles = tiles;
-    this.notify({ tiles: this.lastTiles, wanted: this.wanted.length, candidates: this.candidates,
+    this.notify({ tiles: this.lastTiles, paused: this.paused, wanted: this.wanted.length, candidates: this.candidates,
       omitted: this.candidates - this.wanted.length,
-      loading: this.wanted.filter(t => !this.cache.has(t.id) && !this.failures.has(t.id)).length,
+      loading: this.paused ? 0 : this.wanted.filter(t => !this.cache.has(t.id) && !this.failures.has(t.id)).length,
       activeBytes: this.wanted.reduce((sum, t) => sum + (this.cache.has(t.id) ? t.byte_length : 0), 0),
       cacheTiles: this.cache.size, cacheBytes: [...this.cache.values()].reduce((sum, t) => sum + t.bytes, 0),
       failures: this.wanted.filter(t => this.failures.has(t.id)).map(t => ({ id: t.id, message: this.failures.get(t.id)! })) });
   }
   private pump() {
-    if (this.disposed) return;
+    if (this.disposed || this.paused) return;
     for (const descriptor of this.wanted) {
       if (this.pending.size >= this.budget.concurrency) break;
       if (this.cache.has(descriptor.id) || this.pending.has(descriptor.id) || this.failures.has(descriptor.id)) continue;
@@ -329,17 +369,25 @@ export class RenderTileStream {
   }
   private async load(descriptor: RenderTileDescriptor, controller: AbortController, epoch: number) {
     const signal = controller.signal;
-    const timeout = setTimeout(() => controller.abort(), 20000);
+    let timedOut = false;
+    const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, 20000);
     const clearDeadline = () => clearTimeout(timeout);
     signal.addEventListener("abort", clearDeadline, { once: true });
     try {
       const response = await this.fetcher(`${this.base}${descriptor.url}`, { signal, cache: "force-cache" });
+      // Some transports ignore AbortSignal. Cancel their late response bodies
+      // before releasing the physical request slot, without reading or caching.
+      if (signal.aborted || this.disposed || epoch !== this.epoch) {
+        await response.body?.cancel();
+        if (timedOut) throw new Error("瓦片读取超时，点击重试");
+        return;
+      }
       if (!response.ok) { await response.body?.cancel(); throw new Error(`瓦片读取失败（${response.status}）`); }
       const bytes = await readBoundedBytes(response, Math.min(MAX_TILE_BYTES, this.budget.activeBytes), signal, descriptor.byte_length);
       requireValue(await sha256(bytes) === descriptor.sha256, "渲染瓦片 SHA-256 不匹配");
       aborted(signal);
       const tile = validateTile(decode(bytes), this.manifest, descriptor);
-      if (this.disposed || epoch !== this.epoch) return;
+      if (this.disposed || this.paused || epoch !== this.epoch) return;
       mergeTiles(this.manifest, [...this.cache.values()].map(c => c.tile).concat(tile));
       const desired = new Set(this.wanted.map(t => t.id));
       let total = [...this.cache.values()].reduce((sum, t) => sum + t.bytes, 0);
@@ -350,12 +398,13 @@ export class RenderTileStream {
       requireValue(this.cache.size < this.budget.cacheTiles && total + descriptor.byte_length <= this.budget.cacheBytes, "瓦片缓存硬上限已达到");
       this.cache.set(descriptor.id, { tile, bytes: descriptor.byte_length, touched: ++this.clock });
     } catch (error) {
-      if (!this.disposed && epoch === this.epoch) this.failures.set(descriptor.id,
-        signal.aborted ? "瓦片读取超时，点击重试" : error instanceof Error ? error.message : "瓦片读取失败");
+      if (!this.disposed && !this.paused && epoch === this.epoch && (timedOut || !signal.aborted)) this.failures.set(descriptor.id,
+        timedOut ? "瓦片读取超时，点击重试" : error instanceof Error ? error.message : "瓦片读取失败");
     } finally {
       clearTimeout(timeout); signal.removeEventListener("abort", clearDeadline);
       if (this.pending.get(descriptor.id)?.controller === controller) this.pending.delete(descriptor.id);
-      this.pump(); this.emit();
+      this.pump();
+      if (!this.paused) this.emit();
     }
   }
 }
