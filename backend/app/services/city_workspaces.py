@@ -1,6 +1,9 @@
 """Request-bound city workspaces; selecting a city never changes global state."""
+import hashlib
 import json
 import math
+import threading
+from functools import lru_cache
 from contextvars import ContextVar
 from pathlib import Path
 
@@ -80,35 +83,80 @@ def valid_bounds(value):
     return None
 
 
+# Cache small, fully validated summaries, not expanded city geometry. A stat
+# fingerprint avoids reparsing Bristol's 32 MiB archive on every catalogue/DEM
+# request. Atomic replacements and in-place edits both invalidate the summary.
+_summary_lock = threading.RLock()
+_MAX_CITY_BYTES = 128 * 1024 * 1024
+_CATALOG_METADATA = {'coverage_bbox_wgs84', 'data_bbox_wgs84', 'coverage_kind',
+                     'coverage_label', 'source', '来源', 'source_url', 'license',
+                     'source_retrieved_at', 'height_policy'}
+
+
+def _fingerprint(path):
+    stat = path.stat()
+    return (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+
+
+class _SnapshotChanged(OSError):
+    pass
+
+
+@lru_cache(maxsize=64)
+def _validated_summary(path, fingerprint):
+    from .city_archive import load_city
+    invalid = {'corrupt': True, 'metadata': {}, 'count': 0, 'extent': None, 'road_count': 0}
+    if fingerprint[2] > _MAX_CITY_BYTES:
+        return invalid
+    # Bound reads too: the file may have grown after stat(). Never rewrite a
+    # corrupt file or fall back to a seed when the saved project is invalid.
+    with path.open('rb') as source:
+        content = source.read(_MAX_CITY_BYTES + 1)
+    if _fingerprint(path) != fingerprint:
+        raise _SnapshotChanged('City changed while reading its summary')
+    if len(content) > _MAX_CITY_BYTES:
+        return invalid
+    try:
+        document = load_city(content)
+    except (ValueError, TypeError, KeyError):
+        return invalid
+    instances = document.instances
+    extent = None
+    if instances:
+        longitudes = [p.longitude for p in instances]
+        latitudes = [p.latitude for p in instances]
+        extent = [min(longitudes), min(latitudes), max(longitudes), max(latitudes)]
+    return {'corrupt': False,
+            'metadata': {key: value for key, value in document.metadata.items() if key in _CATALOG_METADATA},
+            'count': len(instances),
+            'extent': extent, 'road_count': len(document.roads),
+            'revision': hashlib.sha256(content).hexdigest()}
+
+
+def _source_summary(path):
+    # One cold validation per snapshot, even for simultaneous requests. The
+    # cache is bounded and retains summaries only; it never retains the model.
+    with _summary_lock:
+        for _ in range(2):
+            try:
+                return _validated_summary(path.resolve(), _fingerprint(path))
+            except _SnapshotChanged:
+                continue
+            except OSError:
+                break
+    return {'corrupt': True, 'metadata': {}, 'count': 0, 'extent': None, 'road_count': 0}
+
+
 def workspace_entry(city_id: str):
     from ..routers import city
     defaults = CITY_DEFAULTS[city_id]
     current = directory(city.CITY_DIR, city_id) / 'current.gugis.json'
     source_path = current if current.is_file() else seed_path(city.SEED, city_id)
-    payload = {}
-    corrupt = False
-    if source_path.is_file():
-        try:
-            payload = json.loads(source_path.read_bytes())
-            if not isinstance(payload, dict):
-                raise ValueError('City must be an object')
-        except (ValueError, OSError):
-            corrupt = True
-    metadata = payload.get('metadata', {})
-    if not isinstance(metadata, dict):
-        metadata = {}
-    instances = payload.get('instances', [])
-    count = len(instances) if isinstance(instances, list) else 0
-    extent = None
-    try:
-        if count:
-            longitudes = [p['longitude'] for p in instances]
-            latitudes = [p['latitude'] for p in instances]
-            extent = [min(longitudes), min(latitudes), max(longitudes), max(latitudes)]
-    except (KeyError, TypeError, ValueError):
-        corrupt = True
+    summary = (_source_summary(source_path) if source_path.is_file() else
+               {'corrupt': False, 'metadata': {}, 'count': 0, 'extent': None, 'road_count': 0})
+    corrupt, metadata = summary['corrupt'], summary['metadata']
+    count, extent = summary['count'], summary['extent']
     bounds = valid_bounds(metadata.get('coverage_bbox_wgs84')) or defaults['query_bbox_wgs84']
-    roads = payload.get('roads', [])
     return {
         'id': city_id, **defaults,
         'status': 'invalid' if corrupt else ('ready' if count else 'pending'),
@@ -120,7 +168,7 @@ def workspace_entry(city_id: str):
         # footprint extent can cross the requested rectangle.
         'actual_data_bbox_wgs84': valid_bounds(metadata.get('data_bbox_wgs84')),
         'building_extent_wgs84': extent, 'building_count': count,
-        'road_count': len(roads) if isinstance(roads, list) else 0,
+        'road_count': summary['road_count'],
         'source': metadata.get('source') or metadata.get('来源', '样本复现项目' if city_id == 'bristol' else '等待公开建筑数据导入'),
         'source_url': metadata.get('source_url', ''), 'license': metadata.get('license', ''),
         'source_retrieved_at': metadata.get('source_retrieved_at', ''),

@@ -213,6 +213,67 @@ class IndependentCityWorkspacesTests(unittest.TestCase):
         self.assertEqual(kwargs['center'], [-0.1305, 51.502])
         self.assertIn('伦敦', kwargs['coverage_label'])
 
+    def test_catalog_rejects_nonobject_nonfinite_and_schema_invalid_cities_independently(self):
+        self.get('london')
+        path = self.workspace_path('london') / 'current.gugis.json'
+        invalid_snapshots = [
+            b'[]', b'null', b'123', b'"not a city"',
+            b'{"instances":[{"longitude":NaN,"latitude":51.5}]}',
+            b'{"instances":[{"longitude":Infinity,"latitude":51.5}]}',
+            b'{"instances":[{"longitude":-0.13,"latitude":51.5}]}',
+        ]
+        for content in invalid_snapshots:
+            with self.subTest(content=content):
+                path.write_bytes(content)
+                response = self.client.get('/cities')
+                self.assertEqual(response.status_code, 200, response.text)
+                entries = {entry['id']: entry for entry in response.json()['cities']}
+                self.assertEqual(entries['london']['status'], 'invalid')
+                self.assertEqual(entries['london']['building_count'], 0)
+                self.assertIsNone(entries['london']['building_extent_wgs84'])
+                self.assertEqual(entries['bristol']['status'], 'pending')
+                self.assertEqual(entries['birmingham']['status'], 'pending')
+                self.assertEqual(path.read_bytes(), content)
+                self.assertEqual((city.CITY_DIR / 'current.gugis.json').read_bytes(), self.bristol_bytes)
+
+    def test_catalog_validates_once_per_file_snapshot_and_invalidates_on_replacement(self):
+        from app.services import city_archive
+        self.get('london')
+        path = self.workspace_path('london') / 'current.gugis.json'
+        city_workspaces._validated_summary.cache_clear()
+        with patch.object(city_archive, 'load_city', wraps=city_archive.load_city) as validate:
+            self.assertEqual(self.client.get('/cities').status_code, 200)
+            self.assertEqual(validate.call_count, 2)  # Bristol + London; no Birmingham file.
+            self.assertEqual(self.client.get('/cities').status_code, 200)
+            self.assertEqual(validate.call_count, 2)
+            replacement = path.with_suffix('.replacement')
+            replacement.write_bytes(archive_bytes(self.document('London replacement')))
+            replacement.replace(path)
+            self.assertEqual(self.client.get('/cities').status_code, 200)
+            self.assertEqual(validate.call_count, 3)
+            path.write_bytes(b'[]')
+            entry = {e['id']: e for e in self.client.get('/cities').json()['cities']}['london']
+            self.assertEqual(entry['status'], 'invalid')
+            self.assertEqual(validate.call_count, 4)
+            self.assertEqual(self.client.get('/cities').status_code, 200)
+            self.assertEqual(validate.call_count, 4)  # Invalid snapshots are also cached.
+            path.write_bytes(archive_bytes(self.document('Recovered London')))
+            entry = {e['id']: e for e in self.client.get('/cities').json()['cities']}['london']
+            self.assertEqual(entry['status'], 'pending')
+            self.assertEqual(validate.call_count, 5)
+
+    def test_catalog_rejects_a_schema_invalid_but_otherwise_plausible_city(self):
+        self.get('london')
+        path = self.workspace_path('london') / 'current.gugis.json'
+        payload = json.loads(path.read_bytes())
+        payload['instances'] = [{'id': 'broken', 'asset': 'missing', 'name': 'Broken',
+                                 'longitude': -0.13, 'latitude': 51.5}]
+        content = json.dumps(payload).encode()
+        path.write_bytes(content)
+        entry = {e['id']: e for e in self.client.get('/cities').json()['cities']}['london']
+        self.assertEqual(entry['status'], 'invalid')
+        self.assertEqual(path.read_bytes(), content)
+
     def test_catalog_metadata_reflects_current_project_and_invalid_json(self):
         self.get('london')
         path = self.workspace_path('london') / 'current.gugis.json'
