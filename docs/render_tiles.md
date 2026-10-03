@@ -11,6 +11,11 @@ entry, lowers active residency to two tiles / 2 MiB, cache to four tiles / 4 MiB
 and concurrency to one. Balanced keeps the original upper limits. Profiles do
 not change source geometry, raise limits or modify the full editor.
 
+[Residency regression checks](tile_loader_regressions.md) keep request priority
+separate from chosen/resident membership. Priority-only pans or pins reuse the
+same resident tile array and pending reads; actual membership changes, pause and
+disposal retain their epoch-based stale-response protection.
+
 The [loaded-building inspector and loading controls](lightweight_city_exploration.md)
 add local name/ID search, 25-row pages, explicit focus, source-placement details,
 manual pause/resume and automatic pause while the page is hidden. Search reads

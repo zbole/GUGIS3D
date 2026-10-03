@@ -70,6 +70,16 @@ for (const cityId of ["bristol", "london", "birmingham"]) {
     const inspected = loadedBuildings(manifest, initial.tiles);
     assert.equal(inspected.length, scene.instances.length);
     assert.ok(loadedBuildingPage(inspected, "", 0).items.length <= LOADED_BUILDINGS_PAGE_SIZE);
+    const firstTileIds = new Set(initial.tiles[0].instances.map(i => i.id));
+    const reorderSelection = initial.tiles.slice(1).flatMap(tile => tile.instances).find(i => !firstTileIds.has(i.id));
+    const requestsBeforeSelection = requests.length;
+    if (reorderSelection) {
+      stream.setView(view, reorderSelection.id);
+      assert.equal(lastState.tiles, initial.tiles, "pinning a loaded non-first tile reuses the scene projection");
+      stream.setView(view, null);
+      assert.equal(lastState.tiles, initial.tiles, "deselecting does not rebuild unchanged geometry");
+      assert.equal(requests.length, requestsBeforeSelection, "rank-only selection does not refetch resident tiles");
+    }
     const selected = scene.instances[0].id;
     assert.ok(loadedBuildingPage(inspected, selected, 0).items.some(i => i.placement.id === selected));
     const far = { bounds: [view.center.longitude + .1, view.center.latitude + .1, view.center.longitude + .11, view.center.latitude + .11], center: view.center };
@@ -87,6 +97,7 @@ for (const cityId of ["bristol", "london", "birmingham"]) {
       package_quality_warnings: manifest.quality_warnings.length, peak_concurrent_requests: peakConcurrent,
       full_city_requests: 0, selected_building_retained_after_pan: true,
       inspector_loaded_unique_buildings: inspected.length, inspector_max_page_rows: LOADED_BUILDINGS_PAGE_SIZE,
+      same_membership_selection_reuses_projection: reorderSelection ? true : "not-applicable",
       pause_preserves_scene_without_new_requests: true });
   } finally { stream.dispose(); }
 }
