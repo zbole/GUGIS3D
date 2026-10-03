@@ -35,6 +35,7 @@ import {
   ArcType,
 } from "cesium";
 import type { CityDocument } from "./cityModel";
+import type { RenderView } from "./renderTileClient";
 import type { SceneHandle } from "./BuildingScene";
 import { solidGeometry, solidCorners } from "./geometry";
 import { hasBuildingOverview, type BuildingDocument, type SceneNode, type Solid } from "./model";
@@ -61,7 +62,7 @@ export interface CitySceneHandle extends SceneHandle {
   focusBuilding: (id: string) => void;
 }
 interface Props {
-  city: CityDocument;
+  city: Pick<CityDocument, "assets" | "instances" | "roads" | "environment">;
   center?: GeographicPosition;
   selected: string | null;
   onSelect: (id: string | null) => void;
@@ -89,6 +90,10 @@ interface Props {
   onAnalysisPoint?: (point: AnalysisPoint | null) => void;
   spatialPicking?: boolean;
   spatialPoint?: AnalysisPoint | null;
+  /** Read-only viewport loading; never modifies editor city state. */
+  onViewBounds?: (view: RenderView) => void;
+  showGround?: boolean;
+  renderOnly?: boolean;
   onSpatialPoint?: (point: AnalysisPoint | null, picked: string | null) => void;
 }
 interface DetailedBuilding {
@@ -131,6 +136,9 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     spatialPicking = false,
     spatialPoint = null,
     onSpatialPoint,
+    onViewBounds,
+    showGround = true,
+    renderOnly = false,
   },
   ref,
 ) {
@@ -157,6 +165,8 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     parts = useRef<
       { batch: Primitive; id: string; cityId: string; category: SceneNode["category"]; kind: BuildingDocument["parameters"]["kind"]; asset: string; fallback: string; overview: boolean }[]
     >([]);
+  const viewBoundsRef = useRef(onViewBounds);
+  viewBoundsRef.current = onViewBounds;
   const coarseResidents = useRef(new Set<string>());
   const refreshCoarse = useRef<(() => void) | null>(null);
   const refreshDetails = useRef<(() => void) | null>(null);
@@ -369,6 +379,27 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       viewer.current = null;
     };
   }, []);
+  useEffect(() => {
+    const v = viewer.current;
+    if (!v || !onViewBounds) return;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const report = () => {
+      if (v.isDestroyed()) return;
+      const rectangle = v.camera.computeViewRectangle?.(Ellipsoid.WGS84);
+      const position = groundPosition(new Cartesian2(v.scene.canvas.clientWidth / 2, v.scene.canvas.clientHeight / 2));
+      // A missing ellipsoid footprint (e.g. horizon view) includes all candidates
+      // conservatively; the loader still enforces tile and byte residency caps.
+      viewBoundsRef.current?.({ bounds: rectangle ? [CM.toDegrees(rectangle.west), CM.toDegrees(rectangle.south),
+        CM.toDegrees(rectangle.east), CM.toDegrees(rectangle.north)] : null, center: position ?? center });
+    };
+    const schedule = () => { if (timer !== undefined) clearTimeout(timer); timer = setTimeout(report, 180); };
+    const offChange = v.camera.changed.addEventListener(schedule);
+    const offEnd = v.camera.moveEnd.addEventListener(schedule);
+    const resize = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(schedule);
+    resize?.observe(v.scene.canvas);
+    schedule();
+    return () => { if (timer !== undefined) clearTimeout(timer); offChange(); offEnd(); resize?.disconnect(); };
+  }, [!!onViewBounds, center.longitude, center.latitude]);
   useEffect(() => {
     const v = viewer.current;
     if (!v || renderFailed.current) return;
@@ -643,7 +674,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       : -1.5;
     addEntity({
       id: "city-ground-plane",
-      show: !terrain || terrainOpacity >= 0.99,
+      show: showGround && (!terrain || terrainOpacity >= 0.99),
       position: Matrix4.multiplyByPoint(
         lightFrame,
         new Cartesian3((minX + maxX) / 2, (minY + maxY) / 2, groundHeight),
@@ -743,6 +774,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     center.latitude,
     city.assets,
     city.roads,
+    showGround,
     terrain,
     sampler,
     drapeBuildings,
@@ -937,7 +969,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
         }
       }
       const ground = v.entities.getById("city-ground-plane");
-      if (ground) ground.show = !terrain || terrainOpacity >= 0.99;
+      if (ground) ground.show = showGround && (!terrain || terrainOpacity >= 0.99);
     };
     update();
     const off = v.scene.postRender.addEventListener(() => {
@@ -951,6 +983,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     return off;
   }, [
     terrainOpacity,
+    showGround,
     terrain,
     city.instances,
     city.assets,
@@ -1238,7 +1271,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
         视距 {distance.toLocaleString()} m · 缓速缩放
       </div>
       <div className="lod-note" role="status">
-        {fullDetails ? detailProgress.ready < detailProgress.total
+        {renderOnly ? "渲染包原始构件 · 不含编辑语义" : fullDetails ? detailProgress.ready < detailProgress.total
           ? `精细结构加载中 · ${detailProgress.ready} / ${detailProgress.total} 栋`
           : `自动精细 · ${detailProgress.ready} 栋 · ${detailProgress.components.toLocaleString()} 个构件 · 拉近自动加载`
           : "轻量概览 · 可开启自动精细结构"}

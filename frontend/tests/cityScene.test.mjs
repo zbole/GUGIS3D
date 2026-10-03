@@ -622,3 +622,36 @@ test("actual Bristol/London/Birmingham seed geometry obeys the budget and keeps 
     f.close();
   }
 });
+
+test("read-only viewport reports conservative bounds without rebuilding Viewer or moving camera on tile updates", async t => {
+  const views = [], start = viewState.viewers.length, observers = [], previousResize = globalThis.ResizeObserver;
+  globalThis.ResizeObserver = class {
+    constructor(callback) { this.callback = callback; this.connected = true; observers.push(this); }
+    observe() {}
+    disconnect() { this.connected = false; }
+  };
+  t.after(() => { globalThis.ResizeObserver = previousResize; });
+  const f = fixture({ city: { ...city, environment: undefined, instances: [], assets: {} }, renderOnly: true, showGround: false,
+    fullDetails: false, onViewBounds: value => views.push(value) });
+  f.viewer.camera.computeViewRectangle = () => ({ west: -2.61 * Math.PI / 180, south: 51.45 * Math.PI / 180,
+    east: -2.59 * Math.PI / 180, north: 51.46 * Math.PI / 180 });
+  const flights = f.viewer.camera.flights.length;
+  act(() => { f.viewer.camera.changed.raiseEvent(); f.viewer.camera.moveEnd.raiseEvent(); observers.forEach(o => o.callback()); });
+  await act(async () => { await new Promise(resolve => setTimeout(resolve, 220)); });
+  assert.equal(views.length, 1, "camera and resize reports are debounced together");
+  for (const [i, expected] of [-2.61, 51.45, -2.59, 51.46].entries()) assert.ok(Math.abs(views[0].bounds[i] - expected) < 1e-9);
+  f.update({ city: { ...city, environment: undefined, instances: [...city.instances, { ...city.instances[0], id: "tile-next" }] } });
+  assert.equal(viewState.viewers.length, start + 1); assert.equal(f.viewer.camera.flights.length, flights);
+  assert.equal(f.viewer.entities.values.find(e => e.id === "city-ground-plane").show, false);
+  assert.match(JSON.stringify(f.renderer.toJSON()), /渲染包原始构件/);
+  f.viewer.camera.computeViewRectangle = () => undefined;
+  act(() => f.viewer.camera.moveEnd.raiseEvent());
+  await act(async () => { await new Promise(resolve => setTimeout(resolve, 220)); });
+  assert.equal(views.at(-1).bounds, null, "horizon footprints stay conservative");
+  act(() => f.viewer.camera.changed.raiseEvent());
+  const count = views.length; f.close();
+  await new Promise(resolve => setTimeout(resolve, 220));
+  assert.equal(views.length, count); assert.equal(f.viewer.camera.changed.numberOfListeners, 0);
+  assert.equal(f.viewer.camera.moveEnd.numberOfListeners, 0);
+  assert.ok(observers.every(o => !o.connected), "all resize listeners disconnect");
+});
