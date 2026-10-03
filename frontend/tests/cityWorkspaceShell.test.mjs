@@ -23,14 +23,15 @@ await build({ entryPoints: [fileURLToPath(new URL("../src/App.tsx", import.meta.
   } }] });
 const App = (await import(pathToFileURL(outfile).href)).default;
 const cities = ["bristol", "london", "birmingham"].map((id, i) => ({ id, name: ["布里斯托", "伦敦", "伯明翰"][i], status: "ready",
+  quality_warnings: id === "london" ? [{code:"test-height",message:"已知源高度被旧模型改写，请核对。",osm_ids:[123]}] : [],
   coverage_kind: "sample-area", coverage_label: "局部中心街区，非全城覆盖", building_count: 800, road_count: 500 }));
 const text = node => typeof node === "string" ? node : (node?.children ?? []).map(text).join("");
 
-async function fixture(t, href = "http://localhost/", drafts = {}) {
+async function fixture(t, href = "http://localhost/?city=bristol", drafts = {}) {
   const originals = { window: globalThis.window, fetch: globalThis.fetch };
   const listeners = new Map(), requests = [], history = [];
   globalThis.cityShellEvents = []; globalThis.cityShellDrafts = drafts;
-  globalThis.window = { location: new URL(href), history: { state: null,
+  globalThis.window = { confirm: () => true, location: new URL(href), history: { state: null,
     pushState(state, unused, url) { history.push(url); window.location = new URL(url); },
     replaceState(state, unused, url) { window.location = new URL(url); } },
     addEventListener(name, callback) { listeners.set(name, callback); },
@@ -56,7 +57,8 @@ test("direct city links mount only that city and switching releases the previous
   await f.choose("birmingham");
   assert.deepEqual(globalThis.cityShellEvents, ["mount:london", "unmount:london", "mount:birmingham"]);
   assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 1);
-  assert.equal(window.location.search, "?city=birmingham&workspace=environment");
+  assert.equal(window.location.searchParams.get("city"), "birmingham");
+  assert.equal(window.location.searchParams.get("workspace"), "environment");
   assert.deepEqual(f.requests, ["/api/cities"], "the selector loads only a small catalog, never other city models");
 });
 
@@ -71,7 +73,7 @@ test("city switches preserve saved drafts, ignore obsolete callbacks, and block 
   act(() => current.onWorkspaceState("birmingham", true, false));
   assert.equal(f.root.findByProps({ "aria-label": "选择城市" }).props.disabled, true);
   await f.choose("bristol");
-  assert.equal(window.location.search, "?city=birmingham");
+  assert.equal(window.location.searchParams.get("city"), "birmingham");
   assert.equal(globalThis.cityShellProps.workspace.id, "birmingham");
   act(() => current.onWorkspaceState("birmingham", false, false));
   await f.choose("london");
@@ -81,10 +83,68 @@ test("city switches preserve saved drafts, ignore obsolete callbacks, and block 
 test("back navigation restores the city; an in-progress write retains its bound URL", async t => {
   const f = await fixture(t);
   await f.choose("london");
-  await f.pop("http://localhost/");
+  await f.pop("http://localhost/?city=bristol");
   assert.equal(globalThis.cityShellProps.workspace.id, "bristol");
   act(() => globalThis.cityShellProps.onWorkspaceState("bristol", true, false));
   await f.pop("http://localhost/?city=london");
   assert.equal(globalThis.cityShellProps.workspace.id, "bristol");
+  assert.equal(window.location.searchParams.get("city"), "bristol");
+});
+
+const button = (root, label) => root.findAllByType("button").find(node => text(node) === label);
+async function click(root, label) { await act(async () => button(root, label).props.onClick()); }
+async function select(root, name) { await act(async () => root.findByProps({ "aria-label": `选择${name}` }).props.onChange()); }
+
+test("fresh entry loads only the directory and requires an explicit city choice", async t => {
+  const f = await fixture(t, "http://localhost/");
+  assert.deepEqual(globalThis.cityShellEvents, []);
+  assert.deepEqual(f.requests, ["/api/cities"]);
+  assert.equal(button(f.root, "进入工作区 →").props.disabled, true);
+  await select(f.root, "伦敦"); await click(f.root, "进入工作区 →");
+  assert.deepEqual(globalThis.cityShellEvents, ["mount:london"]);
+  assert.equal(globalThis.cityShellProps.api.cityId, "london");
+  const options = f.root.findByProps({ "aria-label": "选择城市" }).findAllByType("option");
+  assert.deepEqual(options.map(node => node.props.value), ["london"]);
+});
+
+test("multiple cities are selected together while exactly one scene remains mounted", async t => {
+  const f = await fixture(t, "http://localhost/");
+  await click(f.root, "多选城市"); await select(f.root, "伦敦"); await select(f.root, "伯明翰");
+  await click(f.root, "进入工作区 →"); await f.choose("birmingham");
+  assert.deepEqual(globalThis.cityShellEvents, ["mount:london", "unmount:london", "mount:birmingham"]);
+  assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 1);
+  assert.equal(window.location.searchParams.get("cities"), "london,birmingham");
+  assert.equal(globalThis.cityShellProps.api.cityId, "birmingham");
+  await f.choose("bristol");
+  assert.equal(globalThis.cityShellProps.workspace.id, "birmingham", "unselected city cannot bypass the entry choice");
+});
+
+test("single mode reduces selections and return-to-selection honours cancellation", async t => {
+  const f = await fixture(t, "http://localhost/");
+  await click(f.root, "多选城市"); await select(f.root, "布里斯托"); await select(f.root, "伦敦");
+  await click(f.root, "单选城市"); await click(f.root, "进入工作区 →");
+  assert.equal(window.location.searchParams.get("cities"), "bristol");
+  window.confirm = () => false;
+  await click(f.root, "重新选择城市");
+  assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 1);
+  window.confirm = () => true;
+  await click(f.root, "重新选择城市");
+  assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 0);
   assert.equal(window.location.search, "");
+});
+
+test("Back returns to first-step selection and cannot discard a write in progress", async t => {
+  const f = await fixture(t, "http://localhost/?city=london&cities=london");
+  const current = globalThis.cityShellProps;
+  act(() => current.onWorkspaceState("london", true, false));
+  await f.pop("http://localhost/?city=birmingham&cities=birmingham");
+  assert.equal(window.location.searchParams.get("city"), "london");
+  assert.equal(globalThis.cityShellProps.workspace.id, "london");
+  await f.pop("http://localhost/");
+  assert.equal(window.location.searchParams.get("city"), "london");
+  act(() => current.onWorkspaceState("london", false, false));
+  await f.pop("http://localhost/");
+  assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 0);
+  await f.pop("http://localhost/?city=birmingham&cities=london,birmingham");
+  assert.equal(globalThis.cityShellProps.workspace.id, "birmingham");
 });

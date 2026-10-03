@@ -16,3 +16,7 @@
 .city-comparison-pending p{line-height:1.8;margin:0;color:#607782}
 .city-comparison-pending a{color:#24596d}
 @media(max-width:700px){.city-workspaces{padding:12px 16px;gap:10px}.city-workspaces label{width:100%}.city-workspaces select{flex:1}.city-workspace-data-note{padding:12px 16px;flex-direction:column;gap:5px}}
+
+.city-source-warning{margin:0;padding:10px 28px;background:#fff7e7;border-bottom:1px solid #ead2aa;color:#80581d;font-size:12px;line-height:1.7}.city-source-warning summary{font-weight:600;cursor:pointer}.city-source-warning p{margin:6px 0}.city-source-warning small{font-size:11px}
+
+.city-session-shell{height:100dvh;overflow:auto}

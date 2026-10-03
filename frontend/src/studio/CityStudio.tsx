@@ -59,6 +59,7 @@ import {
   saveDocument,
   downloadUrl,
 } from "./api";
+import CitySourceWarnings from "./CitySourceWarnings";
 import "./studio.css";
 import "./workbench.css";
 import type { StorageStatistics } from "./cityArchive";
@@ -807,6 +808,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
           : `${workspace.coverage_label}。初始导入：${heightPolicyLabel(workspace.height_policy)}。LoD1 轮廓体量不代表精细建筑内部，真实 DTM 尚需单独导入。`}</p>
         {sourceLicense && <a href={sourceLicense.url} target="_blank" rel="noreferrer">{sourceLicense.label}</a>}
       </section>}
+      <CitySourceWarnings workspace={workspace} revision={revision} draft={!!preview} />
       {recovery && (
         <div className="recovery-drawer" id="city-history">
           <button className="recovery-close" aria-label="关闭历史版本" onClick={() => {

@@ -1,21 +1,28 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import AppErrorBoundary from "./AppErrorBoundary";
 import { createCityApi } from "./studio/cityApi";
-import { cityCoverageCoordinates, cityIdFromSearch, cityWorkspaceUrl, loadCityWorkspaces, type CityId, type CityWorkspace } from "./studio/cityWorkspaces";
+import { cityCoverageCoordinates, citySessionUrl, selectedCitiesFromSearch, selectedCityFromSearch, knownCities, loadCityWorkspaces, type CityId, type CityWorkspace } from "./studio/cityWorkspaces";
 import "./studio/cityWorkspaces.css";
+import CitySelection from "./studio/CitySelection";
 
 const BuildingStudio = lazy(() => import("./studio/CityStudio"));
 const CompareShowcase = lazy(() => import("./compare/CompareShowcase"));
 
 export default function App() {
   const comparison = window.location.pathname.replace(/\/$/, "") === "/compare";
-  const [cityId, setCityId] = useState<CityId>(() => cityIdFromSearch(window.location.search));
+  const initialSelection = selectedCitiesFromSearch(window.location.search);
+  const [selectedCities, setSelectedCities] = useState<CityId[]>(() => comparison ? [...knownCities] : initialSelection);
+  const [entered, setEntered] = useState(comparison || initialSelection.length > 0);
+  const [multiple, setMultiple] = useState(initialSelection.length > 1);
+  const [cityId, setCityId] = useState<CityId>(() => selectedCityFromSearch(window.location.search, initialSelection));
   const [cities, setCities] = useState<CityWorkspace[]>([]);
   const [directoryError, setDirectoryError] = useState("");
-  const [busy, setBusy] = useState(!comparison);
+  const [busy, setBusy] = useState(!comparison && entered);
   const [draft, setDraft] = useState(false);
   const [switchNotice, setSwitchNotice] = useState("");
   const selection = useRef(cityId);
+  const chosen = useRef(selectedCities);
+  chosen.current = selectedCities;
   const state = useRef({ busy, draft });
   state.current = { busy, draft };
   const api = useMemo(() => createCityApi(cityId), [cityId]);
@@ -33,36 +40,73 @@ export default function App() {
   }, []);
   useEffect(() => { void refresh(); return () => { ++directoryRequest.current; }; }, [refresh]);
   const switchCity = useCallback((next: CityId, restore = false) => {
-    if (next === selection.current) return;
+    if (next === selection.current || !chosen.current.includes(next)) return;
     if (state.current.busy) {
       setSwitchNotice("当前操作尚未完成，请完成后切换城市。");
-      if (restore) window.history.replaceState(window.history.state, "", cityWorkspaceUrl(window.location.href, selection.current));
+      if (restore) window.history.replaceState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current));
       return;
     }
     setSwitchNotice(state.current.draft ? "原城市草稿已独立保留，切回该城市可继续。" : "已切换独立工作区；仅加载当前城市的三维场景。");
     selection.current = next;
-    if (!restore) window.history.pushState(window.history.state, "", cityWorkspaceUrl(window.location.href, next));
+    if (!restore) window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, next));
     state.current = { busy: !comparison, draft: false };
     setBusy(!comparison); setDraft(false); setCityId(next);
   }, [comparison]);
   useEffect(() => {
-    const restore = () => switchCity(cityIdFromSearch(window.location.search), true);
+    const restore = () => {
+      const requested = selectedCitiesFromSearch(window.location.search);
+      if (!requested.length && !comparison) {
+        if (state.current.busy) {
+          setSwitchNotice("当前操作尚未完成，请完成后选择城市。");
+          window.history.replaceState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current));
+        } else { setEntered(false); setBusy(false); }
+        return;
+      }
+      if (state.current.busy) {
+        setSwitchNotice("当前操作尚未完成，请完成后切换城市。");
+        window.history.replaceState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current));
+        return;
+      }
+      chosen.current = requested.length ? requested : [...knownCities];
+      setSelectedCities(chosen.current); setEntered(true);
+      switchCity(selectedCityFromSearch(window.location.search, chosen.current), true);
+    };
     window.addEventListener("popstate", restore);
-    const url = cityWorkspaceUrl(window.location.href, selection.current);
+    const url = entered ? citySessionUrl(window.location.href, chosen.current, selection.current) : window.location.href;
     if (url !== window.location.href) window.history.replaceState(window.history.state, "", url);
     return () => window.removeEventListener("popstate", restore);
-  }, [switchCity]);
+  }, [switchCity, entered, comparison]);
   const workspaceState = useCallback((id: string, nextBusy: boolean, hasDraft: boolean) => {
     if (id !== selection.current) return;
     state.current = { busy: nextBusy, draft: hasDraft };
     setBusy(nextBusy); setDraft(hasDraft);
   }, []);
+  const enterSelected = () => {
+    const available = selectedCities.filter(id => cities.some(item => item.id === id && item.status !== "invalid"));
+    if (!available.length) return;
+    chosen.current = available; setSelectedCities(available); selection.current = available[0];
+    setCityId(available[0]); setBusy(true); setDraft(false); setEntered(true);
+    state.current = { busy: true, draft: false };
+    window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, available, available[0]));
+  };
+  if (!entered && !comparison) return <AppErrorBoundary><CitySelection cities={cities} selected={selectedCities}
+    multiple={multiple} error={directoryError} onRetry={() => void refresh()} onEnter={enterSelected}
+    onMultiple={value => { setMultiple(value); if (!value) setSelectedCities(ids => ids.slice(0, 1)); }}
+    onSelect={id => setSelectedCities(ids => !multiple ? [id] : ids.includes(id) ? ids.filter(value => value !== id) : [...ids, id])} />
+  </AppErrorBoundary>;
   return (
     <AppErrorBoundary>
+      <div className="city-session-shell">
       <section className="city-workspaces" aria-label="城市独立工作区">
+        {!comparison && <button disabled={busy} onClick={() => {
+          if (state.current.busy) return;
+          if (!window.confirm("返回城市选择？已保存项目和独立草稿会保留；尚未生成的表单修改、未保存分析和当前视角不会保留。")) return;
+          setEntered(false); setSwitchNotice("");
+          window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, [], null));
+        }}>重新选择城市</button>}
         <label>城市工作区 <select aria-label="选择城市" value={cityId} disabled={busy || !cities.length}
           onChange={event => switchCity(event.target.value as CityId)}>
-          {cities.map(item => <option key={item.id} value={item.id}>{item.name} · {item.status === "pending" ? "待导入" : item.status === "invalid" ? "数据异常" : "已导入"}</option>)}
+          {cities.filter(item => selectedCities.includes(item.id as CityId)).map(item => <option key={item.id} value={item.id} disabled={item.status === "invalid"}>{item.name} · {item.status === "pending" ? "待导入" : item.status === "invalid" ? "数据异常" : "已导入"}</option>)}
         </select></label>
         {city && <div className="city-workspaces__coverage"><strong>{city.coverage_label}</strong>
           <span>{city.status === "pending" ? "尚无已导入数据" : `${city.building_count ?? 0} 栋建筑 · ${city.road_count ?? 0} 条道路`} · 每城独立保存与恢复</span>
@@ -75,6 +119,7 @@ export default function App() {
           : <BuildingStudio key={cityId} workspace={city} api={api} onWorkspaceState={workspaceState} onRevisionChange={refresh} />
           : !directoryError && <div className="app-loading">正在读取城市目录…</div>}
       </Suspense>
+      </div>
     </AppErrorBoundary>
   );
 }

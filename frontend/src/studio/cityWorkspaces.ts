@@ -15,6 +15,8 @@ export interface CityWorkspace {
   building_count?: number;
   road_count?: number;
   height_policy?: string;
+  data_revision?: string | null;
+  quality_warnings?: Array<{ code: string; message: string; osm_ids: number[] }>;
 }
 
 export const defaultCityWorkspace: CityWorkspace = {
@@ -85,4 +87,33 @@ export async function loadCityWorkspaces(): Promise<CityWorkspace[]> {
   const result = await response.json();
   if (!result || !Array.isArray(result.cities)) throw new Error("城市目录格式无效");
   return result.cities.filter((city: CityWorkspace) => knownCities.includes(city.id as CityId));
+}
+
+/** Explicit entry choices; the existing single-city URLs remain valid deep links. */
+export function selectedCitiesFromSearch(search: string): CityId[] {
+  const query = new URLSearchParams(search);
+  const selected = [...new Set((query.get("cities") ?? "").split(","))]
+    .filter((id): id is CityId => knownCities.includes(id as CityId));
+  if (selected.length) return selected;
+  if (knownCities.includes(query.get("city") as CityId) ||
+      ["city", "author", "detail", "environment", "analysis"].includes(query.get("workspace") ?? ""))
+    return [...knownCities]; // Preserve old direct-link switching behaviour.
+  return [];
+}
+
+export function selectedCityFromSearch(search: string, selected: CityId[]): CityId {
+  const requested = cityIdFromSearch(search);
+  return selected.includes(requested) ? requested : selected[0] ?? "bristol";
+}
+
+export function citySessionUrl(href: string, selected: CityId[], active: CityId | null): string {
+  const url = new URL(href);
+  if (active && selected.includes(active)) {
+    // Retain Bristol explicitly so a fresh '/' always opens the selection step.
+    url.searchParams.set("city", active);
+    url.searchParams.set("cities", selected.join(","));
+  } else {
+    for (const key of ["city", "cities", "workspace", "view"]) url.searchParams.delete(key);
+  }
+  return url.href;
 }

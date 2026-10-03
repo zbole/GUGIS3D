@@ -7,7 +7,7 @@ const outfile = fileURLToPath(new URL("../node_modules/.cache/gugis-tests/city-w
 await build({ entryPoints: [fileURLToPath(new URL("../src/studio/cityWorkspaces.ts", import.meta.url))], bundle: true,
   platform: "node", format: "esm", packages: "external", outfile,
   define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' } });
-const { cityIdFromSearch, cityWorkspaceUrl, cityWorkspaceHref, cityCenter, cityCoverageCoordinates, heightPolicyLabel, citySourceLicense } = await import(pathToFileURL(outfile).href);
+const { cityIdFromSearch, cityWorkspaceUrl, cityWorkspaceHref, cityCenter, cityCoverageCoordinates, heightPolicyLabel, citySourceLicense, selectedCitiesFromSearch, selectedCityFromSearch, citySessionUrl } = await import(pathToFileURL(outfile).href);
 
 test("city URLs survive workspace navigation while unknown city ids fall back to Bristol", () => {
   assert.equal(cityIdFromSearch("?city=london&workspace=environment"), "london");
@@ -44,4 +44,20 @@ test("OSM attribution links to its licence page rather than its POST-only downlo
   assert.equal(source.url, "https://www.openstreetmap.org/copyright");
   assert.match(source.label, /© OpenStreetMap contributors.*ODbL 1.0/);
   assert.equal(citySourceLicense({}), null);
+});
+
+
+test("entry choices reject unknown IDs, deduplicate multi-selection and preserve old deep links", () => {
+  assert.deepEqual(selectedCitiesFromSearch(""), []);
+  assert.deepEqual(selectedCitiesFromSearch("?city=unknown"), []);
+  assert.deepEqual(selectedCitiesFromSearch("?cities=london,london,birmingham,../other"), ["london", "birmingham"]);
+  assert.deepEqual(selectedCitiesFromSearch("?city=london"), ["bristol", "london", "birmingham"]);
+  assert.deepEqual(selectedCitiesFromSearch("?workspace=analysis"), ["bristol", "london", "birmingham"]);
+  assert.equal(selectedCityFromSearch("?city=bristol", ["london", "birmingham"]), "london");
+  const url = new URL(citySessionUrl("http://localhost/?workspace=analysis&foo=bar", ["bristol"], "bristol"));
+  assert.equal(url.searchParams.get("city"), "bristol");
+  assert.equal(url.searchParams.get("cities"), "bristol");
+  assert.equal(url.searchParams.get("workspace"), "analysis");
+  const home = new URL(citySessionUrl(url.href, [], null));
+  assert.equal(home.search, "?foo=bar");
 });
