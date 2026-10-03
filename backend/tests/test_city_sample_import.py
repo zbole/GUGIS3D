@@ -36,7 +36,47 @@ class CitySampleImportTests(unittest.TestCase):
         self.assertEqual(height_from_tags({'height': '30 ft'})[2], 'height-tag')
         self.assertAlmostEqual(height_from_tags({'height': '30 ft'})[0], 9.144)
         self.assertEqual(height_from_tags({'height': 'bad', 'building:levels': '4'})[0], 12.8)
-        self.assertEqual(height_from_tags({'height': '999', 'building:levels': 'nan'})[2], 'assumed')
+        self.assertIn('height 标签无法解析', height_from_tags({'height': 'bad', 'building:levels': '4'})[1])
+        self.assertEqual(height_from_tags({})[2], 'assumed')
+
+    def test_known_out_of_range_height_never_becomes_a_default_or_floor_estimate(self):
+        for value in ('155', '0.5', '.5', '0', '-5', '999', '1000 ft'):
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, 'outside.*1–150'):
+                height_from_tags({'height': value, 'building:levels': '4'})
+        self.assertEqual(height_from_tags({'height': '1'})[0], 1)
+        self.assertEqual(height_from_tags({'height': '150'})[0], 150)
+
+    def test_invalid_vertical_values_are_not_missing_data(self):
+        for tags in ({'height': 'bad'}, {'height': True}, {'height': 'NaN'},
+                     {'building:levels': 'nan'}, {'building:levels': '49'},
+                     {'building:levels': '-1'}, {'building:levels': True}):
+            with self.subTest(tags=tags), self.assertRaisesRegex(ValueError, 'not replaced'):
+                height_from_tags(tags)
+
+    def test_parts_and_elevated_bases_are_reported_instead_of_grounded(self):
+        records = [self.building()]
+        unsupported_tags = [{'building:part': 'yes'}, {'min_height': '20'},
+                            {'min_height': '0;37.9'}, {'building:min_level': '4'},
+                            {'building:min_level': '-1'}, {'location': 'underground'}]
+        for index, tags in enumerate(unsupported_tags, start=2):
+            item = self.building(index); item['tags'].update(tags); records.append(item)
+        ground_zero = self.building(20)
+        ground_zero['tags'].update({'min_height': '0.0', 'building:min_level': '0'})
+        records.append(ground_zero)
+        city, report = build_osm_sample({'elements': records}, self.source(), 'london')
+        self.assertEqual([item.id for item in city.instances], ['osm1', 'osm20'])
+        self.assertEqual(len(report['omitted_buildings']), len(unsupported_tags))
+        self.assertEqual([item['osm_way'] for item in report['omitted_buildings']], list(range(2, 8)))
+        self.assertTrue(all('unsupported' in item['reason'] for item in report['omitted_buildings']))
+
+    def test_unsupported_source_height_is_in_the_omission_receipt(self):
+        tall = self.building(2); tall['tags'].update({'height': '155', 'building:levels': '49'})
+        low = self.building(3); low['tags']['height'] = '0.5'
+        city, report = build_osm_sample({'elements': [self.building(), tall, low]}, self.source(), 'london')
+        self.assertEqual([item.id for item in city.instances], ['osm1'])
+        self.assertEqual(report['height_policy'], {'height-tag': 1, 'levels-derived': 0, 'assumed': 0})
+        self.assertEqual([item['osm_way'] for item in report['omitted_buildings']], [2, 3])
+        self.assertTrue(all('not replaced' in item['reason'] for item in report['omitted_buildings']))
 
     def test_source_checksum_failure_prevents_rebuild(self):
         with TemporaryDirectory() as directory:

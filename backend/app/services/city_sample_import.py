@@ -12,18 +12,57 @@ CITY_NAMES = {'london': '伦敦', 'birmingham': '伯明翰'}
 
 def height_from_tags(tags):
     value = str(tags.get('height', '')).strip()
-    match = re.fullmatch(r'([0-9]+(?:\.[0-9]+)?)\s*(m|metres|meters|ft|feet|\')?', value, re.I)
+    match = re.fullmatch(r'([+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+))\s*(m|metres|meters|ft|feet|\')?', value, re.I)
     if match:
         height = float(match[1]) * (0.3048 if match[2] and match[2].lower() in ('ft', 'feet', "'") else 1)
         if 1 <= height <= 150:
             return height, 'OSM height 标签（未独立测量核验）', 'height-tag'
-    try:
-        height = float(tags.get('building:levels', '')) * 3.2
-        if math.isfinite(height) and 1 <= height <= 150:
-            return height, 'OSM building:levels × 3.2 m（推算）', 'levels-derived'
-    except (ValueError, TypeError):
-        pass
-    return 9.6, '缺少或不支持的高度：假设 9.6 m', 'assumed'
+        # A known height must not become an unrelated default or floor estimate.
+        # In particular, the retained Birmingham source includes The Octagon at
+        # 155 m; replacing it with 9.6 m materially misrepresents the source.
+        raise ValueError(f'OSM height {value!r} is outside the supported 1–150 m range; not replaced by an assumption')
+    levels = tags.get('building:levels')
+    if levels not in (None, ''):
+        try:
+            if isinstance(levels, bool):
+                raise ValueError
+            height = float(levels) * 3.2
+        except (ValueError, TypeError, OverflowError):
+            raise ValueError('OSM building:levels is not a supported finite number; not replaced by an assumption') from None
+        if not math.isfinite(height) or not 1 <= height <= 150:
+            raise ValueError('OSM building:levels × 3.2 m is outside the supported 1–150 m range; not replaced by an assumption')
+        reason = 'OSM building:levels × 3.2 m（推算）'
+        if value:
+            reason += '；height 标签无法解析，未采用'
+        return height, reason, 'levels-derived'
+    if value:
+        raise ValueError('OSM height tag cannot be interpreted safely; not replaced by an assumption')
+    return 9.6, '缺少高度与楼层标签：假设 9.6 m', 'assumed'
+
+
+def validate_ground_based_building(tags):
+    """This importer models complete, ground-based LoD1 volumes only.
+
+    Keeping the footprint but ignoring a part's base height fills empty space
+    below bridges/overhangs and can double-count overlapping building parts.
+    Report these features until the importer supports their vertical semantics.
+    """
+    if tags.get('building:part') not in (None, '', 'no'):
+        raise ValueError('OSM building:part is unsupported by this whole-building importer; not grounded or merged')
+    if tags.get('location') == 'underground':
+        raise ValueError('Underground buildings are unsupported by this ground-based importer')
+    for key in ('min_height', 'building:min_level'):
+        value = tags.get(key)
+        if value in (None, ''):
+            continue
+        try:
+            if isinstance(value, bool):
+                raise ValueError
+            numeric = float(value)
+        except (ValueError, TypeError, OverflowError):
+            raise ValueError(f'OSM {key} {value!r} has unsupported vertical semantics; not grounded') from None
+        if not math.isfinite(numeric) or numeric != 0:
+            raise ValueError(f'OSM {key} {value!r} has unsupported vertical semantics; not grounded')
 
 
 def build_osm_sample(osm, source, city_id):
@@ -48,6 +87,7 @@ def build_osm_sample(osm, source, city_id):
                 if len(ring) < 4 or ring[0] != ring[-1]:
                     raise ValueError('Only closed building ways are supported')
                 height, reason, policy = height_from_tags(tags)
+                validate_ground_based_building(tags)
                 name = (tags.get('name') or ' '.join(str(tags[k]) for k in ('addr:housenumber', 'addr:street') if tags.get(k))
                         or f"OSM 建筑 · {element['id']}")
                 identifier = f"osm{element['id']}"
@@ -87,8 +127,8 @@ def build_osm_sample(osm, source, city_id):
         '数据时间': osm.get('osm3s', {}).get('timestamp_osm_base', ''),
         'source_sha256': source.get('sha256', ''), 'data_status': 'ready',
         'height_policy': json.dumps(heights, separators=(',', ':')),
-        '精度说明': '真实 OSM 轮廓 LoD1 体量；高度标签未独立核验，缺失高度按楼层或 9.6 m 推算。无实测地形与内部、立面复原。道路宽度为显示假设。',
-        '采样说明': f'保留查询范围内全部可转换闭合建筑 way：{len(instances)}/{building_count}；跳过 {len(omitted)} 栋、{len(road_omitted)} 条道路。未取得 multipolygon relations。跨界 way 保留完整几何，查询窗口不等于实际几何边界。',
+        '精度说明': '真实 OSM 轮廓 LoD1 体量；高度标签未独立核验，缺失高度按楼层推算；高度与楼层均缺失时假设 9.6 m。已知超范围高度、无法处理的竖向属性与建筑部件明确跳过，不回退为假设。无实测地形与内部、立面复原。道路宽度为显示假设。',
+        '采样说明': f'保留查询范围内全部可转换闭合建筑 way：{len(instances)}/{building_count}；跳过 {len(omitted)} 栋、{len(road_omitted)} 条道路，具体 ID 与原因见转换清单。未取得 multipolygon relations。跨界 way 保留完整几何，查询窗口不等于实际几何边界。',
     }
     city = CityDocument(format='gugis-city', version='1.0', coordinate_system='ENU_METERS_WGS84',
         name=f'{CITY_NAMES[city_id]} · 中心街区样本', assets=assets, instances=instances, roads=roads, metadata=metadata)
