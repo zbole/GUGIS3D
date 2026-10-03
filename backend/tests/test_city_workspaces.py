@@ -274,6 +274,53 @@ class IndependentCityWorkspacesTests(unittest.TestCase):
         self.assertEqual(entry['status'], 'invalid')
         self.assertEqual(path.read_bytes(), content)
 
+    def test_catalog_bounds_cached_metadata_and_response_without_modifying_source(self):
+        self.get('london')
+        path = self.workspace_path('london') / 'current.gugis.json'
+        payload = json.loads(path.read_bytes())
+        long_text = '公开数据来源说明' * 20000
+        oversized_bounds = ' ' * 100000 + '[-0.14,51.49,-0.12,51.51]'
+        payload['metadata'].update(source=long_text, coverage_label=long_text,
+                                   coverage_bbox_wgs84=oversized_bounds,
+                                   data_bbox_wgs84=oversized_bounds, height_policy=long_text)
+        content = json.dumps(payload, ensure_ascii=False).encode('utf-8')
+        path.write_bytes(content)
+        response = self.client.get('/cities')
+        self.assertEqual(response.status_code, 200, response.text)
+        entry = {e['id']: e for e in response.json()['cities']}['london']
+        limit = city_workspaces._CATALOG_TEXT_LIMIT
+        for field in ['source', 'coverage_label']:
+            self.assertEqual(entry[field], long_text[:limit - 1] + '…')
+            self.assertEqual(len(entry[field]), limit)
+        self.assertEqual(entry['query_bbox_wgs84'], city_workspaces.CITY_DEFAULTS['london']['query_bbox_wgs84'])
+        self.assertIsNone(entry['actual_data_bbox_wgs84'])
+        self.assertIn('不能作为实测', entry['height_policy'])
+        cached = city_workspaces._source_summary(path)['metadata']
+        self.assertEqual(cached['source'], entry['source'])
+        self.assertEqual(cached['coverage_label'], entry['coverage_label'])
+        self.assertNotIn('coverage_bbox_wgs84', cached)
+        self.assertNotIn('data_bbox_wgs84', cached)
+        self.assertNotIn('height_policy', cached)
+        self.assertLessEqual(sum(len(value) for value in cached.values()), len(city_workspaces._CATALOG_METADATA) * limit)
+        self.assertLess(len(response.content), 25000)
+        self.assertEqual(self.client.get('/cities').content, response.content)
+        self.assertEqual(path.read_bytes(), content)
+
+    def test_catalog_keeps_normal_metadata_exact_and_discards_overlong_machine_values(self):
+        normal = {'source': 'OpenStreetMap contributors', '来源': '原始来源',
+                  'coverage_label': '中心样本（非全城）', 'coverage_kind': 'sample-area',
+                  'coverage_bbox_wgs84': '[-.14,51.49,-.12,51.51]',
+                  'data_bbox_wgs84': '[-.15,51.48,-.11,51.52]',
+                  'height_policy': 'OSM height tags; otherwise assumptions',
+                  'source_url': 'https://www.openstreetmap.org/copyright',
+                  'license': '© OpenStreetMap contributors · ODbL 1.0',
+                  'source_retrieved_at': '2026-10-03T04:31:51Z'}
+        self.assertEqual(city_workspaces._bounded_catalog_metadata(normal), normal)
+        huge = {key: 'x' * (limit + 1) for key, limit in city_workspaces._CATALOG_DROP_LIMITS.items()}
+        self.assertEqual(city_workspaces._bounded_catalog_metadata(huge), {})
+        with patch.object(city_workspaces.json, 'loads', side_effect=AssertionError('Do not parse oversized bounds')):
+            self.assertIsNone(city_workspaces.valid_bounds(' ' * 100000 + '[0,0,1,1]'))
+
     def test_catalog_metadata_reflects_current_project_and_invalid_json(self):
         self.get('london')
         path = self.workspace_path('london') / 'current.gugis.json'

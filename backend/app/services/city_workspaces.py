@@ -73,6 +73,8 @@ def empty_document():
 
 def valid_bounds(value):
     try:
+        if isinstance(value, str) and len(value) > _CATALOG_BOUNDS_LIMIT:
+            return None
         bounds = json.loads(value) if isinstance(value, str) else value
         if len(bounds) != 4 or any(not isinstance(n, (int, float)) or not math.isfinite(n) for n in bounds):
             return None
@@ -89,6 +91,15 @@ def valid_bounds(value):
 # request. Atomic replacements and in-place edits both invalidate the summary.
 _summary_lock = threading.RLock()
 _MAX_CITY_BYTES = 128 * 1024 * 1024
+_CATALOG_TEXT_LIMIT = 2048
+_CATALOG_BOUNDS_LIMIT = 512
+# Never truncate machine-readable values into different coordinates/URLs, or
+# partially quote a height policy. Omit overlong values and use existing defaults.
+_CATALOG_DROP_LIMITS = {'coverage_bbox_wgs84': _CATALOG_BOUNDS_LIMIT,
+                        'data_bbox_wgs84': _CATALOG_BOUNDS_LIMIT,
+                        'height_policy': _CATALOG_TEXT_LIMIT,
+                        'source_url': _CATALOG_TEXT_LIMIT,
+                        'coverage_kind': 128, 'source_retrieved_at': 128}
 _CATALOG_METADATA = {'coverage_bbox_wgs84', 'data_bbox_wgs84', 'coverage_kind',
                      'coverage_label', 'source', '来源', 'source_url', 'license',
                      'source_retrieved_at', 'height_policy'}
@@ -151,6 +162,23 @@ def quality_warnings(city_id, revision):
     return [{'code': code, 'message': message, 'osm_ids': list(ids)} for code, message, ids in entry[1]]
 
 
+def _bounded_catalog_metadata(metadata):
+    """Keep summaries small without changing the saved provenance/document."""
+    result = {}
+    for key in _CATALOG_METADATA:
+        value = metadata.get(key)
+        if value is None:
+            continue
+        limit = _CATALOG_DROP_LIMITS.get(key)
+        if limit is not None:
+            if len(value) <= limit:
+                result[key] = value
+        else:
+            result[key] = (value if len(value) <= _CATALOG_TEXT_LIMIT else
+                           value[:_CATALOG_TEXT_LIMIT - 1] + '…')
+    return result
+
+
 def _fingerprint(path):
     stat = path.stat()
     return (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
@@ -185,7 +213,7 @@ def _validated_summary(path, fingerprint):
         latitudes = [p.latitude for p in instances]
         extent = [min(longitudes), min(latitudes), max(longitudes), max(latitudes)]
     return {'corrupt': False,
-            'metadata': {key: value for key, value in document.metadata.items() if key in _CATALOG_METADATA},
+            'metadata': _bounded_catalog_metadata(document.metadata),
             'count': len(instances),
             'extent': extent, 'road_count': len(document.roads),
             'revision': hashlib.sha256(content).hexdigest()}
