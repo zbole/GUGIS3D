@@ -182,7 +182,8 @@ test("saving a feature retains building batches, terrain and wire entities; buil
     },
   };
   f.update({ city: nextCity });
-  for (const batch of initialBatches.slice(0, 3))
+  for (const batch of initialBatches.filter(batch =>
+    batch.getGeometryInstanceAttributes("building/wall") || batch.getGeometryInstanceAttributes("terrain/ruled-strip")))
     assert.ok(f.viewer.scene.primitives.values.includes(batch));
   for (const wire of wires) assert.ok(f.viewer.entities.contains(wire));
   const marker = f.viewer.entities.values.find(
@@ -482,4 +483,142 @@ test("unified point query keeps picked semantics, uses native ground and adds no
   f.update({ spatialPoint: null });
   assert.ok(!f.viewer.entities.values.some(entity => entity.id === "spatial:query-point"));
   f.close();
+});
+
+// Synthetic shared-template fixtures test actual GeometryInstance allocation,
+// not measured UK datasets or browser/GPU frame-rate performance.
+const syntheticCity = count => ({
+  ...city, environment: undefined,
+  instances: Array.from({ length: count }, (_, i) => ({ ...city.instances[0],
+    id: `synthetic-${i}`, longitude: -2.603 + (i % 100) * .0002,
+    latitude: 51.454 + Math.floor(i / 100) * .0002,
+  })),
+});
+const coarseInstances = viewer => viewer.scene.primitives.values.flatMap(p =>
+  [p.options.geometryInstances].flat().filter(instance => String(instance.id).startsWith("synthetic-")));
+const waitForResidency = async () => act(async () => { await new Promise(resolve => setTimeout(resolve, 220)); });
+
+test("actual coarse geometry allocations are bounded for 3/615/5000 synthetic buildings", t => {
+  for (const count of [3, 615, 5000]) {
+    const f = fixture({ city: syntheticCity(count), fullDetails: false });
+    const created = coarseInstances(f.viewer).length;
+    assert.equal(created, Math.min(count, 800));
+    assert.ok(f.viewer.scene.primitives.values.length <= 7);
+    t.diagnostic(`Synthetic ${count}: ${created} coarse GeometryInstances versus ${count} eager instances; ${((1 - created / count) * 100).toFixed(0)}% fewer`);
+    f.close();
+  }
+});
+
+test("camera culls and returns coarse buildings, selected objects stay resident, unchanged views reuse batches", async t => {
+  const sceneCity = syntheticCity(5000), source = JSON.stringify(sceneCity);
+  const f = fixture({ city: sceneCity, fullDetails: false });
+  t.after(() => f.close());
+  const original = [...f.viewer.scene.primitives.values], created = viewState.primitives.length;
+  for (let i = 0; i < 40; i++) act(() => f.viewer.camera.changed.raiseEvent());
+  act(() => f.viewer.camera.moveEnd.raiseEvent());
+  await waitForResidency();
+  assert.deepEqual(f.viewer.scene.primitives.values, original);
+  assert.equal(viewState.primitives.length, created);
+  f.viewer.camera.visible = false;
+  act(() => f.viewer.camera.moveEnd.raiseEvent());
+  await waitForResidency();
+  assert.equal(coarseInstances(f.viewer).length, 0);
+  f.update({ selected: "synthetic-4999" });
+  assert.deepEqual(coarseInstances(f.viewer).map(i => i.id), ["synthetic-4999/wall"]);
+  f.viewer.camera.visible = true;
+  act(() => f.viewer.camera.moveEnd.raiseEvent());
+  await waitForResidency();
+  assert.equal(coarseInstances(f.viewer).length, 800);
+  assert.ok(coarseInstances(f.viewer).some(i => i.id === "synthetic-4999/wall"));
+  assert.ok(f.viewer.scene.primitives.values.length <= 7);
+  assert.equal(JSON.stringify(sceneCity), source);
+  assert.equal(f.viewer.camera.flights.length, 1);
+});
+
+test("coarse component budget bounds fallback geometry without silently truncating selected buildings", () => {
+  const sceneCity = syntheticCity(5000);
+  sceneCity.assets = { simple: { ...sceneCity.assets.simple,
+    nodes: Array.from({ length: 40 }, (_, i) => ({ ...city.assets.simple.nodes[0], id: `wall-${i}` })),
+  } };
+  const f = fixture({ city: sceneCity, fullDetails: false, selected: "synthetic-4999" });
+  assert.equal(coarseInstances(f.viewer).length, 12000);
+  assert.equal(coarseInstances(f.viewer).filter(i => i.id.startsWith("synthetic-4999/")).length, 40);
+  f.close();
+});
+
+test("selected full detail survives viewport culling while other detail is evicted", async t => {
+  const f = fixture({ city: detailedCity, selected: "building-6" });
+  t.after(() => f.close());
+  await settleDetails(f.viewer);
+  f.viewer.camera.visible = false;
+  f.viewer.camera.pixelSize = 1000;
+  act(() => f.viewer.camera.moveEnd.raiseEvent());
+  await waitForResidency();
+  assert.ok(fineBatch(f.viewer, "building-6"));
+  assert.ok(detailedCity.instances.slice(0, 6).every(item => !fineBatch(f.viewer, item.id)));
+  f.update({ context: false });
+  await waitForResidency();
+  assert.equal(fineBatch(f.viewer, "building-6").show, true);
+});
+
+test("camera and render listeners do not accumulate on edits and pending residency work stops on unmount", async () => {
+  const f = fixture({ city: syntheticCity(615), fullDetails: false });
+  const changed = f.viewer.camera.changed.numberOfListeners;
+  const moveEnd = f.viewer.camera.moveEnd.numberOfListeners;
+  const postRender = f.viewer.scene.postRender.numberOfListeners;
+  for (let i = 0; i < 5; i++) f.update({ city: syntheticCity(615) });
+  assert.equal(f.viewer.camera.changed.numberOfListeners, changed);
+  assert.equal(f.viewer.camera.moveEnd.numberOfListeners, moveEnd);
+  assert.equal(f.viewer.scene.postRender.numberOfListeners, postRender);
+  act(() => f.viewer.camera.changed.raiseEvent());
+  f.close();
+  const created = viewState.primitives.length;
+  await new Promise(resolve => setTimeout(resolve, 220));
+  assert.equal(viewState.primitives.length, created);
+  assert.equal(f.viewer.camera.changed.numberOfListeners, 0);
+  assert.equal(f.viewer.camera.moveEnd.numberOfListeners, 0);
+  assert.equal(f.viewer.scene.postRender.numberOfListeners, 0);
+});
+
+test("empty documents preserve the catalog-center and legacy Bristol framing", () => {
+  for (const center of [{ longitude: -.1305, latitude: 51.502 }, undefined]) {
+    const f = fixture({ city: { ...city, instances: [], environment: undefined }, center });
+    const point = Cartographic.fromCartesian(f.viewer.camera.flights[0][0].center);
+    assert.ok(Math.abs(point.longitude * 180 / Math.PI - (center?.longitude ?? -2.603)) < 1e-6);
+    assert.ok(Math.abs(point.latitude * 180 / Math.PI - (center?.latitude ?? 51.454)) < 1e-6);
+    f.close();
+  }
+});
+
+test("actual Bristol/London/Birmingham seed geometry obeys the budget and keeps authored component IDs", async t => {
+  const { readFileSync } = await import("node:fs");
+  const { decodeCity } = await import("../src/studio/cityArchive.ts");
+  for (const [name, path, expectedBuildings, expectedInstances] of [
+    ["Bristol", "bristol.gugis.json", 615, 10435],
+    ["London", "cities/london.gugis.json", 800, 800],
+    ["Birmingham", "cities/birmingham.gugis.json", 800, 800],
+  ]) {
+    const sceneCity = decodeCity(JSON.parse(readFileSync(new URL(`../../backend/data/${path}`, import.meta.url), "utf8")));
+    const source = JSON.stringify(sceneCity);
+    const eager = sceneCity.instances.reduce((sum, item) => {
+      const doc = sceneCity.assets[item.asset];
+      return sum + (Object.keys(doc.overview ?? {}).length || doc.nodes.filter(n => n.template && n.position).length);
+    }, 0);
+    const f = fixture({ city: sceneCity, fullDetails: false });
+    const instances = f.viewer.scene.primitives.values.flatMap(p => [p.options.geometryInstances].flat());
+    const buildings = new Set(instances.map(instance => instance.id.split("/")[0]));
+    assert.equal(buildings.size, expectedBuildings);
+    assert.equal(instances.length, expectedInstances);
+    assert.ok(f.viewer.scene.primitives.values.length <= 7);
+    for (const item of sceneCity.instances.filter(i => buildings.has(i.id))) {
+      const doc = sceneCity.assets[item.asset];
+      const parts = Object.keys(doc.overview ?? {}).length ? Object.keys(doc.overview).map(id => `overview_${id}`)
+        : doc.nodes.filter(n => n.template && n.position).map(n => n.id);
+      assert.deepEqual(instances.filter(i => i.id.startsWith(`${item.id}/`)).map(i => i.id).sort(),
+        parts.map(id => `${item.id}/${id}`).sort());
+    }
+    assert.equal(JSON.stringify(sceneCity), source);
+    t.diagnostic(`${name} real seed (${sceneCity.instances.length} buildings): ${instances.length}/${eager} coarse GeometryInstances, ${buildings.size} resident buildings, ${f.viewer.scene.primitives.values.length} batches; GPU-free harness, no FPS claim`);
+    f.close();
+  }
 });

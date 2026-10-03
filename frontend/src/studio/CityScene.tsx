@@ -46,7 +46,7 @@ import {
 } from "./terrainScene";
 import { terrainLineColors, terrainTopologyLines } from "./terrainTopology";
 import type { TerrainHit } from "./terrainMath";
-import { chooseDetails } from "./detailBudget";
+import { chooseRenderBuildings, chooseRenderDetails, renderBudget } from "./renderBudget";
 import { createPathLocator, type AnalysisPoint, type PathAnalysis } from "./terrainAnalysis";
 
 const noAnalysisPoints: AnalysisPoint[] = [];
@@ -157,6 +157,10 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     parts = useRef<
       { batch: Primitive; id: string; cityId: string; category: SceneNode["category"]; kind: BuildingDocument["parameters"]["kind"]; asset: string; fallback: string; overview: boolean }[]
     >([]);
+  const coarseResidents = useRef(new Set<string>());
+  const refreshCoarse = useRef<(() => void) | null>(null);
+  const refreshDetails = useRef<(() => void) | null>(null);
+  const [renderProgress, setRenderProgress] = useState({ buildings: 0, components: 0 });
   const colorModeRef = useRef(colorMode);
   const analysisClick = useRef({ analysisDrawing, onAnalysisPoint });
   analysisClick.current = { analysisDrawing, onAnalysisPoint };
@@ -258,16 +262,14 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
           Color.lerp(color, Color.WHITE, 0.16, color);
         attrs.color = ColorGeometryInstanceAttribute.toValue(color);
         attrs.show = ShowGeometryInstanceAttribute.toValue(
-          !(
-            p.overview && detailedBuildings.current.get(p.cityId)?.ready
-          ),
+          (contextRef.current || !["urban", "footprint"].includes(p.kind) || p.cityId === selection.current) &&
+          !(p.overview && detailedBuildings.current.get(p.cityId)?.ready),
         );
       }
     }
-    if (batches.current[0]) batches.current[0].show = contextRef.current;
     for (const [id, detail] of detailedBuildings.current) {
       if (!detail.batch.ready) continue;
-      detail.batch.show = !detail.context || contextRef.current;
+      detail.batch.show = !detail.context || contextRef.current || id === selection.current;
       if (!detail.needsStyle && lastStyle.current.colorMode === colorModeRef.current &&
         id !== selection.current && id !== lastStyle.current.selected) continue;
       for (const node of detail.nodes) {
@@ -355,21 +357,13 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       const buildingId = typeof id === "string" ? id.split("/")[0] : "";
       pick.current(spheres.current.has(buildingId) ? buildingId : null);
     }, ScreenSpaceEventType.LEFT_CLICK);
-    v.camera.percentageChanged = 0.002;
-    const off = v.camera.changed.addEventListener(() => {
-      if (bounds.current)
-        setDistance(
-          Math.round(
-            Cartesian3.distance(v.camera.positionWC, bounds.current.center),
-          ),
-        );
-    });
+    // Avoid React state updates on every frame of a drag or wheel gesture.
+    v.camera.percentageChanged = 0.01;
     const offError = v.scene.renderError.addEventListener(
       (_s: unknown, e: Error) => { renderFailed.current = true; setError(e.message); },
     );
     return () => {
       click.destroy();
-      off();
       offError();
       v.destroy();
       viewer.current = null;
@@ -443,153 +437,164 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     spheres.current.clear();
     parts.current = [];
     batches.current = [];
-    const allPoints: Cartesian3[] = [],
-      sets: GeometryInstance[][] = [[], []],
-      meta: (Omit<(typeof parts.current)[number], "batch"> & { group: number })[] = [];
+    const allPoints: Cartesian3[] = [];
     const lightFrame = Transforms.eastNorthUpToFixedFrame(
       Cartesian3.fromDegrees(center.longitude, center.latitude),
     );
     const direction = Matrix4.multiplyByPointAsVector(
-      lightFrame,
-      new Cartesian3(-0.5, 0.7, -1),
-      new Cartesian3(),
+      lightFrame, new Cartesian3(-0.5, 0.7, -1), new Cartesian3(),
     );
-    v.scene.light = new DirectionalLight({
-      direction: Cartesian3.normalize(direction, direction),
-      intensity: 1.1,
-    });
-    // Cesium's synchronous Primitive clones each input geometry before applying
-    // instance transforms. Generate local shapes and bounds once per template.
-    const sharedGeometry = new WeakMap<Solid, { geometry: ReturnType<typeof solidGeometry>; corners: Cartesian3[] }>();
+    v.scene.light = new DirectionalLight({ direction: Cartesian3.normalize(direction, direction), intensity: 1.1 });
+    // Compute a lightweight local envelope once per asset. Geometry creation is
+    // deferred until the placement passes the viewport and residency budgets.
+    const assetBounds = new Map<BuildingDocument, BoundingSphere>();
+    const assetNodes = new Map<BuildingDocument, SceneNode[]>();
+    const frames = new Map<string, Matrix4>();
+    const byId = new Map(city.instances.map(item => [item.id, item]));
     for (const item of city.instances) {
-      const doc = city.assets[item.asset],
-        group = ["footprint", "urban"].includes(doc.parameters.kind) ? 0 : 1;
-      const frame = Matrix4.multiplyByMatrix3(
-        Transforms.eastNorthUpToFixedFrame(
-          Cartesian3.fromDegrees(
-            item.longitude,
-            item.latitude,
-            item.altitude +
-              (city.environment?.drape_buildings
-                ? (sampler?.height(item.longitude, item.latitude) ?? 0)
-                : 0),
-          ),
-        ),
-        Matrix3.fromRotationZ(CM.toRadians(-item.heading)),
-        new Matrix4(),
-      );
-      const points: Cartesian3[] = [];
+      const doc = city.assets[item.asset];
       const overview = hasBuildingOverview(doc) ? doc.overview : undefined;
-      const renderNodes: SceneNode[] = overview
-        ? Object.keys(overview).map((key) => ({
-            id: `overview_${key}`,
-            name: key,
-            category: key === "roof" ? "roof" : "wall",
-            template: key,
-            position: [0, 0, 0],
-          }))
-        : doc.nodes;
-      for (const node of renderNodes) {
-        if (!node.template || !node.position) continue;
-        const solid = (overview ?? doc.templates)[node.template],
-          id = `${item.id}/${node.id}`,
-          color = Color.fromCssColorString(
-            buildingColor(node.category, doc.parameters.kind, item.asset, colorModeRef.current, solid.color),
-          );
-        const positioned = Matrix4.multiplyByTranslation(
-          frame,
-          new Cartesian3(...node.position),
-          new Matrix4(),
-        );
-        const transform = Matrix4.multiplyByMatrix3(
-          positioned,
-          Matrix3.fromRotationZ(CM.toRadians(node.rotation_z ?? 0)),
-          new Matrix4(),
-        );
-        let cached = sharedGeometry.get(solid);
-        if (!cached) {
-          cached = { geometry: solidGeometry(solid), corners: solidCorners(solid) };
-          sharedGeometry.set(solid, cached);
+      let renderNodes = assetNodes.get(doc);
+      if (!renderNodes) {
+        renderNodes = overview ? Object.keys(overview).map(key => ({
+          id: `overview_${key}`, name: key, category: key === "roof" ? "roof" : "wall",
+          template: key, position: [0, 0, 0],
+        })) : doc.nodes.filter(node => node.template && node.position);
+        assetNodes.set(doc, renderNodes);
+        const points: Cartesian3[] = [];
+        // Use the authored overview, or every real component for an empty
+        // overview. A bounding box never replaces a building's actual footprint.
+        for (const node of renderNodes) {
+          const solid = (overview ?? doc.templates)[node.template!];
+          for (const p of solidCorners(solid, node.rotation_z ?? 0))
+            points.push(Cartesian3.add(p, new Cartesian3(...node.position!), p));
         }
-        const geometry = cached.geometry;
-        sets[group].push(
-          new GeometryInstance({
-            id,
-            geometry,
-            modelMatrix: transform,
-            attributes: {
-              color: ColorGeometryInstanceAttribute.fromColor(color),
-              show: new ShowGeometryInstanceAttribute(true),
-            },
-          }),
-        );
-        meta.push({ id, cityId: item.id, group, category: node.category, kind: doc.parameters.kind,
-          asset: item.asset, fallback: solid.color, overview: !!overview });
-        const vertices = cached.corners;
-        points.push(
-          ...vertices.map((p) =>
-            Matrix4.multiplyByPoint(transform, p, new Cartesian3()),
-          ),
-        );
+        assetBounds.set(doc, BoundingSphere.fromPoints(points));
       }
-      const sphere = BoundingSphere.fromPoints(points);
+      const frame = Matrix4.multiplyByMatrix3(
+        Transforms.eastNorthUpToFixedFrame(Cartesian3.fromDegrees(item.longitude, item.latitude,
+          item.altitude + (drapeBuildings ? (sampler?.height(item.longitude, item.latitude) ?? 0) : 0))),
+        Matrix3.fromRotationZ(CM.toRadians(-item.heading)), new Matrix4());
+      frames.set(item.id, frame);
+      const sphere = BoundingSphere.transform(assetBounds.get(doc)!, frame, new BoundingSphere());
       spheres.current.set(item.id, sphere);
       allPoints.push(
-        Cartesian3.add(
-          sphere.center,
-          new Cartesian3(sphere.radius, sphere.radius, sphere.radius),
-          new Cartesian3(),
-        ),
-        Cartesian3.subtract(
-          sphere.center,
-          new Cartesian3(sphere.radius, sphere.radius, sphere.radius),
-          new Cartesian3(),
-        ),
+        Cartesian3.add(sphere.center, new Cartesian3(sphere.radius, sphere.radius, sphere.radius), new Cartesian3()),
+        Cartesian3.subtract(sphere.center, new Cartesian3(sphere.radius, sphere.radius, sphere.radius), new Cartesian3()),
       );
-      if (["wills", "cabot", "cathedral"].includes(doc.parameters.kind))
-        addEntity({
-          id: `landmark/${item.id}`,
-          position: Cartesian3.fromDegrees(
-            item.longitude,
-            item.latitude,
-            item.altitude +
-              70 * (doc.parameters.scale ?? 1) +
-              (city.environment?.drape_buildings
-                ? (sampler?.height(item.longitude, item.latitude) ?? 0)
-                : 0),
-          ),
-          label: {
-            text: item.name,
-            font: "13px sans-serif",
-            fillColor: Color.fromCssColorString("#354c40"),
-            outlineColor: Color.WHITE,
-            outlineWidth: 1,
-            style: LabelStyle.FILL_AND_OUTLINE,
-            showBackground: true,
-            backgroundColor: Color.WHITE.withAlpha(0.9),
-            pixelOffset: new Cartesian2(0, -10),
-            disableDepthTestDistance: Number.POSITIVE_INFINITY,
-          },
-        });
+      if (["wills", "cabot", "cathedral"].includes(doc.parameters.kind)) addEntity({
+        id: `landmark/${item.id}`,
+        position: Cartesian3.fromDegrees(item.longitude, item.latitude,
+          item.altitude + 70 * (doc.parameters.scale ?? 1) + (drapeBuildings ? (sampler?.height(item.longitude, item.latitude) ?? 0) : 0)),
+        label: {
+          text: item.name, font: "13px sans-serif", fillColor: Color.fromCssColorString("#354c40"),
+          outlineColor: Color.WHITE, outlineWidth: 1, style: LabelStyle.FILL_AND_OUTLINE,
+          showBackground: true, backgroundColor: Color.WHITE.withAlpha(0.9), pixelOffset: new Cartesian2(0, -10),
+          disableDepthTestDistance: Number.POSITIVE_INFINITY,
+        },
+      });
     }
-    for (const group of sets)
-      batches.current.push(
-        v.scene.primitives.add(
-          new Primitive({
-            geometryInstances: group,
-            appearance: new PerInstanceColorAppearance({
-              translucent: false,
-              closed: true,
-            }),
-            asynchronous: false,
-            releaseGeometryInstances: true,
-          }),
-        ),
-      );
-    parts.current = meta.map((p) => ({
-      ...p,
-      batch: batches.current[p.group],
-    }));
+    type Chunk = { batch: Primitive; ids: string[]; parts: typeof parts.current };
+    const chunks = new Map<number, Chunk>();
+    const slots = new Map<string, number>();
+    const sharedGeometry = new Map<Solid, ReturnType<typeof solidGeometry>>();
+    let active = true, pendingStyle = false;
+    let cameraTimer: ReturnType<typeof setTimeout> | undefined;
+    function refresh() {
+      if (!active || v!.isDestroyed() || renderFailed.current) return;
+      const camera = v!.camera;
+      const culling = camera.frustum.computeCullingVolume(camera.positionWC, camera.directionWC, camera.upWC);
+      const desired = chooseRenderBuildings(city.instances.map(item => {
+        const doc = city.assets[item.asset], sphere = spheres.current.get(item.id)!;
+        return { id: item.id, components: assetNodes.get(doc)!.length,
+          distance: Math.max(0, Cartesian3.distance(camera.positionWC, sphere.center) - sphere.radius),
+          visible: (contextRef.current || !["urban", "footprint"].includes(doc.parameters.kind)) &&
+            culling.computeVisibility(sphere) !== Intersect.OUTSIDE };
+      }), coarseResidents.current, selection.current);
+      // Stable slots bound coarse draw batches as well as instances, regardless
+      // of archive ordering. A small pan only rebuilds the changed batches.
+      for (const id of slots.keys()) if (!desired.has(id)) slots.delete(id);
+      const occupied = new Set(slots.values());
+      let slot = 0;
+      for (const id of desired) {
+        if (slots.has(id)) continue;
+        while (occupied.has(slot)) slot++;
+        slots.set(id, slot); occupied.add(slot);
+      }
+      const groups = new Map<number, string[]>();
+      for (const [id, index] of [...slots].sort((a, b) => a[1] - b[1])) {
+        const key = Math.floor(index / renderBudget.batchBuildings);
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key)!.push(id);
+      }
+      for (const [key, chunk] of chunks) {
+        const ids = groups.get(key);
+        if (ids && ids.length === chunk.ids.length && ids.every((id, i) => chunk.ids[i] === id)) continue;
+        v!.scene.primitives.remove(chunk.batch);
+        chunks.delete(key);
+      }
+      for (const [key, ids] of groups) {
+        if (chunks.has(key)) continue;
+        const instances: GeometryInstance[] = [];
+        const metadata: Omit<(typeof parts.current)[number], "batch">[] = [];
+        for (const id of ids) {
+          const item = byId.get(id)!, doc = city.assets[item.asset];
+          const overview = hasBuildingOverview(doc) ? doc.overview : undefined;
+          for (const node of assetNodes.get(doc)!) {
+            const solid = (overview ?? doc.templates)[node.template!];
+            let geometry = sharedGeometry.get(solid);
+            if (!geometry) { geometry = solidGeometry(solid); sharedGeometry.set(solid, geometry); }
+            const transform = Matrix4.multiplyByMatrix3(
+              Matrix4.multiplyByTranslation(frames.get(id)!, new Cartesian3(...node.position!), new Matrix4()),
+              Matrix3.fromRotationZ(CM.toRadians(node.rotation_z ?? 0)), new Matrix4());
+            const partId = `${id}/${node.id}`;
+            instances.push(new GeometryInstance({ id: partId, geometry, modelMatrix: transform, attributes: {
+              color: ColorGeometryInstanceAttribute.fromColor(Color.fromCssColorString(
+                buildingColor(node.category, doc.parameters.kind, item.asset, colorModeRef.current, solid.color))),
+              show: new ShowGeometryInstanceAttribute(true),
+            } }));
+            metadata.push({ id: partId, cityId: id, category: node.category, kind: doc.parameters.kind,
+              asset: item.asset, fallback: solid.color, overview: !!overview });
+          }
+        }
+        const batch = v!.scene.primitives.add(new Primitive({ geometryInstances: instances,
+          appearance: new PerInstanceColorAppearance({ translucent: false, closed: true }),
+          asynchronous: false, releaseGeometryInstances: true }));
+        chunks.set(key, { batch, ids, parts: metadata.map(p => ({ ...p, batch })) });
+        pendingStyle = true;
+      }
+      // A tour must not accumulate cached CPU mesh buffers for evicted buildings.
+      const used = new Set<Solid>();
+      for (const id of desired) {
+        const doc = city.assets[byId.get(id)!.asset];
+        const solids = hasBuildingOverview(doc) ? doc.overview : doc.templates;
+        for (const node of assetNodes.get(doc)!) used.add(solids[node.template!]);
+      }
+      for (const solid of sharedGeometry.keys()) if (!used.has(solid)) sharedGeometry.delete(solid);
+      coarseResidents.current = desired;
+      batches.current = [...chunks.values()].map(chunk => chunk.batch);
+      parts.current = [...chunks.values()].flatMap(chunk => chunk.parts);
+      const count = parts.current.length;
+      setRenderProgress(previous => previous.buildings === desired.size && previous.components === count
+        ? previous : { buildings: desired.size, components: count });
+      if (bounds.current) setDistance(Math.round(Cartesian3.distance(camera.positionWC, bounds.current.center)));
+      highlight();
+      refreshDetails.current?.();
+      v!.scene.requestRender();
+    }
+    const schedule = () => {
+      if (cameraTimer !== undefined) clearTimeout(cameraTimer);
+      cameraTimer = setTimeout(refresh, 180);
+    };
+    const offCamera = v.camera.changed.addEventListener(schedule);
+    const offMove = v.camera.moveEnd.addEventListener(schedule);
+    const resize = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(schedule);
+    resize?.observe(v.scene.canvas);
+    const off = v.scene.postRender.addEventListener(() => {
+      if (pendingStyle && batches.current.every(batch => batch.ready)) { pendingStyle = false; highlight(); }
+    });
+    refreshCoarse.current = refresh;
+    refresh();
     if (terrain && sampler) {
       const min = terrain.points.reduce(
         (a, p) => [
@@ -622,13 +627,14 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       : new BoundingSphere(Cartesian3.fromDegrees(center.longitude, center.latitude), 300);
     // A flat local ground plane keeps context offline and avoids inventing terrain elevations.
     const inverse = Matrix4.inverse(lightFrame, new Matrix4());
-    const local = allPoints.map((p) =>
-      Matrix4.multiplyByPoint(inverse, p, new Cartesian3()),
-    );
-    const minX = Math.min(-300, ...local.map((p) => p.x)) - 30,
-      maxX = Math.max(300, ...local.map((p) => p.x)) + 30,
-      minY = Math.min(-300, ...local.map((p) => p.y)) - 30,
-      maxY = Math.max(300, ...local.map((p) => p.y)) + 30;
+    let minX = -300, maxX = 300, minY = -300, maxY = 300;
+    const localPoint = new Cartesian3();
+    for (const point of allPoints) {
+      Matrix4.multiplyByPoint(inverse, point, localPoint);
+      minX = Math.min(minX, localPoint.x); maxX = Math.max(maxX, localPoint.x);
+      minY = Math.min(minY, localPoint.y); maxY = Math.max(maxY, localPoint.y);
+    }
+    minX -= 30; maxX += 30; minY -= 30; maxY += 30;
     const groundHeight = terrain
       ? terrain.points.reduce(
           (min, p) => Math.min(min, p[2] - terrain.reference_height),
@@ -709,12 +715,6 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       }
       flush();
     }
-    const off = v.scene.postRender.addEventListener(() => {
-      if (batches.current.every((b) => b.ready)) {
-        highlight();
-        off();
-      }
-    });
     // Editing city data must not move the camera. Frame only a new viewer.
     if (!initialized.current) {
       fit();
@@ -726,12 +726,15 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       ),
     );
     v.scene.requestRender();
-    const ownedBatches = [...batches.current];
     return () => {
-      off();
+      active = false;
+      if (cameraTimer !== undefined) clearTimeout(cameraTimer);
+      off(); offCamera(); offMove(); resize?.disconnect();
+      if (refreshCoarse.current === refresh) refreshCoarse.current = null;
+      coarseResidents.current = new Set();
       if (!v.isDestroyed()) {
         for (const entity of ownedEntities) v.entities.remove(entity);
-        for (const batch of ownedBatches) v.scene.primitives.remove(batch);
+        for (const chunk of chunks.values()) v.scene.primitives.remove(chunk.batch);
       }
     };
   }, [
@@ -751,22 +754,26 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     const owned = new Map<string, DetailedBuilding>();
     detailedBuildings.current = owned;
     const candidates = city.instances.filter(item => hasBuildingOverview(city.assets[item.asset]));
-    const permanent = city.instances.filter(item => !hasBuildingOverview(city.assets[item.asset]));
-    const permanentComponents = permanent.reduce((n, item) => n + city.assets[item.asset].nodes.filter(node => node.template && node.position).length, 0);
-    const componentCounts = new Map(candidates.map(item => [item.id,
-      city.assets[item.asset].nodes.filter(node => node.template && node.position).length]));
+    const permanent = new Set(city.instances.filter(item => !hasBuildingOverview(city.assets[item.asset])).map(item => item.id));
+    const assetCounts = new Map(Object.values(city.assets).map(doc => [doc,
+      doc.nodes.filter(node => node.template && node.position).length]));
+    const componentCounts = new Map(city.instances.map(item => [item.id, assetCounts.get(city.assets[item.asset])!]));
+    const byId = new Map(candidates.map(item => [item.id, item]));
     let active = true, timer: ReturnType<typeof setTimeout> | undefined;
     let cameraTimer: ReturnType<typeof setTimeout> | undefined;
     let queue: typeof candidates = [], desired = new Set<string>(), reported = "";
     const reportReady = () => {
       if (!active || renderFailed.current) return;
-      let changed = false, ready = permanent.length, components = permanentComponents;
+      // Per-frame accounting is bounded by resident buildings, not city size.
+      const retained = [...coarseResidents.current].filter(id => permanent.has(id));
+      let changed = false, ready = retained.length;
+      let components = retained.reduce((sum, id) => sum + componentCounts.get(id)!, 0);
       for (const detail of owned.values()) {
         if (!detail.ready && detail.batch.ready) { detail.ready = true; changed = true; }
         if (detail.ready) { ready++; components += detail.nodes.length; }
       }
       if (changed) highlight();
-      const total = permanent.length + desired.size;
+      const total = retained.length + desired.size;
       const signature = `${ready}/${total}/${components}`;
       if (reported !== signature) {
         reported = signature;
@@ -823,20 +830,19 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       if (timer !== undefined) clearTimeout(timer);
       const camera = v!.camera, canvas = v!.scene.canvas;
       const culling = camera.frustum.computeCullingVolume(camera.positionWC, camera.directionWC, camera.upWC);
-      desired = fullDetails ? chooseDetails(candidates.map(item => {
+      desired = fullDetails ? chooseRenderDetails(candidates.filter(item => coarseResidents.current.has(item.id)).map(item => {
         const sphere = spheres.current.get(item.id)!;
         const pixelSize = camera.getPixelSize(sphere, Math.max(1, canvas.clientWidth), Math.max(1, canvas.clientHeight));
         return { id: item.id, components: componentCounts.get(item.id)!,
           pixels: sphere.radius * 2 / Math.max(0.001, pixelSize),
           visible: (contextRef.current || !["urban", "footprint"].includes(city.assets[item.asset].parameters.kind)) &&
             culling.computeVisibility(sphere) !== Intersect.OUTSIDE };
-      }), new Set(owned.keys())) : new Set();
+      }), new Set(owned.keys()), selection.current) : new Set();
       // Removing primitives releases their vertex buffers and batch textures.
       for (const [id, detail] of owned) if (!desired.has(id)) {
         v!.scene.primitives.remove(detail.batch);
         owned.delete(id);
       }
-      const byId = new Map(candidates.map(item => [item.id, item]));
       queue = [...desired].filter(id => !owned.has(id)).map(id => byId.get(id)!);
       highlight();
       reportReady();
@@ -846,12 +852,11 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       if (timer !== undefined) clearTimeout(timer);
       queue = [];
       if (cameraTimer !== undefined) clearTimeout(cameraTimer);
-      cameraTimer = setTimeout(refresh, 180);
+      // Coarse residency owns the debounced camera/resize refresh. Cancel fine
+      // uploads immediately during motion; that settled refresh reprioritizes us.
     };
     const offCamera = v.camera.changed.addEventListener(onCameraChange);
-    const offMove = v.camera.moveEnd.addEventListener(onCameraChange);
-    const resize = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(onCameraChange);
-    resize?.observe(v.scene.canvas);
+    refreshDetails.current = refresh;
     highlight();
     reportReady();
     // Let the first camera flight settle before evaluating screen size.
@@ -862,13 +867,16 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       if (cameraTimer !== undefined) clearTimeout(cameraTimer);
       off();
       offCamera();
-      offMove();
-      resize?.disconnect();
+      if (refreshDetails.current === refresh) refreshDetails.current = null;
       if (detailedBuildings.current === owned) detailedBuildings.current = new Map();
       if (!v.isDestroyed()) for (const detail of owned.values()) v.scene.primitives.remove(detail.batch);
     };
   }, [city.instances, city.assets, fullDetails, sampler, drapeBuildings, context]);
-  useEffect(() => highlight(), [selected, context, colorMode]);
+  useEffect(() => {
+    refreshCoarse.current?.();
+    highlight();
+  }, [selected, context]);
+  useEffect(() => highlight(), [colorMode]);
   useEffect(() => {
     const v = viewer.current;
     if (!v) return;
@@ -1234,6 +1242,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
           ? `精细结构加载中 · ${detailProgress.ready} / ${detailProgress.total} 栋`
           : `自动精细 · ${detailProgress.ready} 栋 · ${detailProgress.components.toLocaleString()} 个构件 · 拉近自动加载`
           : "轻量概览 · 可开启自动精细结构"}
+        {` · 已渲染 ${renderProgress.buildings.toLocaleString()} / ${city.instances.length.toLocaleString()} 栋 · 按视域与预算加载`}
       </div>
       {error && (
         <div className="scene-error" role="alert">
