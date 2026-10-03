@@ -1,3 +1,5 @@
+import { normalizeTileLoadingProfile, type TileLoadingProfile } from "./renderTileClient";
+
 export interface CityWorkspace {
   id: string;
   name: string;
@@ -112,7 +114,22 @@ export function selectedCityFromSearch(search: string, selected: CityId[]): City
   return selected.includes(requested) ? requested : selected[0] ?? "bristol";
 }
 
-export function citySessionUrl(href: string, selected: CityId[], active: CityId | null, tiles?: boolean, preserveCamera = false): string {
+export function tileProfileFromSearch(search: string): TileLoadingProfile {
+  return normalizeTileLoadingProfile(new URLSearchParams(search).get("tile_profile"));
+}
+
+/** Normalize only the profile field, preserving camera identity fields for validation. */
+export function tileProfileUrl(href: string, tiles: boolean, profile: TileLoadingProfile = "balanced"): string {
+  const url = new URL(href), values = url.searchParams.getAll("tile_profile");
+  const economy = tiles && normalizeTileLoadingProfile(profile) === "economy";
+  if (economy ? values.length === 1 && values[0] === "economy" : values.length === 0) return href;
+  if (economy) url.searchParams.set("tile_profile", "economy");
+  else url.searchParams.delete("tile_profile");
+  return url.href;
+}
+
+export function citySessionUrl(href: string, selected: CityId[], active: CityId | null, tiles?: boolean, preserveCamera = false,
+  tileProfile: TileLoadingProfile = "balanced"): string {
   const url = new URL(href);
   // Transitions never carry a view owned by a previous city or editing mode.
   if (!preserveCamera && url.hash.startsWith("#gugis-view")) url.hash = "";
@@ -122,8 +139,11 @@ export function citySessionUrl(href: string, selected: CityId[], active: CityId 
     url.searchParams.set("cities", selected.join(","));
     if (tiles === true) url.searchParams.set("view_mode", "tiles");
     else if (tiles === false) url.searchParams.delete("view_mode");
+    if (url.searchParams.get("view_mode") === "tiles" && normalizeTileLoadingProfile(tileProfile) === "economy")
+      url.searchParams.set("tile_profile", "economy");
+    else url.searchParams.delete("tile_profile");
   } else {
-    for (const key of ["city", "cities", "workspace", "view", "view_mode"]) url.searchParams.delete(key);
+    for (const key of ["city", "cities", "workspace", "view", "view_mode", "tile_profile"]) url.searchParams.delete(key);
   }
   return url.href;
 }

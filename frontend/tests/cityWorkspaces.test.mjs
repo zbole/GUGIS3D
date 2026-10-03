@@ -7,7 +7,7 @@ const outfile = fileURLToPath(new URL("../node_modules/.cache/gugis-tests/city-w
 await build({ entryPoints: [fileURLToPath(new URL("../src/studio/cityWorkspaces.ts", import.meta.url))], bundle: true,
   platform: "node", format: "esm", packages: "external", outfile,
   define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' } });
-const { cityIdFromSearch, cityWorkspaceUrl, cityWorkspaceHref, cityCenter, cityCoverageCoordinates, heightPolicyLabel, citySourceLicense, selectedCitiesFromSearch, selectedCityFromSearch, citySessionUrl } = await import(pathToFileURL(outfile).href);
+const { cityIdFromSearch, cityWorkspaceUrl, cityWorkspaceHref, cityCenter, cityCoverageCoordinates, heightPolicyLabel, citySourceLicense, selectedCitiesFromSearch, selectedCityFromSearch, citySessionUrl, tileProfileFromSearch } = await import(pathToFileURL(outfile).href);
 
 test("city URLs survive workspace navigation while unknown city ids fall back to Bristol", () => {
   assert.equal(cityIdFromSearch("?city=london&workspace=environment"), "london");
@@ -75,4 +75,19 @@ test("tile mode is an explicit session option and is cleared when returning to s
   assert.equal(url.searchParams.get("view_mode"), "tiles");
   assert.equal(new URL(citySessionUrl(url.href, ["london"], "london", false)).searchParams.has("view_mode"), false);
   assert.equal(new URL(citySessionUrl(url.href, [], null)).search, "?foo=bar");
+});
+
+
+test("tile profile URLs allow only named profiles and clear them outside read-only sessions", () => {
+  const base = "http://localhost/?foo=bar&tile_profile=economy";
+  assert.equal(tileProfileFromSearch("?tile_profile=economy"), "economy");
+  for (const value of ["", "balanced", "ECONOMY", "custom", "__proto__", '{"activeBytes":999999999}', "2"])
+    assert.equal(tileProfileFromSearch(`?tile_profile=${encodeURIComponent(value)}&activeBytes=999999999`), "balanced");
+  const economy = citySessionUrl(base, ["london", "birmingham"], "london", true, false, "economy");
+  assert.equal(new URL(economy).searchParams.get("tile_profile"), "economy");
+  assert.equal(tileProfileFromSearch(new URL(economy).search), "economy");
+  for (const profile of ["balanced", "custom", { activeTiles: 999 }])
+    assert.equal(new URL(citySessionUrl(economy, ["london"], "london", true, false, profile)).searchParams.has("tile_profile"), false);
+  assert.equal(new URL(citySessionUrl(economy, ["london"], "london", false, false, "economy")).searchParams.has("tile_profile"), false);
+  assert.equal(new URL(citySessionUrl(economy, [], null, true, false, "economy")).search, "?foo=bar");
 });

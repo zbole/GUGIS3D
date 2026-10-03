@@ -6,6 +6,11 @@ initial city-selection page, or switch from the workspace toolbar. The existing
 full editor remains a separate mode. A mode/city switch releases the previous
 viewer; it never loads three city models together.
 
+The optional [Economy loading profile](tile_loading_profiles.md), chosen before
+entry, lowers active residency to two tiles / 2 MiB, cache to four tiles / 4 MiB
+and concurrency to one. Balanced keeps the original upper limits. Profiles do
+not change source geometry, raise limits or modify the full editor.
+
 The [loaded-building inspector and loading controls](lightweight_city_exploration.md)
 add local name/ID search, 25-row pages, explicit focus, source-placement details,
 manual pause/resume and automatic pause while the page is hidden. Search reads

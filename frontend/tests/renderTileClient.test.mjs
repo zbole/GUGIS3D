@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { Cartesian3, Matrix3, Matrix4, Transforms, Math as CM } from "cesium";
 import { canonicalJson, chooseViewportTiles, intersectsBounds, loadRenderManifest, readBoundedBytes,
-  RenderPackageUnavailable, RenderTileStream, renderTilesToCity, tileBudget, validateManifest, validateTile } from "../src/studio/renderTileClient.ts";
+  RenderPackageUnavailable, RenderTileStream, renderTilesToCity, tileBudget, tileLoadingProfiles, normalizeTileLoadingProfile, validateManifest, validateTile } from "../src/studio/renderTileClient.ts";
 const hash = value => createHash("sha256").update(value).digest("hex");
 const revision = "a".repeat(64), cityId = "london";
 const view = (x = 0, bounds = null) => ({ bounds, center: { longitude: x, latitude: 51 } });
@@ -334,4 +334,87 @@ test("tile validation rejects broken topology, duplicate IDs, nonfinite placemen
     t => t.assets.asset0.primitives[0].position = [0, Infinity, 0], t => t.assets.asset0.primitives[0].size = undefined]) {
     const bad = structuredClone(tile); change(bad); assert.throws(() => validateTile(bad, f.manifest, f.manifest.tiles[0]));
   }
+});
+
+
+test("named loading profiles are immutable allowlisted reductions of the existing hard ceilings", () => {
+  assert.deepEqual(Object.keys(tileLoadingProfiles), ["balanced", "economy"]);
+  assert.equal(tileLoadingProfiles.balanced, tileBudget);
+  assert.deepEqual(tileLoadingProfiles.balanced, { activeTiles: 8, activeBytes: 8 * 1024 * 1024, cacheTiles: 16, cacheBytes: 16 * 1024 * 1024, concurrency: 3 });
+  assert.deepEqual(tileLoadingProfiles.economy, { activeTiles: 2, activeBytes: 2 * 1024 * 1024, cacheTiles: 4, cacheBytes: 4 * 1024 * 1024, concurrency: 1 });
+  assert.ok(Object.isFrozen(tileLoadingProfiles));
+  for (const profile of Object.values(tileLoadingProfiles)) {
+    assert.ok(Object.isFrozen(profile));
+    for (const key of Object.keys(tileBudget)) assert.ok(profile[key] <= tileBudget[key]);
+    assert.throws(() => { profile.activeBytes = 999999999; }, TypeError);
+  }
+  assert.equal(normalizeTileLoadingProfile("economy"), "economy");
+  for (const value of [null, undefined, "ECONOMY", "constructor", "__proto__", 2, { activeBytes: 999999999 }, ["economy"]])
+    assert.equal(normalizeTileLoadingProfile(value), "balanced");
+  assert.throws(() => new RenderTileStream(fixture().manifest, () => {}, { budget: { ...tileBudget, activeBytes: tileBudget.activeBytes + 1 } }), /硬上限/);
+});
+
+test("economy bounds live requests at one, active tiles at two and cache count at four", async t => {
+  const f = fixture(8), budget = tileLoadingProfiles.economy, h = harness(f, budget); t.after(() => h.stream.dispose());
+  let completed = 0;
+  async function drain() {
+    while (completed < h.requests.length) {
+      assert.equal(h.requests.length - completed, 1, "one physical request at a time");
+      h.finish(h.requests[completed++]); await settle();
+    }
+  }
+  for (const x of [0, .02, .04, .06, 0]) {
+    h.stream.setView(view(x)); await drain();
+    assert.equal(h.current().tiles.length, 2);
+  }
+  assert.equal(Math.max(...h.states.map(s => s.cacheTiles)), 4);
+  assert.ok(h.states.every(s => s.tiles.length <= budget.activeTiles && s.activeBytes <= budget.activeBytes &&
+    s.cacheTiles <= budget.cacheTiles && s.cacheBytes <= budget.cacheBytes));
+  assert.ok(h.requests.filter(r => r.id === "x0_y0").length > 1, "evicted oldest tile is fetched again");
+});
+
+function resizeTile(f, index, length) {
+  const id = `x${index}_y0`, entry = f.contents.get(id);
+  entry.tile.instances[0].name += ".".repeat(length - entry.bytes.length);
+  entry.bytes = new TextEncoder().encode(JSON.stringify(entry.tile));
+  assert.equal(entry.bytes.length, length);
+  f.manifest.tiles[index].byte_length = length; f.manifest.tiles[index].sha256 = hash(entry.bytes);
+}
+
+test("economy independently enforces encoded byte caps and preserves a selected complete tile across pause", async t => {
+  const f = fixture(6), budget = tileLoadingProfiles.economy;
+  for (let i = 0; i < 6; i++) resizeTile(f, i, 1024 * 1024 + 64);
+  const h = harness(f, budget); t.after(() => h.stream.dispose());
+  for (const x of [0, .01, .02, .03, .04, .05]) {
+    h.stream.setView(view(x)); h.finish(h.requests.at(-1)); await settle();
+    assert.equal(h.current().tiles.length, 1, "two source tiles would exceed 2 MiB");
+  }
+  assert.equal(h.current().cacheTiles, 3, "four source tiles would exceed 4 MiB");
+  const requests = h.requests.length, retained = h.current().tiles;
+  h.stream.setView(view(0, [-.001, 50.999, .001, 51.001]), "building5");
+  assert.equal(h.requests.length, requests);
+  assert.equal(h.current().tiles[0].tile_id, "x5_y0", "the entire selected building remains pinned inside the same hard budget");
+  h.stream.setPaused(true); h.stream.setView(view(.01), "building5");
+  assert.equal(h.current().tiles, retained); assert.equal(h.requests.length, requests);
+  h.stream.setPaused(false);
+  assert.equal(h.current().tiles[0].tile_id, "x5_y0"); assert.equal(h.requests.length, requests);
+  h.stream.setView(view(0), null); assert.equal(h.requests.length, requests + 1);
+  h.finish(h.requests.at(-1)); await settle();
+  assert.ok(h.states.every(s => s.activeBytes <= budget.activeBytes && s.cacheBytes <= budget.cacheBytes && s.cacheTiles <= 4 && s.tiles.length <= 2));
+});
+
+test("economy never requests a non-fitting source tile or raises its budget on retry, pin or resume", async t => {
+  const f = fixture(2), budget = tileLoadingProfiles.economy;
+  f.manifest.tiles[0].byte_length = budget.activeBytes + 1;
+  const h = harness(f, budget); t.after(() => h.stream.dispose());
+  const nearLargeTile = view(0, [-.001, 50.999, .001, 51.001]);
+  h.stream.setView(nearLargeTile, "building0"); h.stream.retry();
+  h.stream.setPaused(true); h.stream.setPaused(false);
+  assert.equal(h.requests.length, 0); assert.equal(h.current().wanted, 0); assert.equal(h.current().omitted, 1);
+  assert.equal(h.current().activeBytes, 0); assert.equal(h.current().failures.length, 0);
+  h.stream.setView(view());
+  assert.deepEqual(h.requests.map(r => r.id), ["x1_y0"]);
+  h.finish(h.requests[0]); await settle();
+  assert.equal(h.current().tiles[0].tile_id, "x1_y0");
+  assert.deepEqual(chooseViewportTiles(f.manifest, nearLargeTile, tileLoadingProfiles.balanced).chosen.map(tile => tile.id), ["x0_y0"], "larger tiles only fit an explicitly selected larger profile");
 });

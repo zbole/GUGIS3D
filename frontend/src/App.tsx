@@ -2,9 +2,10 @@ import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } fro
 import { cameraBookmarkForLocation, stripCameraFragment, type CameraNavigation } from "./studio/cameraBookmark";
 import AppErrorBoundary from "./AppErrorBoundary";
 import { createCityApi } from "./studio/cityApi";
-import { cityCoverageCoordinates, citySessionUrl, selectedCitiesFromSearch, selectedCityFromSearch, knownCities, loadCityWorkspaces, type CityId, type CityWorkspace } from "./studio/cityWorkspaces";
+import { cityCoverageCoordinates, citySessionUrl, tileProfileFromSearch, tileProfileUrl, selectedCitiesFromSearch, selectedCityFromSearch, knownCities, loadCityWorkspaces, type CityId, type CityWorkspace } from "./studio/cityWorkspaces";
 import "./studio/cityWorkspaces.css";
 import CitySelection from "./studio/CitySelection";
+import { type TileLoadingProfile } from "./studio/renderTileClient";
 
 const BuildingStudio = lazy(() => import("./studio/CityStudio"));
 const CityTilePreview = lazy(() => import("./studio/CityTilePreview"));
@@ -16,6 +17,8 @@ export default function App() {
   const [selectedCities, setSelectedCities] = useState<CityId[]>(() => comparison ? [...knownCities] : initialSelection);
   const [entered, setEntered] = useState(comparison || initialSelection.length > 0);
   const [previewMode, setPreviewMode] = useState(!comparison && new URLSearchParams(window.location.search).get("view_mode") === "tiles");
+  const [tileProfile, setTileProfile] = useState<TileLoadingProfile>(() => !comparison && previewMode ? tileProfileFromSearch(window.location.search) : "balanced");
+  const profile = useRef(tileProfile); profile.current = tileProfile;
   const viewMode = useRef(previewMode);
   viewMode.current = previewMode;
   const [multiple, setMultiple] = useState(initialSelection.length > 1);
@@ -56,12 +59,12 @@ export default function App() {
     if (next === selection.current || !chosen.current.includes(next)) return;
     if (state.current.busy) {
       setSwitchNotice("当前操作尚未完成，请完成后切换城市。");
-      if (restore) window.history.replaceState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current, viewMode.current));
+      if (restore) window.history.replaceState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current, viewMode.current, false, profile.current));
       return;
     }
     setSwitchNotice(state.current.draft ? "原城市草稿已独立保留，切回该城市可继续。" : "已切换独立工作区；仅加载当前城市的三维场景。");
     selection.current = next;
-    if (!restore) window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, next, viewMode.current));
+    if (!restore) window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, next, viewMode.current, false, profile.current));
     acceptCamera(window.location.href, next, viewMode.current);
     state.current = { busy: !comparison && !viewMode.current, draft: false };
     setBusy(!comparison && !viewMode.current); setDraft(false); setCityId(next);
@@ -73,27 +76,32 @@ export default function App() {
       if (!requested.length && !comparison) {
         if (state.current.busy) {
           setSwitchNotice("当前操作尚未完成，请完成后选择城市。");
-          window.history.replaceState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current, viewMode.current));
+          window.history.replaceState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current, viewMode.current, false, profile.current));
         } else {
           setEntered(false); setBusy(false);
-          window.history.replaceState(window.history.state, "", stripCameraFragment(window.location.href));
+          window.history.replaceState(window.history.state, "", citySessionUrl(window.location.href, [], null));
         }
         acceptCamera(window.location.href, selection.current, false);
         return;
       }
       if (state.current.busy) {
         setSwitchNotice("当前操作尚未完成，请完成后切换城市。");
-        window.history.replaceState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current, viewMode.current));
+        window.history.replaceState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current, viewMode.current, false, profile.current));
         acceptCamera(window.location.href, selection.current, viewMode.current);
         return;
       }
       chosen.current = requested.length ? requested : [...knownCities];
       const next = selectedCityFromSearch(window.location.search, chosen.current);
       const nextPreview = !comparison && new URLSearchParams(window.location.search).get("view_mode") === "tiles";
-      const changed = next !== selection.current || nextPreview !== viewMode.current || !entered;
-      if (!nextPreview) window.history.replaceState(window.history.state, "", stripCameraFragment(window.location.href));
+      const nextProfile = nextPreview ? tileProfileFromSearch(window.location.search) : "balanced";
+      const changed = next !== selection.current || nextPreview !== viewMode.current || nextProfile !== profile.current || !entered;
+      // Validate the incoming camera identity before any URL normalization.
+      // Cleaning duplicate/wrong city fields first could turn a rejected link valid.
       acceptCamera(window.location.href, next, nextPreview);
-      selection.current = next; viewMode.current = nextPreview;
+      const restoredUrl = tileProfileUrl(nextPreview ? window.location.href : stripCameraFragment(window.location.href), nextPreview, nextProfile);
+      if (restoredUrl !== window.location.href) window.history.replaceState(window.history.state, "", restoredUrl);
+      lastNavigationHref.current = window.location.href;
+      selection.current = next; viewMode.current = nextPreview; profile.current = nextProfile; setTileProfile(nextProfile);
       setSelectedCities(chosen.current); setEntered(true); setCityId(next); setPreviewMode(nextPreview);
       if (changed) {
         state.current = { busy: !comparison && !nextPreview, draft: false };
@@ -102,7 +110,7 @@ export default function App() {
     };
     window.addEventListener("popstate", restore);
     window.addEventListener("hashchange", restore);
-    const url = entered ? citySessionUrl(window.location.href, chosen.current, selection.current, viewMode.current, viewMode.current) : window.location.href;
+    const url = entered ? citySessionUrl(window.location.href, chosen.current, selection.current, viewMode.current, viewMode.current, profile.current) : citySessionUrl(window.location.href, [], null);
     if (url !== window.location.href) window.history.replaceState(window.history.state, "", url);
     lastNavigationHref.current = window.location.href;
     return () => { window.removeEventListener("popstate", restore); window.removeEventListener("hashchange", restore); };
@@ -121,7 +129,7 @@ export default function App() {
     if (next && !window.confirm("切换至只读分块浏览？已保存项目和独立草稿会保留；尚未生成的表单修改、未保存分析和当前视角不会保留。")) return;
     viewMode.current = next; setPreviewMode(next);
     state.current = { busy: !next, draft: false }; setBusy(!next); setDraft(false);
-    window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current, next));
+    window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current, next, false, profile.current));
     acceptCamera(window.location.href, selection.current, next);
   };
   const enterSelected = () => {
@@ -130,13 +138,13 @@ export default function App() {
     chosen.current = available; setSelectedCities(available); selection.current = available[0];
     setCityId(available[0]); setBusy(!previewMode); setDraft(false); setEntered(true);
     state.current = { busy: !previewMode, draft: false };
-    window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, available, available[0], previewMode));
+    window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, available, available[0], previewMode, false, profile.current));
     acceptCamera(window.location.href, available[0], previewMode);
   };
   if (!entered && !comparison) return <AppErrorBoundary>
     {cameraNavigation.result.kind === "invalid" && <p role="alert">视角链接城市或浏览模式无效，请重新选择城市。</p>}
     <CitySelection cities={cities} selected={selectedCities}
-    multiple={multiple} previewMode={previewMode} onPreviewModeChange={setPreviewMode} error={directoryError} onRetry={() => void refresh()} onEnter={enterSelected}
+    multiple={multiple} tileProfile={tileProfile} onTileProfileChange={setTileProfile} previewMode={previewMode} onPreviewModeChange={setPreviewMode} error={directoryError} onRetry={() => void refresh()} onEnter={enterSelected}
     onMultiple={value => { setMultiple(value); if (!value) setSelectedCities(ids => ids.slice(0, 1)); }}
     onSelect={id => setSelectedCities(ids => !multiple ? [id] : ids.includes(id) ? ids.filter(value => value !== id) : [...ids, id])} />
   </AppErrorBoundary>;
@@ -166,7 +174,7 @@ export default function App() {
       </section>
       <Suspense fallback={<div className="app-loading">GUGIS3D · 正在载入</div>}>
         {city ? comparison ? <CompareShowcase key={cityId} workspace={city} api={api} />
-          : previewMode ? <CityTilePreview key={cityId} workspace={city} onWorkspaceState={previewState}
+          : previewMode ? <CityTilePreview key={`${cityId}:${tileProfile}`} workspace={city} tileProfile={tileProfile} onWorkspaceState={previewState}
             cameraNavigation={cameraNavigation} onCameraBookmarkDismiss={() => {
               window.history.replaceState(window.history.state, "", stripCameraFragment(window.location.href));
               acceptCamera(window.location.href, selection.current, true);

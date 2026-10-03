@@ -90,7 +90,7 @@ async function until(condition, message) {
   }
   assert.ok(condition(), message);
 }
-function fixture(t, cityId = "bristol", cameraNavigation) {
+function fixture(t, cityId = "bristol", cameraNavigation, tileProfile) {
   const originalFetch = globalThis.fetch, requests = [], states = [], viewersBefore = viewState.viewers.length;
   let renderer, currentWorkspace = workspaces[cityId], mounted = true;
   const onWorkspaceState = (...state) => states.push(state);
@@ -100,7 +100,7 @@ function fixture(t, cityId = "bristol", cameraNavigation) {
     requests.push({ ...pending, url, options });
     return pending.promise;
   };
-  const element = () => React.createElement(Preview, { workspace: currentWorkspace, onWorkspaceState, cameraNavigation });
+  const element = () => React.createElement(Preview, { workspace: currentWorkspace, onWorkspaceState, cameraNavigation, tileProfile });
   act(() => { renderer = create(element(), { createNodeMock: () => ({}) }); });
   const f = {
     requests, states,
@@ -109,6 +109,7 @@ function fixture(t, cityId = "bristol", cameraNavigation) {
     get status() { return text(renderer.root.findByProps({ className: "tile-preview-status" })); },
     get viewers() { return viewState.viewers.slice(viewersBefore); },
     get viewer() { return f.viewers.at(-1); },
+    profile(next) { tileProfile = next; act(() => renderer.update(element())); },
     navigate(next) { cameraNavigation = next; act(() => renderer.update(element())); },
     update(nextCity) { currentWorkspace = workspaces[nextCity]; act(() => renderer.update(element())); },
     mode(next) { act(() => renderer.update(next === "tiles" ? element() : React.createElement("div", null, "编辑模式"))); },
@@ -557,7 +558,7 @@ test("a restored view with no finite footprint remains blocked, while later hori
 test("copy validates the current camera, sanitizes URLs, and exposes a selectable link on clipboard failure", async t => {
   const oldWindow = globalThis.window, oldNavigator = Object.getOwnPropertyDescriptor(globalThis, "navigator");
   let copied;
-  globalThis.window = { location: new URL("http://localhost/app/?city=bristol&cities=bristol,london&source=/private&search=secret&pause=true#unrelated") };
+  globalThis.window = { location: new URL("http://localhost/app/?city=bristol&cities=bristol,london&source=/private&search=secret&pause=true&tile_profile=economy&activeBytes=2097152#unrelated") };
   Object.defineProperty(globalThis, "navigator", { configurable: true, value: { clipboard: { writeText: async value => { copied = value; throw new Error("denied"); } } } });
   t.after(() => { globalThis.window = oldWindow; if (oldNavigator) Object.defineProperty(globalThis, "navigator", oldNavigator); else delete globalThis.navigator; });
   const f = fixture(t), pkg = renderPackage(); await f.manifest(pkg);
@@ -574,7 +575,8 @@ test("copy validates the current camera, sanitizes URLs, and exposes a selectabl
   const link = new URL(copied);
   assert.deepEqual([...link.searchParams.keys()], ["city", "cities", "view_mode"]);
   assert.match(link.hash, /^#gugis-view=1&city=bristol&revision=a{64}&pose=/);
-  assert.doesNotMatch(copied, /private|secret|pause|unrelated/);
+  assert.doesNotMatch(copied, /private|secret|pause|unrelated|tile_profile|activeBytes|economy/);
+  assert.match(f.content, /接收方使用自己明确选择或默认的读取配置/);
   assert.equal(f.requests.length, count, "copying performs no data requests");
   navigator.clipboard.writeText = async value => { copied = value; };
   f.click("复制当前视角链接");
@@ -646,4 +648,101 @@ test("explicit default after failed-footprint navigation remains guarded and nev
   assert.deepEqual(geometryIds(f.viewer), ["bristol-building-1/wall"]);
   assert.ok(!f.content.includes("取消建筑选择"));
   f.assertReadOnly();
+});
+
+
+test("economy preview requests one tile at a time, keeps two active and preserves selection and pause semantics", async t => {
+  const visibility = pageVisibility(t), f = fixture(t, "bristol", undefined, "economy"), pkg = renderPackage("bristol", { tiles: 4 });
+  await f.manifest(pkg);
+  assert.equal(f.requests.length, 2, "only one tile starts after the manifest");
+  assert.match(f.status, /低资源（Economy）.*驻留 ≤ 2 瓦片/);
+  assert.match(f.status, /2.00 MiB.*缓存 0 \/ 4 瓦片.*4.00 MiB.*最多 1 个并发请求/);
+  await f.tile(pkg, "x0_y0", 1); assert.equal(f.requests.length, 3);
+  await f.tile(pkg, "x1_y0", 2); assert.equal(f.requests.length, 3);
+  assert.match(f.status, /预算暂缓 2 瓦片/);
+  const viewer = f.viewer;
+  viewer.picked = { id: "bristol-building-0/wall" };
+  act(() => viewState.handlers.at(-1).actions.get(ScreenSpaceEventType.LEFT_CLICK)({ position: {} }));
+  f.click("暂停瓦片读取"); footprint(viewer, 3);
+  await act(async () => { viewer.camera.moveEnd.raiseEvent(); await new Promise(resolve => setTimeout(resolve, 230)); });
+  assert.equal(f.requests.length, 3);
+  assert.deepEqual(geometryIds(viewer).sort(), ["bristol-building-0/wall", "bristol-building-1/wall"]);
+  visibility.set(true); visibility.set(false);
+  assert.equal(f.requests.length, 3); assert.match(f.status, /已暂停瓦片读取/);
+  f.click("恢复瓦片读取");
+  await until(() => f.requests.length === 4, "resume reads only the newest viewport tile alongside the pin");
+  assert.ok(f.requests.at(-1).url.endsWith("/tiles/x3_y0"));
+  await f.tile(pkg, "x3_y0", 2);
+  assert.deepEqual(geometryIds(viewer).sort(), ["bristol-building-0/wall", "bristol-building-3/wall"]);
+  assert.ok(f.content.includes("取消建筑选择"));
+  assert.match(f.status, /2 \/ 4 瓦片/); assert.equal(f.viewer, viewer); f.assertReadOnly();
+});
+
+test("changing profile creates an independent session, aborts old requests and ignores old scene callbacks", async t => {
+  const f = fixture(t), pkg = renderPackage("bristol", { tiles: 4 });
+  await f.manifest(pkg); await f.tile(pkg, "x0_y0", 1);
+  const oldViewer = f.viewer, oldRequests = f.requests.filter(r => r.url.includes("/tiles/") && !r.replied);
+  const oldScene = f.root.find(node => node.props.renderOnly === true && typeof node.props.onViewBounds === "function").props;
+  const oldCopy = f.root.findAllByType("button").find(button => text(button) === "复制当前视角链接").props.onClick;
+  f.click("暂停瓦片读取"); f.profile("economy");
+  assert.ok(oldViewer.isDestroyed());
+  assert.ok(oldRequests.every(request => request.options.signal.aborted));
+  assert.equal(f.requests.at(-1).url, "/api/cities/bristol/render/manifest");
+  await f.manifest(pkg);
+  const count = f.requests.length, before = f.content;
+  act(() => { oldScene.onViewBounds({ bounds: null, center: { longitude: 0, latitude: 0 } }); oldScene.onSelect("bristol-building-0"); oldCopy(); });
+  for (const request of oldRequests) await f.respond(request, pkg.tileResponse(request.url.split("/").at(-1)));
+  assert.equal(f.requests.length, count); assert.equal(f.content, before);
+  assert.doesNotMatch(f.status, /已暂停瓦片读取/);
+  assert.match(f.status, /低资源（Economy）/);
+  assert.notEqual(f.viewer, oldViewer);
+  assert.equal(f.viewers.filter(viewer => !viewer.isDestroyed()).length, 1);
+  await f.tile(pkg, "x0_y0", 1); await f.tile(pkg, "x1_y0", 2);
+  assert.equal(f.requests.length, count + 1, "economy has only one further queued tile");
+  f.assertReadOnly();
+});
+
+test("profile changes discard stale manifest success and error, preserve hidden pause, and reset the manual session choice", async t => {
+  const visibility = pageVisibility(t, true), f = fixture(t), pkg = renderPackage();
+  const old = f.requests[0]; f.profile("economy"); const obsolete = f.requests[1];
+  f.profile("balanced"); const current = f.requests[2];
+  assert.ok(old.options.signal.aborted && obsolete.options.signal.aborted);
+  await f.manifest(pkg, "current", current);
+  await f.respond(old, pkg.manifestResponse());
+  await act(async () => obsolete.reject(new Error("obsolete economy manifest")));
+  assert.equal(f.requests.length, 3); assert.match(f.status, /页面已隐藏，自动暂停瓦片读取/);
+  assert.doesNotMatch(f.content, /obsolete economy/);
+  assert.equal(visibility.listeners.size, 1);
+  f.click("暂停瓦片读取"); f.profile("economy"); await f.manifest(pkg);
+  assert.match(f.status, /页面已隐藏，自动暂停瓦片读取/);
+  assert.equal(visibility.listeners.size, 1);
+  const count = f.requests.length; visibility.set(false);
+  await until(() => f.requests.length === count + 1, "new session resets manual pause but waits for visibility");
+  assert.match(f.status, /低资源（Economy）/); f.assertReadOnly();
+});
+
+test("a source tile above the economy byte limit stays unrequested with an honest profile/offline hint", async t => {
+  const f = fixture(t, "bristol", undefined, "economy"), pkg = renderPackage("bristol", { tiles: 1 });
+  pkg.manifest.limits.max_bytes = 8 * 1024 * 1024;
+  pkg.manifest.tiles[0].byte_length = 2 * 1024 * 1024 + 1;
+  await f.manifest(pkg);
+  assert.equal(f.requests.length, 1); assert.match(f.status, /已加载 0 \/ 1/);
+  assert.match(f.content, /1 个源瓦片超过当前 2.00 MiB 单瓦片预算，不会请求或截断其几何/);
+  assert.match(f.content, /返回城市选择页，选择均衡配置，或离线生成更小瓦片/);
+  f.click("暂停瓦片读取"); f.click("恢复瓦片读取");
+  assert.equal(f.requests.length, 1, "pause/resume never raises the selected budget");
+  f.profile("balanced"); await f.manifest(pkg);
+  assert.equal(f.requests.length, 3, "an explicit independent balanced session may request the larger tile");
+  assert.doesNotMatch(f.content, /1 个源瓦片超过当前/); f.assertReadOnly();
+});
+
+test("unknown caller profiles use balanced ceilings and never accept custom numeric budgets", async t => {
+  const f = fixture(t, "bristol", undefined, { activeBytes: 999999999, activeTiles: 999, concurrency: 99 }), pkg = renderPackage("bristol", { tiles: 10 });
+  await f.manifest(pkg);
+  assert.equal(f.requests.length, 4, "balanced allows three requests only");
+  assert.match(f.status, /均衡（Balanced）.*驻留 ≤ 8 瓦片/);
+  assert.match(f.status, /8.00 MiB.*16.00 MiB.*最多 3 个并发请求/);
+  const viewer = f.viewer; f.profile("__proto__");
+  assert.equal(f.viewer, viewer, "equivalent normalized defaults retain the same independent session");
+  assert.equal(f.requests.length, 4); f.assertReadOnly();
 });

@@ -10,3 +10,5 @@
 .city-selection-warning{font-size:11px;line-height:1.6;color:#906323;margin-bottom:15px}
 
 .city-selection-mode{display:flex;align-items:flex-start;gap:12px;padding:20px 0 0;cursor:pointer;font-size:13px}.city-selection-mode input{width:17px;height:17px;accent-color:#176a77}.city-selection-mode span{display:flex;flex-direction:column;gap:5px}.city-selection-mode small{color:#6a838f;font-size:11px;line-height:1.7}
+
+.city-selection-tile-profile{margin:16px 0 0;padding:16px;border:1px solid #c5d6dc;border-radius:9px;font-size:13px;min-width:0}.city-selection-tile-profile:disabled{opacity:.6}.city-selection-tile-profile legend{padding:0 6px;font-weight:600}.city-selection-tile-profile>div{display:flex;flex-wrap:wrap;gap:16px}.city-selection-tile-profile label{display:flex;align-items:flex-start;gap:9px;flex:1 1 290px;cursor:pointer}.city-selection-tile-profile input{accent-color:#176a77;margin-top:3px}.city-selection-tile-profile span{display:flex;flex-direction:column;gap:5px}.city-selection-tile-profile small,.city-selection-tile-profile p{color:#557480;font-size:11px;line-height:1.8}.city-selection-tile-profile p{margin:12px 0 0}

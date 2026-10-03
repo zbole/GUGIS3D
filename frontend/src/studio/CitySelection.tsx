@@ -1,17 +1,20 @@
 import { lazy, Suspense } from "react";
 import { citySourceLicense, type CityId, type CityWorkspace } from "./cityWorkspaces";
+import { type TileLoadingProfile } from "./renderTileClient";
 import "./citySelection.css";
 
 const UkCoverageProgress = lazy(() => import("./UkCoverageProgress"));
 const SourceCandidateReview = lazy(() => import("./SourceCandidateReview"));
 
-export default function CitySelection({ cities, selected, multiple, error, previewMode, onPreviewModeChange, onMultiple, onSelect, onEnter, onRetry }: {
+export default function CitySelection({ cities, selected, multiple, error, previewMode, onPreviewModeChange, tileProfile = "balanced", onTileProfileChange, onMultiple, onSelect, onEnter, onRetry }: {
   cities: CityWorkspace[];
   selected: CityId[];
   multiple: boolean;
   error: string;
   previewMode: boolean;
   onPreviewModeChange: (value: boolean) => void;
+  tileProfile?: TileLoadingProfile;
+  onTileProfileChange?: (value: TileLoadingProfile) => void;
   onMultiple: (multiple: boolean) => void;
   onSelect: (id: CityId) => void;
   onEnter: () => void;
@@ -47,6 +50,18 @@ export default function CitySelection({ cities, selected, multiple, error, previ
         aria-label="轻量分块浏览（只读）" onChange={event => onPreviewModeChange(event.target.checked)} />
         <span><strong>轻量分块浏览（只读）</strong><small>仅请求视域附近的建筑分块；需已生成渲染缓存。关闭后载入完整可编辑项目。</small></span>
       </label>
+      <fieldset className="city-selection-tile-profile" disabled={!previewMode}>
+        <legend>分块读取配置（进入前选择）</legend>
+        <div>{(["balanced", "economy"] as const).map(profile => <label key={profile}>
+          <input type="radio" name="tile-profile" value={profile} checked={tileProfile === profile}
+            aria-label={profile === "balanced" ? "均衡分块读取" : "低资源分块读取"}
+            onChange={() => onTileProfileChange?.(profile)} />
+          <span><strong>{profile === "balanced" ? "均衡（Balanced）" : "低资源（Economy）"}</strong>
+            <small>{profile === "balanced" ? "驻留 ≤ 8 瓦片 / 8 MiB，缓存 ≤ 16 瓦片 / 16 MiB，3 个并发请求"
+              : "驻留 ≤ 2 瓦片 / 2 MiB，缓存 ≤ 4 瓦片 / 4 MiB，1 个并发请求"}</small></span>
+        </label>)}</div>
+        <p>限制已验证的源瓦片字节与请求数，并非 GPU / JS 内存或帧率保证。超出单瓦片预算的源数据不会读取；可重新选择均衡配置或离线生成更小瓦片。完整编辑不使用此配置。</p>
+      </fieldset>
       <div className="city-selection-actions"><div><strong>已选 {selected.length} 个城市</strong>
         <p>多选后可切换查看；同时仅保留一个城市场景，降低内存与 GPU 负担。</p></div>
         <button className="primary" disabled={!selected.some(id => cities.some(city => city.id === id && city.status !== "invalid"))} onClick={onEnter}>进入工作区 →</button></div>

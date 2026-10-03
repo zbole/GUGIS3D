@@ -5,12 +5,13 @@ import LoadedBuildingInspector from "./LoadedBuildingInspector";
 import { loadedBuildings } from "./loadedBuildings";
 import { useTileLoadingControl } from "./useTileLoadingControl";
 import { cityCenter, heightPolicyLabel, type CityWorkspace, type CityId } from "./cityWorkspaces";
-import { loadRenderManifest, RenderPackageUnavailable, RenderTileStream, renderTilesToCity, tileBudget,
-  type RenderManifest, type RenderView, type TileStreamState } from "./renderTileClient";
+import { loadRenderManifest, RenderPackageUnavailable, RenderTileStream, renderTilesToCity, tileLoadingProfiles, normalizeTileLoadingProfile,
+  type RenderManifest, type RenderView, type TileStreamState, type TileLoadingProfile } from "./renderTileClient";
 import "./CityTilePreview.css";
 
 export interface CityTilePreviewProps {
   workspace: CityWorkspace;
+  tileProfile?: TileLoadingProfile;
   cameraNavigation?: CameraNavigation;
   onCameraBookmarkDismiss?: () => void;
   onWorkspaceState?: (id: string, busy: boolean, hasDraft: boolean) => void;
@@ -24,9 +25,12 @@ function safeLink(value: string): string | undefined {
 }
 /** A keyed session also protects callers that forget to key their workspace switch. */
 export default function CityTilePreview(props: CityTilePreviewProps) {
-  return <TilePreviewSession key={props.workspace.id} {...props} />;
+  const tileProfile = normalizeTileLoadingProfile(props.tileProfile);
+  return <TilePreviewSession key={`${props.workspace.id}:${tileProfile}`} {...props} tileProfile={tileProfile} />;
 }
-function TilePreviewSession({ workspace, onWorkspaceState, cameraNavigation = noCameraNavigation, onCameraBookmarkDismiss }: CityTilePreviewProps) {
+function TilePreviewSession({ workspace, tileProfile = "balanced", onWorkspaceState, cameraNavigation = noCameraNavigation, onCameraBookmarkDismiss }: CityTilePreviewProps) {
+  const budget = tileLoadingProfiles[tileProfile];
+  const sessionActive = useRef(true);
   const center = useMemo(() => cityCenter(workspace), [workspace.id]);
   const [manifest, setManifest] = useState<RenderManifest | null>(null);
   const [freshness, setFreshness] = useState<"current" | "unknown">("unknown");
@@ -81,7 +85,7 @@ function TilePreviewSession({ workspace, onWorkspaceState, cameraNavigation = no
     ++copyAttempt.current; setCopyMessage(""); setCopyLink("");
     selectedRef.current = null; setSelected(null);
   }, [cameraNavigation.sequence, attempt]);
-  useEffect(() => () => { ++copyAttempt.current; }, []);
+  useEffect(() => { sessionActive.current = true; return () => { sessionActive.current = false; ++copyAttempt.current; }; }, []);
   useEffect(() => {
     // Read-only requests are cancellable. Never lock workspace navigation or claim a draft.
     onWorkspaceState?.(workspace.id, false, false);
@@ -97,7 +101,7 @@ function TilePreviewSession({ workspace, onWorkspaceState, cameraNavigation = no
     void loadRenderManifest(workspace.id, controller.signal, base).then(result => {
       if (!active) return;
       clearTimeout(timeout);
-      session = new RenderTileStream(result.manifest, state => { if (active) setStreamState(state); }, { base });
+      session = new RenderTileStream(result.manifest, state => { if (active) setStreamState(state); }, { base, budget });
       stream.current = session;
       // A newly checked manifest must not start tile reads behind a pause.
       // React applies the accepted navigation only after this verified manifest.
@@ -110,8 +114,9 @@ function TilePreviewSession({ workspace, onWorkspaceState, cameraNavigation = no
       setError(controller.signal.aborted ? "渲染清单读取超时，请重试" : reason instanceof Error ? reason.message : "渲染包读取失败");
     }).finally(() => { clearTimeout(timeout); if (active) setLoadingManifest(false); });
     return () => { active = false; clearTimeout(timeout); controller.abort(); session?.dispose(); if (stream.current === session) stream.current = null; };
-  }, [workspace.id, attempt]);
+  }, [workspace.id, attempt, budget]);
   const onViewBounds = useCallback((next: RenderView, sequence?: string) => {
+    if (!sessionActive.current) return;
     const current = gate.current;
     if (current.blocked || sequence !== current.sequence) return;
     if (sequence && readySequence.current !== sequence && (!next.bounds || !next.bounds.every(Number.isFinite))) {
@@ -123,6 +128,7 @@ function TilePreviewSession({ workspace, onWorkspaceState, cameraNavigation = no
     stream.current?.setPaused(pausedRef.current);
   }, []);
   const onSelect = useCallback((id: string | null) => {
+    if (!sessionActive.current) return;
     // Ignore a scene/list callback for a building already evicted from this session.
     if (id !== null && !loadedIds.current.has(id)) return;
     selectedRef.current = id; setSelected(id);
@@ -130,14 +136,16 @@ function TilePreviewSession({ workspace, onWorkspaceState, cameraNavigation = no
   }, []);
   useEffect(() => { if (selected && !activeSelected) onSelect(null); }, [selected, activeSelected, onSelect]);
   const onFocus = useCallback((id: string) => {
-    if (loadedIds.current.has(id)) scene.current?.focusBuilding(id);
+    if (sessionActive.current && loadedIds.current.has(id)) scene.current?.focusBuilding(id);
   }, []);
   const useCurrentDefault = () => {
+    if (!sessionActive.current) return;
     setDismissedSequence(cameraNavigation.sequence); setFailedCamera(null);
     readySequence.current = null; setReadyCamera(null);
     onCameraBookmarkDismiss?.();
   };
   const copyCurrentView = async () => {
+    if (!sessionActive.current) return;
     const token = ++copyAttempt.current;
     setCopyMessage(""); setCopyLink("");
     if (!manifest || blocked) return;
@@ -157,6 +165,7 @@ function TilePreviewSession({ workspace, onWorkspaceState, cameraNavigation = no
   const source = workspace.id === "bristol" ? "backend/data/bristol.gugis.json" : `backend/data/cities/${workspace.id}.gugis.json`;
   const attribution = manifest?.attribution;
   const sourceLink = safeLink(attribution?.license_url ?? "") ?? safeLink(attribution?.metadata.source_url ?? "");
+  const oversizedTiles = manifest?.tiles.filter(tile => tile.byte_length > budget.activeBytes).length ?? 0;
   const partial = !!manifest && (streamState.tiles.length < manifest.counts.tiles || (projection?.instances.length ?? 0) < manifest.counts.buildings);
   return <section className="city-tile-preview" aria-label={`${workspace.name}只读分块浏览`}>
     <header className="tile-preview-heading">
@@ -173,7 +182,7 @@ function TilePreviewSession({ workspace, onWorkspaceState, cameraNavigation = no
       </div>
     </header>
     <div className="tile-camera-share">
-    <p>视角链接只记录城市、来源修订与相机位置，不包含或分发城市数据。接收方须能访问此站点及匹配的渲染包；localhost 地址仅指接收方自己的电脑。</p>
+    <p>视角链接只记录城市、来源修订与相机位置，不包含或分发城市数据。接收方使用自己明确选择或默认的读取配置；链接不携带配置或预算。接收方须能访问此站点及匹配的渲染包；localhost 地址仅指接收方自己的电脑。</p>
     {copyMessage && <p role="status">{copyMessage}</p>}
     {copyLink && <label>手动复制视角链接 <input aria-label="手动复制视角链接" readOnly value={copyLink}
       onFocus={event => event.currentTarget.select()} onClick={event => event.currentTarget.select()} /></label>}
@@ -192,7 +201,9 @@ function TilePreviewSession({ workspace, onWorkspaceState, cameraNavigation = no
         {paused && <strong> · {pageHidden ? "页面已隐藏，自动暂停瓦片读取" : "已暂停瓦片读取，保持已加载画面"}</strong>}
         {partial && <strong> · 局部加载，并非完整覆盖</strong>}
         {streamState.omitted > 0 && <strong> · 预算暂缓 {streamState.omitted} 瓦片，缩小视口或移动相机继续读取</strong>}
-        <small>驻留源字节 {megabytes(streamState.activeBytes)} / {megabytes(tileBudget.activeBytes)} MiB · 缓存 {streamState.cacheTiles} / {tileBudget.cacheTiles} 瓦片，{megabytes(streamState.cacheBytes)} / {megabytes(tileBudget.cacheBytes)} MiB · 最多 {tileBudget.concurrency} 个并发请求；非 GPU / JS 内存测量</small>
+        <small>{tileProfile === "economy" ? "低资源（Economy）" : "均衡（Balanced）"} · 驻留 ≤ {budget.activeTiles} 瓦片 · 驻留源字节 {megabytes(streamState.activeBytes)} / {megabytes(budget.activeBytes)} MiB · 缓存 {streamState.cacheTiles} / {budget.cacheTiles} 瓦片，{megabytes(streamState.cacheBytes)} / {megabytes(budget.cacheBytes)} MiB · 最多 {budget.concurrency} 个并发请求；非 GPU / JS 内存测量或帧率保证</small>
+        {oversizedTiles > 0 && <small>此渲染包有 {oversizedTiles} 个源瓦片超过当前 {megabytes(budget.activeBytes)} MiB 单瓦片预算，不会请求或截断其几何。
+          {tileProfile === "economy" ? "请返回城市选择页，选择均衡配置，或离线生成更小瓦片。" : "请离线生成更小瓦片；不会自动扩大预算。"}</small>}
         {paused && <small>相机与建筑详情仍可使用；恢复后按最新视口继续读取。手动暂停不会因页面重新显示而取消。</small>}
       </> : "尚未加载几何"}
     </div>

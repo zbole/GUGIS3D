@@ -267,3 +267,101 @@ test("default-view dismissal removes the owned URL and issues a fresh accepted n
   assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "none");
   assert.ok(globalThis.cityShellProps.cameraNavigation.sequence > before);
 });
+
+
+test("initial entry exposes an explicit disabled-by-default profile choice and enters economy without an editor", async t => {
+  const f = await fixture(t, "http://localhost/");
+  assert.equal(f.root.findByType("fieldset").props.disabled, true);
+  assert.equal(f.root.findByProps({ "aria-label": "均衡分块读取" }).props.checked, true);
+  assert.match(text(f.root), /非 GPU \/ JS 内存或帧率保证/);
+  await act(async () => f.root.findByProps({ "aria-label": "轻量分块浏览（只读）" }).props.onChange({ target: { checked: true } }));
+  assert.equal(f.root.findByType("fieldset").props.disabled, false);
+  await act(async () => f.root.findByProps({ "aria-label": "低资源分块读取" }).props.onChange());
+  await click(f.root, "多选城市"); await select(f.root, "伦敦"); await select(f.root, "伯明翰");
+  await click(f.root, "进入工作区 →");
+  assert.deepEqual(globalThis.cityShellEvents, ["tile-mount:london"]);
+  assert.equal(globalThis.cityShellProps.tileProfile, "economy");
+  assert.equal(window.location.searchParams.get("tile_profile"), "economy");
+  await f.choose("birmingham");
+  assert.equal(globalThis.cityShellProps.tileProfile, "economy");
+  assert.equal(window.location.searchParams.get("tile_profile"), "economy");
+  await click(f.root, "重新选择城市");
+  assert.equal(window.location.searchParams.has("tile_profile"), false);
+  assert.equal(f.root.findByProps({ "aria-label": "低资源分块读取" }).props.checked, true);
+  await act(async () => f.root.findByProps({ "aria-label": "均衡分块读取" }).props.onChange());
+  await click(f.root, "进入工作区 →");
+  assert.equal(globalThis.cityShellProps.tileProfile, "balanced");
+  assert.equal(window.location.searchParams.has("tile_profile"), false);
+  assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 1);
+  assert.deepEqual(f.requests, ["/api/cities"], "entry choices do not fetch full-city data");
+});
+
+test("same-city profile Back and Forward replace one session and preserve camera navigation", async t => {
+  const base = "http://localhost/?city=london&cities=london,birmingham&view_mode=tiles";
+  const economy = base + "&tile_profile=economy" + cameraHash();
+  const f = await fixture(t, economy);
+  assert.equal(globalThis.cityShellProps.tileProfile, "economy");
+  assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "valid");
+  await f.pop(base + cameraHash());
+  assert.equal(globalThis.cityShellProps.tileProfile, "balanced");
+  assert.equal(window.location.searchParams.has("tile_profile"), false);
+  await f.pop(economy);
+  assert.equal(globalThis.cityShellProps.tileProfile, "economy");
+  assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "valid");
+  assert.deepEqual(globalThis.cityShellEvents, ["tile-mount:london", "tile-unmount:london", "tile-mount:london", "tile-unmount:london", "tile-mount:london"]);
+  const events = [...globalThis.cityShellEvents];
+  await f.hash(economy);
+  assert.deepEqual(globalThis.cityShellEvents, events, "paired hash and pop events cannot remount twice");
+  assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 1);
+  await click(f.root, "切换至完整编辑");
+  assert.equal(window.location.searchParams.has("tile_profile"), false);
+  assert.equal(window.location.hash, "");
+  assert.equal(globalThis.cityShellProps.tileProfile, undefined, "editor never receives tile budgets");
+  act(() => globalThis.cityShellProps.onWorkspaceState("london", true, false));
+  await f.pop(economy);
+  assert.equal(window.location.searchParams.has("tile_profile"), false, "blocked navigation cannot leave an incoming budget setting on the editor");
+  assert.equal(f.root.findByProps({ "aria-label": "city view" }).props["data-mode"], "editor");
+  act(() => globalThis.cityShellProps.onWorkspaceState("london", false, false));
+  await f.pop(economy);
+  assert.equal(globalThis.cityShellProps.tileProfile, "economy");
+  await f.pop("http://localhost/?tile_profile=economy");
+  assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 0);
+  assert.equal(window.location.searchParams.has("tile_profile"), false);
+});
+
+for (const value of ["custom", "__proto__", "{activeBytes:999999999}"]) {
+  test(`unknown tile profile ${value} normalizes to balanced on direct entry and history`, async t => {
+    const base = "http://localhost/?city=london&view_mode=tiles";
+    const f = await fixture(t, `${base}&tile_profile=${encodeURIComponent(value)}&activeBytes=999999999&concurrency=99`);
+    assert.equal(globalThis.cityShellProps.tileProfile, "balanced");
+    assert.equal(globalThis.cityShellProps.budget, undefined);
+    assert.equal(window.location.searchParams.has("tile_profile"), false);
+    await f.pop(base + "&tile_profile=economy");
+    await f.pop(base + `&tile_profile=${encodeURIComponent(value)}`);
+    assert.equal(globalThis.cityShellProps.tileProfile, "balanced");
+    assert.equal(window.location.searchParams.has("tile_profile"), false);
+  });
+}
+
+test("full-editor and home direct entries remove irrelevant profile parameters", async t => {
+  const f = await fixture(t, "http://localhost/?city=london&tile_profile=economy");
+  assert.equal(window.location.searchParams.has("tile_profile"), false);
+  assert.equal(globalThis.cityShellProps.tileProfile, undefined);
+  await f.pop("http://localhost/?tile_profile=economy");
+  assert.equal(window.location.searchParams.has("tile_profile"), false);
+  assert.equal(f.root.findByProps({ "aria-label": "均衡分块读取" }).props.checked, true);
+});
+
+
+for (const query of ["city=london&city=london&view_mode=tiles", "city=london&view_mode=tiles&view_mode=tiles", "city=unknown&cities=london&view_mode=tiles"]) {
+  test(`profile history cleanup never authorizes invalid camera identity: ${query}`, async t => {
+    const f = await fixture(t, "http://localhost/?city=london&view_mode=tiles&tile_profile=economy");
+    await f.pop(`http://localhost/?${query}&tile_profile=invalid` + cameraHash());
+    assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "invalid");
+    assert.equal(globalThis.cityShellProps.tileProfile, "balanced");
+    const sequence = globalThis.cityShellProps.cameraNavigation.sequence;
+    await f.hash(window.location.href);
+    assert.equal(globalThis.cityShellProps.cameraNavigation.sequence, sequence);
+    assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "invalid");
+  });
+}

@@ -39,9 +39,22 @@ export interface RenderTile {
   format: "gugis-render-tile-v1"; city_id: string; revision: string; tile_id: string;
   geometry_library: Record<string, Geometry>; assets: Record<string, RenderAsset>; instances: Placement[];
 }
-export const tileBudget = Object.freeze({ activeTiles: 8, activeBytes: 8 * 1024 * 1024,
+export interface TileBudget {
+  readonly activeTiles: number; readonly activeBytes: number;
+  readonly cacheTiles: number; readonly cacheBytes: number; readonly concurrency: number;
+}
+export const tileBudget: TileBudget = Object.freeze({ activeTiles: 8, activeBytes: 8 * 1024 * 1024,
   cacheTiles: 16, cacheBytes: 16 * 1024 * 1024, concurrency: 3 });
-export type TileBudget = typeof tileBudget;
+/** Only these named profiles are exposed by navigation and the entry UI. */
+export const tileLoadingProfiles = Object.freeze({
+  balanced: tileBudget,
+  economy: Object.freeze({ activeTiles: 2, activeBytes: 2 * 1024 * 1024,
+    cacheTiles: 4, cacheBytes: 4 * 1024 * 1024, concurrency: 1 }),
+});
+export type TileLoadingProfile = keyof typeof tileLoadingProfiles;
+export function normalizeTileLoadingProfile(value: unknown): TileLoadingProfile {
+  return value === "economy" ? "economy" : "balanced";
+}
 const MAX_MANIFEST_BYTES = 4 * 1024 * 1024, MAX_TILE_BYTES = 16 * 1024 * 1024;
 const hashPattern = /^[a-f0-9]{64}$/;
 const cities = new Set(["bristol", "london", "birmingham"]);
