@@ -68,3 +68,11 @@ test("imported provenance URLs cannot execute scripts or carry embedded credenti
     assert.equal(citySourceLicense({ source: "User data", source_url: url }), null);
   assert.equal(citySourceLicense({ source_url: "https://example.test/source" }).url, "https://example.test/source");
 });
+
+
+test("tile mode is an explicit session option and is cleared when returning to selection", () => {
+  const url = new URL(citySessionUrl("http://localhost/?foo=bar", ["london"], "london", true));
+  assert.equal(url.searchParams.get("view_mode"), "tiles");
+  assert.equal(new URL(citySessionUrl(url.href, ["london"], "london", false)).searchParams.has("view_mode"), false);
+  assert.equal(new URL(citySessionUrl(url.href, [], null)).search, "?foo=bar");
+});

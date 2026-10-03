@@ -9,15 +9,15 @@ const outfile = fileURLToPath(new URL("../node_modules/.cache/gugis-tests/city-w
 await build({ entryPoints: [fileURLToPath(new URL("../src/App.tsx", import.meta.url))], bundle: true, platform: "node", format: "esm",
   packages: "external", outfile, define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' }, plugins: [{ name: "city-shell-doubles", setup(build) {
     build.onResolve({ filter: /^react$/ }, () => ({ path: "react", external: true }));
-    build.onResolve({ filter: /^\.\/studio\/(CityStudio|cityApi)$/ }, args => ({ path: args.path, namespace: "test" }));
+    build.onResolve({ filter: /^\.\/studio\/(CityStudio|CityTilePreview|cityApi)$/ }, args => ({ path: args.path, namespace: "test" }));
     build.onResolve({ filter: /^\.\/compare\/CompareShowcase$/ }, args => ({ path: args.path, namespace: "test" }));
     build.onLoad({ filter: /.*/, namespace: "test" }, ({ path }) => path.endsWith("cityApi") ? {
       contents: "export const createCityApi = cityId => ({cityId});",
     } : { contents: `import React from 'react';export default function View(props){
-      React.useEffect(()=>{globalThis.cityShellEvents.push('mount:'+props.workspace.id);globalThis.cityShellProps=props;
+      React.useEffect(()=>{globalThis.cityShellEvents.push('${path.endsWith("CityTilePreview") ? "tile-" : ""}mount:'+props.workspace.id);globalThis.cityShellProps=props;
         props.onWorkspaceState?.(props.workspace.id,false,!!globalThis.cityShellDrafts[props.workspace.id]);
-        return ()=>globalThis.cityShellEvents.push('unmount:'+props.workspace.id)},[]);
-      return React.createElement('div',{'aria-label':'city view'},props.workspace.id);
+        return ()=>globalThis.cityShellEvents.push('${path.endsWith("CityTilePreview") ? "tile-" : ""}unmount:'+props.workspace.id)},[]);
+      return React.createElement('div',{'aria-label':'city view','data-mode':'${path.endsWith("CityTilePreview") ? "tiles" : "editor"}'},props.workspace.id);
     }` });
     build.onLoad({ filter: /\.css$/ }, () => ({ contents: "", loader: "js" }));
   } }] });
@@ -147,4 +147,58 @@ test("Back returns to first-step selection and cannot discard a write in progres
   assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 0);
   await f.pop("http://localhost/?city=birmingham&cities=london,birmingham");
   assert.equal(globalThis.cityShellProps.workspace.id, "birmingham");
+});
+
+
+test("lightweight entry never mounts an editor and preserves mode during city switches", async t => {
+  const f = await fixture(t, "http://localhost/");
+  await act(async () => f.root.findByProps({ "aria-label": "轻量分块浏览（只读）" }).props.onChange({ target: { checked: true } }));
+  await click(f.root, "多选城市"); await select(f.root, "伦敦"); await select(f.root, "伯明翰");
+  await click(f.root, "进入工作区 →");
+  assert.deepEqual(globalThis.cityShellEvents, ["tile-mount:london"]);
+  assert.deepEqual(f.requests, ["/api/cities"]);
+  assert.equal(window.location.searchParams.get("view_mode"), "tiles");
+  assert.equal(globalThis.cityShellProps.api, undefined, "read-only view never receives edit APIs");
+  await f.choose("birmingham");
+  assert.deepEqual(globalThis.cityShellEvents, ["tile-mount:london", "tile-unmount:london", "tile-mount:birmingham"]);
+  assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 1);
+  assert.equal(window.location.searchParams.get("view_mode"), "tiles");
+});
+
+test("switching editor and tile preview confirms unsaved state and ignores obsolete mode callbacks", async t => {
+  const f = await fixture(t, "http://localhost/?city=london", { london: true });
+  const editor = globalThis.cityShellProps;
+  window.confirm = () => false;
+  await click(f.root, "轻量分块浏览");
+  assert.deepEqual(globalThis.cityShellEvents, ["mount:london"]);
+  window.confirm = () => true;
+  await click(f.root, "轻量分块浏览");
+  assert.deepEqual(globalThis.cityShellEvents, ["mount:london", "unmount:london", "tile-mount:london"]);
+  act(() => editor.onWorkspaceState("london", true, true));
+  assert.equal(button(f.root, "切换至完整编辑").props.disabled, false);
+  const preview = globalThis.cityShellProps;
+  await click(f.root, "切换至完整编辑");
+  assert.equal(f.root.findByProps({ "aria-label": "city view" }).props["data-mode"], "editor");
+  assert.equal(window.location.searchParams.has("view_mode"), false);
+  act(() => globalThis.cityShellProps.onWorkspaceState("london", true, true));
+  act(() => preview.onWorkspaceState("london", false, false));
+  assert.equal(button(f.root, "轻量分块浏览").props.disabled, true, "stale preview cannot unlock a current editor write");
+  await click(f.root, "轻量分块浏览");
+  assert.equal(f.root.findByProps({ "aria-label": "city view" }).props["data-mode"], "editor");
+});
+
+test("mode-aware Back and Forward restore one view without losing write locks", async t => {
+  const f = await fixture(t, "http://localhost/?city=london&view_mode=tiles");
+  assert.deepEqual(globalThis.cityShellEvents, ["tile-mount:london"]);
+  await f.pop("http://localhost/?city=london");
+  assert.equal(f.root.findByProps({ "aria-label": "city view" }).props["data-mode"], "editor");
+  act(() => globalThis.cityShellProps.onWorkspaceState("london", true, false));
+  await f.pop("http://localhost/?city=london&view_mode=tiles");
+  assert.equal(window.location.searchParams.has("view_mode"), false);
+  assert.equal(f.root.findByProps({ "aria-label": "city view" }).props["data-mode"], "editor");
+  act(() => globalThis.cityShellProps.onWorkspaceState("london", false, false));
+  await f.pop("http://localhost/?city=birmingham&view_mode=tiles");
+  assert.equal(f.root.findByProps({ "aria-label": "city view" }).props["data-mode"], "tiles");
+  assert.equal(globalThis.cityShellProps.workspace.id, "birmingham");
+  assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 1);
 });

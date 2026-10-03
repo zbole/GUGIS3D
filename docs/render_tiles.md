@@ -1,12 +1,16 @@
 # Read-only bounded render packages (v1)
 
-This additive path lets a client load bounded building geometry without first
-loading the complete semantic city archive. The current editing UI does not yet
-fetch these packages by viewport; these endpoints/exporter are the bounded backend
-foundation, not a completed frontend streaming integration. It does **not** increase the editable
-CityDocument limits, claim whole-city coverage, change the existing editing UI,
-or replace the self-contained formal project. The original seeds, current files,
-drafts, histories, IDs, OSM attribution and geometry stay unchanged.
+The optional **轻量分块浏览（只读）** mode loads bounded building geometry by camera
+viewport without requesting the complete semantic city archive. Choose it on the
+initial city-selection page, or switch from the workspace toolbar. The existing
+full editor remains a separate mode. A mode/city switch releases the previous
+viewer; it never loads three city models together.
+
+This path does **not** increase the editable CityDocument limits, claim whole-city
+coverage, or replace the self-contained formal project. Original seeds, current
+files, drafts, histories, IDs, OSM attribution and geometry remain unchanged.
+Prebuilt packages are required; a missing package gives an explicit offline-build
+instruction and retry, with no automatic full-city or synthetic fallback.
 
 ## Build explicitly, offline
 
@@ -227,3 +231,67 @@ missing overview fallback, local/placement transforms, spanning-boundary inclusi
 legacy input, deterministic bytes, immutable settings, every overflow limit,
 source preservation, source audit/layer warnings, malformed IDs/path traversal,
 missing caches, conditional reads, old revisions, hashes and symlink rejection.
+
+
+## Browser viewport loader
+
+`CityTilePreview` and `RenderTileStream` form an isolated, read-only session:
+
+- Camera movement/resize is debounced; conservatively intersect WGS84 tile envelopes with the visible rectangle, then prioritise nearby tiles
+- A horizon/missing rectangle considers all candidates but still respects the same request and residency budgets
+- Maximum 8 active tiles / 8 MiB source bytes, 16 cached tiles / 16 MiB source bytes, 3 concurrent requests
+- Byte totals are encoded source-payload budgets, not measurements or hard bounds of decoded JS objects or GPU memory
+- Keep one tile containing the selected building within these limits; release the pin on city/revision reset or deselection
+- Abort superseded requests; epoch checks also reject stale completions when a transport delivers after cancellation
+- LRU eviction releases offscreen parsed tiles; tile failures remain visibly incomplete until an explicit retry succeeds
+- Validate exact manifest response bytes against the strong SHA-256 ETag, and each tile against its declared byte length, SHA-256, city/revision/ID and geometry references
+- Never reserialize parsed numbers to verify Python-produced hashes: JSON `250.0` and JavaScript `250` are semantically equal but have different bytes
+- Stream decoded response bytes with a hard length limit; compressed transport length is not mistaken for the uncompressed tile byte count
+- Merge duplicate boundary references by original IDs; reject conflicting geometry/asset/placement identities across tiles
+- Adapt into the distinct in-memory `gugis-render-scene` format, not an editable CityDocument. No save, draft, import or export API is passed to this viewer
+
+The scene shows loaded/total buildings, active/target tiles, budget-delayed tiles,
+failures and absent layers. The surrounding header labels full-project catalogue
+counts separately from the loaded render snapshot. Rechecking the manifest does
+not claim that a changed formal project has automatically rebuilt its cache.
+Known quality warnings come from the exact render-source revision.
+
+The direct preview has its own scene/canvas sizing styles; users need not visit
+the full editor first. Normal tile arrivals update geometry without recreating
+the Cesium Viewer or resetting its camera. The optional view uses only the
+existing overview/full-fallback representations, with the shared GPU residency
+budgets, and never implies that missing roads or terrain were loaded.
+
+### Reproduce real-package protocol checks
+
+Build the three offline packages above, then run:
+
+```sh
+node frontend/scripts/verify-render-streaming.mjs
+```
+
+An optional first argument selects another cache root. This check feeds actual
+Python-produced package bytes through a fetch double, validates their ETags,
+hashes, queue limits, unique instances, projection and selected-building pin.
+It is not a browser, real-network timing or GPU/FPS measurement.
+
+The centre-prioritised eight-tile test on retained seeds produced:
+
+| Seed | Initially loaded buildings | Tiles | Source bytes | Full source archive bytes |
+|---|---:|---:|---:|---:|
+| Bristol | 508 / 615 | 8 | 3,322,946 | 33,185,716 |
+| London | 309 / 823 | 8 | 488,629 | 1,951,713 |
+| Birmingham | 322 / 809 | 8 | 459,211 | 1,715,239 |
+
+All three runs made zero full-city requests, stayed at no more than three
+concurrent requests, retained the selected building after an offscreen pan, and
+preserved exact-revision quality warnings. Actual browser viewports choose their
+own nearby/intersecting tiles, so these counts are reproducible protocol-fixture
+results, not universal first-screen counts.
+
+Frontend tests cover bytes/hash failures, cancellation/stale requests, cache
+caps/eviction, retry, cross-city isolation, duplicate/conflicting identities,
+read-only projection, direct-entry styles, mode navigation and camera lifecycle.
+Production build and Worker checks are separate. Real browser/WebGL acceptance
+of this new mode remains outstanding; previous Windows screenshots describe the
+baseline editor, not this streaming view.

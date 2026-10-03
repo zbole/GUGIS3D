@@ -111,14 +111,16 @@ export function selectedCityFromSearch(search: string, selected: CityId[]): City
   return selected.includes(requested) ? requested : selected[0] ?? "bristol";
 }
 
-export function citySessionUrl(href: string, selected: CityId[], active: CityId | null): string {
+export function citySessionUrl(href: string, selected: CityId[], active: CityId | null, tiles?: boolean): string {
   const url = new URL(href);
   if (active && selected.includes(active)) {
     // Retain Bristol explicitly so a fresh '/' always opens the selection step.
     url.searchParams.set("city", active);
     url.searchParams.set("cities", selected.join(","));
+    if (tiles === true) url.searchParams.set("view_mode", "tiles");
+    else if (tiles === false) url.searchParams.delete("view_mode");
   } else {
-    for (const key of ["city", "cities", "workspace", "view"]) url.searchParams.delete(key);
+    for (const key of ["city", "cities", "workspace", "view", "view_mode"]) url.searchParams.delete(key);
   }
   return url.href;
 }

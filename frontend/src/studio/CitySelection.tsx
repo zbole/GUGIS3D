@@ -1,11 +1,13 @@
 import { citySourceLicense, type CityId, type CityWorkspace } from "./cityWorkspaces";
 import "./citySelection.css";
 
-export default function CitySelection({ cities, selected, multiple, error, onMultiple, onSelect, onEnter, onRetry }: {
+export default function CitySelection({ cities, selected, multiple, error, previewMode, onPreviewModeChange, onMultiple, onSelect, onEnter, onRetry }: {
   cities: CityWorkspace[];
   selected: CityId[];
   multiple: boolean;
   error: string;
+  previewMode: boolean;
+  onPreviewModeChange: (value: boolean) => void;
   onMultiple: (multiple: boolean) => void;
   onSelect: (id: CityId) => void;
   onEnter: () => void;
@@ -35,6 +37,10 @@ export default function CitySelection({ cities, selected, multiple, error, onMul
           <small className="city-selection-source">{source?.label ?? city.source ?? "当前项目数据"}</small>
         </label>;
       })}</div>
+      <label className="city-selection-mode"><input type="checkbox" checked={previewMode}
+        aria-label="轻量分块浏览（只读）" onChange={event => onPreviewModeChange(event.target.checked)} />
+        <span><strong>轻量分块浏览（只读）</strong><small>仅请求视域附近的建筑分块；需已生成渲染缓存。关闭后载入完整可编辑项目。</small></span>
+      </label>
       <div className="city-selection-actions"><div><strong>已选 {selected.length} 个城市</strong>
         <p>多选后可切换查看；同时仅保留一个城市场景，降低内存与 GPU 负担。</p></div>
         <button className="primary" disabled={!selected.some(id => cities.some(city => city.id === id && city.status !== "invalid"))} onClick={onEnter}>进入工作区 →</button></div>

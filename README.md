@@ -1,6 +1,6 @@
 # GUGIS3D 本地城市工作台
 
-2026-10-03 后续：网站先选择城市（单选 / 多选），只载入当前工作区；建筑按视域和数量预算分配粗模，保留选中对象与细节上限。[入口、渲染预算与验证边界](docs/city_selection_rendering.md)。来源审计识别了旧种子的部分竖向建模问题；原始来源和现有项目不自动覆盖，[审计与非默认候选版本](docs/city_source_validation.md)明确记录修正与遗漏。
+2026-10-03 后续：网站先选择城市（单选 / 多选），只载入当前工作区；建筑按视域和数量预算分配粗模，保留选中对象与细节上限。可选[轻量只读分块浏览](docs/render_tiles.md)，仅按视域请求已生成的建筑缓存，明确缺少道路和地形；完整编辑模式仍可切换使用。[入口、渲染预算与验证边界](docs/city_selection_rendering.md)。来源审计识别了旧种子的部分竖向建模问题；原始来源和现有项目不自动覆盖，[审计与非默认候选版本](docs/city_source_validation.md)明确记录修正与遗漏。
 
 2026-10-03：新增伦敦 Westminster / Whitehall 与伯明翰 Civic centre / Jewellery Quarter 的真实 OSM 中心街区样本。顶部切换布里斯托、伦敦、伯明翰独立工作区；每城单独保存正式数据、草稿与历史，三维场景仅挂载当前城市。[三城数据范围、来源与复现](docs/multi_city_workspaces.md)
 
