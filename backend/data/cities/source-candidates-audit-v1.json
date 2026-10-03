@@ -1,0 +1,321 @@
+{
+  "format": "gugis-source-candidate-audit",
+  "schema_version": 1,
+  "cities": {
+    "london": {
+      "files": {
+        "baseline_archive": {
+          "sha256": "eae9915aebbbbeaa4d5bd8998e339b112b42dbb08b64ed4145014d86d4e8c050",
+          "byte_length": 1951713
+        },
+        "baseline_receipt": {
+          "sha256": "d4e720e07d9b90be7fa5cdf597816b81487757d4635f1036e524038e74dd2c94",
+          "byte_length": 875
+        },
+        "candidate_archive": {
+          "sha256": "c90ce92a672eb07e7fea5504132378c521d863b12e081b69cb8843b34f835933",
+          "byte_length": 1934406
+        },
+        "candidate_receipt": {
+          "sha256": "74ffb6e43993bef845c6b86ef2f03af8dc12c11d19a64a35a19092a02d5c130b",
+          "byte_length": 2133
+        },
+        "source": {
+          "sha256": "5db34df2aa145ee5a5f5f4afc47e3b565d704c7d8f924d89d8a9341499ad942a",
+          "byte_length": 1072304
+        },
+        "source_receipt": {
+          "sha256": "dafe6ca8f6e094c41745ccbdffeccb8d6cf2df59198bfc192300fafb0b3a68da",
+          "byte_length": 1157
+        },
+        "readme": {
+          "sha256": "acdcfc1340905f3acd15facc092cb4243d9a691b23cd893b78b4a4c269242e26",
+          "byte_length": 2753
+        },
+        "licence": {
+          "sha256": "a81ed4655c288e8d4a4e2ac80c9ca2f4e54b85efbbf27c5889abe093aef0176f",
+          "byte_length": 3105
+        }
+      },
+      "summary": {
+        "version": "v2",
+        "status": "non-active",
+        "baseline": {
+          "revision": "eae9915aebbbbeaa4d5bd8998e339b112b42dbb08b64ed4145014d86d4e8c050",
+          "building_count": 823,
+          "road_count": 762,
+          "height_policy": {
+            "height-tag": 17,
+            "levels-derived": 334,
+            "assumed": 472
+          }
+        },
+        "candidate": {
+          "revision": "c90ce92a672eb07e7fea5504132378c521d863b12e081b69cb8843b34f835933",
+          "building_count": 814,
+          "road_count": 762,
+          "height_policy": {
+            "height-tag": 17,
+            "levels-derived": 327,
+            "assumed": 470
+          }
+        },
+        "source": {
+          "sha256": "5db34df2aa145ee5a5f5f4afc47e3b565d704c7d8f924d89d8a9341499ad942a",
+          "snapshot": "2026-10-03T04:31:51Z",
+          "licence": "ODbL 1.0",
+          "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "attribution_url": "https://www.openstreetmap.org/copyright",
+          "coverage_label": "Westminster / Whitehall",
+          "query_bbox_wgs84": [
+            -0.138,
+            51.496,
+            -0.123,
+            51.508
+          ],
+          "actual_data_bbox_wgs84": [
+            -0.1406102,
+            51.4948591,
+            -0.1199859,
+            51.5087403
+          ],
+          "scope": "sample-area"
+        },
+        "changes": {
+          "height_corrections": [
+            {
+              "osm_way": 951721975,
+              "name": "OSM 建筑 · 951721975",
+              "baseline_height_m": 9.6,
+              "candidate_height_m": 0.5
+            }
+          ],
+          "removed_buildings": [
+            {
+              "osm_way": 235693291,
+              "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+            },
+            {
+              "osm_way": 297204228,
+              "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+            },
+            {
+              "osm_way": 547238370,
+              "reason": "OSM building:min_level '4' has unsupported vertical semantics; not grounded"
+            },
+            {
+              "osm_way": 547238381,
+              "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+            },
+            {
+              "osm_way": 825208756,
+              "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+            },
+            {
+              "osm_way": 1149973649,
+              "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+            },
+            {
+              "osm_way": 1487538311,
+              "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+            },
+            {
+              "osm_way": 1487538312,
+              "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+            },
+            {
+              "osm_way": 1487538313,
+              "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+            }
+          ],
+          "preexisting_omissions": [
+            {
+              "osm_way": 364313092,
+              "reason": "Footprint must have 3–120 non-collinear vertices"
+            },
+            {
+              "osm_way": 367642706,
+              "reason": "Footprint must have 3–120 non-collinear vertices"
+            }
+          ],
+          "added_osm_ways": [],
+          "unchanged": {
+            "placements": true,
+            "parameters": true,
+            "roads": true
+          },
+          "assumed_height_wording_changes": 470
+        },
+        "limitations": [
+          "This compares the original checked-in seed with a non-active candidate, not an arbitrary current or draft project.",
+          "OpenStreetMap height tags are source claims, not independently measured heights. Levels-derived heights use 3.2 m per floor; missing heights use a labelled 9.6 m assumption.",
+          "These are partial central-district samples, not full-city coverage. Query windows and actual imported extents are different because complete ways may cross the query boundary.",
+          "No DEM, measured terrain, facade or interior survey is included. Road widths remain display assumptions; multipolygon relations are not acquired.",
+          "Unsupported building parts, base heights and starting floors are omitted, not reconstructed. The receipt includes preexisting omissions as well as newly removed buildings.",
+          "Downloading a candidate does not import, activate, rebuild or replace a project. Any deliberate later import should be reviewed separately.",
+          "The provenance ZIP contains the candidate, receipts, audit summary and licence notices. It identifies the retained source and original seed by SHA-256; their full bytes are not included."
+        ]
+      },
+      "downloads": {
+        "archive": {
+          "sha256": "c90ce92a672eb07e7fea5504132378c521d863b12e081b69cb8843b34f835933",
+          "byte_length": 1934406
+        },
+        "report": {
+          "sha256": "74ffb6e43993bef845c6b86ef2f03af8dc12c11d19a64a35a19092a02d5c130b",
+          "byte_length": 2133
+        },
+        "provenance": {
+          "sha256": "a617768dff8497cff1eb0c93394b9391cfcd8f88b909ee810bccde0d68015c2d",
+          "byte_length": 1951775
+        }
+      }
+    },
+    "birmingham": {
+      "files": {
+        "baseline_archive": {
+          "sha256": "a5d38bcdcec5a1181db4f56f98414612709c5f51a0a642fe89d35f89965809fd",
+          "byte_length": 1715239
+        },
+        "baseline_receipt": {
+          "sha256": "bdc255b3cb7dfb1dfe8dd5877a99af1651c3ec01fc13b1a32f8000f8d7304cca",
+          "byte_length": 656
+        },
+        "candidate_archive": {
+          "sha256": "b139689a5423c4a950c2d761a9b2356d0fc03ed208b72eb7b4477090da036c7f",
+          "byte_length": 1702041
+        },
+        "candidate_receipt": {
+          "sha256": "59ed409e894aada1ffb99d483a9c11903349414be644f25cdc9115eb14971f9f",
+          "byte_length": 1354
+        },
+        "source": {
+          "sha256": "6aa13a5ed45e46a1b78e26aecff41b3d0d265ce3ac8eaf6d9dd676321ea50731",
+          "byte_length": 871108
+        },
+        "source_receipt": {
+          "sha256": "9aa4a0fcc1592a37ab61fe588c5b1f2aa082dff43832e535fe5a9f0429417109",
+          "byte_length": 1169
+        },
+        "readme": {
+          "sha256": "acdcfc1340905f3acd15facc092cb4243d9a691b23cd893b78b4a4c269242e26",
+          "byte_length": 2753
+        },
+        "licence": {
+          "sha256": "a81ed4655c288e8d4a4e2ac80c9ca2f4e54b85efbbf27c5889abe093aef0176f",
+          "byte_length": 3105
+        }
+      },
+      "summary": {
+        "version": "v2",
+        "status": "non-active",
+        "baseline": {
+          "revision": "a5d38bcdcec5a1181db4f56f98414612709c5f51a0a642fe89d35f89965809fd",
+          "building_count": 809,
+          "road_count": 479,
+          "height_policy": {
+            "height-tag": 52,
+            "levels-derived": 133,
+            "assumed": 624
+          }
+        },
+        "candidate": {
+          "revision": "b139689a5423c4a950c2d761a9b2356d0fc03ed208b72eb7b4477090da036c7f",
+          "building_count": 804,
+          "road_count": 479,
+          "height_policy": {
+            "height-tag": 48,
+            "levels-derived": 133,
+            "assumed": 623
+          }
+        },
+        "source": {
+          "sha256": "6aa13a5ed45e46a1b78e26aecff41b3d0d265ce3ac8eaf6d9dd676321ea50731",
+          "snapshot": "2026-10-03T04:31:51Z",
+          "licence": "ODbL 1.0",
+          "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "attribution": "© OpenStreetMap contributors",
+          "attribution_url": "https://www.openstreetmap.org/copyright",
+          "coverage_label": "Civic centre / Jewellery Quarter",
+          "query_bbox_wgs84": [
+            -1.914,
+            52.476,
+            -1.901,
+            52.488
+          ],
+          "actual_data_bbox_wgs84": [
+            -1.9186071,
+            52.474702,
+            -1.8998589,
+            52.4895005
+          ],
+          "scope": "sample-area"
+        },
+        "changes": {
+          "height_corrections": [
+            {
+              "osm_way": 1436375109,
+              "name": "The Octagon",
+              "baseline_height_m": 9.6,
+              "candidate_height_m": 155.0
+            }
+          ],
+          "removed_buildings": [
+            {
+              "osm_way": 29997398,
+              "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+            },
+            {
+              "osm_way": 37716925,
+              "reason": "OSM min_height '20' has unsupported vertical semantics; not grounded"
+            },
+            {
+              "osm_way": 49023587,
+              "reason": "OSM min_height '6' has unsupported vertical semantics; not grounded"
+            },
+            {
+              "osm_way": 195934961,
+              "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+            },
+            {
+              "osm_way": 883020076,
+              "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+            }
+          ],
+          "preexisting_omissions": [],
+          "added_osm_ways": [],
+          "unchanged": {
+            "placements": true,
+            "parameters": true,
+            "roads": true
+          },
+          "assumed_height_wording_changes": 623
+        },
+        "limitations": [
+          "This compares the original checked-in seed with a non-active candidate, not an arbitrary current or draft project.",
+          "OpenStreetMap height tags are source claims, not independently measured heights. Levels-derived heights use 3.2 m per floor; missing heights use a labelled 9.6 m assumption.",
+          "These are partial central-district samples, not full-city coverage. Query windows and actual imported extents are different because complete ways may cross the query boundary.",
+          "No DEM, measured terrain, facade or interior survey is included. Road widths remain display assumptions; multipolygon relations are not acquired.",
+          "Unsupported building parts, base heights and starting floors are omitted, not reconstructed. The receipt includes preexisting omissions as well as newly removed buildings.",
+          "Downloading a candidate does not import, activate, rebuild or replace a project. Any deliberate later import should be reviewed separately.",
+          "The provenance ZIP contains the candidate, receipts, audit summary and licence notices. It identifies the retained source and original seed by SHA-256; their full bytes are not included."
+        ]
+      },
+      "downloads": {
+        "archive": {
+          "sha256": "b139689a5423c4a950c2d761a9b2356d0fc03ed208b72eb7b4477090da036c7f",
+          "byte_length": 1702041
+        },
+        "report": {
+          "sha256": "59ed409e894aada1ffb99d483a9c11903349414be644f25cdc9115eb14971f9f",
+          "byte_length": 1354
+        },
+        "provenance": {
+          "sha256": "4d14c8d9a2d3394d745157077b61b5b2a18aa296cb1a5fb0d73854b211cb2dc4",
+          "byte_length": 1717861
+        }
+      }
+    }
+  }
+}

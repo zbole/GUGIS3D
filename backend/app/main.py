@@ -43,3 +43,6 @@ app.include_router(render_tiles.router)
 
 # National membership and optional receipts are read-only readiness metadata.
 app.include_router(coverage.router)
+
+from app.routers import source_candidates
+app.include_router(source_candidates.router)
