@@ -1,0 +1,74 @@
+{
+  "city_id": "london",
+  "source_sha256": "5db34df2aa145ee5a5f5f4afc47e3b565d704c7d8f924d89d8a9341499ad942a",
+  "source_building_ways": 825,
+  "imported_buildings": 814,
+  "imported_roads": 762,
+  "query_bbox_wgs84": [
+    -0.138,
+    51.496,
+    -0.123,
+    51.508
+  ],
+  "actual_data_bbox_wgs84": [
+    -0.1406102,
+    51.4948591,
+    -0.1199859,
+    51.5087403
+  ],
+  "height_policy": {
+    "height-tag": 17,
+    "levels-derived": 327,
+    "assumed": 470
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 235693291,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 297204228,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 364313092,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 367642706,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 547238370,
+      "reason": "OSM building:min_level '4' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 547238381,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 825208756,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 1149973649,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 1487538311,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 1487538312,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 1487538313,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 1934406,
+  "gugis_sha256": "c90ce92a672eb07e7fea5504132378c521d863b12e081b69cb8843b34f835933"
+}

@@ -2,6 +2,7 @@
 import hashlib
 import json
 import math
+import re
 import threading
 from functools import lru_cache
 from contextvars import ContextVar
@@ -91,6 +92,63 @@ _MAX_CITY_BYTES = 128 * 1024 * 1024
 _CATALOG_METADATA = {'coverage_bbox_wgs84', 'data_bbox_wgs84', 'coverage_kind',
                      'coverage_label', 'source', '来源', 'source_url', 'license',
                      'source_retrieved_at', 'height_policy'}
+_SOURCE_AUDIT_PATH = Path(__file__).resolve().parents[2] / 'data' / 'cities' / 'source-audit.json'
+
+
+@lru_cache(maxsize=1)
+def _source_audit():
+    """Validate a bounded static audit once; never take its path from a request.
+
+    Immutable tuple records prevent a returned API warning from mutating this
+    process-wide cache. None means the audit failed, not that data was cleared.
+    """
+    try:
+        with _SOURCE_AUDIT_PATH.open('rb') as handle:
+            content = handle.read(65537)
+        if len(content) > 65536:
+            raise ValueError('Source audit exceeds 64 KiB')
+        payload = json.loads(content)
+        if not isinstance(payload, dict) or payload.get('schema') != 'gugis-city-source-audit-v1':
+            raise ValueError('Invalid source audit schema')
+        revisions = payload.get('revisions')
+        if not isinstance(revisions, dict) or len(revisions) > 64:
+            raise ValueError('Invalid source audit revisions')
+        checked = {}
+        for revision, entry in revisions.items():
+            if not isinstance(revision, str) or not re.fullmatch('[0-9a-f]{64}', revision) or not isinstance(entry, dict):
+                raise ValueError('Invalid source audit revision')
+            city_id, warnings = entry.get('city_id'), entry.get('warnings')
+            if city_id not in CITY_DEFAULTS or not isinstance(warnings, list) or len(warnings) > 20:
+                raise ValueError('Invalid source audit entry')
+            records = []
+            for warning in warnings:
+                if not isinstance(warning, dict):
+                    raise ValueError('Invalid source audit warning')
+                code, message, ids = warning.get('code'), warning.get('message'), warning.get('osm_ids')
+                if not isinstance(code, str) or not re.fullmatch('[a-z0-9-]{1,64}', code):
+                    raise ValueError('Invalid warning code')
+                if not isinstance(message, str) or not 1 <= len(message) <= 500:
+                    raise ValueError('Invalid warning message')
+                if (not isinstance(ids, list) or len(ids) > 1000 or
+                    any(isinstance(i, bool) or not isinstance(i, int) or i <= 0 for i in ids) or len(ids) != len(set(ids))):
+                    raise ValueError('Invalid warning object identifiers')
+                records.append((code, message, tuple(ids)))
+            checked[revision] = (city_id, tuple(records))
+        return checked
+    except (OSError, ValueError, TypeError):
+        return None
+
+
+def quality_warnings(city_id, revision):
+    if revision is None:
+        return []
+    audit = _source_audit()
+    if audit is None:
+        return [{'code': 'source-audit-unavailable', 'message': '来源质量清单暂不可用；不能据此认定当前版本的楼高已核验', 'osm_ids': []}]
+    entry = audit.get(revision)
+    if entry is None or entry[0] != city_id:
+        return []
+    return [{'code': code, 'message': message, 'osm_ids': list(ids)} for code, message, ids in entry[1]]
 
 
 def _fingerprint(path):
@@ -169,6 +227,8 @@ def workspace_entry(city_id: str):
         'actual_data_bbox_wgs84': valid_bounds(metadata.get('data_bbox_wgs84')),
         'building_extent_wgs84': extent, 'building_count': count,
         'road_count': summary['road_count'],
+        'data_revision': summary.get('revision'),
+        'quality_warnings': quality_warnings(city_id, summary.get('revision')),
         'source': metadata.get('source') or metadata.get('来源', '样本复现项目' if city_id == 'bristol' else '等待公开建筑数据导入'),
         'source_url': metadata.get('source_url', ''), 'license': metadata.get('license', ''),
         'source_retrieved_at': metadata.get('source_retrieved_at', ''),

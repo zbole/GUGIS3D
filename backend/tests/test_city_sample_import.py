@@ -40,15 +40,15 @@ class CitySampleImportTests(unittest.TestCase):
         self.assertEqual(height_from_tags({})[2], 'assumed')
 
     def test_known_out_of_range_height_never_becomes_a_default_or_floor_estimate(self):
-        for value in ('155', '0.5', '.5', '0', '-5', '999', '1000 ft'):
-            with self.subTest(value=value), self.assertRaisesRegex(ValueError, 'outside.*1–150'):
+        for value in ('1001', '0.05', '.05', '0', '-5', '9999', '10000 ft'):
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, 'outside.*0.1–1000'):
                 height_from_tags({'height': value, 'building:levels': '4'})
-        self.assertEqual(height_from_tags({'height': '1'})[0], 1)
-        self.assertEqual(height_from_tags({'height': '150'})[0], 150)
+        self.assertEqual(height_from_tags({'height': '0.1'})[0], .1)
+        self.assertEqual(height_from_tags({'height': '1000'})[0], 1000)
 
     def test_invalid_vertical_values_are_not_missing_data(self):
         for tags in ({'height': 'bad'}, {'height': True}, {'height': 'NaN'},
-                     {'building:levels': 'nan'}, {'building:levels': '49'},
+                     {'building:levels': 'nan'}, {'building:levels': '999'},
                      {'building:levels': '-1'}, {'building:levels': True}):
             with self.subTest(tags=tags), self.assertRaisesRegex(ValueError, 'not replaced'):
                 height_from_tags(tags)
@@ -70,13 +70,38 @@ class CitySampleImportTests(unittest.TestCase):
         self.assertTrue(all('unsupported' in item['reason'] for item in report['omitted_buildings']))
 
     def test_unsupported_source_height_is_in_the_omission_receipt(self):
-        tall = self.building(2); tall['tags'].update({'height': '155', 'building:levels': '49'})
-        low = self.building(3); low['tags']['height'] = '0.5'
+        tall = self.building(2); tall['tags'].update({'height': '1001', 'building:levels': '49'})
+        low = self.building(3); low['tags']['height'] = '0.05'
         city, report = build_osm_sample({'elements': [self.building(), tall, low]}, self.source(), 'london')
         self.assertEqual([item.id for item in city.instances], ['osm1'])
         self.assertEqual(report['height_policy'], {'height-tag': 1, 'levels-derived': 0, 'assumed': 0})
         self.assertEqual([item['osm_way'] for item in report['omitted_buildings']], [2, 3])
         self.assertTrue(all('not replaced' in item['reason'] for item in report['omitted_buildings']))
+
+    def test_bounded_real_source_heights_survive_lod1_archive_exactly(self):
+        for value in ('0.1', '0.5', '.5', '155', '1000'):
+            with self.subTest(value=value):
+                record = self.building(); record['tags'].update({'height': value, 'building:levels': '49'})
+                city, report = build_osm_sample({'elements': [record]}, self.source(), 'london')
+                restored = load_city(archive_bytes(city))
+                zs = [v[2] for v in restored.assets['osm1'].templates['volume'].vertices]
+                self.assertEqual(min(zs), 0)
+                self.assertEqual(max(zs), float(value))
+                self.assertEqual(report['height_policy'], {'height-tag': 1, 'levels-derived': 0, 'assumed': 0})
+                self.assertEqual(report['omitted_buildings'], [])
+
+    def test_retained_octagon_and_low_object_heights_are_not_substituted(self):
+        root = Path(__file__).resolve().parents[1] / 'data' / 'cities'
+        for city_id, osm_id, expected in [('birmingham', 1436375109, 155), ('london', 951721975, .5)]:
+            with self.subTest(city_id=city_id):
+                raw = json.loads((root / f'{city_id}-osm.json').read_bytes())
+                source = json.loads((root / f'{city_id}-source.json').read_bytes())
+                record = next(e for e in raw['elements'] if e['id'] == osm_id)
+                city, report = build_osm_sample({'elements': [record]}, source, city_id)
+                restored = load_city(archive_bytes(city))
+                zs = [v[2] for v in restored.assets[f'osm{osm_id}'].templates['volume'].vertices]
+                self.assertEqual(max(zs), expected)
+                self.assertEqual(report['height_policy']['height-tag'], 1)
 
     def test_source_checksum_failure_prevents_rebuild(self):
         with TemporaryDirectory() as directory:

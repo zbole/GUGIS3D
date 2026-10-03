@@ -8,6 +8,8 @@ from ..city_models import CityDocument, Road
 from .city_generator import footprint_document
 
 CITY_NAMES = {'london': '伦敦', 'birmingham': '伯明翰'}
+MIN_SAMPLE_HEIGHT = 0.1
+MAX_SAMPLE_HEIGHT = 1000.0
 
 
 def height_from_tags(tags):
@@ -15,12 +17,12 @@ def height_from_tags(tags):
     match = re.fullmatch(r'([+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+))\s*(m|metres|meters|ft|feet|\')?', value, re.I)
     if match:
         height = float(match[1]) * (0.3048 if match[2] and match[2].lower() in ('ft', 'feet', "'") else 1)
-        if 1 <= height <= 150:
+        if MIN_SAMPLE_HEIGHT <= height <= MAX_SAMPLE_HEIGHT:
             return height, 'OSM height 标签（未独立测量核验）', 'height-tag'
         # A known height must not become an unrelated default or floor estimate.
         # In particular, the retained Birmingham source includes The Octagon at
         # 155 m; replacing it with 9.6 m materially misrepresents the source.
-        raise ValueError(f'OSM height {value!r} is outside the supported 1–150 m range; not replaced by an assumption')
+        raise ValueError(f'OSM height {value!r} is outside the supported 0.1–1000 m range; not replaced by an assumption')
     levels = tags.get('building:levels')
     if levels not in (None, ''):
         try:
@@ -29,8 +31,8 @@ def height_from_tags(tags):
             height = float(levels) * 3.2
         except (ValueError, TypeError, OverflowError):
             raise ValueError('OSM building:levels is not a supported finite number; not replaced by an assumption') from None
-        if not math.isfinite(height) or not 1 <= height <= 150:
-            raise ValueError('OSM building:levels × 3.2 m is outside the supported 1–150 m range; not replaced by an assumption')
+        if not math.isfinite(height) or not MIN_SAMPLE_HEIGHT <= height <= MAX_SAMPLE_HEIGHT:
+            raise ValueError('OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption')
         reason = 'OSM building:levels × 3.2 m（推算）'
         if value:
             reason += '；height 标签无法解析，未采用'

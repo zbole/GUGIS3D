@@ -1,0 +1,50 @@
+{
+  "city_id": "birmingham",
+  "source_sha256": "6aa13a5ed45e46a1b78e26aecff41b3d0d265ce3ac8eaf6d9dd676321ea50731",
+  "source_building_ways": 809,
+  "imported_buildings": 804,
+  "imported_roads": 479,
+  "query_bbox_wgs84": [
+    -1.914,
+    52.476,
+    -1.901,
+    52.488
+  ],
+  "actual_data_bbox_wgs84": [
+    -1.9186071,
+    52.474702,
+    -1.8998589,
+    52.4895005
+  ],
+  "height_policy": {
+    "height-tag": 48,
+    "levels-derived": 133,
+    "assumed": 623
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 29997398,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 37716925,
+      "reason": "OSM min_height '20' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 49023587,
+      "reason": "OSM min_height '6' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 195934961,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 883020076,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 1702041,
+  "gugis_sha256": "b139689a5423c4a950c2d761a9b2356d0fc03ed208b72eb7b4477090da036c7f"
+}
