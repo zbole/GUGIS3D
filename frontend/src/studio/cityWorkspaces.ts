@@ -69,7 +69,12 @@ export function heightPolicyLabel(policy?: string): string {
 export function citySourceLicense(workspace: CityWorkspace): { url: string; label: string } | null {
   if (/OpenStreetMap|ODbL/i.test(`${workspace.source ?? ""} ${workspace.license ?? ""}`))
     return { url: "https://www.openstreetmap.org/copyright", label: "© OpenStreetMap contributors · ODbL 1.0" };
-  return workspace.source_url ? { url: workspace.source_url, label: "查看数据来源" } : null;
+  if (!workspace.source_url) return null;
+  try {
+    const url = new URL(workspace.source_url);
+    if (!["https:", "http:"].includes(url.protocol) || url.username || url.password) return null;
+    return { url: url.href, label: "查看数据来源" };
+  } catch { return null; }
 }
 
 export function cityCenter(workspace: CityWorkspace): { longitude: number; latitude: number } {

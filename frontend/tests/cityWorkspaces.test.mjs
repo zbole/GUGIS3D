@@ -61,3 +61,10 @@ test("entry choices reject unknown IDs, deduplicate multi-selection and preserve
   const home = new URL(citySessionUrl(url.href, [], null));
   assert.equal(home.search, "?foo=bar");
 });
+
+
+test("imported provenance URLs cannot execute scripts or carry embedded credentials", () => {
+  for (const url of ["javascript:alert(1)", "data:text/html,hello", "file:///tmp/source", "//example.test/source", "https://name:secret@example.test", "invalid"])
+    assert.equal(citySourceLicense({ source: "User data", source_url: url }), null);
+  assert.equal(citySourceLicense({ source_url: "https://example.test/source" }).url, "https://example.test/source");
+});
