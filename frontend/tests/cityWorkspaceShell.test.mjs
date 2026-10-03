@@ -14,7 +14,7 @@ await build({ entryPoints: [fileURLToPath(new URL("../src/App.tsx", import.meta.
     build.onLoad({ filter: /.*/, namespace: "test" }, ({ path }) => path.endsWith("cityApi") ? {
       contents: "export const createCityApi = cityId => ({cityId});",
     } : { contents: `import React from 'react';export default function View(props){
-      React.useEffect(()=>{globalThis.cityShellEvents.push('${path.endsWith("CityTilePreview") ? "tile-" : ""}mount:'+props.workspace.id);globalThis.cityShellProps=props;
+      globalThis.cityShellProps=props;React.useEffect(()=>{globalThis.cityShellEvents.push('${path.endsWith("CityTilePreview") ? "tile-" : ""}mount:'+props.workspace.id);globalThis.cityShellProps=props;
         props.onWorkspaceState?.(props.workspace.id,false,!!globalThis.cityShellDrafts[props.workspace.id]);
         return ()=>globalThis.cityShellEvents.push('${path.endsWith("CityTilePreview") ? "tile-" : ""}unmount:'+props.workspace.id)},[]);
       return React.createElement('div',{'aria-label':'city view','data-mode':'${path.endsWith("CityTilePreview") ? "tiles" : "editor"}'},props.workspace.id);
@@ -46,6 +46,7 @@ async function fixture(t, href = "http://localhost/?city=bristol", drafts = {}) 
   });
   return { requests, history, get root() { return renderer.root; },
     async choose(cityId) { await act(async () => renderer.root.findByProps({ "aria-label": "选择城市" }).props.onChange({ target: { value: cityId } })); },
+    async hash(url) { window.location = new URL(url); await act(async () => listeners.get("hashchange")?.()); },
     async pop(url) { window.location = new URL(url); await act(async () => listeners.get("popstate")?.()); },
   };
 }
@@ -201,4 +202,68 @@ test("mode-aware Back and Forward restore one view without losing write locks", 
   assert.equal(f.root.findByProps({ "aria-label": "city view" }).props["data-mode"], "tiles");
   assert.equal(globalThis.cityShellProps.workspace.id, "birmingham");
   assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 1);
+});
+
+const cameraHash = (city = "london", height = 1600) => `#gugis-view=1&city=${city}&revision=${"a".repeat(64)}&pose=-0.1276,51.5072,${height},18,-45,0`;
+test("same-city camera Back, Forward and hash navigation reach the existing preview once", async t => {
+  const base = "http://localhost/?city=london&cities=london,birmingham&view_mode=tiles";
+  const f = await fixture(t, base + cameraHash());
+  assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "valid");
+  assert.equal(globalThis.cityShellProps.cameraNavigation.result.bookmark.pose[2], 1600);
+  assert.equal(window.location.hash, cameraHash());
+  const first = globalThis.cityShellProps.cameraNavigation.sequence;
+  await f.pop(base + cameraHash("london", 800));
+  assert.equal(globalThis.cityShellProps.cameraNavigation.result.bookmark.pose[2], 800);
+  const second = globalThis.cityShellProps.cameraNavigation.sequence;
+  assert.ok(second > first);
+  await f.hash(base + cameraHash("london", 800));
+  assert.equal(globalThis.cityShellProps.cameraNavigation.sequence, second, "paired browser events do not restore twice");
+  await f.hash(base + cameraHash("london", 400));
+  assert.equal(globalThis.cityShellProps.cameraNavigation.result.bookmark.pose[2], 400);
+  await f.pop(base + cameraHash());
+  assert.deepEqual(globalThis.cityShellEvents, ["tile-mount:london"], "camera history never remounts the workspace");
+  await f.pop(base);
+  assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "none");
+});
+
+test("city, editor and home actions clear camera fragments while cross-city history binds the destination", async t => {
+  const base = "http://localhost/?city=london&cities=london,birmingham&view_mode=tiles";
+  const f = await fixture(t, base + cameraHash());
+  await f.choose("birmingham");
+  assert.equal(window.location.hash, "");
+  assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "none");
+  await f.pop(base + cameraHash());
+  assert.equal(globalThis.cityShellProps.cameraNavigation.result.bookmark.city, "london");
+  await f.pop(base.replace("city=london", "city=birmingham") + cameraHash());
+  assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "invalid", "London pose is never applied to Birmingham");
+  await f.pop(base + cameraHash());
+  await click(f.root, "切换至完整编辑");
+  assert.equal(window.location.hash, "");
+  await f.pop(base + cameraHash());
+  await click(f.root, "重新选择城市");
+  assert.equal(window.location.hash, "");
+});
+
+test("busy editor history rejection strips incoming camera links, including same-city hash events", async t => {
+  const f = await fixture(t, "http://localhost/?city=london");
+  act(() => globalThis.cityShellProps.onWorkspaceState("london", true, false));
+  await f.pop("http://localhost/?city=birmingham&view_mode=tiles" + cameraHash("birmingham"));
+  assert.equal(window.location.searchParams.get("city"), "london");
+  assert.equal(window.location.searchParams.has("view_mode"), false);
+  assert.equal(window.location.hash, "");
+  await f.hash(window.location.href + cameraHash());
+  assert.equal(window.location.hash, "");
+  assert.deepEqual(globalThis.cityShellEvents, ["mount:london"]);
+  act(() => globalThis.cityShellProps.onWorkspaceState("london", false, false));
+  await click(f.root, "轻量分块浏览");
+  assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "none");
+});
+
+test("default-view dismissal removes the owned URL and issues a fresh accepted navigation", async t => {
+  const f = await fixture(t, "http://localhost/?city=london&view_mode=tiles" + cameraHash());
+  const before = globalThis.cityShellProps.cameraNavigation.sequence;
+  act(() => globalThis.cityShellProps.onCameraBookmarkDismiss());
+  assert.equal(window.location.hash, "");
+  assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "none");
+  assert.ok(globalThis.cityShellProps.cameraNavigation.sequence > before);
 });

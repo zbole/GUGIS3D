@@ -35,6 +35,7 @@ export function cityIdFromSearch(search: string): CityId {
 
 export function cityWorkspaceUrl(href: string, id: CityId): string {
   const url = new URL(href);
+  if (url.hash.startsWith("#gugis-view")) url.hash = "";
   if (id === "bristol") url.searchParams.delete("city");
   else url.searchParams.set("city", id);
   return url.href;
@@ -111,8 +112,10 @@ export function selectedCityFromSearch(search: string, selected: CityId[]): City
   return selected.includes(requested) ? requested : selected[0] ?? "bristol";
 }
 
-export function citySessionUrl(href: string, selected: CityId[], active: CityId | null, tiles?: boolean): string {
+export function citySessionUrl(href: string, selected: CityId[], active: CityId | null, tiles?: boolean, preserveCamera = false): string {
   const url = new URL(href);
+  // Transitions never carry a view owned by a previous city or editing mode.
+  if (!preserveCamera && url.hash.startsWith("#gugis-view")) url.hash = "";
   if (active && selected.includes(active)) {
     // Retain Bristol explicitly so a fresh '/' always opens the selection step.
     url.searchParams.set("city", active);

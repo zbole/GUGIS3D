@@ -35,6 +35,7 @@ import {
   ArcType,
 } from "cesium";
 import type { CityDocument } from "./cityModel";
+import { validateCameraPose, type CameraPose } from "./cameraBookmark";
 import type { RenderView } from "./renderTileClient";
 import type { SceneHandle } from "./BuildingScene";
 import { solidGeometry, solidCorners } from "./geometry";
@@ -58,6 +59,8 @@ export interface GeographicPosition {
 }
 export interface CitySceneHandle extends SceneHandle {
   centerPosition: () => GeographicPosition | null;
+  getCameraPose: () => CameraPose | null;
+  setCameraPose: (pose: CameraPose) => boolean;
   focusFeature: (id: string) => void;
   focusBuilding: (id: string) => void;
 }
@@ -91,7 +94,8 @@ interface Props {
   spatialPicking?: boolean;
   spatialPoint?: AnalysisPoint | null;
   /** Read-only viewport loading; never modifies editor city state. */
-  onViewBounds?: (view: RenderView) => void;
+  onViewBounds?: (view: RenderView, cameraSequence?: string) => void;
+  cameraRequest?: { sequence: string; pose: CameraPose };
   showGround?: boolean;
   renderOnly?: boolean;
   onSpatialPoint?: (point: AnalysisPoint | null, picked: string | null) => void;
@@ -137,6 +141,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     spatialPoint = null,
     onSpatialPoint,
     onViewBounds,
+    cameraRequest,
     showGround = true,
     renderOnly = false,
   },
@@ -165,6 +170,9 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     parts = useRef<
       { batch: Primitive; id: string; cityId: string; category: SceneNode["category"]; kind: BuildingDocument["parameters"]["kind"]; asset: string; fallback: string; overview: boolean }[]
     >([]);
+  const viewportTimer = useRef<ReturnType<typeof setTimeout>>();
+  const reportViewport = useRef<(() => void) | null>(null);
+  const cameraSequence = useRef<string>();
   const viewBoundsRef = useRef(onViewBounds);
   viewBoundsRef.current = onViewBounds;
   const coarseResidents = useRef(new Set<string>());
@@ -214,6 +222,27 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       altitude: geographic.height,
     };
   }
+  function finiteFootprint() {
+    const rectangle = viewer.current?.camera.computeViewRectangle(Ellipsoid.WGS84);
+    if (!rectangle) return null;
+    const values = [rectangle.west, rectangle.south, rectangle.east, rectangle.north].map(CM.toDegrees);
+    return values.every(Number.isFinite) && Math.abs(values[0]) <= 180 && Math.abs(values[2]) <= 180 &&
+      values[1] >= -90 && values[3] <= 90 && values[1] <= values[3] ? values as [number, number, number, number] : null;
+  }
+  function setCameraPose(pose: CameraPose): boolean {
+    const v = viewer.current, checked = validateCameraPose(pose);
+    if (!v || v.isDestroyed() || !checked) return false;
+    if (viewportTimer.current !== undefined) clearTimeout(viewportTimer.current);
+    v.camera.cancelFlight();
+    v.camera.setView({ destination: Cartesian3.fromDegrees(checked[0], checked[1], checked[2]),
+      orientation: { heading: CM.toRadians(checked[3]), pitch: CM.toRadians(checked[4]), roll: CM.toRadians(checked[5]) } });
+    initialized.current = true; // Initial framing and later tile arrivals cannot override restoration.
+    v.scene.requestRender();
+    // setView may synchronously raise changed, scheduling another report.
+    if (viewportTimer.current !== undefined) clearTimeout(viewportTimer.current);
+    viewportTimer.current = setTimeout(() => reportViewport.current?.(), 180);
+    return true;
+  }
   function fit(top = false, focus = false) {
     const v = viewer.current,
       s =
@@ -231,6 +260,14 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       });
   }
   useImperativeHandle(ref, () => ({
+    getCameraPose: () => {
+      const v = viewer.current;
+      if (!v || v.isDestroyed() || !finiteFootprint()) return null;
+      const p = v.camera.positionCartographic;
+      return validateCameraPose([CM.toDegrees(p.longitude), CM.toDegrees(p.latitude), p.height,
+        CM.toDegrees(v.camera.heading), CM.toDegrees(v.camera.pitch), CM.toDegrees(v.camera.roll)]);
+    },
+    setCameraPose,
     reset: () => fit(),
     focus: () => fit(false, true),
     top: () => fit(true),
@@ -373,6 +410,8 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       (_s: unknown, e: Error) => { renderFailed.current = true; setError(e.message); },
     );
     return () => {
+      if (viewportTimer.current !== undefined) clearTimeout(viewportTimer.current);
+      v.camera.cancelFlight();
       click.destroy();
       offError();
       v.destroy();
@@ -380,25 +419,28 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     };
   }, []);
   useEffect(() => {
+    cameraSequence.current = cameraRequest?.sequence;
+    if (cameraRequest) setCameraPose(cameraRequest.pose);
+  }, [cameraRequest?.sequence]);
+  useEffect(() => {
     const v = viewer.current;
     if (!v || !onViewBounds) return;
-    let timer: ReturnType<typeof setTimeout> | undefined;
     const report = () => {
       if (v.isDestroyed()) return;
-      const rectangle = v.camera.computeViewRectangle?.(Ellipsoid.WGS84);
+      const footprint = finiteFootprint();
       const position = groundPosition(new Cartesian2(v.scene.canvas.clientWidth / 2, v.scene.canvas.clientHeight / 2));
       // A missing ellipsoid footprint (e.g. horizon view) includes all candidates
       // conservatively; the loader still enforces tile and byte residency caps.
-      viewBoundsRef.current?.({ bounds: rectangle ? [CM.toDegrees(rectangle.west), CM.toDegrees(rectangle.south),
-        CM.toDegrees(rectangle.east), CM.toDegrees(rectangle.north)] : null, center: position ?? center });
+      viewBoundsRef.current?.({ bounds: footprint, center: position ?? center }, cameraSequence.current);
     };
-    const schedule = () => { if (timer !== undefined) clearTimeout(timer); timer = setTimeout(report, 180); };
+    reportViewport.current = report;
+    const schedule = () => { if (viewportTimer.current !== undefined) clearTimeout(viewportTimer.current); viewportTimer.current = setTimeout(report, 180); };
     const offChange = v.camera.changed.addEventListener(schedule);
     const offEnd = v.camera.moveEnd.addEventListener(schedule);
     const resize = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(schedule);
     resize?.observe(v.scene.canvas);
     schedule();
-    return () => { if (timer !== undefined) clearTimeout(timer); offChange(); offEnd(); resize?.disconnect(); };
+    return () => { if (viewportTimer.current !== undefined) clearTimeout(viewportTimer.current); reportViewport.current = null; offChange(); offEnd(); resize?.disconnect(); };
   }, [!!onViewBounds, center.longitude, center.latitude]);
   useEffect(() => {
     const v = viewer.current;

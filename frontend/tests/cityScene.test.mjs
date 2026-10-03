@@ -655,3 +655,31 @@ test("read-only viewport reports conservative bounds without rebuilding Viewer o
   assert.equal(f.viewer.camera.moveEnd.numberOfListeners, 0);
   assert.ok(observers.every(o => !o.connected), "all resize listeners disconnect");
 });
+
+
+test("camera handles restore initial and later poses without initial fit, stale viewport callbacks or tile-arrival snaps", async t => {
+  const ref = React.createRef(), reports = [];
+  const pose = [-.1276, 51.5072, 1200, 18, -45, 0];
+  const f = fixture({ ref, renderOnly: true, fullDetails: false, cameraRequest: { sequence: "first", pose },
+    onViewBounds: (view, sequence) => reports.push({ view, sequence }) });
+  t.after(() => f.close());
+  assert.equal(f.viewer.camera.flights.length, 0);
+  assert.equal(f.viewer.camera.sets.length, 1);
+  assert.equal(ref.current.getCameraPose(), null, "missing ellipsoid footprint refuses capture");
+  f.viewer.camera.computeViewRectangle = () => ({ west: -.14 * Math.PI / 180, south: 51.49 * Math.PI / 180,
+    east: -.12 * Math.PI / 180, north: 51.52 * Math.PI / 180 });
+  const captured = ref.current.getCameraPose();
+  pose.forEach((n, i) => assert.ok(Math.abs(n - captured[i]) < .000001));
+  f.update({ cameraRequest: { sequence: "second", pose: [...pose.slice(0, 2), 800, 270, -60, 0] } });
+  await act(async () => { await new Promise(resolve => setTimeout(resolve, 220)); });
+  assert.deepEqual(reports.map(report => report.sequence), ["second"]);
+  assert.equal(f.viewer.camera.cancellations, 2);
+  f.update({ city: { ...city, instances: [...city.instances] } });
+  assert.equal(f.viewer.camera.sets.length, 2);
+  assert.equal(f.viewer.camera.flights.length, 0);
+  const before = f.viewer.camera.sets.length;
+  assert.equal(ref.current.setCameraPose([0, 0, 1, 0, 0, 0]), false);
+  assert.equal(f.viewer.camera.sets.length, before);
+  f.viewer.camera.computeViewRectangle = () => ({ west: NaN, south: 0, east: 1, north: 1 });
+  assert.equal(ref.current.getCameraPose(), null, "non-finite footprint also refuses capture");
+});

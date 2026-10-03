@@ -6,6 +6,12 @@
 .city-tile-preview button:disabled { opacity: .5; cursor: wait; }
 .tile-preview-status { padding: 8px 18px; background: #e4eee8; font-size: 12px; line-height: 1.65; }
 .tile-preview-status small { display: block; }
+.city-tile-preview .tile-camera-share { min-width: 0; padding: 8px 18px 12px; font-size: 12px; line-height: 1.55; }
+.city-tile-preview .tile-camera-share p { margin: 0 0 6px; }
+.city-tile-preview .tile-camera-share label { display: block; margin-top: 8px; font-weight: 600; }
+.city-tile-preview .tile-camera-share input { display: block; box-sizing: border-box; width: 100%; max-width: 72rem; min-width: 0; margin-top: 5px; padding: 8px; border: 1px solid #9aafa2; border-radius: 5px; color: #263c35; background: #fff; font: 12px/1.5 monospace; }
+.city-tile-preview .tile-camera-share input:focus-visible { outline: 3px solid #2e7160; outline-offset: 2px; }
+
 .tile-preview-provenance { padding: 8px 18px; max-height: 240px; overflow: auto; border-bottom: 1px solid #ccd5ce; }
 .tile-preview-provenance summary { cursor: pointer; font-weight: 600; font-size: 12px; }
 .tile-preview-provenance code, .tile-preview-error code { overflow-wrap: anywhere; font-size: 11px; }

@@ -1,7 +1,7 @@
 // Keep Cesium's real geometry/matrix/entity types. Substitute only the GPU viewer
 // and primitive lifecycle so React updates can be tested without a browser.
 export * from "cesium";
-import { Cartesian3, Event, EntityCollection, Transforms, Matrix4, Ray, Intersect } from "cesium";
+import { Cartesian3, Event, EntityCollection, Transforms, Matrix4, Ray, Intersect, Cartographic } from "cesium";
 export const viewState = { viewers: [], primitives: [], handlers: [] };
 export class Primitive {
   constructor(options) {
@@ -40,6 +40,17 @@ export class Viewer {
     this.entities = new EntityCollection();
     this.camera = {
       positionWC: Cartesian3.fromDegrees(-2.603, 51.454, 1000),
+      get positionCartographic() { return Cartographic.fromCartesian(this.positionWC); },
+      heading: 18 * Math.PI / 180, pitch: -45 * Math.PI / 180, roll: 0,
+      sets: [], cancellations: 0,
+      cancelFlight: () => { this.camera.cancellations++; },
+      setView: options => {
+        this.camera.sets.push(options);
+        this.camera.positionWC = options.destination;
+        Object.assign(this.camera, options.orientation);
+        this.camera.changed.raiseEvent();
+      },
+      computeViewRectangle: () => undefined,
       changed: new Event(),
       moveEnd: new Event(),
       pixelSize: 0.1,

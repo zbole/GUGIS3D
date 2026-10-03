@@ -11,6 +11,10 @@ add local name/ID search, 25-row pages, explicit focus, source-placement details
 manual pause/resume and automatic pause while the page is hidden. Search reads
 only currently resident tiles; it never requests a full-city substitute.
 
+[Camera-view links](camera_view_links.md) record an expected source revision and
+bounded pose. A matching link restores the camera before the first viewport-driven
+tile read; a revision mismatch requires an explicit current-default choice.
+
 This path does **not** increase the editable CityDocument limits, claim whole-city
 coverage, or replace the self-contained formal project. Original seeds, current
 files, drafts, histories, IDs, OSM attribution and geometry remain unchanged.

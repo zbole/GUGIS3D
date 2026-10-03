@@ -90,7 +90,7 @@ async function until(condition, message) {
   }
   assert.ok(condition(), message);
 }
-function fixture(t, cityId = "bristol") {
+function fixture(t, cityId = "bristol", cameraNavigation) {
   const originalFetch = globalThis.fetch, requests = [], states = [], viewersBefore = viewState.viewers.length;
   let renderer, currentWorkspace = workspaces[cityId], mounted = true;
   const onWorkspaceState = (...state) => states.push(state);
@@ -100,7 +100,7 @@ function fixture(t, cityId = "bristol") {
     requests.push({ ...pending, url, options });
     return pending.promise;
   };
-  const element = () => React.createElement(Preview, { workspace: currentWorkspace, onWorkspaceState });
+  const element = () => React.createElement(Preview, { workspace: currentWorkspace, onWorkspaceState, cameraNavigation });
   act(() => { renderer = create(element(), { createNodeMock: () => ({}) }); });
   const f = {
     requests, states,
@@ -109,6 +109,7 @@ function fixture(t, cityId = "bristol") {
     get status() { return text(renderer.root.findByProps({ className: "tile-preview-status" })); },
     get viewers() { return viewState.viewers.slice(viewersBefore); },
     get viewer() { return f.viewers.at(-1); },
+    navigate(next) { cameraNavigation = next; act(() => renderer.update(element())); },
     update(nextCity) { currentWorkspace = workspaces[nextCity]; act(() => renderer.update(element())); },
     mode(next) { act(() => renderer.update(next === "tiles" ? element() : React.createElement("div", null, "编辑模式"))); },
     click(label) {
@@ -443,4 +444,206 @@ test("direct tile entry owns scoped scene sizing without depending on editor CSS
   }
   assert.equal(declarations(".building-scene"), "", "tile CSS must not change every editor scene");
   assert.equal(declarations(".scene-canvas"), "", "tile CSS must not change every editor canvas");
+});
+
+const cameraNavigation = (sequence = 1, city = "bristol", expectedRevision = revision, height = 1200) => ({ sequence,
+  result: { kind: "valid", bookmark: { city, revision: expectedRevision, pose: [-2.599, 51.454, height, 18, -45, 0] } } });
+const footprint = (viewer, index = 1) => { viewer.camera.computeViewRectangle = () => Rectangle.fromDegrees(
+  -2.603 + index * .004 - .0002, 51.4538, -2.603 + index * .004 + .0002, 51.4542); };
+
+test("initial bookmarked entry restores before the first tile request and uses the receiver viewport", async t => {
+  const f = fixture(t, "bristol", cameraNavigation()), pkg = renderPackage("bristol", { tiles: 3 });
+  await f.manifest(pkg);
+  assert.equal(f.requests.length, 1, "only the current manifest is read before the actual viewport");
+  assert.equal(f.viewer.camera.sets.length, 1);
+  assert.equal(f.viewer.camera.flights.length, 0, "initial fit never overrides a restored camera");
+  footprint(f.viewer);
+  await until(() => f.requests.length === 2, "actual restored view begins streaming");
+  assert.ok(f.requests[1].url.endsWith("/tiles/x1_y0"));
+  await f.tile(pkg, "x1_y0", 1);
+  assert.equal(f.viewer.camera.sets.length, 1);
+  assert.equal(f.viewer.camera.flights.length, 0, "tile arrivals cannot reapply or reset the camera");
+  assert.match(f.content, /不包含或分发城市数据/);
+  assert.match(f.content, /localhost 地址仅指接收方自己的电脑/);
+  f.assertReadOnly();
+});
+
+test("later camera navigation cancels stale viewport timers and keeps the existing viewer and manifest", async t => {
+  const f = fixture(t, "bristol", cameraNavigation()), pkg = renderPackage("bristol", { tiles: 3 });
+  await f.manifest(pkg); const viewer = f.viewer;
+  footprint(viewer, 0); act(() => viewer.camera.changed.raiseEvent());
+  f.navigate(cameraNavigation(2, "bristol", revision, 900));
+  footprint(viewer, 2);
+  await until(() => f.requests.length === 2, "only the latest camera viewport starts reads");
+  assert.ok(f.requests[1].url.endsWith("/tiles/x2_y0"));
+  assert.equal(f.viewer, viewer); assert.equal(viewer.camera.sets.length, 2);
+  assert.equal(f.requests.filter(r => r.url.endsWith("/manifest")).length, 1);
+  await f.tile(pkg, "x2_y0", 1);
+  f.navigate(cameraNavigation(3, "bristol", revision, 700)); footprint(viewer, 1);
+  await until(() => f.requests.length === 3, "another view streams only its target tile");
+  assert.ok(f.requests[2].url.endsWith("/tiles/x1_y0"));
+  assert.equal(f.viewer, viewer);
+  f.assertReadOnly();
+});
+
+test("revision mismatch, invalid link and wrong city block tile reads until explicit current default", async t => {
+  const f = fixture(t, "bristol", cameraNavigation(1, "bristol", "c".repeat(64))), pkg = renderPackage();
+  await f.manifest(pkg);
+  assert.match(f.content, /来源修订与当前渲染包不一致/);
+  assert.match(f.content, /不提供按修订读取历史清单/);
+  assert.equal(f.requests.length, 1); assert.equal(f.viewers.length, 0);
+  f.navigate(cameraNavigation(2, "london"));
+  assert.match(f.content, /视角链接无效或不属于当前城市/);
+  assert.equal(f.requests.length, 1);
+  f.navigate({ sequence: 3, result: { kind: "invalid", message: "invalid" } });
+  assert.equal(f.requests.length, 1);
+  f.click("使用当前默认视角"); footprint(f.viewer, 0);
+  await until(() => f.requests.length === 2, "explicit default can start bounded tile reads");
+  assert.ok(f.requests[1].url.endsWith("/tiles/x0_y0"));
+  assert.equal(f.viewer.camera.sets.length, 1);
+  f.assertReadOnly();
+});
+
+test("manifest retry revalidates the linked revision and ignores obsolete manifest replies", async t => {
+  const f = fixture(t, "bristol", cameraNavigation()), pkg = renderPackage();
+  const old = f.requests[0];
+  f.click("重新检查渲染包");
+  assert.equal(old.options.signal.aborted, true);
+  const current = f.requests[1];
+  f.navigate(cameraNavigation(2, "bristol", "c".repeat(64)));
+  await f.manifest(pkg, "current", current);
+  assert.match(f.content, /来源修订与当前渲染包不一致/);
+  await f.respond(old, renderPackage("bristol", { sourceRevision: "c".repeat(64) }).manifestResponse());
+  assert.equal(f.requests.length, 2); assert.equal(f.viewers.length, 0);
+  f.click("重新检查渲染包");
+  await f.manifest(renderPackage("bristol", { sourceRevision: "c".repeat(64) }));
+  footprint(f.viewer, 0);
+  await until(() => f.requests.length === 4, "matching refreshed manifest restores the pending link");
+  assert.ok(f.requests[3].url.includes("/" + "c".repeat(64) + "/tiles/"));
+  f.assertReadOnly();
+});
+
+test("manual and hidden pauses survive camera restoration and resume only the latest view", async t => {
+  const visibility = pageVisibility(t, true);
+  const f = fixture(t, "bristol", cameraNavigation()), pkg = renderPackage("bristol", { tiles: 3 });
+  await f.manifest(pkg); footprint(f.viewer, 0);
+  await until(() => !f.root.findAllByType("button").find(b => text(b) === "复制当前视角链接").props.disabled, "camera restored while hidden");
+  assert.equal(f.requests.length, 1);
+  f.click("暂停瓦片读取");
+  f.navigate(cameraNavigation(2)); footprint(f.viewer, 2);
+  await until(() => !f.root.findAllByType("button").find(b => text(b) === "复制当前视角链接").props.disabled, "new camera restored without resuming");
+  visibility.set(false);
+  assert.equal(f.requests.length, 1); assert.match(f.content, /已暂停瓦片读取/);
+  f.click("恢复瓦片读取");
+  assert.equal(f.requests.length, 2); assert.ok(f.requests[1].url.endsWith("/tiles/x2_y0"));
+  f.assertReadOnly();
+});
+
+test("a restored view with no finite footprint remains blocked, while later horizon navigation keeps normal bounded streaming", async t => {
+  const f = fixture(t, "bristol", cameraNavigation()), pkg = renderPackage();
+  await f.manifest(pkg);
+  await until(() => f.content.includes("此视角在当前窗口没有有限"), "missing footprint is explained");
+  assert.equal(f.requests.length, 1);
+  f.click("使用当前默认视角"); footprint(f.viewer, 0);
+  await until(() => f.requests.length === 2, "default view accepted");
+  const viewer = f.viewer;
+  viewer.camera.computeViewRectangle = () => undefined;
+  act(() => viewer.camera.changed.raiseEvent());
+  await until(() => f.requests.length === 3, "later horizon view still uses the normal bounded planner");
+  assert.equal(f.viewer, viewer); assert.doesNotMatch(f.content, /此视角在当前窗口没有有限/);
+  f.assertReadOnly();
+});
+
+test("copy validates the current camera, sanitizes URLs, and exposes a selectable link on clipboard failure", async t => {
+  const oldWindow = globalThis.window, oldNavigator = Object.getOwnPropertyDescriptor(globalThis, "navigator");
+  let copied;
+  globalThis.window = { location: new URL("http://localhost/app/?city=bristol&cities=bristol,london&source=/private&search=secret&pause=true#unrelated") };
+  Object.defineProperty(globalThis, "navigator", { configurable: true, value: { clipboard: { writeText: async value => { copied = value; throw new Error("denied"); } } } });
+  t.after(() => { globalThis.window = oldWindow; if (oldNavigator) Object.defineProperty(globalThis, "navigator", oldNavigator); else delete globalThis.navigator; });
+  const f = fixture(t), pkg = renderPackage(); await f.manifest(pkg);
+  const count = f.requests.length;
+  f.click("复制当前视角链接"); assert.match(f.content, /没有有限的地球椭球视域/); assert.equal(copied, undefined);
+  footprint(f.viewer, 0);
+  f.click("复制当前视角链接");
+  await until(() => f.content.includes("无法自动复制"), "clipboard failure offers manual copy");
+  const field = f.root.findByProps({ "aria-label": "手动复制视角链接" });
+  assert.equal(field.props.value, copied); assert.equal(field.props.readOnly, true);
+  assert.equal(f.root.findByProps({ className: "tile-camera-share" }).findByType("input"), field);
+  let selected = 0; const selectionEvent = { currentTarget: { select() { selected++; } } };
+  field.props.onFocus(selectionEvent); field.props.onClick(selectionEvent); assert.equal(selected, 2);
+  const link = new URL(copied);
+  assert.deepEqual([...link.searchParams.keys()], ["city", "cities", "view_mode"]);
+  assert.match(link.hash, /^#gugis-view=1&city=bristol&revision=a{64}&pose=/);
+  assert.doesNotMatch(copied, /private|secret|pause|unrelated/);
+  assert.equal(f.requests.length, count, "copying performs no data requests");
+  navigator.clipboard.writeText = async value => { copied = value; };
+  f.click("复制当前视角链接");
+  await until(() => f.content.includes("视角链接已复制"), "clipboard success is reported");
+  assert.equal(f.root.findAllByProps({ "aria-label": "手动复制视角链接" }).length, 0);
+  f.assertReadOnly();
+});
+
+
+test("camera navigation aborts previous tile reads, rejects late geometry and does not refresh the manifest", async t => {
+  const f = fixture(t, "bristol", cameraNavigation()), pkg = renderPackage();
+  await f.manifest(pkg); footprint(f.viewer, 0);
+  await until(() => f.requests.length === 2, "first view reads its tile");
+  const old = f.requests[1], viewer = f.viewer;
+  f.navigate(cameraNavigation(2)); footprint(viewer, 1);
+  assert.equal(old.options.signal.aborted, true, "navigation immediately cancels obsolete reads");
+  await until(() => f.requests.length === 3, "latest viewport can use a remaining bounded slot");
+  await f.respond(old, pkg.tileResponse("x0_y0"));
+  assert.match(f.status, /已加载 0 \/ 2 栋/);
+  await f.tile(pkg, "x1_y0", 1);
+  assert.deepEqual(geometryIds(viewer), ["bristol-building-1/wall"]);
+  assert.equal(f.viewer, viewer); assert.equal(f.requests.filter(r => r.url.endsWith("/manifest")).length, 1);
+  f.assertReadOnly();
+});
+
+test("restoring another camera clears the local selection pin rather than serializing a selected building", async t => {
+  const f = fixture(t, "bristol", cameraNavigation()), pkg = renderPackage();
+  await f.manifest(pkg); footprint(f.viewer, 0);
+  await until(() => f.requests.length === 2, "first view reads its tile");
+  await f.tile(pkg, "x0_y0", 1);
+  f.viewer.picked = { id: "bristol-building-0/wall" };
+  act(() => viewState.handlers.at(-1).actions.get(ScreenSpaceEventType.LEFT_CLICK)({ position: {} }));
+  assert.ok(f.content.includes("取消建筑选择"));
+  f.navigate(cameraNavigation(2)); footprint(f.viewer, 1);
+  assert.ok(!f.content.includes("取消建筑选择"));
+  await until(() => f.requests.length === 3, "new view reads only its tile");
+  await f.tile(pkg, "x1_y0", 1);
+  assert.deepEqual(geometryIds(f.viewer), ["bristol-building-1/wall"]);
+  assert.equal(f.requests.length, 3);
+  f.assertReadOnly();
+});
+
+
+test("share-copy controls own their spacing, responsive field width and keyboard focus styles", async () => {
+  const css = await readFile(new URL("../src/studio/CityTilePreview.css", import.meta.url), "utf8");
+  assert.match(css, /\.city-tile-preview \.tile-camera-share \{[^}]*padding: 8px 18px 12px/);
+  assert.match(css, /\.city-tile-preview \.tile-camera-share input \{[^}]*width: 100%;[^}]*max-width: 72rem/);
+  assert.match(css, /\.city-tile-preview \.tile-camera-share input:focus-visible \{[^}]*outline: 3px solid/);
+});
+
+test("explicit default after failed-footprint navigation remains guarded and never retains a previous selection pin", async t => {
+  const f = fixture(t, "bristol", cameraNavigation()), pkg = renderPackage();
+  await f.manifest(pkg); footprint(f.viewer, 0);
+  await until(() => f.requests.length === 2, "initial view tile requested");
+  await f.tile(pkg, "x0_y0", 1);
+  f.viewer.picked = { id: "bristol-building-0/wall" };
+  act(() => viewState.handlers.at(-1).actions.get(ScreenSpaceEventType.LEFT_CLICK)({ position: {} }));
+  assert.ok(f.content.includes("取消建筑选择"));
+  f.navigate(cameraNavigation(2));
+  f.viewer.camera.computeViewRectangle = () => undefined;
+  await until(() => f.content.includes("此视角在当前窗口没有有限"), "failed navigation blocked");
+  assert.ok(!f.content.includes("取消建筑选择"));
+  f.click("使用当前默认视角");
+  await until(() => f.content.includes("此视角在当前窗口没有有限"), "default also needs a finite footprint");
+  assert.equal(f.requests.length, 2, "an invalid default cannot read tiles from a stale view");
+  f.click("使用当前默认视角"); footprint(f.viewer, 1);
+  await until(() => f.requests.length === 3, "valid explicit default uses its actual footprint");
+  await f.tile(pkg, "x1_y0", 1);
+  assert.deepEqual(geometryIds(f.viewer), ["bristol-building-1/wall"]);
+  assert.ok(!f.content.includes("取消建筑选择"));
+  f.assertReadOnly();
 });

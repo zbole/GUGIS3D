@@ -1,15 +1,18 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { cameraBookmarkUrl, noCameraNavigation, type CameraNavigation, type CameraPose } from "./cameraBookmark";
 import CityScene, { type CitySceneHandle } from "./CityScene";
 import LoadedBuildingInspector from "./LoadedBuildingInspector";
 import { loadedBuildings } from "./loadedBuildings";
 import { useTileLoadingControl } from "./useTileLoadingControl";
-import { cityCenter, heightPolicyLabel, type CityWorkspace } from "./cityWorkspaces";
+import { cityCenter, heightPolicyLabel, type CityWorkspace, type CityId } from "./cityWorkspaces";
 import { loadRenderManifest, RenderPackageUnavailable, RenderTileStream, renderTilesToCity, tileBudget,
   type RenderManifest, type RenderView, type TileStreamState } from "./renderTileClient";
 import "./CityTilePreview.css";
 
 export interface CityTilePreviewProps {
   workspace: CityWorkspace;
+  cameraNavigation?: CameraNavigation;
+  onCameraBookmarkDismiss?: () => void;
   onWorkspaceState?: (id: string, busy: boolean, hasDraft: boolean) => void;
 }
 const emptyStream: TileStreamState = { tiles: [], wanted: 0, candidates: 0, omitted: 0,
@@ -23,7 +26,7 @@ function safeLink(value: string): string | undefined {
 export default function CityTilePreview(props: CityTilePreviewProps) {
   return <TilePreviewSession key={props.workspace.id} {...props} />;
 }
-function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProps) {
+function TilePreviewSession({ workspace, onWorkspaceState, cameraNavigation = noCameraNavigation, onCameraBookmarkDismiss }: CityTilePreviewProps) {
   const center = useMemo(() => cityCenter(workspace), [workspace.id]);
   const [manifest, setManifest] = useState<RenderManifest | null>(null);
   const [freshness, setFreshness] = useState<"current" | "unknown">("unknown");
@@ -32,6 +35,30 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
   const [unavailable, setUnavailable] = useState(false);
   const [loadingManifest, setLoadingManifest] = useState(true);
   const [attempt, setAttempt] = useState(0);
+  const [dismissedSequence, setDismissedSequence] = useState<number | null>(null);
+  const [failedCamera, setFailedCamera] = useState<string | null>(null);
+  const [readyCamera, setReadyCamera] = useState<string | null>(null);
+  const [copyMessage, setCopyMessage] = useState("");
+  const [copyLink, setCopyLink] = useState("");
+  const copyAttempt = useRef(0);
+  const result = dismissedSequence === cameraNavigation.sequence ? noCameraNavigation.result : cameraNavigation.result;
+  const bookmark = result.kind === "valid" ? result.bookmark : null;
+  const mismatch = !!manifest && !!bookmark && bookmark.revision !== manifest.revision;
+  const invalidCity = !!bookmark && bookmark.city !== workspace.id;
+  const cameraKey = `${cameraNavigation.sequence}:${attempt}:${dismissedSequence === cameraNavigation.sequence ? "default" : "link"}`;
+  const blocked = result.kind === "invalid" || invalidCity || mismatch || failedCamera === cameraKey;
+  const cameraRequest = useMemo(() => {
+    if (blocked || !manifest) return undefined;
+    if (bookmark) return { sequence: cameraKey, pose: bookmark.pose };
+    // Initial ordinary entry keeps legacy framing. History/default navigation
+    // explicitly restores the city center, not a previously loaded tile extent.
+    if (cameraNavigation.sequence > 0 || dismissedSequence !== null) return { sequence: cameraKey,
+      pose: [center.longitude, center.latitude, 1600, 18, -45, 0] as CameraPose };
+    return undefined;
+  }, [blocked, manifest, cameraKey, bookmark, cameraNavigation.sequence, dismissedSequence, center]);
+  const gate = useRef({ blocked, sequence: cameraRequest?.sequence });
+  gate.current = { blocked, sequence: cameraRequest?.sequence };
+  const readySequence = useRef<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const { manualPaused, pageHidden, paused, setManualPaused } = useTileLoadingControl();
   const pausedRef = useRef(paused); pausedRef.current = paused;
@@ -43,7 +70,18 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
   const scene = useRef<CitySceneHandle>(null), stream = useRef<RenderTileStream | null>(null);
   const selectedRef = useRef(activeSelected); selectedRef.current = activeSelected;
   const view = useRef<RenderView>({ bounds: null, center });
-  useEffect(() => { stream.current?.setPaused(paused); }, [paused]);
+  useEffect(() => {
+    const session = stream.current;
+    if (!session) return;
+    const waiting = !!cameraRequest && readySequence.current !== cameraRequest.sequence;
+    session.setPaused(true);
+    if (!blocked && !waiting) { session.setView(view.current, selectedRef.current); session.setPaused(paused); }
+  }, [paused, blocked, cameraRequest?.sequence, manifest]);
+  useEffect(() => {
+    ++copyAttempt.current; setCopyMessage(""); setCopyLink("");
+    selectedRef.current = null; setSelected(null);
+  }, [cameraNavigation.sequence, attempt]);
+  useEffect(() => () => { ++copyAttempt.current; }, []);
   useEffect(() => {
     // Read-only requests are cancellable. Never lock workspace navigation or claim a draft.
     onWorkspaceState?.(workspace.id, false, false);
@@ -53,16 +91,19 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
     let active = true, session: RenderTileStream | null = null;
     setLoadingManifest(true); setError(""); setUnavailable(false); setManifest(null);
     setStreamState(emptyStream); setSelected(null); selectedRef.current = null;
+    readySequence.current = null; setReadyCamera(null); setFailedCamera(null);
     const timeout = setTimeout(() => controller.abort(), 20000);
     const base = (import.meta.env?.VITE_API_BASE_URL ?? "/api").replace(/\/$/, "");
     void loadRenderManifest(workspace.id, controller.signal, base).then(result => {
       if (!active) return;
       clearTimeout(timeout);
-      setManifest(result.manifest); setFreshness(result.freshness);
       session = new RenderTileStream(result.manifest, state => { if (active) setStreamState(state); }, { base });
       stream.current = session;
       // A newly checked manifest must not start tile reads behind a pause.
-      session.setPaused(pausedRef.current); session.setView(view.current);
+      // React applies the accepted navigation only after this verified manifest.
+      // In particular, never issue a center/all-tiles burst before restoring a link.
+      session.setPaused(true);
+      setFreshness(result.freshness); setManifest(result.manifest);
     }).catch(reason => {
       if (!active) return;
       setUnavailable(reason instanceof RenderPackageUnavailable);
@@ -70,18 +111,49 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
     }).finally(() => { clearTimeout(timeout); if (active) setLoadingManifest(false); });
     return () => { active = false; clearTimeout(timeout); controller.abort(); session?.dispose(); if (stream.current === session) stream.current = null; };
   }, [workspace.id, attempt]);
-  const onViewBounds = useCallback((next: RenderView) => {
-    view.current = next; stream.current?.setView(next, selectedRef.current);
+  const onViewBounds = useCallback((next: RenderView, sequence?: string) => {
+    const current = gate.current;
+    if (current.blocked || sequence !== current.sequence) return;
+    if (sequence && readySequence.current !== sequence && (!next.bounds || !next.bounds.every(Number.isFinite))) {
+      setFailedCamera(sequence); stream.current?.setPaused(true); return;
+    }
+    view.current = next;
+    readySequence.current = sequence ?? null; setReadyCamera(sequence ?? null);
+    stream.current?.setView(next, selectedRef.current);
+    stream.current?.setPaused(pausedRef.current);
   }, []);
   const onSelect = useCallback((id: string | null) => {
     // Ignore a scene/list callback for a building already evicted from this session.
     if (id !== null && !loadedIds.current.has(id)) return;
-    selectedRef.current = id; setSelected(id); stream.current?.setView(view.current, id);
+    selectedRef.current = id; setSelected(id);
+    if (!gate.current.blocked && (!gate.current.sequence || readySequence.current === gate.current.sequence)) stream.current?.setView(view.current, id);
   }, []);
   useEffect(() => { if (selected && !activeSelected) onSelect(null); }, [selected, activeSelected, onSelect]);
   const onFocus = useCallback((id: string) => {
     if (loadedIds.current.has(id)) scene.current?.focusBuilding(id);
   }, []);
+  const useCurrentDefault = () => {
+    setDismissedSequence(cameraNavigation.sequence); setFailedCamera(null);
+    readySequence.current = null; setReadyCamera(null);
+    onCameraBookmarkDismiss?.();
+  };
+  const copyCurrentView = async () => {
+    const token = ++copyAttempt.current;
+    setCopyMessage(""); setCopyLink("");
+    if (!manifest || blocked) return;
+    const pose = scene.current?.getCameraPose();
+    if (!pose) { setCopyMessage("当前视角没有有限的地球椭球视域，或相机超出链接范围；请调整相机后重试。"); return; }
+    try {
+      const link = cameraBookmarkUrl(window.location.href, { city: manifest.city_id as CityId, revision: manifest.revision, pose });
+      try {
+        if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
+        await navigator.clipboard.writeText(link);
+        if (copyAttempt.current === token) setCopyMessage("视角链接已复制");
+      } catch {
+        if (copyAttempt.current === token) { setCopyLink(link); setCopyMessage("无法自动复制，请选择下面的链接手动复制。"); }
+      }
+    } catch (reason) { if (copyAttempt.current === token) setCopyMessage(reason instanceof Error ? reason.message : "无法生成视角链接"); }
+  };
   const source = workspace.id === "bristol" ? "backend/data/bristol.gugis.json" : `backend/data/cities/${workspace.id}.gugis.json`;
   const attribution = manifest?.attribution;
   const sourceLink = safeLink(attribution?.license_url ?? "") ?? safeLink(attribution?.metadata.source_url ?? "");
@@ -90,6 +162,8 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
     <header className="tile-preview-heading">
       <div><strong>{workspace.name} · 只读分块浏览</strong><p>{workspace.coverage_label} · 当前视口按需读取，保留源几何</p></div>
       <div className="tile-preview-actions">
+        <button type="button" disabled={!manifest || blocked || (!!cameraRequest && readyCamera !== cameraRequest.sequence)}
+          onClick={() => void copyCurrentView()}>复制当前视角链接</button>
         {projection && <button type="button" onClick={() => scene.current?.reset()}>已加载范围</button>}
         {activeSelected && <button type="button" onClick={() => onSelect(null)}>取消建筑选择</button>}
         {manifest && <button type="button" aria-pressed={manualPaused} onClick={() => setManualPaused(value => !value)}>
@@ -98,6 +172,19 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
         <button type="button" disabled={loadingManifest} onClick={() => setAttempt(value => value + 1)}>重新检查渲染包</button>
       </div>
     </header>
+    <div className="tile-camera-share">
+    <p>视角链接只记录城市、来源修订与相机位置，不包含或分发城市数据。接收方须能访问此站点及匹配的渲染包；localhost 地址仅指接收方自己的电脑。</p>
+    {copyMessage && <p role="status">{copyMessage}</p>}
+    {copyLink && <label>手动复制视角链接 <input aria-label="手动复制视角链接" readOnly value={copyLink}
+      onFocus={event => event.currentTarget.select()} onClick={event => event.currentTarget.select()} /></label>}
+    </div>
+    {blocked && <div className="tile-preview-error" role="alert">
+      <p>{mismatch ? "视角链接的来源修订与当前渲染包不一致，未恢复旧视角。当前服务不提供按修订读取历史清单。"
+        : failedCamera === cameraKey ? "此视角在当前窗口没有有限的地球椭球视域，未开始读取瓦片。"
+        : "视角链接无效或不属于当前城市，未应用相机位置。"}</p>
+      {mismatch && <p>链接修订：{bookmark?.revision} · 当前修订：{manifest?.revision}</p>}
+      <button type="button" onClick={useCurrentDefault}>使用当前默认视角</button>
+    </div>}
     <div className="tile-preview-status" role="status" aria-live="polite">
       {loadingManifest ? "正在读取有界渲染清单…" : manifest ? <>
         已加载 {projection?.instances.length ?? 0} / {manifest.counts.buildings} 栋（跨瓦片去重），{streamState.tiles.length} / {manifest.counts.tiles} 瓦片
@@ -137,8 +224,8 @@ function TilePreviewSession({ workspace, onWorkspaceState }: CityTilePreviewProp
       {manifest && <LoadedBuildingInspector key={`${manifest.city_id}:${manifest.revision}:${attempt}`}
         buildings={buildings} manifest={manifest} selected={activeSelected} onSelect={onSelect} onFocus={onFocus} />}
       <div className="tile-preview-scene">
-        {projection ? <CityScene ref={scene} city={projection} center={center} selected={activeSelected} onSelect={onSelect}
-          context fullDetails={false} showGround={false} renderOnly onViewBounds={onViewBounds} /> : <p>几何将在渲染包验证通过后显示</p>}
+        {projection && !blocked ? <CityScene ref={scene} city={projection} center={center} selected={activeSelected} onSelect={onSelect}
+          context fullDetails={false} showGround={false} renderOnly onViewBounds={onViewBounds} cameraRequest={cameraRequest} /> : <p>{blocked ? "选择“使用当前默认视角”后显示当前渲染包。" : "几何将在渲染包验证通过后显示"}</p>}
       </div>
     </div>
   </section>;
