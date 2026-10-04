@@ -52,6 +52,7 @@ import {
 } from "./terrainScene";
 import { terrainLineColors, terrainTopologyPreview } from "./terrainTopology";
 import type { TerrainHit } from "./terrainMath";
+import { acceleratedTerrainSampler } from "./terrainRayIndex";
 import { chooseRenderBuildings, chooseRenderDetails, renderBudget } from "./renderBudget";
 import { createPathLocator, type AnalysisPoint, type PathAnalysis } from "./terrainAnalysis";
 
@@ -84,6 +85,7 @@ interface Props {
   terrainMeshes?: Partial<Record<TerrainPatch['kind'],SurfaceMesh>>;
   scenePurpose?: 'city' | 'research';
   queryTerrain?: boolean;
+  terrainRayIndexed?: boolean;
   onTerrainQuery?: (hit: TerrainHit | null) => void;
   onFeatureSelect?: (id: string) => void;
   selectedFeature?: string | null;
@@ -132,6 +134,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     terrainMeshes,
     scenePurpose = 'city',
     queryTerrain = false,
+    terrainRayIndexed = false,
     onTerrainQuery,
     onFeatureSelect,
     selectedFeature,
@@ -207,6 +210,10 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
   const features = city.environment?.features;
   const featureAssets = city.environment?.feature_assets;
   const sampler = useMemo(() => terrainSampler(terrain), [terrain]);
+  const raySampler = useMemo(() => terrainRayIndexed ? acceleratedTerrainSampler(terrain,'hierarchy') : sampler,
+    [sampler,terrain,terrainRayIndexed]);
+  const raySampleRef = useRef(raySampler);
+  raySampleRef.current = raySampler;
   const sampleRef = useRef(sampler);
   sampleRef.current = sampler;
   selection.current = selected;
@@ -223,7 +230,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
   function analysisPosition(point: Cartesian2): AnalysisPoint | null {
     const v = viewer.current;
     const ray = v?.camera.getPickRay(point);
-    const position = (ray && sampleRef.current?.ray(ray)?.position) ??
+    const position = (ray && raySampleRef.current?.ray(ray)?.position) ??
       v?.camera.pickEllipsoid(point, Ellipsoid.WGS84);
     if (!position) return null;
     const geographic = Cartographic.fromCartesian(position);
@@ -416,7 +423,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       }
       if (environmentClick.current.queryTerrain) {
         const ray = v.camera.getPickRay(e.position);
-        environmentClick.current.onTerrainQuery?.(ray ? sampleRef.current?.ray(ray)?.hit ?? null : null);
+        environmentClick.current.onTerrainQuery?.(ray ? raySampleRef.current?.ray(ray)?.hit ?? null : null);
         return;
       }
       const picked = v.scene.pick(e.position)?.id;

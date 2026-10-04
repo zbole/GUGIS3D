@@ -1,0 +1,570 @@
+{
+  "schema": "gugis-native-terrain-ray-audit-v1",
+  "generated_at": "2026-10-05",
+  "parents": {
+    "strip-compaction-benchmark.json": "09e6996419d1b7cb6f029eef0b39716a30ea6ee915b8f415248f4e14e106047b",
+    "raster-triangle-benchmark.json": "217cbb64dec6eb5350aaaf35ca6103c2c652f755252b84cc000648e698a45f41"
+  },
+  "sources": {
+    "hierarchy": "9df295f19d90fe9847d255f6499f99c8b44fd236ac5faa9d69e8f79a596b23b6",
+    "native_query": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+    "script": "b95d01e8e803aeaf603b29540ee4991218682f14e852eb3e27b1520d0beea7cb"
+  },
+  "runtime": {
+    "node": "v24.13.0",
+    "platform": "win32",
+    "cpu": "Intel(R) Core(TM) i7-14650HX",
+    "logical_cpus": 24,
+    "explicit_gc": true
+  },
+  "method": {
+    "samples": "1024 shared rays per terrain: 512 vertical, 256 oblique, 128 grid/boundary, 128 misses",
+    "timing": "Warm-up followed by 3 alternating query batches; median; GC, loading, hashing and equality audit excluded",
+    "equivalence": "Exact JS deep equality, including null/hit, patch ID, kind, height, slope, aspect, x/y and u/v; source order retained",
+    "build": "Additional hierarchy construction measured separately; amortization estimate is not interactive first-click latency",
+    "acceleration": "BVH boxes conservatively filter source cells; the frozen native solver selects the closest hit in original source order; more than 256 discovered candidates falls back to the original full scan",
+    "exclusions": "CPU native ray queries only; no GPU, browser FPS, ArcGIS run, DEM truth comparison or new height accuracy claim"
+  },
+  "records": [
+    {
+      "case_id": "steep-plane",
+      "case_name": "陡坡平面",
+      "target_m": 0.1,
+      "family": "compact_hybrid",
+      "filename": "compact-hybrid-0.1m.json",
+      "archive_sha256": "94897411e86f6bfa91f9bdd41e53cd628f1983a146cb3b7c9d71628b8f0acca8",
+      "archive_bytes": 752,
+      "fixture_sha256": "9ced2c279fa6e129973c5faeddad9dd38e7758b35ebb3b15623bb8c053beaacf",
+      "result_sha256": "55a1415090c58784edd0808914e3713c64d05f4f7ce67538989dcd35d18c6c2d",
+      "rays": 1024,
+      "hits": 869,
+      "fallbacks": 0,
+      "core_index_build_ms": 0.4946999999997388,
+      "hierarchy_extra_build_ms": 0.20109999999976935,
+      "linear_batch_median_ms": 3.6348000000002685,
+      "hierarchy_batch_median_ms": 9.163300000000163,
+      "query_only_ratio": 0.39666932218744383,
+      "approximate_build_break_even_rays": null,
+      "first_ray_estimate_ms": 0.2100485351560195,
+      "candidate_cells": {
+        "mean": 1.75,
+        "max": 2
+      },
+      "tested_boxes": {
+        "mean": 2.75,
+        "max": 3
+      },
+      "tree": {
+        "cells": 2,
+        "nodes": 1,
+        "leaves": 1,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "steep-plane",
+      "case_name": "陡坡平面",
+      "target_m": 0.1,
+      "family": "local_triangles",
+      "filename": "local-triangles-0.1m.json",
+      "archive_sha256": "4be40a1caebae9ff2bb6481d1e5ecd1fe81f61969731c60958635e0e4437b14d",
+      "archive_bytes": 752,
+      "fixture_sha256": "9ced2c279fa6e129973c5faeddad9dd38e7758b35ebb3b15623bb8c053beaacf",
+      "result_sha256": "1bca7de62f833c574e822634ce09450b7ff8d2f5bc33ec7b080744e09cc1d4fb",
+      "rays": 1024,
+      "hits": 869,
+      "fallbacks": 0,
+      "core_index_build_ms": 0.1430000000000291,
+      "hierarchy_extra_build_ms": 0.05819999999994252,
+      "linear_batch_median_ms": 3.1134000000001834,
+      "hierarchy_batch_median_ms": 8.286800000000312,
+      "query_only_ratio": 0.3757059419800244,
+      "approximate_build_break_even_rays": null,
+      "first_ray_estimate_ms": 0.06629257812494282,
+      "candidate_cells": {
+        "mean": 1.75,
+        "max": 2
+      },
+      "tested_boxes": {
+        "mean": 2.75,
+        "max": 3
+      },
+      "tree": {
+        "cells": 2,
+        "nodes": 1,
+        "leaves": 1,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "bilinear-saddle",
+      "case_name": "双线性鞍面",
+      "target_m": 0.1,
+      "family": "compact_hybrid",
+      "filename": "compact-hybrid-0.1m.json",
+      "archive_sha256": "3a7239245387d0e4b994b9c811ed59742bc97112e54d8a73f212ea4f629cacb0",
+      "archive_bytes": 765,
+      "fixture_sha256": "ec154478e335e38fcf0f5ab6d88c28a795165101452cc16cc49fe0ad8d4cd153",
+      "result_sha256": "950e2a344cd3e2781dbd128bc17875224065934ed16d166da54c3cdb269cfa48",
+      "rays": 1024,
+      "hits": 884,
+      "fallbacks": 0,
+      "core_index_build_ms": 0.3376000000002932,
+      "hierarchy_extra_build_ms": 0.04120000000011714,
+      "linear_batch_median_ms": 3.819799999999759,
+      "hierarchy_batch_median_ms": 8.00799999999981,
+      "query_only_ratio": 0.4769980019979832,
+      "approximate_build_break_even_rays": null,
+      "first_ray_estimate_ms": 0.04902031250011696,
+      "candidate_cells": {
+        "mean": 0.875,
+        "max": 1
+      },
+      "tested_boxes": {
+        "mean": 1.875,
+        "max": 2
+      },
+      "tree": {
+        "cells": 1,
+        "nodes": 1,
+        "leaves": 1,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "bilinear-saddle",
+      "case_name": "双线性鞍面",
+      "target_m": 0.1,
+      "family": "local_triangles",
+      "filename": "local-triangles-0.1m.json",
+      "archive_sha256": "866292dd5400338f58a0eac1fbdf5684e505b37c52396343d28b0ff26fe58dcd",
+      "archive_bytes": 30066,
+      "fixture_sha256": "ec154478e335e38fcf0f5ab6d88c28a795165101452cc16cc49fe0ad8d4cd153",
+      "result_sha256": "7b04047f37a215123ae370a011a71a97a7e2f91e06b089a2bf91deb52b440878",
+      "rays": 1024,
+      "hits": 884,
+      "fallbacks": 0,
+      "core_index_build_ms": 2.088799999999992,
+      "hierarchy_extra_build_ms": 5.628799999999956,
+      "linear_batch_median_ms": 12.519600000000082,
+      "hierarchy_batch_median_ms": 7.95699999999988,
+      "query_only_ratio": 1.5734070629634624,
+      "approximate_build_break_even_rays": 1264,
+      "first_ray_estimate_ms": 5.636570507812456,
+      "candidate_cells": {
+        "mean": 1.7861328125,
+        "max": 6
+      },
+      "tested_boxes": {
+        "mean": 20.5859375,
+        "max": 43
+      },
+      "tree": {
+        "cells": 1024,
+        "nodes": 255,
+        "leaves": 128,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "linear-flow",
+      "case_name": "长母线与弯曲边界",
+      "target_m": 0.1,
+      "family": "compact_hybrid",
+      "filename": "compact-hybrid-0.1m.json",
+      "archive_sha256": "dd57a850539f0ed32e66126b8fa1e62f5d48f79c9478dc398d59aa9a68c0b891",
+      "archive_bytes": 2809,
+      "fixture_sha256": "6542ad9cfa562bdc7cd66461efb16452c81dd44e8de45c7611bdd1cfa0353bb7",
+      "result_sha256": "d1b8fd24a39a43bfb24410345c50ea682112a27b6da3398bfbfbb2929fc9244e",
+      "rays": 1024,
+      "hits": 884,
+      "fallbacks": 0,
+      "core_index_build_ms": 0.10560000000032232,
+      "hierarchy_extra_build_ms": 0.15729999999985012,
+      "linear_batch_median_ms": 4.197999999999865,
+      "hierarchy_batch_median_ms": 6.839100000000144,
+      "query_only_ratio": 0.6138234563026973,
+      "approximate_build_break_even_rays": null,
+      "first_ray_estimate_ms": 0.16397880859360026,
+      "candidate_cells": {
+        "mean": 1.09765625,
+        "max": 5
+      },
+      "tested_boxes": {
+        "mean": 11.7265625,
+        "max": 23
+      },
+      "tree": {
+        "cells": 32,
+        "nodes": 7,
+        "leaves": 4,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "linear-flow",
+      "case_name": "长母线与弯曲边界",
+      "target_m": 0.1,
+      "family": "local_triangles",
+      "filename": "local-triangles-0.1m.json",
+      "archive_sha256": "9459381a2a433d325bed11ce9d5eb90e4523b1559a6535fbc2811938248b9bb1",
+      "archive_bytes": 43250,
+      "fixture_sha256": "6542ad9cfa562bdc7cd66461efb16452c81dd44e8de45c7611bdd1cfa0353bb7",
+      "result_sha256": "1089f8eca16b618aa20f506178085dfb54e78eb4108baeb43a9af4a4ada8b0b4",
+      "rays": 1024,
+      "hits": 884,
+      "fallbacks": 0,
+      "core_index_build_ms": 3.3036000000001877,
+      "hierarchy_extra_build_ms": 5.478499999999713,
+      "linear_batch_median_ms": 17.926100000000133,
+      "hierarchy_batch_median_ms": 7.506000000000313,
+      "query_only_ratio": 2.388236077804341,
+      "approximate_build_break_even_rays": 539,
+      "first_ray_estimate_ms": 5.485830078124713,
+      "candidate_cells": {
+        "mean": 1.783203125,
+        "max": 6
+      },
+      "tested_boxes": {
+        "mean": 20.57421875,
+        "max": 49
+      },
+      "tree": {
+        "cells": 1536,
+        "nodes": 511,
+        "leaves": 256,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "convex-bowl",
+      "case_name": "严格凸碗形",
+      "target_m": 0.1,
+      "family": "compact_hybrid",
+      "filename": "compact-hybrid-0.1m.json",
+      "archive_sha256": "b5a57cbe38c93a794f1d28927e81b8fd5e194021ee138fcf3b0b02fb267636c3",
+      "archive_bytes": 35211,
+      "fixture_sha256": "7ad35ad860a1ee5a809a19fdb8fc58fc15dc27832c4745640d81a1b7ce619227",
+      "result_sha256": "ca5401f769defc9f10735bf12bf9df8022c62d53706b55a98cc3803c746e6235",
+      "rays": 1024,
+      "hits": 893,
+      "fallbacks": 0,
+      "core_index_build_ms": 3.0637000000001535,
+      "hierarchy_extra_build_ms": 3.615600000000086,
+      "linear_batch_median_ms": 22.377100000000155,
+      "hierarchy_batch_median_ms": 7.579999999999927,
+      "query_only_ratio": 2.9521240105541384,
+      "approximate_build_break_even_rays": 251,
+      "first_ray_estimate_ms": 3.623002343750086,
+      "candidate_cells": {
+        "mean": 1.8203125,
+        "max": 6
+      },
+      "tested_boxes": {
+        "mean": 22.73046875,
+        "max": 51
+      },
+      "tree": {
+        "cells": 2048,
+        "nodes": 511,
+        "leaves": 256,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "convex-bowl",
+      "case_name": "严格凸碗形",
+      "target_m": 0.1,
+      "family": "local_triangles",
+      "filename": "local-triangles-0.1m.json",
+      "archive_sha256": "438511df273d6ce64c4e036cb9b31bf47f02fcc6449d2e08413afa493f43df50",
+      "archive_bytes": 43225,
+      "fixture_sha256": "7ad35ad860a1ee5a809a19fdb8fc58fc15dc27832c4745640d81a1b7ce619227",
+      "result_sha256": "16956627cc561fd95df134f8a4f2d5edb9ee1aedea62f579ac167a3101502e35",
+      "rays": 1024,
+      "hits": 893,
+      "fallbacks": 0,
+      "core_index_build_ms": 2.3015000000004875,
+      "hierarchy_extra_build_ms": 3.6138999999993757,
+      "linear_batch_median_ms": 20.570600000000013,
+      "hierarchy_batch_median_ms": 8.656700000000455,
+      "query_only_ratio": 2.376263472223703,
+      "approximate_build_break_even_rays": 311,
+      "first_ray_estimate_ms": 3.622353808593126,
+      "candidate_cells": {
+        "mean": 1.8271484375,
+        "max": 6
+      },
+      "tested_boxes": {
+        "mean": 20.892578125,
+        "max": 47
+      },
+      "tree": {
+        "cells": 1536,
+        "nodes": 511,
+        "leaves": 256,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "rotating-direction",
+      "case_name": "方向变化的四次曲面",
+      "target_m": 0.1,
+      "family": "compact_hybrid",
+      "filename": "compact-hybrid-0.1m.json",
+      "archive_sha256": "05378003baa5b03720d1df31a600d57589598f2c80c6a6ada91de0b87fbfae56",
+      "archive_bytes": 56929,
+      "fixture_sha256": "7ce0e43092b40ae5506a7dc3636e59a15cb7a9c0490da5884f312d4e65fbc7b5",
+      "result_sha256": "cd4e38bf965e0db23ea6c5e2a7418ff7381b49198bc37254d5b9e27863191653",
+      "rays": 1024,
+      "hits": 895,
+      "fallbacks": 0,
+      "core_index_build_ms": 4.52770000000055,
+      "hierarchy_extra_build_ms": 6.299600000000282,
+      "linear_batch_median_ms": 30.417599999999766,
+      "hierarchy_batch_median_ms": 8.10189999999966,
+      "query_only_ratio": 3.754378602550148,
+      "approximate_build_break_even_rays": 290,
+      "first_ray_estimate_ms": 6.307512011719032,
+      "candidate_cells": {
+        "mean": 1.533203125,
+        "max": 4
+      },
+      "tested_boxes": {
+        "mean": 26.0693359375,
+        "max": 54
+      },
+      "tree": {
+        "cells": 2420,
+        "nodes": 1023,
+        "leaves": 512,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "rotating-direction",
+      "case_name": "方向变化的四次曲面",
+      "target_m": 0.1,
+      "family": "local_triangles",
+      "filename": "local-triangles-0.1m.json",
+      "archive_sha256": "8bd7c089043cf5fee55bbebd9b963b062fc8832e87862108b98c33134cefbe72",
+      "archive_bytes": 113056,
+      "fixture_sha256": "7ce0e43092b40ae5506a7dc3636e59a15cb7a9c0490da5884f312d4e65fbc7b5",
+      "result_sha256": "76bd2fd8b0f729b93c20c03f485eabb18a8aa0da6d1b15d27b1e7c02fdf9d677",
+      "rays": 1024,
+      "hits": 895,
+      "fallbacks": 0,
+      "core_index_build_ms": 6.267100000000028,
+      "hierarchy_extra_build_ms": 11.48449999999957,
+      "linear_batch_median_ms": 41.90230000000065,
+      "hierarchy_batch_median_ms": 8.430299999999988,
+      "query_only_ratio": 4.9704399606183305,
+      "approximate_build_break_even_rays": 352,
+      "first_ray_estimate_ms": 11.49273271484332,
+      "candidate_cells": {
+        "mean": 2.0244140625,
+        "max": 7
+      },
+      "tested_boxes": {
+        "mean": 31.59375,
+        "max": 72
+      },
+      "tree": {
+        "cells": 3688,
+        "nodes": 1023,
+        "leaves": 512,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "sharp-ridge",
+      "case_name": "非光滑折脊",
+      "target_m": 0.1,
+      "family": "compact_hybrid",
+      "filename": "compact-hybrid-0.1m.json",
+      "archive_sha256": "b785ea0993ad6c5327fa0af3fd21e3837bb6bf921961de882aed609912cc860d",
+      "archive_bytes": 850,
+      "fixture_sha256": "6287db9397f7d4e8f34f70aa404b0c88dd301e7d4003cf278c3cad4b4163ba27",
+      "result_sha256": "a74dca7c38e80b3a7c4c5b6935f3f1e5a0b09bc76ade572402073a34d3339fc9",
+      "rays": 1024,
+      "hits": 893,
+      "fallbacks": 0,
+      "core_index_build_ms": 0.05370000000038999,
+      "hierarchy_extra_build_ms": 0.07629999999971915,
+      "linear_batch_median_ms": 2.7742000000007465,
+      "hierarchy_batch_median_ms": 7.534499999999753,
+      "query_only_ratio": 0.36819961510396676,
+      "approximate_build_break_even_rays": null,
+      "first_ray_estimate_ms": 0.0836579101559689,
+      "candidate_cells": {
+        "mean": 1.767578125,
+        "max": 4
+      },
+      "tested_boxes": {
+        "mean": 4.5,
+        "max": 5
+      },
+      "tree": {
+        "cells": 4,
+        "nodes": 1,
+        "leaves": 1,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "sharp-ridge",
+      "case_name": "非光滑折脊",
+      "target_m": 0.1,
+      "family": "local_triangles",
+      "filename": "local-triangles-0.1m.json",
+      "archive_sha256": "23cb9d3f3428462b80d36f39a7b47ebd7155f6a4b1c7aa63a927018c4244c5fb",
+      "archive_bytes": 869,
+      "fixture_sha256": "6287db9397f7d4e8f34f70aa404b0c88dd301e7d4003cf278c3cad4b4163ba27",
+      "result_sha256": "c94df27c767a2ec2c12441e5d5516e2633efc0f5888c941bcbffa5071602058a",
+      "rays": 1024,
+      "hits": 893,
+      "fallbacks": 0,
+      "core_index_build_ms": 0.0522000000000844,
+      "hierarchy_extra_build_ms": 0.025399999999535794,
+      "linear_batch_median_ms": 3.068000000000211,
+      "hierarchy_batch_median_ms": 7.268900000000031,
+      "query_only_ratio": 0.4220721154507832,
+      "approximate_build_break_even_rays": null,
+      "first_ray_estimate_ms": 0.032498535155785824,
+      "candidate_cells": {
+        "mean": 1.7685546875,
+        "max": 4
+      },
+      "tested_boxes": {
+        "mean": 6.25,
+        "max": 7
+      },
+      "tree": {
+        "cells": 6,
+        "nodes": 1,
+        "leaves": 1,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "swiss-dem-crop",
+      "case_name": "瑞士真实 DEM 局部",
+      "target_m": 0.1,
+      "family": "hybrid",
+      "filename": "raster-hybrid-0.1m.json",
+      "archive_sha256": "85a266e13df8f37fec2ff01413c7d1c68cb6f7b4a6dbcb6c708dc9a2ab7fea27",
+      "archive_bytes": 1578686,
+      "fixture_sha256": "5fcab320282fa2e16c815749858dfdcd05fe66d98799059c3efc9c9e745ad34b",
+      "result_sha256": "9f4fa6b26c3cfe7d3effa50559f5afbae21c7977a5788fe99fcc31f446757c37",
+      "rays": 1024,
+      "hits": 885,
+      "fallbacks": 0,
+      "core_index_build_ms": 43.5059999999994,
+      "hierarchy_extra_build_ms": 82.8734999999997,
+      "linear_batch_median_ms": 339.72530000000006,
+      "hierarchy_batch_median_ms": 8.77140000000054,
+      "query_only_ratio": 38.73102355382027,
+      "approximate_build_break_even_rays": 257,
+      "first_ray_estimate_ms": 82.88206582031219,
+      "candidate_cells": {
+        "mean": 1.77734375,
+        "max": 6
+      },
+      "tested_boxes": {
+        "mean": 29.9853515625,
+        "max": 69
+      },
+      "tree": {
+        "cells": 32762,
+        "nodes": 8191,
+        "leaves": 4096,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "swiss-dem-crop",
+      "case_name": "瑞士真实 DEM 局部",
+      "target_m": 0.1,
+      "family": "compact_hybrid",
+      "filename": "raster-compact-hybrid-0.1m.json",
+      "archive_sha256": "61992ac6bbb11fb0a991a99b6411ba517389f5c8de77dbd0ddf52173b3723b54",
+      "archive_bytes": 589617,
+      "fixture_sha256": "5fcab320282fa2e16c815749858dfdcd05fe66d98799059c3efc9c9e745ad34b",
+      "result_sha256": "2c3738a4b98b551c5b1bc276751590dd5675954956ba0ac3238d47dfbeb2c80d",
+      "rays": 1024,
+      "hits": 885,
+      "fallbacks": 0,
+      "core_index_build_ms": 41.83460000000014,
+      "hierarchy_extra_build_ms": 85.83460000000014,
+      "linear_batch_median_ms": 308.2586000000001,
+      "hierarchy_batch_median_ms": 9.451000000000931,
+      "query_only_ratio": 32.61650618981798,
+      "approximate_build_break_even_rays": 295,
+      "first_ray_estimate_ms": 85.84382949218764,
+      "candidate_cells": {
+        "mean": 1.77734375,
+        "max": 6
+      },
+      "tested_boxes": {
+        "mean": 30.5048828125,
+        "max": 73
+      },
+      "tree": {
+        "cells": 32762,
+        "nodes": 8191,
+        "leaves": 4096,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    },
+    {
+      "case_id": "swiss-dem-crop",
+      "case_name": "瑞士真实 DEM 局部",
+      "target_m": 0.1,
+      "family": "local_triangles",
+      "filename": "raster-local-triangles-0.1m.json",
+      "archive_sha256": "604fafd6ae3d325e793a2ecb45af84d2f761eb60e292e6cf476015afa386d10d",
+      "archive_bytes": 297752,
+      "fixture_sha256": "5fcab320282fa2e16c815749858dfdcd05fe66d98799059c3efc9c9e745ad34b",
+      "result_sha256": "c35165b7eeb931c20d2b9bd8462c2d807e4302f6210293d084147c6dc58d7498",
+      "rays": 1024,
+      "hits": 885,
+      "fallbacks": 0,
+      "core_index_build_ms": 14.819999999999709,
+      "hierarchy_extra_build_ms": 32.544200000000274,
+      "linear_batch_median_ms": 107.11310000000049,
+      "hierarchy_batch_median_ms": 8.519200000000637,
+      "query_only_ratio": 12.573140670484609,
+      "approximate_build_break_even_rays": 339,
+      "first_ray_estimate_ms": 32.552519531250276,
+      "candidate_cells": {
+        "mean": 1.7802734375,
+        "max": 6
+      },
+      "tested_boxes": {
+        "mean": 33.1064453125,
+        "max": 78
+      },
+      "tree": {
+        "cells": 9920,
+        "nodes": 4095,
+        "leaves": 2048,
+        "leafSize": 8,
+        "maxSubsetCells": 256
+      }
+    }
+  ]
+}
