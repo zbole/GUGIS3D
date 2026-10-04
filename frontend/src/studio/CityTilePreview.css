@@ -30,13 +30,21 @@
 .city-tile-preview button:disabled { opacity: .5; cursor: wait; }
 .tile-preview-status { padding: 12px 22px; background: #edf5f7; border-bottom: 1px solid #dce8ed; font-size: 12px; line-height: 1.8; }
 .tile-loaded-count { font-weight: 650; color: #214e5d; }
+.tile-load-state { display: flex; align-items: center; gap: 7px; margin-bottom: 3px; color: #267267; }
+.tile-load-state strong { font-weight: 600; }
+.tile-load-state svg { flex-shrink: 0; }
+.tile-load-state[data-state="loading"] svg { animation: tile-load-spin 1.2s linear infinite; }
+.tile-load-state[data-state="paused"], .tile-load-state[data-state="failed"], .tile-load-state[data-state="budget"], .tile-load-state[data-state="blocked"] { color: #815123; }
+.tile-load-state[data-state="outside"], .tile-load-state[data-state="empty"] { color: #627984; }
+@keyframes tile-load-spin { to { transform: rotate(360deg); } }
 .tile-preview-status > strong { font-weight: 500; color: #58747e; }
 .tile-preview-status > .tile-budget-note { color: #8a662f; }
 .tile-loading-details { margin-top: 5px; color: #5e7682; font-size: 11px; }
 .tile-loading-details summary { cursor: pointer; }
 .tile-loading-details[open] { padding-bottom: 3px; }
 .tile-preview-status small { display: block; }
-.city-tile-preview .tile-camera-share { min-width: 0; padding: 8px 18px 12px; font-size: 12px; line-height: 1.55; }
+.city-tile-preview .tile-camera-share { position: relative; min-width: 0; padding: 12px 58px 12px 22px; background: #f4faf8; border-bottom: 1px solid #dceae4; font-size: 12px; line-height: 1.55; }
+.city-tile-preview .tile-camera-share .tile-share-dismiss { position: absolute; right: 16px; top: 6px; display: grid; place-items: center; padding: 8px; }
 .city-tile-preview .tile-camera-share p { margin: 0 0 6px; }
 .city-tile-preview .tile-camera-share label { display: block; margin-top: 8px; font-weight: 600; }
 .city-tile-preview .tile-camera-share input { display: block; box-sizing: border-box; width: 100%; max-width: 72rem; min-width: 0; margin-top: 5px; padding: 8px; border: 1px solid #9aafa2; border-radius: 5px; color: #263c35; background: #fff; font: 12px/1.5 monospace; }
@@ -52,6 +60,11 @@
 .tile-preview-content { display: flex; flex: none; height: clamp(500px, 65dvh, 900px); min-height: 500px; }
 .tile-preview-scene { position: relative; flex: 1 1 0; min-width: 0; min-height: 400px; }
 .tile-preview-scene > p { padding: 20px; }
+.tile-scene-empty { position: absolute; z-index: 1; left: 50%; top: 50%; transform: translate(-50%, -50%); box-sizing: border-box; width: min(350px, calc(100% - 32px)); padding: 24px; background: #fffffff2; border: 1px solid #dce8ed; border-radius: 14px; box-shadow: 0 12px 36px #28485812; text-align: center; color: #526f7c; }
+.tile-scene-empty > svg { display: block; margin: 0 auto 12px; color: #608a91; }
+.tile-scene-empty strong { font-size: 15px; color: #244857; }
+.tile-scene-empty p { font-size: 12px; line-height: 1.7; margin: 10px 0 16px; }
+.tile-scene-empty button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
 .tile-building-inspector { box-sizing: border-box; flex: 0 0 320px; width: 320px; max-height: 100%; overflow: auto; padding: 20px 18px; border-right: 1px solid #dfe7ec; background: #fff; font-size: 12px; line-height: 1.6; }
 .tile-building-inspector[hidden] { display: none; }
 .is-map-focused .tile-preview-content { height: clamp(500px, 75dvh, 900px); }
@@ -106,7 +119,7 @@
   .tile-preview-scene { order: 1; flex: none; height: clamp(320px, 58dvh, 520px); }
 }
 @media (min-width: 701px) and (max-width: 1100px) { .tile-preview-heading { flex-direction: column; align-items: stretch; gap: 12px; } .tile-preview-heading p { display: none; } .tile-preview-actions { justify-content: flex-start; } }
-@media (prefers-reduced-motion: reduce) { .city-tile-preview button { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .city-tile-preview button { transition: none; } .tile-load-state[data-state="loading"] svg { animation: none; } }
 /* Direct tile entry must not depend on the lazy editor's studio.css chunk. */
 .tile-preview-scene .building-scene, .tile-preview-scene .scene-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .tile-preview-scene .camera-distance { position: absolute; right: 12px; top: 12px; padding: 5px 8px; background: #ffffffe6; font-size: 11px; pointer-events: none; }

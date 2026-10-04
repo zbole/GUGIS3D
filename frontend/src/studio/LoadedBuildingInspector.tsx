@@ -10,10 +10,11 @@ interface Props {
   onFocus: (id: string) => void;
   hidden?: boolean;
   panelId?: string;
+  emptyHint?: string;
 }
 
 /** A read-only view over active tiles, with a hard DOM row limit. */
-export default function LoadedBuildingInspector({ buildings, manifest, selected, onSelect, onFocus, hidden = false, panelId }: Props) {
+export default function LoadedBuildingInspector({ buildings, manifest, selected, onSelect, onFocus, hidden = false, panelId, emptyHint }: Props) {
   const id = useId();
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
@@ -44,7 +45,7 @@ export default function LoadedBuildingInspector({ buildings, manifest, selected,
         </button>
       </li>)}
     </ul>
-    {!results.matched && <p className="tile-building-empty">{buildings.length ? "当前已加载建筑中没有匹配项；未加载区域尚未搜索。" : "当前没有已加载建筑。请等待瓦片读取，或移动视口。"}</p>}
+    {!results.matched && <p className="tile-building-empty">{buildings.length ? "当前已加载建筑中没有匹配项；未加载区域尚未搜索。" : emptyHint ?? "当前没有已加载建筑。请等待瓦片读取，或移动视口。"}</p>}
     {results.pages > 1 && <nav className="tile-building-pages" aria-label="已加载建筑分页">
       <button type="button" disabled={results.page === 0} onClick={() => setPage(results.page - 1)}>上一页</button>
       <span>第 {results.page + 1} / {results.pages} 页</span>

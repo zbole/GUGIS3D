@@ -157,6 +157,8 @@ test("streamed geometry uses render-only reads, preserves camera and selection, 
   assert.equal(f.viewers.length, 0, "no scene exists before the manifest has been verified");
   await f.manifest(pkg);
   assert.equal(f.requests.length, 3);
+  assert.match(f.status, /正在读取 · 已就绪 0 \/ 2 个目标瓦片/);
+  assert.doesNotMatch(f.status, /当前读取目标已就绪/);
   assert.match(f.content, /新鲜度未知：可能已过期/);
   assert.match(f.content, /局部加载，并非完整覆盖/);
   assert.match(f.content, /道路、地形、功能要素和语义均未包含/);
@@ -172,11 +174,13 @@ test("streamed geometry uses render-only reads, preserves camera and selection, 
   const viewer = f.viewer, flights = viewer.camera.flights.length;
   assert.equal(viewer.entities.getById("city-ground-plane").show, false, "a missing terrain layer must not be replaced by visible synthetic ground");
   await f.tile(pkg, "x0_y0", 1);
+  assert.match(f.status, /正在读取 · 已就绪 1 \/ 2 个目标瓦片/);
   assert.ok(geometryIds(viewer).includes("bristol-building-0/wall"));
   viewer.picked = { id: "bristol-building-0/wall" };
   act(() => viewState.handlers.at(-1).actions.get(ScreenSpaceEventType.LEFT_CLICK)({ position: {} }));
   assert.ok(f.content.includes("取消建筑选择"));
   await f.tile(pkg, "x1_y0", 2);
+  assert.match(f.status, /当前读取目标已就绪/);
   assert.equal(f.viewer, viewer, "streaming retains the viewer");
   assert.equal(viewer.camera.flights.length, flights, "neither selection nor arriving geometry reframes the camera");
   assert.ok(f.content.includes("取消建筑选择"), "selection survives streamed geometry");
@@ -300,11 +304,15 @@ test("failed tiles expose a targeted retry that preserves successful geometry an
   await f.respond(failed, new Response("Service unavailable", { status: 503 }));
   assert.match(f.content, /1 个瓦片未加载；画面仍不完整/);
   assert.match(f.content, /瓦片读取失败（503）/);
+  assert.match(f.status, /读取未完成 · 1 个目标瓦片失败/);
+  assert.doesNotMatch(f.status, /当前读取目标已就绪/);
   const viewer = f.viewer, flights = viewer.camera.flights.length;
   f.click("重试失败瓦片");
+  assert.match(f.status, /正在读取 · 已就绪 1 \/ 2 个目标瓦片/);
   assert.equal(f.requests.length, 4);
   assert.equal(f.requests.at(-1).url, failed.url);
   await f.tile(pkg, "x1_y0", 2);
+  assert.match(f.status, /当前读取目标已就绪/);
   assert.doesNotMatch(f.content, /瓦片未加载/);
   assert.equal(f.requests.filter(request => request.url.endsWith("/manifest")).length, 1);
   assert.equal(f.viewer, viewer);
@@ -452,6 +460,44 @@ const cameraNavigation = (sequence = 1, city = "bristol", expectedRevision = rev
 const footprint = (viewer, index = 1) => { viewer.camera.computeViewRectangle = () => Rectangle.fromDegrees(
   -2.603 + index * .004 - .0002, 51.4538, -2.603 + index * .004 + .0002, 51.4542); };
 
+test("an empty viewport explains its scope and can return to the sample repeatedly without recreating the viewer or manifest", async t => {
+  const f = fixture(t), pkg = renderPackage("bristol", { tiles: 1 });
+  await f.manifest(pkg); await f.tile(pkg, "x0_y0", 1);
+  const viewer = f.viewer, frames = viewer.camera.frames.length;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    viewer.camera.computeViewRectangle = () => Rectangle.fromDegrees(10, 10, 11, 11);
+    act(() => viewer.camera.moveEnd.raiseEvent());
+    await until(() => f.status.includes("当前视口未覆盖样本建筑"), "outside sample is explicit");
+    assert.deepEqual(geometryIds(viewer), []);
+    assert.match(f.content, /数据仍然保留；返回样本范围后/);
+    assert.match(f.content, /此视口没有样本建筑，可用场景中的/);
+    assert.ok(f.root.findAllByType("button").find(button => text(button) === "已加载范围").props.disabled);
+    assert.doesNotMatch(f.status, /当前读取目标已就绪/);
+    footprint(viewer, 0);
+    f.click("定位样本范围");
+    assert.match(f.status, /正在定位视角/);
+    await until(() => f.status.includes("当前读取目标已就绪"), "explicit return accepts the new actual viewport");
+    assert.equal(viewer.camera.frames.length, frames + attempt + 1);
+    assert.deepEqual(geometryIds(viewer), ["bristol-building-0/wall"]);
+    assert.equal(f.viewer, viewer);
+  }
+  assert.equal(f.requests.length, 2, "cached sample is reused; no extra manifest or tile requests");
+  f.assertReadOnly();
+});
+
+test("an empty verified package is distinguished from an outside-sample viewport without offering a useless camera action", async t => {
+  const f = fixture(t), pkg = renderPackage("bristol", { tiles: 0, warnings: [] });
+  pkg.manifest.counts.assets = 0;
+  await f.manifest(pkg);
+  assert.match(f.status, /此渲染包没有建筑瓦片/);
+  assert.doesNotMatch(f.status, /当前读取目标已就绪|当前视口未覆盖样本建筑/);
+  assert.match(f.content, /清单已核验，但不包含可显示的建筑几何/);
+  assert.match(f.content, /已核验的渲染包不含建筑瓦片/);
+  assert.ok(!f.root.findAllByType("button").some(button => text(button) === "定位样本范围"));
+  assert.equal(f.requests.length, 1);
+  f.assertReadOnly();
+});
+
 test("initial bookmarked entry restores before the first tile request and uses the receiver viewport", async t => {
   const f = fixture(t, "bristol", cameraNavigation()), pkg = renderPackage("bristol", { tiles: 3 });
   await f.manifest(pkg);
@@ -578,10 +624,16 @@ test("copy validates the current camera, sanitizes URLs, and exposes a selectabl
   assert.doesNotMatch(copied, /private|secret|pause|unrelated|tile_profile|activeBytes|economy/);
   assert.match(f.content, /接收方使用自己明确选择或默认的读取配置/);
   assert.equal(f.requests.length, count, "copying performs no data requests");
+  act(() => f.root.findByProps({ "aria-label": "关闭视角分享提示" }).props.onClick());
+  assert.equal(f.root.findAllByProps({ className: "tile-camera-share" }).length, 0);
+  assert.equal(f.root.findAllByProps({ "aria-label": "手动复制视角链接" }).length, 0);
   navigator.clipboard.writeText = async value => { copied = value; };
   f.click("复制当前视角链接");
   await until(() => f.content.includes("视角链接已复制"), "clipboard success is reported");
   assert.equal(f.root.findAllByProps({ "aria-label": "手动复制视角链接" }).length, 0);
+  act(() => f.root.findByProps({ "aria-label": "关闭视角分享提示" }).props.onClick());
+  assert.doesNotMatch(f.content, /视角链接已复制/);
+  assert.equal(f.requests.length, count, "dismissing the notice is local only");
   f.assertReadOnly();
 });
 
@@ -622,7 +674,7 @@ test("restoring another camera clears the local selection pin rather than serial
 
 test("share-copy controls own their spacing, responsive field width and keyboard focus styles", async () => {
   const css = await readFile(new URL("../src/studio/CityTilePreview.css", import.meta.url), "utf8");
-  assert.match(css, /\.city-tile-preview \.tile-camera-share \{[^}]*padding: 8px 18px 12px/);
+  assert.match(css, /\.city-tile-preview \.tile-camera-share \{[^}]*padding:\s*[1-9]\d*px/);
   assert.match(css, /\.city-tile-preview \.tile-camera-share input \{[^}]*width: 100%;[^}]*max-width: 72rem/);
   assert.match(css, /\.city-tile-preview \.tile-camera-share input:focus-visible \{[^}]*outline: 3px solid/);
 });
@@ -729,6 +781,8 @@ test("a source tile above the economy byte limit stays unrequested with an hones
   assert.equal(f.requests.length, 1); assert.match(f.status, /已加载 0 \/ 1/);
   assert.match(f.content, /1 个源瓦片超过当前 2.00 MiB 单瓦片预算，不会请求或截断其几何/);
   assert.match(f.content, /返回城市选择页，选择均衡配置，或离线生成更小瓦片/);
+  assert.match(f.status, /当前视口瓦片超出读取预算/);
+  assert.doesNotMatch(f.status, /当前读取目标已就绪/);
   f.click("暂停瓦片读取"); f.click("恢复瓦片读取");
   assert.equal(f.requests.length, 1, "pause/resume never raises the selected budget");
   f.profile("balanced"); await f.manifest(pkg);

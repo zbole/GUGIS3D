@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import { PanelLeftClose, PanelLeftOpen, LocateFixed, Link2, Pause, Play, RefreshCw } from "lucide-react";
+import { PanelLeftClose, PanelLeftOpen, LocateFixed, Link2, Pause, Play, RefreshCw, LoaderCircle, CheckCircle2, MapPin, TriangleAlert, X } from "lucide-react";
 import { cameraBookmarkUrl, noCameraNavigation, type CameraBookmark, type CameraNavigation } from "./cameraBookmark";
 import { defaultCameraTarget } from "./cameraFraming";
 import CityScene, { type CitySceneHandle, type CameraViewRequest } from "./CityScene";
@@ -43,6 +43,7 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
   const [loadingManifest, setLoadingManifest] = useState(true);
   const [attempt, setAttempt] = useState(0);
   const [dismissedSequence, setDismissedSequence] = useState<number | null>(null);
+  const [defaultViewAttempt, setDefaultViewAttempt] = useState(0);
   const [failedCamera, setFailedCamera] = useState<string | null>(null);
   const [readyCamera, setReadyCamera] = useState<string | null>(null);
   const [copyMessage, setCopyMessage] = useState("");
@@ -52,17 +53,17 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
   const bookmark = result.kind === "valid" ? result.bookmark : null;
   const mismatch = !!manifest && !!bookmark && bookmark.revision !== manifest.revision;
   const invalidCity = !!bookmark && bookmark.city !== workspace.id;
-  const cameraKey = `${cameraNavigation.sequence}:${attempt}:${dismissedSequence === cameraNavigation.sequence ? "default" : "link"}`;
+  const cameraKey = `${cameraNavigation.sequence}:${attempt}:${defaultViewAttempt}:${dismissedSequence === cameraNavigation.sequence ? "default" : "link"}`;
   const blocked = result.kind === "invalid" || invalidCity || mismatch || failedCamera === cameraKey;
   const cameraRequest = useMemo<CameraViewRequest | undefined>(() => {
     if (blocked || !manifest) return undefined;
     if (bookmark) return { sequence: cameraKey, pose: bookmark.pose };
     // Default navigation aims at the verified sample footprint. A camera placed
     // above its center with an oblique pitch would look past the sample.
-    if (cameraNavigation.sequence > 0 || dismissedSequence !== null) return { sequence: cameraKey,
+    if (cameraNavigation.sequence > 0 || dismissedSequence !== null || defaultViewAttempt > 0) return { sequence: cameraKey,
       target: defaultCameraTarget(manifest.bounds_wgs84, center) };
     return undefined;
-  }, [blocked, manifest, cameraKey, bookmark, cameraNavigation.sequence, dismissedSequence, center]);
+  }, [blocked, manifest, cameraKey, bookmark, cameraNavigation.sequence, dismissedSequence, defaultViewAttempt, center]);
   const gate = useRef({ blocked, sequence: cameraRequest?.sequence });
   gate.current = { blocked, sequence: cameraRequest?.sequence };
   const readySequence = useRef<string | null>(null);
@@ -164,6 +165,7 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
   const useCurrentDefault = () => {
     if (!sessionActive.current) return;
     setDismissedSequence(cameraNavigation.sequence); setFailedCamera(null);
+    setDefaultViewAttempt(value => value + 1);
     readySequence.current = null; setReadyCamera(null);
     onCameraBookmarkDismiss?.();
   };
@@ -196,6 +198,25 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
   const creditHasLicense = !!attribution?.license && (attribution.source ?? "").includes(attribution.license);
   const oversizedTiles = manifest?.tiles.filter(tile => tile.byte_length > budget.activeBytes).length ?? 0;
   const partial = !!manifest && (streamState.tiles.length < manifest.counts.tiles || (projection?.instances.length ?? 0) < manifest.counts.buildings);
+  const cameraWaiting = !!cameraRequest && readyCamera !== cameraRequest.sequence;
+  // This describes the current bounded read plan, never full-city completion.
+  const loadState = blocked ? { kind: "blocked", title: "视角尚未恢复", icon: TriangleAlert }
+    : loadingManifest ? { kind: "loading", title: "正在读取有界渲染清单…", icon: LoaderCircle }
+    : error ? { kind: "failed", title: "渲染清单读取失败，请查看下方说明", icon: TriangleAlert }
+    : paused ? { kind: "paused", title: pageHidden ? "页面已隐藏，自动暂停瓦片读取" : "已暂停瓦片读取，保持已加载画面", icon: Pause }
+    : cameraWaiting ? { kind: "loading", title: "正在定位视角，确认后读取瓦片…", icon: LoaderCircle }
+    : streamState.loading > 0 ? { kind: "loading", title: `正在读取 · 已就绪 ${streamState.tiles.length} / ${streamState.wanted} 个目标瓦片`, icon: LoaderCircle }
+    : streamState.failures.length > 0 ? { kind: "failed", title: `读取未完成 · ${streamState.failures.length} 个目标瓦片失败，可在下方重试`, icon: TriangleAlert }
+    : manifest?.counts.tiles === 0 ? { kind: "empty", title: "此渲染包没有建筑瓦片", icon: MapPin }
+    : manifest && streamState.candidates === 0 ? { kind: "outside", title: "当前视口未覆盖样本建筑", icon: MapPin }
+    : manifest && streamState.wanted === 0 ? { kind: "budget", title: "当前视口瓦片超出读取预算", icon: TriangleAlert }
+    : { kind: "ready", title: "当前读取目标已就绪", icon: CheckCircle2 };
+  const LoadIcon = loadState.icon;
+  const emptyHint = loadState.kind === "outside" ? "此视口没有样本建筑，可用场景中的“定位样本范围”返回。"
+    : loadState.kind === "budget" ? "此视口瓦片超出当前预算，请更换读取配置或检查离线瓦片。"
+    : loadState.kind === "paused" ? "瓦片读取已暂停，请恢复读取后再查询。"
+    : loadState.kind === "failed" ? "瓦片读取未完成，请在错误提示处重试。"
+    : loadState.kind === "empty" ? "已核验的渲染包不含建筑瓦片。" : undefined;
   return <section className={`city-tile-preview${inspectorOpen ? "" : " is-map-focused"}`} aria-label={`${workspace.name}只读分块浏览`}>
     <header className="tile-preview-heading">
       <div className="tile-preview-title"><span>GUGIS3D / CITY EXPLORER</span><strong>{workspace.name} · 只读分块浏览</strong><p>{workspace.coverage_label} · 当前视口按需读取，保留源几何</p></div>
@@ -205,7 +226,7 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
           onChange={event => changeProfile(normalizeTileLoadingProfile(event.target.value))}>
           <option value="economy">低资源 · 2 瓦片</option><option value="balanced">均衡 · 8 瓦片</option>
         </select></label>}
-        {projection && <button type="button" className="tile-fit-action" onClick={() => scene.current?.reset()}><LocateFixed size={15} aria-hidden="true" />已加载范围</button>}
+        {projection && <button type="button" className="tile-fit-action" disabled={!projection.instances.length || blocked || cameraWaiting} onClick={() => scene.current?.reset()}><LocateFixed size={15} aria-hidden="true" />已加载范围</button>}
         {manifest && <button type="button" aria-expanded={inspectorOpen} aria-controls={inspectorId}
           onClick={() => setInspectorOpen(value => !value)}>
           {inspectorOpen ? <PanelLeftClose size={15} aria-hidden="true" /> : <PanelLeftOpen size={15} aria-hidden="true" />}
@@ -232,6 +253,9 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
       </div>
     </header>
     {(copyMessage || copyLink) && <div className="tile-camera-share">
+    <button type="button" className="tile-share-dismiss" aria-label="关闭视角分享提示" onClick={() => {
+      ++copyAttempt.current; setCopyMessage(""); setCopyLink("");
+    }}><X size={15} aria-hidden="true" /></button>
     {copyMessage && <p role="status">{copyMessage}</p>}
     {copyLink && <label>手动复制视角链接 <input aria-label="手动复制视角链接" readOnly value={copyLink}
       onFocus={event => event.currentTarget.select()} onClick={event => event.currentTarget.select()} /></label>}
@@ -243,10 +267,12 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
       {mismatch && <p>链接修订：{bookmark?.revision} · 当前修订：{manifest?.revision}</p>}
       <button type="button" onClick={useCurrentDefault}>使用当前默认视角</button>
     </div>}
-    <div className="tile-preview-status" role="status" aria-live="polite">
-      {loadingManifest ? "正在读取有界渲染清单…" : manifest ? <>
+    <div className="tile-preview-status">
+      <div className="tile-load-state" data-state={loadState.kind} role="status" aria-live="polite" aria-atomic="true">
+        <LoadIcon size={15} aria-hidden="true" /><strong>{loadState.title}</strong>
+      </div>
+      {!loadingManifest && manifest ? <>
         <span className="tile-loaded-count">已加载 {projection?.instances.length ?? 0} / {manifest.counts.buildings} 栋（跨瓦片去重），{streamState.tiles.length} / {manifest.counts.tiles} 瓦片</span>
-        {paused && <strong> · {pageHidden ? "页面已隐藏，自动暂停瓦片读取" : "已暂停瓦片读取，保持已加载画面"}</strong>}
         {partial && <strong> · 局部加载，并非完整覆盖</strong>}
         {streamState.omitted > 0 && <strong className="tile-budget-note"> · 预算暂缓 {streamState.omitted} 瓦片，缩小视口或移动相机继续读取</strong>}
         <details className="tile-loading-details"><summary>加载明细与预算 · {tileProfile === "economy" ? "低资源" : "均衡"} · 驻留 ≤ {budget.activeTiles} 瓦片</summary>
@@ -256,7 +282,7 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
         </details>
         {oversizedTiles > 0 && <small className="tile-oversize-warning">此渲染包有 {oversizedTiles} 个源瓦片超过当前 {megabytes(budget.activeBytes)} MiB 单瓦片预算，不会请求或截断其几何。
           {tileProfile === "economy" ? onTileProfileChange ? "可在当前页面选择均衡配置，或离线生成更小瓦片。" : "请返回城市选择页，选择均衡配置，或离线生成更小瓦片。" : "请离线生成更小瓦片；不会自动扩大预算。"}</small>}
-      </> : "尚未加载几何"}
+      </> : !loadingManifest && <small>尚未加载几何</small>}
     </div>
     {error && <div className="tile-preview-error" role="alert"><strong>{error}</strong>
       {unavailable && <><p>需先在本机仓库离线构建此城市的渲染包，然后重试。不会自动生成、初始化或替换正式城市。</p>
@@ -287,10 +313,18 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
     </details></>}
     <div className="tile-preview-content">
       {manifest && <LoadedBuildingInspector key={`${manifest.city_id}:${manifest.revision}:${attempt}`}
-        buildings={buildings} manifest={manifest} selected={activeSelected} onSelect={onSelect} onFocus={onFocus} hidden={!inspectorOpen} panelId={inspectorId} />}
-      <div className="tile-preview-scene" ref={sceneContainer}>
+        buildings={buildings} manifest={manifest} selected={activeSelected} onSelect={onSelect} onFocus={onFocus} hidden={!inspectorOpen} panelId={inspectorId} emptyHint={emptyHint} />}
+      <div className="tile-preview-scene" ref={sceneContainer} aria-busy={!paused && loadState.kind === "loading"}>
         {projection && !blocked ? <CityScene ref={scene} city={projection} center={center} selected={activeSelected} onSelect={onSelect}
           context fullDetails={false} showGround={false} renderOnly onViewBounds={onViewBounds} cameraRequest={cameraRequest} /> : <p>{blocked ? "选择“使用当前默认视角”后显示当前渲染包。" : "几何将在渲染包验证通过后显示"}</p>}
+        {manifest && !blocked && ["outside", "budget", "empty"].includes(loadState.kind) && <div className="tile-scene-empty">
+          <LoadIcon size={24} aria-hidden="true" /><strong>{loadState.title}</strong>
+          <p>{loadState.kind === "outside" ? "数据仍然保留；返回样本范围后，按当前配置继续读取。"
+            : loadState.kind === "budget" ? tileProfile === "economy" ? "源几何未被截断。可选择均衡配置，或离线生成更小的瓦片。" : "源几何未被截断。请离线生成更小的瓦片后重新检查渲染包。"
+            : "清单已核验，但不包含可显示的建筑几何。请检查离线来源与构建结果。"}</p>
+          {loadState.kind === "outside" && <button type="button" onClick={useCurrentDefault}><LocateFixed size={15} aria-hidden="true" />定位样本范围</button>}
+          {loadState.kind === "budget" && tileProfile === "economy" && onTileProfileChange && <button type="button" onClick={() => changeProfile("balanced")}>切换均衡配置</button>}
+        </div>}
       </div>
     </div>
   </section>;
