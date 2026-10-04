@@ -2,6 +2,12 @@
 
 Before entering optional read-only tile mode, the city-selection page offers two
 fixed source-payload loading profiles. The complete editor is unaffected.
+The read-only preview also offers an explicit profile selector. It captures the
+current camera and source revision, disposes the old session, and restores that
+pose in the new session only after validation. Selection and manual pause reset;
+the page explains this. If no valid pose is available, it uses the default view.
+The local session URL retains the selected profile through refresh and browser
+history; copied public camera links still omit the profile as described below.
 
 | Limit | Balanced (default) | Economy |
 |---|---:|---:|

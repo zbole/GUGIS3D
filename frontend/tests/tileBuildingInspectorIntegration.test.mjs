@@ -50,12 +50,12 @@ async function until(predicate, message) {
   for (let i = 0; i < 100 && !predicate(); i++) await act(async () => { await new Promise(resolve => setTimeout(resolve, 5)); });
   assert.ok(predicate(), message);
 }
-function fixture(t) {
+function fixture(t, options = {}) {
   let renderer, city = "london";
   const previousFetch = globalThis.fetch, calls = [], states = [], packages = { london: renderPackage(), bristol: renderPackage("bristol") };
-  inspectorScene.focuses = []; inspectorScene.resets = 0;
+  inspectorScene.focuses = []; inspectorScene.resets = 0; inspectorScene.pose = null;
   globalThis.fetch = async (url, options = {}) => { calls.push({ url, options }); return packages[url.split("/")[3]].respond(url); };
-  const element = () => React.createElement(Preview, { workspace: workspace(city), onWorkspaceState: (...state) => states.push(state) });
+  const element = () => React.createElement(Preview, { workspace: workspace(city), onWorkspaceState: (...state) => states.push(state), ...options });
   act(() => { renderer = create(element()); });
   t.after(() => { act(() => renderer.unmount()); globalThis.fetch = previousFetch; });
   return { calls, states, packages,
@@ -149,4 +149,38 @@ test("same-revision reload and city/revision switches clear search, page and sel
   assert.doesNotMatch(f.content, /london source/);
   assert.deepEqual(inspectorScene.focuses, []);
   f.assertReadOnly();
+});
+
+test("in-session profile choice captures only the verified source and camera, with no edit requests or stale-city actions", async t => {
+  const changes = [];
+  const f = fixture(t, { onTileProfileChange: (...args) => changes.push(args) });
+  await until(() => f.content.includes("匹配 60 / 60"), "tiles loaded");
+  inspectorScene.pose = [-.12, 51.5, 1000, 18, -45, 0];
+  const control = f.root.findByProps({ "aria-label": "分块读取配置" });
+  assert.equal(control.props.disabled, false);
+  const requests = f.calls.length;
+  act(() => control.props.onChange({ target: { value: "economy" } }));
+  assert.deepEqual(changes, [["economy", { city: "london", revision: "a".repeat(64), pose: inspectorScene.pose }]]);
+  assert.equal(f.calls.length, requests, "choice delegates the session change without fetching full-city data");
+  inspectorScene.pose = null;
+  act(() => control.props.onChange({ target: { value: "economy" } }));
+  assert.deepEqual(changes[1], ["economy", undefined], "unavailable camera uses the next session's default view");
+  const oldChange = control.props.onChange;
+  f.switchCity("bristol");
+  await until(() => f.content.includes("匹配 60 / 60"), "replacement session loaded");
+  act(() => oldChange({ target: { value: "economy" } }));
+  assert.equal(changes.length, 2, "retired city cannot request a profile change");
+  f.assertReadOnly();
+});
+
+test("invalid camera identity blocks the profile selector until explicitly dismissed", async t => {
+  const changes = [];
+  const f = fixture(t, { onTileProfileChange: (...args) => changes.push(args), cameraNavigation: {
+    sequence: 1, result: { kind: "invalid", message: "invalid" } } });
+  await until(() => f.content.includes("来源 SHA-256"), "manifest loaded");
+  const control = f.root.findByProps({ "aria-label": "分块读取配置" });
+  assert.equal(control.props.disabled, true);
+  act(() => control.props.onChange({ target: { value: "economy" } }));
+  assert.deepEqual(changes, []);
+  assert.equal(f.calls.length, 1, "no tile reads behind an invalid camera link");
 });

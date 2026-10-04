@@ -1,7 +1,14 @@
-.city-tile-preview { display: flex; flex-direction: column; height: 100%; min-height: 600px; overflow: auto; color: #263c35; background: #f1f2ed; }
+.city-tile-preview { display: flex; flex-direction: column; height: auto; min-height: 600px; overflow: visible; color: #263c35; background: #f1f2ed; }
 .tile-preview-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 14px 18px 8px; }
 .tile-preview-heading p, .tile-preview-provenance p { margin: 5px 0; font-size: 12px; line-height: 1.5; }
 .tile-preview-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.tile-scene-jump { display: none; }
+.tile-profile-choice { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+.tile-profile-choice select { padding: 6px; color: #254d40; background: #fff; border: 1px solid #b5c5bc; border-radius: 5px; font: inherit; }
+.tile-profile-choice select:focus-visible { outline: 3px solid #2e7160; outline-offset: 2px; }
+.tile-preview-scope { margin: 0; padding: 8px 18px 0; font-size: 12px; line-height: 1.5; color: #526a60; }
+.tile-preview-scope strong { color: #815123; font-weight: 500; }
+.tile-camera-share summary { cursor: pointer; color: #526a60; }
 .city-tile-preview button { padding: 6px 10px; border: 1px solid #b5c5bc; border-radius: 5px; background: #fff; color: #254d40; cursor: pointer; }
 .city-tile-preview button:disabled { opacity: .5; cursor: wait; }
 .tile-preview-status { padding: 8px 18px; background: #e4eee8; font-size: 12px; line-height: 1.65; }
@@ -19,10 +26,10 @@
 .tile-preview-warning, .tile-preview-error { color: #815123; }
 .tile-preview-error { padding: 12px 18px; background: #fff2da; font-size: 12px; }
 .tile-preview-error ul { padding-left: 18px; }
-.tile-preview-content { display: flex; flex: 1 0 500px; min-height: 500px; }
+.tile-preview-content { display: flex; flex: none; height: clamp(500px, 65dvh, 900px); min-height: 500px; }
 .tile-preview-scene { position: relative; flex: 1 1 0; min-width: 0; min-height: 400px; }
 .tile-preview-scene > p { padding: 20px; }
-.tile-building-inspector { box-sizing: border-box; flex: 0 0 320px; width: 320px; max-height: 850px; overflow: auto; padding: 14px; border-right: 1px solid #ccd5ce; background: #f8faf6; font-size: 12px; line-height: 1.55; }
+.tile-building-inspector { box-sizing: border-box; flex: 0 0 320px; width: 320px; max-height: 100%; overflow: auto; padding: 14px; border-right: 1px solid #ccd5ce; background: #f8faf6; font-size: 12px; line-height: 1.55; }
 .tile-building-inspector h2 { margin: 0 0 6px; font-size: 15px; }
 .tile-building-inspector h3 { margin: 0 0 8px; font-size: 13px; }
 .tile-building-inspector p { margin: 7px 0; }
@@ -47,11 +54,13 @@
 .tile-building-details dd { margin: 0; overflow-wrap: anywhere; }
 .tile-building-details p { color: #526a60; font-size: 11px; }
 @media (max-width: 700px) {
+  .tile-preview-actions .tile-scene-jump { display: inline-block; }
   .tile-preview-heading { flex-direction: column; gap: 8px; }
+  .tile-preview-heading p { display: none; }
   .tile-preview-provenance { max-height: 200px; }
-  .tile-preview-content { flex-direction: column; flex-basis: auto; }
-  .tile-building-inspector { flex: none; width: 100%; max-height: 430px; border-right: none; border-bottom: 1px solid #ccd5ce; }
-  .tile-preview-scene { flex-basis: 400px; }
+  .tile-preview-content { flex-direction: column; height: auto; }
+  .tile-building-inspector { order: 2; flex: none; width: 100%; max-height: 650px; border-right: none; border-top: 1px solid #ccd5ce; }
+  .tile-preview-scene { order: 1; flex: none; height: clamp(320px, 58dvh, 520px); }
 }
 /* Direct tile entry must not depend on the lazy editor's studio.css chunk. */
 .tile-preview-scene .building-scene, .tile-preview-scene .scene-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }

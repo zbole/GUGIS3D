@@ -1,10 +1,11 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { cameraBookmarkForLocation, stripCameraFragment, type CameraNavigation } from "./studio/cameraBookmark";
+import { cameraBookmarkForLocation, cameraBookmarkUrl, stripCameraFragment, type CameraBookmark, type CameraNavigation } from "./studio/cameraBookmark";
 import AppErrorBoundary from "./AppErrorBoundary";
 import { createCityApi } from "./studio/cityApi";
 import { cityCoverageCoordinates, citySessionUrl, tileProfileFromSearch, tileProfileUrl, selectedCitiesFromSearch, selectedCityFromSearch, knownCities, loadCityWorkspaces, type CityId, type CityWorkspace } from "./studio/cityWorkspaces";
 import "./studio/cityWorkspaces.css";
 import CitySelection from "./studio/CitySelection";
+import WorkspaceLeaveNotice from "./studio/WorkspaceLeaveNotice";
 import { type TileLoadingProfile } from "./studio/renderTileClient";
 
 const BuildingStudio = lazy(() => import("./studio/CityStudio"));
@@ -36,6 +37,8 @@ export default function App() {
   const [busy, setBusy] = useState(!comparison && !previewMode && entered);
   const [draft, setDraft] = useState(false);
   const [switchNotice, setSwitchNotice] = useState("");
+  const [leaving, setLeaving] = useState<{ destination: "tiles" | "selection" } | null>(null);
+  const leaveRequest = useRef(leaving); leaveRequest.current = leaving;
   const selection = useRef(cityId);
   const chosen = useRef(selectedCities);
   chosen.current = selectedCities;
@@ -62,6 +65,7 @@ export default function App() {
       if (restore) window.history.replaceState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current, viewMode.current, false, profile.current));
       return;
     }
+    setLeaving(null);
     setSwitchNotice(state.current.draft ? "原城市草稿已独立保留，切回该城市可继续。" : "已切换独立工作区；仅加载当前城市的三维场景。");
     selection.current = next;
     if (!restore) window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, next, viewMode.current, false, profile.current));
@@ -72,6 +76,7 @@ export default function App() {
   useEffect(() => {
     const restore = () => {
       if (lastNavigationHref.current === window.location.href) return;
+      setLeaving(null);
       const requested = selectedCitiesFromSearch(window.location.search);
       if (!requested.length && !comparison) {
         if (state.current.busy) {
@@ -126,11 +131,39 @@ export default function App() {
   }, []);
   const changeView = (next: boolean) => {
     if (state.current.busy || next === viewMode.current) return;
-    if (next && !window.confirm("切换至只读分块浏览？已保存项目和独立草稿会保留；尚未生成的表单修改、未保存分析和当前视角不会保留。")) return;
+    setSwitchNotice("");
     viewMode.current = next; setPreviewMode(next);
     state.current = { busy: !next, draft: false }; setBusy(!next); setDraft(false);
     window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, chosen.current, selection.current, next, false, profile.current));
     acceptCamera(window.location.href, selection.current, next);
+  };
+  const confirmLeave = () => {
+    if (state.current.busy || !leaving || leaveRequest.current !== leaving) return;
+    const destination = leaving.destination; setLeaving(null);
+    leaveRequest.current = null;
+    if (destination === "tiles") { changeView(true); return; }
+    setEntered(false); setSwitchNotice("");
+    window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, [], null));
+    acceptCamera(window.location.href, selection.current, false);
+  };
+  const changeTileProfile = (next: TileLoadingProfile, bookmark?: CameraBookmark) => {
+    if (state.current.busy || !viewMode.current || cityId !== selection.current || tileProfile !== profile.current || next === profile.current) return;
+    // A verified snapshot and current camera may accompany an explicit profile
+    // choice. The new session still validates revision and pose before reading.
+    let href = citySessionUrl(window.location.href, chosen.current, selection.current, true, false, next);
+    let retainedCamera = false;
+    if (bookmark?.city === selection.current) {
+      try {
+        // Public share links deliberately omit budgets. This local session URL
+        // must reapply the user's explicit profile after encoding the camera.
+        href = tileProfileUrl(cameraBookmarkUrl(href, bookmark), true, next);
+        retainedCamera = true;
+      } catch { /* Use the default view for an invalid pose. */ }
+    }
+    profile.current = next; setTileProfile(next);
+    window.history.pushState(window.history.state, "", href);
+    acceptCamera(href, selection.current, true);
+    setSwitchNotice(`已切换读取配置，${retainedCamera ? "按当前视角重新读取" : "使用默认视角重新读取"}；建筑选择与手动暂停已重置。配置限制的是源数据字节，不是 GPU 内存。`);
   };
   const enterSelected = () => {
     const available = selectedCities.filter(id => cities.some(item => item.id === id && item.status !== "invalid"));
@@ -152,17 +185,17 @@ export default function App() {
     <AppErrorBoundary>
       <div className="city-session-shell">
       <section className="city-workspaces" aria-label="城市独立工作区">
-        {!comparison && <button disabled={busy} onClick={() => {
+        {!comparison && <button disabled={busy || !!leaving} onClick={() => {
           if (state.current.busy) return;
-          if (!window.confirm("返回城市选择？已保存项目和独立草稿会保留；尚未生成的表单修改、未保存分析和当前视角不会保留。")) return;
-          setEntered(false); setSwitchNotice("");
-          window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, [], null));
-          acceptCamera(window.location.href, selection.current, false);
+          setLeaving({ destination: "selection" });
         }}>重新选择城市</button>}
-        {!comparison && <button disabled={busy} aria-pressed={previewMode} onClick={() => changeView(!previewMode)}>
+        {!comparison && <button disabled={busy || !!leaving} aria-pressed={previewMode} onClick={() => {
+          if (state.current.busy) return;
+          if (previewMode) changeView(false); else setLeaving({ destination: "tiles" });
+        }}>
           {previewMode ? "切换至完整编辑" : "轻量分块浏览"}
         </button>}
-        <label>城市工作区 <select aria-label="选择城市" value={cityId} disabled={busy || !cities.length}
+        <label>城市工作区 <select aria-label="选择城市" value={cityId} disabled={busy || !!leaving || !cities.length}
           onChange={event => switchCity(event.target.value as CityId)}>
           {cities.filter(item => selectedCities.includes(item.id as CityId)).map(item => <option key={item.id} value={item.id} disabled={item.status === "invalid"}>{item.name} · {item.status === "pending" ? "待导入" : item.status === "invalid" ? "数据异常" : "已导入"}</option>)}
         </select></label>
@@ -172,9 +205,10 @@ export default function App() {
         {switchNotice && <p role="status">{switchNotice}</p>}
         {directoryError && <p role="alert">{directoryError} <button onClick={() => void refresh()}>重试城市目录</button></p>}
       </section>
+      {leaving && <WorkspaceLeaveNotice destination={leaving.destination} busy={busy} onCancel={() => setLeaving(null)} onConfirm={confirmLeave} />}
       <Suspense fallback={<div className="app-loading">GUGIS3D · 正在载入</div>}>
         {city ? comparison ? <CompareShowcase key={cityId} workspace={city} api={api} />
-          : previewMode ? <CityTilePreview key={`${cityId}:${tileProfile}`} workspace={city} tileProfile={tileProfile} onWorkspaceState={previewState}
+          : previewMode ? <CityTilePreview key={`${cityId}:${tileProfile}`} workspace={city} tileProfile={tileProfile} onTileProfileChange={changeTileProfile} onWorkspaceState={previewState}
             cameraNavigation={cameraNavigation} onCameraBookmarkDismiss={() => {
               window.history.replaceState(window.history.state, "", stripCameraFragment(window.location.href));
               acceptCamera(window.location.href, selection.current, true);

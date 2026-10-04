@@ -31,7 +31,7 @@ async function fixture(t, href = "http://localhost/?city=bristol", drafts = {}) 
   const originals = { window: globalThis.window, fetch: globalThis.fetch };
   const listeners = new Map(), requests = [], history = [];
   globalThis.cityShellEvents = []; globalThis.cityShellDrafts = drafts;
-  globalThis.window = { confirm: () => true, location: new URL(href), history: { state: null,
+  globalThis.window = { confirm: () => { throw new Error("Native confirmation must not block navigation"); }, location: new URL(href), history: { state: null,
     pushState(state, unused, url) { history.push(url); window.location = new URL(url); },
     replaceState(state, unused, url) { window.location = new URL(url); } },
     addEventListener(name, callback) { listeners.set(name, callback); },
@@ -125,11 +125,13 @@ test("single mode reduces selections and return-to-selection honours cancellatio
   await click(f.root, "多选城市"); await select(f.root, "布里斯托"); await select(f.root, "伦敦");
   await click(f.root, "单选城市"); await click(f.root, "进入工作区 →");
   assert.equal(window.location.searchParams.get("cities"), "bristol");
-  window.confirm = () => false;
   await click(f.root, "重新选择城市");
   assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 1);
-  window.confirm = () => true;
+  assert.equal(f.root.findByProps({ role: "alertdialog" }).props["aria-modal"], "false");
+  await click(f.root, "留在当前工作区");
+  assert.equal(window.location.searchParams.get("city"), "bristol");
   await click(f.root, "重新选择城市");
+  await click(f.root, "确认返回城市选择");
   assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 0);
   assert.equal(window.location.search, "");
 });
@@ -169,11 +171,12 @@ test("lightweight entry never mounts an editor and preserves mode during city sw
 test("switching editor and tile preview confirms unsaved state and ignores obsolete mode callbacks", async t => {
   const f = await fixture(t, "http://localhost/?city=london", { london: true });
   const editor = globalThis.cityShellProps;
-  window.confirm = () => false;
   await click(f.root, "轻量分块浏览");
   assert.deepEqual(globalThis.cityShellEvents, ["mount:london"]);
-  window.confirm = () => true;
+  await click(f.root, "留在当前工作区");
   await click(f.root, "轻量分块浏览");
+  assert.match(text(f.root), /独立草稿会保留/);
+  await click(f.root, "确认切换浏览");
   assert.deepEqual(globalThis.cityShellEvents, ["mount:london", "unmount:london", "tile-mount:london"]);
   act(() => editor.onWorkspaceState("london", true, true));
   assert.equal(button(f.root, "切换至完整编辑").props.disabled, false);
@@ -241,6 +244,7 @@ test("city, editor and home actions clear camera fragments while cross-city hist
   assert.equal(window.location.hash, "");
   await f.pop(base + cameraHash());
   await click(f.root, "重新选择城市");
+  await click(f.root, "确认返回城市选择");
   assert.equal(window.location.hash, "");
 });
 
@@ -256,6 +260,7 @@ test("busy editor history rejection strips incoming camera links, including same
   assert.deepEqual(globalThis.cityShellEvents, ["mount:london"]);
   act(() => globalThis.cityShellProps.onWorkspaceState("london", false, false));
   await click(f.root, "轻量分块浏览");
+  await click(f.root, "确认切换浏览");
   assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "none");
 });
 
@@ -286,6 +291,7 @@ test("initial entry exposes an explicit disabled-by-default profile choice and e
   assert.equal(globalThis.cityShellProps.tileProfile, "economy");
   assert.equal(window.location.searchParams.get("tile_profile"), "economy");
   await click(f.root, "重新选择城市");
+  await click(f.root, "确认返回城市选择");
   assert.equal(window.location.searchParams.has("tile_profile"), false);
   assert.equal(f.root.findByProps({ "aria-label": "低资源分块读取" }).props.checked, true);
   await act(async () => f.root.findByProps({ "aria-label": "均衡分块读取" }).props.onChange());
@@ -365,3 +371,65 @@ for (const query of ["city=london&city=london&view_mode=tiles", "city=london&vie
     assert.equal(globalThis.cityShellProps.cameraNavigation.result.kind, "invalid");
   });
 }
+
+test("inline leave confirmation survives neither cancellation nor history and rechecks a new write lock", async t => {
+  const f = await fixture(t, "http://localhost/?city=london");
+  const editor = globalThis.cityShellProps;
+  await click(f.root, "轻量分块浏览");
+  assert.equal(f.root.findByProps({ "aria-label": "选择城市" }).props.disabled, true);
+  act(() => editor.onWorkspaceState("london", true, true));
+  assert.equal(button(f.root, "确认切换浏览").props.disabled, true);
+  await click(f.root, "确认切换浏览");
+  assert.deepEqual(globalThis.cityShellEvents, ["mount:london"]);
+  let prevented = false;
+  act(() => f.root.findByProps({ role: "alertdialog" }).props.onKeyDown({ key: "Escape", preventDefault() { prevented = true; } }));
+  assert.equal(prevented, true);
+  assert.equal(f.root.findAllByProps({ role: "alertdialog" }).length, 0);
+  act(() => editor.onWorkspaceState("london", false, true));
+  await click(f.root, "重新选择城市");
+  const staleConfirm = button(f.root, "确认返回城市选择").props.onClick;
+  await f.pop("http://localhost/?city=birmingham");
+  assert.equal(f.root.findAllByProps({ role: "alertdialog" }).length, 0);
+  await act(async () => staleConfirm());
+  assert.equal(globalThis.cityShellProps.workspace.id, "birmingham");
+  assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 1);
+  assert.equal(window.location.searchParams.get("city"), "birmingham");
+  await click(f.root, "重新选择城市");
+  await act(async () => staleConfirm());
+  assert.equal(f.root.findAllByProps({ role: "alertdialog" }).length, 1, "a retired confirmation cannot accept a new request");
+});
+
+test("explicit profile changes restore the captured camera and release the old session without loading an editor", async t => {
+  const base = "http://localhost/?city=london&cities=london,birmingham&view_mode=tiles&tile_profile=economy";
+  const f = await fixture(t, base);
+  const old = globalThis.cityShellProps;
+  const bookmark = { city: "london", revision: "a".repeat(64), pose: [-.13, 51.5, 900, 18, -45, 0] };
+  await act(async () => old.onTileProfileChange("balanced", bookmark));
+  assert.equal(window.location.searchParams.has("tile_profile"), false);
+  assert.equal(globalThis.cityShellProps.tileProfile, "balanced");
+  assert.deepEqual(globalThis.cityShellProps.cameraNavigation.result.bookmark, bookmark);
+  assert.equal(f.root.findAllByProps({ "aria-label": "city view" }).length, 1);
+  assert.deepEqual(globalThis.cityShellEvents, ["tile-mount:london", "tile-unmount:london", "tile-mount:london"]);
+  const events = [...globalThis.cityShellEvents];
+  await act(async () => old.onTileProfileChange("economy", bookmark));
+  assert.deepEqual(globalThis.cityShellEvents, events, "retired profile callback cannot change the new session");
+  await act(async () => globalThis.cityShellProps.onTileProfileChange("economy", bookmark));
+  assert.equal(window.location.searchParams.get("tile_profile"), "economy", "local session restores the explicit budget after share-link encoding");
+  assert.deepEqual(globalThis.cityShellProps.cameraNavigation.result.bookmark, bookmark);
+  const economyUrl = window.location.href;
+  await f.pop(base.replace("&tile_profile=economy", "") + cameraHash());
+  assert.equal(globalThis.cityShellProps.tileProfile, "balanced");
+  await f.pop(economyUrl);
+  assert.equal(globalThis.cityShellProps.tileProfile, "economy");
+  assert.deepEqual(globalThis.cityShellProps.cameraNavigation.result.bookmark, bookmark);
+  await act(async () => globalThis.cityShellProps.onTileProfileChange("balanced", bookmark));
+  const current = globalThis.cityShellProps;
+  await f.choose("birmingham");
+  await act(async () => current.onTileProfileChange("economy", bookmark));
+  assert.equal(globalThis.cityShellProps.workspace.id, "birmingham");
+  assert.equal(globalThis.cityShellProps.tileProfile, "balanced");
+  await act(async () => globalThis.cityShellProps.onTileProfileChange("economy", bookmark));
+  assert.equal(window.location.hash, "", "foreign-city camera is not restored");
+  assert.equal(globalThis.cityShellProps.tileProfile, "economy");
+  assert.deepEqual(f.requests, ["/api/cities"]);
+});
