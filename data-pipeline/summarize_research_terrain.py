@@ -99,7 +99,7 @@ def main():
                 'query_count': replay['query_count'], 'query_repetitions_ms': replay['query_repetitions_ms'],
                 'training_ms': None, 'status': 'local-pretrained-cpu-replay'},
         'variants': variants,
-        'pending': ['ArcGIS Pro execution, GPU memory and frame rate', 'SPG retraining cost and repeat-seed training stability', 'Critical network precision/recall/F0.5 and MIG distance with an audited common topology pipeline', 'Held-out/off-grid reference accuracy'],
+        'pending': ['ArcGIS Pro execution, GPU memory and frame rate', 'SPG retraining cost and repeat-seed training stability', 'Critical network precision/recall/F0.5 and MIG distance with an audited common topology pipeline', 'Independent-source/held-out reference accuracy'],
         'sources': {'project': 'https://fengyee.github.io/implicit-terrain/', 'paper': 'https://fengyee.github.io/implicit-terrain/static/pdfs/ImplicitTerrain_camera_ready.pdf', 'repository': 'https://github.com/Fengyee/implicit-terrain'},
         'paper_context': {'venue': 'CVPR 2024 Workshop INRV', 'model_mb': 1.51, 'raster_mb': 7.6,
                           'status': 'author-reported only; different dataset/file accounting from this local demo replay'}}

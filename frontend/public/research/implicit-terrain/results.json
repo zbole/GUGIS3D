@@ -648,7 +648,7 @@
     "ArcGIS Pro execution, GPU memory and frame rate",
     "SPG retraining cost and repeat-seed training stability",
     "Critical network precision/recall/F0.5 and MIG distance with an audited common topology pipeline",
-    "Held-out/off-grid reference accuracy"
+    "Independent-source/held-out reference accuracy"
   ],
   "sources": {
     "project": "https://fengyee.github.io/implicit-terrain/",

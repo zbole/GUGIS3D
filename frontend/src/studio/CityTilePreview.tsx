@@ -37,6 +37,8 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
   const center = useMemo(() => cityCenter(workspace), [workspace.id]);
   const [manifest, setManifest] = useState<RenderManifest | null>(null);
   const [freshness, setFreshness] = useState<"current" | "unknown">("unknown");
+  const directoryRevision = /^[a-f0-9]{64}$/.test(workspace.data_revision ?? "") ? workspace.data_revision : null;
+  const differsFromDirectory = !!manifest && !!directoryRevision && manifest.revision !== directoryRevision;
   const [streamState, setStreamState] = useState<TileStreamState>(emptyStream);
   const [error, setError] = useState("");
   const [unavailable, setUnavailable] = useState(false);
@@ -305,10 +307,14 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
     </div>}
     {manifest && <><p className="tile-preview-scope">仅建筑预览 · 道路与地形未包含 · {freshness === "current" ? "已核验来源快照" : "来源与正式项目的一致性未验证"}
       {manifest.quality_warnings.length > 0 && <strong> · {manifest.quality_warnings.length} 项来源质量提示，展开下方说明查看</strong>}</p>
+      {differsFromDirectory && <p className="tile-preview-scope tile-preview-warning">预览修订与城市目录修订不同，当前画面不代表目录中的完整项目。进入完整编辑可查看正式数据。</p>}
       {sourceLink && <p className="tile-source-credit"><a href={sourceLink} target="_blank" rel="noreferrer">{attribution?.source || "来源与许可"}</a>{!creditHasLicense && attribution?.license && <> · {attribution.license}</>}</p>}
     <details className="tile-preview-provenance">
       <summary>来源修订、质量与缺失图层</summary>
       <p>来源 SHA-256：<code>{manifest.revision}</code></p>
+      {directoryRevision ? <><p>城市目录 SHA-256（目录读取时）：<code>{directoryRevision}</code></p>
+        <p>{differsFromDirectory ? "预览与城市目录是不同修订。缓存来源已核验不代表正式项目已同步。" : "预览与目录读取时的城市修订一致；这不保证之后的正式编辑仍相同。"}</p></>
+        : <p>城市目录未提供可核对的修订，不能确认预览与正式项目一致。</p>}
       <p>{freshness === "current" ? "已验证当前快照：服务端确认离线来源文件身份、大小与时间戳仍匹配（本次清单检查时）" : "新鲜度未知：可能已过期，未验证与当前正式文件一致"}</p>
       <p>仅建筑渲染；道路、地形、功能要素和语义均未包含。源文件的 {manifest.counts.source_roads} 条道路不在此视图中；不代表完整城市或实测高度。</p>
       <p>{attribution?.source} {attribution?.license}</p>

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { build } from 'esbuild';
 import React from 'react';
@@ -21,7 +22,7 @@ test('each control-grid selection updates actual precision, file bytes, error pl
     assert.ok(kpis.includes((variant.bytes/1e6).toFixed(3)));
     assert.match(kpis, variant.bytes>report.spg.bytes ? /文件增加/ : /文件减少/);
     assert.ok(renderer.root.findAllByType('img').some(img => img.props.src.endsWith(`${variant.id}-error.png`)));
-    const table=text(renderer.root.findByType('table'));
+    const table=text(renderer.root.findAllByType('table')[0]);
     assert.ok(table.includes((variant.metrics.max_absolute_m*100).toFixed(2)));
     assert.ok(table.includes(variant.metrics.psnr_peak_1_db.toFixed(2)));
   }
@@ -59,4 +60,33 @@ test('benchmark reports retain required recovery metadata, raw-reference account
     const row=rows.find(row=>row[0]===kind && Number(row[1])===variant.stride_m);
     assert.ok(row); assert.equal(Number(row[2]),result.bytes); assert.equal(Number(row[3]),result.metrics.rmse_m);
   }
+});
+
+test('off-grid audit uses matching archives and its own original-source statistics without claiming held-out accuracy', async () => {
+  const base=await readFile(new URL('../../shared/implicit-terrain-benchmark.json',import.meta.url));
+  const audit=JSON.parse(await readFile(new URL('../../shared/implicit-terrain-offgrid.json',import.meta.url),'utf8'));
+  const publicAudit=JSON.parse(await readFile(new URL('../public/research/implicit-terrain/offgrid-results.json',import.meta.url),'utf8'));
+  assert.deepEqual(publicAudit,audit);
+  assert.equal(audit.parent_report_sha256,createHash('sha256').update(base).digest('hex'));
+  assert.equal(audit.source_sha256,report.dataset.source_sha256);
+  assert.equal(audit.samples,16384);assert.equal(audit.unique_samples,audit.samples);
+  assert.equal(audit.held_out,false);assert.equal(audit.source_resolution_m,.5);
+  assert.equal(audit.variants.length,report.variants.length);
+  let renderer;act(()=>{renderer=create(React.createElement(Benchmark));});
+  for(const variant of audit.variants){
+    assert.equal(variant.archive_sha256,report.variants.find(v=>v.id===variant.id).sha256);
+    assert.equal(variant.query_repetitions_ms.length,5);
+    assert.ok(variant.metrics.max_absolute_m>=variant.metrics.p95_absolute_m);
+    assert.ok(variant.metrics.rmse_m>=variant.metrics.mae_m);
+    act(()=>renderer.root.findByType('select').props.onChange({target:{value:String(variant.stride_m)}}));
+    const section=text(renderer.root.findByProps({className:'research-offgrid'}));
+    assert.ok(section.includes((variant.metrics.rmse_m*100).toFixed(2)));
+    assert.ok(section.includes((variant.metrics.max_absolute_m*100).toFixed(2)));
+    assert.match(section,/这不是独立留出测试集/);
+    assert.match(section,/不与上方百万个 1 m 网格点的统计混用/);
+  }
+  act(()=>renderer.unmount());
+  const csv=(await readFile(new URL('../public/research/implicit-terrain/offgrid-results.csv',import.meta.url),'utf8')).trim().split(/\r?\n/);
+  assert.equal(csv.length,8);
+  for(const row of csv.slice(1))assert.match(row,/,False$/);
 });

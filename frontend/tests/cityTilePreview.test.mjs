@@ -116,6 +116,7 @@ function fixture(t, cityId = "bristol", cameraNavigation, tileProfile) {
     profile(next) { tileProfile = next; act(() => renderer.update(element())); },
     navigate(next) { cameraNavigation = next; act(() => renderer.update(element())); },
     update(nextCity) { currentWorkspace = workspaces[nextCity]; act(() => renderer.update(element())); },
+    workspace(fields) { currentWorkspace = { ...currentWorkspace, ...fields }; act(() => renderer.update(element())); },
     mode(next) { act(() => renderer.update(next === "tiles" ? element() : React.createElement("div", null, "编辑模式"))); },
     click(label) {
       const button = renderer.root.findAllByType("button").find(node => text(node) === label);
@@ -154,6 +155,22 @@ function fixture(t, cityId = "bristol", cameraNavigation, tileProfile) {
 function geometryIds(viewer) {
   return viewer.scene.primitives.values.flatMap(primitive => [...primitive.attributes.keys()]);
 }
+
+test("a verified offline source never implies that a different formal directory revision has been synchronized", async t => {
+  const f=fixture(t),pkg=renderPackage();f.workspace({data_revision:'c'.repeat(64)});
+  await f.manifest(pkg,'current');
+  assert.match(f.content,/预览修订与城市目录修订不同/);
+  assert.match(f.content,/缓存来源已核验不代表正式项目已同步/);
+  assert.ok(f.content.includes('c'.repeat(64)) && f.content.includes(pkg.manifest.revision));
+  const requests=f.requests.length,viewer=f.viewer;
+  f.workspace({data_revision:pkg.manifest.revision});
+  assert.doesNotMatch(f.content,/预览修订与城市目录修订不同/);
+  assert.match(f.content,/目录读取时的城市修订一致/);
+  f.workspace({data_revision:null});
+  assert.match(f.content,/城市目录未提供可核对的修订/);
+  assert.equal(f.requests.length,requests);assert.equal(f.viewer,viewer);
+  f.assertReadOnly();
+});
 
 test("streamed geometry uses render-only reads, preserves camera and selection, and discloses the absent layers", async t => {
   const f = fixture(t), pkg = renderPackage();

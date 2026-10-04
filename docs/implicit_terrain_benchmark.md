@@ -57,6 +57,22 @@ node frontend/scripts/research-terrain-queries.mjs .local/benchmark/implicit-ter
 
 最后一步更新 `shared/implicit-terrain-benchmark.json` 和 `frontend/public/research/implicit-terrain/` 结果、图和下载包；其余中间结果留在 `.local`。新版本运行库或机器上的时间结果会改变，应保存自己的版本与完整测量记录。
 
+## 原始源数据的离网格核验
+
+另从未重采样的原始 0.5 m DEM 无放回抽取 16,384 个像元中心，随机种子 20261006；这些位置与 1 m 评测网格中心均相差四分之一米。排除外侧一圈像元，保证双方都在有效域内；参考高程直接来自原栅格，不通过插值制造参考值。使用相同的 SPG 权重及恢复范围，GUGIS 仍查询同一保存档案。
+
+2 m GUGIS 的 RMSE 为 7.30 cm、最大绝对误差约 159.44 cm，SPG 为 7.65 cm、约 130.45 cm。GUGIS 平均误差略低，但最坏点更差；此结果不支持各项精度全面更优的结论。8 m GUGIS 的源数据 RMSE 为 22.29 cm。原始源数据已经参与预处理，所以这不是独立留出测试集；结果与百万个 1 m 网格点的统计分开展示。
+
+在前面实验的同一中间目录执行：
+
+```powershell
+.local/research-venv/Scripts/python.exe data-pipeline/benchmark_research_offgrid.py --reference .local/references/implicit-terrain --input .local/benchmark/implicit-terrain-replay --prepare
+node frontend/scripts/research-terrain-queries.mjs .local/benchmark/implicit-terrain-replay --offgrid
+.local/research-venv/Scripts/python.exe data-pipeline/benchmark_research_offgrid.py --reference .local/references/implicit-terrain --input .local/benchmark/implicit-terrain-replay
+```
+
+报告保存原 DEM、父评测、查询集和各档案的 SHA-256，拒绝混用不同修订；网站提供单独 JSON 和 CSV 下载。
+
 ## 后续需要实测
 
-ArcGIS Pro 的实际读取与分析、GPU 内存与帧率；SPG 重新训练成本及多随机种子稳定性；统一流程的临界网络 precision / recall / F₀.₅ 与 MIG 距离；离网格参考精度和独立留出实验。上述指标在页面标为待测，不填入推测值。
+ArcGIS Pro 的实际读取与分析、GPU 内存与帧率；SPG 重新训练成本及多随机种子稳定性；统一流程的临界网络 precision / recall / F₀.₅ 与 MIG 距离；独立来源和独立留出实验。上述指标在页面标为待测，不填入推测值。

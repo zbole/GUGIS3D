@@ -1,0 +1,156 @@
+{
+  "schema": "gugis-offgrid-source-audit-v1",
+  "generated_at": "2026-10-04T12:48:04.598925+00:00",
+  "seed": 20261006,
+  "parent_report_sha256": "623c7d32ab8f3a22b34d45b94a13a247a17c492daf254a29abf8b089f7d10450",
+  "source_sha256": "a7d90ba9b42712624d82cdfb3b7beae2ef7a2493f88d16846dea82fd8d1bc30d",
+  "fixture_sha256": "68c7fe6636b2f2a2549f419fce6885a7cfa134ea0a56ba8d071962f07bade3f4",
+  "samples": 16384,
+  "unique_samples": 16384,
+  "source_resolution_m": 0.5,
+  "reference": "Unchanged original 0.5m DEM; quarter-metre offsets from the 1m reference lattice",
+  "common_domain": "Original rows and columns 1..1998; no extrapolation",
+  "held_out": false,
+  "limitation": "The same source was used in preprocessing. Off-grid/source-resolution validation, not independent held-out accuracy. Metrics are separate from the full 1m benchmark.",
+  "runtime": {
+    "python": "3.13.0",
+    "torch": "2.14.1+cpu",
+    "node": "v24.13.0",
+    "timing": "Same points, warm five repeats, PyTorch CPU batch versus Node scalar; different implementations"
+  },
+  "spg": {
+    "metrics": {
+      "rmse_m": 0.07654576910083218,
+      "mae_m": 0.05577073965399293,
+      "p95_absolute_m": 0.1545203695157397,
+      "max_absolute_m": 1.3044558666151715,
+      "bias_m": -0.0005700250577448385
+    },
+    "query_repetitions_ms": [
+      23.70719995815307,
+      22.6433000061661,
+      21.935599972493947,
+      29.005000018514693,
+      22.452699951827526
+    ],
+    "device": "CPU",
+    "torch_threads": 8,
+    "status": "pretrained-offgrid-replay"
+  },
+  "variants": [
+    {
+      "id": "gugis-2m",
+      "stride_m": 2,
+      "archive_sha256": "e0161b130898f97efa67af60753c9c334fb89c2fc5cee28f8dcb6026f8dec22e",
+      "metrics": {
+        "rmse_m": 0.07296149173411856,
+        "mae_m": 0.05019559504985957,
+        "p95_absolute_m": 0.14710106445310184,
+        "max_absolute_m": 1.5943812109373994,
+        "bias_m": -0.0010300673770908264
+      },
+      "query_repetitions_ms": [
+        231.88819999999998,
+        223.56619999999998,
+        234.7373,
+        223.6839,
+        244.04610000000025
+      ]
+    },
+    {
+      "id": "gugis-4m",
+      "stride_m": 4,
+      "archive_sha256": "fa918dd3422399b04509759625a5cf74d111a5fddd85ebe5d945c51427beb578",
+      "metrics": {
+        "rmse_m": 0.12397774322513816,
+        "mae_m": 0.08430471759637187,
+        "p95_absolute_m": 0.2510115624998657,
+        "max_absolute_m": 2.241903281249961,
+        "bias_m": -0.002006795609792361
+      },
+      "query_repetitions_ms": [
+        62.4059000000002,
+        65.53229999999985,
+        66.32449999999972,
+        64.14949999999999,
+        72.77550000000019
+      ]
+    },
+    {
+      "id": "gugis-8m",
+      "stride_m": 8,
+      "archive_sha256": "9df359da24fb2421cc08fd4891efcc57d2d7e3d4b2f795ea7289a98c135fa85c",
+      "metrics": {
+        "rmse_m": 0.2229169694990947,
+        "mae_m": 0.15059887921231077,
+        "p95_absolute_m": 0.44594176367186217,
+        "max_absolute_m": 3.9415778515624424,
+        "bias_m": -0.0037031490874301076
+      },
+      "query_repetitions_ms": [
+        22.663300000000163,
+        22.166400000000067,
+        20.591499999999996,
+        21.715200000000095,
+        21.060399999999845
+      ]
+    },
+    {
+      "id": "gugis-16m",
+      "stride_m": 16,
+      "archive_sha256": "adf6d91e626c1042f827743f0fba39c7461b6ce5b9ae0baf8dabfdcf24dc63fb",
+      "metrics": {
+        "rmse_m": 0.44629831834451195,
+        "mae_m": 0.3106927473336041,
+        "p95_absolute_m": 0.900388064453125,
+        "max_absolute_m": 5.153042148437407,
+        "bias_m": -0.004824361682278525
+      },
+      "query_repetitions_ms": [
+        9.950199999999768,
+        11.790199999999913,
+        11.264700000000175,
+        9.995700000000397,
+        10.896799999999985
+      ]
+    },
+    {
+      "id": "gugis-32m",
+      "stride_m": 32,
+      "archive_sha256": "800a8569413a25e34642d4dfd17aa6f93416055919a6b6737b30563649f347c8",
+      "metrics": {
+        "rmse_m": 0.9377565272695273,
+        "mae_m": 0.6744594063173117,
+        "p95_absolute_m": 1.90502546276866,
+        "max_absolute_m": 8.406318007812388,
+        "bias_m": -0.014831860739885558
+      },
+      "query_repetitions_ms": [
+        7.827400000000125,
+        8.250900000000001,
+        9.107900000000427,
+        8.229499999999916,
+        8.66359999999986
+      ]
+    },
+    {
+      "id": "gugis-64m",
+      "stride_m": 64,
+      "archive_sha256": "10ccb5674726bd4890cdab8fd81022bbeead5293bf25d98d2539c5f2b1a64cd7",
+      "metrics": {
+        "rmse_m": 1.9500511958035627,
+        "mae_m": 1.3960817089737616,
+        "p95_absolute_m": 3.8002450859375463,
+        "max_absolute_m": 18.834689960937567,
+        "bias_m": -0.06257430512032094
+      },
+      "query_repetitions_ms": [
+        17.23640000000023,
+        14.867600000000039,
+        13.39200000000028,
+        17.10440000000017,
+        13.589699999999993
+      ]
+    }
+  ]
+}

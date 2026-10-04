@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import report from '../../../shared/implicit-terrain-benchmark.json';
+import offgrid from '../../../shared/implicit-terrain-offgrid.json';
 import './implicitTerrainBenchmark.css';
 
 const median = (values: number[]) => [...values].sort((a, b) => a-b)[Math.floor(values.length/2)];
@@ -9,6 +10,7 @@ const cm = (metres: number) => (metres*100).toFixed(2);
 export default function ImplicitTerrainBenchmark() {
   const [stride, setStride] = useState(8);
   const selected = report.variants.find(v => v.stride_m === stride)!;
+  const selectedOffgrid = offgrid.variants.find(v => v.stride_m === stride)!;
   const spg = report.spg;
   const saving = (1-selected.bytes/spg.bytes)*100;
   const points = [...report.variants.map(v => ({ ...v, color: '#227a6b', label: `${v.stride_m} m` })),
@@ -22,7 +24,7 @@ export default function ImplicitTerrainBenchmark() {
     <div className="research-badges"><span>真实 DEM · 1 km²</span><span>1,000,000 个同源采样点</span><span>本机 CPU 复现</span><span>ArcGIS 软件运行待测</span></div>
     <div className="research-selector"><label htmlFor="research-stride">GUGIS 控制网采样间距</label>
       <select id="research-stride" value={stride} onChange={e => setStride(Number(e.target.value))}>{report.variants.map(v => <option key={v.id} value={v.stride_m}>{v.stride_m} m · {v.points.toLocaleString()} 个控制点</option>)}</select>
-      <span>保留末端边界；直纹面带 + 三角带；从保存档案读回求值。</span></div>
+      <span>保留末端边界；直纹面带 + 三角带；从保存档案读回求值。</span><a href="#offgrid-audit">核验原始 0.5 m 数据 ↓</a></div>
     <div className="research-kpis" aria-live="polite">
       <article><small>GUGIS · {stride} m RMSE</small><strong>{cm(selected.metrics.rmse_m)}<em> cm</em></strong><span>SPG {cm(spg.metrics.rmse_m)} cm</span></article>
       <article><small>完整表达文件</small><strong>{mb(selected.bytes)}<em> MB</em></strong><span>SPG 两个权重 + 恢复元数据 {mb(spg.bytes)} MB</span></article>
@@ -57,6 +59,20 @@ export default function ImplicitTerrainBenchmark() {
         <tr><th>4,096 次求值中位耗时</th><td>{median(selected.query_repetitions_ms).toFixed(2)} ms · Node</td><td>{median(spg.query_repetitions_ms).toFixed(2)} ms · PyTorch CPU</td><td>同点、五次重复；不同运行库，不能推断软件快慢</td></tr>
         <tr><th>独立数值核验</th><td>512 点最大差 {(selected.kernel_readback_max_difference_m*1000).toExponential(2)} mm</td><td>PSNR 与作者示例 66.39307 dB 吻合</td><td>GUGIS Python 档案读回与网站查询内核互核</td></tr>
       </tbody></table></div>
+    <section id="offgrid-audit" className="research-offgrid" aria-labelledby="offgrid-title">
+      <span className="research-eyebrow">SOURCE RESOLUTION CHECK / 02</span>
+      <h3 id="offgrid-title">原始 0.5 m 数据的离网格核验</h3>
+      <p>从原始 DEM 无放回抽取 {offgrid.samples.toLocaleString()} 个像元中心，全部偏离 1 m 评测网格。参考值直接读取原始栅格，双方在相同位置求值；不插值生成参考答案。</p>
+      <div className="research-table-scroll"><table><caption>独立列出的离网格结果 · 当前 GUGIS {stride} m 档</caption>
+        <thead><tr><th>原始源数据误差</th><th>GUGIS · {stride} m</th><th>SPG · 本机复现</th></tr></thead>
+        <tbody>{[
+          ['RMSE / MAE', `${cm(selectedOffgrid.metrics.rmse_m)} / ${cm(selectedOffgrid.metrics.mae_m)}`, `${cm(offgrid.spg.metrics.rmse_m)} / ${cm(offgrid.spg.metrics.mae_m)}`],
+          ['P95 / 最大绝对误差', `${cm(selectedOffgrid.metrics.p95_absolute_m)} / ${cm(selectedOffgrid.metrics.max_absolute_m)}`, `${cm(offgrid.spg.metrics.p95_absolute_m)} / ${cm(offgrid.spg.metrics.max_absolute_m)}`],
+        ].map(([label,native,spg])=><tr key={label}><th>{label}</th><td>{native} cm</td><td>{spg} cm</td></tr>)}</tbody>
+      </table></div>
+      <p className="research-offgrid-limit">原始数据参与了预处理，因此这不是独立留出测试集。此处结果不与上方百万个 1 m 网格点的统计混用；平均误差与最坏点需一起判断。</p>
+      <div className="research-downloads"><a href="/research/implicit-terrain/offgrid-results.json" download>下载离网格 JSON ↓</a><a href="/research/implicit-terrain/offgrid-results.csv" download>下载离网格 CSV ↓</a></div>
+    </section>
     <div className="research-format-result" aria-live="polite"><h3>同一控制网，导出 ArcGIS 可读的三角带文件。</h3>
       <p>当前 {stride} m 档：GUGIS <strong>{mb(selected.bytes)} MB</strong>；MultiPatch Shapefile 五个组件共 <strong>{mb(selected.multipatch.bytes)} MB</strong>，原生档案文件小 <strong>{selected.multipatch.native_file_saving_percent.toFixed(1)}%</strong>。</p>
       <p>将实际 .shp 读回后，相对同一 DEM 的 RMSE 为 <strong>{cm(selected.multipatch.metrics.rmse_m)} cm</strong>；三角带离散相对原生面带的高程 RMSE 为 <strong>{cm(selected.multipatch.native_discretization_rmse_m)} cm</strong>、最大差 <strong>{cm(selected.multipatch.native_discretization_max_m)} cm</strong>。原三角带保留，直纹面带每个区段离散一次。</p>
@@ -70,7 +86,7 @@ export default function ImplicitTerrainBenchmark() {
       <p><strong>耗时：</strong>同一随机种子、同一4,096个连续坐标，热身后重复5次。GUGIS 用网站查询内核在 Node 中逐点求值；SPG 用 PyTorch CPU 批量前向求值，包含两个网络与残差恢复。运行库和实现不同，结果只展示此实验，不推断产品性能胜负。GUGIS 的构建包含结构校验，训练成本仍待测。</p>
       <p>本机 {report.runtime.platform} · Python {report.runtime.python} · PyTorch {report.runtime.torch}（{report.runtime.torch_threads} CPU 线程）· Node {report.runtime.node}。</p>
       <p>原始 GeoTIFF {mb(report.dataset.source_bytes)} MB；1 m float32 高程数组 {mb(report.dataset.raw_float32_reference_bytes)} MB。论文另报模型 1.51 MB / 栅格 7.6 MB；其文件口径与本示例不同。</p>
-      <ul>{['ArcGIS Pro 软件运行、GPU 内存与帧率','SPG 重新训练成本与多随机种子稳定性','统一拓扑流程的临界网络 precision / recall / F₀.₅ 与 MIG 距离','留出点、离网格点的独立精度'].map(item => <li key={item}>{item} · 待测</li>)}</ul>
+      <ul>{['ArcGIS Pro 软件运行、GPU 内存与帧率','SPG 重新训练成本与多随机种子稳定性','统一拓扑流程的临界网络 precision / recall / F₀.₅ 与 MIG 距离','独立来源或独立留出测试集的精度'].map(item => <li key={item}>{item} · 待测</li>)}</ul>
       <p>原始 DEM SHA-256：<code>{report.dataset.source_sha256}</code>。研究坐标为瑞士投影采样格；未作为布里斯托、伦敦或其他英国城市的真实地形。</p>
     </details>
     <div className="research-downloads"><a href="/research/implicit-terrain/results.json" download>下载完整 JSON 结果 ↓</a><a href="/research/implicit-terrain/results.csv" download>下载 CSV 数值表 ↓</a><a href="/research/implicit-terrain/terrain-8m.zip" download>下载 8 m 同源 GUGIS / Shapefile 示例 ↓</a><a href="/research/implicit-terrain/terrain-16m.zip" download>下载 16 m 对照示例 ↓</a><a href="https://github.com/zbole/GUGIS3D/tree/main/data-pipeline" target="_blank" rel="noreferrer">查看复现实验脚本 ↗</a></div>
