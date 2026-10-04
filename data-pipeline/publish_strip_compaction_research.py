@@ -24,7 +24,11 @@ def differences(a,b):
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--input',type=Path,required=True)
     root=parser.parse_args().input;report=json.loads((root/'results.json').read_bytes())
-    if report['parent_sha256']!=digest((ROOT/'shared/local-triangle-benchmark.json').read_bytes()):
+    raster=report['schema']=='gugis-raster-triangle-research-v1'
+    if raster:
+        report['reproduction_builder_source_sha256']=digest((ROOT/'data-pipeline/build_raster_triangle_research.py').read_bytes().replace(b'\r\n',b'\n'))
+    parent_name='hybrid-terrain-research.json' if raster else 'local-triangle-benchmark.json'
+    if report['parent_sha256']!=digest((ROOT/'shared'/parent_name).read_bytes()):
         raise ValueError('Frozen parent changed')
     query=json.loads((root/'native-query-results.json').read_bytes())
     if query['source_sha256']!=digest((ROOT/'frontend/src/studio/terrainMath.ts').read_bytes().replace(b'\r\n',b'\n')):
@@ -65,7 +69,7 @@ def main():
                     'decoded_kernel_max_difference_m':diff,'boundary_decoder_max_difference_m':boundary_diff,
                     **{k:measured[k] for k in ('index_ms','retained_index_heap_bytes','query_repetitions_ms','index_statistics')}}
                 output=public/'models'/case['id'];output.mkdir(parents=True,exist_ok=True)
-                if mode=='compact_hybrid':(output/receipt['filename']).write_bytes(content)
+                if mode=='compact_hybrid' or raster:(output/receipt['filename']).write_bytes(content)
                 rows.append([case['id'],pair['target_m'],mode,receipt['bytes'],receipt['points'],receipt['patches'],
                     receipt['offgrid']['rmse_m'],receipt['offgrid']['max_absolute_m']])
             if models['hybrid'].points!=models['compact_hybrid'].points:raise ValueError('Controls changed')
@@ -83,8 +87,10 @@ def main():
             pair['comparison_eligible']=all(pair[m]['target_met'] and pair[m]['offgrid']['meets_sampled_target'] for m in models)
             pair['organization_saving_percent']=100*(1-pair['compact_hybrid']['bytes']/pair['hybrid']['bytes'])
             pair['compact_vs_local_saving_percent']=100*(1-pair['compact_hybrid']['bytes']/pair['local_triangles']['bytes']) if pair['comparison_eligible'] else None
+            if raster:
+                pair['native_file_saving_percent']=100*(1-pair['hybrid']['bytes']/pair['local_triangles']['bytes']) if pair['comparison_eligible'] else None
         (directory/'results.json').write_text(json.dumps(case,indent=2)+'\n',encoding='utf-8')
-        package=public/f'{case["id"]}-strip-compaction.zip'
+        package=public/f'{case["id"]}-{"raster-triangles" if raster else "strip-compaction"}.zip'
         with ZipFile(package,'w',compression=ZIP_DEFLATED) as archive:
             for path in sorted(directory.glob('*.json')):archive.write(path,path.name)
             archive.write(directory/'reference.npz','reference.npz')
@@ -92,11 +98,23 @@ def main():
                 'All original archives included for recovery. Compact model does not retain old patch IDs or first-hit derivative tie order on shared boundaries.\n'
                 'No control/height/refinement changes; oriented primitives SHA and continuous/boundary query audits in results.json.\n'
                 'Full JSON bytes, not memory savings or proved optimality. No ArcGIS software execution.\n')
+            if raster:
+                archive.writestr('raster-reference.txt',report['reference_definition']+'\n'+report['certificate']+'\n'
+                    'Swiss source: ImplicitTerrain authors / swissALTI3D, Federal Office of Topography swisstopo.\n'
+                    'https://www.swisstopo.admin.ch/en/terms-of-use-free-geodata-and-geoservices\n'
+                    'The historical sampled-only hybrid remains in the parent dataset. These hybrid/local models are newly constructed against the continuous reference raster.\n')
         case.update(download_bytes=package.stat().st_size,download_sha256=digest(package.read_bytes()))
+    if raster:
+        for case in report['cases']:
+            for pair in case['variants']:
+                for mode in ('hybrid','compact_hybrid','local_triangles'):
+                    pair[mode].pop('history',None);pair[mode].pop('diagnostics',None)
     packed=(json.dumps(report,indent=2)+'\n').encode()
-    (ROOT/'shared/strip-compaction-benchmark.json').write_bytes(packed);(public/'strip-compaction-results.json').write_bytes(packed)
+    report_name='raster-triangle-benchmark.json' if raster else 'strip-compaction-benchmark.json'
+    result_name='raster-triangle-results' if raster else 'strip-compaction-results'
+    (ROOT/'shared'/report_name).write_bytes(packed);(public/f'{result_name}.json').write_bytes(packed)
     stream=io.StringIO();writer=csv.writer(stream,lineterminator='\n');writer.writerow(['case','target_m','mode','bytes','points','patches','rmse_m','max_m']);writer.writerows(rows)
-    (public/'strip-compaction-results.csv').write_bytes(stream.getvalue().encode('utf-8'))
+    (public/f'{result_name}.csv').write_bytes(stream.getvalue().encode('utf-8'))
     print(json.dumps({'models':len(rows),'eligible_pairs':sum(p['comparison_eligible'] for c in report['cases'] for p in c['variants']),
         'max_height_difference_m':max(p['preservation']['random_queries']['max_height_difference_m'] for c in report['cases'] for p in c['variants']),
         'boundary_slope_ties_changed':sum(p['preservation']['boundary_queries']['slope_ties_changed'] for c in report['cases'] for p in c['variants'])}),flush=True)

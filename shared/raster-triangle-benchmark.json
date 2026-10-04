@@ -1,0 +1,1048 @@
+{
+  "schema": "gugis-raster-triangle-research-v1",
+  "generated_at": "2026-10-04",
+  "parent_sha256": "8cb7246f26eefb637f5b0cc832befc6200d55f66af6ff5ba7f9de1a239799979",
+  "builder_source_sha256": "2ede55fa2d95739f833a5197c5b7d6c81991b2fc668d7100781c0aec5dec4b51",
+  "strip_packer_source_sha256": "f07934cb19cd43dbbe384b6fd597371e3e421cc83482c5f3bfd82a9c0cbd6bab",
+  "raster_certificate_source_sha256": "d1fbd385f4cd3216178944fa81548e67242ca6ad5a82fb7e13d0fd8b7f32941f",
+  "hybrid_builder_source_sha256": "e0138ff616da86cdd784c9932b9e60527fdfb061c5972f9c6675869dbb3946b9",
+  "reference_definition": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+  "certificate": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+  "source_access": "Local triangles query the same interpolated source reference at dyadic midpoints. No new terrain observations. Hybrid controls stay on source raster grid. Different candidate families remain explicit.",
+  "method": "Continuously certified hybrid grid, conforming local longest-edge bisection with longer-neighbor preparation, then geometry-identical hybrid strip regrouping. The raster is not C2; this separate engineering strategy avoids needle triangles from arbitrary neighbor splits. Not the paper L1 algorithm or optimality theorem. Original sampled-only research remains unchanged.",
+  "cases": [
+    {
+      "id": "swiss-dem-crop",
+      "name": "\u745e\u58eb\u771f\u5b9e DEM \u5c40\u90e8",
+      "source_reference_sha256": "5668bc64df00ab5de0ce9bae7a3ed2da9e8868eff7281c8ed23309b52ca47385",
+      "source_shape": [
+        129,
+        129
+      ],
+      "source_sha256": "a7d90ba9b42712624d82cdfb3b7beae2ef7a2493f88d16846dea82fd8d1bc30d",
+      "source_window": [
+        936,
+        936,
+        129,
+        129
+      ],
+      "demonstration": false,
+      "variants": [
+        {
+          "target_m": 0.05,
+          "hybrid": {
+            "mode": "hybrid",
+            "target_m": 0.05,
+            "status": "target-met",
+            "target_met": true,
+            "source_shape": [
+              129,
+              129
+            ],
+            "source_finite_samples": 16641,
+            "covered_samples": 16641,
+            "missing_samples": 0,
+            "uncovered_finite_samples": 0,
+            "points": 16641,
+            "patches": 16384,
+            "ruled_patches": 448,
+            "triangle_patches": 15936,
+            "rmse_m": 2.883973415259764e-06,
+            "max_selection_bound_m": 0.04998779526773596,
+            "max_sampled_error_m": 5.000000101063051e-06,
+            "scope": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+            "certificate_scope": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+            "seams": "One global tensor partition; shared control-point IDs and identical linear boundary traces; C0, not C1.",
+            "native_bytes": 1580320,
+            "build_and_validate_ms": 14449.358999961987,
+            "continuous_certificate": {
+              "max_error_bound_m": 0.049992209330195506,
+              "triangles_checked": 31872,
+              "quads_checked": 448,
+              "floating_guard_m": 2.2989859619140628e-09,
+              "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+            },
+            "certificate_validate_ms": 19167.813700041734,
+            "continuous_bound_available": true,
+            "filename": "raster-hybrid-0.05m.json",
+            "bytes": 1580455,
+            "sha256": "d794510733c52b9afe5b7ef110865903ca9a02ba3f09fa36787a81276663229e",
+            "source_grid": {
+              "samples": 16641,
+              "rmse_m": 2.883973415259764e-06,
+              "max_absolute_m": 5.000000101063051e-06
+            },
+            "offgrid": {
+              "samples": 4096,
+              "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c",
+              "rmse_m": 0.007785885344096351,
+              "max_absolute_m": 0.04919025824756318,
+              "meets_sampled_target": true,
+              "decoded_kernel_max_difference_m": 4.547473508864641e-13,
+              "boundary_decoder_max_difference_m": 4.547473508864641e-13,
+              "index_ms": 45.72459999999998,
+              "retained_index_heap_bytes": 16882400,
+              "query_repetitions_ms": [
+                15.923900000000003,
+                15.918600000000026,
+                15.857100000000003,
+                14.834699999999998,
+                16.43040000000002
+              ],
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 32320,
+                "bucketCount": 100,
+                "memberships": 40934,
+                "maxCandidatesPerBucket": 648,
+                "membershipBudget": 4000000
+              }
+            }
+          },
+          "local_triangles": {
+            "target_m": 0.05,
+            "target_met": true,
+            "status": "target-met",
+            "points": 10281,
+            "triangles": 20231,
+            "patches": 4539,
+            "closure_splits": 9952,
+            "longest_edge_safeguards": 0,
+            "longest_edge_preparation_splits": 1570,
+            "max_bound_m": 0.04998779526773596,
+            "rounding_margin_m": 5e-06,
+            "decision": "Longest physical edge; not the paper L1 rule",
+            "edge_decision": "longest-edge",
+            "safeguard_minimum_bound_reduction_fraction": 0.01,
+            "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
+            "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
+            "scope": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+            "build_and_validate_ms": 24652.557700057514,
+            "continuous_certificate": {
+              "max_error_bound_m": 0.04999244370516116,
+              "triangles_checked": 20231,
+              "quads_checked": 0,
+              "floating_guard_m": 2.2989859619140628e-09,
+              "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+            },
+            "certificate_validate_ms": 12269.29960004054,
+            "continuous_bound_available": true,
+            "certificate_scope": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+            "filename": "raster-local-triangles-0.05m.json",
+            "bytes": 614702,
+            "sha256": "bce9d54219f5eb366635f3b191a10f1bcd0cc73c75f5fba5be91922cd8097691",
+            "source_grid": {
+              "samples": 16641,
+              "rmse_m": 0.01609281070145766,
+              "max_absolute_m": 0.049991054687552605
+            },
+            "offgrid": {
+              "samples": 4096,
+              "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c",
+              "rmse_m": 0.013198256515961926,
+              "max_absolute_m": 0.049177771734548514,
+              "meets_sampled_target": true,
+              "decoded_kernel_max_difference_m": 0.0,
+              "boundary_decoder_max_difference_m": 4.547473508864641e-13,
+              "index_ms": 35.85220000000004,
+              "retained_index_heap_bytes": 10521320,
+              "query_repetitions_ms": [
+                14.099100000000021,
+                12.437999999999988,
+                10.158400000000029,
+                10.46169999999995,
+                10.710100000000011
+              ],
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 20231,
+                "bucketCount": 100,
+                "memberships": 27061,
+                "maxCandidatesPerBucket": 604,
+                "membershipBudget": 4000000
+              }
+            }
+          },
+          "compact_hybrid": {
+            "mode": "hybrid",
+            "target_m": 0.05,
+            "status": "target-met",
+            "target_met": true,
+            "source_shape": [
+              129,
+              129
+            ],
+            "source_finite_samples": 16641,
+            "covered_samples": 16641,
+            "missing_samples": 0,
+            "uncovered_finite_samples": 0,
+            "points": 16641,
+            "patches": 1373,
+            "ruled_patches": 448,
+            "triangle_patches": 15936,
+            "rmse_m": 2.883973415259764e-06,
+            "max_selection_bound_m": 0.04998779526773596,
+            "max_sampled_error_m": 5.000000101063051e-06,
+            "scope": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+            "certificate_scope": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+            "seams": "One global tensor partition; shared control-point IDs and identical linear boundary traces; C0, not C1.",
+            "native_bytes": 1580320,
+            "build_and_validate_ms": 14449.358999961987,
+            "continuous_certificate": {
+              "max_error_bound_m": 0.049992209330195506,
+              "triangles_checked": 31872,
+              "quads_checked": 448,
+              "floating_guard_m": 2.2989859619140628e-09,
+              "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+            },
+            "certificate_validate_ms": 19167.813700041734,
+            "continuous_bound_available": true,
+            "original_patches": 16384,
+            "compact_patches": 1373,
+            "ruled_quads": 448,
+            "ruled_strips": 384,
+            "triangle_faces": 31872,
+            "triangle_strips": 989,
+            "primitive_sha256": "3657e9e54473ab7874624693d95d944e4336774f89c5301b772643fad1767bae",
+            "controls_unchanged": true,
+            "patch_ids_preserved": false,
+            "boundary_derivative_tie_order_preserved": false,
+            "compaction_validate_ms": 331.0727000935003,
+            "filename": "raster-compact-hybrid-0.05m.json",
+            "bytes": 647240,
+            "sha256": "516c2202045723c43db249bd86b4e171a1eb40f966abe55a59a56f5b747b39fd",
+            "source_grid": {
+              "samples": 16641,
+              "rmse_m": 2.883973415259764e-06,
+              "max_absolute_m": 5.000000101063051e-06
+            },
+            "offgrid": {
+              "samples": 4096,
+              "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c",
+              "rmse_m": 0.007785885344094486,
+              "max_absolute_m": 0.04919025824779055,
+              "meets_sampled_target": true,
+              "decoded_kernel_max_difference_m": 4.547473508864641e-13,
+              "boundary_decoder_max_difference_m": 4.547473508864641e-13,
+              "index_ms": 43.77999999999997,
+              "retained_index_heap_bytes": 16744376,
+              "query_repetitions_ms": [
+                14.54480000000001,
+                15.394300000000044,
+                14.833699999999908,
+                15.02660000000003,
+                14.441100000000006
+              ],
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 32320,
+                "bucketCount": 100,
+                "memberships": 40934,
+                "maxCandidatesPerBucket": 648,
+                "membershipBudget": 4000000
+              }
+            }
+          },
+          "boundary_fixture": "boundary-0.05m.json",
+          "boundary_fixture_sha256": "5f716b483bf8c3db064edc7acd1b202d5374d45810114d1fcff1216e06d2ba99",
+          "original_primitive_sha256": "3657e9e54473ab7874624693d95d944e4336774f89c5301b772643fad1767bae",
+          "historical_sampled_hybrid_sha256": "c726aa6028defa6e087e683347de49171e0858e6da9b6722a1a9164c6b9d96f2",
+          "historical_continuous_certificate": {
+            "max_error_bound_m": 0.12958181870522986,
+            "triangles_checked": 32768,
+            "quads_checked": 0,
+            "floating_guard_m": 2.2989859619140628e-09,
+            "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+          },
+          "preservation": {
+            "primitive_sha256": "3657e9e54473ab7874624693d95d944e4336774f89c5301b772643fad1767bae",
+            "random_queries": {
+              "samples": 4096,
+              "max_height_difference_m": 2.2737367544323206e-13,
+              "max_slope_difference_degrees": 0.0,
+              "slope_ties_changed": 0,
+              "primitive_kind_ties_changed": 0
+            },
+            "boundary_queries": {
+              "samples": 2002,
+              "max_height_difference_m": 4.547473508864641e-13,
+              "max_slope_difference_degrees": 32.98818027119016,
+              "slope_ties_changed": 1105,
+              "primitive_kind_ties_changed": 62
+            },
+            "boundary_total_candidates": 66049,
+            "controls_identical": true,
+            "patch_ids_preserved": false,
+            "boundary_derivative_tie_order_preserved": false
+          },
+          "comparison_eligible": true,
+          "organization_saving_percent": 59.04723639711349,
+          "compact_vs_local_saving_percent": -5.293296589241625,
+          "native_file_saving_percent": -157.10913580889604
+        },
+        {
+          "target_m": 0.1,
+          "hybrid": {
+            "mode": "hybrid",
+            "target_m": 0.1,
+            "status": "target-met",
+            "target_met": true,
+            "source_shape": [
+              129,
+              129
+            ],
+            "source_finite_samples": 16641,
+            "covered_samples": 16641,
+            "missing_samples": 0,
+            "uncovered_finite_samples": 0,
+            "points": 16641,
+            "patches": 16384,
+            "ruled_patches": 6,
+            "triangle_patches": 16378,
+            "rmse_m": 2.883973415259764e-06,
+            "max_selection_bound_m": 0.09930420151773596,
+            "max_sampled_error_m": 5.000000101063051e-06,
+            "scope": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+            "certificate_scope": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+            "seams": "One global tensor partition; shared control-point IDs and identical linear boundary traces; C0, not C1.",
+            "native_bytes": 1578551,
+            "build_and_validate_ms": 3132.8300000168383,
+            "continuous_certificate": {
+              "max_error_bound_m": 0.09930802964278136,
+              "triangles_checked": 32756,
+              "quads_checked": 6,
+              "floating_guard_m": 2.2989859619140628e-09,
+              "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+            },
+            "certificate_validate_ms": 19546.00610001944,
+            "continuous_bound_available": true,
+            "filename": "raster-hybrid-0.1m.json",
+            "bytes": 1578686,
+            "sha256": "85a266e13df8f37fec2ff01413c7d1c68cb6f7b4a6dbcb6c708dc9a2ab7fea27",
+            "source_grid": {
+              "samples": 16641,
+              "rmse_m": 2.883973415259764e-06,
+              "max_absolute_m": 5.000000101063051e-06
+            },
+            "offgrid": {
+              "samples": 4096,
+              "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c",
+              "rmse_m": 0.008901328524485686,
+              "max_absolute_m": 0.07809447577210449,
+              "meets_sampled_target": true,
+              "decoded_kernel_max_difference_m": 0.0,
+              "boundary_decoder_max_difference_m": 4.547473508864641e-13,
+              "index_ms": 36.401899999999955,
+              "retained_index_heap_bytes": 16969976,
+              "query_repetitions_ms": [
+                15.75929999999994,
+                15.445600000000013,
+                14.863099999999918,
+                15.451299999999947,
+                15.755599999999959
+              ],
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 32762,
+                "bucketCount": 100,
+                "memberships": 41464,
+                "maxCandidatesPerBucket": 648,
+                "membershipBudget": 4000000
+              }
+            }
+          },
+          "local_triangles": {
+            "target_m": 0.1,
+            "target_met": true,
+            "status": "target-met",
+            "points": 5063,
+            "triangles": 9920,
+            "patches": 2204,
+            "closure_splits": 4859,
+            "longest_edge_safeguards": 0,
+            "longest_edge_preparation_splits": 1184,
+            "max_bound_m": 0.09997558823648596,
+            "rounding_margin_m": 5e-06,
+            "decision": "Longest physical edge; not the paper L1 rule",
+            "edge_decision": "longest-edge",
+            "safeguard_minimum_bound_reduction_fraction": 0.01,
+            "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
+            "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
+            "scope": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+            "build_and_validate_ms": 11931.12890003249,
+            "continuous_certificate": {
+              "max_error_bound_m": 0.0999803147990513,
+              "triangles_checked": 9920,
+              "quads_checked": 0,
+              "floating_guard_m": 2.2989859619140628e-09,
+              "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+            },
+            "certificate_validate_ms": 5937.9837000742555,
+            "continuous_bound_available": true,
+            "certificate_scope": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+            "filename": "raster-local-triangles-0.1m.json",
+            "bytes": 297752,
+            "sha256": "604fafd6ae3d325e793a2ecb45af84d2f761eb60e292e6cf476015afa386d10d",
+            "source_grid": {
+              "samples": 16641,
+              "rmse_m": 0.03618404629771725,
+              "max_absolute_m": 0.09997421875004875
+            },
+            "offgrid": {
+              "samples": 4096,
+              "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c",
+              "rmse_m": 0.028059740829638406,
+              "max_absolute_m": 0.09203319613789063,
+              "meets_sampled_target": true,
+              "decoded_kernel_max_difference_m": 0.0,
+              "boundary_decoder_max_difference_m": 4.547473508864641e-13,
+              "index_ms": 13.467599999999948,
+              "retained_index_heap_bytes": 5092072,
+              "query_repetitions_ms": [
+                6.817299999999932,
+                7.47810000000004,
+                6.688800000000128,
+                6.46140000000014,
+                5.93769999999995
+              ],
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 9920,
+                "bucketCount": 100,
+                "memberships": 14740,
+                "maxCandidatesPerBucket": 374,
+                "membershipBudget": 4000000
+              }
+            }
+          },
+          "compact_hybrid": {
+            "mode": "hybrid",
+            "target_m": 0.1,
+            "status": "target-met",
+            "target_met": true,
+            "source_shape": [
+              129,
+              129
+            ],
+            "source_finite_samples": 16641,
+            "covered_samples": 16641,
+            "missing_samples": 0,
+            "uncovered_finite_samples": 0,
+            "points": 16641,
+            "patches": 444,
+            "ruled_patches": 6,
+            "triangle_patches": 16378,
+            "rmse_m": 2.883973415259764e-06,
+            "max_selection_bound_m": 0.09930420151773596,
+            "max_sampled_error_m": 5.000000101063051e-06,
+            "scope": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+            "certificate_scope": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+            "seams": "One global tensor partition; shared control-point IDs and identical linear boundary traces; C0, not C1.",
+            "native_bytes": 1578551,
+            "build_and_validate_ms": 3132.8300000168383,
+            "continuous_certificate": {
+              "max_error_bound_m": 0.09930802964278136,
+              "triangles_checked": 32756,
+              "quads_checked": 6,
+              "floating_guard_m": 2.2989859619140628e-09,
+              "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+            },
+            "certificate_validate_ms": 19546.00610001944,
+            "continuous_bound_available": true,
+            "original_patches": 16384,
+            "compact_patches": 444,
+            "ruled_quads": 6,
+            "ruled_strips": 6,
+            "triangle_faces": 32756,
+            "triangle_strips": 438,
+            "primitive_sha256": "e3b7a96a7f32b9124d14bf6b66577af255888731ad20e37e0c855d28846c1776",
+            "controls_unchanged": true,
+            "patch_ids_preserved": false,
+            "boundary_derivative_tie_order_preserved": false,
+            "compaction_validate_ms": 384.1727999970317,
+            "filename": "raster-compact-hybrid-0.1m.json",
+            "bytes": 589617,
+            "sha256": "61992ac6bbb11fb0a991a99b6411ba517389f5c8de77dbd0ddf52173b3723b54",
+            "source_grid": {
+              "samples": 16641,
+              "rmse_m": 2.883973415259764e-06,
+              "max_absolute_m": 5.000000101063051e-06
+            },
+            "offgrid": {
+              "samples": 4096,
+              "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c",
+              "rmse_m": 0.00890132852448388,
+              "max_absolute_m": 0.07809447577210449,
+              "meets_sampled_target": true,
+              "decoded_kernel_max_difference_m": 0.0,
+              "boundary_decoder_max_difference_m": 4.547473508864641e-13,
+              "index_ms": 36.07420000000002,
+              "retained_index_heap_bytes": 16992672,
+              "query_repetitions_ms": [
+                15.406200000000126,
+                14.370000000000118,
+                14.208100000000059,
+                15.830799999999954,
+                16.131900000000087
+              ],
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 32762,
+                "bucketCount": 100,
+                "memberships": 41464,
+                "maxCandidatesPerBucket": 648,
+                "membershipBudget": 4000000
+              }
+            }
+          },
+          "boundary_fixture": "boundary-0.1m.json",
+          "boundary_fixture_sha256": "5f716b483bf8c3db064edc7acd1b202d5374d45810114d1fcff1216e06d2ba99",
+          "original_primitive_sha256": "e3b7a96a7f32b9124d14bf6b66577af255888731ad20e37e0c855d28846c1776",
+          "historical_sampled_hybrid_sha256": "a03f2086148693a4e74cebbb6cde4a8230c0ccf7d9539e48f2901acffb09a195",
+          "historical_continuous_certificate": {
+            "max_error_bound_m": 0.12958181870522986,
+            "triangles_checked": 32768,
+            "quads_checked": 0,
+            "floating_guard_m": 2.2989859619140628e-09,
+            "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+          },
+          "preservation": {
+            "primitive_sha256": "e3b7a96a7f32b9124d14bf6b66577af255888731ad20e37e0c855d28846c1776",
+            "random_queries": {
+              "samples": 4096,
+              "max_height_difference_m": 2.2737367544323206e-13,
+              "max_slope_difference_degrees": 0.0,
+              "slope_ties_changed": 0,
+              "primitive_kind_ties_changed": 0
+            },
+            "boundary_queries": {
+              "samples": 2002,
+              "max_height_difference_m": 4.547473508864641e-13,
+              "max_slope_difference_degrees": 31.9448235406417,
+              "slope_ties_changed": 519,
+              "primitive_kind_ties_changed": 1
+            },
+            "boundary_total_candidates": 66049,
+            "controls_identical": true,
+            "patch_ids_preserved": false,
+            "boundary_derivative_tie_order_preserved": false
+          },
+          "comparison_eligible": true,
+          "organization_saving_percent": 62.65140756299859,
+          "compact_vs_local_saving_percent": -98.02285123189769,
+          "native_file_saving_percent": -430.2016443214487
+        },
+        {
+          "target_m": 0.25,
+          "hybrid": {
+            "mode": "hybrid",
+            "target_m": 0.25,
+            "status": "target-met",
+            "target_met": true,
+            "source_shape": [
+              129,
+              129
+            ],
+            "source_finite_samples": 16641,
+            "covered_samples": 16641,
+            "missing_samples": 0,
+            "uncovered_finite_samples": 0,
+            "points": 4488,
+            "patches": 4355,
+            "ruled_patches": 0,
+            "triangle_patches": 4355,
+            "rmse_m": 0.05039874147005554,
+            "max_selection_bound_m": 0.24426269761148597,
+            "max_sampled_error_m": 0.2442639843750385,
+            "scope": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+            "certificate_scope": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+            "seams": "One global tensor partition; shared control-point IDs and identical linear boundary traces; C0, not C1.",
+            "native_bytes": 409621,
+            "build_and_validate_ms": 802.1846000337973,
+            "continuous_certificate": {
+              "max_error_bound_m": 0.2442671507365156,
+              "triangles_checked": 8710,
+              "quads_checked": 0,
+              "floating_guard_m": 2.2989859619140628e-09,
+              "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+            },
+            "certificate_validate_ms": 5185.093599953689,
+            "continuous_bound_available": true,
+            "filename": "raster-hybrid-0.25m.json",
+            "bytes": 409756,
+            "sha256": "78f9ceaea82a385afe64913d67c7858dccd4dffdf6c072c9aba6d8c8099efab5",
+            "source_grid": {
+              "samples": 16641,
+              "rmse_m": 0.050398741470055936,
+              "max_absolute_m": 0.2442639843750385
+            },
+            "offgrid": {
+              "samples": 4096,
+              "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c",
+              "rmse_m": 0.039053873034980535,
+              "max_absolute_m": 0.20323516514645235,
+              "meets_sampled_target": true,
+              "decoded_kernel_max_difference_m": 0.0,
+              "boundary_decoder_max_difference_m": 4.547473508864641e-13,
+              "index_ms": 13.722500000000082,
+              "retained_index_heap_bytes": 4506248,
+              "query_repetitions_ms": [
+                8.441800000000057,
+                6.491600000000062,
+                6.305900000000065,
+                5.999700000000075,
+                6.425799999999981
+              ],
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 8710,
+                "bucketCount": 100,
+                "memberships": 13446,
+                "maxCandidatesPerBucket": 312,
+                "membershipBudget": 4000000
+              }
+            }
+          },
+          "local_triangles": {
+            "target_m": 0.25,
+            "target_met": true,
+            "status": "target-met",
+            "points": 1097,
+            "triangles": 2107,
+            "patches": 471,
+            "closure_splits": 1012,
+            "longest_edge_safeguards": 0,
+            "longest_edge_preparation_splits": 376,
+            "max_bound_m": 0.24992370835367347,
+            "rounding_margin_m": 5e-06,
+            "decision": "Longest physical edge; not the paper L1 rule",
+            "edge_decision": "longest-edge",
+            "safeguard_minimum_bound_reduction_fraction": 0.01,
+            "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
+            "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
+            "scope": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+            "build_and_validate_ms": 2509.3876000028104,
+            "continuous_certificate": {
+              "max_error_bound_m": 0.24992870835377454,
+              "triangles_checked": 2107,
+              "quads_checked": 0,
+              "floating_guard_m": 2.2989859619140628e-09,
+              "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+            },
+            "certificate_validate_ms": 1254.9465000629425,
+            "continuous_bound_available": true,
+            "certificate_scope": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+            "filename": "raster-local-triangles-0.25m.json",
+            "bytes": 61814,
+            "sha256": "ee106aba07f91405aa34a5ae55e2fc811bea7382404650fafd350fe2644f9997",
+            "source_grid": {
+              "samples": 16641,
+              "rmse_m": 0.08276180241378209,
+              "max_absolute_m": 0.24992531250018146
+            },
+            "offgrid": {
+              "samples": 4096,
+              "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c",
+              "rmse_m": 0.07265606279915894,
+              "max_absolute_m": 0.24026674343576815,
+              "meets_sampled_target": true,
+              "decoded_kernel_max_difference_m": 0.0,
+              "boundary_decoder_max_difference_m": 4.547473508864641e-13,
+              "index_ms": 3.907699999999977,
+              "retained_index_heap_bytes": 1117344,
+              "query_repetitions_ms": [
+                2.7146999999999935,
+                2.8028999999999087,
+                2.8138000000001284,
+                2.985099999999875,
+                3.5520000000001346
+              ],
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 2107,
+                "bucketCount": 100,
+                "memberships": 4574,
+                "maxCandidatesPerBucket": 140,
+                "membershipBudget": 4000000
+              }
+            }
+          },
+          "compact_hybrid": {
+            "mode": "hybrid",
+            "target_m": 0.25,
+            "status": "target-met",
+            "target_met": true,
+            "source_shape": [
+              129,
+              129
+            ],
+            "source_finite_samples": 16641,
+            "covered_samples": 16641,
+            "missing_samples": 0,
+            "uncovered_finite_samples": 0,
+            "points": 4488,
+            "patches": 1199,
+            "ruled_patches": 0,
+            "triangle_patches": 4355,
+            "rmse_m": 0.05039874147005554,
+            "max_selection_bound_m": 0.24426269761148597,
+            "max_sampled_error_m": 0.2442639843750385,
+            "scope": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+            "certificate_scope": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+            "seams": "One global tensor partition; shared control-point IDs and identical linear boundary traces; C0, not C1.",
+            "native_bytes": 409621,
+            "build_and_validate_ms": 802.1846000337973,
+            "continuous_certificate": {
+              "max_error_bound_m": 0.2442671507365156,
+              "triangles_checked": 8710,
+              "quads_checked": 0,
+              "floating_guard_m": 2.2989859619140628e-09,
+              "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+            },
+            "certificate_validate_ms": 5185.093599953689,
+            "continuous_bound_available": true,
+            "original_patches": 4355,
+            "compact_patches": 1199,
+            "ruled_quads": 0,
+            "ruled_strips": 0,
+            "triangle_faces": 8710,
+            "triangle_strips": 1199,
+            "primitive_sha256": "e7ba5065b3bac75226148c28922aedc339b1e5c175e6895fa271831b7e1d9766",
+            "controls_unchanged": true,
+            "patch_ids_preserved": false,
+            "boundary_derivative_tie_order_preserved": false,
+            "compaction_validate_ms": 95.7419000333175,
+            "filename": "raster-compact-hybrid-0.25m.json",
+            "bytes": 218761,
+            "sha256": "83ed6f7b57a3197b3a42530f454bcf09241919a634c8a292e604c3ed8e614bdb",
+            "source_grid": {
+              "samples": 16641,
+              "rmse_m": 0.05039874147005544,
+              "max_absolute_m": 0.2442639843750385
+            },
+            "offgrid": {
+              "samples": 4096,
+              "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c",
+              "rmse_m": 0.03905387303498227,
+              "max_absolute_m": 0.20323516514645235,
+              "meets_sampled_target": true,
+              "decoded_kernel_max_difference_m": 0.0,
+              "boundary_decoder_max_difference_m": 4.547473508864641e-13,
+              "index_ms": 12.378099999999904,
+              "retained_index_heap_bytes": 4542832,
+              "query_repetitions_ms": [
+                5.17470000000003,
+                5.298499999999876,
+                5.3711000000000695,
+                5.765799999999899,
+                6.018299999999954
+              ],
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 8710,
+                "bucketCount": 100,
+                "memberships": 13446,
+                "maxCandidatesPerBucket": 312,
+                "membershipBudget": 4000000
+              }
+            }
+          },
+          "boundary_fixture": "boundary-0.25m.json",
+          "boundary_fixture_sha256": "a042f4e789a4c44b8f0a583fc45b26fa37ed891d6f6bbda5fdefd02f504bbea6",
+          "original_primitive_sha256": "e7ba5065b3bac75226148c28922aedc339b1e5c175e6895fa271831b7e1d9766",
+          "historical_sampled_hybrid_sha256": "2f685b0a9b8d313bd51ea4836cd62c6c940ba843896e6d4b6d99c16ebd69e445",
+          "historical_continuous_certificate": {
+            "max_error_bound_m": 0.25976976792390977,
+            "triangles_checked": 8580,
+            "quads_checked": 0,
+            "floating_guard_m": 2.2989859619140628e-09,
+            "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+          },
+          "preservation": {
+            "primitive_sha256": "e7ba5065b3bac75226148c28922aedc339b1e5c175e6895fa271831b7e1d9766",
+            "random_queries": {
+              "samples": 4096,
+              "max_height_difference_m": 2.2737367544323206e-13,
+              "max_slope_difference_degrees": 0.0,
+              "slope_ties_changed": 0,
+              "primitive_kind_ties_changed": 0
+            },
+            "boundary_queries": {
+              "samples": 1965,
+              "max_height_difference_m": 4.547473508864641e-13,
+              "max_slope_difference_degrees": 28.635414219682406,
+              "slope_ties_changed": 637,
+              "primitive_kind_ties_changed": 0
+            },
+            "boundary_total_candidates": 17685,
+            "controls_identical": true,
+            "patch_ids_preserved": false,
+            "boundary_derivative_tie_order_preserved": false
+          },
+          "comparison_eligible": true,
+          "organization_saving_percent": 46.611886098068126,
+          "compact_vs_local_saving_percent": -253.9020286666451,
+          "native_file_saving_percent": -562.8854304850033
+        },
+        {
+          "target_m": 0.5,
+          "hybrid": {
+            "mode": "hybrid",
+            "target_m": 0.5,
+            "status": "target-met",
+            "target_met": true,
+            "source_shape": [
+              129,
+              129
+            ],
+            "source_finite_samples": 16641,
+            "covered_samples": 16641,
+            "missing_samples": 0,
+            "uncovered_finite_samples": 0,
+            "points": 504,
+            "patches": 460,
+            "ruled_patches": 0,
+            "triangle_patches": 460,
+            "rmse_m": 0.11818613112873255,
+            "max_selection_bound_m": 0.49642944565836095,
+            "max_sampled_error_m": 0.49643246093773996,
+            "scope": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+            "certificate_scope": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+            "seams": "One global tensor partition; shared control-point IDs and identical linear boundary traces; C0, not C1.",
+            "native_bytes": 42208,
+            "build_and_validate_ms": 81.38650003820658,
+            "continuous_certificate": {
+              "max_error_bound_m": 0.49643389878339056,
+              "triangles_checked": 920,
+              "quads_checked": 0,
+              "floating_guard_m": 2.2989859619140628e-09,
+              "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+            },
+            "certificate_validate_ms": 562.9071000730619,
+            "continuous_bound_available": true,
+            "filename": "raster-hybrid-0.5m.json",
+            "bytes": 42343,
+            "sha256": "73e299fa252ad33ab8a1c49b55f4c217c80a7efb863a75536ae8d95d57d294b4",
+            "source_grid": {
+              "samples": 16641,
+              "rmse_m": 0.11818613112873516,
+              "max_absolute_m": 0.49643246093773996
+            },
+            "offgrid": {
+              "samples": 4096,
+              "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c",
+              "rmse_m": 0.10953045001770266,
+              "max_absolute_m": 0.4458296173568215,
+              "meets_sampled_target": true,
+              "decoded_kernel_max_difference_m": 0.0,
+              "boundary_decoder_max_difference_m": 4.547473508864641e-13,
+              "index_ms": 1.692299999999932,
+              "retained_index_heap_bytes": 446472,
+              "query_repetitions_ms": [
+                3.095199999999977,
+                3.0995000000000346,
+                3.534800000000132,
+                3.3678999999999633,
+                3.167500000000018
+              ],
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 920,
+                "bucketCount": 36,
+                "memberships": 1736,
+                "maxCandidatesPerBucket": 144,
+                "membershipBudget": 4000000
+              }
+            }
+          },
+          "local_triangles": {
+            "target_m": 0.5,
+            "target_met": true,
+            "status": "target-met",
+            "points": 231,
+            "triangles": 423,
+            "patches": 98,
+            "closure_splits": 194,
+            "longest_edge_safeguards": 0,
+            "longest_edge_preparation_splits": 87,
+            "max_bound_m": 0.4966659568888297,
+            "rounding_margin_m": 5e-06,
+            "decision": "Longest physical edge; not the paper L1 rule",
+            "edge_decision": "longest-edge",
+            "safeguard_minimum_bound_reduction_fraction": 0.01,
+            "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
+            "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
+            "scope": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+            "build_and_validate_ms": 533.3617000142112,
+            "continuous_certificate": {
+              "max_error_bound_m": 0.4966706053262549,
+              "triangles_checked": 423,
+              "quads_checked": 0,
+              "floating_guard_m": 2.2989859619140628e-09,
+              "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+            },
+            "certificate_validate_ms": 262.64730002731085,
+            "continuous_bound_available": true,
+            "certificate_scope": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+            "filename": "raster-local-triangles-0.5m.json",
+            "bytes": 13057,
+            "sha256": "cccae062c700b3c02c40553ffabd489329d472368494348c52c73bed41d75bf9",
+            "source_grid": {
+              "samples": 16641,
+              "rmse_m": 0.14621480937865758,
+              "max_absolute_m": 0.4966676562498833
+            },
+            "offgrid": {
+              "samples": 4096,
+              "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c",
+              "rmse_m": 0.13744840838963307,
+              "max_absolute_m": 0.4436380982742776,
+              "meets_sampled_target": true,
+              "decoded_kernel_max_difference_m": 0.0,
+              "boundary_decoder_max_difference_m": 4.547473508864641e-13,
+              "index_ms": 1.2201000000000022,
+              "retained_index_heap_bytes": 219960,
+              "query_repetitions_ms": [
+                2.6521000000000186,
+                2.338899999999967,
+                2.494100000000117,
+                2.3134999999999764,
+                2.508199999999988
+              ],
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 423,
+                "bucketCount": 36,
+                "memberships": 988,
+                "maxCandidatesPerBucket": 92,
+                "membershipBudget": 4000000
+              }
+            }
+          },
+          "compact_hybrid": {
+            "mode": "hybrid",
+            "target_m": 0.5,
+            "status": "target-met",
+            "target_met": true,
+            "source_shape": [
+              129,
+              129
+            ],
+            "source_finite_samples": 16641,
+            "covered_samples": 16641,
+            "missing_samples": 0,
+            "uncovered_finite_samples": 0,
+            "points": 504,
+            "patches": 148,
+            "ruled_patches": 0,
+            "triangle_patches": 460,
+            "rmse_m": 0.11818613112873255,
+            "max_selection_bound_m": 0.49642944565836095,
+            "max_sampled_error_m": 0.49643246093773996,
+            "scope": "Continuous piecewise-bilinear interpolation of the frozen 129x129 source crop, 0.5 m spacing, 64x64 m. Not a bound against unmeasured ground or a UK DEM.",
+            "certificate_scope": "On each source cell the difference to a triangle plane is A+Bx+Cy+Dxy. Its absolute maximum occurs on clipped-cell edges. Check inside raster vertices, triangle-edge grid crossings and quadratic stationary points. Aligned ruled differences are bilinear and attain maxima at source-cell corners. Five-decimal Z rounding margin and floating guard included; not interval-verified arithmetic.",
+            "seams": "One global tensor partition; shared control-point IDs and identical linear boundary traces; C0, not C1.",
+            "native_bytes": 42208,
+            "build_and_validate_ms": 81.38650003820658,
+            "continuous_certificate": {
+              "max_error_bound_m": 0.49643389878339056,
+              "triangles_checked": 920,
+              "quads_checked": 0,
+              "floating_guard_m": 2.2989859619140628e-09,
+              "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+            },
+            "certificate_validate_ms": 562.9071000730619,
+            "continuous_bound_available": true,
+            "original_patches": 460,
+            "compact_patches": 148,
+            "ruled_quads": 0,
+            "ruled_strips": 0,
+            "triangle_faces": 920,
+            "triangle_strips": 148,
+            "primitive_sha256": "31792dbed4db128a2b138e378e3c9e8bf46e7eb7cd88591319d5b6f33e9a88e3",
+            "controls_unchanged": true,
+            "patch_ids_preserved": false,
+            "boundary_derivative_tie_order_preserved": false,
+            "compaction_validate_ms": 10.75200003106147,
+            "filename": "raster-compact-hybrid-0.5m.json",
+            "bytes": 24367,
+            "sha256": "2ec8b3402e0c8ac426e774a5d7514a7eb96f50f2de9ec5f8c386d6851121e8ed",
+            "source_grid": {
+              "samples": 16641,
+              "rmse_m": 0.11818613112873481,
+              "max_absolute_m": 0.49643246093773996
+            },
+            "offgrid": {
+              "samples": 4096,
+              "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c",
+              "rmse_m": 0.10953045001770376,
+              "max_absolute_m": 0.4458296173568215,
+              "meets_sampled_target": true,
+              "decoded_kernel_max_difference_m": 0.0,
+              "boundary_decoder_max_difference_m": 4.547473508864641e-13,
+              "index_ms": 1.575900000000047,
+              "retained_index_heap_bytes": 479824,
+              "query_repetitions_ms": [
+                3.576599999999871,
+                3.340900000000147,
+                3.3009000000001834,
+                3.50649999999996,
+                2.911200000000008
+              ],
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 920,
+                "bucketCount": 36,
+                "memberships": 1736,
+                "maxCandidatesPerBucket": 144,
+                "membershipBudget": 4000000
+              }
+            }
+          },
+          "boundary_fixture": "boundary-0.5m.json",
+          "boundary_fixture_sha256": "ad2c62439ebc8854060d0c7e4c91892deecbd2da41729794c007446c7525d1e4",
+          "original_primitive_sha256": "31792dbed4db128a2b138e378e3c9e8bf46e7eb7cd88591319d5b6f33e9a88e3",
+          "historical_sampled_hybrid_sha256": "7653d356b8ef04bdbe2e74d4c680a2a0576153c590bf8fc72162a237317a3983",
+          "historical_continuous_certificate": {
+            "max_error_bound_m": 0.49643389878339056,
+            "triangles_checked": 920,
+            "quads_checked": 0,
+            "floating_guard_m": 2.2989859619140628e-09,
+            "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+          },
+          "preservation": {
+            "primitive_sha256": "31792dbed4db128a2b138e378e3c9e8bf46e7eb7cd88591319d5b6f33e9a88e3",
+            "random_queries": {
+              "samples": 4096,
+              "max_height_difference_m": 2.2737367544323206e-13,
+              "max_slope_difference_degrees": 0.0,
+              "slope_ties_changed": 0,
+              "primitive_kind_ties_changed": 0
+            },
+            "boundary_queries": {
+              "samples": 1927,
+              "max_height_difference_m": 4.547473508864641e-13,
+              "max_slope_difference_degrees": 20.94030409252994,
+              "slope_ties_changed": 570,
+              "primitive_kind_ties_changed": 0
+            },
+            "boundary_total_candidates": 1927,
+            "controls_identical": true,
+            "patch_ids_preserved": false,
+            "boundary_derivative_tie_order_preserved": false
+          },
+          "comparison_eligible": true,
+          "organization_saving_percent": 42.453298065796,
+          "compact_vs_local_saving_percent": -86.62020372214138,
+          "native_file_saving_percent": -224.29348242322126
+        }
+      ],
+      "download_bytes": 4264274,
+      "download_sha256": "2c3ff1dad45338432e795a3418353b6b88e36fdee3fa7151aaa0f308fde0449c"
+    }
+  ],
+  "native_query_source_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "native_query_runtime": "v24.13.0",
+  "decoder_source_sha256": "45cdb459f5b363a30f74647913bd7d1598bcc378274223e2570419d5ef8e065c",
+  "query_method": "4096 identical continuous coordinates, plus at most 2048 deterministic original controls/edge midpoints per target. Five post-warmup runs. Independent rectangular bilinear/triangle decoder. C0 height retained; regrouping changes first-hit derivative ties at non-C1 boundaries."
+}

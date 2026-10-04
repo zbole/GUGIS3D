@@ -18,11 +18,11 @@ for(const data of report.cases){
   const fixtureBytes=await readFile(join(directory,data.id,'query-fixture.json'));
   const fixture=JSON.parse(fixtureBytes);
   if(fixture.xy.length!==4096)throw new Error('Unexpected query count');
-  const compact=report.schema==='gugis-strip-compaction-research-v1';
+  const compact=['gugis-strip-compaction-research-v1','gugis-raster-triangle-research-v1'].includes(report.schema);
   const modes=compact?['hybrid','compact_hybrid','local_triangles']:report.schema==='gugis-local-triangle-research-v1'?['hybrid','local_triangles']:['hybrid','triangles'];
   for(const variant of data.variants)for(const mode of modes){
     const model=variant[mode];
-    if(!/^(hybrid|triangles|paired-hybrid|local-triangles|compact-hybrid)-(0\.05|0\.1|0\.25|0\.5)m\.json$/.test(model.filename))throw new Error('Unexpected archive path');
+    if(!/^(hybrid|triangles|paired-hybrid|local-triangles|compact-hybrid|raster-hybrid|raster-local-triangles|raster-compact-hybrid)-(0\.05|0\.1|0\.25|0\.5)m\.json$/.test(model.filename))throw new Error('Unexpected archive path');
     const content=await readFile(join(directory,data.id,model.filename));
     if(content.length!==model.bytes||sha(content)!==model.sha256)throw new Error('Saved archive changed');
     const terrain=JSON.parse(content);global.gc();const baseline=process.memoryUsage().heapUsed;

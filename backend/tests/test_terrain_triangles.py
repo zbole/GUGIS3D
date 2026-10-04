@@ -24,6 +24,36 @@ def triangles(strips):
 
 
 class LocalTriangleTests(unittest.TestCase):
+    def test_longest_edge_reference_strategy_is_explicit(self):
+        from app.services.terrain_raster_reference import RasterReference
+        reference=RasterReference([0,1],[0,1],[[0,0],[0,1]])
+        terrain,stats=local_triangles([0,0,1,1],reference,reference.triangle_error,tolerance=.05,edge_decision='longest-edge')
+        self.assertTrue(stats['target_met'])
+        self.assertEqual(stats['edge_decision'],'longest-edge')
+        self.assertIn('not the paper',stats['decision'])
+        self.assertLessEqual(reference.model_error(terrain.model_dump(exclude_none=True))['max_error_bound_m'],.05)
+
+    def test_geometry_floor_returns_valid_incomplete_mesh(self):
+        terrain,stats=local_triangles([0,0,.001,.001],lambda x,y:np.zeros_like(x),lambda p:1.,
+            tolerance=.1,max_steps=1000,edge_decision='longest-edge')
+        self.assertFalse(stats['target_met'])
+        self.assertEqual(stats['status'],'geometry-resolution-limit')
+        self.assertGreaterEqual(stats['max_bound_m'],1.)
+        self.assertTrue(terrain.patches)
+
+    def test_longest_edge_neighbor_preparation_avoids_needles_on_raster_creases(self):
+        from app.services.terrain_raster_reference import RasterReference
+        rng=np.random.default_rng(63);reference=RasterReference(np.arange(5),np.arange(5),rng.normal(size=(5,5)))
+        terrain,stats=local_triangles([0,0,4,4],reference,reference.triangle_error,tolerance=.03,edge_decision='longest-edge')
+        self.assertTrue(stats['target_met'])
+        self.assertGreater(stats['longest_edge_preparation_splits'],0)
+        for patch in terrain.patches:
+            for face in patch.faces():
+                p=np.asarray([terrain.points[i][:2] for i in face])
+                cross=abs(np.linalg.det(np.column_stack((p[1]-p[0],p[2]-p[0]))))
+                longest=max(float(np.dot(a-b,a-b)) for a,b in zip(p,np.roll(p,-1,axis=0)))
+                self.assertLessEqual(longest/cross,4.000001)
+
     def test_plane_remains_two_faces_and_one_compact_strip(self):
         t,r=local_triangles([-10,-10,10,10],lambda x,y:20+.4*x-.2*y,lambda p:0)
         self.assertEqual(r['points'],4);self.assertEqual(r['triangles'],2)

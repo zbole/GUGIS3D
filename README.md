@@ -1,5 +1,7 @@
 # GUGIS3D 本地城市工作台
 
+新增：[真实 DEM 的连续参考栅格核验](docs/finite_scale_hybrid_terrain.md#真实-dem-的连续参考栅格对照)，四档 × 三种原生模型全部通过区域误差界。10 cm 档紧凑混合比局部三角文件大 98.0%，同时展示更低 RMSE 与全局网格代价。入口：http://127.0.0.1:5173/compare#raster-terrain-audit 。这里的连续参考不是实测地面误差界。
+
 新增：[相同曲面的面带编码合并](docs/finite_scale_hybrid_terrain.md#同一曲面的编码组织优化)。10 cm 方向变化样本保留原控制点与函数，完整 JSON 从 131.25 kB 降至 56.93 kB，比局部三角基线小 49.6%；同时公开面片编号与边界单侧坡度变化。入口：http://127.0.0.1:5173/compare#strip-compaction-audit 。
 
 更强对照：[相容局部三角剖分](docs/finite_scale_hybrid_terrain.md#更强局部三角剖分结果会反转)新增 24 组同误差实验、48 份配对模型及原生三维切换。10 cm 目标下，混合表示在鞍面 / 长母线样本的文件分别小 97.5% / 90.2%，在凸碗 / 方向变化样本反而大 114.4% / 16.1%；页面同时展示这些结果。入口：http://127.0.0.1:5173/compare#local-triangle-audit 。

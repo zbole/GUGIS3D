@@ -64,9 +64,10 @@ def pack_triangle_strips(faces, max_indices=256):
 
 def local_triangles(domain, height, error_bound, *, tolerance=.1,
                     max_points=30000, max_steps=30000, convex=False,
-                    name='Local triangle research', source=None):
+                    name='Local triangle research', source=None,edge_decision='l1'):
     """Refine worst certified triangle; bisect its L1-best edge plus neighbor."""
     bounds=np.asarray(domain,dtype=float)
+    if edge_decision not in ('l1','longest-edge'):raise ValueError('Invalid edge decision')
     if bounds.shape!=(4,) or not np.isfinite(bounds).all() or max(abs(bounds))>10000:
         raise ValueError('Invalid local domain')
     x0,y0,x1,y1=bounds
@@ -79,7 +80,7 @@ def local_triangles(domain, height, error_bound, *, tolerance=.1,
         raise ValueError('Invalid refinement budget')
     points=[(x0,y0),(x1,y0),(x0,y1),(x1,y1)]
     active={};edges={};heap=[];next_id=0
-    history=[];closures=0;safeguards=0;status=None
+    history=[];closures=0;safeguards=0;propagations=0;status=None
     def measure(face):
         value=error_bound(np.asarray([points[i] for i in face]))
         if isinstance(value,bool) or not math.isfinite(value) or value<0:
@@ -106,6 +107,7 @@ def local_triangles(domain, height, error_bound, *, tolerance=.1,
         if step==max_steps:status='step-budget';break
         if len(points)>=max_points:status='point-budget';break
         face,_=active[identity];vertices=np.asarray([points[i] for i in face])
+        if triangle_area(vertices)<=1e-8:status='geometry-resolution-limit';break
         candidates=[]
         for i in range(3):
             a,b,c=face[i],face[(i+1)%3],face[(i+2)%3]
@@ -113,7 +115,9 @@ def local_triangles(domain, height, error_bound, *, tolerance=.1,
             # Retain exact dyadic XY in binary64, without five-decimal rounding.
             # JSON supports these coordinates; actual additional bytes count.
             if np.linalg.norm(np.asarray(points[a])-points[b])<2e-5:continue
-            if convex:
+            if edge_decision=='longest-edge':
+                score=-float(np.linalg.norm(np.asarray(points[a])-points[b]))
+            elif convex:
                 gap=float((height(*points[a])+height(*points[b]))/2-height(*midpoint))
                 if not math.isfinite(gap) or gap<-1e-9:raise ValueError('Authored convex decision violated')
                 score=-triangle_area(vertices)*max(0,gap)/3
@@ -124,7 +128,7 @@ def local_triangles(domain, height, error_bound, *, tolerance=.1,
             candidates.append((score,-length,i,tuple(midpoint)))
         if not candidates:status='coordinate-resolution-limit';break
         chosen=min(candidates)
-        if not convex:
+        if not convex and edge_decision=='l1':
             _,_,i,midpoint=chosen
             a,b,c=face[i],face[(i+1)%3],face[(i+2)%3]
             child_bounds=[error_bound(np.asarray(p)) for p in
@@ -138,7 +142,27 @@ def local_triangles(domain, height, error_bound, *, tolerance=.1,
                 chosen=min(candidates,key=lambda candidate:(candidate[1],candidate[2]))
                 safeguards+=1
         _,_,i,midpoint=chosen;a,b=face[i],face[(i+1)%3]
+        if edge_decision=='longest-edge':
+            # Prepare a longer neighboring edge first. Directly bisecting an
+            # arbitrary edge of its neighbor can generate needle triangles.
+            visited=set()
+            while True:
+                key=tuple(sorted((a,b)))
+                if key in visited:raise ValueError('Longest-edge propagation cycle')
+                visited.add(key);length=float(np.linalg.norm(np.asarray(points[a])-points[b]))
+                longer=None
+                for owner in sorted(edges[key]):
+                    other=active[owner][0]
+                    candidate=max([(float(np.linalg.norm(np.asarray(points[u])-points[v])),min(u,v),max(u,v))
+                        for u,v in zip(other,other[1:]+other[:1])])
+                    if candidate[0]>length*(1+1e-12):longer=candidate[1:];break
+                if longer is None:break
+                a,b=longer
+            if len(visited)>1:propagations+=1
+            midpoint=tuple((np.asarray(points[a])+points[b])/2)
         owners=sorted(edges[tuple(sorted((a,b)))])
+        if any(triangle_area([points[v] for v in active[owner][0]])<=1e-8 for owner in owners):
+            status='geometry-resolution-limit';break
         middle=len(points);points.append(midpoint)
         children=[]
         for owner in owners:
@@ -164,8 +188,10 @@ def local_triangles(domain, height, error_bound, *, tolerance=.1,
         points=xyz,patches=[TerrainPatch(id=f'h{i}',kind='triangle-strip',indices=indices) for i,indices in enumerate(strips)])
     report={'target_m':tolerance,'target_met':status=='target-met','status':status,'points':len(points),
         'triangles':len(faces),'patches':len(strips),'closure_splits':closures,'longest_edge_safeguards':safeguards,
+        'longest_edge_preparation_splits':propagations,
         'max_bound_m':history[-1]['max_bound_m'],'rounding_margin_m':5e-6,'history':history,
-        'decision':'Exact convex L1 reduction' if convex else 'Seven-point absolute L1 quadrature; longest-edge safeguard when bound improves less than 1%; not an error bound',
+        'decision':'Longest physical edge; not the paper L1 rule' if edge_decision=='longest-edge' else 'Exact convex L1 reduction' if convex else 'Seven-point absolute L1 quadrature; longest-edge safeguard when bound improves less than 1%; not an error bound',
+        'edge_decision':edge_decision,
         'safeguard_minimum_bound_reduction_fraction':None if convex else .01,
         'coordinate_precision':'Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes',
         'seams':'C0 shared-edge bisection closure; no hanging nodes; not C1',
