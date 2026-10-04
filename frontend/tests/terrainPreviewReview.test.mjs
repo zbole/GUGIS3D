@@ -15,6 +15,19 @@ function fixture(props) {
   return { get root() { return renderer.root; }, close: () => act(() => renderer.unmount()) };
 }
 
+test("imported missing-data records stay distinct from terrain coverage and unknown historical counts", () => {
+  const after = { ...terrain(), source: { "NoData处理": "conservative QA", "裁剪源像元": "160000", "无效源像元": "1", "剔除采样控制点": "1" } };
+  const f = fixture({ before: terrain(), after });
+  assert.match(text(f.root), /旧档案未记录源像元缺测检查/);
+  assert.match(text(f.root), /160,000 源像元 \/ 1 无效源像元 \/ 1 剔除控制点/);
+  assert.match(text(f.root), /降采样会保守扩大缺测边缘/);
+  f.close();
+  const invalid = fixture({ after: { ...after, source: { ...after.source, "无效源像元": "999999999" } } });
+  assert.match(text(invalid.root), /记录不完整/);
+  assert.doesNotMatch(text(invalid.root), /999999999/);
+  invalid.close();
+});
+
 test("preview reports source control heights, native counts and the display offset without changing the terrain", () => {
   const before = terrain(), after = { ...terrain(), name: "Replacement", points: [[0,0,100], [10,0,102], [0,10,98], [10,10,101]], reference_height: 100 };
   const original = JSON.stringify([before, after]), f = fixture({ before, after });

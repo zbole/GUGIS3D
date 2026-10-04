@@ -66,6 +66,67 @@ class EnvironmentTests(unittest.TestCase):
         bad=presets['lamp'];bad['components'][0]['parameters']['radius']=-1
         with self.assertRaises(ValidationError):FeatureAsset.model_validate(bad)
 
+    def test_downsampling_preserves_missing_pixels_that_nearest_sampling_would_skip(self):
+        from rasterio.io import MemoryFile
+        from rasterio.transform import from_origin
+        values=np.full((400,400),10,dtype=np.float32);values[121,121]=-9999
+        with MemoryFile() as mem:
+            with mem.open(driver='GTiff',width=400,height=400,count=1,dtype='float32',crs='EPSG:4326',
+                          transform=from_origin(-.14,51.51,.00005,.00005),nodata=-9999) as ds:
+                ds.write(values,1)
+            with mem.open() as ds:
+                self.assertFalse(np.any(ds.read(1,out_shape=(4,4),masked=True).mask), 'reproduce the nearest-sampling omission')
+            terrain=import_dem(mem.read(),'qa-hole.tif',stride=100,
+                               clip_bounds=(-.14,51.49,-.12,51.51),center=(-.13,51.5))
+        self.assertEqual(len(terrain.points),15)
+        self.assertEqual(terrain.source['无效源像元'],'1')
+        self.assertEqual(terrain.source['剔除采样控制点'],'1')
+        self.assertIn('可能扩大缺测边缘',terrain.source['NoData处理'])
+        # The missing interior control point excludes its four adjacent quads.
+        self.assertEqual(sum(1 for p in terrain.patches for _ in p.faces()),10)
+
+    def test_conservative_mask_covers_fractional_bins_across_native_chunk_boundaries(self):
+        from rasterio.io import MemoryFile
+        from rasterio.transform import from_origin
+        from rasterio.windows import Window
+        from app.services.terrain_builder import _conservative_sample_mask
+        # 513/6=85.5: source pixel 256 straddles the reduced-bin and native-block boundaries.
+        values=np.full((513,513),10,dtype=np.float32);values[256,256]=np.nan
+        with MemoryFile() as mem:
+            with mem.open(driver='GTiff',width=513,height=513,count=1,dtype='float32',
+                          transform=from_origin(0,513,1,1)) as ds:
+                ds.write(values,1)
+            with mem.open() as ds:
+                reads=[]
+                class TrackedReader:
+                    def read(self, *args, **kwargs):
+                        reads.append(kwargs['window'])
+                        return ds.read(*args, **kwargs)
+                missing,count=_conservative_sample_mask(TrackedReader(),Window(0,0,513,513),6,6)
+                self.assertEqual(count,1)
+                self.assertEqual(set(zip(*np.nonzero(missing))),{(2,2),(2,3),(3,2),(3,3)})
+                self.assertEqual(len(reads),9)
+                self.assertTrue(all(w.width<=256 and w.height<=256 for w in reads))
+                cropped,cropped_count=_conservative_sample_mask(ds,Window(256,256,200,200),2,2)
+                self.assertEqual(cropped_count,1)
+                self.assertEqual(set(zip(*np.nonzero(cropped))),{(0,0)})
+
+    def test_source_pixel_budget_prevents_decompressing_an_oversized_crop(self):
+        from unittest.mock import MagicMock, patch
+        from rasterio.transform import from_origin
+        dataset=MagicMock();dataset.count=1;dataset.crs='EPSG:4326';dataset.width=8000;dataset.height=8000
+        dataset.transform=from_origin(-.138,51.508,.015/8000,.012/8000)
+        with patch('rasterio.io.MemoryFile') as memory:
+            memory.return_value.__enter__.return_value.open.return_value.__enter__.return_value=dataset
+            with self.assertRaisesRegex(ValueError,'缺测检查预算'):
+                import_dem(b'II*\x00','qa-large.tif',stride=100,clip_bounds=(-.138,51.496,-.123,51.508))
+        dataset.read.assert_not_called()
+
+    def test_dem_stride_is_validated_before_sampling(self):
+        for stride in (0,101,1.5,True):
+            with self.assertRaisesRegex(ValueError,'采样步长'):
+                import_dem(b'', 'qa.asc', stride=stride)
+
     def test_geotiff_metadata_and_half_pixel_locations(self):
         from rasterio.io import MemoryFile
         from rasterio.transform import from_origin

@@ -92,12 +92,42 @@ def demo_terrain(*, center=None, name=None):
                      })
 
 
+def _conservative_sample_mask(dataset, window, rows, cols):
+    """Mark every reduced pixel whose source footprint intersects missing data.
+
+    Native 256x256 reads bound scratch memory, including compressed GeoTIFFs.
+    Integer overlap bounds also cover pixels straddling fractional reduced bins.
+    """
+    from rasterio.windows import Window
+    height, width = int(window.height), int(window.width)
+    missing = np.zeros((rows, cols), dtype=bool)
+    source_missing = 0
+    for top in range(0, height, 256):
+        for left in range(0, width, 256):
+            block = dataset.read(1, window=Window(window.col_off + left, window.row_off + top,
+                                                 min(256, width-left), min(256, height-top)), masked=True)
+            invalid = np.ma.getmaskarray(block) | ~np.isfinite(block.data)
+            rr, cc = np.nonzero(invalid)
+            source_missing += len(rr)
+            if not len(rr):
+                continue
+            rr, cc = rr + top, cc + left
+            r0, c0 = rr*rows//height, cc*cols//width
+            r1 = ((rr+1)*rows + height-1)//height - 1
+            c1 = ((cc+1)*cols + width-1)//width - 1
+            for r, c in ((r0,c0), (r0,c1), (r1,c0), (r1,c1)):
+                missing[r,c] = True
+    return missing, source_missing
+
+
 def import_dem(content, filename, source_crs='', datum='unknown', stride=10, *, clip_bounds=None, center=None, coverage_label=None):
     from rasterio.io import MemoryFile
     from rasterio.windows import from_bounds, Window
     from rasterio.transform import xy
     from rasterio.enums import Resampling
     from pyproj import CRS, Transformer
+    if isinstance(stride, bool) or not isinstance(stride, int) or not 1 <= stride <= 100:
+        raise ValueError('采样步长必须为 1 至 100 的整数')
     geographic_bounds = tuple(clip_bounds or (-2.614,51.446,-2.592,51.462))
     if (len(geographic_bounds) != 4 or not all(math.isfinite(v) for v in geographic_bounds)
         or not -180 <= geographic_bounds[0] < geographic_bounds[2] <= 180
@@ -130,10 +160,21 @@ def import_dem(content, filename, source_crs='', datum='unknown', stride=10, *, 
             if rows*cols>300000:
                 raise ValueError(f'裁剪后仍有 {rows*cols:,} 个采样点，请增大采样步长（当前 {stride}）')
             if rows<2 or cols<2: raise ValueError('裁剪后样本过少，请减小采样步长')
+            source_pixels = int(window.height)*int(window.width)
+            if source_pixels > 50000000:
+                raise ValueError(f'裁剪范围含 {source_pixels:,} 个源像元，超过缺测检查预算 50,000,000；请先裁剪或拆成较小地形块')
             values=dataset.read(1,window=window,out_shape=(rows,cols),masked=True,resampling=Resampling.nearest).astype(float)
             scale,offset=dataset.scales[0],dataset.offsets[0]
             values=values*scale+offset
-            z=values.filled(np.nan)[::-1]
+            z=values.filled(np.nan)
+            if rows == int(window.height) and cols == int(window.width):
+                missing = ~np.isfinite(z)
+                source_missing = int(np.count_nonzero(missing))
+            else:
+                missing, source_missing = _conservative_sample_mask(dataset, window, rows, cols)
+                z[missing] = np.nan
+            omitted = int(np.count_nonzero(~np.isfinite(z)))
+            z=z[::-1]
             if np.any(np.isfinite(z) & ((z < -500)|(z > 9000))):
                 raise ValueError('高程超出 -500 至 9000 m，请确认输入高程单位为米且 NoData 正确')
             effective=dataset.window_transform(window)*dataset.transform.scale(window.width/cols,window.height/rows)
@@ -160,4 +201,6 @@ def import_dem(content, filename, source_crs='', datum='unknown', stride=10, *, 
                 '垂直处理':'保留源高程；显示时减去 reference_height，未转换为 WGS84 椭球高',
                 '水平转换精度':f'PROJ 报告 {to_geo.accuracy:g} m（-1 表示未知；未保证测绘精度）',
                 '误差说明':'采样与曲面插值可能改变像元间地形；尚未验证全分辨率误差界限',
+                'NoData处理':'分块检查原始像元；采样像元覆盖缺测或非有限高程时剔除控制点，可能扩大缺测边缘；不跨缺测构面',
+                '裁剪源像元':str(source_pixels), '无效源像元':str(source_missing), '剔除采样控制点':str(omitted),
             })

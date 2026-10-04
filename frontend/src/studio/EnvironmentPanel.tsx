@@ -408,7 +408,7 @@ export default function EnvironmentPanel({
               </label>
               <p className="muted">
                 1 为原像元密度；较大步长会降低采样精度。输出最多 300,000
-                个控制点，不填补 NoData。
+                个控制点，不填补 NoData；降采样保守扩大缺测边缘。缺测检查最多 5,000 万个裁剪源像元，超限需先裁剪或拆块。
               </p>
               <button
                 className="primary full"
