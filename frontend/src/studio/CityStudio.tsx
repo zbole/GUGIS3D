@@ -820,12 +820,13 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
         sources={{ terrain: terrainSource, buildings: workspace.id === "bristol" ? undefined : { kind: "user-imported", detail: `${workspace.source ?? "导入数据"}；初始数据为轮廓体量，自行制作或修改的模型见各对象属性，建筑内部未整体核验。` }, roads: workspace.id === "bristol" ? undefined : { kind: "user-imported", detail: workspace.source ?? "导入道路数据" } }}
         onAction={action => action === "recovery" ? setRecovery(true) : setTab(action)} />
       {workspace.id !== "bristol" && <section className="city-workspace-data-note" aria-label="当前城市数据覆盖与精度">
-        <strong>{workspace.status === "pending" ? "待导入数据" : "真实轮廓 · 起始街区"}</strong>
+        <details><summary><strong>{workspace.status === "pending" ? "待导入数据" : "真实轮廓 · 起始街区"}</strong><span>覆盖、来源与高度假设</span></summary>
         <p>{workspace.status === "pending" ? "此城市暂未取得数据。可导入 GeoJSON、GUGIS 城市或建筑文件；正式数据与草稿只属于当前城市。"
           : `${workspace.coverage_label}。初始导入：${heightPolicyLabel(workspace.height_policy)}。LoD1 轮廓体量不代表精细建筑内部，真实 DTM 尚需单独导入。`}</p>
+        </details>
         {sourceLicense && <a href={sourceLicense.url} target="_blank" rel="noreferrer">{sourceLicense.label}</a>}
       </section>}
-      <CitySourceWarnings workspace={workspace} revision={revision} draft={!!preview} />
+      <CitySourceWarnings workspace={workspace} revision={revision} draft={!!preview} defaultExpanded={false}/>
       {recovery && (
         <div className="recovery-drawer" id="city-history">
           <button className="recovery-close" aria-label="关闭历史版本" onClick={() => {

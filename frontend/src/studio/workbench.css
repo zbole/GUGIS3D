@@ -391,3 +391,16 @@
 .city-shell .palette-select select { padding: 5px 7px; min-height: 28px; border: 1px solid #d4ddd2; color: #344b3e; background: #fafbf7; }
 .city-shell .city-view-options { gap: 8px 12px; }
 .city-shell .floor-control-title { flex-wrap: wrap; gap: 8px; }
+
+/* Project notices can grow. Preserve a usable scene instead of compressing its canvas. */
+@media (min-width: 901px) {
+  .city-shell { height: auto; min-height: 100dvh; }
+  .city-shell .studio-workspace { flex: 1 0 460px; min-height: 460px; }
+}
+.city-shell .city-workspace-data-note { align-items: center; padding-block: 9px; }
+.city-shell .city-workspace-data-note details { flex: 1; min-width: 0; }
+.city-shell .city-workspace-data-note summary { cursor: pointer; }
+.city-shell .city-workspace-data-note summary strong { margin-right: 12px; }
+.city-shell .city-workspace-data-note summary span { color: #62766a; font-size: 11px; }
+.city-shell .city-workspace-data-note details p { margin-top: 8px; }
+.city-shell .city-workspace-data-note summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
