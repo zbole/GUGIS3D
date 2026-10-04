@@ -414,3 +414,5 @@
 .city-shell .terrain-preview-caution { font-weight: 650; }
 .city-shell .draft-banner > div { min-width: 0; }
 .city-shell .terrain-preview-review-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.city-shell .feature-preview-review small { display: block; font-weight: normal; color: #607169; font-size: 11px; overflow-wrap: anywhere; }
+.city-shell .feature-preview-review .terrain-preview-review-scroll { max-height: 240px; overflow: auto; }

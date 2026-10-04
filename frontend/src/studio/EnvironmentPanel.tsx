@@ -75,6 +75,8 @@ export default function EnvironmentPanel({
   api = legacyCityApi,
   cityName = "布里斯托",
   onBusyChange,
+  previewChanges = false,
+  readOnly = false,
 }: {
   environment?: Environment;
   busy: boolean;
@@ -101,6 +103,8 @@ export default function EnvironmentPanel({
   api?: CityApi;
   cityName?: string;
   onBusyChange?: (busy: boolean) => void;
+  previewChanges?: boolean;
+  readOnly?: boolean;
 }) {
   const { demoTerrain, importTerrain, terrainMultipatchUrl, upgradeLegacyTerrain } = api;
   const [section, setSection] = useState<"terrain" | "features">(() =>
@@ -137,7 +141,8 @@ export default function EnvironmentPanel({
     [terrain],
   );
   const validation = useMemo(() => featureErrors(asset), [asset]);
-  const disabled = busy || working;
+  const viewingDisabled = busy || working;
+  const disabled = viewingDisabled || readOnly;
   const terrainOperation = useRef(false), mounted = useRef(false);
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
   useEffect(() => {
@@ -246,7 +251,7 @@ export default function EnvironmentPanel({
               Object.entries(assets).filter(([key]) => used.has(key)),
             ),
           },
-          item ? "已更新函数地物" : "已添加函数地物",
+          previewChanges ? item ? "函数地物修改预览" : "新增函数地物预览" : item ? "已更新函数地物" : "已添加函数地物",
         )
       )
         onSelect(id);
@@ -310,7 +315,7 @@ export default function EnvironmentPanel({
             feature_assets: assets,
             features: [...env.features, ...additions],
           },
-          "已加入可编辑的函数地物示例",
+          previewChanges ? "补齐函数地物示例预览" : "已加入可编辑的函数地物示例",
         )
       ) {
         onSelect("function_plaza");
@@ -560,16 +565,17 @@ export default function EnvironmentPanel({
                 <button
                   disabled={disabled}
                   onClick={() =>
-                    void save({ ...env, terrain: null }, "已移除地形，可撤销")
+                    void save({ ...env, terrain: null }, previewChanges ? "移除地形预览" : "已移除地形，可撤销")
                   }
                 >
-                  移除当前地形
+                  {previewChanges ? "预览移除地形" : "移除当前地形"}
                 </button>
               </>
             )}
           </>
         ) : (
           <>
+            {previewChanges && <p className="form-note">新增、修改、补齐示例及移除均先保存独立草稿。检查后在上方确认写入；丢弃草稿可返回原项目。</p>}
             <FunctionExplanation
               asset={asset}
               references={
@@ -584,14 +590,14 @@ export default function EnvironmentPanel({
               onClick={() => void addExamples()}
             >
               {env.features.some((f) => f.id === "function_plaza")
-                ? "选择 / 补齐函数示例"
-                : "加入函数地物示例"}
+                ? previewChanges ? "选择 / 预览补齐示例" : "选择 / 补齐函数示例"
+                : previewChanges ? "预览添加函数示例" : "加入函数地物示例"}
             </button>
             <label>
               选择已有地物
               <select
                 aria-label="选择函数地物"
-                disabled={disabled}
+                disabled={viewingDisabled}
                 value={item?.id ?? ""}
                 onChange={(e) => onSelect(e.target.value || null)}
               >
@@ -606,7 +612,7 @@ export default function EnvironmentPanel({
             {item && (
               <button
                 className="full"
-                disabled={disabled}
+                disabled={viewingDisabled}
                 onClick={() => focus(item.id)}
               >
                 <MapPin size={15} /> 定位此地物
@@ -833,7 +839,7 @@ export default function EnvironmentPanel({
                   type="submit"
                 >
                   <Plus size={15} />
-                  {item ? "保存地物修改" : "添加函数地物"}
+                  {previewChanges ? item ? "预览地物修改" : "预览添加地物" : item ? "保存地物修改" : "添加函数地物"}
                 </button>
               </fieldset>
             </form>
@@ -865,13 +871,13 @@ export default function EnvironmentPanel({
                           ),
                         ),
                       },
-                      "已移除函数地物",
+                      previewChanges ? "移除函数地物预览" : "已移除函数地物",
                     ).then((ok) => {
                       if (ok) onSelect(null);
                     });
                   }}
                 >
-                  移除此地物
+                  {previewChanges ? "预览移除地物" : "移除此地物"}
                 </button>
               </div>
             )}

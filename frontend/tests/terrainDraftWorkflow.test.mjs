@@ -23,6 +23,110 @@ await build({ entryPoints: [fileURLToPath(new URL("../src/studio/CityStudio.tsx"
   } }],
 });
 
+const Studio = (await import(pathToFileURL(outfile).href)).default;
+const text = node => typeof node === "string" ? node : (node.children ?? []).map(text).join("");
+const button = (root, label) => root.findAllByType("button").find(b => text(b).trim() === label);
+const terrain = name => ({ id: name, name, longitude: -2.603, latitude: 51.454, reference_height: 0,
+  vertical_datum: "local", demonstration: true, source: { 来源: "test-only" },
+  points: [[0,0,0], [10,0,1], [0,10,2], [10,10,3]],
+  patches: [{ id: "strip", kind: "ruled-strip", left: [0,1], right: [2,3] }] });
+
+async function functionWorkspace(environment, run, saveOverride) {
+  const windowBefore = globalThis.window;
+  globalThis.window = { location: new URL("http://localhost/?workspace=environment&view=features"), addEventListener() {}, removeEventListener() {} };
+  const formal = { format: "gugis-city", version: "1.0", coordinate_system: "ENU_METERS_WGS84", name: "QA city", assets: {}, instances: [],
+    roads: [{ id: "road", name: "retained", width: 5, coordinates: [[-2.603,51.454], [-2.602,51.454]] }], metadata: { keep: "value" }, environment };
+  const source = JSON.stringify(formal), revision = "a".repeat(64), draftRevision = "b".repeat(64);
+  let pending = null, writes = 0, stages = 0, renderer;
+  const api = { cityExportUrl: "/qa/export", terrainMultipatchUrl: "/qa/terrain.zip",
+    loadCity: async () => ({ document: formal, revision, storage: null }), loadDraft: async () => pending,
+    persistCity: async () => { throw new Error("environment operations must never directly overwrite the formal city"); },
+    persistDraft: async (document, base_revision, old, label) => {
+      stages++; assert.equal(base_revision, revision); assert.equal(old, null);
+      if (saveOverride) await saveOverride(stages);
+      pending = { document, base_revision, label, revision: draftRevision }; return { revision: draftRevision };
+    },
+    discardDraft: async id => { assert.equal(id, draftRevision); pending = null; },
+    commitDraft: async id => { assert.equal(id, draftRevision); writes++; return { revision: "c".repeat(64), storage: null, directory: "qa", filename: "qa.json" }; } };
+  try {
+    await act(async () => { renderer = create(React.createElement(Studio, { api })); });
+    await run({ get root() { return renderer.root; }, get pending() { return pending; }, get writes() { return writes; }, get stages() { return stages; }, formal,
+      async remount() { act(() => renderer.unmount()); await act(async () => { renderer = create(React.createElement(Studio, { api })); }); } });
+    assert.equal(JSON.stringify(formal), source);
+  } finally {
+    if (renderer) act(() => renderer.unmount());
+    if (windowBefore === undefined) delete globalThis.window; else globalThis.window = windowBefore;
+    delete globalThis.terrainDraftScene;
+  }
+}
+
+test("function examples persist an independent preview, restore after reload and discard without changing terrain or roads", async () => {
+  await functionWorkspace({ ...emptyEnvironment(), terrain: terrain("retained") }, async f => {
+    act(() => button(f.root, "函数地物").props.onClick());
+    await act(async () => button(f.root, "预览添加函数示例").props.onClick());
+    assert.equal(f.pending.document.environment.features.length, 7);
+    assert.equal(f.writes, 0); assert.equal(f.stages, 1);
+    assert.deepEqual(f.pending.document.environment.terrain, f.formal.environment.terrain);
+    assert.deepEqual(f.pending.document.roads, f.formal.roads);
+    assert.match(text(f.root.findByProps({ className: "terrain-preview-review feature-preview-review" })), /新增 7 \/ 修改 0 \/ 移除 0/);
+    assert.equal(f.root.findByProps({ "aria-label": "选择函数地物" }).props.disabled, false, "the preview permits inspecting different features");
+    assert.equal(button(f.root, "定位此地物").props.disabled, false);
+    assert.equal(button(f.root, "预览地物修改").props.disabled, true, "pending drafts cannot silently accumulate edits");
+    await f.remount();
+    assert.equal(globalThis.terrainDraftScene.city.environment.features.length, 7);
+    const isolation = f.root.findAllByType("label").find(label => text(label).trim() === "只看选中地物").findByType("input");
+    act(() => isolation.props.onChange({ target: { checked: true } }));
+    assert.equal(globalThis.terrainDraftScene.isolateFeature, true);
+    await act(async () => button(f.root, "丢弃草稿").props.onClick());
+    assert.equal(f.pending, null); assert.equal(f.writes, 0);
+    assert.equal(globalThis.terrainDraftScene.city.environment.features.length, 0);
+    assert.equal(globalThis.terrainDraftScene.selectedFeature, null);
+    assert.equal(globalThis.terrainDraftScene.isolateFeature, false);
+  });
+});
+
+test("shared function edits affect all intended placements in a draft and commit only on confirmation", async () => {
+  const lamp = id => ({ id, asset: "lamp", name: id, longitude: -2.603, latitude: 51.454, altitude: 0, scale: 1, heading: 0, layer: "surface" });
+  const env = { ...emptyEnvironment(), feature_assets: { lamp: featurePresets.lamp }, features: [lamp("above"), { ...lamp("below"), altitude: -5, layer: "underground" }] };
+  await functionWorkspace(env, async f => {
+    const color = f.root.findAllByProps({ type: "color" })[0];
+    act(() => color.props.onChange({ target: { value: "#123456" } }));
+    act(() => f.root.findByProps({ "aria-label": "同步更新同定义地物" }).props.onChange({ target: { checked: true } }));
+    await act(async () => f.root.findByType("form").props.onSubmit({ preventDefault() {} }));
+    assert.equal(f.writes, 0);
+    const [first, second] = f.pending.document.environment.features;
+    assert.equal(first.asset, second.asset); assert.notEqual(first.asset, "lamp");
+    assert.deepEqual(second, { ...env.features[1], asset: first.asset });
+    assert.equal(f.pending.document.environment.feature_assets[first.asset].components[0].color, "#123456");
+    assert.match(text(f.root.findByProps({ className: "terrain-preview-review feature-preview-review" })), /修改 2/);
+    await act(async () => button(f.root, "确认写入正式城市").props.onClick());
+    assert.equal(f.writes, 1);
+    assert.equal(globalThis.terrainDraftScene.city.environment.feature_assets[first.asset].components[0].color, "#123456");
+  });
+});
+
+test("failed or repeated environment preview requests never write the city and removal remains recoverable", async () => {
+  let reject, attempt = 0;
+  const paused = new Promise((_yes, no) => { reject = no; });
+  const env = { ...emptyEnvironment(), feature_assets: { lamp: featurePresets.lamp },
+    features: [{ id: "lamp", asset: "lamp", name: "retained", longitude: -2.603, latitude: 51.454, altitude: 0, scale: 1, heading: 0, layer: "surface" }] };
+  await functionWorkspace(env, async f => {
+    const click = button(f.root, "预览移除地物").props.onClick;
+    act(() => { click(); click(); });
+    assert.equal(f.stages, 1);
+    await act(async () => reject(new Error("QA disk unavailable")));
+    assert.equal(f.pending, null); assert.equal(f.writes, 0);
+    assert.equal(globalThis.terrainDraftScene.city.environment.features.length, 1);
+    assert.match(text(f.root), /环境草稿未确认/);
+    await act(async () => button(f.root, "预览移除地物").props.onClick());
+    assert.equal(f.pending.document.environment.features.length, 0);
+    assert.equal(f.writes, 0);
+    await act(async () => button(f.root, "丢弃草稿").props.onClick());
+    assert.equal(globalThis.terrainDraftScene.city.environment.features.length, 1);
+    assert.equal(globalThis.terrainDraftScene.selectedFeature, "lamp");
+  }, async () => { if (++attempt === 1) await paused; });
+});
+
 test("single-building export receipts retain the exported identity and never overwrite the formal-city path", async () => {
   const windowBefore = globalThis.window, fetchBefore = globalThis.fetch;
   globalThis.window = { location: new URL("http://localhost/?city=london"), addEventListener() {}, removeEventListener() {} };
@@ -68,14 +172,6 @@ test("single-building export receipts retain the exported identity and never ove
     globalThis.fetch = fetchBefore; delete globalThis.terrainDraftScene;
   }
 });
-const Studio = (await import(pathToFileURL(outfile).href)).default;
-const text = node => typeof node === "string" ? node : (node.children ?? []).map(text).join("");
-const button = (root, label) => root.findAllByType("button").find(b => text(b) === label);
-const terrain = name => ({ id: name, name, longitude: -2.603, latitude: 51.454, reference_height: 0,
-  vertical_datum: "local", demonstration: true, source: { 来源: "test-only" },
-  points: [[0,0,0], [10,0,1], [0,10,2], [10,10,3]],
-  patches: [{ id: "strip", kind: "ruled-strip", left: [0,1], right: [2,3] }] });
-
 test("terrain preview preserves the rest of the city, survives reload, discards safely and commits only on confirmation", async () => {
   const windowBefore = globalThis.window;
   globalThis.window = { location: new URL("http://localhost/?workspace=environment&view=terrain"),

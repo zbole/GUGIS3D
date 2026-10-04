@@ -37,6 +37,7 @@ import AnalysisPanel from "./AnalysisPanel";
 import SpatialPanel from "./SpatialPanel";
 import ProjectStatusPanel, { type ProjectDataSource } from "./ProjectStatusPanel";
 import TerrainPreviewReview from "./TerrainPreviewReview";
+import FeaturePreviewReview from "./FeaturePreviewReview";
 import { analyzeCitySection, queryCityPoint, type PointQuery, type SpatialObject } from "./spatialAnalysis";
 import { type AnalysisPoint, pathPointAtDistance } from "./terrainAnalysis";
 import { usePathAnalysis } from "./usePathAnalysis";
@@ -113,6 +114,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     [terrainHit, setTerrainHit] = useState<TerrainHit | null>(null);
   const [featureLayer, setFeatureLayer] = useState<"all" | "surface" | "underground">("all");
   const [isolateFeature, setIsolateFeature] = useState(false);
+  useEffect(() => { if (!selectedFeature) setIsolateFeature(false); }, [selectedFeature]);
   const [showFeatureMarkers, setShowFeatureMarkers] = useState(true);
   const [environmentEditing, setEnvironmentEditing] = useState(false);
   const [environmentWorking, setEnvironmentWorking] = useState(false);
@@ -378,7 +380,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
   const workspaceHint: Record<WorkspaceTab, string> = {
     city: "选择建筑或查看街区；新建、导入和细化会先进入独立草稿。",
     author: "填写参数并生成建筑；检查预览后确认，才写入正式城市。",
-    environment: "地形先进入独立草稿检查；函数地物保存后写入正式项目并保留历史。",
+    environment: "地形与函数地物先进入独立草稿；检查场景后确认写入，原项目和历史可恢复。",
     analysis: "在场景中选点进行剖面与空间查询；分析记录可保存到城市档案。",
     detail: "查看楼层与构件；返回城市项目时可继续原来的场景工作。",
   };
@@ -439,6 +441,8 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
       await discardDraft(preview.revision);
       setPreview(null);
       setNeedsRegenerate(false);
+      setSelectedFeature(id => city?.environment?.features.some(item => item.id === id) ? id : city?.environment?.features[0]?.id ?? null);
+      setTerrainHit(null); setQueryTerrain(false); setPlacing(false);
       setNotice("已丢弃草稿，正式城市保持原样");
     } catch (e) {
       setError(String(e));
@@ -547,26 +551,21 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     );
   }
   async function saveEnvironment(environment: Environment, message: string) {
-    if (!city || preview || draftUnavailable) return false;
-    const ok = await commit({ ...city, environment }, message);
-    if (ok) {
-      setPlacing(false);
-      setTerrainHit(null);
-    }
-    return ok;
-  }
-  async function previewTerrain(terrain: Terrain, label: string) {
     if (!city || preview || draftUnavailable || busy || locked.current) return false;
     locked.current = true; setBusy(true); setError("");
     try {
-      await stage({ ...city, environment: { ...(city.environment ?? emptyEnvironment()), terrain } }, label);
+      await stage({ ...city, environment }, message);
       setTerrainHit(null); setQueryTerrain(false);
-      setNotice(`${label} · 已保存为独立草稿。检查后确认写入，或丢弃回到原项目。`);
+      setNotice(`${message} · 已保存为独立草稿。检查后确认写入，或丢弃回到原项目。`);
       return true;
     } catch (error) {
-      setError(`${error instanceof Error ? error.message : String(error)}。地形草稿未确认；请重新载入核对，正式城市未在此步骤提交。`);
+      setError(`${error instanceof Error ? error.message : String(error)}。环境草稿未确认；请重新载入核对，正式城市未在此步骤提交。`);
       return false;
     } finally { locked.current = false; setBusy(false); }
+  }
+  async function previewTerrain(terrain: Terrain, label: string) {
+    if (!city) return false;
+    return saveEnvironment({ ...(city.environment ?? emptyEnvironment()), terrain }, label);
   }
   function edit() {
     if (document) {
@@ -865,6 +864,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
                 : ""}
             </small>
             <TerrainPreviewReview before={city.environment?.terrain} after={preview.document.environment?.terrain}/>
+            <FeaturePreviewReview before={city.environment} after={preview.document.environment}/>
           </div>
           <button
             className="primary"
@@ -947,8 +947,10 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
                 onBusyChange={setEnvironmentWorking}
                 environment={displayCity!.environment}
                 initialSection={typeof window !== "undefined" && new URLSearchParams(window.location.search).get("view") === "terrain" ? "terrain" : undefined}
-                busy={busy || !!preview || draftUnavailable}
+                busy={busy || draftUnavailable}
+                readOnly={!!preview}
                 save={saveEnvironment}
+                previewChanges
                 previewTerrain={previewTerrain}
                 terrainIsDraft={!!preview}
                 position={environmentPosition}
