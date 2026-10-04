@@ -1,0 +1,866 @@
+{
+  "schema": "gugis-bristol-local-partition-v1",
+  "generated_at": "2026-10-05",
+  "parent_sha256": "967c65a8ef119f230c0c45bf3335484895f4b0279e091731bcea095a320b1f63",
+  "raster_sha256": "eba5ddd68fd58472d236d681f8af8da98df5a29762673414cb916658a264bfbf",
+  "method": "Locally refined rectangles; hanging edges close with centre-to-boundary triangles encoded as triangle strips. Shared IDs and edge traces enforce C0. Whole-cell reference bounds, not local slope or Hessian heuristics. No optimality claim.",
+  "scripts": {
+    "data-pipeline/terrain_partition_hybrid.py": "67dca0a6d8f4ff150768b9557acb25590dec96e49db0ca86a6d479ebcaba668b",
+    "data-pipeline/build_bristol_local_partition.py": "8e7f6bc9ee8e5b60bf5b301a63b1b978bba87282543b1d612cdd017f04b2d4cf",
+    "data-pipeline/publish_bristol_local_partition.py": "dbd2802399f3b89d8ebf7d8c7c2d0af68339b2e70cda3775d074e0ac1740c7c1"
+  },
+  "reference_scope": "Continuous piecewise-bilinear interpolation of each original 65x65 EA DTM crop, 1m pixel centres, 64x64m. Relative source-raster bound, not unmeasured ground accuracy.",
+  "coordinate_scope": "Exact British National Grid offsets from the centre pixel; ODN Z unchanged. Research-only local coordinates, not converted to city ENU. Do not insert these numeric fixtures into the city scene.",
+  "cases": [
+    {
+      "id": "bristol-harbour",
+      "name": "布里斯托港区",
+      "reference_sha256": "e5ddb9d5feefbc8b1eb938e7f17a4ee09d7978456a21436101cf558c520a5292",
+      "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+      "origin_bng": [
+        358506.5,
+        172516.5
+      ],
+      "source_window": [
+        1749,
+        1538,
+        65,
+        65
+      ],
+      "variants": [
+        {
+          "target_m": 0.1,
+          "primitive_sha256": "2fff094e72c4165ad0d6e6ecd0fe9c66750d1d3de2aaee09c8bcb4fd1eaf79c6",
+          "global_compact_bytes": 60805,
+          "local_triangles_bytes": 49793,
+          "receipt": {
+            "status": "target-met",
+            "target_m": 0.1,
+            "target_met": true,
+            "continuous_bound_m": 0.09950034433187815,
+            "points": 446,
+            "patches": 787,
+            "local_cells": 274,
+            "boundary_triangulated_cells": 69,
+            "rounding_margin_m": 5e-06,
+            "seams": "Every cell edge is subdivided at all adjacent rectangle vertices, using shared global point IDs and Z. Hanging edges use centre-to-boundary triangles encoded as triangle strips. C0, not C1.",
+            "scope": "Complete source raster; whole-cell reference bounds; engineering candidate family, no optimality theorem or city ENU conversion."
+          },
+          "build_validate_ms": 2353.958799969405,
+          "compaction_validate_ms": 8.344199974089861,
+          "local_hybrid": {
+            "filename": "local_hybrid-0.1m.json",
+            "bytes": 58043,
+            "sha256": "d06cbc51b5d81b7da4765472fa93037d2e20268515f3ce4027b99c6308b8f7c9",
+            "points": 446,
+            "patches": 787,
+            "ruled_patches": 52,
+            "triangle_patches": 735,
+            "continuous_bound_m": 0.09950034433187815,
+            "closure": {
+              "internal_edges_paired": 1233,
+              "outer_edges": 51,
+              "xy_area_m2": 4096.0,
+              "c0_shared_ids_and_edge_traces": true,
+              "c1_claim": false
+            },
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.1,
+              "family": "local_hybrid",
+              "archive_sha256": "d06cbc51b5d81b7da4765472fa93037d2e20268515f3ce4027b99c6308b8f7c9",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.016190121504864378,
+              "p95_absolute_m": 0.03894477874064606,
+              "max_sampled_m": 0.09797439911153916,
+              "max_source_centre_m": 0.09950012207031378,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 2.715600000000009,
+              "query_batches_ms": [
+                3.3048,
+                3.8460000000000036,
+                3.4365000000000094,
+                5.505300000000005,
+                4.500100000000003
+              ],
+              "query_batch_median_ms": 3.8460000000000036,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 787,
+                "bucketCount": 36,
+                "memberships": 1512,
+                "maxCandidatesPerBucket": 244,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-local_hybrid-0.1m.csv",
+                "bytes": 371810,
+                "sha256": "0bc8df1d219c9b6c2aa65d1e9ad3130efce6178f3c8cf2c05ce78cc7f98fec77"
+              }
+            }
+          },
+          "compact_local_hybrid": {
+            "filename": "compact_local_hybrid-0.1m.json",
+            "bytes": 23093,
+            "sha256": "21f9872cb15408e1e55c8d238635da6df278fde95cd8d004d547c03f2f1eb58c",
+            "points": 446,
+            "patches": 195,
+            "ruled_patches": 27,
+            "triangle_patches": 168,
+            "continuous_bound_m": 0.09950034433187815,
+            "closure": {
+              "internal_edges_paired": 1233,
+              "outer_edges": 51,
+              "xy_area_m2": 4096.0,
+              "c0_shared_ids_and_edge_traces": true,
+              "c1_claim": false
+            },
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.1,
+              "family": "compact_local_hybrid",
+              "archive_sha256": "21f9872cb15408e1e55c8d238635da6df278fde95cd8d004d547c03f2f1eb58c",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.01619012150486437,
+              "p95_absolute_m": 0.03894477874064606,
+              "max_sampled_m": 0.09797439911153916,
+              "max_source_centre_m": 0.09950012207031378,
+              "compaction_max_height_difference_m": 1.7763568394002505e-15,
+              "index_ms": 1.8754999999999882,
+              "query_batches_ms": [
+                4.5855999999999995,
+                3.871299999999991,
+                3.9358999999999753,
+                5.460400000000021,
+                3.6657000000000153
+              ],
+              "query_batch_median_ms": 3.9358999999999753,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 787,
+                "bucketCount": 36,
+                "memberships": 1512,
+                "maxCandidatesPerBucket": 244,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-compact_local_hybrid-0.1m.csv",
+                "bytes": 371836,
+                "sha256": "e60f4ac6f393f856e529c4149f37c66e74b2e7f4abf4bd76fc542af59e7bb7d4"
+              }
+            }
+          },
+          "vs_global_compact_saving_percent": 62.02121536057889,
+          "vs_local_triangles_saving_percent": 53.62199505954652
+        },
+        {
+          "target_m": 0.25,
+          "primitive_sha256": "e85d494d7ca089dfdf431a2ab6c05391ac474e8532afbaaf9e2e8b89893ad883",
+          "global_compact_bytes": 42670,
+          "local_triangles_bytes": 21723,
+          "receipt": {
+            "status": "target-met",
+            "target_m": 0.25,
+            "target_met": true,
+            "continuous_bound_m": 0.2450363992362413,
+            "points": 382,
+            "patches": 677,
+            "local_cells": 240,
+            "boundary_triangulated_cells": 55,
+            "rounding_margin_m": 5e-06,
+            "seams": "Every cell edge is subdivided at all adjacent rectangle vertices, using shared global point IDs and Z. Hanging edges use centre-to-boundary triangles encoded as triangle strips. C0, not C1.",
+            "scope": "Complete source raster; whole-cell reference bounds; engineering candidate family, no optimality theorem or city ENU conversion."
+          },
+          "build_validate_ms": 1814.701099996455,
+          "compaction_validate_ms": 7.618000032380223,
+          "local_hybrid": {
+            "filename": "local_hybrid-0.25m.json",
+            "bytes": 49779,
+            "sha256": "295eabcebfe4122030b05cbea287cb4ceb4b2851e7797f7c0209dc3dd2870e61",
+            "points": 382,
+            "patches": 677,
+            "ruled_patches": 42,
+            "triangle_patches": 635,
+            "continuous_bound_m": 0.2450363992362413,
+            "closure": {
+              "internal_edges_paired": 1057,
+              "outer_edges": 43,
+              "xy_area_m2": 4095.999999999999,
+              "c0_shared_ids_and_edge_traces": true,
+              "c1_claim": false
+            },
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.25,
+              "family": "local_hybrid",
+              "archive_sha256": "295eabcebfe4122030b05cbea287cb4ceb4b2851e7797f7c0209dc3dd2870e61",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.04428389558530303,
+              "p95_absolute_m": 0.11705542283551651,
+              "max_sampled_m": 0.22074897051253295,
+              "max_source_centre_m": 0.24206275939941335,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 1.2446000000000197,
+              "query_batches_ms": [
+                3.2805999999999926,
+                2.680800000000005,
+                2.5777000000000214,
+                2.6766000000000076,
+                3.0745000000000005
+              ],
+              "query_batch_median_ms": 2.680800000000005,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 677,
+                "bucketCount": 36,
+                "memberships": 1297,
+                "maxCandidatesPerBucket": 240,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-local_hybrid-0.25m.csv",
+                "bytes": 370573,
+                "sha256": "46521cc6f0573aad88571718426f7093d635ebeefeb54a6a7321077df20dab91"
+              }
+            }
+          },
+          "compact_local_hybrid": {
+            "filename": "compact_local_hybrid-0.25m.json",
+            "bytes": 19578,
+            "sha256": "400f0390b40be0e75ce9b6ed051207caf9b4155fd19a6df9173deb6fbf7902a4",
+            "points": 382,
+            "patches": 164,
+            "ruled_patches": 23,
+            "triangle_patches": 141,
+            "continuous_bound_m": 0.24503639923624126,
+            "closure": {
+              "internal_edges_paired": 1057,
+              "outer_edges": 43,
+              "xy_area_m2": 4095.999999999999,
+              "c0_shared_ids_and_edge_traces": true,
+              "c1_claim": false
+            },
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.25,
+              "family": "compact_local_hybrid",
+              "archive_sha256": "400f0390b40be0e75ce9b6ed051207caf9b4155fd19a6df9173deb6fbf7902a4",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.04428389558530303,
+              "p95_absolute_m": 0.11705542283551651,
+              "max_sampled_m": 0.22074897051253295,
+              "max_source_centre_m": 0.24206275939941335,
+              "compaction_max_height_difference_m": 1.7763568394002505e-15,
+              "index_ms": 0.9321000000000197,
+              "query_batches_ms": [
+                2.5170999999999992,
+                3.304399999999987,
+                3.0261999999999887,
+                2.50030000000001,
+                3.0763000000000034
+              ],
+              "query_batch_median_ms": 3.0261999999999887,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 677,
+                "bucketCount": 36,
+                "memberships": 1297,
+                "maxCandidatesPerBucket": 240,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-compact_local_hybrid-0.25m.csv",
+                "bytes": 370621,
+                "sha256": "8f531b3541776ca07efff581351998552411f2204f0e3c8c50317f7a69e3f3d5"
+              }
+            }
+          },
+          "vs_global_compact_saving_percent": 54.117647058823536,
+          "vs_local_triangles_saving_percent": 9.874326750448837
+        },
+        {
+          "target_m": 0.5,
+          "primitive_sha256": "e28474d31939be8f1e8ec08cb1a5b1d209665af0e23cb1bb9eacb4889588ce29",
+          "global_compact_bytes": 41480,
+          "local_triangles_bytes": 21902,
+          "receipt": {
+            "status": "target-met",
+            "target_m": 0.5,
+            "target_met": true,
+            "continuous_bound_m": 0.4665010767537533,
+            "points": 365,
+            "patches": 668,
+            "local_cells": 216,
+            "boundary_triangulated_cells": 60,
+            "rounding_margin_m": 5e-06,
+            "seams": "Every cell edge is subdivided at all adjacent rectangle vertices, using shared global point IDs and Z. Hanging edges use centre-to-boundary triangles encoded as triangle strips. C0, not C1.",
+            "scope": "Complete source raster; whole-cell reference bounds; engineering candidate family, no optimality theorem or city ENU conversion."
+          },
+          "build_validate_ms": 1708.0371000338346,
+          "compaction_validate_ms": 7.087700068950653,
+          "local_hybrid": {
+            "filename": "local_hybrid-0.5m.json",
+            "bytes": 48705,
+            "sha256": "fc38d23d614fccccc20a0878cd6c79832361b39d8dacaac4ca1e0d7e195f1171",
+            "points": 365,
+            "patches": 668,
+            "ruled_patches": 17,
+            "triangle_patches": 651,
+            "continuous_bound_m": 0.4665010767537533,
+            "closure": {
+              "internal_edges_paired": 1006,
+              "outer_edges": 43,
+              "xy_area_m2": 4095.999999999999,
+              "c0_shared_ids_and_edge_traces": true,
+              "c1_claim": false
+            },
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.5,
+              "family": "local_hybrid",
+              "archive_sha256": "fc38d23d614fccccc20a0878cd6c79832361b39d8dacaac4ca1e0d7e195f1171",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.04725308373223543,
+              "p95_absolute_m": 0.1203002922855454,
+              "max_sampled_m": 0.4467406165914154,
+              "max_source_centre_m": 0.3581956027221693,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 0.790300000000002,
+              "query_batches_ms": [
+                3.058400000000006,
+                3.2164999999999964,
+                2.22229999999999,
+                2.7458000000000027,
+                2.4750999999999976
+              ],
+              "query_batch_median_ms": 2.7458000000000027,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 668,
+                "bucketCount": 36,
+                "memberships": 1292,
+                "maxCandidatesPerBucket": 237,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-local_hybrid-0.5m.csv",
+                "bytes": 370474,
+                "sha256": "53eda3632836a7c9b5025925bb6be095e463fc4a016155b11f32dcf5068fe43f"
+              }
+            }
+          },
+          "compact_local_hybrid": {
+            "filename": "compact_local_hybrid-0.5m.json",
+            "bytes": 18102,
+            "sha256": "c42c6fbe4174d6c09e9d6c918f48768e2caaabea76f0632b59a9ac2b8d7e0013",
+            "points": 365,
+            "patches": 147,
+            "ruled_patches": 11,
+            "triangle_patches": 136,
+            "continuous_bound_m": 0.4665010767537533,
+            "closure": {
+              "internal_edges_paired": 1006,
+              "outer_edges": 43,
+              "xy_area_m2": 4095.999999999999,
+              "c0_shared_ids_and_edge_traces": true,
+              "c1_claim": false
+            },
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.5,
+              "family": "compact_local_hybrid",
+              "archive_sha256": "c42c6fbe4174d6c09e9d6c918f48768e2caaabea76f0632b59a9ac2b8d7e0013",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.04725308373223542,
+              "p95_absolute_m": 0.1203002922855454,
+              "max_sampled_m": 0.4467406165914154,
+              "max_source_centre_m": 0.35819560272216755,
+              "compaction_max_height_difference_m": 1.7763568394002505e-15,
+              "index_ms": 1.0720000000000027,
+              "query_batches_ms": [
+                2.542599999999993,
+                2.5037999999999556,
+                2.5148000000000366,
+                2.2556000000000154,
+                2.4885999999999626
+              ],
+              "query_batch_median_ms": 2.5037999999999556,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 668,
+                "bucketCount": 36,
+                "memberships": 1292,
+                "maxCandidatesPerBucket": 237,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-compact_local_hybrid-0.5m.csv",
+                "bytes": 370510,
+                "sha256": "2e9dfc2e250cde663c569da05fe36be42397ed416039ae944e78aa7687befeb1"
+              }
+            }
+          },
+          "vs_global_compact_saving_percent": 56.35969141755063,
+          "vs_local_triangles_saving_percent": 17.35001369737923
+        }
+      ],
+      "download": {
+        "filename": "bristol-harbour-local-partition.zip",
+        "bytes": 1096970,
+        "sha256": "7a8037dcc12f116b11de6712b2352b24cf766a1540ec63c14e09d1a4d6a1bf8b"
+      }
+    },
+    {
+      "id": "bristol-brandon-hill",
+      "name": "布兰登山坡",
+      "reference_sha256": "e44117a822fe995bf44718ad1dfea3351bfe144744edd52fec89ad563545f886",
+      "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+      "origin_bng": [
+        357862.5,
+        172777.5
+      ],
+      "source_window": [
+        1488,
+        894,
+        65,
+        65
+      ],
+      "variants": [
+        {
+          "target_m": 0.1,
+          "primitive_sha256": "a80d76f0db3d66307f0a10a1e347e2ab947c6d13190b7a9cc85fb34a41bfd6a9",
+          "global_compact_bytes": 93746,
+          "local_triangles_bytes": 36764,
+          "receipt": {
+            "status": "target-met",
+            "target_m": 0.1,
+            "target_met": true,
+            "continuous_bound_m": 0.09975419721502099,
+            "points": 844,
+            "patches": 1584,
+            "local_cells": 444,
+            "boundary_triangulated_cells": 192,
+            "rounding_margin_m": 5e-06,
+            "seams": "Every cell edge is subdivided at all adjacent rectangle vertices, using shared global point IDs and Z. Hanging edges use centre-to-boundary triangles encoded as triangle strips. C0, not C1.",
+            "scope": "Complete source raster; whole-cell reference bounds; engineering candidate family, no optimality theorem or city ENU conversion."
+          },
+          "build_validate_ms": 5991.697899997234,
+          "compaction_validate_ms": 17.752200015820563,
+          "local_hybrid": {
+            "filename": "local_hybrid-0.1m.json",
+            "bytes": 117047,
+            "sha256": "35a1d59203d5fd1c36fe9735dab03f044a53e527bc8181734c8dd8f4d4f48472",
+            "points": 844,
+            "patches": 1584,
+            "ruled_patches": 6,
+            "triangle_patches": 1578,
+            "continuous_bound_m": 0.09975419721502099,
+            "closure": {
+              "internal_edges_paired": 2337,
+              "outer_edges": 96,
+              "xy_area_m2": 4096.0,
+              "c0_shared_ids_and_edge_traces": true,
+              "c1_claim": false
+            },
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.1,
+              "family": "local_hybrid",
+              "archive_sha256": "35a1d59203d5fd1c36fe9735dab03f044a53e527bc8181734c8dd8f4d4f48472",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.028120551799518608,
+              "p95_absolute_m": 0.05877958376593284,
+              "max_sampled_m": 0.09163994524234909,
+              "max_source_centre_m": 0.09975158691406705,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 3.355099999999993,
+              "query_batches_ms": [
+                3.8226999999999975,
+                2.9051000000000045,
+                2.987700000000018,
+                2.6370000000000005,
+                2.7305999999999813
+              ],
+              "query_batch_median_ms": 2.9051000000000045,
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 1584,
+                "bucketCount": 100,
+                "memberships": 3831,
+                "maxCandidatesPerBucket": 124,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-local_hybrid-0.1m.csv",
+                "bytes": 392467,
+                "sha256": "fed05dd714061e54e8d58367f24e1554f819e2e42528c38b8f16a8f153c74263"
+              }
+            }
+          },
+          "compact_local_hybrid": {
+            "filename": "compact_local_hybrid-0.1m.json",
+            "bytes": 44037,
+            "sha256": "221fd56a88c52163bb98b4541911ec9b638b0188beff9626a2a0d0c03ccc3d06",
+            "points": 844,
+            "patches": 358,
+            "ruled_patches": 5,
+            "triangle_patches": 353,
+            "continuous_bound_m": 0.09975419721502099,
+            "closure": {
+              "internal_edges_paired": 2337,
+              "outer_edges": 96,
+              "xy_area_m2": 4096.0,
+              "c0_shared_ids_and_edge_traces": true,
+              "c1_claim": false
+            },
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.1,
+              "family": "compact_local_hybrid",
+              "archive_sha256": "221fd56a88c52163bb98b4541911ec9b638b0188beff9626a2a0d0c03ccc3d06",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.028120551799518553,
+              "p95_absolute_m": 0.05877958376593284,
+              "max_sampled_m": 0.09163994524234909,
+              "max_source_centre_m": 0.09975158691406705,
+              "compaction_max_height_difference_m": 7.105427357601002e-15,
+              "index_ms": 1.7144999999999868,
+              "query_batches_ms": [
+                2.829499999999996,
+                3.0878999999999905,
+                2.838799999999992,
+                2.447400000000016,
+                2.3671000000000504
+              ],
+              "query_batch_median_ms": 2.829499999999996,
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 1584,
+                "bucketCount": 100,
+                "memberships": 3831,
+                "maxCandidatesPerBucket": 124,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-compact_local_hybrid-0.1m.csv",
+                "bytes": 392463,
+                "sha256": "e4d77da1af39df335a5d9b12ec2f1422dfdd5fd88d2b1c755331273d1a29bbca"
+              }
+            }
+          },
+          "vs_global_compact_saving_percent": 53.02519574168498,
+          "vs_local_triangles_saving_percent": -19.78293983244479
+        },
+        {
+          "target_m": 0.25,
+          "primitive_sha256": "f3924860a3ffe7e37f3770da8311f7095def1b121e54f0510434264b7d000ef2",
+          "global_compact_bytes": 22324,
+          "local_triangles_bytes": 10882,
+          "receipt": {
+            "status": "target-met",
+            "target_m": 0.25,
+            "target_met": true,
+            "continuous_bound_m": 0.24725220594304964,
+            "points": 237,
+            "patches": 424,
+            "local_cells": 120,
+            "boundary_triangulated_cells": 53,
+            "rounding_margin_m": 5e-06,
+            "seams": "Every cell edge is subdivided at all adjacent rectangle vertices, using shared global point IDs and Z. Hanging edges use centre-to-boundary triangles encoded as triangle strips. C0, not C1.",
+            "scope": "Complete source raster; whole-cell reference bounds; engineering candidate family, no optimality theorem or city ENU conversion."
+          },
+          "build_validate_ms": 1268.5332999099046,
+          "compaction_validate_ms": 4.396199947223067,
+          "local_hybrid": {
+            "filename": "local_hybrid-0.25m.json",
+            "bytes": 31382,
+            "sha256": "c54238423f7df093584c5d8aa1159ad37c9aa549ef24784c6f11256643c107bb",
+            "points": 237,
+            "patches": 424,
+            "ruled_patches": 1,
+            "triangle_patches": 423,
+            "continuous_bound_m": 0.24725220594304964,
+            "closure": {
+              "internal_edges_paired": 614,
+              "outer_edges": 47,
+              "xy_area_m2": 4095.9999999999995,
+              "c0_shared_ids_and_edge_traces": true,
+              "c1_claim": false
+            },
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.25,
+              "family": "local_hybrid",
+              "archive_sha256": "c54238423f7df093584c5d8aa1159ad37c9aa549ef24784c6f11256643c107bb",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.06886002080325575,
+              "p95_absolute_m": 0.14134044729581774,
+              "max_sampled_m": 0.23126402524533773,
+              "max_source_centre_m": 0.24724960327148438,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 0.4907000000000039,
+              "query_batches_ms": [
+                3.0264999999999986,
+                2.2665999999999826,
+                2.643700000000024,
+                2.40259999999995,
+                2.185299999999984
+              ],
+              "query_batch_median_ms": 2.40259999999995,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 424,
+                "bucketCount": 36,
+                "memberships": 995,
+                "maxCandidatesPerBucket": 103,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-local_hybrid-0.25m.csv",
+                "bytes": 390735,
+                "sha256": "f0e2cc86c08279dfcbfbbd632a2b8a3dd55048d581a15ed0a03089d7059f60d7"
+              }
+            }
+          },
+          "compact_local_hybrid": {
+            "filename": "compact_local_hybrid-0.25m.json",
+            "bytes": 12679,
+            "sha256": "08ff276811d470da997f6fa4daa5c7c8cba73983e946e96ce4a60f034d753582",
+            "points": 237,
+            "patches": 104,
+            "ruled_patches": 1,
+            "triangle_patches": 103,
+            "continuous_bound_m": 0.24725220594304964,
+            "closure": {
+              "internal_edges_paired": 614,
+              "outer_edges": 47,
+              "xy_area_m2": 4095.9999999999995,
+              "c0_shared_ids_and_edge_traces": true,
+              "c1_claim": false
+            },
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.25,
+              "family": "compact_local_hybrid",
+              "archive_sha256": "08ff276811d470da997f6fa4daa5c7c8cba73983e946e96ce4a60f034d753582",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.06886002080325582,
+              "p95_absolute_m": 0.14134044729581774,
+              "max_sampled_m": 0.23126402524533773,
+              "max_source_centre_m": 0.24724960327148438,
+              "compaction_max_height_difference_m": 7.105427357601002e-15,
+              "index_ms": 0.6620000000000346,
+              "query_batches_ms": [
+                2.5669000000000324,
+                2.5267000000000053,
+                2.2735000000000127,
+                2.1748999999999796,
+                2.7257999999999925
+              ],
+              "query_batch_median_ms": 2.5267000000000053,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 424,
+                "bucketCount": 36,
+                "memberships": 995,
+                "maxCandidatesPerBucket": 103,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-compact_local_hybrid-0.25m.csv",
+                "bytes": 390763,
+                "sha256": "20192a3b32d2947a52d42c012b51349d9783f42a523d823f44a5afc21ba5a3be"
+              }
+            }
+          },
+          "vs_global_compact_saving_percent": 43.20462282745028,
+          "vs_local_triangles_saving_percent": -16.51350854622311
+        },
+        {
+          "target_m": 0.5,
+          "primitive_sha256": "52680226ddc55ad1d3809f7744ff9cf30a623aad2c7749ee90d855a5a25c9ef7",
+          "global_compact_bytes": 7116,
+          "local_triangles_bytes": 4261,
+          "receipt": {
+            "status": "target-met",
+            "target_m": 0.5,
+            "target_met": true,
+            "continuous_bound_m": 0.4966815196027178,
+            "points": 71,
+            "patches": 118,
+            "local_cells": 33,
+            "boundary_triangulated_cells": 15,
+            "rounding_margin_m": 5e-06,
+            "seams": "Every cell edge is subdivided at all adjacent rectangle vertices, using shared global point IDs and Z. Hanging edges use centre-to-boundary triangles encoded as triangle strips. C0, not C1.",
+            "scope": "Complete source raster; whole-cell reference bounds; engineering candidate family, no optimality theorem or city ENU conversion."
+          },
+          "build_validate_ms": 289.4617000129074,
+          "compaction_validate_ms": 1.5988999512046576,
+          "local_hybrid": {
+            "filename": "local_hybrid-0.5m.json",
+            "bytes": 9039,
+            "sha256": "8a5c0a4a6767d04b2e8826a50f6f4868013b9c2f3cb5d7a67ec048fd6508d03c",
+            "points": 71,
+            "patches": 118,
+            "ruled_patches": 1,
+            "triangle_patches": 117,
+            "continuous_bound_m": 0.4966815196027178,
+            "closure": {
+              "internal_edges_paired": 168,
+              "outer_edges": 21,
+              "xy_area_m2": 4095.9999999999995,
+              "c0_shared_ids_and_edge_traces": true,
+              "c1_claim": false
+            },
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.5,
+              "family": "local_hybrid",
+              "archive_sha256": "8a5c0a4a6767d04b2e8826a50f6f4868013b9c2f3cb5d7a67ec048fd6508d03c",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.14527552475876357,
+              "p95_absolute_m": 0.30898531259099116,
+              "max_sampled_m": 0.46977181834699877,
+              "max_source_centre_m": 0.4966815185546807,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 0.15779999999995198,
+              "query_batches_ms": [
+                2.8695000000000164,
+                3.3886999999999716,
+                2.6148000000000025,
+                2.4096000000000117,
+                2.7327999999999975
+              ],
+              "query_batch_median_ms": 2.7327999999999975,
+              "index_statistics": {
+                "binSizeMetres": 32,
+                "cells": 118,
+                "bucketCount": 16,
+                "memberships": 264,
+                "maxCandidatesPerBucket": 68,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-local_hybrid-0.5m.csv",
+                "bytes": 389900,
+                "sha256": "5e8640928251659c57de5251477738260c2c2ff332c0a6484f710302379cc4d8"
+              }
+            }
+          },
+          "compact_local_hybrid": {
+            "filename": "compact_local_hybrid-0.5m.json",
+            "bytes": 4348,
+            "sha256": "43f52b1618ec9ef81040136e7e551a4f2a233e153a7a8f34b5608159c8119c30",
+            "points": 71,
+            "patches": 35,
+            "ruled_patches": 1,
+            "triangle_patches": 34,
+            "continuous_bound_m": 0.4966815196027178,
+            "closure": {
+              "internal_edges_paired": 168,
+              "outer_edges": 21,
+              "xy_area_m2": 4095.9999999999995,
+              "c0_shared_ids_and_edge_traces": true,
+              "c1_claim": false
+            },
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.5,
+              "family": "compact_local_hybrid",
+              "archive_sha256": "43f52b1618ec9ef81040136e7e551a4f2a233e153a7a8f34b5608159c8119c30",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.1452755247587636,
+              "p95_absolute_m": 0.30898531259099116,
+              "max_sampled_m": 0.46977181834699877,
+              "max_source_centre_m": 0.4966815185546807,
+              "compaction_max_height_difference_m": 7.105427357601002e-15,
+              "index_ms": 0.2177000000000362,
+              "query_batches_ms": [
+                3.320799999999963,
+                4.1381999999999834,
+                2.169300000000021,
+                2.907600000000002,
+                3.5570999999999913
+              ],
+              "query_batch_median_ms": 3.320799999999963,
+              "index_statistics": {
+                "binSizeMetres": 32,
+                "cells": 118,
+                "bucketCount": 16,
+                "memberships": 264,
+                "maxCandidatesPerBucket": 68,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-compact_local_hybrid-0.5m.csv",
+                "bytes": 389890,
+                "sha256": "b6bc87fadbd3e54f3eaa0611ed552ae4234aba6eedf9348134663152db0bd5d2"
+              }
+            }
+          },
+          "vs_global_compact_saving_percent": 38.89825744800449,
+          "vs_local_triangles_saving_percent": -2.0417742314010834
+        }
+      ],
+      "download": {
+        "filename": "bristol-brandon-hill-local-partition.zip",
+        "bytes": 1339187,
+        "sha256": "104eaa25c91cabb7ed93369f020b519e920dedde507236a0f14081ff0ce4dd79"
+      }
+    }
+  ],
+  "build_receipt_sha256": "b4547135ee1d1993ae382edf3381f5f66dedcbd39de97340d7d3a4ad2c7eb420",
+  "native_audit_sha256": "55299eda69aef50fc2fa50b9b495aee02777e3692f878337df5b5277bf643c01",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "native_runner_sha256": "944a4c27821132e8a1b3f7da57c61816eef7618ec8c7d7708153c041851bdcf4",
+  "native_query_scope": "CPU native point queries; 5 warm batches, index build separate. No GPU/heap/ArcGIS software measurement.",
+  "full_report_sha256": "3c3cb1611a9f12882e524f238b45c0853b5b46d55852f00e65a8fb3c39582262"
+}

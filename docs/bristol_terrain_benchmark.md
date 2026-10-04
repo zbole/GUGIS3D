@@ -41,3 +41,37 @@ node frontend/scripts/audit-bristol-certified.mjs .local/benchmark/bristol-certi
 构建器要求新目录。运行测量和发布会更新这组实验的公开结果和代码指纹，应先检查变更，保留历史提交；不会修改正式城市。本次前端组件检查、两项发布包数值检查、生产构建和真实浏览器档位切换、源图加载、ZIP/CSV 下载均通过。实际下载的港区包及 CSV 与仓库文件逐字节一致；控制台无警告和错误。
 
 © Environment Agency copyright and/or database right 2022. All rights reserved.
+
+## 第二轮：局部矩形分区与三角带接缝闭合
+
+首轮的全局张量切线会传播局部细节。新增 `data-pipeline/terrain_partition_hybrid.py` 离线研究原型：仅细分当前高误差矩形，整块参考误差合适时保留直纹面；邻接边有悬挂顶点时，围绕单元中心构造闭合三角面并编码为三角带。相邻边使用同一批点号和保存高程。没有新增 `triangle-fan` 原语，保证 C0，不保证 C1，也不声称论文最优性。
+
+| 样区 / 最大参考目标 | 新局部紧凑混合 | 相对原全局紧凑混合减少 | 与局部三角带比较 |
+|---|---:|---:|---:|
+| 港区 / 10 cm | 23,093 B | 62.02% | 小 53.62% |
+| 港区 / 25 cm | 19,578 B | 54.12% | 小 9.87% |
+| 港区 / 50 cm | 18,102 B | 56.36% | 小 17.35% |
+| 山坡 / 10 cm | 44,037 B | 53.03% | 大 19.78% |
+| 山坡 / 25 cm | 12,679 B | 43.20% | 大 16.51% |
+| 山坡 / 50 cm | 4,348 B | 38.90% | 大 2.04% |
+
+源裁剪、共同查询坐标、元数据、保存精度和三档目标沿用首轮并绑定原回执 SHA256。新方案与局部三角带是不同的参考达标曲面；此表不是相同几何的纯格式收益。港区 10 cm 为 446 控制点，山坡为 844，参考界分别 9.950 cm / 9.975 cm，4,096 点抽查 RMSE 为 1.619 / 2.812 cm。山坡仍不及局部三角方案，结果完整保留。
+
+12 份原始/压紧模型逐一检查：方向几何哈希相同，连续参考界达标，每条内部边恰有配对，外边单边，投影覆盖面积均为 4,096 m²；全部控制点共用保存高程。每份 4,225 个源像元中心、4,096 非网格点和 256 外边界点通过网站原生核验，压紧前后抽查和外边界高程差小于 1e−9 m。构建约 0.29～5.99 秒（单次本机 CPU），另付压紧和索引成本，均在页面公开。这是离线研究实验，不自动替换正式城市或 20 像元预览。
+
+![网站第二轮结果与剩余代价](screenshots/bristol-local-partition-2026-10-05.png)
+
+![实际原生面片拓扑和全部成本](../frontend/public/research/bristol-local-partition/local-topology-cost.png)
+
+完整报告 `shared/bristol-local-partition.json` 保留细分历史和单元范围；网页加载 37.5 kB 摘要 `bristol-local-partition-summary.json`，用完整报告哈希绑定，以免把 427 kB 研究历史塞进页面代码。两份 ZIP 带 12 份模型、来源、夹具、逐点 CSV 和回执，原首轮报告与包不变。浏览器核验三档切换、拓扑图加载与真实下载；港区 ZIP 和 CSV 均与发布文件逐字节一致，控制台无警告或错误。前端 577 项检查、六项研究数值检查及生产构建通过。
+
+```powershell
+.venv/Scripts/python.exe -m pip install -r data-pipeline/research-requirements.txt
+.venv/Scripts/python.exe data-pipeline/build_bristol_local_partition.py --parent .local/benchmark/bristol-certified-new --output .local/benchmark/bristol-local-new
+node frontend/scripts/audit-bristol-local-partition.mjs .local/benchmark/bristol-local-new
+.venv/Scripts/python.exe data-pipeline/publish_bristol_local_partition.py --input .local/benchmark/bristol-local-new
+.venv/Scripts/python.exe data-pipeline/plot_bristol_local_partition.py --input .local/benchmark/bristol-local-new
+.venv/Scripts/python.exe -m unittest discover -s data-pipeline/tests
+```
+
+本阶段依旧没有执行 ArcGIS 软件；首轮的同几何 MultiPatch 对照与第二轮的不同曲面算法比较分开呈现。参考界不是未知地面的精度保证，研究 BNG 偏移仍不得直接植入城市 ENU。

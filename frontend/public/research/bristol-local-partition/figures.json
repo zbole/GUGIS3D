@@ -1,0 +1,16 @@
+{
+  "report_sha256": "3c3cb1611a9f12882e524f238b45c0853b5b46d55852f00e65a8fb3c39582262",
+  "plotter_sha256": "12bfb6a3eb3d3e1366dae33d9b062582f246d4564eec9d37e36cb77b0107608c",
+  "figures": [
+    {
+      "filename": "local-topology-cost.png",
+      "bytes": 269395,
+      "sha256": "eca516844117c713a775fe6d201eb890af6cafa3a6518ed9a48fc01f6952a5f3"
+    },
+    {
+      "filename": "local-topology-cost.svg",
+      "bytes": 592641,
+      "sha256": "266077b3912db154c77c6268bffd97dfbb5619c8adccb63c71dcce81e22c05cf"
+    }
+  ]
+}

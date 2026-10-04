@@ -1,9 +1,10 @@
 import {useEffect,useState} from 'react';
 import report from '../../../shared/bristol-certified-terrain.json';
+import BristolLocalPartitionComparison from './BristolLocalPartitionComparison';
 import './hybridTerrainLab.css';
 import './BristolTerrainBenchmark.css';
 
-const names={hybrid:'原始混合面带',compact_hybrid:'紧凑混合面带',local_triangles:'局部三角带'};
+const names={hybrid:'原始全局混合面带',compact_hybrid:'紧凑全局混合面带',local_triangles:'局部三角带'};
 const families=['hybrid','compact_hybrid','local_triangles'] as const;
 const kb=(bytes:number)=>(bytes/1000).toFixed(2);
 export default function BristolTerrainBenchmark(){
@@ -31,7 +32,8 @@ export default function BristolTerrainBenchmark(){
         <th scope="row">{data.name}</th><td>{names[family]}{family==='local_triangles'?' · 本组最小':''}</td><td>{kb(pair[family].bytes)}</td><td>{pair[family].points.toLocaleString()}</td>
         <td>{(pair[family].continuous_bound_m*100).toFixed(3)}{pair[family].target_met?' · 达标':' · 未达标'}</td><td>{(pair[family].query_audit.rmse_m*100).toFixed(3)}</td>
       </tr>))}</tbody></table></div>
-    <p className="bristol-benchmark__finding">真实样区也会推翻直觉：本次六组中，局部三角带均小于紧凑混合面带；当前目标下，紧凑混合文件在港区大 {(100*(pairs[0].pair.compact_hybrid.bytes/pairs[0].pair.local_triangles.bytes-1)).toFixed(1)}%，在山坡大 {(100*(pairs[1].pair.compact_hybrid.bytes/pairs[1].pair.local_triangles.bytes-1)).toFixed(1)}%。这支持按地形选择表达，不能用解析鞍面的优势替代真实城市结果。</p>
+    <p className="bristol-benchmark__finding">真实样区也会推翻直觉：首轮全局方案的六组中，局部三角带均小于紧凑混合面带；当前目标下，原全局紧凑混合文件在港区大 {(100*(pairs[0].pair.compact_hybrid.bytes/pairs[0].pair.local_triangles.bytes-1)).toFixed(1)}%，在山坡大 {(100*(pairs[1].pair.compact_hybrid.bytes/pairs[1].pair.local_triangles.bytes-1)).toFixed(1)}%。这支持按地形选择表达，不能用解析鞍面的优势替代真实城市结果。</p>
+    <BristolLocalPartitionComparison target={target} />
     <div className="hybrid-table-scroll"><table><caption>MultiPatch 对照口径 · 同一份局部三角带几何</caption><thead><tr><th>样区</th><th>GUGIS / kB</th><th>五个文件 / kB</th><th>加原生恢复信息 / kB</th><th>原生档案回读</th></tr></thead><tbody>
       {pairs.map(({data,pair})=><tr key={data.id}><th>{data.name}</th><td>{kb(pair.local_triangles.bytes)}</td><td>{kb(pair.multipatch.core_bytes)}</td><td>{kb(pair.multipatch.recoverable_bytes)}</td><td>逐字节一致</td></tr>)}
     </tbody></table></div>
