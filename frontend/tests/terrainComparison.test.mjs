@@ -80,7 +80,9 @@ function fixture() {
     setItem: (key, value) => saved.set(key, value), removeItem: key => saved.delete(key) };
   let renderer;
   act(() => { renderer = create(React.createElement(Lab, { suite })); });
-  return { get root() { return renderer.root; }, saved, close: () => act(() => renderer.unmount()) };
+  return { get root() { return renderer.root; }, saved,
+    update: next => act(() => renderer.update(React.createElement(Lab, { suite: next }))),
+    close: () => act(() => renderer.unmount()) };
 }
 
 test("precision target selects a sufficient export and profile stations follow the chosen route", () => {
@@ -105,6 +107,93 @@ test("precision target selects a sufficient export and profile stations follow t
   assert.match(text(f.root.findByProps({ className: "cmp-derivative-stats" })), /0.014°/);
   act(() => target.props.onChange({ target: { value: ".1" } }));
   assert.match(text(f.root.findByProps({ className: "cmp-budget-verdict" })), /均未达到/);
+  f.close();
+});
+
+function delayedFile() {
+  let resolve, reject;
+  const promise = new Promise((yes, no) => { resolve = yes; reject = no; });
+  return { input: { files: [{ size: 100, text: () => promise }], value: "selected" }, resolve, reject };
+}
+const reportInput = version => {
+  const run = runFixture(); run.runtime.version = version;
+  return { files: [{ size: 100, text: async () => JSON.stringify(run) }], value: version };
+};
+const importFile = (f, input) => f.root.findByProps({ "aria-label": "ArcGIS Pro 实测报告文件" }).props.onChange({ currentTarget: input });
+
+test("latest selected report wins even when an earlier file resolves last", async () => {
+  const f = fixture(), older = delayedFile(); let pending;
+  act(() => { pending = importFile(f, older.input); });
+  assert.equal(older.input.value, "");
+  assert.match(text(f.root.findByProps({ role: "status" })), /正在读取/);
+  await act(async () => importFile(f, reportInput("latest-test-double")));
+  const saved = [...f.saved.values()][0];
+  await act(async () => { older.resolve(JSON.stringify(runFixture())); await pending; });
+  assert.match(text(f.root), /latest-test-double/);
+  assert.equal([...f.saved.values()][0], saved);
+  f.close();
+});
+
+test("obsolete rejected reads neither announce errors nor stop a newer pending read", async () => {
+  const f = fixture(), older = delayedFile(), newer = delayedFile(); let first, second;
+  act(() => { first = importFile(f, older.input); second = importFile(f, newer.input); });
+  await act(async () => { older.reject(new Error("obsolete read failure")); await first; });
+  assert.equal(f.root.findAllByProps({ role: "alert" }).length, 0);
+  assert.match(text(f.root.findByProps({ role: "status" })), /正在读取/);
+  await act(async () => { newer.resolve(JSON.stringify(runFixture())); await second; });
+  assert.match(text(f.root.findByProps({ role: "status" })), /报告已校验/);
+  f.close();
+});
+
+test("clearing a displayed report invalidates pending imports and blocked storage deletion is explicit", async () => {
+  const f = fixture();
+  await act(async () => importFile(f, reportInput("prior-test-double")));
+  const next = delayedFile(); let pending;
+  act(() => { pending = importFile(f, next.input); });
+  globalThis.localStorage.removeItem = () => { throw new Error("blocked"); };
+  act(() => button(f.root, "清除本浏览器展示").props.onClick());
+  assert.match(text(f.root.findByProps({ role: "alert" })), /刷新后可能恢复/);
+  await act(async () => { next.resolve(JSON.stringify(runFixture())); await pending; });
+  assert.match(text(f.root), /运行值待导入/);
+  assert.equal(f.saved.size, 1);
+  assert.match([...f.saved.values()][0], /prior-test-double/);
+  f.close();
+});
+
+test("unmount and package changes prevent late writes and isolate retained reports", async () => {
+  const f = fixture(), next = delayedFile(); let pending;
+  act(() => { pending = importFile(f, next.input); });
+  const other = { ...suite, bundleId: "b".repeat(64) };
+  const otherRun = runFixture(); otherRun.bundleId = other.bundleId; otherRun.runtime.version = "other-package-test-double";
+  f.saved.set(`gugis:arcgis-run:${other.bundleId}`, JSON.stringify(otherRun));
+  f.update(other);
+  assert.match(text(f.root), /other-package-test-double/);
+  await act(async () => { next.resolve(JSON.stringify(runFixture())); await pending; });
+  assert.equal(f.saved.size, 1);
+  assert.match(text(f.root), /other-package-test-double/);
+  const after = delayedFile(); let late;
+  act(() => { late = importFile(f, after.input); });
+  f.close();
+  await act(async () => { after.resolve(JSON.stringify(otherRun)); await late; });
+  assert.equal(f.saved.size, 1);
+  assert.match([...f.saved.values()][0], /other-package-test-double/);
+});
+
+test("failed reads, oversized files and denied persistence preserve evidence without claiming retention", async () => {
+  const f = fixture();
+  await act(async () => importFile(f, reportInput("preserved-test-double")));
+  await act(async () => importFile(f, { files: [{ size: 100, text: async () => { throw new Error("file unavailable"); } }], value: "" }));
+  assert.match(text(f.root.findByProps({ role: "alert" })), /file unavailable.*未替换/);
+  let read = false;
+  await act(async () => importFile(f, { files: [{ size: 1048577, text: async () => { read = true; return ""; } }], value: "" }));
+  assert.equal(read, false);
+  assert.match(text(f.root), /preserved-test-double/);
+  globalThis.localStorage.setItem = () => { throw new Error("blocked"); };
+  await act(async () => importFile(f, reportInput("shown-only-test-double")));
+  assert.match(text(f.root), /shown-only-test-double/);
+  assert.match(text(f.root.findByProps({ role: "alert" })), /未允许持久保留/);
+  assert.doesNotMatch(text(f.root.findByProps({ role: "status" })), /已校验并保留/);
+  assert.match([...f.saved.values()][0], /preserved-test-double/);
   f.close();
 });
 

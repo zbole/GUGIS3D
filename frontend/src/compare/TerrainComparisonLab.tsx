@@ -9,6 +9,10 @@ const degrees = (value: number | null) => value === null ? "—" : `${value.toFi
 const range = (values: number[]) => `${Math.min(...values).toFixed(1)}–${Math.max(...values).toFixed(1)} ms`;
 
 export default function TerrainComparisonLab({ suite }: { suite: ComparisonSuite }) {
+  return <TerrainComparisonSession key={`${suite.cityRevision}:${suite.bundleId}`} suite={suite}/>;
+}
+
+function TerrainComparisonSession({ suite }: { suite: ComparisonSuite }) {
   const packageUrl = `${base}/city/terrain/benchmark-suite.zip?snapshot=${suite.cityRevision}&bundle=${suite.bundleId}`;
   const cacheKey = `gugis:arcgis-run:${suite.bundleId}`;
   const [resolution, setResolution] = useState(() => precisionChoice(suite, 1)?.ruledSubdivisions ?? suite.variants[0].ruledSubdivisions);
@@ -18,13 +22,21 @@ export default function TerrainComparisonLab({ suite }: { suite: ComparisonSuite
   const [metric, setMetric] = useState<"height" | "slope">("height");
   const [arcgis, setArcgis] = useState<ArcGISRun | null>(null);
   const [importError, setImportError] = useState("");
+  const [importMessage, setImportMessage] = useState("");
+  const [importing, setImporting] = useState(false);
+  const importAttempt = useRef(0);
+  const active = useRef(false);
   const file = useRef<HTMLInputElement>(null);
   useEffect(() => {
+    active.current = true;
+    importAttempt.current++;
+    setArcgis(null); setImportError(""); setImportMessage(""); setImporting(false);
     try {
       const saved = localStorage.getItem(cacheKey);
       if (saved) setArcgis(parseArcGISRun(saved, suite));
     } catch { setImportError("本浏览器保留的报告无法校验；可重新导入脚本输出。"); }
-  }, []);
+    return () => { active.current = false; importAttempt.current++; };
+  }, [cacheKey, suite]);
   const variant = suite.variants.find(v => v.ruledSubdivisions === resolution) ?? suite.variants[0];
   const profile = variant.profiles.find(p => p.id === profileId) ?? variant.profiles[0];
   const selectedStation = Math.min(station, profile.samples.length - 1);
@@ -57,15 +69,28 @@ export default function TerrainComparisonLab({ suite }: { suite: ComparisonSuite
   async function importRun(input: HTMLInputElement) {
     const chosen = input.files?.[0];
     if (!chosen) return;
-    setImportError("");
+    // Release the picker immediately so the same file can be selected again.
+    // A pending older read must never clear a newer selection or replace its result.
+    input.value = "";
+    const attempt = ++importAttempt.current;
+    const isCurrent = () => active.current && attempt === importAttempt.current;
+    setImportError(""); setImportMessage(""); setImporting(true);
     try {
       if (chosen.size > 1024 * 1024) throw new Error("实测报告不得超过 1 MiB。");
-      const run = parseArcGISRun(await chosen.text(), suite);
+      const raw = await chosen.text();
+      if (!isCurrent()) return;
+      const run = parseArcGISRun(raw, suite);
       setArcgis(run);
-      try { localStorage.setItem(cacheKey, JSON.stringify(run)); }
+      try { localStorage.setItem(cacheKey, JSON.stringify(run)); setImportMessage("报告已校验并保留在本浏览器；属于用户导入，未独立复核软件运行。"); }
       catch { setImportError("报告已展示，但浏览器未允许持久保留。"); }
-    } catch (error) { setImportError(error instanceof Error ? error.message : "报告导入失败。"); }
-    finally { input.value = ""; }
+    } catch (error) {
+      if (isCurrent()) setImportError(`${error instanceof Error ? error.message : "报告导入失败。"} 本次未替换已有报告。`);
+    } finally { if (isCurrent()) setImporting(false); }
+  }
+  function clearRun() {
+    importAttempt.current++; setImporting(false); setArcgis(null); setImportError("");
+    try { localStorage.removeItem(cacheKey); setImportMessage("已清除本浏览器展示与保留的报告。"); }
+    catch { setImportMessage(""); setImportError("已清除当前展示，但浏览器未允许删除保留的报告；刷新后可能恢复。"); }
   }
   return <section className="cmp-section cmp-lab" id="terrain-lab" aria-labelledby="terrain-lab-title">
     <div className="cmp-section-heading"><div><p className="cmp-kicker"><FlaskConical size={14}/> 同源精度实验室</p><h2 id="terrain-lab-title">精度提升时，<br/>数据如何增长？</h2></div><p>四份实际生成并读回的 MultiPatch 三角带文件，与同一 GUGIS 原生控制网对照。切换精度，查看文件体积、相同点位与采样剖面的高程差。</p></div>
@@ -113,10 +138,11 @@ export default function TerrainComparisonLab({ suite }: { suite: ComparisonSuite
       <p className="cmp-profile-note">当前站点：{sample?.height === null || sample?.multipatchHeight === null ? "NoData，导数不可比" : sample?.nativeOnEdge || sample?.multipatchOnEdge ? "面片边界，展示先命中面的一侧坡度；不进入导数汇总" : "面片内部"}。剖面保留单侧导数供观察；曲线只连接采样值，并不定位全部三角面边界或重建连续导数。</p>
     </article>
     <div className="cmp-lab-package"><div><small>可复核 / 可在 ArcGIS Pro 打开</small><h3>带走整个对比实验。</h3><p>四档 Shapefile、GUGIS 原生地形、点查询与剖面 CSV、逐文件校验值、ArcGIS Pro 测量脚本。</p><code>快照 {suite.cityRevision.slice(0, 16)}…</code></div><a className="cmp-case-demo" href={packageUrl}>下载同源实验包 · {mb(suite.packageBytes)} MB <ArrowDown size={16}/></a></div>
-    <article className="cmp-arcgis-run" aria-labelledby="arcgis-run-title"><div className="cmp-profile-head"><div><small>ARCGIS PRO / 软件实测接入</small><h3 id="arcgis-run-title">用真实软件结果补齐对比。</h3></div><button onClick={() => file.current?.click()}><Upload size={16}/>导入 ArcGIS Pro 实测 JSON</button><input ref={file} type="file" accept=".json,application/json" aria-label="ArcGIS Pro 实测报告文件" hidden onChange={event => void importRun(event.currentTarget)}/></div>
+    <article className="cmp-arcgis-run" aria-labelledby="arcgis-run-title"><div className="cmp-profile-head"><div><small>ARCGIS PRO / 软件实测接入</small><h3 id="arcgis-run-title">用真实软件结果补齐对比。</h3></div><button onClick={() => file.current?.click()}><Upload size={16}/>导入 ArcGIS Pro 实测 JSON</button><input ref={file} type="file" accept=".json,application/json" aria-label="ArcGIS Pro 实测报告文件" hidden onChange={event => importRun(event.currentTarget)}/></div>
       <p>解压实验包，在 ArcGIS Pro 的 Python Command Prompt 中运行 <code>python run_arcgis_pro.py</code>，再导入输出。脚本核对全部文件，并重复测量全几何读取与导入独立临时 FGDB 各 3 次。</p>
       {importError && <p role="alert" className="cmp-import-error">{importError}</p>}
-      {arcgis ? <><div className="cmp-imported-run"><strong>用户导入 · 本机未独立复核</strong><span>{arcgis.runtime.product} {arcgis.runtime.version} · {arcgis.runtime.os} · {new Date(arcgis.measuredAtUtc).toLocaleString("zh-CN")}</span><button onClick={() => { setArcgis(null); try { localStorage.removeItem(cacheKey); } catch {} }}>清除本浏览器展示</button></div><div className="cmp-lab-table-wrap"><table className="cmp-lab-table"><caption>用户导入的 ArcPy 重复实测：三次中位数与范围</caption><thead><tr><th>档位</th><th>全几何读取中位数</th><th>三次范围</th><th>FGDB 导入中位数</th><th>三次范围</th></tr></thead><tbody>{arcgis.results.map(row => <tr key={row.subdivisions}><th>{row.subdivisions}×{row.subdivisions}</th><td>{row.medianReadMs.toFixed(1)} ms</td><td>{range(row.readMs)}</td><td>{row.medianCopyMs.toFixed(1)} ms</td><td>{range(row.copyMs)}</td></tr>)}</tbody></table></div><details><summary>原始耗时与几何数量</summary><pre>{JSON.stringify(arcgis.results, null, 2)}</pre></details></> : <div className="cmp-run-empty"><FileCheck2 size={22}/><div><strong>ArcGIS Pro 运行值待导入</strong><span>当前精度与体积结果已经测量；软件耗时暂留空。</span></div></div>}
+      <p className="cmp-profile-note" role="status" aria-live="polite">{importing ? "正在读取与校验报告；已有报告暂时保留，可重新选择文件。" : importMessage}</p>
+      {arcgis ? <><div className="cmp-imported-run"><strong>用户导入 · 本机未独立复核</strong><span>{arcgis.runtime.product} {arcgis.runtime.version} · {arcgis.runtime.os} · {new Date(arcgis.measuredAtUtc).toLocaleString("zh-CN")}</span><button onClick={clearRun}>清除本浏览器展示</button></div><div className="cmp-lab-table-wrap"><table className="cmp-lab-table"><caption>用户导入的 ArcPy 重复实测：三次中位数与范围</caption><thead><tr><th>档位</th><th>全几何读取中位数</th><th>三次范围</th><th>FGDB 导入中位数</th><th>三次范围</th></tr></thead><tbody>{arcgis.results.map(row => <tr key={row.subdivisions}><th>{row.subdivisions}×{row.subdivisions}</th><td>{row.medianReadMs.toFixed(1)} ms</td><td>{range(row.readMs)}</td><td>{row.medianCopyMs.toFixed(1)} ms</td><td>{range(row.copyMs)}</td></tr>)}</tbody></table></div><details><summary>原始耗时与几何数量</summary><pre>{JSON.stringify(arcgis.results, null, 2)}</pre></details></> : <div className="cmp-run-empty"><FileCheck2 size={22}/><div><strong>ArcGIS Pro 运行值待导入</strong><span>当前精度与体积结果已经测量；软件耗时暂留空。</span></div></div>}
       <p className="cmp-profile-note">导入文件只在本浏览器保留。软件任务为 ArcPy 数据读写、同进程重复运行，不能当作场景加载时间或帧率。<a href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/copy-features.htm" target="_blank" rel="noreferrer">Copy Features 官方说明 <ArrowUpRight size={12}/></a></p>
     </article>
     <p className="cmp-terrain-disclaimer">本页比较 GUGIS 原生表达与本项目导出的 ArcGIS 兼容三角带；ArcGIS 另有 raster、TIN、terrain dataset 等表达，亦支持栅格双线性插值。实验{suite.demonstration ? "使用合成地形，仅验证表达与查询方法" : "使用当前导入地形"}；差值相对原生曲面，未评价真实地形精度。实验包与展示快照绑定。</p>
