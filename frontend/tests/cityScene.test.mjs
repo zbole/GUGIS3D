@@ -170,10 +170,14 @@ test("an empty overview renders real components and remains pickable when automa
   assert.ok(Math.abs(center.latitude * 180 / Math.PI - 51.454) < 1e-6);
   assert.equal(JSON.stringify(sceneCity), source, "view fallback must preserve the imported archive");
 });
-test("saving a feature retains building batches, terrain and wire entities; building edits retain feature markers", () => {
+test("saving a feature retains building, terrain and native wire batches; building edits retain feature markers", () => {
   const f = fixture({ selectedFeature: "one", terrainWire: true });
   const initialBatches = [...f.viewer.scene.primitives.values];
-  const wires = f.viewer.entities.values.filter((e) => e.polyline);
+  const wire = initialBatches.find(p => p.getGeometryInstanceAttributes("native-topology/0"));
+  assert.ok(wire);
+  assert.equal(f.viewer.entities.values.filter(e => e.polyline).length, 0, "native edges create no reactive entities");
+  assert.equal(wire.options.geometryInstances.length, 4);
+  assert.ok(wire.options.geometryInstances.every(i => i.geometry._arcType === 0), "native generators are straight Cartesian lines");
   const nextCity = {
     ...city,
     environment: {
@@ -185,7 +189,7 @@ test("saving a feature retains building batches, terrain and wire entities; buil
   for (const batch of initialBatches.filter(batch =>
     batch.getGeometryInstanceAttributes("building/wall") || batch.getGeometryInstanceAttributes("terrain/ruled-strip")))
     assert.ok(f.viewer.scene.primitives.values.includes(batch));
-  for (const wire of wires) assert.ok(f.viewer.entities.contains(wire));
+  assert.ok(f.viewer.scene.primitives.values.includes(wire));
   const marker = f.viewer.entities.values.find(
     (e) => e.label?.text?.getValue() === "one",
   );
@@ -196,8 +200,34 @@ test("saving a feature retains building batches, terrain and wire entities; buil
     },
   });
   assert.ok(f.viewer.entities.contains(marker));
-  for (const wire of wires) assert.ok(f.viewer.entities.contains(wire));
+  assert.ok(f.viewer.scene.primitives.values.includes(wire));
   assert.equal(f.viewer.camera.flights.length, 1);
+  f.close();
+});
+
+test("oversized wire overlays leave surfaces and queries available and clear the notice on disable", () => {
+  // A planar strip keeps geometric complexity small while exceeding the native-edge budget.
+  const points = Array.from({ length: 7000 }, (_, i) => [i, 0, 20]).concat(Array.from({ length: 7000 }, (_, i) => [i, 1, 20]));
+  const denseTerrain = { ...terrain, points, patches: [{ id: "dense", kind: "ruled-strip",
+    left: Array.from({ length: 7000 }, (_, i) => i), right: Array.from({ length: 7000 }, (_, i) => i + 7000) }] };
+  let hit;
+  const f = fixture({ city: { ...city, environment: { ...city.environment, terrain: denseTerrain } }, terrainWire: true,
+    queryTerrain: true, onTerrainQuery: value => { hit = value; } });
+  const surface = f.viewer.scene.primitives.values.find(p => p.getGeometryInstanceAttributes("terrain/ruled-strip"));
+  assert.ok(surface);
+  assert.equal(f.viewer.scene.primitives.values.some(p => p.getGeometryInstanceAttributes("native-topology/0")), false);
+  assert.match(JSON.stringify(f.renderer.toJSON()), /本次未绘制线框/);
+  assert.equal(f.renderer.root.findAllByProps({ role: "alert" }).length, 0);
+  act(() => viewState.handlers.at(-1).actions.get(ScreenSpaceEventType.LEFT_CLICK)({ position: {} }));
+  assert.ok(hit && Math.abs(hit.height - 20) < 1e-8, "overlay refusal must not disable native terrain querying");
+  f.update({ terrainWire: false });
+  assert.doesNotMatch(JSON.stringify(f.renderer.toJSON()), /本次未绘制线框/);
+  assert.ok(f.viewer.scene.primitives.values.includes(surface));
+  f.update({ city, terrainWire: true });
+  const wire = f.viewer.scene.primitives.values.find(p => p.getGeometryInstanceAttributes("native-topology/0"));
+  assert.ok(wire);
+  f.update({ terrainWire: false });
+  assert.equal(f.viewer.scene.primitives.values.includes(wire), false, "the overlay is released when disabled");
   f.close();
 });
 test("feature placement stays on terrain when building draping is disabled, including after placement ends", () => {

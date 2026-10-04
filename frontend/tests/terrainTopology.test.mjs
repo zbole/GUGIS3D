@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { terrainTopologyLines, terrainLineColors } from "../src/studio/terrainTopology.ts";
+import { terrainTopologyLines, terrainTopologyPreview, terrainLineColors } from "../src/studio/terrainTopology.ts";
 
 const terrain = {
   points: [[0, 0, 0], [0, 10, 1], [10, 0, 2], [10, 10, 3], [20, 0, 4], [20, 10, 5]],
@@ -14,6 +14,20 @@ test("ruled-strip overlay shows native boundaries and straight generators withou
   assert.equal(lines.filter(line => line.role === "boundary").length, 4);
   assert.ok(!lines.some(line => line.points.includes(terrain.points[0]) && line.points.includes(terrain.points[3])));
   assert.notEqual(terrainLineColors.generator, terrainLineColors.boundary);
+});
+
+test("display budget counts unique edges and never returns a partial native overlay", () => {
+  const repeated = { ...terrain, patches: [...terrain.patches, ...terrain.patches] };
+  assert.deepEqual(terrainTopologyPreview(repeated, 7), { lines: terrainTopologyLines(terrain), limited: false });
+  assert.deepEqual(terrainTopologyPreview(repeated, 6), { lines: [], limited: true });
+  assert.equal(terrainTopologyLines(repeated).length, 7, "unlimited topology remains available for data analysis");
+  for (const invalid of [0, -1, NaN, Infinity, 1.1]) assert.throws(() => terrainTopologyPreview(terrain, invalid), RangeError);
+});
+
+test("oversized topology stops before traversing the remaining terrain patches", () => {
+  const large = { ...terrain, patches: [...terrain.patches] };
+  Object.defineProperty(large.patches, 1, { get() { throw new Error("must not traverse remaining patches"); } });
+  assert.deepEqual(terrainTopologyPreview(large, 3), { lines: [], limited: true });
 });
 
 test("shared control edges stay single and retain ruled-strip meaning", () => {

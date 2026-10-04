@@ -33,6 +33,8 @@ import {
   Entity,
   Intersect,
   ArcType,
+  PolylineGeometry,
+  PolylineColorAppearance,
 } from "cesium";
 import type { CityDocument } from "./cityModel";
 import { frameCameraTarget, type CameraTarget } from "./cameraFraming";
@@ -47,7 +49,7 @@ import {
   terrainSampler,
   surfaceGeometry,
 } from "./terrainScene";
-import { terrainLineColors, terrainTopologyLines } from "./terrainTopology";
+import { terrainLineColors, terrainTopologyPreview } from "./terrainTopology";
 import type { TerrainHit } from "./terrainMath";
 import { chooseRenderBuildings, chooseRenderDetails, renderBudget } from "./renderBudget";
 import { createPathLocator, type AnalysisPoint, type PathAnalysis } from "./terrainAnalysis";
@@ -191,6 +193,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
   colorModeRef.current = colorMode;
   const [error, setError] = useState(""),
     [distance, setDistance] = useState(0);
+  const [topologyNotice, setTopologyNotice] = useState("");
   const terrain = city.environment?.terrain;
   const drapeBuildings = city.environment?.drape_buildings;
   const features = city.environment?.features;
@@ -1050,15 +1053,18 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
   ]);
   useEffect(() => {
     const v = viewer.current;
+    setTopologyNotice("");
     if (!v || !terrain || !sampler || !terrainWire) return;
-    const lines = terrainTopologyLines(terrain);
-    if (lines.length > 20000) {
-      setError("拓扑线超过 20,000 条；请使用更大的 DEM 采样步长查看线框");
+    const { lines, limited } = terrainTopologyPreview(terrain);
+    if (limited) {
+      setTopologyNotice("原生拓扑线超过 20,000 条，本次未绘制线框。地形面与查询保留；可使用更大 DEM 采样步长。");
       return;
     }
-    const entities = lines.map((line) =>
-      v.entities.add({
-        polyline: {
+    if (!lines.length) return;
+    const geometryInstances = lines.map((line, index) =>
+      new GeometryInstance({
+        id: `native-topology/${index}`,
+        geometry: new PolylineGeometry({
           positions: line.points.map((p) =>
             Matrix4.multiplyByPoint(
               sampler.frame,
@@ -1071,13 +1077,18 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
             ),
           ),
           width: line.role === "generator" ? 2 : 1,
-          material: Color.fromCssColorString(terrainLineColors[line.role]),
-        },
+          arcType: ArcType.NONE,
+          vertexFormat: PolylineColorAppearance.VERTEX_FORMAT,
+        }),
+        attributes: { color: ColorGeometryInstanceAttribute.fromColor(Color.fromCssColorString(terrainLineColors[line.role])) },
       }),
     );
+    // Static native edges share one primitive instead of one reactive Entity per edge.
+    const batch = v.scene.primitives.add(new Primitive({ geometryInstances,
+      appearance: new PolylineColorAppearance({ translucent: false }), asynchronous: true }));
     v.scene.requestRender();
     return () => {
-      if (!v.isDestroyed()) for (const e of entities) v.entities.remove(e);
+      if (!v.isDestroyed()) { v.scene.primitives.remove(batch); v.scene.requestRender(); }
     };
   }, [terrainWire, terrain, sampler]);
   useEffect(() => {
@@ -1334,6 +1345,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
           : `自动精细 · ${detailProgress.ready} 栋 · ${detailProgress.components.toLocaleString()} 个构件 · 拉近自动加载`
           : "轻量概览 · 可开启自动精细结构"}
         {` · 已渲染 ${renderProgress.buildings.toLocaleString()} / ${city.instances.length.toLocaleString()} 栋 · 按视域与预算加载`}
+        {topologyNotice && <div className="terrain-topology-notice">{topologyNotice}</div>}
       </div>
       {error && (
         <div className="scene-error" role="alert">
