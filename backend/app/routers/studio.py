@@ -2,9 +2,11 @@ from fastapi import APIRouter, HTTPException, Request, Response
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 import hashlib
+import json
 import os
 import re
 from pydantic import ValidationError
+from starlette.concurrency import run_in_threadpool
 
 from ..studio_models import BuildingDocument, BuildingParameters
 from ..services.building_generator import document_bytes, generate_building, statistics
@@ -28,7 +30,7 @@ async def read_document(request: Request) -> BuildingDocument:
         if len(data) > 8 * 1024 * 1024:
             raise HTTPException(413, "Object file exceeds 8 MiB")
     try:
-        document = BuildingDocument.model_validate_json(bytes(data))
+        document = await run_in_threadpool(BuildingDocument.model_validate_json, bytes(data))
     except ValidationError as error:
         # Do not echo the whole uploaded document or raw context in a validation error.
         details = [{"loc": item["loc"], "msg": item["msg"]} for item in error.errors()[:8]]
@@ -39,12 +41,22 @@ async def read_document(request: Request) -> BuildingDocument:
 @router.post("/validate")
 async def validate(request: Request):
     document = await read_document(request)
-    return {"document": document.model_dump(mode="json", exclude_none=True), "statistics": statistics(document)}
+    return await run_in_threadpool(validation_response, document)
+
+
+def validation_response(document: BuildingDocument):
+    counts = json.dumps(statistics(document), ensure_ascii=False, separators=(",", ":"), allow_nan=False).encode("utf-8")
+    return Response(b'{"document":' + document.model_dump_json(exclude_none=True).encode("utf-8") + b',"statistics":' + counts + b'}',
+                    media_type="application/json")
 
 
 @router.post("/save")
 async def save(request: Request):
     document = await read_document(request)
+    return await run_in_threadpool(save_document, document)
+
+
+def save_document(document: BuildingDocument):
     content = document_bytes(document)
     file_id = hashlib.sha256(content).hexdigest()
     EXPORT_DIR.mkdir(parents=True, exist_ok=True)
