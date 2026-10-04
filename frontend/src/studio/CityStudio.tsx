@@ -385,6 +385,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     detail: "查看楼层与构件；返回城市项目时可继续原来的场景工作。",
   };
   async function stage(next: CityDocument, label: string, id?: string, editor?: DraftEditor) {
+    if (!mounted.current) return;
     const saved = await persistDraft(
       next,
       revision,
@@ -392,6 +393,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
       label,
       editor,
     );
+    if (!mounted.current) return;
     setPreview({
       document: next,
       label,
@@ -434,7 +436,8 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     }
   }
   async function discardPreview() {
-    if (!preview || busy) return;
+    if (!preview || busy || locked.current) return;
+    locked.current = true;
     setBusy(true);
     setError("");
     try {
@@ -447,6 +450,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     } catch (e) {
       setError(String(e));
     } finally {
+      locked.current = false;
       setBusy(false);
     }
   }
@@ -455,7 +459,8 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     label: string,
     buildingsOnly = false,
   ) {
-    if (busy || preview) return;
+    if (busy || preview || locked.current || draftUnavailable) return;
+    locked.current = true;
     setBusy(true);
     setError("");
     try {
@@ -471,6 +476,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     } catch (e) {
       setError(String(e));
     } finally {
+      locked.current = false;
       setBusy(false);
     }
   }
@@ -479,7 +485,8 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     if (preview) setNeedsRegenerate(true);
   }
   async function makeBlock(count: number, longitude: number, latitude: number) {
-    if (!city || busy || preview) return;
+    if (!city || busy || preview || locked.current || draftUnavailable) return;
+    locked.current = true;
     setBusy(true);
     setError("");
     try {
@@ -497,6 +504,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     } catch (e) {
       setError(String(e));
     } finally {
+      locked.current = false;
       setBusy(false);
     }
   }
@@ -577,7 +585,8 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     }
   }
   async function generate() {
-    if (!city || busy || draftUnavailable || (preview && !preview.editor)) return;
+    if (!city || busy || locked.current || draftUnavailable || (preview && !preview.editor)) return;
+    locked.current = true;
     setBusy(true);
     setError("");
     try {
@@ -606,11 +615,13 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
+      locked.current = false;
       setBusy(false);
     }
   }
   async function duplicate() {
-    if (!city || !document) return;
+    if (!city || !document || !selected || busy || preview || locked.current || draftUnavailable) return;
+    locked.current = true;
     const id = `b_${crypto.randomUUID().replace(/-/g, "")}`;
     const p = {
       ...document.parameters,
@@ -634,11 +645,13 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     } catch (e) {
       setError(String(e));
     } finally {
+      locked.current = false;
       setBusy(false);
     }
   }
   async function refine() {
-    if (!city || !document || !active || busy || preview) return;
+    if (!city || !document || !active || busy || preview || locked.current || draftUnavailable) return;
+    locked.current = true;
     setBusy(true);
     setError("");
     try {
@@ -651,6 +664,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
+      locked.current = false;
       setBusy(false);
     }
   }
@@ -847,7 +861,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
         <RecoveryPanel
           api={api}
           baselineLabel={`${workspace.name}内置初始数据`}
-          busy={busy || !!preview}
+          busy={busy || !!preview || draftUnavailable}
           onPreview={(id, label, buildingsOnly) =>
             void previewVersion(id, label, buildingsOnly)
           }
@@ -1313,7 +1327,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
                     {document.parameters.kind === "footprint" && (
                       <button
                         className="primary full"
-                        disabled={busy || !!preview}
+                        disabled={busy || !!preview || draftUnavailable}
                         onClick={() => void refine()}
                       >
                         补全精细结构
@@ -1329,7 +1343,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
                       修改建筑
                     </button>
                     <button
-                      disabled={busy || !!preview}
+                      disabled={busy || !!preview || draftUnavailable}
                       onClick={() => void duplicate()}
                     >
                       <Copy size={14} />

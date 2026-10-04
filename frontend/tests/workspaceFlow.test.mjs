@@ -256,6 +256,89 @@ test("leaving before file read or validation completes never starts a draft writ
 const authorInput = (f, label) => f.root.findByProps({ className: "author-form" })
   .findAllByType("label").find(node => text(node).startsWith(label)).findByType("input");
 
+for (const operation of ["generateBuilding", "generateBlock", "refineBuilding", "loadVersion"]) {
+  for (const leave of [false, true]) {
+    test(`${operation} coalesces stale repeated events and ${leave ? "never writes a draft after leaving" : "releases its lock for draft discard"}`, async t => {
+      const previous = globalThis.workspaceMock[operation];
+      t.after(() => { globalThis.workspaceMock[operation] = previous; });
+      let resolve, calls = 0;
+      const paused = new Promise(yes => { resolve = yes; });
+      globalThis.workspaceMock[operation] = async () => { calls++; return paused; };
+      const initial = await mount(); initial.close();
+      if (operation === "refineBuilding") saved.assets.a.parameters.kind = "footprint";
+      const before = JSON.stringify(saved), f = await mount(false);
+      t.after(() => f.close());
+      let click;
+      if (operation === "generateBuilding" || operation === "generateBlock") {
+        await act(async () => button(f.root, "制作 / 更新").props.onClick());
+        const form = operation === "generateBuilding" ? f.root.findByProps({ className: "author-form" })
+          : f.root.findByProps({ className: "block-form" }).findByType("form");
+        click = () => form.props.onSubmit({ preventDefault: noop });
+      } else if (operation === "refineBuilding") {
+        click = button(f.root, "补全精细结构").props.onClick;
+      } else {
+        await act(async () => button(f.root, "历史版本 / 恢复").props.onClick());
+        click = button(f.root, "仅恢复内置建筑（保留地形 / 地物）").props.onClick;
+      }
+      act(() => { click(); click(); });
+      assert.equal(calls, 1, "duplicate events before React updates must share one operation");
+      assert.equal(stages, 0); assert.equal(writes, 0);
+      if (leave) f.close();
+      const result = operation === "generateBlock" ? { assets: { block: doc }, instances: [] }
+        : operation === "loadVersion" ? original : operation === "refineBuilding" ? { document: doc } : doc;
+      await act(async () => resolve(result));
+      assert.equal(stages, leave ? 0 : 1);
+      assert.equal(writes, 0); assert.equal(JSON.stringify(saved), before);
+      if (!leave) {
+        assert.ok(pending);
+        await act(async () => button(f.root, "丢弃草稿").props.onClick());
+        assert.equal(pending, null); assert.equal(discards, 1);
+      } else assert.equal(pending, null);
+    });
+  }
+}
+
+test("copy and discard events cannot start overlapping draft writes", async t => {
+  const originalPersist = globalThis.workspaceMock.persistDraft, originalDiscard = globalThis.workspaceMock.discardDraft;
+  t.after(() => { globalThis.workspaceMock.persistDraft = originalPersist; globalThis.workspaceMock.discardDraft = originalDiscard; });
+  let release, copies = 0, discardAttempts = 0;
+  const paused = new Promise(yes => { release = yes; });
+  globalThis.workspaceMock.persistDraft = async (...args) => { copies++; await paused; return originalPersist(...args); };
+  const f = await mount(); t.after(() => f.close());
+  const copy = button(f.root, "复制").props.onClick;
+  act(() => { copy(); copy(); });
+  assert.equal(copies, 1); assert.equal(stages, 0);
+  await act(async () => release());
+  assert.equal(stages, 1); assert.equal(pending.document.instances.length, 2);
+  let releaseDiscard;
+  const pausedDiscard = new Promise(yes => { releaseDiscard = yes; });
+  globalThis.workspaceMock.discardDraft = async (...args) => { discardAttempts++; await pausedDiscard; return originalDiscard(...args); };
+  const discard = button(f.root, "丢弃草稿").props.onClick;
+  act(() => { discard(); discard(); });
+  assert.equal(discardAttempts, 1);
+  await act(async () => releaseDiscard());
+  assert.equal(discards, 1); assert.equal(pending, null); assert.equal(writes, 0);
+  assert.deepEqual(saved, original);
+});
+
+test("a failed building request releases the operation lock so an explicit retry can stage a draft", async t => {
+  const previous = globalThis.workspaceMock.generateBuilding;
+  t.after(() => { globalThis.workspaceMock.generateBuilding = previous; });
+  let calls = 0;
+  globalThis.workspaceMock.generateBuilding = async (...args) => {
+    if (++calls === 1) throw Error("QA building service unavailable");
+    return previous(...args);
+  };
+  const f = await mount(); t.after(() => f.close());
+  await generate(f);
+  assert.match(text(f.root), /QA building service unavailable/);
+  assert.equal(stages, 0); assert.equal(writes, 0);
+  await generate(f);
+  assert.equal(calls, 2); assert.equal(stages, 1); assert.equal(writes, 0);
+  assert.ok(pending);
+  assert.deepEqual(saved, original);
+});
+
 test("workspace navigation preserves an ungenerated building's name and location", async () => {
   const f = await mount();
   await act(async () => button(f.root, "制作 / 更新").props.onClick());
