@@ -5,7 +5,7 @@ export default function MemoryComparison({ revision, cityId = "bristol" }: { rev
   if (cityId !== "bristol") return (
     <details className="memory-comparison">
       <summary>
-        <span className="memory-label">城市数据内存对比</span>
+        <span className="memory-label">正式城市数据内存对比</span>
         <span className="memory-stale">当前城市内存基准待测</span>
         <span className="memory-toggle">测量说明 <ChevronDown size={16} aria-hidden="true" /></span>
       </summary>
@@ -18,7 +18,7 @@ export default function MemoryComparison({ revision, cityId = "bristol" }: { rev
   return (
     <details className="memory-comparison">
       <summary>
-        <span className="memory-label">城市数据内存对比</span>
+        <span className="memory-label">正式城市数据内存对比</span>
         {result.matches ? (
           <>
             <span className="memory-saving">

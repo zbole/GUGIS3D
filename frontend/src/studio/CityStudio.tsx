@@ -510,8 +510,8 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     }
   }
   const detailed =
-    city?.instances.filter(
-      (i) => city.assets[i.asset].parameters.kind !== "footprint",
+    displayCity?.instances.filter(
+      (i) => displayCity.assets[i.asset].parameters.kind !== "footprint",
     ).length ?? 0;
   async function commit(next: CityDocument, message: string, record = true) {
     if (!mounted.current || preview || draftUnavailable || busy) return false;
@@ -798,10 +798,11 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
       <div className="studio-titlebar">
         <div>
           <span className="eyebrow">{workspace.city_name?.toUpperCase() ?? workspace.id.toUpperCase()} <span>/</span> CITY WORKSPACE</span>
-          <h1>{city?.name ?? "正在载入城市项目"}</h1>
-          <p>
-            {city?.instances.length ?? 0} 栋建筑 <span>／</span> {detailed}{" "}
-            栋构件模型 <span>／</span> {city?.roads.length ?? 0} 条道路
+          <h1>{displayCity?.name ?? "正在载入城市项目"}</h1>
+          <p aria-label="当前场景数据统计" aria-live="polite">
+            {preview ? "草稿场景 · " : "正式场景 · "}
+            {displayCity?.instances.length ?? 0} 栋建筑 <span>／</span> {detailed}{" "}
+            栋构件模型 <span>／</span> {displayCity?.roads.length ?? 0} 条道路
           </p>
         </div>
         <div className="file-actions">
@@ -1452,7 +1453,8 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
       )}
       {city && <MemoryComparison cityId={workspace.id} revision={revision} />}
       {city && (
-        <div className="city-summary">
+        <div className="city-summary" aria-label="正式城市档案统计">
+          <span>正式档案{preview ? " · 未含草稿" : ""}</span>
           <span>
             <b>{city.instances.length}</b> 建筑实例
           </span>

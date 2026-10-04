@@ -392,6 +392,8 @@ test("generate previews a separate durable draft, and only confirmation writes t
   assert.equal(stages, 1);
   assert.equal(saved.instances.length, 1);
   assert.equal(globalThis.workspaceScene.city.instances.length, 2);
+  assert.match(text(f.root.findByProps({ "aria-label": "当前场景数据统计" })), /草稿场景 · 2 栋建筑.*2 栋构件模型/);
+  assert.match(text(f.root.findByProps({ "aria-label": "正式城市档案统计" })), /正式档案 · 未含草稿1 建筑实例/);
   assert.match(
     text(f.root.findByProps({ "aria-label": "未提交城市草稿" })),
     /正式城市尚未改变/,
@@ -401,6 +403,8 @@ test("generate previews a separate durable draft, and only confirmation writes t
   assert.equal(discards, 0, "confirmation uses one server request without a separate cleanup");
   assert.equal(saved.instances.length, 2);
   assert.equal(pending, null);
+  assert.match(text(f.root.findByProps({ "aria-label": "当前场景数据统计" })), /正式场景 · 2 栋建筑/);
+  assert.match(text(f.root.findByProps({ "aria-label": "正式城市档案统计" })), /正式档案2 建筑实例/);
   f.close();
 });
 test("draft survives page remount; discarding restores the original scene without a city write", async () => {
@@ -411,9 +415,31 @@ test("draft survives page remount; discarding restores the original scene withou
   assert.equal(globalThis.workspaceScene.city.instances.length, 2);
   await act(async () => button(second.root, "丢弃草稿").props.onClick());
   assert.equal(globalThis.workspaceScene.city.instances.length, 1);
+  assert.match(text(second.root.findByProps({ "aria-label": "当前场景数据统计" })), /正式场景 · 1 栋建筑/);
   assert.equal(writes, 0);
   assert.equal(pending, null);
   second.close();
+});
+
+test("restored preview statistics and project name describe the scene while archived counts stay formal", async t => {
+  const first = await mount(); first.close();
+  const previewCity = structuredClone(original);
+  previewCity.name = "Restored scene";
+  previewCity.assets.outline = { ...doc, parameters: { ...doc.parameters, kind: "footprint" } };
+  previewCity.instances.push({ ...original.instances[0], id: "outline", asset: "outline" });
+  previewCity.roads.push({ id: "test-road", name: "Draft road", coordinates: [[-2.603, 51.454], [-2.604, 51.455]] });
+  pending = { document: previewCity, base_revision: revision, revision: "d".repeat(64), label: "Restored draft" };
+  const f = await mount(false); t.after(() => f.close());
+  assert.equal(text(f.root.findByType("h1")), "Restored scene");
+  assert.match(text(f.root.findByProps({ "aria-label": "当前场景数据统计" })), /草稿场景 · 2 栋建筑.*1 栋构件模型.*1 条道路/);
+  const archive = text(f.root.findByProps({ "aria-label": "正式城市档案统计" }));
+  assert.match(archive, /正式档案 · 未含草稿1 建筑实例/);
+  assert.match(archive, /0 道路要素/);
+  assert.equal(writes, 0);
+  await act(async () => button(f.root, "丢弃草稿").props.onClick());
+  assert.equal(text(f.root.findByType("h1")), "Test city");
+  assert.match(text(f.root.findByProps({ "aria-label": "当前场景数据统计" })), /正式场景 · 1 栋建筑.*1 栋构件模型.*0 条道路/);
+  assert.equal(writes, 0);
 });
 test("reloaded building preview restores editor and regenerates the same instance", async () => {
   const first = await mount();
