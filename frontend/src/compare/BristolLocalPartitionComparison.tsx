@@ -1,5 +1,6 @@
 import report from '../../../shared/bristol-local-partition-summary.json';
 import {lazy,Suspense,useState} from 'react';
+import BristolTerrainDecision from './BristolTerrainDecision';
 const BristolTerrainViewer=lazy(()=>import('./BristolTerrainViewer'));
 
 const kb=(n:number)=>(n/1000).toFixed(2);
@@ -18,6 +19,7 @@ export default function BristolLocalPartitionComparison({target}:{target:number}
         <td>{(pair.compact_local_hybrid.continuous_bound_m*100).toFixed(3)} / {(pair.compact_local_hybrid.query_audit.rmse_m*100).toFixed(3)} cm</td></tr>)}
     </tbody></table></div>
     <p>港区三档均小于局部三角带；山坡三档仍更大。混合模型与局部三角表示是不同的认证曲面，此处比较相同误差目标下的成本，不能当作相同几何的格式收益，也不等于全局最优。</p>
+    <BristolTerrainDecision target={target}/>
     <div className="hybrid-live-entry"><button onClick={()=>setLive(v=>!v)}>{live?'关闭 Bristol 三维对照':'打开 Bristol 三维对照'}</button><span>一次显示一份模型，可切换新旧表示，旋转、缩放和原生点查询。</span></div>
     {live&&<Suspense fallback={<p role="status">正在加载 Bristol 三维查看器…</p>}><BristolTerrainViewer target={target}/></Suspense>}
     <details><summary>查看实际局部拓扑、接缝检查和构建代价</summary>
