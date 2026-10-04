@@ -3,6 +3,8 @@ import json
 import threading
 import unittest
 from contextlib import ExitStack
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 import httpx
@@ -12,6 +14,7 @@ from app.routers import city
 from app.city_models import CityDocument
 from app.environment_models import Terrain, TerrainPatch
 from app.services import terrain_builder
+from app.services import terrain_multipatch
 
 
 def small_terrain():
@@ -90,6 +93,58 @@ class ValidationResponsivenessTests(unittest.IsolatedAsyncioTestCase):
                 self.assertEqual((await client.post('/city/terrain/upgrade', content=b'{}')).status_code, 422)
                 packed.assert_not_called()
                 encoded.assert_not_called()
+
+    async def test_benchmark_snapshot_read_and_export_leave_health_responsive(self):
+        terrain = small_terrain()
+        document = CityDocument(format='gugis-city', version='1.0', coordinate_system='ENU_METERS_WGS84',
+                                name='合成下载检查', assets={}, instances=[], roads=[], metadata={},
+                                environment={'terrain': terrain, 'features': [], 'feature_assets': {}})
+        content = b'synthetic-benchmark-snapshot'
+        digest = city.revision(content)
+        loop_thread = threading.get_ident()
+        for stage in ['read', 'export']:
+            with self.subTest(stage=stage), TemporaryDirectory() as temp, ExitStack() as stack:
+                started, release, finished = threading.Event(), threading.Event(), threading.Event()
+                workers, active_cities = [], []
+
+                def gate():
+                    workers.append(threading.get_ident())
+                    active_cities.append(city.city_workspaces.ACTIVE_CITY.get())
+                    started.set()
+                    if threading.get_ident() != loop_thread and not release.wait(10):
+                        raise AssertionError('Worker was never released')
+                    finished.set()
+
+                def read():
+                    if stage == 'read': gate()
+                    return content, document
+
+                def export(value, destination, *, city_revision):
+                    if stage == 'export': gate()
+                    self.assertEqual(value, terrain)
+                    self.assertEqual(city_revision, digest)
+                    Path(destination).write_bytes(b'test-only-package')
+
+                stack.enter_context(patch.object(city, 'read_current', read))
+                stack.enter_context(patch.object(city, 'benchmark_directory', return_value=Path(temp)))
+                stack.enter_context(patch.object(terrain_multipatch, 'export_multipatch', export))
+                async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url='http://test') as client:
+                    task = asyncio.create_task(client.get('/cities/london/city/terrain/benchmark.zip', params={'snapshot': digest}))
+                    try:
+                        self.assertTrue(await asyncio.to_thread(started.wait, 10))
+                        self.assertEqual((await client.get('/health')).status_code, 200)
+                        self.assertFalse(finished.is_set(), 'Health must respond before gated snapshot work completes')
+                        self.assertFalse(task.done())
+                    finally:
+                        release.set()
+                        response = await task
+                self.assertEqual(response.status_code, 200, response.text)
+                self.assertEqual(response.content, b'test-only-package')
+                self.assertIn('london-terrain-MultiPatch.zip', response.headers['content-disposition'])
+                self.assertEqual(active_cities, ['london'])
+                self.assertEqual(len(workers), 1)
+                self.assertNotEqual(workers[0], loop_thread)
+                self.assertEqual([path.name for path in Path(temp).iterdir()], [f'terrain-{digest[:16]}.zip'])
 
 
 if __name__ == '__main__':

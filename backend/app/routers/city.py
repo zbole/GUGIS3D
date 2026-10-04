@@ -208,7 +208,7 @@ async def terrain_upgrade(request: Request):
 
 
 @router.get('/terrain/benchmark.zip')
-async def terrain_benchmark_download(snapshot: str | None = Query(default=None, pattern=r'^[0-9a-f]{64}$')):
+def terrain_benchmark_download(snapshot: str | None = Query(default=None, pattern=r'^[0-9a-f]{64}$')):
     """Build an ArcGIS-readable MultiPatch baseline from this project revision."""
     from ..services.terrain_multipatch import export_multipatch
     with lock:
@@ -231,7 +231,7 @@ async def terrain_benchmark_download(snapshot: str | None = Query(default=None, 
     if not package.exists():
         temporary = directory / f'terrain-{digest[:16]}.{uuid.uuid4().hex}.zip.tmp'
         try:
-            await run_in_threadpool(export_multipatch, terrain, temporary, city_revision=digest)
+            export_multipatch(terrain, temporary, city_revision=digest)
             os.replace(temporary, package)
         finally:
             temporary.unlink(missing_ok=True)
