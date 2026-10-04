@@ -195,6 +195,64 @@ async function generate(f) {
   );
 }
 
+const importChosen = (f, chosen) => f.root.findByProps({ "aria-label": "选择 GUGIS 文件" }).props.onChange({ target: { files: [chosen] } });
+const importText = content => ({ size: content.length * 3, text: async () => content });
+
+test("city import gives clear JSON root errors and accepts a UTF-8 BOM without changing the formal city", async t => {
+  const previous = globalThis.workspaceMock.validateCity;
+  let validations = 0;
+  globalThis.workspaceMock.validateCity = async payload => { validations++; assert.deepEqual(payload, original); return { document: payload }; };
+  t.after(() => { globalThis.workspaceMock.validateCity = previous; });
+  const f = await mount(); t.after(() => f.close());
+  for (const content of ["<html>Gateway error</html>", "null", "[]", '"text"', "42"]) {
+    await act(async () => importChosen(f, importText(content)));
+    assert.match(text(f.root.findByProps({ role: "alert" })), /不是有效的 JSON|文件顶层必须/);
+    assert.equal(validations, 0); assert.equal(stages, 0); assert.equal(writes, 0);
+    assert.equal(button(f.root, "导入城市 / 建筑").props.disabled, false);
+  }
+  await act(async () => importChosen(f, importText("\uFEFF" + JSON.stringify(original))));
+  assert.equal(validations, 1); assert.equal(stages, 1); assert.equal(writes, 0);
+  assert.deepEqual(saved, original); assert.deepEqual(pending.document, original);
+});
+
+test("duplicate file events coalesce while reading and pending or unavailable drafts block imports", async t => {
+  const previous = globalThis.workspaceMock.validateCity, previousLoad = globalThis.workspaceMock.loadDraft;
+  globalThis.workspaceMock.validateCity = async payload => ({ document: payload });
+  t.after(() => { globalThis.workspaceMock.validateCity = previous; globalThis.workspaceMock.loadDraft = previousLoad; });
+  const f = await mount(); t.after(() => f.close());
+  let resolve, reads = 0;
+  const chosen = { size: 10, text: () => { reads++; return new Promise(yes => { resolve = yes; }); } };
+  act(() => { importChosen(f, chosen); importChosen(f, chosen); });
+  assert.equal(reads, 1);
+  await act(async () => resolve(JSON.stringify(original)));
+  assert.equal(stages, 1); assert.equal(writes, 0);
+  await act(async () => importChosen(f, chosen));
+  assert.equal(reads, 1, "an existing independent draft cannot be silently replaced");
+  f.close();
+  globalThis.workspaceMock.loadDraft = async () => { throw Error("QA unavailable draft"); };
+  const blocked = await mount(); t.after(() => blocked.close());
+  assert.equal(button(blocked.root, "导入城市 / 建筑").props.disabled, true);
+  await act(async () => importChosen(blocked, chosen));
+  assert.equal(reads, 1); assert.equal(stages, 0);
+});
+
+test("leaving before file read or validation completes never starts a draft write", async t => {
+  const previous = globalThis.workspaceMock.validateCity;
+  t.after(() => { globalThis.workspaceMock.validateCity = previous; });
+  for (const phase of ["file", "validation"]) {
+    let resolve, validations = 0;
+    const paused = new Promise(yes => { resolve = yes; });
+    globalThis.workspaceMock.validateCity = async payload => { validations++; return phase === "validation" ? paused : { document: payload }; };
+    const f = await mount();
+    act(() => importChosen(f, { size: 10, text: () => phase === "file" ? paused : Promise.resolve(JSON.stringify(original)) }));
+    await act(async () => { await Promise.resolve(); });
+    assert.equal(validations, phase === "validation" ? 1 : 0);
+    f.close();
+    await act(async () => resolve(phase === "file" ? JSON.stringify(original) : { document: original }));
+    assert.equal(stages, 0); assert.equal(writes, 0); assert.deepEqual(saved, original);
+  }
+});
+
 const authorInput = (f, label) => f.root.findByProps({ className: "author-form" })
   .findAllByType("label").find(node => text(node).startsWith(label)).findByType("input");
 

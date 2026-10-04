@@ -666,15 +666,23 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
       setHistory((h) => h.slice(0, -1));
   }
   async function importFile(chosen: File | undefined) {
-    if (!chosen || !city) return;
+    if (!chosen || !city || busy || locked.current || preview || draftUnavailable) return;
+    locked.current = true;
     setBusy(true);
     setError("");
     try {
       if (chosen.size > 128 * 1024 * 1024)
         throw new Error("文件不能超过 128 MiB");
-      const payload = JSON.parse(await chosen.text());
+      const content = await chosen.text();
+      if (!mounted.current) return;
+      let payload;
+      try { payload = JSON.parse(content.replace(/^\uFEFF/, "")); }
+      catch { throw new Error("文件不是有效的 JSON，请选择 GUGIS 城市、建筑或 GeoJSON 文件。"); }
+      if (!payload || typeof payload !== "object" || Array.isArray(payload))
+        throw new Error("文件顶层必须是城市、建筑或 GeoJSON 对象，不能是空值、数组或普通文本。");
       if (payload.format === "gugis-city") {
         const r = await validateCity(payload);
+        if (!mounted.current) return;
         await stage(r.document, "已恢复完整城市文件");
         {
           setActive(r.document.instances[0]?.id ?? null);
@@ -684,6 +692,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
         }
       } else if (payload.type === "FeatureCollection") {
         const r = await importGeoJSON(payload);
+        if (!mounted.current) return;
         let next = city;
         for (const doc of r.documents)
           next = putBuilding(
@@ -696,6 +705,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
       } else {
         const r = await validateDocument(payload),
           id = `b_${crypto.randomUUID().replace(/-/g, "")}`;
+        if (!mounted.current) return;
         await stage(
           putBuilding(city, r.document, id),
           "对象文件已加入当前城市",
@@ -710,9 +720,10 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
         }
       }
     } catch (e) {
-      setError(e instanceof Error ? e.message : "文件读取失败");
+      if (mounted.current) setError(e instanceof Error ? e.message : "文件读取失败");
     } finally {
-      setBusy(false);
+      locked.current = false;
+      if (mounted.current) setBusy(false);
       if (file.current) file.current.value = "";
     }
   }
@@ -791,7 +802,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
             <History size={16} />历史版本 / 恢复
           </button>
           <button
-            disabled={busy || !!preview}
+            disabled={busy || !!preview || draftUnavailable}
             onClick={() => file.current?.click()}
           >
             <Upload size={16} />
