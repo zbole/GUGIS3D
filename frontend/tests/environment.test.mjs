@@ -25,6 +25,45 @@ const terrain = {
   ],
   patches: [{ id: "saddle", kind: "ruled-strip", left: [0, 2], right: [1, 3] }],
 };
+test("dense mixed terrain keeps analytic height, gradient, edges and gaps with bounded adaptive indexing", () => {
+  const points = [], patches = [], side = 101;
+  for (let y = 0; y < side; y++) for (let x = 0; x < side; x++) {
+    const px = x * 2 - 100, py = y * 2 - 100;
+    points.push([px, py, 2 * px - 3 * py + 5]);
+  }
+  for (let y = 0; y < side - 1; y++) for (let x = 0; x < side - 1; x++) {
+    if (x >= 45 && x < 55 && y >= 45 && y < 55) continue;
+    const a = y * side + x, b = a + side, c = a + 1, d = b + 1;
+    patches.push((x + y) % 2 ? {id: `${x}/${y}`, kind: "triangle-strip", indices: [b,a,d,c]}
+      : {id: `${x}/${y}`, kind: "ruled-strip", left: [a,c], right: [b,d]});
+  }
+  const source = {...terrain, points, patches}, index = terrainIndex(source);
+  assert.equal(terrainIndex(source), index);
+  assert.ok(index.statistics.binSizeMetres <= 16);
+  assert.ok(index.statistics.memberships <= index.statistics.membershipBudget);
+  for (let i = 0; i < 1000; i++) {
+    const x = ((i * 137) % 1000) / 5 - 100, y = ((i * 293) % 1000) / 5 - 100;
+    if (x > -10 && x < 10 && y > -10 && y < 10) continue;
+    const hit = index.query(x, y);
+    assert.ok(hit, `${x},${y}`);
+    assert.ok(Math.abs(hit.height - (2*x - 3*y + 5)) < 1e-9);
+    assert.ok(Math.abs(hit.slope - Math.atan(Math.sqrt(13))*180/Math.PI) < 1e-9);
+  }
+  assert.equal(index.query(0,0), null);
+  assert.equal(index.query(-101,0), null);
+  assert.equal(index.query(Infinity,0), null);
+  for (const [x,y] of [[-100,-100],[100,100],[-64,0],[64,0],[-10,0],[10,0]])
+    assert.ok(Math.abs(index.query(x,y).height - (2*x - 3*y + 5)) < 1e-9);
+});
+test("spatial index bounds membership work and preserves first-hit order on overlapping surfaces", () => {
+  const source = {...terrain, points: [[0,0,1],[0,20000,1],[20000,0,1],[20000,20000,1]],
+    patches: Array.from({length:100}, (_,i)=>({id: `overlap-${i}`, kind:"ruled-strip",left:[0,2],right:[1,3]}))};
+  const index = terrainIndex(source);
+  assert.ok(index.statistics.binSizeMetres > 64);
+  assert.ok(index.statistics.memberships <= 4_000_000);
+  assert.equal(index.query(123.5,456.5).patch,"overlap-0");
+  assert.equal(index.query(123.5,456.5).height,1);
+});
 test("ruled surface query preserves bilinear height and analytic gradient, not a flat triangle approximation", () => {
   const index = terrainIndex(terrain),
     hit = index.query(5, 5);

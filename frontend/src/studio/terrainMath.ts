@@ -166,25 +166,58 @@ function buildTerrainIndex(terrain: Terrain) {
     min: [0, 1, 2].map(i => Math.min(...cell.points.map(p => p[i]))),
     max: [0, 1, 2].map(i => Math.max(...cell.points.map(p => p[i]))),
   }));
-  for (const cell of cells) {
+  const boundedCells = cells.map(cell => {
     const xs = cell.points.map((p) => p[0]), ys = cell.points.map((p) => p[1]);
     const bounds: BoundedCell["bounds"] = [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
     // Match the native inverse's parameter tolerance, including strip edges.
     const epsilon = Math.max(1, bounds[2] - bounds[0], bounds[3] - bounds[1]) * 2e-7;
     bounds[0] -= epsilon; bounds[1] -= epsilon; bounds[2] += epsilon; bounds[3] += epsilon;
-    const candidate: BoundedCell = { ...cell, bounds };
-    const minX = Math.floor(bounds[0] / 64), maxX = Math.floor(bounds[2] / 64);
-    const minY = Math.floor(bounds[1] / 64), maxY = Math.floor(bounds[3] / 64);
+    return { ...cell, bounds } as BoundedCell;
+  });
+  let west = Infinity, south = Infinity, east = -Infinity, north = -Infinity;
+  for (const { bounds: b } of boundedCells) {
+    west = Math.min(west, b[0]); south = Math.min(south, b[1]);
+    east = Math.max(east, b[2]); north = Math.max(north, b[3]);
+  }
+  // A fixed 64m bucket contains thousands of faces in a 2m DEM. Target
+  // roughly 16 cells per bucket, with 8..64m initial sizes. Long or highly
+  // overlapping cells can require larger bins to keep indexing work bounded.
+  const targetSize = Math.sqrt(Math.max(1, east - west) * Math.max(1, north - south) * 16 / Math.max(1, cells.length));
+  let binSize = Number.isFinite(targetSize) ? Math.min(64, Math.max(8, 2 ** Math.ceil(Math.log2(targetSize)))) : 64;
+  const membershipBudget = 4_000_000;
+  function estimateMemberships(size: number) {
+    let total = 0;
+    for (const { bounds: b } of boundedCells) {
+      total += (Math.floor(b[2] / size) - Math.floor(b[0] / size) + 1) *
+        (Math.floor(b[3] / size) - Math.floor(b[1] / size) + 1);
+      if (total > membershipBudget) break;
+    }
+    return total;
+  }
+  let memberships = estimateMemberships(binSize);
+  while (memberships > membershipBudget) {
+    binSize *= 2;
+    if (!Number.isFinite(binSize)) throw new RangeError('Terrain spatial index cannot meet its bounded work budget');
+    memberships = estimateMemberships(binSize);
+  }
+  let maxCandidatesPerBucket = 0;
+  for (const candidate of boundedCells) {
+    const bounds = candidate.bounds;
+    const minX = Math.floor(bounds[0] / binSize), maxX = Math.floor(bounds[2] / binSize);
+    const minY = Math.floor(bounds[1] / binSize), maxY = Math.floor(bounds[3] / binSize);
     for (let x = minX; x <= maxX; x++)
       for (let y = minY; y <= maxY; y++) {
         const key = `${x},${y}`;
         const bin = bins.get(key) ?? [];
         bin.push(candidate);
+        maxCandidatesPerBucket = Math.max(maxCandidatesPerBucket, bin.length);
         bins.set(key, bin);
       }
   }
   return {
     cells,
+    statistics: Object.freeze({ binSizeMetres: binSize, cells: cells.length, bucketCount: bins.size,
+      memberships, maxCandidatesPerBucket, membershipBudget }),
     raycast: (origin: Vec3, rayDirection: Vec3): TerrainHit | null => {
       const length = Math.hypot(...rayDirection);
       if (!length || ![...origin, ...rayDirection].every(Number.isFinite)) return null;
@@ -211,7 +244,7 @@ function buildTerrainIndex(terrain: Terrain) {
     query: (x: number, y: number) => {
       if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
       for (const cell of bins.get(
-        `${Math.floor(x / 64)},${Math.floor(y / 64)}`,
+        `${Math.floor(x / binSize)},${Math.floor(y / binSize)}`,
       ) ?? []) {
         const [minX, minY, maxX, maxY] = cell.bounds;
         if (x < minX || x > maxX || y < minY || y > maxY) continue;

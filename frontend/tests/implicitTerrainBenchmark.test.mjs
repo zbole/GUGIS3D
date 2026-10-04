@@ -79,7 +79,7 @@ test('off-grid audit uses matching archives and its own original-source statisti
     assert.ok(variant.metrics.max_absolute_m>=variant.metrics.p95_absolute_m);
     assert.ok(variant.metrics.rmse_m>=variant.metrics.mae_m);
     act(()=>renderer.root.findByType('select').props.onChange({target:{value:String(variant.stride_m)}}));
-    const section=text(renderer.root.findByProps({className:'research-offgrid'}));
+    const section=text(renderer.root.findByProps({id:'offgrid-audit'}));
     assert.ok(section.includes((variant.metrics.rmse_m*100).toFixed(2)));
     assert.ok(section.includes((variant.metrics.max_absolute_m*100).toFixed(2)));
     assert.match(section,/这不是独立留出测试集/);
@@ -89,4 +89,37 @@ test('off-grid audit uses matching archives and its own original-source statisti
   const csv=(await readFile(new URL('../public/research/implicit-terrain/offgrid-results.csv',import.meta.url),'utf8')).trim().split(/\r?\n/);
   assert.equal(csv.length,8);
   for(const row of csv.slice(1))assert.match(row,/,False$/);
+});
+test('native index comparison publishes matched archives, identical complete hits, measured overhead and all selections', async () => {
+  const audit=JSON.parse(await readFile(new URL('../../shared/terrain-index-benchmark.json',import.meta.url)));
+  const published=JSON.parse(await readFile(new URL('../public/research/implicit-terrain/terrain-index-benchmark.json',import.meta.url)));
+  assert.deepEqual(published,audit);
+  const source=(await readFile(new URL('../src/studio/terrainMath.ts',import.meta.url),'utf8')).replace(/\r\n/g,'\n');
+  assert.equal(audit.source_sha256.after,createHash('sha256').update(source).digest('hex'));
+  assert.equal(audit.query_count,4096);
+  assert.equal(audit.reports.length,report.variants.length);
+  const med=values=>[...values].sort((a,b)=>a-b)[Math.floor(values.length/2)];
+  let renderer;act(()=>{renderer=create(React.createElement(Benchmark));});
+  for(const row of audit.reports){
+    assert.equal(row.archive_sha256,report.variants.find(v=>v.id===row.id).sha256);
+    assert.equal(row.results_identical,true);
+    for(const variant of [row.before,row.after]){
+      assert.equal(variant.trials.length,3);
+      assert.equal(variant.query_median_ms,med(variant.trials.map(t=>t.query_median_ms)));
+      for(const trial of variant.trials){
+        assert.equal(trial.result_sha256,row.result_sha256);
+        assert.equal(trial.query_repetitions_ms.length,9);
+        assert.equal(trial.query_median_ms,med(trial.query_repetitions_ms));
+      }
+    }
+    assert.equal(row.speedup,row.before.query_median_ms/row.after.query_median_ms);
+    assert.ok(row.after.statistics.memberships<=row.after.statistics.membershipBudget);
+    act(()=>renderer.root.findByType('select').props.onChange({target:{value:String(row.stride_m)}}));
+    const section=text(renderer.root.findByProps({id:'native-index-audit'}));
+    assert.ok(section.includes(row.after.query_median_ms.toFixed(2)));
+    assert.ok(section.includes((row.after.retained_index_heap_bytes/1e6).toFixed(3)));
+    assert.match(section,/不是 ArcGIS 或 SPG 的速度结果/);
+    assert.match(section,row.speedup>=1 ? /该档查询加速/ : /该档未加速/);
+  }
+  act(()=>renderer.unmount());
 });

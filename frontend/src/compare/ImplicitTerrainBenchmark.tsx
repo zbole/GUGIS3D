@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import report from '../../../shared/implicit-terrain-benchmark.json';
 import offgrid from '../../../shared/implicit-terrain-offgrid.json';
+import indexReport from '../../../shared/terrain-index-benchmark.json';
 import './implicitTerrainBenchmark.css';
 
 const median = (values: number[]) => [...values].sort((a, b) => a-b)[Math.floor(values.length/2)];
@@ -9,8 +10,17 @@ const cm = (metres: number) => (metres*100).toFixed(2);
 
 export default function ImplicitTerrainBenchmark() {
   const [stride, setStride] = useState(8);
+  useEffect(() => {
+    // This section is lazy loaded, after the browser's initial hash scroll.
+    if (typeof window === 'undefined') return;
+    const id = window.location.hash.slice(1);
+    if (!['implicit-terrain','offgrid-audit','native-index-audit'].includes(id)) return;
+    const frame = window.requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
   const selected = report.variants.find(v => v.stride_m === stride)!;
   const selectedOffgrid = offgrid.variants.find(v => v.stride_m === stride)!;
+  const selectedIndex = indexReport.reports.find(v => v.stride_m === stride)!;
   const spg = report.spg;
   const saving = (1-selected.bytes/spg.bytes)*100;
   const points = [...report.variants.map(v => ({ ...v, color: '#227a6b', label: `${v.stride_m} m` })),
@@ -24,7 +34,7 @@ export default function ImplicitTerrainBenchmark() {
     <div className="research-badges"><span>真实 DEM · 1 km²</span><span>1,000,000 个同源采样点</span><span>本机 CPU 复现</span><span>ArcGIS 软件运行待测</span></div>
     <div className="research-selector"><label htmlFor="research-stride">GUGIS 控制网采样间距</label>
       <select id="research-stride" value={stride} onChange={e => setStride(Number(e.target.value))}>{report.variants.map(v => <option key={v.id} value={v.stride_m}>{v.stride_m} m · {v.points.toLocaleString()} 个控制点</option>)}</select>
-      <span>保留末端边界；直纹面带 + 三角带；从保存档案读回求值。</span><a href="#offgrid-audit">核验原始 0.5 m 数据 ↓</a></div>
+      <span>保留末端边界；直纹面带 + 三角带；从保存档案读回求值。</span><a href="#offgrid-audit">核验原始 0.5 m 数据 ↓</a><a href="#native-index-audit">查询内核更新 ↓</a></div>
     <div className="research-kpis" aria-live="polite">
       <article><small>GUGIS · {stride} m RMSE</small><strong>{cm(selected.metrics.rmse_m)}<em> cm</em></strong><span>SPG {cm(spg.metrics.rmse_m)} cm</span></article>
       <article><small>完整表达文件</small><strong>{mb(selected.bytes)}<em> MB</em></strong><span>SPG 两个权重 + 恢复元数据 {mb(spg.bytes)} MB</span></article>
@@ -56,7 +66,7 @@ export default function ImplicitTerrainBenchmark() {
         <tr><th>PSNR / SSIM</th><td>{selected.metrics.psnr_peak_1_db.toFixed(2)} dB / {selected.metrics.ssim.toFixed(6)}</td><td>{spg.metrics.psnr_peak_1_db.toFixed(2)} dB / {spg.metrics.ssim.toFixed(6)}</td><td>PSNR 使用作者 peak=1；SSIM参数见方法</td></tr>
         <tr><th>平滑后梯度范数 RMSE</th><td>{selected.metrics.smoothed_gradient_norm_rmse.toFixed(5)}</td><td>{spg.metrics.smoothed_gradient_norm_rmse.toFixed(5)}</td><td>共同高斯 σ=4；无量纲坡度</td></tr>
         <tr><th>平滑后梯度方向平均角差</th><td>{selected.metrics.smoothed_gradient_direction_mean_degrees?.toFixed(3)}°</td><td>{spg.metrics.smoothed_gradient_direction_mean_degrees?.toFixed(3)}°</td><td>剔除平坦点；有效点数可能不同</td></tr>
-        <tr><th>4,096 次求值中位耗时</th><td>{median(selected.query_repetitions_ms).toFixed(2)} ms · Node</td><td>{median(spg.query_repetitions_ms).toFixed(2)} ms · PyTorch CPU</td><td>同点、五次重复；不同运行库，不能推断软件快慢</td></tr>
+        <tr><th>4,096 次求值中位耗时 · 基线记录</th><td>{median(selected.query_repetitions_ms).toFixed(2)} ms · Node 基线内核</td><td>{median(spg.query_repetitions_ms).toFixed(2)} ms · PyTorch CPU</td><td>同点、五次重复；不同运行库，不能推断软件快慢</td></tr>
         <tr><th>独立数值核验</th><td>512 点最大差 {(selected.kernel_readback_max_difference_m*1000).toExponential(2)} mm</td><td>PSNR 与作者示例 66.39307 dB 吻合</td><td>GUGIS Python 档案读回与网站查询内核互核</td></tr>
       </tbody></table></div>
     <section id="offgrid-audit" className="research-offgrid" aria-labelledby="offgrid-title">
@@ -72,6 +82,21 @@ export default function ImplicitTerrainBenchmark() {
       </table></div>
       <p className="research-offgrid-limit">原始数据参与了预处理，因此这不是独立留出测试集。此处结果不与上方百万个 1 m 网格点的统计混用；平均误差与最坏点需一起判断。</p>
       <div className="research-downloads"><a href="/research/implicit-terrain/offgrid-results.json" download>下载离网格 JSON ↓</a><a href="/research/implicit-terrain/offgrid-results.csv" download>下载离网格 CSV ↓</a></div>
+    </section>
+    <section id="native-index-audit" className="research-offgrid" aria-labelledby="native-index-title">
+      <span className="research-eyebrow">NATIVE QUERY ENGINE / 03</span>
+      <h3 id="native-index-title">相同精度，更快查询高密度控制网</h3>
+      <p>将固定 64 m 空间分桶改为有资源上限的自适应索引。同一 Node 运行库、同一档案、同一 4,096 个连续坐标，比较更新前后的原生求值。</p>
+      <div className="research-table-scroll"><table><caption>查询内核更新前后 · 当前 GUGIS {stride} m 档</caption>
+        <thead><tr><th>实测指标</th><th>更新前</th><th>更新后</th></tr></thead><tbody>
+          <tr><th>4,096 次查询中位耗时</th><td>{selectedIndex.before.query_median_ms.toFixed(2)} ms</td><td>{selectedIndex.after.query_median_ms.toFixed(2)} ms</td></tr>
+          <tr><th>索引构建中位耗时</th><td>{selectedIndex.before.index_median_ms.toFixed(2)} ms</td><td>{selectedIndex.after.index_median_ms.toFixed(2)} ms</td></tr>
+          <tr><th>索引留存数据堆 · V8</th><td>{mb(selectedIndex.before.retained_index_heap_bytes)} MB</td><td>{mb(selectedIndex.after.retained_index_heap_bytes)} MB</td></tr>
+          <tr><th>查询结果核验</th><td colSpan={2}>全部查询的高程、坡度、坡向、面片及参数序列逐字节一致</td></tr>
+        </tbody></table></div>
+      <p>{selectedIndex.speedup >= 1 ? `该档查询加速 ${selectedIndex.speedup.toFixed(2)} 倍` : `该档未加速，查询耗时增加 ${((1/selectedIndex.speedup-1)*100).toFixed(1)}%`}。每个版本运行三个独立进程，交替次序；各进程热身后运行九次，取各进程中位数的中位数。</p>
+      <p className="research-offgrid-limit">更细的索引会增加内存和构建开销，低密度控制网不一定更快。留存数据堆在强制垃圾回收后计量，仅包含索引增量；不代表 GPU 或浏览器内存。射线拾取未变更；此处仅比较 GUGIS 自身版本，不是 ArcGIS 或 SPG 的速度结果。</p>
+      <div className="research-downloads"><a href="/research/implicit-terrain/terrain-index-benchmark.json" download>下载逐次计时与一致性哈希 ↓</a></div>
     </section>
     <div className="research-format-result" aria-live="polite"><h3>同一控制网，导出 ArcGIS 可读的三角带文件。</h3>
       <p>当前 {stride} m 档：GUGIS <strong>{mb(selected.bytes)} MB</strong>；MultiPatch Shapefile 五个组件共 <strong>{mb(selected.multipatch.bytes)} MB</strong>，原生档案文件小 <strong>{selected.multipatch.native_file_saving_percent.toFixed(1)}%</strong>。</p>

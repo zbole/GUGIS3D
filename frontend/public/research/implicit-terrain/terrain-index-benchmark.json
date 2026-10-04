@@ -1,0 +1,980 @@
+{
+  "schema": "gugis-native-index-benchmark-v1",
+  "generated_at": "2026-10-04T13:05:32.407Z",
+  "baseline_commit": "56a008e37481473aac4bea335dd48e0a106bfda2",
+  "source_sha256": {
+    "before": "7908c45ca2318876968898bb4f0a42b1fc98c181630de4bb21714825532e2a07",
+    "after": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d"
+  },
+  "fixture_sha256": "45b0009e30b6ab1f0bf88c4bff8a667033a21a834064accda9af6572cfeaec62",
+  "query_count": 4096,
+  "method": "Three fresh processes per kernel/variant, alternating order; one warm-up and nine query runs per process. Median of per-process medians. Exact serialized TerrainHit hashes include height, slope, aspect, patch and parameters. Retained V8 heap after forced GC above parsed-terrain baseline; excludes GPU and browser. Raycast unchanged. No cross-runtime or ArcGIS speed claim.",
+  "runtime": {
+    "node": "v24.13.0",
+    "platform": "win32",
+    "architecture": "x64",
+    "cpu": "Intel(R) Core(TM) i7-14650HX"
+  },
+  "reports": [
+    {
+      "id": "gugis-2m",
+      "stride_m": 2,
+      "archive_sha256": "e0161b130898f97efa67af60753c9c334fb89c2fc5cee28f8dcb6026f8dec22e",
+      "before": {
+        "query_median_ms": 57.271699999999896,
+        "index_median_ms": 539.566,
+        "retained_index_heap_bytes": 235745784,
+        "statistics": null,
+        "trials": [
+          {
+            "index_ms": 539.566,
+            "retained_index_heap_bytes": 235745784,
+            "query_median_ms": 57.768100000000004,
+            "query_repetitions_ms": [
+              58.5705999999999,
+              66.8895,
+              79.34090000000003,
+              58.10159999999996,
+              56.20609999999988,
+              56.7802999999999,
+              53.68039999999996,
+              54.194299999999885,
+              57.768100000000004
+            ],
+            "result_sha256": "77117900050ee4937e59ae28124ed149a82e6955742fed083b2f16cabd9747ec",
+            "statistics": null
+          },
+          {
+            "index_ms": 555.0093,
+            "retained_index_heap_bytes": 235746200,
+            "query_median_ms": 56.78939999999989,
+            "query_repetitions_ms": [
+              56.76879999999994,
+              62.94889999999998,
+              62.72810000000004,
+              59.02109999999993,
+              54.815900000000056,
+              56.916299999999865,
+              53.88790000000017,
+              56.78939999999989,
+              55.610099999999875
+            ],
+            "result_sha256": "77117900050ee4937e59ae28124ed149a82e6955742fed083b2f16cabd9747ec",
+            "statistics": null
+          },
+          {
+            "index_ms": 506.4387,
+            "retained_index_heap_bytes": 235745784,
+            "query_median_ms": 57.271699999999896,
+            "query_repetitions_ms": [
+              55.77570000000003,
+              56.92070000000001,
+              57.461599999999976,
+              57.271699999999896,
+              56.99569999999994,
+              55.93959999999993,
+              59.29859999999985,
+              60.39840000000004,
+              58.377700000000004
+            ],
+            "result_sha256": "77117900050ee4937e59ae28124ed149a82e6955742fed083b2f16cabd9747ec",
+            "statistics": null
+          }
+        ]
+      },
+      "after": {
+        "query_median_ms": 9.630800000000022,
+        "index_median_ms": 548.1619,
+        "retained_index_heap_bytes": 245157872,
+        "statistics": {
+          "binSizeMetres": 8,
+          "cells": 462168,
+          "bucketCount": 15876,
+          "memberships": 722099,
+          "maxCandidatesPerBucket": 50,
+          "membershipBudget": 4000000
+        },
+        "trials": [
+          {
+            "index_ms": 537.8181,
+            "retained_index_heap_bytes": 245157872,
+            "query_median_ms": 9.630800000000022,
+            "query_repetitions_ms": [
+              11.256200000000035,
+              11.139099999999985,
+              9.235299999999938,
+              9.630800000000022,
+              10.541100000000029,
+              10.535600000000045,
+              9.28060000000005,
+              9.579900000000066,
+              9.328699999999913
+            ],
+            "result_sha256": "77117900050ee4937e59ae28124ed149a82e6955742fed083b2f16cabd9747ec",
+            "statistics": {
+              "binSizeMetres": 8,
+              "cells": 462168,
+              "bucketCount": 15876,
+              "memberships": 722099,
+              "maxCandidatesPerBucket": 50,
+              "membershipBudget": 4000000
+            }
+          },
+          {
+            "index_ms": 550.1403,
+            "retained_index_heap_bytes": 245157904,
+            "query_median_ms": 9.926899999999932,
+            "query_repetitions_ms": [
+              10.4846,
+              11.75279999999998,
+              9.277699999999982,
+              9.926899999999932,
+              10.48619999999994,
+              10.571699999999964,
+              9.352399999999989,
+              9.33890000000008,
+              9.28189999999995
+            ],
+            "result_sha256": "77117900050ee4937e59ae28124ed149a82e6955742fed083b2f16cabd9747ec",
+            "statistics": {
+              "binSizeMetres": 8,
+              "cells": 462168,
+              "bucketCount": 15876,
+              "memberships": 722099,
+              "maxCandidatesPerBucket": 50,
+              "membershipBudget": 4000000
+            }
+          },
+          {
+            "index_ms": 548.1619,
+            "retained_index_heap_bytes": 245157744,
+            "query_median_ms": 9.279500000000098,
+            "query_repetitions_ms": [
+              10.202999999999975,
+              10.663999999999987,
+              9.25630000000001,
+              9.511900000000082,
+              9.279500000000098,
+              9.124000000000024,
+              10.383299999999963,
+              9.200099999999907,
+              8.547300000000064
+            ],
+            "result_sha256": "77117900050ee4937e59ae28124ed149a82e6955742fed083b2f16cabd9747ec",
+            "statistics": {
+              "binSizeMetres": 8,
+              "cells": 462168,
+              "bucketCount": 15876,
+              "memberships": 722099,
+              "maxCandidatesPerBucket": 50,
+              "membershipBudget": 4000000
+            }
+          }
+        ]
+      },
+      "speedup": 5.946723013664469,
+      "results_identical": true,
+      "result_sha256": "77117900050ee4937e59ae28124ed149a82e6955742fed083b2f16cabd9747ec"
+    },
+    {
+      "id": "gugis-4m",
+      "stride_m": 4,
+      "archive_sha256": "fa918dd3422399b04509759625a5cf74d111a5fddd85ebe5d945c51427beb578",
+      "before": {
+        "query_median_ms": 16.178500000000042,
+        "index_median_ms": 138.14659999999998,
+        "retained_index_heap_bytes": 59567640,
+        "statistics": null,
+        "trials": [
+          {
+            "index_ms": 136.8906,
+            "retained_index_heap_bytes": 59567640,
+            "query_median_ms": 16.178500000000042,
+            "query_repetitions_ms": [
+              17.292100000000005,
+              15.992599999999982,
+              16.178500000000042,
+              15.630200000000002,
+              17.192600000000027,
+              17.233599999999967,
+              14.609700000000032,
+              16.709099999999978,
+              14.786000000000001
+            ],
+            "result_sha256": "4d11037db7742502d24b024c06cdb3fa5d71749866375808765cebaf15f6d9af",
+            "statistics": null
+          },
+          {
+            "index_ms": 140.8727,
+            "retained_index_heap_bytes": 59567624,
+            "query_median_ms": 17.97969999999998,
+            "query_repetitions_ms": [
+              18.242999999999995,
+              17.97969999999998,
+              19.482100000000003,
+              16.42180000000002,
+              18.016700000000014,
+              18.913400000000024,
+              16.57910000000004,
+              16.282299999999964,
+              14.854299999999967
+            ],
+            "result_sha256": "4d11037db7742502d24b024c06cdb3fa5d71749866375808765cebaf15f6d9af",
+            "statistics": null
+          },
+          {
+            "index_ms": 138.14659999999998,
+            "retained_index_heap_bytes": 59567688,
+            "query_median_ms": 15.668300000000045,
+            "query_repetitions_ms": [
+              17.51170000000002,
+              14.880299999999977,
+              16.657699999999977,
+              15.297599999999989,
+              15.959000000000003,
+              16.42199999999997,
+              15.044600000000003,
+              15.668300000000045,
+              14.555000000000007
+            ],
+            "result_sha256": "4d11037db7742502d24b024c06cdb3fa5d71749866375808765cebaf15f6d9af",
+            "statistics": null
+          }
+        ]
+      },
+      "after": {
+        "query_median_ms": 7.1469000000000165,
+        "index_median_ms": 151.4649,
+        "retained_index_heap_bytes": 61889352,
+        "statistics": {
+          "binSizeMetres": 16,
+          "cells": 116048,
+          "bucketCount": 4096,
+          "memberships": 181897,
+          "maxCandidatesPerBucket": 50,
+          "membershipBudget": 4000000
+        },
+        "trials": [
+          {
+            "index_ms": 152.0014,
+            "retained_index_heap_bytes": 61890456,
+            "query_median_ms": 7.220199999999977,
+            "query_repetitions_ms": [
+              7.782600000000002,
+              8.209799999999973,
+              6.629799999999989,
+              6.904600000000016,
+              7.220199999999977,
+              7.935800000000029,
+              9.562900000000013,
+              6.787299999999959,
+              6.6503999999999905
+            ],
+            "result_sha256": "4d11037db7742502d24b024c06cdb3fa5d71749866375808765cebaf15f6d9af",
+            "statistics": {
+              "binSizeMetres": 16,
+              "cells": 116048,
+              "bucketCount": 4096,
+              "memberships": 181897,
+              "maxCandidatesPerBucket": 50,
+              "membershipBudget": 4000000
+            }
+          },
+          {
+            "index_ms": 151.0079,
+            "retained_index_heap_bytes": 61889000,
+            "query_median_ms": 7.119599999999991,
+            "query_repetitions_ms": [
+              7.2654,
+              7.119599999999991,
+              6.968500000000006,
+              7.0960999999999785,
+              6.803299999999979,
+              7.902600000000007,
+              8.751599999999996,
+              8.687700000000007,
+              6.543800000000033
+            ],
+            "result_sha256": "4d11037db7742502d24b024c06cdb3fa5d71749866375808765cebaf15f6d9af",
+            "statistics": {
+              "binSizeMetres": 16,
+              "cells": 116048,
+              "bucketCount": 4096,
+              "memberships": 181897,
+              "maxCandidatesPerBucket": 50,
+              "membershipBudget": 4000000
+            }
+          },
+          {
+            "index_ms": 151.4649,
+            "retained_index_heap_bytes": 61889352,
+            "query_median_ms": 7.1469000000000165,
+            "query_repetitions_ms": [
+              7.1469000000000165,
+              5.818499999999972,
+              9.409600000000012,
+              8.856199999999944,
+              7.562600000000032,
+              7.0464000000000055,
+              9.563199999999995,
+              7.002599999999973,
+              6.1732000000000085
+            ],
+            "result_sha256": "4d11037db7742502d24b024c06cdb3fa5d71749866375808765cebaf15f6d9af",
+            "statistics": {
+              "binSizeMetres": 16,
+              "cells": 116048,
+              "bucketCount": 4096,
+              "memberships": 181897,
+              "maxCandidatesPerBucket": 50,
+              "membershipBudget": 4000000
+            }
+          }
+        ]
+      },
+      "speedup": 2.263708740852678,
+      "results_identical": true,
+      "result_sha256": "4d11037db7742502d24b024c06cdb3fa5d71749866375808765cebaf15f6d9af"
+    },
+    {
+      "id": "gugis-8m",
+      "stride_m": 8,
+      "archive_sha256": "9df359da24fb2421cc08fd4891efcc57d2d7e3d4b2f795ea7289a98c135fa85c",
+      "before": {
+        "query_median_ms": 6.5075999999999965,
+        "index_median_ms": 40.237100000000005,
+        "retained_index_heap_bytes": 15109216,
+        "statistics": null,
+        "trials": [
+          {
+            "index_ms": 42.8547,
+            "retained_index_heap_bytes": 15109216,
+            "query_median_ms": 6.5779,
+            "query_repetitions_ms": [
+              6.954699999999988,
+              6.062699999999978,
+              6.468500000000006,
+              6.223299999999995,
+              6.814899999999994,
+              6.378099999999989,
+              6.655699999999996,
+              6.642600000000016,
+              6.5779
+            ],
+            "result_sha256": "0a5416300f85b9b31395151cc138cf9e2cdcc60f006d0c4a555b442080e90662",
+            "statistics": null
+          },
+          {
+            "index_ms": 40.237100000000005,
+            "retained_index_heap_bytes": 15109216,
+            "query_median_ms": 6.5075999999999965,
+            "query_repetitions_ms": [
+              6.598700000000008,
+              6.3703,
+              5.684500000000014,
+              5.974400000000003,
+              6.5075999999999965,
+              6.876400000000018,
+              6.433300000000003,
+              7.37639999999999,
+              6.994799999999998
+            ],
+            "result_sha256": "0a5416300f85b9b31395151cc138cf9e2cdcc60f006d0c4a555b442080e90662",
+            "statistics": null
+          },
+          {
+            "index_ms": 38.8104,
+            "retained_index_heap_bytes": 15110272,
+            "query_median_ms": 6.382499999999993,
+            "query_repetitions_ms": [
+              7.218599999999995,
+              5.688100000000006,
+              5.873799999999989,
+              6.138799999999975,
+              7.08420000000001,
+              6.4839000000000055,
+              5.903100000000023,
+              7.2342000000000155,
+              6.382499999999993
+            ],
+            "result_sha256": "0a5416300f85b9b31395151cc138cf9e2cdcc60f006d0c4a555b442080e90662",
+            "statistics": null
+          }
+        ]
+      },
+      "after": {
+        "query_median_ms": 4.872,
+        "index_median_ms": 46.90540000000001,
+        "retained_index_heap_bytes": 15620408,
+        "statistics": {
+          "binSizeMetres": 32,
+          "cells": 29279,
+          "bucketCount": 1024,
+          "memberships": 45640,
+          "maxCandidatesPerBucket": 50,
+          "membershipBudget": 4000000
+        },
+        "trials": [
+          {
+            "index_ms": 46.90540000000001,
+            "retained_index_heap_bytes": 15620408,
+            "query_median_ms": 4.872,
+            "query_repetitions_ms": [
+              4.872,
+              5.157899999999984,
+              5.725999999999999,
+              4.09820000000002,
+              6.415099999999995,
+              5.914600000000007,
+              3.9113000000000113,
+              3.9081999999999937,
+              4.060699999999997
+            ],
+            "result_sha256": "0a5416300f85b9b31395151cc138cf9e2cdcc60f006d0c4a555b442080e90662",
+            "statistics": {
+              "binSizeMetres": 32,
+              "cells": 29279,
+              "bucketCount": 1024,
+              "memberships": 45640,
+              "maxCandidatesPerBucket": 50,
+              "membershipBudget": 4000000
+            }
+          },
+          {
+            "index_ms": 46.1447,
+            "retained_index_heap_bytes": 15620320,
+            "query_median_ms": 4.801600000000008,
+            "query_repetitions_ms": [
+              4.7065000000000055,
+              4.160600000000002,
+              5.01400000000001,
+              3.9694000000000074,
+              5.1340999999999894,
+              6.363200000000006,
+              3.7479000000000156,
+              5.226399999999984,
+              4.801600000000008
+            ],
+            "result_sha256": "0a5416300f85b9b31395151cc138cf9e2cdcc60f006d0c4a555b442080e90662",
+            "statistics": {
+              "binSizeMetres": 32,
+              "cells": 29279,
+              "bucketCount": 1024,
+              "memberships": 45640,
+              "maxCandidatesPerBucket": 50,
+              "membershipBudget": 4000000
+            }
+          },
+          {
+            "index_ms": 48.0225,
+            "retained_index_heap_bytes": 15620464,
+            "query_median_ms": 5.073900000000009,
+            "query_repetitions_ms": [
+              5.073900000000009,
+              5.17319999999998,
+              5.813699999999983,
+              4.001200000000011,
+              6.574900000000014,
+              5.911900000000003,
+              3.6633999999999958,
+              3.5871999999999957,
+              3.6396000000000015
+            ],
+            "result_sha256": "0a5416300f85b9b31395151cc138cf9e2cdcc60f006d0c4a555b442080e90662",
+            "statistics": {
+              "binSizeMetres": 32,
+              "cells": 29279,
+              "bucketCount": 1024,
+              "memberships": 45640,
+              "maxCandidatesPerBucket": 50,
+              "membershipBudget": 4000000
+            }
+          }
+        ]
+      },
+      "speedup": 1.335714285714285,
+      "results_identical": true,
+      "result_sha256": "0a5416300f85b9b31395151cc138cf9e2cdcc60f006d0c4a555b442080e90662"
+    },
+    {
+      "id": "gugis-16m",
+      "stride_m": 16,
+      "archive_sha256": "adf6d91e626c1042f827743f0fba39c7461b6ce5b9ae0baf8dabfdcf24dc63fb",
+      "before": {
+        "query_median_ms": 3.7057999999999964,
+        "index_median_ms": 13.864199999999997,
+        "retained_index_heap_bytes": 4065648,
+        "statistics": null,
+        "trials": [
+          {
+            "index_ms": 14.483700000000006,
+            "retained_index_heap_bytes": 4065648,
+            "query_median_ms": 3.5627999999999957,
+            "query_repetitions_ms": [
+              4.097499999999997,
+              3.5627999999999957,
+              3.255800000000008,
+              4.685900000000004,
+              6.959299999999999,
+              3.5715000000000003,
+              3.54910000000001,
+              3.046199999999999,
+              3.0397999999999996
+            ],
+            "result_sha256": "7a5b969fb26c86a8e5f76f580acc7b8fc8b0e397b510ed4cb4fd2565e964d6b6",
+            "statistics": null
+          },
+          {
+            "index_ms": 11.577399999999997,
+            "retained_index_heap_bytes": 4061896,
+            "query_median_ms": 3.710099999999997,
+            "query_repetitions_ms": [
+              3.792599999999993,
+              3.6809999999999974,
+              3.710099999999997,
+              5.645299999999992,
+              6.9101,
+              3.977000000000004,
+              3.4698999999999955,
+              2.8656000000000006,
+              3.0833999999999975
+            ],
+            "result_sha256": "7a5b969fb26c86a8e5f76f580acc7b8fc8b0e397b510ed4cb4fd2565e964d6b6",
+            "statistics": null
+          },
+          {
+            "index_ms": 13.864199999999997,
+            "retained_index_heap_bytes": 4368560,
+            "query_median_ms": 3.7057999999999964,
+            "query_repetitions_ms": [
+              3.9372000000000043,
+              3.4762000000000057,
+              3.4482,
+              4.814499999999995,
+              7.137699999999995,
+              3.9742999999999995,
+              3.7057999999999964,
+              3.358300000000014,
+              3.3348000000000013
+            ],
+            "result_sha256": "7a5b969fb26c86a8e5f76f580acc7b8fc8b0e397b510ed4cb4fd2565e964d6b6",
+            "statistics": null
+          }
+        ]
+      },
+      "after": {
+        "query_median_ms": 3.813299999999998,
+        "index_median_ms": 13.290199999999999,
+        "retained_index_heap_bytes": 4140312,
+        "statistics": {
+          "binSizeMetres": 64,
+          "cells": 7593,
+          "bucketCount": 256,
+          "memberships": 11618,
+          "maxCandidatesPerBucket": 50,
+          "membershipBudget": 4000000
+        },
+        "trials": [
+          {
+            "index_ms": 12.449800000000003,
+            "retained_index_heap_bytes": 4141320,
+            "query_median_ms": 3.9222000000000037,
+            "query_repetitions_ms": [
+              4.176000000000002,
+              3.629000000000005,
+              4.2654,
+              4.826099999999997,
+              7.116399999999999,
+              3.9222000000000037,
+              3.593599999999995,
+              3.249500000000012,
+              3.0867000000000075
+            ],
+            "result_sha256": "7a5b969fb26c86a8e5f76f580acc7b8fc8b0e397b510ed4cb4fd2565e964d6b6",
+            "statistics": {
+              "binSizeMetres": 64,
+              "cells": 7593,
+              "bucketCount": 256,
+              "memberships": 11618,
+              "maxCandidatesPerBucket": 50,
+              "membershipBudget": 4000000
+            }
+          },
+          {
+            "index_ms": 13.290199999999999,
+            "retained_index_heap_bytes": 4139824,
+            "query_median_ms": 3.4890000000000043,
+            "query_repetitions_ms": [
+              4.174599999999998,
+              3.483099999999993,
+              3.4890000000000043,
+              4.872,
+              7.002200000000002,
+              4.079699999999988,
+              3.306899999999999,
+              2.937899999999999,
+              2.9754999999999967
+            ],
+            "result_sha256": "7a5b969fb26c86a8e5f76f580acc7b8fc8b0e397b510ed4cb4fd2565e964d6b6",
+            "statistics": {
+              "binSizeMetres": 64,
+              "cells": 7593,
+              "bucketCount": 256,
+              "memberships": 11618,
+              "maxCandidatesPerBucket": 50,
+              "membershipBudget": 4000000
+            }
+          },
+          {
+            "index_ms": 13.564400000000006,
+            "retained_index_heap_bytes": 4140312,
+            "query_median_ms": 3.813299999999998,
+            "query_repetitions_ms": [
+              3.813299999999998,
+              4.031700000000001,
+              3.4909999999999997,
+              4.7102,
+              7.18610000000001,
+              4.027000000000001,
+              3.333199999999991,
+              3.2075999999999993,
+              3.3922000000000025
+            ],
+            "result_sha256": "7a5b969fb26c86a8e5f76f580acc7b8fc8b0e397b510ed4cb4fd2565e964d6b6",
+            "statistics": {
+              "binSizeMetres": 64,
+              "cells": 7593,
+              "bucketCount": 256,
+              "memberships": 11618,
+              "maxCandidatesPerBucket": 50,
+              "membershipBudget": 4000000
+            }
+          }
+        ]
+      },
+      "speedup": 0.971809194136312,
+      "results_identical": true,
+      "result_sha256": "7a5b969fb26c86a8e5f76f580acc7b8fc8b0e397b510ed4cb4fd2565e964d6b6"
+    },
+    {
+      "id": "gugis-32m",
+      "stride_m": 32,
+      "archive_sha256": "800a8569413a25e34642d4dfd17aa6f93416055919a6b6737b30563649f347c8",
+      "before": {
+        "query_median_ms": 3.428299999999993,
+        "index_median_ms": 4.303399999999996,
+        "retained_index_heap_bytes": 1164720,
+        "statistics": null,
+        "trials": [
+          {
+            "index_ms": 4.3282000000000025,
+            "retained_index_heap_bytes": 1164240,
+            "query_median_ms": 3.2946000000000026,
+            "query_repetitions_ms": [
+              4.159300000000002,
+              2.8164000000000016,
+              3.358000000000004,
+              2.8296999999999883,
+              3.102400000000003,
+              3.1015999999999906,
+              5.155900000000003,
+              3.2946000000000026,
+              4.271900000000002
+            ],
+            "result_sha256": "02cd71cfaa7e8fad3ea22b07b160c62cd67d63c777262c9d81a2f5b05920d059",
+            "statistics": null
+          },
+          {
+            "index_ms": 4.2179,
+            "retained_index_heap_bytes": 1164720,
+            "query_median_ms": 3.428299999999993,
+            "query_repetitions_ms": [
+              4.834399999999988,
+              3.0143000000000058,
+              3.528000000000006,
+              3.151299999999992,
+              3.428299999999993,
+              3.002899999999997,
+              4.319099999999992,
+              2.9997000000000043,
+              3.8751000000000033
+            ],
+            "result_sha256": "02cd71cfaa7e8fad3ea22b07b160c62cd67d63c777262c9d81a2f5b05920d059",
+            "statistics": null
+          },
+          {
+            "index_ms": 4.303399999999996,
+            "retained_index_heap_bytes": 1164720,
+            "query_median_ms": 3.8226000000000084,
+            "query_repetitions_ms": [
+              4.635999999999996,
+              3.102100000000007,
+              3.8226000000000084,
+              3.826299999999989,
+              2.930400000000006,
+              3.4762000000000057,
+              5.109300000000005,
+              3.035899999999998,
+              4.069400000000002
+            ],
+            "result_sha256": "02cd71cfaa7e8fad3ea22b07b160c62cd67d63c777262c9d81a2f5b05920d059",
+            "statistics": null
+          }
+        ]
+      },
+      "after": {
+        "query_median_ms": 3.199399999999997,
+        "index_median_ms": 4.998199999999997,
+        "retained_index_heap_bytes": 1196192,
+        "statistics": {
+          "binSizeMetres": 64,
+          "cells": 1948,
+          "bucketCount": 256,
+          "memberships": 4196,
+          "maxCandidatesPerBucket": 18,
+          "membershipBudget": 4000000
+        },
+        "trials": [
+          {
+            "index_ms": 4.874899999999997,
+            "retained_index_heap_bytes": 1196192,
+            "query_median_ms": 3.3599999999999994,
+            "query_repetitions_ms": [
+              4.180099999999996,
+              2.8188999999999993,
+              3.6252999999999957,
+              2.886199999999988,
+              3.3599999999999994,
+              3.0241000000000042,
+              4.089799999999997,
+              2.9462000000000046,
+              3.9767999999999972
+            ],
+            "result_sha256": "02cd71cfaa7e8fad3ea22b07b160c62cd67d63c777262c9d81a2f5b05920d059",
+            "statistics": {
+              "binSizeMetres": 64,
+              "cells": 1948,
+              "bucketCount": 256,
+              "memberships": 4196,
+              "maxCandidatesPerBucket": 18,
+              "membershipBudget": 4000000
+            }
+          },
+          {
+            "index_ms": 5.0032,
+            "retained_index_heap_bytes": 1196192,
+            "query_median_ms": 3.199399999999997,
+            "query_repetitions_ms": [
+              4.3289999999999935,
+              2.859400000000008,
+              3.3357000000000028,
+              2.8001000000000005,
+              3.199399999999997,
+              3.098799999999997,
+              4.876500000000007,
+              3.1363000000000056,
+              4.100099999999998
+            ],
+            "result_sha256": "02cd71cfaa7e8fad3ea22b07b160c62cd67d63c777262c9d81a2f5b05920d059",
+            "statistics": {
+              "binSizeMetres": 64,
+              "cells": 1948,
+              "bucketCount": 256,
+              "memberships": 4196,
+              "maxCandidatesPerBucket": 18,
+              "membershipBudget": 4000000
+            }
+          },
+          {
+            "index_ms": 4.998199999999997,
+            "retained_index_heap_bytes": 1195728,
+            "query_median_ms": 3.1563999999999908,
+            "query_repetitions_ms": [
+              4.223500000000001,
+              2.878,
+              3.3104000000000013,
+              2.8652000000000015,
+              3.072800000000001,
+              2.978200000000001,
+              4.7577,
+              3.1563999999999908,
+              4.236499999999992
+            ],
+            "result_sha256": "02cd71cfaa7e8fad3ea22b07b160c62cd67d63c777262c9d81a2f5b05920d059",
+            "statistics": {
+              "binSizeMetres": 64,
+              "cells": 1948,
+              "bucketCount": 256,
+              "memberships": 4196,
+              "maxCandidatesPerBucket": 18,
+              "membershipBudget": 4000000
+            }
+          }
+        ]
+      },
+      "speedup": 1.0715446646246158,
+      "results_identical": true,
+      "result_sha256": "02cd71cfaa7e8fad3ea22b07b160c62cd67d63c777262c9d81a2f5b05920d059"
+    },
+    {
+      "id": "gugis-64m",
+      "stride_m": 64,
+      "archive_sha256": "10ccb5674726bd4890cdab8fd81022bbeead5293bf25d98d2539c5f2b1a64cd7",
+      "before": {
+        "query_median_ms": 2.9251000000000005,
+        "index_median_ms": 1.5519999999999996,
+        "retained_index_heap_bytes": 402920,
+        "statistics": null,
+        "trials": [
+          {
+            "index_ms": 1.5507999999999953,
+            "retained_index_heap_bytes": 402904,
+            "query_median_ms": 2.988500000000002,
+            "query_repetitions_ms": [
+              4.4328,
+              2.283999999999992,
+              2.988500000000002,
+              3.4605000000000103,
+              2.822800000000001,
+              2.449299999999994,
+              4.050699999999992,
+              3.438599999999994,
+              2.014499999999998
+            ],
+            "result_sha256": "81e0bb189f1459a2dc23d18120e51a2b0e1aa6eceaff25a8cc6a6e7a29854110",
+            "statistics": null
+          },
+          {
+            "index_ms": 1.5519999999999996,
+            "retained_index_heap_bytes": 402944,
+            "query_median_ms": 2.9251000000000005,
+            "query_repetitions_ms": [
+              4.6518000000000015,
+              2.4425999999999988,
+              2.9251000000000005,
+              3.3182999999999936,
+              2.890100000000004,
+              2.721500000000006,
+              3.3725000000000023,
+              5.918700000000001,
+              2.1726000000000028
+            ],
+            "result_sha256": "81e0bb189f1459a2dc23d18120e51a2b0e1aa6eceaff25a8cc6a6e7a29854110",
+            "statistics": null
+          },
+          {
+            "index_ms": 1.6184999999999974,
+            "retained_index_heap_bytes": 402920,
+            "query_median_ms": 2.8019000000000034,
+            "query_repetitions_ms": [
+              4.497799999999998,
+              2.391300000000001,
+              2.6252999999999957,
+              2.965199999999996,
+              2.8019000000000034,
+              2.521799999999999,
+              4.796700000000001,
+              3.992900000000006,
+              2.1570000000000107
+            ],
+            "result_sha256": "81e0bb189f1459a2dc23d18120e51a2b0e1aa6eceaff25a8cc6a6e7a29854110",
+            "statistics": null
+          }
+        ]
+      },
+      "after": {
+        "query_median_ms": 2.8944000000000045,
+        "index_median_ms": 1.8829999999999956,
+        "retained_index_heap_bytes": 420936,
+        "statistics": {
+          "binSizeMetres": 64,
+          "cells": 484,
+          "bucketCount": 256,
+          "memberships": 1822,
+          "maxCandidatesPerBucket": 8,
+          "membershipBudget": 4000000
+        },
+        "trials": [
+          {
+            "index_ms": 1.9004000000000048,
+            "retained_index_heap_bytes": 420936,
+            "query_median_ms": 2.9696,
+            "query_repetitions_ms": [
+              4.677999999999997,
+              2.4114999999999895,
+              2.842799999999997,
+              3.3101000000000056,
+              2.831699999999998,
+              2.9696,
+              3.2439999999999998,
+              5.729900000000001,
+              2.260400000000004
+            ],
+            "result_sha256": "81e0bb189f1459a2dc23d18120e51a2b0e1aa6eceaff25a8cc6a6e7a29854110",
+            "statistics": {
+              "binSizeMetres": 64,
+              "cells": 484,
+              "bucketCount": 256,
+              "memberships": 1822,
+              "maxCandidatesPerBucket": 8,
+              "membershipBudget": 4000000
+            }
+          },
+          {
+            "index_ms": 1.8829999999999956,
+            "retained_index_heap_bytes": 420936,
+            "query_median_ms": 2.8525999999999954,
+            "query_repetitions_ms": [
+              4.610300000000009,
+              2.6551999999999936,
+              2.7198000000000064,
+              2.8659000000000106,
+              2.8525999999999954,
+              2.6418999999999926,
+              4.862799999999993,
+              3.893599999999992,
+              2.316500000000005
+            ],
+            "result_sha256": "81e0bb189f1459a2dc23d18120e51a2b0e1aa6eceaff25a8cc6a6e7a29854110",
+            "statistics": {
+              "binSizeMetres": 64,
+              "cells": 484,
+              "bucketCount": 256,
+              "memberships": 1822,
+              "maxCandidatesPerBucket": 8,
+              "membershipBudget": 4000000
+            }
+          },
+          {
+            "index_ms": 1.8370999999999995,
+            "retained_index_heap_bytes": 420936,
+            "query_median_ms": 2.8944000000000045,
+            "query_repetitions_ms": [
+              4.290900000000001,
+              2.6854000000000013,
+              2.492900000000006,
+              2.8944000000000045,
+              2.847999999999999,
+              2.9314999999999998,
+              3.6988000000000056,
+              4.625700000000009,
+              2.0420000000000016
+            ],
+            "result_sha256": "81e0bb189f1459a2dc23d18120e51a2b0e1aa6eceaff25a8cc6a6e7a29854110",
+            "statistics": {
+              "binSizeMetres": 64,
+              "cells": 484,
+              "bucketCount": 256,
+              "memberships": 1822,
+              "maxCandidatesPerBucket": 8,
+              "membershipBudget": 4000000
+            }
+          }
+        ]
+      },
+      "speedup": 1.0106066887783292,
+      "results_identical": true,
+      "result_sha256": "81e0bb189f1459a2dc23d18120e51a2b0e1aa6eceaff25a8cc6a6e7a29854110"
+    }
+  ]
+}
