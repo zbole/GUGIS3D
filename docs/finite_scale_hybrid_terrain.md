@@ -187,3 +187,32 @@ python data-pipeline/plot_raster_triangle_research.py --input .local/benchmark/r
 ```
 
 本轮完整前端 534 项通过；后端 278 项检查中 261 项通过、17 项平台条件跳过；生产构建通过。实际浏览器核查三维加载、局部 / 紧凑原生点击查询、原生与显示误差提示、关闭释放，以及 5 cm 失败旧档案与 50 cm 达标旧档案的区分，未出现 Cesium 错误。
+
+## 相同三角几何导出 MultiPatch
+
+入口 `/compare#raster-multipatch-audit` 自动选定瑞士真实 DEM，按误差档位切换。四档局部三角模型的每个有向三角形原样导出为 Shape MultiPatch TriangleStrip。只合并首尾顶点对完全相同、长度为偶数且不歧义的面带，不添加桥接或退化三角形。所有部件放入一个地形要素；DBF 只保留地形编号，依据 Esri Table 16 去除不存在的可选 M。此基线不是低效的逐面要素写法，也不使用较旧格式作优势参照。
+
+| 区域参考目标 | GUGIS 局部三角 JSON | MultiPatch 五件套 | 原档文件减少 | 加原档恢复信息总成本 | 紧凑混合相对五件套 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 5 cm | 614,702 B | 739,106 B | 16.8% | 1,199,040 B | 小 12.4% |
+| 10 cm | 297,752 B | 361,330 B | 17.6% | 581,978 B | 大 63.2% |
+| 25 cm | 61,814 B | 77,722 B | 20.5% | 122,107 B | 大 181.5% |
+| 50 cm | 13,057 B | 16,474 B | 20.7% | 25,830 B | 大 47.9% |
+
+**原档与五件套列隔离的是相同三角几何的文件格式成本。** GUGIS 使用共享控制点及面带索引；MultiPatch 的部件各自保存顶点。五件套计入 `.shp/.shx/.dbf/.prj/.cpg`，GUGIS 完整 JSON 计入共有元数据。额外 `native-recovery.json` 保存原共享点编号、面带与元数据，能够逐字节恢复原档，其成本单独展示。ZIP 压缩大小、参考 NPZ 与测试回执不混入五件套成本。不能把此文件比例解释为运行内存或加载速度。
+
+紧凑混合列仍是不同曲面在同一区域误差目标下的比较，不能把它与相同几何格式收益混称。尤其 10 cm 紧凑混合仍比 MultiPatch 三角基线大 63.2%，公开保留该不利结果。
+
+从经 SHA-256 核验的真实 Swiss TIFF 读取地理变换，确认源窗口与参考 NPZ 逐值一致。局部坐标原点对应像元中心 `[2494500.25, 1141499.75]`，源坐标系为 EPSG:2056，加入平移再减去原点的所有顶点差为零。不能直接使用旧 2 km 窗口的整米原点；会错位 0.25 m。未转换为英国坐标，也没有推断新的高程基准。
+
+四档保存文件的有向三角形多重集合哈希与源模型完全一致，因此沿用局部三角模型原连续参考区域界。独立 Python 从保存的 SHP 读取 XYZ，在 4,096 个相同坐标与真实网站 Node 查询值比较，在 16,641 个源网格位置与原几何解码比较；最大高程差均低于 `1e-8 m`。恢复侧车读回后原 GUGIS 字节完全一致。
+
+下载每档包，将同名五件套一同放置，在 ArcGIS 三维场景添加 `terrain.shp`，缩放到瑞士源窗口。包含 `native.json`、`native-recovery.json`、`reference.npz`、`query-fixture.json`、成本及核验回执和数据来源说明。文件结构依据 [Esri Shapefile 技术规范](https://www.esri.com/library/whitepapers/pdfs/shapefile.pdf)，**尚未在 ArcGIS Pro 内实际运行加载、内存、帧率或分析计时**。
+
+```powershell
+.venv/Scripts/python.exe data-pipeline/export_raster_multipatch.py --input .local/benchmark/raster-triangles-2026-10-04 --source .local/references/implicit-terrain/implicitterrain_demo/2494_1141.tif --output .local/benchmark/raster-multipatch-2026-10-04
+```
+
+新增 2 项前端与 2 项后端检查；连同相关已有检查共 6 项前端、3 项后端通过，生产构建通过。真实浏览器验收了直接入口、展开四档及恢复成本、当前档包下载与哈希、切换目标，没有错误或警告。正式城市与原 43 份历史文件校验保持不变。
+
+![相同三角几何的文件格式比较](screenshots/raster-multipatch-format-2026-10-04.png)

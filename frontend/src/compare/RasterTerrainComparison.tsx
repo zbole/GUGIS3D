@@ -32,6 +32,6 @@ export default function RasterTerrainComparison({target}:{target:number}){
       <p>数据来自 ImplicitTerrain 作者公开瑞士 DEM 窗口，不是英国城市 DEM。未运行 ArcGIS Pro，也不把完整 JSON 比例称为内存节省；参考插值不能补出源 DEM 未测量的细节。</p>
       <div className="hybrid-table-scroll"><table><caption>四档目标全部公开</caption><thead><tr><th>目标</th><th>紧凑 / 局部文件 kB</th><th>混合 / 局部区域界 cm</th><th>结果</th></tr></thead><tbody>{data.variants.map(v=><tr key={v.target_m}><th>{v.target_m*100} cm</th><td>{kb(v.compact_hybrid.bytes)} / {kb(v.local_triangles.bytes)}</td><td>{cm(v.hybrid.continuous_certificate.max_error_bound_m)} / {cm(v.local_triangles.continuous_certificate.max_error_bound_m)}</td><td>{rasterOutcome(v.target_m)}</td></tr>)}</tbody></table></div>
     </details>
-    <div className="hybrid-downloads"><a href="/research/hybrid-terrain/swiss-dem-crop-raster-triangles.zip" download>下载三种表示、参考栅格与区域核验回执 ↓</a><a href="/research/hybrid-terrain/raster-triangle-results.json" download>连续参考 JSON ↓</a><a href="/research/hybrid-terrain/raster-triangle-results.csv" download>12 份模型 CSV ↓</a></div>
+    <div className="hybrid-downloads"><a href="#raster-multipatch-audit">查看相同三角几何的 ArcGIS 格式对照 ↓</a><a href="/research/hybrid-terrain/swiss-dem-crop-raster-triangles.zip" download>下载三种表示、参考栅格与区域核验回执 ↓</a><a href="/research/hybrid-terrain/raster-triangle-results.json" download>连续参考 JSON ↓</a><a href="/research/hybrid-terrain/raster-triangle-results.csv" download>12 份模型 CSV ↓</a></div>
   </section>;
 }

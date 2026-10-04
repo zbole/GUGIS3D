@@ -1,0 +1,326 @@
+{
+  "schema": "gugis-raster-multipatch-comparison-v1",
+  "generated_at": "2026-10-04",
+  "parent_sha256": "217cbb64dec6eb5350aaaf35ca6103c2c652f755252b84cc000648e698a45f41",
+  "source_sha256": "a7d90ba9b42712624d82cdfb3b7beae2ef7a2493f88d16846dea82fd8d1bc30d",
+  "source_reference_sha256": "5668bc64df00ab5de0ce9bae7a3ed2da9e8868eff7281c8ed23309b52ca47385",
+  "origin_xy": [
+    2494500.25,
+    1141499.75
+  ],
+  "crs": "EPSG:2056",
+  "crs_note": "Actual Swiss source pixel centres; Z copied in metres. No British CRS or vertical datum conversion.",
+  "source_fingerprints": {
+    "data-pipeline/export_raster_multipatch.py": "e2a65541008c1615ca3e611ff7bfd08daec287b1be9ff9c04e4cd66bbe3ed6c2",
+    "data-pipeline/benchmark_research_packing.py": "fccb4b633e49ee4a8672cf72f70e752170cdca1cce8e16269b778c6d87424831",
+    "data-pipeline/benchmark_research_joined_strips.py": "747d89c49865abc467f7254398b065fba73d43a25f494c8df0e282b4aff423f6",
+    "data-pipeline/build_strip_compaction_research.py": "45cdb459f5b363a30f74647913bd7d1598bcc378274223e2570419d5ef8e065c"
+  },
+  "specification": "https://www.esri.com/library/whitepapers/pdfs/shapefile.pdf",
+  "native_query_source_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "method": "Identical oriented planar triangles. One MultiPatch feature, compatible even strips joined, no artificial triangles, no M values. Own independent readback only; no ArcGIS execution.",
+  "cost": "Uncompressed SHP+SHX+DBF+PRJ+CPG; optional native-recovery sidecar separately. Native JSON includes shared controls, strip indices and common metadata. Hybrid is a different certified surface; its file ratio is not exact-geometry isolation.",
+  "variants": [
+    {
+      "target_m": 0.05,
+      "native_filename": "raster-local-triangles-0.05m.json",
+      "native_bytes": 614702,
+      "native_sha256": "bce9d54219f5eb366635f3b191a10f1bcd0cc73c75f5fba5be91922cd8097691",
+      "compact_hybrid_bytes": 647240,
+      "core_bytes": 739106,
+      "with_native_recovery_bytes": 1199040,
+      "components": [
+        {
+          "filename": "terrain.shp",
+          "bytes": 738440,
+          "sha256": "a2a1bb914ab9d226a2461429dacc3e57bc7572b321817b066d8f49a003ba2ced"
+        },
+        {
+          "filename": "terrain.shx",
+          "bytes": 108,
+          "sha256": "855c5c5901f8c4f8331af6ec629f9ade838403a9065069ee76ef4e9d1d9808cd"
+        },
+        {
+          "filename": "terrain.dbf",
+          "bytes": 82,
+          "sha256": "8a76320bfa58cdc45cba9ee0fb7b0501b8360148ce33c3ee74643bfe68cf1f2f"
+        },
+        {
+          "filename": "terrain.prj",
+          "bytes": 470,
+          "sha256": "b271ff23e1a8e8f65f1afb9d4f5f396a71813b1bcba738ae97231e37e609016d"
+        },
+        {
+          "filename": "terrain.cpg",
+          "bytes": 6,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        }
+      ],
+      "native_recovery": {
+        "filename": "native-recovery.json",
+        "bytes": 459934,
+        "sha256": "fb28e85fba0ff6308dbcd64603d760fdf151038c868aa47d655a444ed0bb9f09"
+      },
+      "native_vs_core_saving_percent": 16.831685847496836,
+      "native_vs_recoverable_saving_percent": 48.73382038964505,
+      "hybrid_vs_core_saving_percent": 12.429340311132641,
+      "source_parts": 4539,
+      "saved_parts": 4513,
+      "source_vertices": 29309,
+      "saved_vertices": 29257,
+      "triangles": 20231,
+      "oriented_triangle_multiset_sha256": "6eaf7d95ceb5dab73888eeda4959a6de83fc6a34215fea26deba0f3a39ce1a60",
+      "coordinate_translation_max_difference_m": 0.0,
+      "byte_identical_native_recovery": true,
+      "removed_absent_measure_bytes": 234072,
+      "continuous_certificate": {
+        "max_error_bound_m": 0.04999244370516116,
+        "triangles_checked": 20231,
+        "quads_checked": 0,
+        "floating_guard_m": 2.2989859619140628e-09,
+        "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+      },
+      "offgrid": {
+        "samples": 4096,
+        "native_kernel_max_difference_m": 0.0,
+        "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c"
+      },
+      "source_grid": {
+        "samples": 16641,
+        "native_geometry_max_difference_m": 4.547473508864641e-13
+      },
+      "arcgis_execution": null,
+      "download": {
+        "filename": "swiss-dem-crop-0.05m-multipatch.zip",
+        "bytes": 616299,
+        "sha256": "baab1e921e6dad13b7d2ced201acc9232cfe6dac3dc74a88ab86f1b957a32630"
+      }
+    },
+    {
+      "target_m": 0.1,
+      "native_filename": "raster-local-triangles-0.1m.json",
+      "native_bytes": 297752,
+      "native_sha256": "604fafd6ae3d325e793a2ecb45af84d2f761eb60e292e6cf476015afa386d10d",
+      "compact_hybrid_bytes": 589617,
+      "core_bytes": 361330,
+      "with_native_recovery_bytes": 581978,
+      "components": [
+        {
+          "filename": "terrain.shp",
+          "bytes": 360664,
+          "sha256": "a348b9664c91b80b178051fc51f124cba5a2d84ed33f4627139fdb63c6e813b1"
+        },
+        {
+          "filename": "terrain.shx",
+          "bytes": 108,
+          "sha256": "11620264ffe0b3e1c9508dbfc792bb0713cacde5b89d99316cfcfaf7064ac2fb"
+        },
+        {
+          "filename": "terrain.dbf",
+          "bytes": 82,
+          "sha256": "56c3e3e85544b090e1d8b903b45e220e68a1b0ddf2ce18405032a0d217ad9600"
+        },
+        {
+          "filename": "terrain.prj",
+          "bytes": 470,
+          "sha256": "b271ff23e1a8e8f65f1afb9d4f5f396a71813b1bcba738ae97231e37e609016d"
+        },
+        {
+          "filename": "terrain.cpg",
+          "bytes": 6,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        }
+      ],
+      "native_recovery": {
+        "filename": "native-recovery.json",
+        "bytes": 220648,
+        "sha256": "09d5737ca10f8efb1dfa51c83c6be8472a0df200ae0fd3f79702c4616f376d63"
+      },
+      "native_vs_core_saving_percent": 17.595549774444418,
+      "native_vs_recoverable_saving_percent": 48.837928581492775,
+      "hybrid_vs_core_saving_percent": -63.179641878615115,
+      "source_parts": 2204,
+      "saved_parts": 2186,
+      "source_vertices": 14328,
+      "saved_vertices": 14292,
+      "triangles": 9920,
+      "oriented_triangle_multiset_sha256": "142fbbc4fb3b81c5677fb53cd3d6bf37a59e59ac16db0f0012914984e364b8ee",
+      "coordinate_translation_max_difference_m": 0.0,
+      "byte_identical_native_recovery": true,
+      "removed_absent_measure_bytes": 114352,
+      "continuous_certificate": {
+        "max_error_bound_m": 0.0999803147990513,
+        "triangles_checked": 9920,
+        "quads_checked": 0,
+        "floating_guard_m": 2.2989859619140628e-09,
+        "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+      },
+      "offgrid": {
+        "samples": 4096,
+        "native_kernel_max_difference_m": 0.0,
+        "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c"
+      },
+      "source_grid": {
+        "samples": 16641,
+        "native_geometry_max_difference_m": 4.547473508864641e-13
+      },
+      "arcgis_execution": null,
+      "download": {
+        "filename": "swiss-dem-crop-0.1m-multipatch.zip",
+        "bytes": 379879,
+        "sha256": "21faf4b0a63c566d31eb0ef7c96bf6b4866f6a9a200bc1d025623634da6a6e66"
+      }
+    },
+    {
+      "target_m": 0.25,
+      "native_filename": "raster-local-triangles-0.25m.json",
+      "native_bytes": 61814,
+      "native_sha256": "ee106aba07f91405aa34a5ae55e2fc811bea7382404650fafd350fe2644f9997",
+      "compact_hybrid_bytes": 218761,
+      "core_bytes": 77722,
+      "with_native_recovery_bytes": 122107,
+      "components": [
+        {
+          "filename": "terrain.shp",
+          "bytes": 77056,
+          "sha256": "fa24c7c6b51c5e7c20d0ee05644eda0884ebaf30f5c95fbf690172a9625335ee"
+        },
+        {
+          "filename": "terrain.shx",
+          "bytes": 108,
+          "sha256": "df28180ab1b069c2a94a4d217f4757283bb022d66de1ab58c91c73cb724809ef"
+        },
+        {
+          "filename": "terrain.dbf",
+          "bytes": 82,
+          "sha256": "e836d9f4a33250eba5f23e14d4bb0f7fe4a2936947d9e15c6c560e0c8c7b9479"
+        },
+        {
+          "filename": "terrain.prj",
+          "bytes": 470,
+          "sha256": "b271ff23e1a8e8f65f1afb9d4f5f396a71813b1bcba738ae97231e37e609016d"
+        },
+        {
+          "filename": "terrain.cpg",
+          "bytes": 6,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        }
+      ],
+      "native_recovery": {
+        "filename": "native-recovery.json",
+        "bytes": 44385,
+        "sha256": "0507580b0b8547cc6a57403da8e38c58453f51a969fff0b9918fcc503d4bcb8d"
+      },
+      "native_vs_core_saving_percent": 20.46782120892412,
+      "native_vs_recoverable_saving_percent": 49.37718558313611,
+      "hybrid_vs_core_saving_percent": -181.46599418440078,
+      "source_parts": 471,
+      "saved_parts": 470,
+      "source_vertices": 3049,
+      "saved_vertices": 3047,
+      "triangles": 2107,
+      "oriented_triangle_multiset_sha256": "24c770fd7b6fba7aa1869a9e4ea7c5f061f5e3e6d75e54f26f7b2bd2b062b2d9",
+      "coordinate_translation_max_difference_m": 0.0,
+      "byte_identical_native_recovery": true,
+      "removed_absent_measure_bytes": 24392,
+      "continuous_certificate": {
+        "max_error_bound_m": 0.24992870835377454,
+        "triangles_checked": 2107,
+        "quads_checked": 0,
+        "floating_guard_m": 2.2989859619140628e-09,
+        "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+      },
+      "offgrid": {
+        "samples": 4096,
+        "native_kernel_max_difference_m": 0.0,
+        "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c"
+      },
+      "source_grid": {
+        "samples": 16641,
+        "native_geometry_max_difference_m": 4.547473508864641e-13
+      },
+      "arcgis_execution": null,
+      "download": {
+        "filename": "swiss-dem-crop-0.25m-multipatch.zip",
+        "bytes": 208900,
+        "sha256": "93610bc7cc07be794ca1d47a94a07dd81ade8b2dc9e263b7ab4832becc476fd2"
+      }
+    },
+    {
+      "target_m": 0.5,
+      "native_filename": "raster-local-triangles-0.5m.json",
+      "native_bytes": 13057,
+      "native_sha256": "cccae062c700b3c02c40553ffabd489329d472368494348c52c73bed41d75bf9",
+      "compact_hybrid_bytes": 24367,
+      "core_bytes": 16474,
+      "with_native_recovery_bytes": 25830,
+      "components": [
+        {
+          "filename": "terrain.shp",
+          "bytes": 15808,
+          "sha256": "208ae78a422fe302d895dd2f0df504889e8e67d7d1bde4c451def12e194ccf1f"
+        },
+        {
+          "filename": "terrain.shx",
+          "bytes": 108,
+          "sha256": "65cef07cac2d9f61b8011fdaeaa9854441a349b2323544e9da5f7931476d25d6"
+        },
+        {
+          "filename": "terrain.dbf",
+          "bytes": 82,
+          "sha256": "bde14a680e4533392e1e87f2b38705a94e18c97ea4ad5e505e4e8e8e9973b5ba"
+        },
+        {
+          "filename": "terrain.prj",
+          "bytes": 470,
+          "sha256": "b271ff23e1a8e8f65f1afb9d4f5f396a71813b1bcba738ae97231e37e609016d"
+        },
+        {
+          "filename": "terrain.cpg",
+          "bytes": 6,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        }
+      ],
+      "native_recovery": {
+        "filename": "native-recovery.json",
+        "bytes": 9356,
+        "sha256": "3dcabf6cef0a7641c7be7e5072eb0f3157b5a02652e970c9ff44117548f9227c"
+      },
+      "native_vs_core_saving_percent": 20.74177491805269,
+      "native_vs_recoverable_saving_percent": 49.4502516453736,
+      "hybrid_vs_core_saving_percent": -47.91186111448342,
+      "source_parts": 98,
+      "saved_parts": 98,
+      "source_vertices": 619,
+      "saved_vertices": 619,
+      "triangles": 423,
+      "oriented_triangle_multiset_sha256": "df0c7993c7c84222e63ae1f9aac274114302295f88aa2cca82ae842ae39430d3",
+      "coordinate_translation_max_difference_m": 0.0,
+      "byte_identical_native_recovery": true,
+      "removed_absent_measure_bytes": 4968,
+      "continuous_certificate": {
+        "max_error_bound_m": 0.4966706053262549,
+        "triangles_checked": 423,
+        "quads_checked": 0,
+        "floating_guard_m": 2.2989859619140628e-09,
+        "scope": "Continuous piecewise-bilinear reference raster, not unmeasured ground; real-arithmetic extrema plus floating guard, not interval-verified arithmetic."
+      },
+      "offgrid": {
+        "samples": 4096,
+        "native_kernel_max_difference_m": 0.0,
+        "fixture_sha256": "8f26fda32a220747424e69ccd1869fb269fcd15c5f22e5316d44a4091809ea5c"
+      },
+      "source_grid": {
+        "samples": 16641,
+        "native_geometry_max_difference_m": 4.547473508864641e-13
+      },
+      "arcgis_execution": null,
+      "download": {
+        "filename": "swiss-dem-crop-0.5m-multipatch.zip",
+        "bytes": 172873,
+        "sha256": "0106c2187b791dadc6cff87c3bd57b64fd612f7d4cb42d2e94d5b89c791861b0"
+      }
+    }
+  ],
+  "arcgis_execution": null
+}

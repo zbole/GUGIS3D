@@ -4,6 +4,7 @@ import './hybridTerrainLab.css';
 import LocalTriangleComparison, {localTrianglePair,localTriangleOutcome} from './LocalTriangleComparison';
 import StripCompactionComparison, {compactPair,compactOutcome} from './StripCompactionComparison';
 import RasterTerrainComparison, {rasterPair,rasterOutcome} from './RasterTerrainComparison';
+import RasterMultipatchComparison from './RasterMultipatchComparison';
 const kb=(bytes:number)=>(bytes/1000).toFixed(2);
 const cm=(m:number)=>(m*100).toFixed(3);
 const median=(a:number[])=>[...a].sort((a,b)=>a-b)[Math.floor(a.length/2)];
@@ -11,7 +12,7 @@ const status=(value:string)=>({'target-met':'构建目标达标','source-resolut
 const HybridTerrainViewer=lazy(()=>import('./HybridTerrainViewer'));
 
 export default function HybridTerrainLab(){
-  const [caseId,setCaseId]=useState(()=>typeof window!=='undefined'&&window.location?.hash==='#raster-terrain-audit'?'swiss-dem-crop':'rotating-direction');
+  const [caseId,setCaseId]=useState(()=>typeof window!=='undefined'&&['#raster-terrain-audit','#raster-multipatch-audit'].includes(window.location?.hash)?'swiss-dem-crop':'rotating-direction');
   const [target,setTarget]=useState(.1);
   const [live,setLive]=useState(false);
   const data=report.cases.find(c=>c.id===caseId)!;
@@ -23,7 +24,7 @@ export default function HybridTerrainLab(){
   useEffect(()=>{
     if(typeof window==='undefined')return;
     const id=window.location?.hash?.slice(1)??'';
-    if(!['hybrid-terrain-lab','local-triangle-audit','strip-compaction-audit','raster-terrain-audit'].includes(id))return;
+    if(!['hybrid-terrain-lab','local-triangle-audit','strip-compaction-audit','raster-terrain-audit','raster-multipatch-audit'].includes(id))return;
     const frame=window.requestAnimationFrame(()=>document.getElementById(id)?.scrollIntoView());
     return()=>window.cancelAnimationFrame(frame);
   },[]);
@@ -83,6 +84,6 @@ export default function HybridTerrainLab(){
     </details>
     <div className="hybrid-downloads"><a href={`/research/hybrid-terrain/${data.id}.zip`} download>下载此地形全部模型与核验数据 ↓</a><a href="/research/hybrid-terrain/results.json" download>完整结果 JSON ↓</a><a href="/research/hybrid-terrain/results.csv" download>56 个模型数值 CSV ↓</a></div>
     <p className="hybrid-attribution">真实 DEM 来源：ImplicitTerrain 作者公开示例 / swissALTI3D · Federal Office of Topography swisstopo。解析样本、图片、构建器与核验脚本由本项目生成；不包含作者权重或代码。</p>
-    {data.demonstration?<><LocalTriangleComparison caseId={caseId} target={target}/><StripCompactionComparison caseId={caseId} target={target}/></>:<RasterTerrainComparison target={target}/>}
+    {data.demonstration?<><LocalTriangleComparison caseId={caseId} target={target}/><StripCompactionComparison caseId={caseId} target={target}/></>:<><RasterTerrainComparison target={target}/><RasterMultipatchComparison target={target}/></>}
   </section>;
 }
