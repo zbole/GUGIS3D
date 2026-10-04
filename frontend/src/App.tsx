@@ -183,7 +183,7 @@ export default function App() {
   </AppErrorBoundary>;
   return (
     <AppErrorBoundary>
-      <div className={`city-session-shell${previewMode ? " city-session-shell--tiles" : ""}`}>
+      <div className={`city-session-shell${comparison ? " city-session-shell--compare" : previewMode ? " city-session-shell--tiles" : ""}`}>
       <section className="city-workspaces" aria-label="城市独立工作区">
         {!comparison && <button disabled={busy || !!leaving} onClick={() => {
           if (state.current.busy) return;
@@ -201,7 +201,7 @@ export default function App() {
         </select></label>
         {city && <div className="city-workspaces__coverage"><strong>{city.coverage_label}</strong>
           <span>{previewMode ? "正式项目目录：" : ""}{city.status === "pending" ? "尚无已导入数据" : `${city.building_count ?? 0} 栋建筑 · ${city.road_count ?? 0} 条道路`} · {previewMode ? "预览以渲染快照及下方实际加载数为准" : "每城独立保存与恢复"}</span>
-          {cityCoverageCoordinates(city) && (previewMode ? <details className="city-workspaces__extent"><summary>实际要素范围</summary><span>{cityCoverageCoordinates(city)} · 非城市行政边界</span></details>
+          {cityCoverageCoordinates(city) && (previewMode || comparison ? <details className="city-workspaces__extent"><summary>实际要素范围</summary><span>{cityCoverageCoordinates(city)} · 非城市行政边界</span></details>
             : <span>{cityCoverageCoordinates(city)} · 非城市行政边界</span>)}</div>}
         {switchNotice && <p role="status">{switchNotice}</p>}
         {directoryError && <p role="alert">{directoryError} <button onClick={() => void refresh()}>重试城市目录</button></p>}

@@ -59,7 +59,7 @@ test("every metric and every resolution displays the compact report's actual val
   ];
   for (const [name, unit, value] of metricCases) {
     act(() => metricButtons.find(button => text(button).startsWith(name)).props.onClick());
-    const svg = f.root.findByType("svg");
+    const svg = f.root.findByProps({ className: "co-chart" });
     assert.match(text(svg.findByType("title")), new RegExp(name));
     const description = text(svg.findByType("desc"));
     for (const variant of report.variants) {
@@ -90,5 +90,22 @@ test("the clickable SVG and native keyboard buttons update the same measured sel
   assert.match(text(f.root), /合成地形/);
   assert.match(text(f.root), /未运行 ArcGIS Slope \/ Aspect/);
   assert.ok(text(f.root).includes(report.reportSha256.slice(0, 12)));
+  f.close();
+});
+
+test("the full table keeps four distinct measured resolutions and follows the chart selection", () => {
+  const f = fixture();
+  const table = f.root.findByType("table");
+  assert.equal(table.findByType("tbody").findAllByType("tr").length, report.variants.length);
+  assert.match(text(table.findByType("caption")), /MultiPatch 参考读回/);
+  act(() => f.group("查看离散档位").findAllByType("button").find(button => text(button).startsWith("4×4")).props.onClick());
+  const selected = table.findByType("tbody").findAllByType("tr").find(row => row.props["aria-current"] === "true");
+  assert.equal(text(selected.findByType("th")), "4×4 · 当前");
+  const cells = selected.findAllByType("td").map(text);
+  const four = report.variants.find(variant => variant.ruledSubdivisions === 4);
+  assert.equal(cells[1], format(four.multipatchFilesBytes / 1e6));
+  assert.equal(cells.at(-1), "未满足");
+  assert.equal(f.group("下载四档对比结果").findAllByType("button").length, 2);
+  assert.match(text(f.root), /下载文件保留原始数值/);
   f.close();
 });

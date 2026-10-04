@@ -41,6 +41,23 @@
 .co-dashboard-head { display: flex; justify-content: space-between; align-items: center; gap: 18px; margin-bottom: 24px; }
 .co-dashboard-head h3 { margin: 5px 0 0; font-weight: 680; font-size: clamp(18px, 2.1vw, 26px); letter-spacing: -.025em; }
 .co-query-count { white-space: nowrap; color: #657e89; font-size: 11px; border: 1px solid #dce8ed; background: #f7fafb; padding: 5px 10px; border-radius: 5px; }
+.co-download-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin: -8px 0 20px; }
+.co-download-toolbar p { margin: 0; font-size: 11px; color: var(--co-muted); }
+.co-download-toolbar > div { display: flex; gap: 7px; }
+.co-download-toolbar button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 36px; padding: 7px 11px; border: 1px solid #c9dce3; border-radius: 6px; background: #f7fafb; color: #315e72; cursor: pointer; font-size: 11px; }
+.co-download-toolbar button:hover { background: #edf6f5; border-color: #80afa8; }
+.co-download-message { padding: 8px 11px; margin: 0 0 14px; font-size: 11px; color: #2d746a; background: #eff8f4; border-radius: 5px; }
+.co-results-table { margin-top: 18px; background: #fff; border: 1px solid var(--co-line); border-radius: 8px; overflow: hidden; }
+.co-results-table summary { padding: 14px 18px; color: #315e72; font-size: 12px; font-weight: 600; cursor: pointer; }
+.co-results-table summary:focus-visible, .co-table-scroll:focus-visible { outline: 3px solid #0e928d; outline-offset: -3px; }
+.co-table-scroll { overflow-x: auto; border-top: 1px solid var(--co-line); }
+.co-results-table table { width: 100%; min-width: 940px; border-collapse: collapse; text-align: right; font-size: 11px; font-variant-numeric: tabular-nums; }
+.co-results-table caption { text-align: left; padding: 12px 18px; color: var(--co-muted); }
+.co-results-table th, .co-results-table td { padding: 12px 14px; border-bottom: 1px solid #e5edf1; white-space: nowrap; }
+.co-results-table thead th { font-weight: 600; color: #507281; background: #f5f9fa; }
+.co-results-table tbody th { text-align: left; color: #315e72; }
+.co-results-table tbody tr[aria-current="true"] { background: #eef8f4; }
+.co-results-table > p { margin: 0; padding: 12px 18px; color: var(--co-muted); font-size: 11px; }
 .co-metric-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; border: 1px solid var(--co-line); padding: 5px; background: #f7fafb; border-radius: 8px; }
 .co-metric-tabs button { display: flex; justify-content: center; align-items: center; gap: 8px; border: 1px solid transparent; border-radius: 5px; padding: 10px 8px; background: transparent; color: #647985; cursor: pointer; font-size: 12px; font-weight: 600; transition: background .15s, color .15s, border-color .15s; }
 .co-metric-tabs button span { font: 10px Consolas, monospace; color: #8a9da8; }

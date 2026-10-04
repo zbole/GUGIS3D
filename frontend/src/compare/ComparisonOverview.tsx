@@ -1,9 +1,11 @@
 import { useId, useState } from "react";
 import overview from "../../../shared/terrain-comparison-overview.json";
+import { Download } from "lucide-react";
+import { overviewExport, type OverviewMetric } from "./overviewExport";
 import "./comparisonOverview.css";
 
 type Variant = (typeof overview.variants)[number];
-type MetricKey = "storage" | "height" | "slope" | "aspect";
+type MetricKey = OverviewMetric;
 type Metric = {
   key: MetricKey;
   label: string;
@@ -55,6 +57,7 @@ export default function ComparisonOverview() {
   const chartDescriptionId = `${instance}-chart-description`;
   const [metricKey, setMetricKey] = useState<MetricKey>("storage");
   const [resolution, setResolution] = useState(targetVariant?.ruledSubdivisions ?? variants[0].ruledSubdivisions);
+  const [downloadMessage, setDownloadMessage] = useState("");
   const metric = metrics.find(item => item.key === metricKey) ?? metrics[0];
   const selected = variants.find(item => item.ruledSubdivisions === resolution) ?? variants[0];
   const maximum = Math.max(...variants.flatMap(variant => [metric.value(variant), metric.nativeValue(variant)])) * 1.2 || 1;
@@ -64,6 +67,18 @@ export default function ComparisonOverview() {
   const meetsTarget = selected.maxRuledHeightErrorMetres * 100 <= centimetreTarget;
   const sampleCount = metricKey === "aspect" ? selected.queries.derivatives.aspectMatchedCount
     : metricKey === "slope" ? selected.queries.derivatives.slopeMatchedCount : selected.queries.matchedCount;
+  function download(format: "csv" | "json") {
+    let url: string | undefined;
+    let anchor: HTMLAnchorElement | undefined;
+    try {
+      const file = overviewExport(overview, { metric: metricKey, resolution }, format);
+      url = URL.createObjectURL(new Blob([file.content], { type: file.mime }));
+      anchor = document.createElement("a"); anchor.href = url; anchor.download = file.filename;
+      document.body.appendChild(anchor); anchor.click();
+      setDownloadMessage(`已发起 ${format.toUpperCase()} 下载，包含四档结果与来源标识。`);
+    } catch { setDownloadMessage("无法生成下载文件，请重试或检查浏览器下载设置。"); }
+    finally { anchor?.remove(); if (url) { const releasedUrl = url; setTimeout(() => URL.revokeObjectURL(releasedUrl), 1000); } }
+  }
 
   return <section className="comparison-overview" id="comparison-overview" aria-labelledby={titleId}>
     <div className="co-heading">
@@ -81,6 +96,11 @@ export default function ComparisonOverview() {
 
     <div className="co-dashboard">
       <div className="co-dashboard-head"><div><span className="co-card-label">四档实际数据 / 线性刻度</span><h3>细分越密，表面差异越小。</h3></div><span className="co-query-count">{overview.variants[0].queries.queryCount.toLocaleString()} 个固定查询点</span></div>
+      <div className="co-download-toolbar"><p>保存四档实测结果，保留原始精度与来源。</p><div role="group" aria-label="下载四档对比结果">
+        <button type="button" onClick={() => download("csv")}><Download size={14} aria-hidden="true" />下载 CSV</button>
+        <button type="button" onClick={() => download("json")}>下载 JSON</button>
+      </div></div>
+      {downloadMessage && <p className="co-download-message" role="status">{downloadMessage}</p>}
       <div className="co-metric-tabs" role="group" aria-label="对比总览指标">{metrics.map(item => <button type="button" key={item.key} aria-pressed={metricKey === item.key} onClick={() => setMetricKey(item.key)}>{item.label}<span>{item.unit}</span></button>)}</div>
       <div className="co-chart-layout">
         <div className="co-chart-panel">
@@ -117,6 +137,21 @@ export default function ComparisonOverview() {
         </aside>
       </div>
     </div>
+
+    <details className="co-results-table"><summary>查看四档数值表 · 文件、高程、坡度与坡向</summary>
+      <div className="co-table-scroll" role="region" aria-label="四档对比结果表，可横向滚动" tabIndex={0}>
+        <table><caption>同一地形快照的四档 MultiPatch 参考读回结果</caption><thead><tr>
+          <th scope="col">离散档位</th><th scope="col">GUGIS 文件 MB</th><th scope="col">MultiPatch MB</th><th scope="col">文件减少 %</th>
+          <th scope="col">高程 RMS cm</th><th scope="col">最大高程差界限 cm</th><th scope="col">坡度 RMS °</th><th scope="col">坡向 RMS °</th><th scope="col">1 cm 界限</th>
+        </tr></thead><tbody>{variants.map(variant => <tr key={variant.ruledSubdivisions} aria-current={resolution === variant.ruledSubdivisions ? "true" : undefined}>
+          <th scope="row">{resolutionName(variant)}{resolution === variant.ruledSubdivisions ? " · 当前" : ""}</th>
+          <td>{format(variant.gugisTerrainBytes / 1e6)}</td><td>{format(variant.multipatchFilesBytes / 1e6)}</td><td>{variant.storageSavingPercent.toFixed(1)}</td>
+          <td>{format(variant.queries.sampledRmsHeightErrorMetres * 100)}</td><td>{format(variant.maxRuledHeightErrorMetres * 100)}</td>
+          <td>{format(variant.queries.derivatives.slope.rmsDegrees)}</td><td>{format(variant.queries.derivatives.aspect.rmsDegrees)}</td>
+          <td>{variant.maxRuledHeightErrorMetres * 100 <= centimetreTarget ? "满足" : "未满足"}</td>
+        </tr>)}</tbody></table>
+      </div><p>表内数值为显示舍入值；下载文件保留原始数值。高程与方向的差异均相对 GUGIS 原生表面。</p>
+    </details>
 
     <div className="co-method-note"><span className="co-method-symbol" aria-hidden="true">i</span><div><strong>目标看最大差异，RMS 看采样分布。</strong><p>{targetVariant ? `1 cm 目标使用参数域最大高程差界限，已测档位中 ${resolutionName(targetVariant)} 首次满足。` : "1 cm 目标使用参数域最大高程差界限，已测档位尚未满足。"}4×4 的界限为 {format((variants.find(variant => variant.ruledSubdivisions === 4)?.maxRuledHeightErrorMetres ?? 0) * 100)} cm，即使点高程 RMS 更小，也不能据此判定达到该目标。</p></div></div>
     <p className="co-scope-note">{overview.demonstration ? "本实验使用合成地形，验证格式与查询链路。" : "本实验使用当前打包地形。"}数值来自真实导出文件及本项目参考求值读回；未运行 ArcGIS Slope / Aspect 工具，也不代表 ArcGIS 的速度、内存或全部地形表达能力。坡向统计剔除任一坡度 &lt; {overview.derivativeMethod.aspectMinimumSlopeDegrees}° 的方向。报告版本 <code>{overview.reportSha256.slice(0, 12)}</code>。</p>

@@ -17,7 +17,7 @@ import terrainSuite from "../../../shared/terrain-comparison-overview.json";
 import { workspaceHref } from "../studio/workspaceNavigation";
 import TerrainComparisonLoader from "./TerrainComparisonLoader";
 import ComparisonOverview from "./ComparisonOverview";
-import { useProjectFreshness } from "./useProjectFreshness";
+import { useProjectFreshness, type ProjectFreshness } from "./useProjectFreshness";
 import { cityWorkspaceHref, defaultCityWorkspace, type CityWorkspace } from "../studio/cityWorkspaces";
 import type { CityApi } from "../studio/cityApi";
 import "./compare.css";
@@ -181,6 +181,24 @@ export default function CompareShowcase({ workspace = defaultCityWorkspace, api 
   return <BristolComparison api={api} />;
 }
 
+function ComparisonSnapshot({ freshness, recheck }: { freshness: ProjectFreshness; recheck: () => void }) {
+  return <section className={`cmp-snapshot cmp-snapshot-top ${freshness}`} aria-label="城市实测快照校对">
+    <span className="cmp-snapshot-icon"><Database size={16} aria-hidden="true" /></span>
+    <div className="cmp-snapshot-copy" role="status" aria-live="polite" aria-atomic="true" aria-busy={freshness === "checking"}>
+      <strong>{freshness === "current" ? "实测快照与当前项目一致" : freshness === "changed" ? "项目已改变：本页结果属于已保存快照" : freshness === "offline" ? "无法校对当前项目：展示已保存的实测快照" : freshness === "paused" ? "页面已暂停校对：展示已保存的实测快照" : "正在校对当前项目修订号"}</strong>
+      <span className="cmp-snapshot-scope">布里斯托起始街区 · {evidence.terrainBenchmark.demonstration ? "地形为合成演示" : "已保存地形快照"} · ArcGIS 软件运行值待测</span>
+      <details className="cmp-snapshot-metadata"><summary>快照来源与测量环境</summary>
+        <small>SHA-256 {evidence.revision} · {evidence.city.buildings} 栋 · Node {evidence.memory.runtime}</small>
+        <span className="cmp-snapshot-note">返回页面时自动校对；重新校对只检查修订号，不会重新测量或修改项目。</span>
+      </details>
+    </div>
+    <span className="cmp-snapshot-pill">{freshness === "current" ? "当前" : freshness === "changed" ? "历史" : freshness === "checking" ? "校对中" : "快照"}</span>
+    <button type="button" className="cmp-snapshot-recheck" onClick={recheck} disabled={freshness === "checking" || freshness === "paused"}>
+      {freshness === "checking" ? "正在校对…" : freshness === "offline" ? "重试校对" : "重新校对"}
+    </button>
+  </section>;
+}
+
 function BristolComparison({ api }: { api?: CityApi }) {
   const terrainDownload = api ? `${api.terrainMultipatchUrl}?snapshot=${evidence.revision}` : terrainPackageUrl;
   const [selected, setSelected] = useState<(typeof cases)[number]["id"]>("scene");
@@ -203,6 +221,7 @@ function BristolComparison({ api }: { api?: CityApi }) {
         <a href="/" className="cmp-header-action">进入三维工作台 <ArrowUpRight size={16}/></a>
       </header>
       <main>
+        <ComparisonSnapshot freshness={freshness} recheck={recheck} />
         <section className="cmp-hero" aria-labelledby="cmp-title">
           <div className="cmp-hero-copy">
             <div className="cmp-issue"><span className="cmp-issue-dot"/> GUGIS3D / 对比证据 <span>2026</span></div>
@@ -269,18 +288,6 @@ function BristolComparison({ api }: { api?: CityApi }) {
               <div className="cmp-mini-grid"><div><strong>{(evidence.analysis.terrainCoverage * 100).toFixed(0)}%</strong><span>地形剖面覆盖</span></div><div><strong>{evidence.analysis.selectedObjects}</strong><span>走廊选中地物</span></div><div><strong>{evidence.analysis.modelIntersectionSegments}</strong><span>函数地物相交线段</span></div></div>
               <p className="cmp-card-foot">这是 GUGIS 功能运行结果；ArcGIS 尚未用相同数据、硬件和任务实测。</p>
             </article>
-          </div>
-          <div className={`cmp-snapshot ${freshness}`}>
-            <span className="cmp-snapshot-icon"><Database size={16}/></span>
-            <div className="cmp-snapshot-copy" role="status" aria-live="polite" aria-atomic="true" aria-busy={freshness === "checking"}>
-              <strong>{freshness === "current" ? "实测快照与当前项目一致" : freshness === "changed" ? "项目已改变：本页结果属于已保存快照" : freshness === "offline" ? "无法校对当前项目：展示已保存的实测快照" : freshness === "paused" ? "页面已暂停校对：展示已保存的实测快照" : "正在校对当前项目修订号"}</strong>
-              <small>SHA-256 {evidence.revision.slice(0, 16)}… · {evidence.city.buildings} 栋 · Node {evidence.memory.runtime}</small>
-              <span className="cmp-snapshot-note">返回页面时自动校对；重新校对只检查修订号，不会重新测量或修改项目。</span>
-            </div>
-            <span className="cmp-snapshot-pill">{freshness === "current" ? "当前" : freshness === "changed" ? "历史" : freshness === "checking" ? "校对中" : "快照"}</span>
-            <button type="button" className="cmp-snapshot-recheck" onClick={recheck} disabled={freshness === "checking" || freshness === "paused"}>
-              {freshness === "checking" ? "正在校对…" : freshness === "offline" ? "重试校对" : "重新校对"}
-            </button>
           </div>
         </section>
 

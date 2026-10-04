@@ -20,6 +20,9 @@
 .city-source-warning{margin:0;padding:10px 28px;background:#fff7e7;border-bottom:1px solid #ead2aa;color:#80581d;font-size:12px;line-height:1.7}.city-source-warning summary{font-weight:600;cursor:pointer}.city-source-warning p{margin:6px 0}.city-source-warning small{font-size:11px}
 
 .city-session-shell{height:100dvh;overflow:auto}
+.city-session-shell--compare{overflow-x:hidden;scroll-behavior:smooth}
+.city-session-shell--compare .compare-page{height:auto;min-height:100dvh;overflow:visible}
+@media(prefers-reduced-motion:reduce){.city-session-shell--compare{scroll-behavior:auto}}
 .city-session-shell--tiles .city-workspaces{gap:14px;padding:12px 22px;background:#fff;font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}
 .city-session-shell--tiles .city-workspaces button{min-height:34px;border-radius:7px;padding:7px 10px;font:inherit;font-size:12px}
 .city-session-shell--tiles .city-workspaces__coverage strong{font-size:12px}
