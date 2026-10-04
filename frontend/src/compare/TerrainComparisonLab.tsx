@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, Check, Download, FileCheck2, FlaskConical, Upload } from "lucide-react";
-import { comparisonSelection, parseArcGISRun, precisionChoice, profilePath, type ArcGISRun, type ComparisonSuite } from "./comparisonModel";
+import { comparisonSelection, parseArcGISRun, precisionChoice, profilePath, type ArcGISRun, type ComparisonSuite, type ComparisonResolutionProps } from "./comparisonModel";
 
 const base = (import.meta.env.VITE_API_BASE_URL ?? "/api").replace(/\/$/, "");
 const cm = (metres: number | null) => metres === null ? "—" : (metres * 100).toFixed(3);
@@ -8,15 +8,22 @@ const mb = (bytes: number) => (bytes / 1e6).toFixed(3);
 const degrees = (value: number | null) => value === null ? "—" : `${value.toFixed(3)}°`;
 const range = (values: number[]) => `${Math.min(...values).toFixed(1)}–${Math.max(...values).toFixed(1)} ms`;
 
-export default function TerrainComparisonLab({ suite }: { suite: ComparisonSuite }) {
-  return <TerrainComparisonSession key={`${suite.cityRevision}:${suite.bundleId}`} suite={suite}/>;
+type LabProps = { suite: ComparisonSuite } & ComparisonResolutionProps;
+export default function TerrainComparisonLab(props: LabProps) {
+  return <TerrainComparisonSession key={`${props.suite.cityRevision}:${props.suite.bundleId}`} {...props}/>;
 }
 
-function TerrainComparisonSession({ suite }: { suite: ComparisonSuite }) {
+function TerrainComparisonSession({ suite, resolution: linkedResolution, onResolutionChange, targetCentimetres, onTargetChange }: LabProps) {
   const packageUrl = `${base}/city/terrain/benchmark-suite.zip?snapshot=${suite.cityRevision}&bundle=${suite.bundleId}`;
   const cacheKey = `gugis:arcgis-run:${suite.bundleId}`;
-  const [resolution, setResolution] = useState(() => precisionChoice(suite, 1)?.ruledSubdivisions ?? suite.variants[0].ruledSubdivisions);
-  const [tolerance, setTolerance] = useState(1);
+  const defaultResolution = precisionChoice(suite, 1)?.ruledSubdivisions ?? suite.variants[0].ruledSubdivisions;
+  const [localResolution, setLocalResolution] = useState(defaultResolution);
+  const candidate = linkedResolution ?? localResolution;
+  const resolution = suite.variants.some(v => v.ruledSubdivisions === candidate) ? candidate : defaultResolution;
+  const setResolution = (next: number) => { setLocalResolution(next); onResolutionChange?.(next); };
+  const [localTolerance, setLocalTolerance] = useState(1);
+  const tolerance = targetCentimetres !== undefined && [.1, .5, 1, 5, 20].includes(targetCentimetres) ? targetCentimetres : localTolerance;
+  const setTolerance = (next: number) => { setLocalTolerance(next); onTargetChange?.(next); };
   const [profileId, setProfileId] = useState(suite.variants[0].profiles.some(p => p.id === "cell") ? "cell" : "city");
   const [station, setStation] = useState(20);
   const [metric, setMetric] = useState<"height" | "slope">("height");

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import suiteUrl from "../../../shared/terrain-comparison-suite.json?url";
 import overview from "../../../shared/terrain-comparison-overview.json";
-import type { ComparisonSuite } from "./comparisonModel";
+import type { ComparisonSuite, ComparisonResolutionProps } from "./comparisonModel";
 import { loadComparisonSuite } from "./suiteResource";
 import TerrainComparisonLab from "./TerrainComparisonLab";
 
-export default function TerrainComparisonLoader() {
+export default function TerrainComparisonLoader(props: ComparisonResolutionProps = {}) {
   const [suite, setSuite] = useState<ComparisonSuite | null>(null);
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
@@ -25,7 +25,7 @@ export default function TerrainComparisonLoader() {
     const frame = requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: "start" }));
     return () => cancelAnimationFrame(frame);
   }, [suite]);
-  if (suite) return <TerrainComparisonLab suite={suite}/>;
+  if (suite) return <TerrainComparisonLab suite={suite} {...props}/>;
   return <section className="cmp-section cmp-lab" id="terrain-lab" aria-busy={!error}>
     <p className="cmp-kicker">同源精度实验室</p><h2>精度与分析对比</h2>
     {error ? <div className="cmp-budget-verdict"><p role="alert">{error}</p><button onClick={() => setAttempt(a => a + 1)}>重新加载实验数据</button></div>

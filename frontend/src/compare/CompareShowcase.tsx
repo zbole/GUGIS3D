@@ -202,6 +202,11 @@ function ComparisonSnapshot({ freshness, recheck }: { freshness: ProjectFreshnes
 function BristolComparison({ api }: { api?: CityApi }) {
   const terrainDownload = api ? `${api.terrainMultipatchUrl}?snapshot=${evidence.revision}` : terrainPackageUrl;
   const [selected, setSelected] = useState<(typeof cases)[number]["id"]>("scene");
+  const [targetCentimetres, setTargetCentimetres] = useState(1);
+  const [resolution, setResolution] = useState(() => [...terrainSuite.variants]
+    .filter(v => v.maxRuledHeightErrorMetres * 100 <= 1)
+    .sort((a, b) => a.multipatchFilesBytes - b.multipatchFilesBytes)[0]?.ruledSubdivisions
+    ?? terrainSuite.variants[0].ruledSubdivisions);
   const { freshness, recheck } = useProjectFreshness(evidence.revision, import.meta.env.VITE_API_BASE_URL ?? "/api", api ? "/cities/bristol/city" : "/city");
   useEffect(() => {
     document.title = "GUGIS3D × ArcGIS · 证据对比";
@@ -241,7 +246,7 @@ function BristolComparison({ api }: { api?: CityApi }) {
           <div className="cmp-stat-feature"><strong>{(terrainSuite.variants[0].gugisTerrainBytes / 1e6).toFixed(3)}<i> MB</i></strong><span>原生地形文件</span><small>四档对照使用同一份 GUGIS 数据</small></div>
         </section>
 
-        <ComparisonOverview />
+        <ComparisonOverview resolution={resolution} onResolutionChange={setResolution} targetCentimetres={targetCentimetres}/>
 
         <section className="cmp-section cmp-terrain-benchmark" id="terrain-benchmark">
           <div className="cmp-section-heading"><div><p className="cmp-kicker">01 / 结构与固定档位示例</p><h2>同一控制网，<br/>两种地形表达。</h2></div><p>以下固定展示 <strong>2×2 三角带离散示例</strong>，与上方 1 cm 目标的 8×8 档位分开。文件使用 ArcGIS 兼容 MultiPatch Shapefile；所有面片写成 Triangle Strip，并保留面片编号。</p></div>
@@ -271,7 +276,7 @@ function BristolComparison({ api }: { api?: CityApi }) {
           <p className="cmp-terrain-disclaimer">本次地形是合成演示数据，非真实 Bristol DTM。{evidence.terrainBenchmark.storageSavingPercent.toFixed(1)}% 仅指此快照的未压缩文件体积；最大高程差是相对 GUGIS 原生直纹曲面的离散误差，不能理解为实测地形误差。尚未在 ArcGIS Pro 内实测加载、内存、帧率或查询速度。</p>
         </section>
 
-        <TerrainComparisonLoader />
+        <TerrainComparisonLoader resolution={resolution} onResolutionChange={setResolution} targetCentimetres={targetCentimetres} onTargetChange={setTargetCentimetres}/>
 
         <section className="cmp-section cmp-evidence" id="evidence">
           <div className="cmp-section-heading"><div><p className="cmp-kicker">02 / 城市数据实测</p><h2>再看街区结构。</h2></div><p>以下数字来自已保存的 GUGIS 起始街区快照。柱状图的参照对象是相同几何展开后的独立点线／实体网格，<strong>不是 ArcGIS 软件的内存用量</strong>。</p></div>

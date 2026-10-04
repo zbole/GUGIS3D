@@ -1,3 +1,10 @@
+export interface ComparisonResolutionProps {
+  resolution?: number;
+  onResolutionChange?: (resolution: number) => void;
+  targetCentimetres?: number;
+  onTargetChange?: (centimetres: number) => void;
+}
+
 export interface ComparisonSample {
   distance: number;
   height: number | null;

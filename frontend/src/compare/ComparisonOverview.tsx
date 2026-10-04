@@ -2,6 +2,7 @@ import { useId, useState } from "react";
 import overview from "../../../shared/terrain-comparison-overview.json";
 import { Download } from "lucide-react";
 import { overviewExport, type OverviewMetric } from "./overviewExport";
+import type { ComparisonResolutionProps } from "./comparisonModel";
 import "./comparisonOverview.css";
 
 type Variant = (typeof overview.variants)[number];
@@ -43,20 +44,23 @@ const metrics: Metric[] = [
 ];
 
 const variants = [...overview.variants].sort((a, b) => a.ruledSubdivisions - b.ruledSubdivisions);
-const centimetreTarget = 1;
-const targetVariant = [...variants]
-  .filter(variant => variant.maxRuledHeightErrorMetres * 100 <= centimetreTarget)
-  .sort((a, b) => a.multipatchFilesBytes - b.multipatchFilesBytes)[0];
 const format = (value: number) => value.toFixed(3);
 const resolutionName = (variant: Variant) => `${variant.ruledSubdivisions}×${variant.ruledSubdivisions}`;
 
-export default function ComparisonOverview() {
+export default function ComparisonOverview({ resolution: linkedResolution, onResolutionChange, targetCentimetres = 1 }: ComparisonResolutionProps = {}) {
+  const centimetreTarget = Number.isFinite(targetCentimetres) && targetCentimetres > 0 ? targetCentimetres : 1;
+  const targetVariant = [...variants].filter(v => v.maxRuledHeightErrorMetres * 100 <= centimetreTarget)
+    .sort((a, b) => a.multipatchFilesBytes - b.multipatchFilesBytes)[0];
   const instance = useId();
   const titleId = `${instance}-overview-title`;
   const chartTitleId = `${instance}-chart-title`;
   const chartDescriptionId = `${instance}-chart-description`;
   const [metricKey, setMetricKey] = useState<MetricKey>("storage");
-  const [resolution, setResolution] = useState(targetVariant?.ruledSubdivisions ?? variants[0].ruledSubdivisions);
+  const defaultResolution = targetVariant?.ruledSubdivisions ?? variants[0].ruledSubdivisions;
+  const [localResolution, setLocalResolution] = useState(defaultResolution);
+  const candidate = linkedResolution ?? localResolution;
+  const resolution = variants.some(v => v.ruledSubdivisions === candidate) ? candidate : defaultResolution;
+  const setResolution = (next: number) => { setLocalResolution(next); onResolutionChange?.(next); setDownloadMessage(""); };
   const [downloadMessage, setDownloadMessage] = useState("");
   const metric = metrics.find(item => item.key === metricKey) ?? metrics[0];
   const selected = variants.find(item => item.ruledSubdivisions === resolution) ?? variants[0];
@@ -71,7 +75,7 @@ export default function ComparisonOverview() {
     let url: string | undefined;
     let anchor: HTMLAnchorElement | undefined;
     try {
-      const file = overviewExport(overview, { metric: metricKey, resolution }, format);
+      const file = overviewExport(overview, { metric: metricKey, resolution, targetCentimetres: centimetreTarget }, format);
       url = URL.createObjectURL(new Blob([file.content], { type: file.mime }));
       anchor = document.createElement("a"); anchor.href = url; anchor.download = file.filename;
       document.body.appendChild(anchor); anchor.click();
@@ -90,8 +94,8 @@ export default function ComparisonOverview() {
 
     <div className="co-highlights">
       <article className="co-highlight co-highlight-native"><span className="co-card-label">GUGIS 原生文件 / 四档一致</span><strong>{format(selected.gugisTerrainBytes / 1e6)}<small> MB</small></strong><p>保留直纹曲面表达与原生求值</p><div className="co-native-line"><span/><span/><span/><span/></div></article>
-      <article className="co-highlight"><span className="co-card-label">1 cm 目标 / 已测最小满足档位</span><strong>{targetVariant ? resolutionName(targetVariant) : "未达到"}</strong><p>按参数域最大高程差界限选择</p><span className="co-highlight-note">{targetVariant ? `MultiPatch ${format(targetVariant.multipatchFilesBytes / 1e6)} MB` : "四档均未满足目标"}</span></article>
-      <article className="co-highlight"><span className="co-card-label">同一 1 cm 目标 / 文件体积减少</span><strong>{targetVariant ? targetVariant.storageSavingPercent.toFixed(1) : "—"}<small>{targetVariant ? "%" : ""}</small></strong><p>原生文件相对该档 MultiPatch</p><span className="co-highlight-note">{targetVariant ? `MultiPatch 体积约为原生的 ${(targetVariant.multipatchFilesBytes / targetVariant.gugisTerrainBytes).toFixed(1)} 倍` : "不推算未测档位"}</span></article>
+      <article className="co-highlight"><span className="co-card-label">{centimetreTarget} cm 目标 / 已测最小满足档位</span><strong>{targetVariant ? resolutionName(targetVariant) : "未达到"}</strong><p>按参数域最大高程差界限选择</p><span className="co-highlight-note">{targetVariant ? `MultiPatch ${format(targetVariant.multipatchFilesBytes / 1e6)} MB` : "四档均未满足目标"}</span></article>
+      <article className="co-highlight"><span className="co-card-label">同一 {centimetreTarget} cm 目标 / 文件体积减少</span><strong>{targetVariant ? targetVariant.storageSavingPercent.toFixed(1) : "—"}<small>{targetVariant ? "%" : ""}</small></strong><p>原生文件相对该档 MultiPatch</p><span className="co-highlight-note">{targetVariant ? `MultiPatch 体积约为原生的 ${(targetVariant.multipatchFilesBytes / targetVariant.gugisTerrainBytes).toFixed(1)} 倍` : "不推算未测档位"}</span></article>
     </div>
 
     <div className="co-dashboard">
@@ -124,7 +128,7 @@ export default function ComparisonOverview() {
             <circle className="co-chart-native-dot" cx={chart.left} cy={nativeY} r="4"/>
             <text className="co-chart-baseline" x={chart.right} y="308" textAnchor="end">GUGIS {format(metric.nativeValue(selected))} {metric.unit}{metricKey === "storage" ? " / 保持一致" : " / 相对差异基准"}</text>
           </svg>
-          <div className="co-resolution-controls" role="group" aria-label="查看离散档位">{variants.map(variant => <button type="button" key={variant.ruledSubdivisions} aria-pressed={resolution === variant.ruledSubdivisions} onClick={() => setResolution(variant.ruledSubdivisions)}><strong>{resolutionName(variant)}</strong><span>{variant.maxRuledHeightErrorMetres * 100 <= centimetreTarget ? "满足 1 cm 界限" : "未满足 1 cm 界限"}</span></button>)}</div>
+          <div className="co-resolution-controls" role="group" aria-label="查看离散档位">{variants.map(variant => <button type="button" key={variant.ruledSubdivisions} aria-pressed={resolution === variant.ruledSubdivisions} onClick={() => setResolution(variant.ruledSubdivisions)}><strong>{resolutionName(variant)}</strong><span>{variant.maxRuledHeightErrorMetres * 100 <= centimetreTarget ? "满足" : "未满足"} {centimetreTarget} cm 界限</span></button>)}</div>
           <p className="co-chart-explanation">{metric.description}</p>
         </div>
 
@@ -132,7 +136,7 @@ export default function ComparisonOverview() {
           <div className="co-readout-head"><span>当前档位</span><strong>{resolutionName(selected)}</strong></div>
           <div className="co-selected-value"><span>{metric.label}{metricKey === "storage" ? " / MultiPatch" : " / 相对原生"}</span><strong>{format(metric.value(selected))}<small> {metric.unit}</small></strong><p>{metricKey === "storage" ? `原生 ${format(metric.nativeValue(selected))} MB · 节省 ${selected.storageSavingPercent.toFixed(1)}%` : `${sampleCount.toLocaleString()} 个有效${metricKey === "aspect" ? "方向" : "查询点"}参与 RMS`}</p></div>
           <dl className="co-detail-list"><div><dt>MultiPatch 文件</dt><dd>{format(selected.multipatchFilesBytes / 1e6)} MB</dd></div><div><dt>点高程 RMS 差</dt><dd>{format(selected.queries.sampledRmsHeightErrorMetres * 100)} cm</dd></div><div><dt>坡度 RMS 差</dt><dd>{format(selected.queries.derivatives.slope.rmsDegrees)}°</dd></div><div><dt>坡向 RMS 差</dt><dd>{format(selected.queries.derivatives.aspect.rmsDegrees)}°</dd></div></dl>
-          <div className={`co-target-status${meetsTarget ? " is-met" : ""}`}><span>{meetsTarget ? "✓" : "○"}</span><div><strong>{meetsTarget ? "满足" : "未满足"} 1 cm 参数域界限</strong><p>最大高程差界限 {format(selected.maxRuledHeightErrorMetres * 100)} cm</p></div></div>
+          <div className={`co-target-status${meetsTarget ? " is-met" : ""}`}><span>{meetsTarget ? "✓" : "○"}</span><div><strong>{meetsTarget ? "满足" : "未满足"} {centimetreTarget} cm 参数域界限</strong><p>最大高程差界限 {format(selected.maxRuledHeightErrorMetres * 100)} cm</p></div></div>
           <a className="co-lab-link" href="#terrain-lab">查看剖面、样本与复现实验 <span aria-hidden="true">↗</span></a>
         </aside>
       </div>
@@ -142,7 +146,7 @@ export default function ComparisonOverview() {
       <div className="co-table-scroll" role="region" aria-label="四档对比结果表，可横向滚动" tabIndex={0}>
         <table><caption>同一地形快照的四档 MultiPatch 参考读回结果</caption><thead><tr>
           <th scope="col">离散档位</th><th scope="col">GUGIS 文件 MB</th><th scope="col">MultiPatch MB</th><th scope="col">文件减少 %</th>
-          <th scope="col">高程 RMS cm</th><th scope="col">最大高程差界限 cm</th><th scope="col">坡度 RMS °</th><th scope="col">坡向 RMS °</th><th scope="col">1 cm 界限</th>
+          <th scope="col">高程 RMS cm</th><th scope="col">最大高程差界限 cm</th><th scope="col">坡度 RMS °</th><th scope="col">坡向 RMS °</th><th scope="col">{centimetreTarget} cm 界限</th>
         </tr></thead><tbody>{variants.map(variant => <tr key={variant.ruledSubdivisions} aria-current={resolution === variant.ruledSubdivisions ? "true" : undefined}>
           <th scope="row">{resolutionName(variant)}{resolution === variant.ruledSubdivisions ? " · 当前" : ""}</th>
           <td>{format(variant.gugisTerrainBytes / 1e6)}</td><td>{format(variant.multipatchFilesBytes / 1e6)}</td><td>{variant.storageSavingPercent.toFixed(1)}</td>
@@ -153,7 +157,7 @@ export default function ComparisonOverview() {
       </div><p>表内数值为显示舍入值；下载文件保留原始数值。高程与方向的差异均相对 GUGIS 原生表面。</p>
     </details>
 
-    <div className="co-method-note"><span className="co-method-symbol" aria-hidden="true">i</span><div><strong>目标看最大差异，RMS 看采样分布。</strong><p>{targetVariant ? `1 cm 目标使用参数域最大高程差界限，已测档位中 ${resolutionName(targetVariant)} 首次满足。` : "1 cm 目标使用参数域最大高程差界限，已测档位尚未满足。"}4×4 的界限为 {format((variants.find(variant => variant.ruledSubdivisions === 4)?.maxRuledHeightErrorMetres ?? 0) * 100)} cm，即使点高程 RMS 更小，也不能据此判定达到该目标。</p></div></div>
+    <div className="co-method-note"><span className="co-method-symbol" aria-hidden="true">i</span><div><strong>目标看最大差异，RMS 看采样分布。</strong><p>{targetVariant ? `${centimetreTarget} cm 目标使用参数域最大高程差界限，已测档位中 ${resolutionName(targetVariant)} 首次满足。` : `${centimetreTarget} cm 目标使用参数域最大高程差界限，已测档位尚未满足。`}4×4 的界限为 {format((variants.find(variant => variant.ruledSubdivisions === 4)?.maxRuledHeightErrorMetres ?? 0) * 100)} cm，即使点高程 RMS 更小，也不能据此判定达到该目标。</p></div></div>
     <p className="co-scope-note">{overview.demonstration ? "本实验使用合成地形，验证格式与查询链路。" : "本实验使用当前打包地形。"}数值来自真实导出文件及本项目参考求值读回；未运行 ArcGIS Slope / Aspect 工具，也不代表 ArcGIS 的速度、内存或全部地形表达能力。坡向统计剔除任一坡度 &lt; {overview.derivativeMethod.aspectMinimumSlopeDegrees}° 的方向。报告版本 <code>{overview.reportSha256.slice(0, 12)}</code>。</p>
   </section>;
 }

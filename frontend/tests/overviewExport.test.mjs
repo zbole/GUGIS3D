@@ -49,3 +49,14 @@ test("unmeasured resolutions cannot be exported as a measured selection", () => 
   assert.throws(() => overviewExport(report, { metric: "storage", resolution: 16 }, "csv"), /不在已测报告/);
   assert.throws(() => overviewExport(report, { metric: "storage", resolution: NaN }, "json"), /不在已测报告/);
 });
+
+test("exports keep the selected target, evaluate its bound and reject invalid centimetre values", () => {
+  const [header, ...data] = rows(overviewExport(report, { metric: "storage", resolution: 2, targetCentimetres: 5 }, "csv").content);
+  const index = header.indexOf("满足5cm参数域界限");
+  assert.ok(index >= 0);
+  assert.equal(data.find(row => row[3] === "1×1")[index], "否");
+  assert.equal(data.find(row => row[3] === "2×2")[index], "是");
+  assert.equal(JSON.parse(overviewExport(report, { metric: "height", resolution: 8, targetCentimetres: .1 }, "json").content).scope.targetCentimetres, .1);
+  for (const targetCentimetres of [0, -1, NaN, Infinity])
+    assert.throws(() => overviewExport(report, { metric: "storage", resolution: 8, targetCentimetres }, "json"), /正的有限/);
+});
