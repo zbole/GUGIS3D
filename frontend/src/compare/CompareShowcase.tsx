@@ -17,6 +17,7 @@ import terrainSuite from "../../../shared/terrain-comparison-overview.json";
 import { workspaceHref } from "../studio/workspaceNavigation";
 import TerrainComparisonLoader from "./TerrainComparisonLoader";
 import ComparisonOverview from "./ComparisonOverview";
+import BristolTerrainBenchmark from "./BristolTerrainBenchmark";
 import { useProjectFreshness, type ProjectFreshness } from "./useProjectFreshness";
 import { cityWorkspaceHref, defaultCityWorkspace, type CityWorkspace } from "../studio/cityWorkspaces";
 import type { CityApi } from "../studio/cityApi";
@@ -226,7 +227,7 @@ function BristolComparison({ api }: { api?: CityApi }) {
     <div className="compare-page">
       <header className="cmp-header">
         <a href="/" className="cmp-logo" aria-label="返回 GUGIS3D 城市工作台"><span className="cmp-logo-mark">G<span>3</span></span><span>GUGIS<em>3D</em></span></a>
-        <nav aria-label="对比展示导航"><a href="#comparison-overview">结果总览</a><a href="#implicit-terrain">论文同源实测</a><a href="#hybrid-terrain-lab">混合逼近</a><a href="#terrain-benchmark">地形结构</a><a href="#terrain-lab">精度与查询</a><a href="#derivative-title">坡度分析</a><a href="#evidence">城市实测</a><a href="#comparison">功能对照</a><a href="#method">实验边界</a></nav>
+        <nav aria-label="对比展示导航"><a href="#comparison-overview">结果总览</a><a href="#bristol-terrain-benchmark">真实布里斯托</a><a href="#implicit-terrain">论文同源实测</a><a href="#hybrid-terrain-lab">混合逼近</a><a href="#terrain-benchmark">地形结构</a><a href="#terrain-lab">精度与查询</a><a href="#derivative-title">坡度分析</a><a href="#evidence">城市实测</a><a href="#comparison">功能对照</a><a href="#method">实验边界</a></nav>
         <a href="/" className="cmp-header-action">进入三维工作台 <ArrowUpRight size={16}/></a>
       </header>
       <main>
@@ -251,6 +252,7 @@ function BristolComparison({ api }: { api?: CityApi }) {
         </section>
 
         <ComparisonOverview resolution={resolution} onResolutionChange={setResolution} targetCentimetres={targetCentimetres}/>
+        <BristolTerrainBenchmark />
         {researchSection}
 
         <section className="cmp-section cmp-terrain-benchmark" id="terrain-benchmark">

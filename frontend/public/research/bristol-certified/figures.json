@@ -1,0 +1,16 @@
+{
+  "report_sha256": "967c65a8ef119f230c0c45bf3335484895f4b0279e091731bcea095a320b1f63",
+  "plotter_sha256": "bfef3233a7ebbd336580e133d5c9caf4b13cda82744ae284a9bdf6992c419eb5",
+  "figures": [
+    {
+      "filename": "source-and-cost.png",
+      "bytes": 125724,
+      "sha256": "06df6bb31d69a84098a3e421afcfb9d5cfab9755943a0e452068425d94126b0c"
+    },
+    {
+      "filename": "source-and-cost.svg",
+      "bytes": 138761,
+      "sha256": "d1bb08801abbed7b789dba84c741c3b27243686f08b99c2da3435c47021392f2"
+    }
+  ]
+}

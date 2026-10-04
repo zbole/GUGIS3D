@@ -1,0 +1,1355 @@
+{
+  "schema": "gugis-bristol-certified-terrain-v1",
+  "generated_at": "2026-10-05",
+  "raster_sha256": "eba5ddd68fd58472d236d681f8af8da98df5a29762673414cb916658a264bfbf",
+  "source_url": "https://www.data.gov.uk/dataset/01b3ee39-da3f-47b6-83da-dc98e73a461f/lidar-composite-dtm-2022-1m",
+  "reference_definition": "Continuous piecewise-bilinear interpolation of each original 65x65 EA DTM crop, 1m pixel centres, 64x64m. Relative source-raster bound, not unmeasured ground accuracy.",
+  "coordinate_scope": "Exact British National Grid offsets from the centre pixel; ODN Z unchanged. Research-only local coordinates, not converted to city ENU. Do not insert these numeric fixtures into the city scene.",
+  "method": "Fixed two named sites before fitting; same targets and source for every family. Finite-scale certified tensor hybrid versus conforming longest-edge local triangles, plus geometry-identical hybrid strip compaction. No optimality theorem or actual ArcGIS execution.",
+  "certificate_limits": "Cell extrema of the piecewise-bilinear reference; source-cell vertices, triangle-edge grid crossings and quadratic stationary points. Five-decimal saved-height rounding and floating guard included, not interval-verified arithmetic.",
+  "scripts": {
+    "data-pipeline/build_bristol_terrain_benchmark.py": "775a194448178956b41b314db1955c8b52aa60aee33fa8af0355e69c8c1b526a",
+    "backend/app/services/terrain_hybrid.py": "e0138ff616da86cdd784c9932b9e60527fdfb061c5972f9c6675869dbb3946b9",
+    "backend/app/services/terrain_triangles.py": "f07934cb19cd43dbbe384b6fd597371e3e421cc83482c5f3bfd82a9c0cbd6bab",
+    "backend/app/services/terrain_compaction.py": "2ede55fa2d95739f833a5197c5b7d6c81991b2fc668d7100781c0aec5dec4b51",
+    "backend/app/services/terrain_raster_reference.py": "d1fbd385f4cd3216178944fa81548e67242ca6ad5a82fb7e13d0fd8b7f32941f",
+    "data-pipeline/publish_bristol_terrain_benchmark.py": "20c6d88d4e2614961a62da391041e7d77a53e08843ebcb67f3d1ad38e41261ed",
+    "data-pipeline/benchmark_research_joined_strips.py": "747d89c49865abc467f7254398b065fba73d43a25f494c8df0e282b4aff423f6",
+    "data-pipeline/benchmark_research_packing.py": "fccb4b633e49ee4a8672cf72f70e752170cdca1cce8e16269b778c6d87424831",
+    "data-pipeline/export_raster_multipatch.py": "e2a65541008c1615ca3e611ff7bfd08daec287b1be9ff9c04e4cd66bbe3ed6c2"
+  },
+  "cases": [
+    {
+      "id": "bristol-harbour",
+      "name": "布里斯托港区",
+      "requested_centre_wgs84": [
+        -2.5985,
+        51.4501
+      ],
+      "origin_bng": [
+        358506.5,
+        172516.5
+      ],
+      "source_window": [
+        1749,
+        1538,
+        65,
+        65
+      ],
+      "shape": [
+        65,
+        65
+      ],
+      "span_m": [
+        64,
+        64
+      ],
+      "nodata": 0,
+      "source_min_m": 5.947999954223633,
+      "source_max_m": 9.124000549316406,
+      "reference_sha256": "e5ddb9d5feefbc8b1eb938e7f17a4ee09d7978456a21436101cf558c520a5292",
+      "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+      "variants": [
+        {
+          "target_m": 0.1,
+          "primitive_sha256": "e93d44990c4bf006783d67ddd9523423b26a17393ade207e7d765353e789d425",
+          "hybrid": {
+            "build_validate_ms": 1217.4812000012025,
+            "status": "target-met",
+            "continuous_bound_m": 0.09885267373989688,
+            "target_met": true,
+            "filename": "hybrid-0.1m.json",
+            "bytes": 137953,
+            "sha256": "8e840d9c8e7f1fe778cf3c0b37382c70739c85b8f956901cadf04e6e60f13618",
+            "points": 1664,
+            "patches": 1581,
+            "ruled_patches": 54,
+            "triangle_patches": 1527,
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.1,
+              "family": "hybrid",
+              "archive_sha256": "8e840d9c8e7f1fe778cf3c0b37382c70739c85b8f956901cadf04e6e60f13618",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.006927944181404954,
+              "p95_absolute_m": 0.016156255410514575,
+              "max_sampled_m": 0.06479677833269015,
+              "max_source_centre_m": 0.09699998474120974,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 6.482500000000002,
+              "query_batches_ms": [
+                3.5571000000000055,
+                5.095799999999997,
+                4.3994,
+                4.376800000000003,
+                4.136300000000006
+              ],
+              "query_batch_median_ms": 4.376800000000003,
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 3108,
+                "bucketCount": 100,
+                "memberships": 6213,
+                "maxCandidatesPerBucket": 197,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-hybrid-0.1m.csv",
+                "bytes": 373398,
+                "sha256": "e32863958373f58e39307fbf40d827ff83813a913bfdee2a35d537600c502d36"
+              }
+            }
+          },
+          "local_triangles": {
+            "build_validate_ms": 2264.1207000706345,
+            "status": "target-met",
+            "continuous_bound_m": 0.09819935354055753,
+            "target_met": true,
+            "filename": "local_triangles-0.1m.json",
+            "bytes": 49793,
+            "sha256": "380c1eeb09a775657f4b3d603902fe20c55fb6849f3d327ac5875628e262481b",
+            "points": 980,
+            "patches": 407,
+            "ruled_patches": 0,
+            "triangle_patches": 407,
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.1,
+              "family": "local_triangles",
+              "archive_sha256": "380c1eeb09a775657f4b3d603902fe20c55fb6849f3d327ac5875628e262481b",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.015681473383436905,
+              "p95_absolute_m": 0.03645841774119596,
+              "max_sampled_m": 0.07875388326033228,
+              "max_source_centre_m": 0.09443735504150474,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 3.652799999999985,
+              "query_batches_ms": [
+                3.1559999999999775,
+                3.122000000000014,
+                2.3637999999999977,
+                2.5077,
+                2.4832999999999856
+              ],
+              "query_batch_median_ms": 2.5077,
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 1922,
+                "bucketCount": 100,
+                "memberships": 3635,
+                "maxCandidatesPerBucket": 273,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-local_triangles-0.1m.csv",
+                "bytes": 372731,
+                "sha256": "bc15c62923792f5c0aa118f3e4f0d683ce9aaee5003e3f5cf121f100cf5913d3"
+              }
+            }
+          },
+          "compact_hybrid": {
+            "build_validate_ms": 1217.4812000012025,
+            "status": "target-met",
+            "continuous_bound_m": 0.09885267373989688,
+            "target_met": true,
+            "compaction_validate_ms": 26.74470003694296,
+            "filename": "compact_hybrid-0.1m.json",
+            "bytes": 60805,
+            "sha256": "5648685cf26bffeb6b535060f5f4c3cc42ce7aab35eb9e58bd4b2449aa879929",
+            "points": 1664,
+            "patches": 278,
+            "ruled_patches": 38,
+            "triangle_patches": 240,
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.1,
+              "family": "compact_hybrid",
+              "archive_sha256": "5648685cf26bffeb6b535060f5f4c3cc42ce7aab35eb9e58bd4b2449aa879929",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.006927944181404961,
+              "p95_absolute_m": 0.016156255410514575,
+              "max_sampled_m": 0.06479677833269015,
+              "max_source_centre_m": 0.09699998474120974,
+              "compaction_max_height_difference_m": 1.7763568394002505e-15,
+              "index_ms": 5.557000000000016,
+              "query_batches_ms": [
+                4.132100000000008,
+                4.504600000000011,
+                4.909500000000008,
+                3.9819999999999993,
+                4.4883000000000095
+              ],
+              "query_batch_median_ms": 4.4883000000000095,
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 3108,
+                "bucketCount": 100,
+                "memberships": 6213,
+                "maxCandidatesPerBucket": 197,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-compact_hybrid-0.1m.csv",
+                "bytes": 373375,
+                "sha256": "a33080ea91c964654a529096383294aa4582f8a7f6a352e1ef621478c1ffd67b"
+              }
+            }
+          },
+          "multipatch": {
+            "components": [
+              {
+                "filename": "terrain.shp",
+                "bytes": 68920,
+                "sha256": "9443442c3aada9921420738118e38101da0967be1f852d2fbc69eb32db133730"
+              },
+              {
+                "filename": "terrain.shx",
+                "bytes": 108,
+                "sha256": "e63f4bb7b41b9a45d15eb5bd06dd5904b587cb05635729498021a97dfcaab053"
+              },
+              {
+                "filename": "terrain.dbf",
+                "bytes": 98,
+                "sha256": "29f98c8636281e3da84194870ec8a26a50988343861991e56ffc5ed7b7c67ba8"
+              },
+              {
+                "filename": "terrain.prj",
+                "bytes": 417,
+                "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+              },
+              {
+                "filename": "terrain.cpg",
+                "bytes": 6,
+                "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+              }
+            ],
+            "core_bytes": 69549,
+            "native_recovery": {
+              "filename": "native-recovery.json",
+              "bytes": 38819,
+              "sha256": "80127a9ec28ec25809ea4cdc5e2572682f12239b6eb3189416e97ce3f68a449e"
+            },
+            "recoverable_bytes": 108368,
+            "native_vs_core_saving_percent": 28.405872118937726,
+            "native_vs_recoverable_saving_percent": 54.05193415030267,
+            "original_parts": 407,
+            "saved_parts": 404,
+            "geometry": {
+              "triangles": 1922,
+              "oriented_triangle_multiset_sha256": "a8fbfed76f69c32a5e974ce74641af521692e839dfd9c47a5124ccf2ba221701"
+            },
+            "native_height_max_difference_m": 0.0,
+            "queries": 4096,
+            "native_recovery_byte_identical": true,
+            "removed_absent_m_bytes": 21856,
+            "arcgis_execution": null
+          },
+          "compact_vs_local_saving_percent": -22.115558411824953
+        },
+        {
+          "target_m": 0.25,
+          "primitive_sha256": "9ab46cde8cf5bc84fc954a4d2f7dfe88b59b8b284e843ca6a44872452a0031cc",
+          "hybrid": {
+            "build_validate_ms": 182.13039997499436,
+            "status": "target-met",
+            "continuous_bound_m": 0.24187567567648272,
+            "target_met": true,
+            "filename": "hybrid-0.25m.json",
+            "bytes": 99336,
+            "sha256": "72e241fca6cf5a528b14b3556a0293b6258f708a74eb1214c3fce7e2734d4702",
+            "points": 1225,
+            "patches": 1152,
+            "ruled_patches": 43,
+            "triangle_patches": 1109,
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.25,
+              "family": "hybrid",
+              "archive_sha256": "72e241fca6cf5a528b14b3556a0293b6258f708a74eb1214c3fce7e2734d4702",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.021801583779897066,
+              "p95_absolute_m": 0.049601665042686705,
+              "max_sampled_m": 0.16429935911948768,
+              "max_source_centre_m": 0.1985002059936516,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 2.935200000000009,
+              "query_batches_ms": [
+                3.53570000000002,
+                2.748199999999997,
+                2.708800000000025,
+                2.8780000000000143,
+                2.7445000000000164
+              ],
+              "query_batch_median_ms": 2.748199999999997,
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 2261,
+                "bucketCount": 100,
+                "memberships": 4796,
+                "maxCandidatesPerBucket": 197,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-hybrid-0.25m.csv",
+                "bytes": 372648,
+                "sha256": "e61fd6165777af076aed4cb8d21a120f00b719cb1bc8572be34c2a4faf366f7a"
+              }
+            }
+          },
+          "local_triangles": {
+            "build_validate_ms": 1006.0200000880286,
+            "status": "target-met",
+            "continuous_bound_m": 0.24187567567648272,
+            "target_met": true,
+            "filename": "local_triangles-0.25m.json",
+            "bytes": 21723,
+            "sha256": "4013c870f77f4ff35952c15e3793e3dd9670ee52fe36848fb88e41bf2941dee1",
+            "points": 444,
+            "patches": 173,
+            "ruled_patches": 0,
+            "triangle_patches": 173,
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.25,
+              "family": "local_triangles",
+              "archive_sha256": "4013c870f77f4ff35952c15e3793e3dd9670ee52fe36848fb88e41bf2941dee1",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.030375606517086366,
+              "p95_absolute_m": 0.07423111922502734,
+              "max_sampled_m": 0.1649098362565704,
+              "max_source_centre_m": 0.20952288040161093,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 0.789100000000019,
+              "query_batches_ms": [
+                2.9101,
+                2.9834999999999923,
+                3.0978000000000065,
+                2.6732000000000085,
+                3.1281999999999925
+              ],
+              "query_batch_median_ms": 2.9834999999999923,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 857,
+                "bucketCount": 36,
+                "memberships": 1486,
+                "maxCandidatesPerBucket": 284,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-local_triangles-0.25m.csv",
+                "bytes": 372311,
+                "sha256": "aecf3f872ea1b73dd2c8e43f7219f840efd0b5badcc1b958c46761855a1f40e9"
+              }
+            }
+          },
+          "compact_hybrid": {
+            "build_validate_ms": 182.13039997499436,
+            "status": "target-met",
+            "continuous_bound_m": 0.24187567567648272,
+            "target_met": true,
+            "compaction_validate_ms": 20.606699981726706,
+            "filename": "compact_hybrid-0.25m.json",
+            "bytes": 42670,
+            "sha256": "a727fd26734fecea76cec081d18cee3b2ef52183785d69a72f1892d0e44fd423",
+            "points": 1225,
+            "patches": 182,
+            "ruled_patches": 33,
+            "triangle_patches": 149,
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.25,
+              "family": "compact_hybrid",
+              "archive_sha256": "a727fd26734fecea76cec081d18cee3b2ef52183785d69a72f1892d0e44fd423",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.02180158377989705,
+              "p95_absolute_m": 0.049601665042686705,
+              "max_sampled_m": 0.16429935911948768,
+              "max_source_centre_m": 0.1985002059936516,
+              "compaction_max_height_difference_m": 1.7763568394002505e-15,
+              "index_ms": 2.405099999999976,
+              "query_batches_ms": [
+                3.507800000000003,
+                2.6400999999999897,
+                3.259100000000018,
+                3.1084999999999923,
+                2.868300000000005
+              ],
+              "query_batch_median_ms": 3.1084999999999923,
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 2261,
+                "bucketCount": 100,
+                "memberships": 4796,
+                "maxCandidatesPerBucket": 197,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-compact_hybrid-0.25m.csv",
+                "bytes": 372599,
+                "sha256": "8d16cf1207cb607596a8e6506a4d939abebbea6f1fbe306702ab274f1406e1a5"
+              }
+            }
+          },
+          "multipatch": {
+            "components": [
+              {
+                "filename": "terrain.shp",
+                "bytes": 30368,
+                "sha256": "0c0af247d2455053e447c7df383d13c7107d31c48d9e2a81a71a94cf3669ccf7"
+              },
+              {
+                "filename": "terrain.shx",
+                "bytes": 108,
+                "sha256": "2f0a914317f235e9bcea4ead55e2a7055b8966b0eea04b3aa06bbebbc1bc4503"
+              },
+              {
+                "filename": "terrain.dbf",
+                "bytes": 98,
+                "sha256": "ddbb9cedd9a39730435356781b1189c6bd76118e06272fd4463e81f33ca5c2cc"
+              },
+              {
+                "filename": "terrain.prj",
+                "bytes": 417,
+                "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+              },
+              {
+                "filename": "terrain.cpg",
+                "bytes": 6,
+                "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+              }
+            ],
+            "core_bytes": 30997,
+            "native_recovery": {
+              "filename": "native-recovery.json",
+              "bytes": 16908,
+              "sha256": "26aafb682b50efed17e75decdc4dc0b31c8737726db2f69c601b379c55546625"
+            },
+            "recoverable_bytes": 47905,
+            "native_vs_core_saving_percent": 29.919024421718234,
+            "native_vs_recoverable_saving_percent": 54.65400271370421,
+            "original_parts": 173,
+            "saved_parts": 172,
+            "geometry": {
+              "triangles": 857,
+              "oriented_triangle_multiset_sha256": "01e84dfdb825ba79a25454a034b1e6551138e5bd7771afedc3f7ad4d822f6fcf"
+            },
+            "native_height_max_difference_m": 0.0,
+            "queries": 4096,
+            "native_recovery_byte_identical": true,
+            "removed_absent_m_bytes": 9624,
+            "arcgis_execution": null
+          },
+          "compact_vs_local_saving_percent": -96.42774939004741
+        },
+        {
+          "target_m": 0.5,
+          "primitive_sha256": "c121134a96b58a9f291ccfd69c43f050e4b4836ff9fff33eaf96c65dbb215e8d",
+          "hybrid": {
+            "build_validate_ms": 180.12649996671826,
+            "status": "target-met",
+            "continuous_bound_m": 0.4665010767537533,
+            "target_met": true,
+            "filename": "hybrid-0.5m.json",
+            "bytes": 95004,
+            "sha256": "4ae1bc4423860a47459fe0dff64313d1d4496e1117b5c7883eba27d8df46c175",
+            "points": 1175,
+            "patches": 1104,
+            "ruled_patches": 41,
+            "triangle_patches": 1063,
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.5,
+              "family": "hybrid",
+              "archive_sha256": "4ae1bc4423860a47459fe0dff64313d1d4496e1117b5c7883eba27d8df46c175",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.024068253702517695,
+              "p95_absolute_m": 0.049601665042686705,
+              "max_sampled_m": 0.43635851128573044,
+              "max_source_centre_m": 0.43308091217041067,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 1.9587999999999965,
+              "query_batches_ms": [
+                3.2749000000000024,
+                3.042699999999968,
+                3.053699999999992,
+                3.0955000000000155,
+                2.5826999999999884
+              ],
+              "query_batch_median_ms": 3.053699999999992,
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 2167,
+                "bucketCount": 100,
+                "memberships": 4646,
+                "maxCandidatesPerBucket": 197,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-hybrid-0.5m.csv",
+                "bytes": 372652,
+                "sha256": "18f511d278bb0215379535347340ecdb9772185a74bd20029356e31aa9f24591"
+              }
+            }
+          },
+          "local_triangles": {
+            "build_validate_ms": 1024.5884000323713,
+            "status": "target-met",
+            "continuous_bound_m": 0.4665010767537533,
+            "target_met": true,
+            "filename": "local_triangles-0.5m.json",
+            "bytes": 21902,
+            "sha256": "68c20f8f654333c715daee223a144698a35c1033b06376f8a3392dce722dca70",
+            "points": 438,
+            "patches": 179,
+            "ruled_patches": 0,
+            "triangle_patches": 179,
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.5,
+              "family": "local_triangles",
+              "archive_sha256": "68c20f8f654333c715daee223a144698a35c1033b06376f8a3392dce722dca70",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.03258521020736016,
+              "p95_absolute_m": 0.07581849106978034,
+              "max_sampled_m": 0.42764142909112124,
+              "max_source_centre_m": 0.3053547283935547,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 1.1990000000000123,
+              "query_batches_ms": [
+                2.5294000000000096,
+                3.098100000000045,
+                2.842999999999961,
+                3.0173999999999523,
+                3.1182000000000016
+              ],
+              "query_batch_median_ms": 3.0173999999999523,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 845,
+                "bucketCount": 36,
+                "memberships": 1473,
+                "maxCandidatesPerBucket": 274,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-local_triangles-0.5m.csv",
+                "bytes": 372294,
+                "sha256": "f5def405b9b7950d2cc5cff3bd0f4e7f0aaca5000a3c5016e4776ef80832943a"
+              }
+            }
+          },
+          "compact_hybrid": {
+            "build_validate_ms": 180.12649996671826,
+            "status": "target-met",
+            "continuous_bound_m": 0.4665010767537533,
+            "target_met": true,
+            "compaction_validate_ms": 21.87419997062534,
+            "filename": "compact_hybrid-0.5m.json",
+            "bytes": 41480,
+            "sha256": "d7b3886e23f70cc4b44ca00f8c465af27fbc1845b53c3020dbd67d77b98a98dd",
+            "points": 1175,
+            "patches": 186,
+            "ruled_patches": 31,
+            "triangle_patches": 155,
+            "query_audit": {
+              "case_id": "bristol-harbour",
+              "target_m": 0.5,
+              "family": "compact_hybrid",
+              "archive_sha256": "d7b3886e23f70cc4b44ca00f8c465af27fbc1845b53c3020dbd67d77b98a98dd",
+              "fixture_sha256": "94ad33e0ec20237384dec9c498ce1eae56bd3a7bfd5499b1654baa2a42a6fa7a",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.02406825370251767,
+              "p95_absolute_m": 0.049601665042686705,
+              "max_sampled_m": 0.43635851128573044,
+              "max_source_centre_m": 0.4330809121704098,
+              "compaction_max_height_difference_m": 1.7763568394002505e-15,
+              "index_ms": 2.830600000000004,
+              "query_batches_ms": [
+                4.962699999999984,
+                4.195500000000038,
+                4.8595000000000255,
+                2.7613000000000056,
+                2.946799999999996
+              ],
+              "query_batch_median_ms": 4.195500000000038,
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 2167,
+                "bucketCount": 100,
+                "memberships": 4646,
+                "maxCandidatesPerBucket": 197,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-compact_hybrid-0.5m.csv",
+                "bytes": 372613,
+                "sha256": "ecdb1f83d4526c613f15c49eec87a578f218d4b9b99a086ccf6cea86101cb676"
+              }
+            }
+          },
+          "multipatch": {
+            "components": [
+              {
+                "filename": "terrain.shp",
+                "bytes": 30472,
+                "sha256": "16f6665f891636f98b3bad6311b3532db916d6c4be0155863f229d0dc6926272"
+              },
+              {
+                "filename": "terrain.shx",
+                "bytes": 108,
+                "sha256": "f46aa743cbdc84b780fb15fa193abe85980f070745f1c7688ddad24fa45c3fb2"
+              },
+              {
+                "filename": "terrain.dbf",
+                "bytes": 98,
+                "sha256": "cd43c6ad79c25731c537881a00b501034806b19a7e6b9a829209397d6b371f92"
+              },
+              {
+                "filename": "terrain.prj",
+                "bytes": 417,
+                "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+              },
+              {
+                "filename": "terrain.cpg",
+                "bytes": 6,
+                "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+              }
+            ],
+            "core_bytes": 31101,
+            "native_recovery": {
+              "filename": "native-recovery.json",
+              "bytes": 17207,
+              "sha256": "99a6a17ca50ae91daddc44d232f96d27dde109aeb8939eadf11709427bb0c26a"
+            },
+            "recoverable_bytes": 48308,
+            "native_vs_core_saving_percent": 29.577827079515128,
+            "native_vs_recoverable_saving_percent": 54.66175374679142,
+            "original_parts": 179,
+            "saved_parts": 179,
+            "geometry": {
+              "triangles": 845,
+              "oriented_triangle_multiset_sha256": "035a84d47a50f8fa1e97358c8e23f809f0e6768592ff6a65565d71e9dc9bea00"
+            },
+            "native_height_max_difference_m": 0.0,
+            "queries": 4096,
+            "native_recovery_byte_identical": true,
+            "removed_absent_m_bytes": 9640,
+            "arcgis_execution": null
+          },
+          "compact_vs_local_saving_percent": -89.38909688612912
+        }
+      ],
+      "download": {
+        "filename": "bristol-harbour-experiment.zip",
+        "bytes": 1653868,
+        "sha256": "8d67b68446cc0128bfd38d0a7640a3a24209d26dd079cf6aeff8704e22b9c6ab"
+      }
+    },
+    {
+      "id": "bristol-brandon-hill",
+      "name": "布兰登山坡",
+      "requested_centre_wgs84": [
+        -2.6078,
+        51.4524
+      ],
+      "origin_bng": [
+        357862.5,
+        172777.5
+      ],
+      "source_window": [
+        1488,
+        894,
+        65,
+        65
+      ],
+      "shape": [
+        65,
+        65
+      ],
+      "span_m": [
+        64,
+        64
+      ],
+      "nodata": 0,
+      "source_min_m": 28.214000701904297,
+      "source_max_m": 48.029998779296875,
+      "reference_sha256": "e44117a822fe995bf44718ad1dfea3351bfe144744edd52fec89ad563545f886",
+      "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+      "variants": [
+        {
+          "target_m": 0.1,
+          "primitive_sha256": "1e4479a5852a421873aa1afd901293eb1906c63fa1f1235d48eb083ad8b6aa8b",
+          "hybrid": {
+            "build_validate_ms": 1800.5790000315756,
+            "status": "target-met",
+            "continuous_bound_m": 0.09950039777654573,
+            "target_met": true,
+            "filename": "hybrid-0.1m.json",
+            "bytes": 192104,
+            "sha256": "518e0c72f59e1c0b19c8ede394454244cacac8bd3aaba6a12e199b334fa3fe5f",
+            "points": 2250,
+            "patches": 2156,
+            "ruled_patches": 0,
+            "triangle_patches": 2156,
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.1,
+              "family": "hybrid",
+              "archive_sha256": "518e0c72f59e1c0b19c8ede394454244cacac8bd3aaba6a12e199b334fa3fe5f",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.014080156472804117,
+              "p95_absolute_m": 0.03134131961968478,
+              "max_sampled_m": 0.08239374283966328,
+              "max_source_centre_m": 0.0994995727539063,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 4.731099999999969,
+              "query_batches_ms": [
+                3.410000000000025,
+                4.98539999999997,
+                3.558499999999981,
+                3.9125999999999976,
+                3.730700000000013
+              ],
+              "query_batch_median_ms": 3.730700000000013,
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 4312,
+                "bucketCount": 100,
+                "memberships": 7800,
+                "maxCandidatesPerBucket": 180,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-hybrid-0.1m.csv",
+                "bytes": 394601,
+                "sha256": "959e2245d3b823c9ef2130493ee8ff77093cb3efdb07cfd8c207ba93ec2efd8e"
+              }
+            }
+          },
+          "local_triangles": {
+            "build_validate_ms": 1648.7383999628946,
+            "status": "target-met",
+            "continuous_bound_m": 0.09975222883123613,
+            "target_met": true,
+            "filename": "local_triangles-0.1m.json",
+            "bytes": 36764,
+            "sha256": "7f87d7e9f1b7e4a1338f13f7646d792de1a913b36a4ea883810a4dd898ffee3b",
+            "points": 714,
+            "patches": 296,
+            "ruled_patches": 0,
+            "triangle_patches": 296,
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.1,
+              "family": "local_triangles",
+              "archive_sha256": "7f87d7e9f1b7e4a1338f13f7646d792de1a913b36a4ea883810a4dd898ffee3b",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.02954275518548052,
+              "p95_absolute_m": 0.0617569899879129,
+              "max_sampled_m": 0.0932579707969623,
+              "max_source_centre_m": 0.09975006103515938,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 1.1812999999999647,
+              "query_batches_ms": [
+                2.346400000000017,
+                3.020500000000027,
+                2.1947999999999865,
+                2.349400000000003,
+                3.0798999999999523
+              ],
+              "query_batch_median_ms": 2.349400000000003,
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 1344,
+                "bucketCount": 100,
+                "memberships": 3404,
+                "maxCandidatesPerBucket": 103,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-local_triangles-0.1m.csv",
+                "bytes": 392325,
+                "sha256": "64c9384f40e7a90c2c9858d13709e4925905ec62c05d87a8ad566ab5826188b0"
+              }
+            }
+          },
+          "compact_hybrid": {
+            "build_validate_ms": 1800.5790000315756,
+            "status": "target-met",
+            "continuous_bound_m": 0.09950039777654573,
+            "target_met": true,
+            "compaction_validate_ms": 43.02550002466887,
+            "filename": "compact_hybrid-0.1m.json",
+            "bytes": 93746,
+            "sha256": "62b51d6be6f607add9b7cbd4e44603b07fb175590304a55db833ce7b1ed340f3",
+            "points": 2250,
+            "patches": 509,
+            "ruled_patches": 0,
+            "triangle_patches": 509,
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.1,
+              "family": "compact_hybrid",
+              "archive_sha256": "62b51d6be6f607add9b7cbd4e44603b07fb175590304a55db833ce7b1ed340f3",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.01408015647280407,
+              "p95_absolute_m": 0.03134131961968478,
+              "max_sampled_m": 0.08239374283966328,
+              "max_source_centre_m": 0.0994995727539063,
+              "compaction_max_height_difference_m": 7.105427357601002e-15,
+              "index_ms": 3.9966999999999757,
+              "query_batches_ms": [
+                3.6873999999999683,
+                4.423900000000003,
+                3.8915999999999826,
+                3.897699999999986,
+                3.7823999999999955
+              ],
+              "query_batch_median_ms": 3.8915999999999826,
+              "index_statistics": {
+                "binSizeMetres": 8,
+                "cells": 4312,
+                "bucketCount": 100,
+                "memberships": 7800,
+                "maxCandidatesPerBucket": 180,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-compact_hybrid-0.1m.csv",
+                "bytes": 394597,
+                "sha256": "60e1de2f855155e68dc7dada5b848610c13ef5da15afc645f75ab4d04960f323"
+              }
+            }
+          },
+          "multipatch": {
+            "components": [
+              {
+                "filename": "terrain.shp",
+                "bytes": 48888,
+                "sha256": "71b88648e0404d5c5c523d0d7b36f181d630acf3b666549a4c552f6a023bfff5"
+              },
+              {
+                "filename": "terrain.shx",
+                "bytes": 108,
+                "sha256": "696b117fe6b1c686db588dc0aca0c58b6575308914827d1e730dbb86607eb9c5"
+              },
+              {
+                "filename": "terrain.dbf",
+                "bytes": 98,
+                "sha256": "36a4692d44e7124d1d382758894591c4b9bb456efd4d54068ab515129d5a2d93"
+              },
+              {
+                "filename": "terrain.prj",
+                "bytes": 417,
+                "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+              },
+              {
+                "filename": "terrain.cpg",
+                "bytes": 6,
+                "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+              }
+            ],
+            "core_bytes": 49517,
+            "native_recovery": {
+              "filename": "native-recovery.json",
+              "bytes": 28022,
+              "sha256": "6f6844af7acfeb625e0445dd8e426813300660f83f6b52a34d8807260bd1eb6a"
+            },
+            "recoverable_bytes": 77539,
+            "native_vs_core_saving_percent": 25.754791283801527,
+            "native_vs_recoverable_saving_percent": 52.58644037194187,
+            "original_parts": 296,
+            "saved_parts": 294,
+            "geometry": {
+              "triangles": 1344,
+              "oriented_triangle_multiset_sha256": "7a0b82a2168230dc6ee4299831cb63d1ce20ea1aca981675b25c481313782706"
+            },
+            "native_height_max_difference_m": 0.0,
+            "queries": 4096,
+            "native_recovery_byte_identical": true,
+            "removed_absent_m_bytes": 15472,
+            "arcgis_execution": null
+          },
+          "compact_vs_local_saving_percent": -154.994015885105
+        },
+        {
+          "target_m": 0.25,
+          "primitive_sha256": "ff78ca9de103a1ffd265ee6f7cb973125461b4aa3181d840c44637ac60280bb4",
+          "hybrid": {
+            "build_validate_ms": 79.48740001302212,
+            "status": "target-met",
+            "continuous_bound_m": 0.22750059614080065,
+            "target_met": true,
+            "filename": "hybrid-0.25m.json",
+            "bytes": 40474,
+            "sha256": "e659fa2c43a0179c922eae5ebd3a4abc311133b8774804e11c33061d0a819ba4",
+            "points": 506,
+            "patches": 462,
+            "ruled_patches": 0,
+            "triangle_patches": 462,
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.25,
+              "family": "hybrid",
+              "archive_sha256": "e659fa2c43a0179c922eae5ebd3a4abc311133b8774804e11c33061d0a819ba4",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.04780094676654633,
+              "p95_absolute_m": 0.10497979963519555,
+              "max_sampled_m": 0.20542561081825284,
+              "max_source_centre_m": 0.22749938964844318,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 0.719099999999969,
+              "query_batches_ms": [
+                2.7904000000000337,
+                3.9003999999999905,
+                3.0335999999999785,
+                2.9750000000000227,
+                2.884800000000041
+              ],
+              "query_batch_median_ms": 2.9750000000000227,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 924,
+                "bucketCount": 36,
+                "memberships": 1740,
+                "maxCandidatesPerBucket": 144,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-hybrid-0.25m.csv",
+                "bytes": 391750,
+                "sha256": "bea6a395b6630de072819ff29bf6ae688e53fe4774c42290427bf8aca5215e3c"
+              }
+            }
+          },
+          "local_triangles": {
+            "build_validate_ms": 460.93980001751333,
+            "status": "target-met",
+            "continuous_bound_m": 0.24725220594304964,
+            "target_met": true,
+            "filename": "local_triangles-0.25m.json",
+            "bytes": 10882,
+            "sha256": "c6e4d2b08b11291e768779b2c8c09a658495a97fe9b634a8eed0094a037fc784",
+            "points": 206,
+            "patches": 88,
+            "ruled_patches": 0,
+            "triangle_patches": 88,
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.25,
+              "family": "local_triangles",
+              "archive_sha256": "c6e4d2b08b11291e768779b2c8c09a658495a97fe9b634a8eed0094a037fc784",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.07669347652160703,
+              "p95_absolute_m": 0.1561939320678718,
+              "max_sampled_m": 0.23289469692398512,
+              "max_source_centre_m": 0.24724960327148438,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 0.3664999999999736,
+              "query_batches_ms": [
+                1.9442999999999984,
+                2.699600000000032,
+                2.5738999999999805,
+                2.4249999999999545,
+                2.4016000000000304
+              ],
+              "query_batch_median_ms": 2.4249999999999545,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 368,
+                "bucketCount": 36,
+                "memberships": 896,
+                "maxCandidatesPerBucket": 96,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-local_triangles-0.25m.csv",
+                "bytes": 390501,
+                "sha256": "a57cb34ed1e5870cd7784c590821fa180c12a75647e75596a5a49d79bfac6530"
+              }
+            }
+          },
+          "compact_hybrid": {
+            "build_validate_ms": 79.48740001302212,
+            "status": "target-met",
+            "continuous_bound_m": 0.22750059614080065,
+            "target_met": true,
+            "compaction_validate_ms": 9.948299964889884,
+            "filename": "compact_hybrid-0.25m.json",
+            "bytes": 22324,
+            "sha256": "33deff45bfe7b4cba8dbbc665152f9edcb1a69df497d456f19edb97da860d2fe",
+            "points": 506,
+            "patches": 147,
+            "ruled_patches": 0,
+            "triangle_patches": 147,
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.25,
+              "family": "compact_hybrid",
+              "archive_sha256": "33deff45bfe7b4cba8dbbc665152f9edcb1a69df497d456f19edb97da860d2fe",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.04780094676654628,
+              "p95_absolute_m": 0.10497979963518844,
+              "max_sampled_m": 0.20542561081825284,
+              "max_source_centre_m": 0.22749938964844318,
+              "compaction_max_height_difference_m": 7.105427357601002e-15,
+              "index_ms": 0.7634000000000469,
+              "query_batches_ms": [
+                3.958599999999933,
+                3.245400000000018,
+                3.8571000000000595,
+                2.947499999999991,
+                3.6094000000000506
+              ],
+              "query_batch_median_ms": 3.6094000000000506,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 924,
+                "bucketCount": 36,
+                "memberships": 1740,
+                "maxCandidatesPerBucket": 144,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-compact_hybrid-0.25m.csv",
+                "bytes": 391741,
+                "sha256": "2f984bf9ee690fbfd446611667cbd8f16f8261ac46ba78a655b91cdf88a83917"
+              }
+            }
+          },
+          "multipatch": {
+            "components": [
+              {
+                "filename": "terrain.shp",
+                "bytes": 13928,
+                "sha256": "3f71ebaa935a78c1fb751f57578bcf8dfb9b40155537feef3c53e9a62fe71e39"
+              },
+              {
+                "filename": "terrain.shx",
+                "bytes": 108,
+                "sha256": "d5c5b14598c6e182003c1ae6dc7de819048ec98bb9c807f7dafb3a7c16c8839b"
+              },
+              {
+                "filename": "terrain.dbf",
+                "bytes": 98,
+                "sha256": "7370451e8a4ea1a404e51b1b5be606fb2c9c4714e482626d28aab520a6fc2b6f"
+              },
+              {
+                "filename": "terrain.prj",
+                "bytes": 417,
+                "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+              },
+              {
+                "filename": "terrain.cpg",
+                "bytes": 6,
+                "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+              }
+            ],
+            "core_bytes": 14557,
+            "native_recovery": {
+              "filename": "native-recovery.json",
+              "bytes": 8296,
+              "sha256": "cd5b0455aa6607e77abdec610c62d8a89fb6fd622a893dde8ca008d9157aff53"
+            },
+            "recoverable_bytes": 22853,
+            "native_vs_core_saving_percent": 25.24558631586179,
+            "native_vs_recoverable_saving_percent": 52.38261934975714,
+            "original_parts": 88,
+            "saved_parts": 88,
+            "geometry": {
+              "triangles": 368,
+              "oriented_triangle_multiset_sha256": "8572c04a4ecfadb3411e493bc46477d3a8895cfd2cf0e6b8c52d9c712f1d2dd7"
+            },
+            "native_height_max_difference_m": 0.0,
+            "queries": 4096,
+            "native_recovery_byte_identical": true,
+            "removed_absent_m_bytes": 4368,
+            "arcgis_execution": null
+          },
+          "compact_vs_local_saving_percent": -105.14611284690316
+        },
+        {
+          "target_m": 0.5,
+          "primitive_sha256": "61fcc56f390109e5b6b21c32f99e8a762b9854c5b5d937777f9cf6727a605e36",
+          "hybrid": {
+            "build_validate_ms": 24.51879996806383,
+            "status": "target-met",
+            "continuous_bound_m": 0.49025057325261734,
+            "target_met": true,
+            "filename": "hybrid-0.5m.json",
+            "bytes": 11812,
+            "sha256": "9fc26311a4f3e9c7070e2d4cdfaa4335ef7c8c10150b145248867085ba65b8c5",
+            "points": 154,
+            "patches": 130,
+            "ruled_patches": 0,
+            "triangle_patches": 130,
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.5,
+              "family": "hybrid",
+              "archive_sha256": "9fc26311a4f3e9c7070e2d4cdfaa4335ef7c8c10150b145248867085ba65b8c5",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.10556953873022204,
+              "p95_absolute_m": 0.21956200258239278,
+              "max_sampled_m": 0.46306721456493705,
+              "max_source_centre_m": 0.4902488403320291,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 0.2555000000000973,
+              "query_batches_ms": [
+                2.6158000000000357,
+                2.0511999999999944,
+                1.7446999999999662,
+                2.419599999999946,
+                1.9500999999999067
+              ],
+              "query_batch_median_ms": 2.0511999999999944,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 260,
+                "bucketCount": 36,
+                "memberships": 756,
+                "maxCandidatesPerBucket": 70,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-hybrid-0.5m.csv",
+                "bytes": 390296,
+                "sha256": "188e0145b79baf03056a44effc831a6c76c697174e74f743d7cadbf9c443c3bd"
+              }
+            }
+          },
+          "local_triangles": {
+            "build_validate_ms": 157.63780009001493,
+            "status": "target-met",
+            "continuous_bound_m": 0.47399900922673843,
+            "target_met": true,
+            "filename": "local_triangles-0.5m.json",
+            "bytes": 4261,
+            "sha256": "23fbcce56474bbd94ab8cebe384926b0101491316deb8b75e861b87fd3f39815",
+            "points": 74,
+            "patches": 32,
+            "ruled_patches": 0,
+            "triangle_patches": 32,
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.5,
+              "family": "local_triangles",
+              "archive_sha256": "23fbcce56474bbd94ab8cebe384926b0101491316deb8b75e861b87fd3f39815",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.13719517553050747,
+              "p95_absolute_m": 0.2881770369072214,
+              "max_sampled_m": 0.4653352939472484,
+              "max_source_centre_m": 0.4739987792968705,
+              "compaction_max_height_difference_m": null,
+              "index_ms": 0.1530999999999949,
+              "query_batches_ms": [
+                2.429499999999962,
+                1.8624000000000933,
+                1.981899999999996,
+                2.189799999999991,
+                1.8746999999999616
+              ],
+              "query_batch_median_ms": 1.981899999999996,
+              "index_statistics": {
+                "binSizeMetres": 32,
+                "cells": 126,
+                "bucketCount": 16,
+                "memberships": 272,
+                "maxCandidatesPerBucket": 76,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-local_triangles-0.5m.csv",
+                "bytes": 390052,
+                "sha256": "762e63c8f1706c2b1a9ea9078ee4f90a1794750f2015580b8cb94ffe133cb500"
+              }
+            }
+          },
+          "compact_hybrid": {
+            "build_validate_ms": 24.51879996806383,
+            "status": "target-met",
+            "continuous_bound_m": 0.49025057325261734,
+            "target_met": true,
+            "compaction_validate_ms": 2.738300012424588,
+            "filename": "compact_hybrid-0.5m.json",
+            "bytes": 7116,
+            "sha256": "a77de0271ca07c578a139f6c13d4372c8654deeb9271dd8a83d1b84973e658d3",
+            "points": 154,
+            "patches": 46,
+            "ruled_patches": 0,
+            "triangle_patches": 46,
+            "query_audit": {
+              "case_id": "bristol-brandon-hill",
+              "target_m": 0.5,
+              "family": "compact_hybrid",
+              "archive_sha256": "a77de0271ca07c578a139f6c13d4372c8654deeb9271dd8a83d1b84973e658d3",
+              "fixture_sha256": "615055ea9a96e02e652779a47a44fbfd49cc6c6ca4333b5c1442499989152526",
+              "queries": 4096,
+              "hits": 4096,
+              "source_centres": 4225,
+              "boundary_queries": 256,
+              "rmse_m": 0.10556953873022198,
+              "p95_absolute_m": 0.21956200258239278,
+              "max_sampled_m": 0.46306721456493705,
+              "max_source_centre_m": 0.4902488403320291,
+              "compaction_max_height_difference_m": 7.105427357601002e-15,
+              "index_ms": 0.3342999999999847,
+              "query_batches_ms": [
+                2.1467999999999847,
+                1.7772999999999683,
+                2.2047999999999774,
+                2.084699999999998,
+                1.9834000000000742
+              ],
+              "query_batch_median_ms": 2.084699999999998,
+              "index_statistics": {
+                "binSizeMetres": 16,
+                "cells": 260,
+                "bucketCount": 36,
+                "memberships": 756,
+                "maxCandidatesPerBucket": 70,
+                "membershipBudget": 4000000
+              },
+              "csv": {
+                "filename": "queries-compact_hybrid-0.5m.csv",
+                "bytes": 390340,
+                "sha256": "ca3004114b33c960c87cbc168bccb6bb61b5fc223ee7bd226074bd029ab70bac"
+              }
+            }
+          },
+          "multipatch": {
+            "components": [
+              {
+                "filename": "terrain.shp",
+                "bytes": 4984,
+                "sha256": "05db127269bf86cbb91bea2e0bd35ad80d566d90acad4f90710353340ca59fdb"
+              },
+              {
+                "filename": "terrain.shx",
+                "bytes": 108,
+                "sha256": "8c716cb5714dff68a125acf32531d79b6196cb29276e62a274bfcf885ca42ca9"
+              },
+              {
+                "filename": "terrain.dbf",
+                "bytes": 98,
+                "sha256": "3ceab2de70dd10c656e756bfd8fc0fbc6648f07bab86f5ee5555ceb845bd6c37"
+              },
+              {
+                "filename": "terrain.prj",
+                "bytes": 417,
+                "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+              },
+              {
+                "filename": "terrain.cpg",
+                "bytes": 6,
+                "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+              }
+            ],
+            "core_bytes": 5613,
+            "native_recovery": {
+              "filename": "native-recovery.json",
+              "bytes": 3353,
+              "sha256": "d000fa20121651d547a201112c0ce82d3758cb22767e214ad8244583939403f9"
+            },
+            "recoverable_bytes": 8966,
+            "native_vs_core_saving_percent": 24.086941029752364,
+            "native_vs_recoverable_saving_percent": 52.47602052197189,
+            "original_parts": 32,
+            "saved_parts": 32,
+            "geometry": {
+              "triangles": 126,
+              "oriented_triangle_multiset_sha256": "b2f6f7dcacab00ed5b125cf0563dc6b00dbffe8edabd3214ffdc2bd9bd11bafb"
+            },
+            "native_height_max_difference_m": 0.0,
+            "queries": 4096,
+            "native_recovery_byte_identical": true,
+            "removed_absent_m_bytes": 1536,
+            "arcgis_execution": null
+          },
+          "compact_vs_local_saving_percent": -67.00305092701244
+        }
+      ],
+      "download": {
+        "filename": "bristol-brandon-hill-experiment.zip",
+        "bytes": 1954979,
+        "sha256": "507d45778702ffd5f3876c29b625eb1bac2b489f23e5c7cfd2a339175e977a12"
+      }
+    }
+  ],
+  "build_receipt_sha256": "5695dabc1e11fa1f603b361c790f367fb45d46d4a35061be95ced6c4c0ec606a",
+  "native_audit_sha256": "ddec6214cce4d80bbf57322dc7a62324f54dd68ba72f7a2db5ffe629f46aa468",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "native_runner_sha256": "b14c5fec693ee60216db66123281153b38e7f3a65afc7e761a2d1063edb1e51b",
+  "native_query_scope": "CPU native point queries; 5 warm batches, index build separate. No GPU/heap/ArcGIS software measurement.",
+  "multipatch_specification": "https://www.esri.com/library/whitepapers/pdfs/shapefile.pdf",
+  "multipatch_scope": "Identical oriented local-triangle geometry in EPSG:27700, ODN Z. One feature, triangle strips, absent optional M omitted. Five-component cost and native recovery cost separate; no actual ArcGIS execution.",
+  "arcgis_execution": null
+}
