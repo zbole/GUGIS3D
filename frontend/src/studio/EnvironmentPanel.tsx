@@ -123,7 +123,7 @@ export default function EnvironmentPanel({
     [applyShared, setApplyShared] = useState(false),
     [layer, setLayer] = useState<"surface" | "underground">("surface");
   const [crs, setCrs] = useState(""),
-    [datum, setDatum] = useState("ODN"),
+    [datum, setDatum] = useState("unknown"),
     [stride, setStride] = useState(10);
   const file = useRef<HTMLInputElement>(null),
     skipInitialFeatureSelection = useRef(initialSection === "terrain"),
@@ -395,6 +395,7 @@ export default function EnvironmentPanel({
                   <option value="unknown">未知，保留原值</option>
                 </select>
               </label>
+              <p className="muted">默认不推断高程基准，请按源数据说明选择。指定 ODN 或椭球高不会自动转换源高程；水平坐标系不能证明高程基准。</p>
               <label>
                 采样步长 / 像元
                 <input

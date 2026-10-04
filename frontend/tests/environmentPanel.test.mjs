@@ -125,7 +125,7 @@ test("DEM and demonstration generation create a preview without calling the form
   assert.match(previews[0].label, /非实测.*预览/);
   const chosen = { name: "sample.asc", size: 50 };
   await act(async () => f.root.findByProps({ "aria-label": "选择 DEM 文件" }).props.onChange({ target: { files: [chosen] } }));
-  assert.deepEqual(calls[0], [chosen, "", "ODN", 10]);
+  assert.deepEqual(calls[0], [chosen, "", "unknown", 10]);
   assert.equal(saves, 0);
   assert.equal(previews.length, 2);
   assert.deepEqual(env.features, [lamp("retained")]);
@@ -145,6 +145,25 @@ test("overlapping terrain actions are coalesced and abandoning the panel prevent
   f.close();
   await act(async () => resolve({ terrain: terrainFixture() }));
   assert.equal(previews, 0);
+});
+
+test("DEM datum stays unknown until explicitly selected and horizontal CRS does not set it", async () => {
+  const calls = [];
+  const f = fixture({ initialSection: "terrain", previewTerrain: async () => true,
+    api: { importTerrain: async (...args) => { calls.push(args); return { terrain: terrainFixture() }; } } });
+  const datum = () => f.root.findAllByType("select").find(n => n.findAllByType("option").some(o => o.props.value === "ODN"));
+  const crs = f.root.findAllByType("select").find(n => n.findAllByType("option").some(o => o.props.value === "EPSG:27700"));
+  assert.equal(datum().props.value, "unknown");
+  act(() => crs.props.onChange({ target: { value: "EPSG:27700" } }));
+  assert.equal(datum().props.value, "unknown");
+  assert.match(text(f.root), /默认不推断高程基准/);
+  for (const value of ["ODN", "ellipsoidal", "unknown"]) {
+    act(() => datum().props.onChange({ target: { value } }));
+    const chosen = { name: "qa.asc", size: 10 };
+    await act(async () => f.root.findByProps({ "aria-label": "选择 DEM 文件" }).props.onChange({ target: { files: [chosen] } }));
+    assert.deepEqual(calls.at(-1), [chosen, "EPSG:27700", value, 10]);
+  }
+  f.close();
 });
 
 test("failed terrain conversion and oversized DEM cannot create a draft or save formal data", async () => {
