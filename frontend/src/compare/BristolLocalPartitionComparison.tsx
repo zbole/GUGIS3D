@@ -1,8 +1,11 @@
 import report from '../../../shared/bristol-local-partition-summary.json';
+import {lazy,Suspense,useState} from 'react';
+const BristolTerrainViewer=lazy(()=>import('./BristolTerrainViewer'));
 
 const kb=(n:number)=>(n/1000).toFixed(2);
 const relative=(saving:number)=>saving>=0?`小 ${saving.toFixed(1)}%`:`大 ${(-saving).toFixed(1)}%`;
 export default function BristolLocalPartitionComparison({target}:{target:number}){
+  const [live,setLive]=useState(false);
   const pairs=report.cases.map(data=>({data,pair:data.variants.find(v=>v.target_m===target)}));
   if(pairs.some(p=>!p.pair))return <p>此档位尚无局部分区实测，不能借用其他档位结果。</p>;
   return <section className="hybrid-method bristol-local-partition" aria-labelledby="bristol-local-title">
@@ -15,6 +18,8 @@ export default function BristolLocalPartitionComparison({target}:{target:number}
         <td>{(pair.compact_local_hybrid.continuous_bound_m*100).toFixed(3)} / {(pair.compact_local_hybrid.query_audit.rmse_m*100).toFixed(3)} cm</td></tr>)}
     </tbody></table></div>
     <p>港区三档均小于局部三角带；山坡三档仍更大。混合模型与局部三角表示是不同的认证曲面，此处比较相同误差目标下的成本，不能当作相同几何的格式收益，也不等于全局最优。</p>
+    <div className="hybrid-live-entry"><button onClick={()=>setLive(v=>!v)}>{live?'关闭 Bristol 三维对照':'打开 Bristol 三维对照'}</button><span>一次显示一份模型，可切换新旧表示，旋转、缩放和原生点查询。</span></div>
+    {live&&<Suspense fallback={<p role="status">正在加载 Bristol 三维查看器…</p>}><BristolTerrainViewer target={target}/></Suspense>}
     <details><summary>查看实际局部拓扑、接缝检查和构建代价</summary>
       <figure className="bristol-benchmark__figure"><img src="/research/bristol-local-partition/local-topology-cost.png" loading="lazy" alt="两处真实 Bristol 原始高程、10 厘米目标的局部直纹面和闭合三角带拓扑，以及三档全部成本"/><figcaption>绿色为实际直纹面单元，灰色为实际三角带面；平面投影图不用于展示垂直尺度。山坡的不利结果保留在右侧成本图。</figcaption></figure>
       {pairs.map(({data,pair})=>pair&&<p key={data.id}><b>{data.name}</b>：{pair.receipt.local_cells} 个局部矩形、{pair.receipt.boundary_triangulated_cells} 个单元执行接缝三角闭合；{pair.compact_local_hybrid.closure.internal_edges_paired.toLocaleString()} 条内部边均有对应边，XY 覆盖 {pair.compact_local_hybrid.closure.xy_area_m2.toFixed(2)} m²。4,225 源像元中心、4,096 固定非网格点及 256 外边界点均命中。单次构建 {pair.build_validate_ms.toFixed(2)} ms，另压紧 {pair.compaction_validate_ms.toFixed(2)} ms；每批 4,096 原生查询的五次预热中位数 {pair.compact_local_hybrid.query_audit.query_batch_median_ms.toFixed(2)} ms。</p>)}

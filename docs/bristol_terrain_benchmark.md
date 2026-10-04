@@ -75,3 +75,15 @@ node frontend/scripts/audit-bristol-local-partition.mjs .local/benchmark/bristol
 ```
 
 本阶段依旧没有执行 ArcGIS 软件；首轮的同几何 MultiPatch 对照与第二轮的不同曲面算法比较分开呈现。参考界不是未知地面的精度保证，研究 BNG 偏移仍不得直接植入城市 ENU。
+
+## 可交互的真实样区三维对照
+
+对比页「真实布里斯托」的第二轮结果下，点击「打开 Bristol 三维对照」。可切换港区／布兰登山坡、原全局紧凑混合／新局部紧凑混合／局部三角带，使用页面上方的 10／25／50 cm 目标选择器。18 份模型从已公开实验 ZIP 原样提取，长度和 SHA-256 与原实验回执逐一绑定；只在打开视图时加载当前一份模型。
+
+绿色为直纹面、灰色为三角带，金色为原生边界与母线；可旋转、缩放、俯视或隐藏母线。点击表面得到原生面片编号、BNG 偏移坐标、ODN 高程、坡度、相对格网北的坡向和 u/v。显示三角网仅供观察，单独列出离散误差及其与原生参考界的叠加值；不把 GPU 三角数计作原生文件点数。
+
+![真实港区拓扑与原生查询](screenshots/bristol-live-terrain-query-2026-10-05.png)
+
+三维展示把 BNG 偏移 1:1 放在抽象局部参考架，不进行城市地理配准或 ODN／椭球高转换，保留模型原生 X/Y/Z，仅按原样区参考值显示相对高程。垂直比例为 1×。普通切换不卸载 Viewer 或移动镜头；加载期间保留明确标注的旧模型并关闭查询，失败可重试，渲染中断的恢复操作会重建 Viewer。实验视图不写入正式城市或草稿。
+
+发布入口：`data-pipeline/publish_bristol_viewer_models.py`；模型清单：`shared/bristol-viewer-models.json`；公开模型：`frontend/public/research/bristol-viewer/`。公开数据来自原实验包，不包含本地城市、个人草稿或私有 DEM。
