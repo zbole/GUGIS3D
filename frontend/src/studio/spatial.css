@@ -22,6 +22,7 @@
 .spatial-panel .spatial-section-chart svg { display:block; width:100%; height:auto; }.spatial-panel .spatial-grid line { stroke:#dce3da; }.spatial-panel .spatial-grid text,.spatial-panel .spatial-axis { fill:#748077; font-size:9px; }
 .spatial-panel .spatial-section-object rect { fill:#bdad91; opacity:.78; cursor:pointer; }.spatial-panel .spatial-section-object.surface rect { fill:#74a398; }.spatial-panel .spatial-section-object.underground rect { fill:#8d82ab; }
 .spatial-panel .spatial-section-object:focus-visible rect { stroke:#153b32; stroke-width:2; }.spatial-panel .spatial-ground { fill:none; stroke:#236d5c; stroke-width:2.5; }
+.spatial-panel .spatial-section-object[aria-pressed="true"] rect { stroke:#153b32; stroke-width:2; opacity:1; }
 .spatial-panel .spatial-cutline { fill:none; stroke:#9b4942; stroke-width:1.8; stroke-linecap:round; pointer-events:none; }
 .spatial-panel .spatial-trace-status { color:#724e48; font-size:10px; background:#faf3ef; border-left:2px solid #b86e62; padding:6px 8px; margin:7px 0 12px; }
 .spatial-panel .spatial-chart-legend { display:flex; flex-wrap:wrap; align-items:center; gap:3px 8px; color:#68796e; font-size:10px; padding:0 5px; }

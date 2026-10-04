@@ -98,6 +98,32 @@ test("pending draft prevents city writes while no-data query retains unknown ele
   f.close();
 });
 
+test("section objects expose identity and selection, and keyboard activation never repeats", () => {
+  const focuses = [], prevented = [];
+  const f = fixture({ profile, section, onFocus: object => focuses.push(object.id) });
+  const svg = f.root.findByType("svg");
+  assert.equal(svg.props.role, "group");
+  const objects = () => f.root.findAll(node => node.type === "g" && node.props.role === "button");
+  assert.match(objects()[0].props["aria-label"], /House.*里程 10 m.*100 m 至 110 m/);
+  assert.match(objects()[1].props["aria-label"], /Duct.*地下设计地物.*模型包络 95 m 至 97 m/);
+  assert.deepEqual(objects().map(node => node.props["aria-pressed"]), [false, false]);
+  const key = (index, value, repeat = false) => act(() => objects()[index].props.onKeyDown({
+    key: value, repeat, preventDefault: () => prevented.push(value),
+  }));
+  key(0, "Enter");
+  assert.deepEqual(focuses, ["house"]);
+  assert.deepEqual(objects().map(node => node.props["aria-pressed"]), [true, false]);
+  key(1, " ");
+  assert.deepEqual(focuses, ["house", "duct"]);
+  assert.deepEqual(objects().map(node => node.props["aria-pressed"]), [false, true]);
+  key(1, " ", true); key(0, "Enter", true); key(0, "ArrowDown");
+  assert.deepEqual(focuses, ["house", "duct"]);
+  assert.deepEqual(prevented, ["Enter", " ", " ", "Enter"]);
+  act(() => objects()[0].props.onClick());
+  assert.deepEqual(focuses, ["house", "duct", "house"]);
+  f.close();
+});
+
 test("selecting a section building draws a model trace and labels its accuracy", () => {
   const origin = { longitude: -2.603, latitude: 51.454 };
   const frame = Transforms.eastNorthUpToFixedFrame(Cartesian3.fromDegrees(origin.longitude, origin.latitude));

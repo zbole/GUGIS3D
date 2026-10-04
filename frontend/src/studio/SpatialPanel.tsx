@@ -76,8 +76,8 @@ function ObjectSemantics({ city, object, component }: { city: CityDocument; obje
     <p>模型垂直包络：{metres(object.bottom, 2)} 至 {metres(object.top, 2)}。基点参考覆土：{metres(object.burialDepth, 2)}。</p>
   </div>;
 }
-function SectionChart({ profile, section, trace, focus }: { profile: PathAnalysis; section: SectionResult;
-  trace: SectionTrace | null; focus: Props["onFocus"] }) {
+function SectionChart({ profile, section, trace, focus, selected }: { profile: PathAnalysis; section: SectionResult;
+  trace: SectionTrace | null; focus: Props["onFocus"]; selected: SectionObject | null }) {
   const chart = useMemo(() => {
     const heights = profile.samples.flatMap(s => s.height === null ? [] : [s.height]);
     const relevant = section.objects.filter(o => o.bottom !== null && o.top !== null);
@@ -100,15 +100,19 @@ function SectionChart({ profile, section, trace, focus }: { profile: PathAnalysi
     return { x, y, d, cutPath, bottom, top, relevant };
   }, [profile, section, trace]);
   if (!chart) return <p className="spatial-muted">当前路线没有有效地形高程，不能绘制垂直剖面。</p>;
-  return <div className="spatial-section-chart"><svg viewBox="0 0 360 174" role="img" aria-label="原生地形与建筑、函数地物的纵向剖面带；矩形为模型包络估计">
+  return <div className="spatial-section-chart"><svg viewBox="0 0 360 174" role="group" aria-label="原生地形与建筑、函数地物的纵向剖面带；矩形为模型包络估计">
     {[0, .5, 1].map(f => { const z = chart.bottom + (chart.top - chart.bottom) * f; return <g key={f} className="spatial-grid"><line x1="40" x2="320" y1={chart.y(z)} y2={chart.y(z)} /><text x="36" y={chart.y(z) + 3} textAnchor="end">{z.toFixed(0)}</text></g>; })}
     {chart.relevant.slice(0, 160).map(item => {
       const x0 = Math.max(40, chart.x(item.station - item.radius));
       const x1 = Math.min(320, chart.x(item.station + item.radius));
+      const layer = item.layer === "underground" ? "地下设计地物" : item.layer === "building" ? "建筑模型" : "地上函数地物";
+      const label = `${item.name} · ${layer} · ${kindNames[item.kind] ?? item.kind} · 里程 ${metres(item.station)} · 模型包络 ${metres(item.bottom)} 至 ${metres(item.top)}`;
+      const active = selected?.id === item.id && selected.layer === item.layer;
       return <g key={`${item.layer}:${item.id}`} role="button" tabIndex={0}
+        aria-label={label} aria-pressed={active}
         className={`spatial-section-object ${item.layer}`}
-        onClick={() => focus(item)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); focus(item); } }}>
-        <title>{item.name} · {kindNames[item.kind] ?? item.kind} · 里程 {metres(item.station)} · 模型包络 {metres(item.bottom)} 至 {metres(item.top)}</title>
+        onClick={() => focus(item)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); if (!event.repeat) focus(item); } }}>
+        <title>{label}</title>
         <rect x={x0} y={chart.y(item.top!)} width={Math.max(3, x1 - x0)} height={Math.max(2, chart.y(item.bottom!) - chart.y(item.top!))} />
       </g>;
     })}
@@ -173,7 +177,7 @@ export default function SpatialPanel({ city, points, terrain, query, section, pr
           {!(section.clearances ?? []).length && <p>当前剖面带内未发现水平包络相交的地下与邻近模型。</p>}
           {(section.clearances?.length ?? 0) > 20 && <p>仅显示前 20 组；请缩小剖面带宽度查看局部。</p>}
         </details>}
-        <SectionChart profile={profile} section={section} trace={trace} focus={focus} />
+        <SectionChart profile={profile} section={section} trace={trace} focus={focus} selected={sectionChoice} />
         {sectionChoice && trace && <p className="spatial-trace-status" role="status">
           {trace.unavailable === "no-terrain" ? "未加载源地形，无法建立同一高程基准的模型交线。"
             : trace.unavailable === "no-source-height" ? "对象位置缺少源高程，无法绘制可靠的模型交线。"
