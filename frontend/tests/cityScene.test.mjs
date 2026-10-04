@@ -146,7 +146,7 @@ test("an empty overview renders real components and remains pickable when automa
   const batch = f.viewer.scene.primitives.values.find(p => p.getGeometryInstanceAttributes("building/wall"));
   assert.ok(batch, "an empty overview must fall back to the real component geometry");
   assert.equal(batch.getGeometryInstanceAttributes("building/wall").show[0], 1);
-  assert.match(JSON.stringify(f.renderer.toJSON()), /自动精细 · 1 栋 · 1 个构件/);
+  assert.match(JSON.stringify(f.renderer.toJSON()), /已加载构件模型 · 1 栋 · 1 个构件/);
   const count = viewState.primitives.length, flights = f.viewer.camera.flights.length;
   for (const fullDetails of [false, true]) {
     f.update({ fullDetails });
@@ -340,6 +340,49 @@ const detailedCity = {
 const fineBatch = (viewer, id) => viewer.scene.primitives.values.find(
   p => p.getGeometryInstanceAttributes(`${id}/window`),
 );
+test("LoD1 fallback bodies are not reported as loaded component models", async t => {
+  const sceneCity = { ...city, environment: undefined,
+    assets: { simple: { ...city.assets.simple, parameters: { ...city.assets.simple.parameters, kind: "footprint" } } } };
+  const source = JSON.stringify(sceneCity);
+  const f = fixture({ city: sceneCity });
+  t.after(() => f.close());
+  const count = viewState.primitives.length, flights = f.viewer.camera.flights.length;
+  const text = () => f.renderer.root.findByProps({ className: "lod-note" }).children.filter(child => typeof child === "string").join("");
+  assert.match(JSON.stringify(text()), /已加载构件模型 · 0 栋 · 0 个构件/);
+  assert.match(JSON.stringify(text()), /LoD1 轮廓 1 栋/);
+  for (const fullDetails of [false, true]) {
+    f.update({ fullDetails });
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 220)); });
+    assert.match(JSON.stringify(text()), /LoD1 轮廓 1 栋/);
+    assert.equal(viewState.primitives.length, count);
+  }
+  assert.equal(f.viewer.camera.flights.length, flights);
+  assert.equal(JSON.stringify(sceneCity), source);
+});
+test("resident LoD1 and component counts stay separate across detail loading and viewport eviction", async t => {
+  const footprint = { ...city.assets.simple, parameters: { kind: "footprint", scale: 1 } };
+  const sceneCity = { ...detailedCity, environment: undefined,
+    assets: { ...detailedCity.assets, fallback: city.assets.simple, footprint,
+      coarseFootprint: { ...footprint, overview: detailedCity.assets.simple.overview } },
+    instances: [...detailedCity.instances,
+      { ...city.instances[0], id: "fallback", asset: "fallback" },
+      { ...city.instances[0], id: "lod1", asset: "footprint" },
+      { ...city.instances[0], id: "coarse-lod1", asset: "coarseFootprint" }] };
+  const f = fixture({ city: sceneCity });
+  t.after(() => f.close());
+  await settleDetails(f.viewer);
+  act(() => f.viewer.scene.postRender.raiseEvent());
+  const text = () => f.renderer.root.findByProps({ className: "lod-note" }).children.filter(child => typeof child === "string").join("");
+  assert.match(text(), /已加载构件模型 · 8 栋 · 15 个构件/);
+  assert.match(text(), /LoD1 轮廓 2 栋/);
+  assert.match(text(), /已渲染 10 \/ 10 栋/);
+  f.viewer.camera.visible = false;
+  act(() => f.viewer.camera.moveEnd.raiseEvent());
+  await act(async () => { await new Promise(resolve => setTimeout(resolve, 220)); });
+  assert.match(text(), /已加载构件模型 · 0 栋 · 0 个构件/);
+  assert.doesNotMatch(text(), /LoD1 轮廓/);
+  assert.match(text(), /已渲染 0 \/ 10 栋/);
+});
 async function settleDetails(viewer) {
   for (let i = 0; i < 100; i++) {
     if (detailedCity.instances.every(item => fineBatch(viewer, item.id))) return;

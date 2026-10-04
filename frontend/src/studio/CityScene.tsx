@@ -189,7 +189,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
   const spatialClick = useRef({ spatialPicking, onSpatialPoint });
   spatialClick.current = { spatialPicking, onSpatialPoint };
   const lastStyle = useRef({ selected: null as string | null, colorMode });
-  const [detailProgress, setDetailProgress] = useState({ ready: 0, total: 0, components: 0 });
+  const [detailProgress, setDetailProgress] = useState({ ready: 0, total: 0, components: 0, footprints: 0 });
   colorModeRef.current = colorMode;
   const [error, setError] = useState(""),
     [distance, setDistance] = useState(0);
@@ -851,6 +851,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     const assetCounts = new Map(Object.values(city.assets).map(doc => [doc,
       doc.nodes.filter(node => node.template && node.position).length]));
     const componentCounts = new Map(city.instances.map(item => [item.id, assetCounts.get(city.assets[item.asset])!]));
+    const footprints = new Set(city.instances.filter(item => city.assets[item.asset].parameters.kind === "footprint").map(item => item.id));
     const byId = new Map(candidates.map(item => [item.id, item]));
     let active = true, timer: ReturnType<typeof setTimeout> | undefined;
     let cameraTimer: ReturnType<typeof setTimeout> | undefined;
@@ -858,19 +859,20 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     const reportReady = () => {
       if (!active || renderFailed.current) return;
       // Per-frame accounting is bounded by resident buildings, not city size.
-      const retained = [...coarseResidents.current].filter(id => permanent.has(id));
+      const retained = [...coarseResidents.current].filter(id => permanent.has(id) && !footprints.has(id));
+      const footprintCount = [...coarseResidents.current].filter(id => footprints.has(id)).length;
       let changed = false, ready = retained.length;
       let components = retained.reduce((sum, id) => sum + componentCounts.get(id)!, 0);
-      for (const detail of owned.values()) {
+      for (const [id, detail] of owned) {
         if (!detail.ready && detail.batch.ready) { detail.ready = true; changed = true; }
-        if (detail.ready) { ready++; components += detail.nodes.length; }
+        if (detail.ready && !footprints.has(id)) { ready++; components += detail.nodes.length; }
       }
       if (changed) highlight();
-      const total = retained.length + desired.size;
-      const signature = `${ready}/${total}/${components}`;
+      const total = retained.length + [...desired].filter(id => !footprints.has(id)).length;
+      const signature = `${ready}/${total}/${components}/${footprintCount}`;
       if (reported !== signature) {
         reported = signature;
-        setDetailProgress({ ready, total, components });
+        setDetailProgress({ ready, total, components, footprints: footprintCount });
       }
     };
     const off = v.scene.postRender.addEventListener(reportReady);
@@ -1339,11 +1341,15 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       <div className="camera-distance" role="status">
         视距 {distance.toLocaleString()} m · 缓速缩放
       </div>
-      <div className="lod-note" role="status">
-        {renderOnly ? "渲染包原始构件 · 不含编辑语义" : fullDetails ? detailProgress.ready < detailProgress.total
-          ? `精细结构加载中 · ${detailProgress.ready} / ${detailProgress.total} 栋`
-          : `自动精细 · ${detailProgress.ready} 栋 · ${detailProgress.components.toLocaleString()} 个构件 · 拉近自动加载`
-          : "轻量概览 · 可开启自动精细结构"}
+      <div className="lod-note" role="status" title="构件模型与 LoD1 轮廓分开统计；数量依据模型类型，不代表实测精度或内部已核验。">
+        {renderOnly ? "渲染包原始构件 · 不含编辑语义" : <>
+          {fullDetails ? detailProgress.ready < detailProgress.total
+            ? `构件加载中 · ${detailProgress.ready} / ${detailProgress.total} 栋`
+            : `已加载构件模型 · ${detailProgress.ready} 栋 · ${detailProgress.components.toLocaleString()} 个构件`
+            : "自动精细已关闭"}
+          {detailProgress.footprints > 0 && ` · LoD1 轮廓 ${detailProgress.footprints.toLocaleString()} 栋`}
+          {fullDetails && ` · 拉近自动加载`}
+        </>}
         {` · 已渲染 ${renderProgress.buildings.toLocaleString()} / ${city.instances.length.toLocaleString()} 栋 · 按视域与预算加载`}
         {topologyNotice && <div className="terrain-topology-notice">{topologyNotice}</div>}
       </div>
