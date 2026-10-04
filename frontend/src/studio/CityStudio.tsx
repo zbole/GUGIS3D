@@ -122,6 +122,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
   const [expandedScene, setExpandedScene] = useState(false);
   const [colorMode, setColorMode] = useState<BuildingColorMode>("material");
   const [fullDetails, setFullDetails] = useState(true);
+  const [showBuildings, setShowBuildings] = useState(true);
   const [sceneRevision, setSceneRevision] = useState(0);
   const [preview, setPreview] = useState<CityDraft | null>(null),
     [draftUnavailable, setDraftUnavailable] = useState(false),
@@ -1153,6 +1154,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
                 selected={active}
                 onSelect={select}
                 context={context}
+                showBuildings={showBuildings}
                 placement={
                   tab === "author"
                     ? draft
@@ -1251,13 +1253,18 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
               <ComponentLegend colorMode={colorMode} />
             </div>
             <div className="city-view-options">
+              <label title="同时控制地标、街区和选中建筑；关闭后释放建筑渲染资源，保留选择和视角，方便查看地形与地下结构。">
+                <input type="checkbox" checked={showBuildings} onChange={e => setShowBuildings(e.target.checked)} />
+                显示全部建筑
+              </label>
               <label>
                 <input
                   type="checkbox"
                   checked={context}
+                  disabled={!showBuildings}
                   onChange={(e) => setContext(e.target.checked)}
                 />
-                显示街区建筑
+                显示背景街区
               </label>
               <button
                 disabled={busy || !!preview || draftUnavailable || !history.length}

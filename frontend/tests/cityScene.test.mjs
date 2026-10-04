@@ -340,6 +340,44 @@ const detailedCity = {
 const fineBatch = (viewer, id) => viewer.scene.primitives.values.find(
   p => p.getGeometryInstanceAttributes(`${id}/window`),
 );
+
+test("bare terrain evicts selected landmarks and street buildings, preserves queries and restores selection without moving camera", async t => {
+  const sceneCity = { ...detailedCity, assets: { ...detailedCity.assets,
+    landmark: { ...city.assets.simple, parameters: { kind: "wills", scale: 1 } } },
+    instances: [...detailedCity.instances, { ...city.instances[0], asset: "landmark", id: "tower" }] };
+  const source = JSON.stringify(sceneCity), start = viewState.viewers.length;
+  let hit;
+  const f = fixture({ city: sceneCity, selected: "tower", queryTerrain: true, onTerrainQuery: value => { hit = value; } });
+  t.after(() => f.close());
+  await settleDetails(f.viewer);
+  const flights = f.viewer.camera.flights.length;
+  const surface = f.viewer.scene.primitives.values.find(p => p.getGeometryInstanceAttributes("terrain/ruled-strip"));
+  const isBuilding = p => (Array.isArray(p.options.geometryInstances) ? p.options.geometryInstances : [p.options.geometryInstances])
+    .some(i => typeof i?.id === "string" && (i.id.startsWith("building-") || i.id.startsWith("tower/")));
+  assert.ok(f.viewer.scene.primitives.values.some(isBuilding));
+  const environment = f.viewer.scene.primitives.values.filter(p => !isBuilding(p));
+  f.update({ showBuildings: false });
+  await act(async () => { await new Promise(resolve => setTimeout(resolve, 250)); });
+  assert.equal(f.viewer.scene.primitives.values.some(isBuilding), false, "the pinned landmark must also release geometry");
+  assert.ok(f.viewer.scene.primitives.values.includes(surface));
+  for (const batch of environment) assert.ok(f.viewer.scene.primitives.values.includes(batch));
+  assert.equal(f.viewer.entities.getById("landmark/tower").show, false);
+  assert.equal(f.viewer.entities.getById("tower/location-marker"), undefined);
+  assert.match(JSON.stringify(f.renderer.toJSON()), /已渲染 0 \/ 8 栋/);
+  const count = viewState.primitives.length;
+  act(() => f.viewer.camera.moveEnd.raiseEvent());
+  await act(async () => { await new Promise(resolve => setTimeout(resolve, 250)); });
+  assert.equal(viewState.primitives.length, count, "camera movement cannot restart hidden uploads");
+  act(() => viewState.handlers.at(-1).actions.get(ScreenSpaceEventType.LEFT_CLICK)({ position: {} }));
+  assert.ok(hit && Math.abs(hit.height - 20) < 1e-8);
+  f.update({ showBuildings: true });
+  await settleDetails(f.viewer);
+  assert.ok(f.viewer.scene.primitives.values.some(p => p.getGeometryInstanceAttributes("tower/wall")));
+  assert.ok(f.viewer.entities.getById("tower/location-marker"), "selection restores without reselecting");
+  assert.equal(viewState.viewers.length, start + 1);
+  assert.equal(f.viewer.camera.flights.length, flights);
+  assert.equal(JSON.stringify(sceneCity), source);
+});
 test("LoD1 fallback bodies are not reported as loaded component models", async t => {
   const sceneCity = { ...city, environment: undefined,
     assets: { simple: { ...city.assets.simple, parameters: { ...city.assets.simple.parameters, kind: "footprint" } } } };

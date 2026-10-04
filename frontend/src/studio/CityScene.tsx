@@ -76,6 +76,8 @@ interface Props {
   selected: string | null;
   onSelect: (id: string | null) => void;
   context: boolean;
+  /** Hide every building, including landmarks and selection, without changing the archive. */
+  showBuildings?: boolean;
   placement?: GeographicPosition & { altitude: number };
   placementKind?: "building" | "feature";
   placing?: boolean;
@@ -115,6 +117,8 @@ interface DetailedBuilding {
   nodes: SceneNode[];
   asset: string;
   context: boolean;
+  /** Hide every building, including landmarks and selection, without changing the archive. */
+  showBuildings?: boolean;
   ready: boolean;
   needsStyle: boolean;
 }
@@ -125,6 +129,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     selected,
     onSelect,
     context,
+    showBuildings = true,
     placement,
     placementKind = "building",
     placing = false,
@@ -167,6 +172,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     bounds = useRef<BoundingSphere>(),
     selection = useRef(selected),
     contextRef = useRef(context),
+    buildingsRef = useRef(showBuildings),
     pick = useRef(onSelect),
     placementClick = useRef({ placing, onPlace }),
     environmentClick = useRef({
@@ -218,6 +224,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
   sampleRef.current = sampler;
   selection.current = selected;
   contextRef.current = context;
+  buildingsRef.current = showBuildings;
   pick.current = onSelect;
   placementClick.current = { placing, onPlace };
   environmentClick.current = { queryTerrain, onTerrainQuery, onFeatureSelect };
@@ -340,14 +347,14 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
           Color.lerp(color, Color.WHITE, 0.16, color);
         attrs.color = ColorGeometryInstanceAttribute.toValue(color);
         attrs.show = ShowGeometryInstanceAttribute.toValue(
-          (contextRef.current || !["urban", "footprint"].includes(p.kind) || p.cityId === selection.current) &&
+          buildingsRef.current && (contextRef.current || !["urban", "footprint"].includes(p.kind) || p.cityId === selection.current) &&
           !(p.overview && detailedBuildings.current.get(p.cityId)?.ready),
         );
       }
     }
     for (const [id, detail] of detailedBuildings.current) {
       if (!detail.batch.ready) continue;
-      detail.batch.show = !detail.context || contextRef.current || id === selection.current;
+      detail.batch.show = buildingsRef.current && (!detail.context || contextRef.current || id === selection.current);
       if (!detail.needsStyle && lastStyle.current.colorMode === colorModeRef.current &&
         id !== selection.current && id !== lastStyle.current.selected) continue;
       for (const node of detail.nodes) {
@@ -433,7 +440,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
         return;
       }
       const buildingId = typeof id === "string" ? id.split("/")[0] : "";
-      pick.current(spheres.current.has(buildingId) ? buildingId : null);
+      pick.current(buildingsRef.current && spheres.current.has(buildingId) ? buildingId : null);
     }, ScreenSpaceEventType.LEFT_CLICK);
     // Avoid React state updates on every frame of a drag or wheel gesture.
     v.camera.percentageChanged = 0.01;
@@ -611,13 +618,13 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       if (!active || v!.isDestroyed() || renderFailed.current) return;
       const camera = v!.camera;
       const culling = camera.frustum.computeCullingVolume(camera.positionWC, camera.directionWC, camera.upWC);
-      const desired = chooseRenderBuildings(city.instances.map(item => {
+      const desired = buildingsRef.current ? chooseRenderBuildings(city.instances.map(item => {
         const doc = city.assets[item.asset], sphere = spheres.current.get(item.id)!;
         return { id: item.id, components: assetNodes.get(doc)!.length,
           distance: Math.max(0, Cartesian3.distance(camera.positionWC, sphere.center) - sphere.radius),
           visible: (contextRef.current || !["urban", "footprint"].includes(doc.parameters.kind)) &&
             culling.computeVisibility(sphere) !== Intersect.OUTSIDE };
-      }), coarseResidents.current, selection.current);
+      }), coarseResidents.current, selection.current) : new Set<string>();
       // Stable slots bound coarse draw batches as well as instances, regardless
       // of archive ordering. A small pan only rebuilds the changed batches.
       for (const id of slots.keys()) if (!desired.has(id)) slots.delete(id);
@@ -942,7 +949,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       if (timer !== undefined) clearTimeout(timer);
       const camera = v!.camera, canvas = v!.scene.canvas;
       const culling = camera.frustum.computeCullingVolume(camera.positionWC, camera.directionWC, camera.upWC);
-      desired = fullDetails ? chooseRenderDetails(candidates.filter(item => coarseResidents.current.has(item.id)).map(item => {
+      desired = fullDetails && buildingsRef.current ? chooseRenderDetails(candidates.filter(item => coarseResidents.current.has(item.id)).map(item => {
         const sphere = spheres.current.get(item.id)!;
         const pixelSize = camera.getPixelSize(sphere, Math.max(1, canvas.clientWidth), Math.max(1, canvas.clientHeight));
         return { id: item.id, components: componentCounts.get(item.id)!,
@@ -987,7 +994,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
   useEffect(() => {
     refreshCoarse.current?.();
     highlight();
-  }, [selected, context]);
+  }, [selected, context, showBuildings]);
   useEffect(() => highlight(), [colorMode]);
   useEffect(() => {
     const v = viewer.current;
@@ -1278,9 +1285,10 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     const item = city.instances.find((i) => i.id === selected);
     for (const instance of city.instances) {
       const label = v.entities.getById(`landmark/${instance.id}`);
-      if (label) label.show = instance.id !== selected || !!placement;
+      if (label) label.show = showBuildings && (instance.id !== selected || !!placement);
     }
-    const location = placement ?? item;
+    // Authored placement markers remain useful when inspecting bare terrain.
+    const location = placement ?? (showBuildings ? item : undefined);
     const selectedEnvironmentFeature = features?.find((f) => f.id === selectedFeature);
     if (placementKind === "feature" && !placing &&
         (!showFeatureMarkers || (selectedEnvironmentFeature && featureLayer !== "all" && selectedEnvironmentFeature.layer !== featureLayer))) return;
@@ -1344,6 +1352,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     placement?.latitude,
     placement?.altitude,
     showFeatureMarkers,
+    showBuildings,
     placing,
     features,
     selectedFeature,
