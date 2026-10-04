@@ -107,6 +107,76 @@ test("cancelling the DEM file picker neither generates terrain nor saves the cit
   f.close();
 });
 
+const terrainFixture = () => ({ id: "qa-terrain", name: "QA 合成地形", longitude: -2.603, latitude: 51.454,
+  reference_height: 0, vertical_datum: "local", demonstration: true, source: { 来源: "test-only" },
+  points: [[0,0,0], [10,0,1], [0,10,2], [10,10,3]],
+  patches: [{ id: "strip", kind: "ruled-strip", left: [0,1], right: [2,3] }] });
+
+test("DEM and demonstration generation create a preview without calling the formal environment save", async () => {
+  const imported = terrainFixture(), calls = [], previews = [];
+  const env = { ...emptyEnvironment(), feature_assets: { lamp: featurePresets.lamp }, features: [lamp("retained")] };
+  let saves = 0;
+  const f = fixture({ environment: env, initialSection: "terrain", save: async () => { saves++; return true; },
+    previewTerrain: async (terrain, label) => { previews.push({ terrain, label }); return true; },
+    api: { demoTerrain: async () => ({ terrain: imported }), importTerrain: async (...args) => { calls.push(args); return { terrain: imported }; } } });
+  await act(async () => button(f.root, "创建演示地形（非实测）").props.onClick());
+  assert.equal(saves, 0);
+  assert.equal(previews[0].terrain, imported);
+  assert.match(previews[0].label, /非实测.*预览/);
+  const chosen = { name: "sample.asc", size: 50 };
+  await act(async () => f.root.findByProps({ "aria-label": "选择 DEM 文件" }).props.onChange({ target: { files: [chosen] } }));
+  assert.deepEqual(calls[0], [chosen, "", "ODN", 10]);
+  assert.equal(saves, 0);
+  assert.equal(previews.length, 2);
+  assert.deepEqual(env.features, [lamp("retained")]);
+  assert.equal(env.terrain, undefined);
+  f.close();
+});
+
+test("overlapping terrain actions are coalesced and abandoning the panel prevents a late draft", async () => {
+  let resolve, requests = 0, previews = 0;
+  const pending = new Promise(yes => { resolve = yes; });
+  const f = fixture({ previewTerrain: async () => { previews++; return true; },
+    api: { demoTerrain: () => { requests++; return pending; } } });
+  const create = button(f.root, "创建演示地形（非实测）").props.onClick;
+  act(() => { create(); create(); });
+  assert.equal(requests, 1);
+  assert.match(text(f.root.findByProps({ role: "status" })), /独立预览草稿/);
+  f.close();
+  await act(async () => resolve({ terrain: terrainFixture() }));
+  assert.equal(previews, 0);
+});
+
+test("failed terrain conversion and oversized DEM cannot create a draft or save formal data", async () => {
+  let previews = 0, saves = 0, imports = 0;
+  const f = fixture({ save: async () => { saves++; return true; }, previewTerrain: async () => { previews++; return true; },
+    api: { demoTerrain: async () => { throw new Error("conversion failed"); }, importTerrain: async () => { imports++; throw new Error("unexpected"); } } });
+  await act(async () => button(f.root, "创建演示地形（非实测）").props.onClick());
+  assert.match(text(f.root.findByProps({ role: "alert" })), /conversion failed/);
+  await act(async () => f.root.findByProps({ "aria-label": "选择 DEM 文件" }).props.onChange({ target: { files: [{ size: 128*1024*1024 + 1 }] } }));
+  assert.match(text(f.root.findByProps({ role: "alert" })), /128 MiB/);
+  assert.equal(previews + saves + imports, 0);
+  f.close();
+});
+
+test("legacy fan conversion also stages a preview and draft views cannot download stale formal terrain", async () => {
+  const original = { ...terrainFixture(), patches: [{ id: "legacy", kind: "triangle-fan", center: 0, ring: [1,2,3] }] };
+  const converted = terrainFixture(), env = { ...emptyEnvironment(), terrain: original };
+  let staged, saves = 0;
+  const f = fixture({ environment: env, initialSection: "terrain", save: async () => { saves++; return true; },
+    previewTerrain: async (terrain, label) => { staged = { terrain, label }; return true; },
+    api: { upgradeLegacyTerrain: async () => ({ terrain: converted }), terrainMultipatchUrl: "formal-only" } });
+  await act(async () => button(f.root, "转换旧三角扇为三角带（保留原三角面）").props.onClick());
+  assert.equal(staged.terrain, converted);
+  assert.match(staged.label, /保留原三角面/);
+  assert.equal(saves, 0);
+  assert.equal(env.terrain, original);
+  f.update({ terrainIsDraft: true, busy: true, environment: { ...env, terrain: converted } });
+  assert.equal(f.root.findAllByType("a").filter(a => a.props.href === "formal-only").length, 0);
+  assert.match(text(f.root), /确认写入后可下载/);
+  f.close();
+});
+
 test("undo/reload refreshes the selected feature form even when its ID is unchanged", () => {
   const before = {
     ...emptyEnvironment(),

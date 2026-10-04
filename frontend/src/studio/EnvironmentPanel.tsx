@@ -7,6 +7,7 @@ import {
   terrainNames,
   type Environment,
   type FeatureAsset,
+  type Terrain,
 } from "./environment";
 import { terrainStatistics, type TerrainHit } from "./terrainMath";
 import * as legacyCityApi from "./cityApi";
@@ -52,6 +53,8 @@ export default function EnvironmentPanel({
   environment,
   busy,
   save,
+  previewTerrain,
+  terrainIsDraft = false,
   position,
   setPosition,
   placing,
@@ -76,6 +79,8 @@ export default function EnvironmentPanel({
   environment?: Environment;
   busy: boolean;
   save: (e: Environment, message: string) => Promise<boolean>;
+  previewTerrain?: (terrain: Terrain, label: string) => Promise<boolean>;
+  terrainIsDraft?: boolean;
   position: Position;
   setPosition: (p: Position) => void;
   placing: boolean;
@@ -133,6 +138,8 @@ export default function EnvironmentPanel({
   );
   const validation = useMemo(() => featureErrors(asset), [asset]);
   const disabled = busy || working;
+  const terrainOperation = useRef(false), mounted = useRef(false);
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
   useEffect(() => {
     onEditingChange(section === "features");
     return () => onEditingChange(false);
@@ -161,39 +168,45 @@ export default function EnvironmentPanel({
     if (selected) setSection("features");
   }, [selected]);
   async function terrainAction(chosen?: File) {
+    if (disabled || terrainOperation.current) return;
+    terrainOperation.current = true;
+    if (file.current) file.current.value = "";
     setWorking(true);
     setError("");
     try {
       if (chosen && chosen.size > 128 * 1024 * 1024)
         throw new Error("DEM 超过 128 MiB，请先裁剪");
+      if (chosen && (!Number.isInteger(stride) || stride < 1 || stride > 100))
+        throw new Error("采样步长必须为 1 至 100 的整数。");
+      if (!previewTerrain) throw new Error("当前工作区不支持独立地形预览，请重新打开城市工作台。");
       const r = chosen
         ? await importTerrain(chosen, crs, datum, stride)
         : await demoTerrain();
-      if (
-        await save(
-          { ...env, terrain: r.terrain },
-          chosen ? "DEM 已转换为 GUGIS 地形" : "已加入非实测演示地形",
-        )
-      )
+      if (!mounted.current) return;
+      if (await previewTerrain(r.terrain, chosen ? "DEM 地形预览" : "非实测演示地形预览"))
         setQuery(false);
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      if (mounted.current) setError(e instanceof Error ? e.message : String(e));
     } finally {
-      setWorking(false);
-      if (file.current) file.current.value = "";
+      terrainOperation.current = false;
+      if (mounted.current) setWorking(false);
     }
   }
   async function convertLegacyTerrain() {
-    if (!terrain || disabled) return;
+    if (!terrain || disabled || terrainOperation.current) return;
+    terrainOperation.current = true;
     setWorking(true);
     setError("");
     try {
+      if (!previewTerrain) throw new Error("当前工作区不支持独立地形预览，请重新打开城市工作台。");
       const result = await upgradeLegacyTerrain(terrain);
-      await save({ ...env, terrain: result.terrain }, "已将旧三角扇按原三角面转换为三角带");
+      if (!mounted.current) return;
+      await previewTerrain(result.terrain, "旧三角扇转换为三角带预览（保留原三角面）");
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      if (mounted.current) setError(e instanceof Error ? e.message : String(e));
     } finally {
-      setWorking(false);
+      terrainOperation.current = false;
+      if (mounted.current) setWorking(false);
     }
   }
   async function storeFeature() {
@@ -343,6 +356,7 @@ export default function EnvironmentPanel({
             <p className="muted">
               本阶段使用直纹面带和三角带：平缓区域保留连续曲面，较大起伏用三角带。原生结构与高程基准保存在城市文件中。
             </p>
+            <p className="form-note">生成、导入或转换地形先创建独立草稿。在场景中检查后，点击上方“确认写入”才替换正式地形；丢弃草稿可返回原项目。</p>
             <button
               className="full"
               disabled={disabled}
@@ -416,7 +430,7 @@ export default function EnvironmentPanel({
                 }}
               />
             </details>
-            {working && <p role="status">正在转换地形并保存…</p>}
+            {working && <p role="status">正在转换地形并创建独立预览草稿…</p>}
             {terrain && stats && (
               <>
                 <h3>{terrain.name}</h3>
@@ -449,9 +463,9 @@ export default function EnvironmentPanel({
                 </dl>
                 {stats.count["triangle-fan"] > 0 && <button className="full" disabled={disabled}
                   onClick={() => void convertLegacyTerrain()}>转换旧三角扇为三角带（保留原三角面）</button>}
-                <a className="button-link full" href={terrainMultipatchUrl} download>
+                {terrainIsDraft ? <p className="form-note">当前地形属于独立草稿；确认写入后可下载对应的 MultiPatch 对照数据。</p> : <a className="button-link full" href={terrainMultipatchUrl} download>
                   下载 ArcGIS Pro 对照数据 · MultiPatch 三角带
-                </a>
+                </a>}
                 <p className="muted">
                   相对同一控制网的独立三角索引，拓扑索引容量减少{" "}
                   {stats.indexSaving.toFixed(1)}%（Uint32
