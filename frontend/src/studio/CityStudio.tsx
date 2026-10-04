@@ -128,6 +128,8 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     [needsRegenerate, setNeedsRegenerate] = useState(false),
     [recovery, setRecovery] = useState(false);
   const displayCity = preview?.document ?? city;
+  const verifiedCityExport = /^[0-9a-f]{64}$/.test(revision)
+    ? `${cityExportUrl}?snapshot=${encodeURIComponent(revision)}` : undefined;
   const [analysisPoints, setAnalysisPoints] = useState<AnalysisPoint[]>([]);
   const [analysisDrawing, setAnalysisDrawing] = useState(false);
   const [analysisHover, setAnalysisHover] = useState<AnalysisPoint | null>(null);
@@ -826,10 +828,15 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
             导入城市 / 建筑
           </button>
           <a
-            className={`button-link primary ${busy ? "disabled" : ""}`}
-            href={cityExportUrl}
+            className={`button-link primary ${busy || !verifiedCityExport ? "disabled" : ""}`}
+            href={verifiedCityExport}
+            aria-disabled={busy || !verifiedCityExport}
+            title={verifiedCityExport ? `导出当前显示的正式修订 ${revision.slice(0, 12)}；不包含草稿。历史缺失时拒绝替换为最新城市。` : "正式修订未核验，暂不可导出"}
             download
-            onClick={() => setNotice("已请求导出正式城市，请确认浏览器下载完成；本地项目仍可继续编辑")}
+            onClick={event => {
+              if (busy || !verifiedCityExport) { event.preventDefault(); return; }
+              setNotice(`已请求导出正式修订 ${revision.slice(0, 12)}，不含草稿；请确认浏览器下载完成`);
+            }}
           >
             <Download size={16} />
             导出整个城市

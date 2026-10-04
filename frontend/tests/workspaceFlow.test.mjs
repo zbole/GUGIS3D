@@ -392,6 +392,7 @@ test("generate previews a separate durable draft, and only confirmation writes t
   assert.equal(stages, 1);
   assert.equal(saved.instances.length, 1);
   assert.equal(globalThis.workspaceScene.city.instances.length, 2);
+  assert.equal(f.root.findAllByType("a").find(n => text(n) === "导出整个城市").props.href, `test-export?snapshot=${"a".repeat(64)}`);
   assert.match(text(f.root.findByProps({ "aria-label": "当前场景数据统计" })), /草稿场景 · 2 栋建筑.*2 栋构件模型/);
   assert.match(text(f.root.findByProps({ "aria-label": "正式城市档案统计" })), /正式档案 · 未含草稿1 建筑实例/);
   assert.match(
@@ -404,6 +405,7 @@ test("generate previews a separate durable draft, and only confirmation writes t
   assert.equal(saved.instances.length, 2);
   assert.equal(pending, null);
   assert.match(text(f.root.findByProps({ "aria-label": "当前场景数据统计" })), /正式场景 · 2 栋建筑/);
+  assert.equal(f.root.findAllByType("a").find(n => text(n) === "导出整个城市").props.href, `test-export?snapshot=${"b".repeat(64)}`);
   assert.match(text(f.root.findByProps({ "aria-label": "正式城市档案统计" })), /正式档案2 建筑实例/);
   f.close();
 });
@@ -440,6 +442,22 @@ test("restored preview statistics and project name describe the scene while arch
   assert.equal(text(f.root.findByType("h1")), "Test city");
   assert.match(text(f.root.findByProps({ "aria-label": "当前场景数据统计" })), /正式场景 · 1 栋建筑.*1 栋构件模型.*0 条道路/);
   assert.equal(writes, 0);
+});
+
+test("unknown or malformed formal revisions cannot trigger a city export", async t => {
+  const first = await mount(); first.close();
+  for (const value of ["", "unknown", "A".repeat(64), "a".repeat(63)]) {
+    revision = value;
+    const f = await mount(false);
+    const link = f.root.findAllByType("a").find(n => text(n) === "导出整个城市");
+    assert.equal(link.props.href, undefined);
+    assert.equal(link.props["aria-disabled"], true);
+    let prevented = 0;
+    act(() => link.props.onClick({ preventDefault: () => prevented++ }));
+    assert.equal(prevented, 1);
+    assert.equal(writes, 0);
+    f.close();
+  }
 });
 test("reloaded building preview restores editor and regenerates the same instance", async () => {
   const first = await mount();
@@ -631,9 +649,9 @@ test("path drawing and clearing are read-only previews, including without terrai
 test("requesting an export does not claim that the browser download already succeeded", async () => {
   const f = await mount();
   try {
-    const download = f.root.findAllByType("a").find(node => node.props.href === "test-export");
+    const download = f.root.findAllByType("a").find(node => node.props.href === `test-export?snapshot=${revision}`);
     act(() => download.props.onClick());
-    assert.match(text(f.root), /已请求导出正式城市，请确认浏览器下载完成/);
+    assert.match(text(f.root), /已请求导出正式修订 aaaaaaaaaaaa，不含草稿；请确认浏览器下载完成/);
     assert.doesNotMatch(text(f.root), /整座城市已导出/);
     assert.equal(writes, 0);
     assert.equal(stages, 0);

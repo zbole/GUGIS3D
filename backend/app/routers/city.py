@@ -167,14 +167,29 @@ def validate_city_response(document):
 
 
 @router.get("/export")
-def export():
+def export(snapshot: str | None = Query(default=None, pattern=r'^[0-9a-f]{64}$')):
     with lock:
         content,_=read_current()
         digest=revision(content)
-    # Serve the exact validated formal snapshot, not an unchecked history file.
+        if snapshot and snapshot != digest:
+            path = current_directory() / 'versions' / f'{snapshot}.gugis.json'
+            if not path.is_file():
+                raise HTTPException(404, '显示修订的历史档案不存在；未用最新城市替代，请重新载入后核对')
+            content = path.read_bytes()
+            if revision(content) != snapshot:
+                raise HTTPException(409, '历史档案校验失败；未导出，也未替换为最新城市')
+            try:
+                load_city(content)
+            except (ValidationError, ValueError) as error:
+                raise HTTPException(409, '历史档案结构无效；未导出，也未修改城市数据') from error
+            digest = snapshot
+    name = f'{city_workspaces.ACTIVE_CITY.get()}-city'
+    if snapshot:
+        name += f'-{digest[:12]}'
+    # Serve the exact validated current or requested historical formal snapshot.
     # Immutable response bytes also remain consistent if another request saves.
     return Response(content, media_type="application/json", headers={
-        'Content-Disposition': f'attachment; filename="{city_workspaces.ACTIVE_CITY.get()}-city.gugis.json"',
+        'Content-Disposition': f'attachment; filename="{name}.gugis.json"',
         'X-GUGIS-City-Revision': digest,
     })
 

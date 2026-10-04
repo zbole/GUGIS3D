@@ -38,6 +38,50 @@ class CitySnapshotIntegrityTests(unittest.TestCase):
         path.write_bytes(b'{corrupt history snapshot')
         return path
 
+    def test_revision_bound_export_keeps_displayed_history_when_another_window_saves(self):
+        result = self.client.post('/city/current', json={
+            'base_revision': self.start['revision'], 'document': {**self.start['document'], 'name': 'Another window'},
+        })
+        self.assertEqual(result.status_code, 200, result.text)
+        current = (city.CITY_DIR / 'current.gugis.json').read_bytes()
+        files = {path: path.read_bytes() for path in city.CITY_DIR.rglob('*.gugis.json')}
+        response = self.client.get('/city/export', params={'snapshot': self.start['revision']})
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(response.content, self.formal)
+        self.assertEqual(response.headers['x-gugis-city-revision'], self.start['revision'])
+        self.assertIn(self.start['revision'][:12], response.headers['content-disposition'])
+        self.assertEqual(self.client.get('/city/export').content, current, 'Unbound API remains compatible')
+        self.assertEqual({path: path.read_bytes() for path in city.CITY_DIR.rglob('*.gugis.json')}, files)
+
+    def test_missing_or_damaged_requested_history_never_falls_back_to_current(self):
+        unknown = 'f' * 64
+        response = self.client.get('/city/export', params={'snapshot': unknown})
+        self.assertEqual(response.status_code, 404)
+        damaged = self.corrupt_snapshot(unknown)
+        response = self.client.get('/city/export', params={'snapshot': unknown})
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(damaged.read_bytes(), b'{corrupt history snapshot')
+        self.assertEqual((city.CITY_DIR / 'current.gugis.json').read_bytes(), self.formal)
+
+    def test_history_with_matching_hash_but_invalid_document_is_rejected_without_repair(self):
+        content = b'{"not":"a city"}'
+        digest = city.revision(content)
+        path = city.CITY_DIR / 'versions' / f'{digest}.gugis.json'
+        path.parent.mkdir(exist_ok=True)
+        path.write_bytes(content)
+        response = self.client.get('/city/export', params={'snapshot': digest})
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(path.read_bytes(), content)
+        self.assertEqual((city.CITY_DIR / 'current.gugis.json').read_bytes(), self.formal)
+
+    def test_current_bound_export_uses_verified_formal_bytes_and_rejects_bad_revision_syntax(self):
+        response = self.client.get('/city/export', params={'snapshot': self.start['revision']})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, self.formal)
+        for value in ['../current', 'F' * 64, 'a' * 63, 'not-a-sha256']:
+            self.assertEqual(self.client.get('/city/export', params={'snapshot': value}).status_code, 422)
+        self.assertFalse((city.CITY_DIR / 'versions').exists())
+
     def test_export_uses_verified_formal_bytes_even_when_same_named_history_is_corrupt(self):
         damaged = self.corrupt_snapshot(self.start['revision'])
         response = self.client.get('/city/export')

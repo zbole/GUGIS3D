@@ -200,6 +200,13 @@ class IndependentCityWorkspacesTests(unittest.TestCase):
             self.assertEqual(response.status_code, 200, response.text)
             self.assertEqual(city.revision(response.content), result['revision'])
             self.assertIn(city_id + '-city.gugis.json', response.headers['Content-Disposition'])
+            bound = self.client.get(f'/cities/{city_id}/city/export', params={'snapshot': result['revision']})
+            self.assertEqual(bound.status_code, 200, bound.text)
+            self.assertEqual(bound.content, response.content)
+            self.assertEqual(bound.headers['X-GUGIS-City-Revision'], result['revision'])
+            self.assertIn(f"{city_id}-city-{result['revision'][:12]}.gugis.json", bound.headers['Content-Disposition'])
+            self.assertEqual(self.client.get('/city/export', params={'snapshot': result['revision']}).status_code, 404,
+                             'Another city cannot borrow this workspace snapshot')
         self.assertEqual(self.client.get('/city/export').content, self.bristol_bytes)
 
     def test_dem_import_gets_selected_workspace_bounds(self):
