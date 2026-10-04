@@ -21,7 +21,8 @@ import { useProjectFreshness, type ProjectFreshness } from "./useProjectFreshnes
 import { cityWorkspaceHref, defaultCityWorkspace, type CityWorkspace } from "../studio/cityWorkspaces";
 import type { CityApi } from "../studio/cityApi";
 const ImplicitTerrainBenchmark = lazy(() => import('./ImplicitTerrainBenchmark'));
-const researchSection = <Suspense fallback={<p role="status">正在载入真实地形研究基准…</p>}><ImplicitTerrainBenchmark /></Suspense>;
+const HybridTerrainLab = lazy(() => import('./HybridTerrainLab'));
+const researchSection = <><Suspense fallback={<p role="status">正在载入真实地形研究基准…</p>}><ImplicitTerrainBenchmark /></Suspense><Suspense fallback={<p role="status">正在载入混合逼近研究…</p>}><HybridTerrainLab /></Suspense></>;
 import "./compare.css";
 
 const sources = {
@@ -225,7 +226,7 @@ function BristolComparison({ api }: { api?: CityApi }) {
     <div className="compare-page">
       <header className="cmp-header">
         <a href="/" className="cmp-logo" aria-label="返回 GUGIS3D 城市工作台"><span className="cmp-logo-mark">G<span>3</span></span><span>GUGIS<em>3D</em></span></a>
-        <nav aria-label="对比展示导航"><a href="#comparison-overview">结果总览</a><a href="#implicit-terrain">论文同源实测</a><a href="#terrain-benchmark">地形结构</a><a href="#terrain-lab">精度与查询</a><a href="#derivative-title">坡度分析</a><a href="#evidence">城市实测</a><a href="#comparison">功能对照</a><a href="#method">实验边界</a></nav>
+        <nav aria-label="对比展示导航"><a href="#comparison-overview">结果总览</a><a href="#implicit-terrain">论文同源实测</a><a href="#hybrid-terrain-lab">混合逼近</a><a href="#terrain-benchmark">地形结构</a><a href="#terrain-lab">精度与查询</a><a href="#derivative-title">坡度分析</a><a href="#evidence">城市实测</a><a href="#comparison">功能对照</a><a href="#method">实验边界</a></nav>
         <a href="/" className="cmp-header-action">进入三维工作台 <ArrowUpRight size={16}/></a>
       </header>
       <main>

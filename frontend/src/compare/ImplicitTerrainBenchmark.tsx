@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import report from '../../../shared/implicit-terrain-benchmark.json';
 import offgrid from '../../../shared/implicit-terrain-offgrid.json';
 import indexReport from '../../../shared/terrain-index-benchmark.json';
+import packing from '../../../shared/implicit-terrain-packing.json';
+import joined from '../../../shared/implicit-terrain-joined.json';
 import './implicitTerrainBenchmark.css';
 
 const median = (values: number[]) => [...values].sort((a, b) => a-b)[Math.floor(values.length/2)];
@@ -13,14 +15,16 @@ export default function ImplicitTerrainBenchmark() {
   useEffect(() => {
     // This section is lazy loaded, after the browser's initial hash scroll.
     if (typeof window === 'undefined') return;
-    const id = window.location.hash.slice(1);
-    if (!['implicit-terrain','offgrid-audit','native-index-audit'].includes(id)) return;
+    const id = window.location?.hash?.slice(1) ?? '';
+    if (!['implicit-terrain','offgrid-audit','native-index-audit','research-format-audit'].includes(id)) return;
     const frame = window.requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
     return () => window.cancelAnimationFrame(frame);
   }, []);
   const selected = report.variants.find(v => v.stride_m === stride)!;
   const selectedOffgrid = offgrid.variants.find(v => v.stride_m === stride)!;
   const selectedIndex = indexReport.reports.find(v => v.stride_m === stride)!;
+  const selectedPacking = packing.variants.find(v => v.stride_m === stride)!;
+  const selectedJoined = joined.variants.find(v => v.stride_m === stride)!;
   const spg = report.spg;
   const saving = (1-selected.bytes/spg.bytes)*100;
   const points = [...report.variants.map(v => ({ ...v, color: '#227a6b', label: `${v.stride_m} m` })),
@@ -98,10 +102,23 @@ export default function ImplicitTerrainBenchmark() {
       <p className="research-offgrid-limit">更细的索引会增加内存和构建开销，低密度控制网不一定更快。留存数据堆在强制垃圾回收后计量，仅包含索引增量；不代表 GPU 或浏览器内存。射线拾取未变更；此处仅比较 GUGIS 自身版本，不是 ArcGIS 或 SPG 的速度结果。</p>
       <div className="research-downloads"><a href="/research/implicit-terrain/terrain-index-benchmark.json" download>下载逐次计时与一致性哈希 ↓</a></div>
     </section>
-    <div className="research-format-result" aria-live="polite"><h3>同一控制网，导出 ArcGIS 可读的三角带文件。</h3>
-      <p>当前 {stride} m 档：GUGIS <strong>{mb(selected.bytes)} MB</strong>；MultiPatch Shapefile 五个组件共 <strong>{mb(selected.multipatch.bytes)} MB</strong>，原生档案文件小 <strong>{selected.multipatch.native_file_saving_percent.toFixed(1)}%</strong>。</p>
+    <div id="research-format-audit" className="research-format-result" aria-live="polite"><h3>同一控制网，导出 ArcGIS 可读的三角带文件。</h3>
+      <p>当前 {stride} m 档：GUGIS <strong>{mb(selected.bytes)} MB</strong>；进一步合并相邻三角带后的单要素 XYZ Shapefile 为 <strong>{mb(selectedJoined.geometry_only_bytes)} MB</strong>。原生 JSON 相比这一紧凑几何基线<strong>{selectedJoined.native_saving_percent>=0 ? '小' : '大'} {Math.abs(selectedJoined.native_saving_percent).toFixed(1)}%</strong>；不能沿用原分组方式的文件节省百分比。</p>
+      <div className="research-table-scroll"><table><caption>改变要素分组，优势仍然成立吗？ · 同一 XYZ 三角带</caption>
+        <thead><tr><th>保存方式</th><th>未压缩文件</th><th>保留的内容</th></tr></thead><tbody>
+          <tr><th>GUGIS 原生档案</th><td>{mb(selected.bytes)} MB</td><td>控制点、原生面带、共享索引与元数据</td></tr>
+          <tr><th>MultiPatch · 每面片一个要素</th><td>{mb(selectedPacking.per_patch_bytes)} MB</td><td>五个组件，DBF 保留面片 ID 与原类型；原基线</td></tr>
+          <tr><th>MultiPatch · 单要素紧凑 XYZ</th><td>{mb(selectedPacking.geometry_only_bytes)} MB</td><td>五个组件，完整 XYZ 与三角带；不保留逐面片属性</td></tr>
+          <tr><th>紧凑 XYZ + 面片属性映射</th><td>{mb(selectedPacking.with_patch_metadata_bytes)} MB</td><td>另计 JSON 映射，保留面片 ID、原类型和来源元数据</td></tr>
+          <tr><th>单要素 XYZ · 合并相邻三角带</th><td>{mb(selectedJoined.geometry_only_bytes)} MB</td><td>相同有向三角形；共享带端点，进一步减少重复坐标</td></tr>
+          <tr><th>合并三角带 + 两份属性映射</th><td>{mb(selectedJoined.with_patch_metadata_bytes)} MB</td><td>另计原面片属性及合并位置映射；不是原生拓扑恢复</td></tr>
+        </tbody></table></div>
+      <p>紧凑版合并记录，并按 <a href={packing.specification} target="_blank" rel="noreferrer">Esri 格式规范</a>省略未使用的可选 M 度量值。全部六档的三角带顺序、部件类型与 XYZ 哈希一致；8 m 和 16 m 另做百万像元读回，高程差为零。映射不能恢复共享控制点 ID 或离散前的直纹面，不宣称无损回到原生档案。</p>
+      <p>进一步将兼容的相邻三角带从 {selectedJoined.before_parts.toLocaleString()} 个部件合并为 {selectedJoined.after_parts.toLocaleString()} 个，全部六档有向三角形集合哈希一致，8 m / 16 m 读回高程仍完全相同。这一结果提示：需要优化原生面带的组织，再在相同误差和完整成本下比较，不能把文件格式选择直接当作方法优势。</p>
       <p>将实际 .shp 读回后，相对同一 DEM 的 RMSE 为 <strong>{cm(selected.multipatch.metrics.rmse_m)} cm</strong>；三角带离散相对原生面带的高程 RMSE 为 <strong>{cm(selected.multipatch.native_discretization_rmse_m)} cm</strong>、最大差 <strong>{cm(selected.multipatch.native_discretization_max_m)} cm</strong>。原三角带保留，直纹面带每个区段离散一次。</p>
       <p>这是格式与数值对照：EPSG:2056，实际 {selected.multipatch.parts.toLocaleString()} 个 Triangle Strip 部件；未运行 ArcGIS Pro，不据此推断其内存、帧率或查询速度。</p>
+      <div className="research-downloads"><a href="/research/implicit-terrain/packing-results.json" download>下载分组方式审计 ↓</a><a href="/research/implicit-terrain/terrain-8m-packed.zip" download>下载 8 m 紧凑对照包 ↓</a><a href="/research/implicit-terrain/terrain-16m-packed.zip" download>下载 16 m 紧凑对照包 ↓</a></div>
+      <div className="research-downloads"><a href="/research/implicit-terrain/joined-results.json" download>下载相邻带合并审计 ↓</a><a href="/research/implicit-terrain/terrain-8m-joined.zip" download>下载 8 m 合并带基线 ↓</a><a href="/research/implicit-terrain/terrain-16m-joined.zip" download>下载 16 m 合并带基线 ↓</a></div>
     </div>
     <details className="research-method"><summary>实验方法、来源与尚未完成的指标</summary>
       <p><strong>来源：</strong><a href={report.sources.paper} target="_blank" rel="noreferrer">CVPR 2024 Workshop INRV 论文</a> · <a href={`${report.sources.repository}/tree/${report.dataset.reference_repo_revision}`} target="_blank" rel="noreferrer">锁定作者代码版本</a>。此处使用公开示例权重，不是重新训练或论文全部数据集复现。</p>

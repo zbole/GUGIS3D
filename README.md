@@ -1,5 +1,7 @@
 # GUGIS3D 本地城市工作台
 
+新增：[有限尺度直纹面与三角面混合研究](docs/finite_scale_hybrid_terrain.md)，七类地形、四档误差目标、56 份可下载原生模型，含误差核验、实际拓扑图、可旋转三维视图与点击查询。入口：http://127.0.0.1:5173/compare#hybrid-terrain-lab 。结果同时公开优势、无优势和未达标档位；同候选族对照不等于 ArcGIS 软件跑分或近最优证明。
+
 2026-10-04 最新：[ImplicitTerrain 论文同源评测](docs/implicit_terrain_benchmark.md)提供六档 GUGIS 精度与体积、SPG 本机复现、误差图及真实 Shapefile 下载。扩展原有城市并加入曼彻斯特、爱丁堡、卡迪夫，六城本机合计 34,851 栋，均为局部样本。[结果、来源与扩城说明](docs/updates_2026-10-04_terrain_cities.md)。对比入口：http://127.0.0.1:5173/compare#implicit-terrain 。
 
 此前接入 `f05392d` 新版 23 个提交，增加城市入口、只读分块、加载配置、建筑检索、视角链接与候选审阅。[此前更新与验证记录](docs/updates_2026-10-04.md)。布里斯托扩展后正式项目为 10,908 栋，其只读缓存使用公开种子 10,907 栋，两个修订明确区分；原正式修订与 40 个已有历史版本保留。

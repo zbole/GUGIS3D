@@ -1,0 +1,339 @@
+{
+  "schema": "gugis-multipatch-packing-benchmark-v1",
+  "parent_report_sha256": "623c7d32ab8f3a22b34d45b94a13a247a17c492daf254a29abf8b089f7d10450",
+  "source_sha256": "a7d90ba9b42712624d82cdfb3b7beae2ef7a2493f88d16846dea82fd8d1bc30d",
+  "specification": "https://www.esri.com/library/whitepapers/pdfs/shapefile.pdf",
+  "method": "Same ordered Triangle Strip XYZ parts. Compare per-patch records (original) vs one terrain feature with absent optional M removed. Report five file components separately from an optional patch-ID/kind/metadata sidecar. Exact ordered geometry hashes all variants; independent million-pixel raster readback at 8m/16m. No ArcGIS execution.",
+  "variants": [
+    {
+      "id": "gugis-2m",
+      "stride_m": 2,
+      "native_sha256": "e0161b130898f97efa67af60753c9c334fb89c2fc5cee28f8dcb6026f8dec22e",
+      "native_bytes": 17897434,
+      "per_patch_bytes": 41987726,
+      "geometry_only_bytes": 20060131,
+      "patch_metadata_bytes": 4489774,
+      "with_patch_metadata_bytes": 24549905,
+      "geometry_only_native_saving_percent": 10.781071170472412,
+      "with_patch_metadata_native_saving_percent": 27.097746406757995,
+      "absent_measure_bytes_removed": 6302672,
+      "original": {
+        "parts": 143916,
+        "vertices": 787832,
+        "records": 125000,
+        "xyz_parts_sha256": "30cd0d80ce45b8f102c5907d63e7041ca21d2aa4c019c8d08ee19320064adc9d"
+      },
+      "packed": {
+        "parts": 143916,
+        "vertices": 787832,
+        "records": 1,
+        "xyz_parts_sha256": "30cd0d80ce45b8f102c5907d63e7041ca21d2aa4c019c8d08ee19320064adc9d"
+      },
+      "readback_vs_per_patch_max_m": null,
+      "components": [
+        {
+          "filename": "terrain.shp",
+          "bytes": 20059464,
+          "sha256": "6d2d2aab99c5a364e093b7cbfc50a09f776fb1a31e5bea9402071816a0795258"
+        },
+        {
+          "filename": "terrain.shx",
+          "bytes": 108,
+          "sha256": "0cea9f9804eb7f1c792e3073d4163241875228e9301f7422f32e2ea5ff80daf7"
+        },
+        {
+          "filename": "terrain.dbf",
+          "bytes": 82,
+          "sha256": "d2a21d180fcee01d7f29f86ad8b0f9b1155c7a8b813aa5a4351fe6b62d0a241e"
+        },
+        {
+          "filename": "terrain.prj",
+          "bytes": 470,
+          "sha256": "b271ff23e1a8e8f65f1afb9d4f5f396a71813b1bcba738ae97231e37e609016d"
+        },
+        {
+          "filename": "terrain.cpg",
+          "bytes": 7,
+          "sha256": "be84ffea9cfc49172ddf1c2102bd8d4148efa3b9ed3e3fd4a7cdb266349c2d7e"
+        }
+      ],
+      "sidecar_sha256": "e28e46b1575c5b810f20b4ecd77e48d4972bc98912768627e2c2adcd9a1cb144",
+      "arcgis_execution": null
+    },
+    {
+      "id": "gugis-4m",
+      "stride_m": 4,
+      "native_sha256": "fa918dd3422399b04509759625a5cf74d111a5fddd85ebe5d945c51427beb578",
+      "native_bytes": 4328374,
+      "per_patch_bytes": 10479296,
+      "geometry_only_bytes": 5001491,
+      "patch_metadata_bytes": 1092553,
+      "with_patch_metadata_bytes": 6094044,
+      "geometry_only_native_saving_percent": 13.458326726970016,
+      "with_patch_metadata_native_saving_percent": 28.97369956633067,
+      "absent_measure_bytes_removed": 1571632,
+      "original": {
+        "parts": 35726,
+        "vertices": 196452,
+        "records": 31250,
+        "xyz_parts_sha256": "f2189f0205dc93ac501a244c29517084256c1132c09a963f66b86284abc73579"
+      },
+      "packed": {
+        "parts": 35726,
+        "vertices": 196452,
+        "records": 1,
+        "xyz_parts_sha256": "f2189f0205dc93ac501a244c29517084256c1132c09a963f66b86284abc73579"
+      },
+      "readback_vs_per_patch_max_m": null,
+      "components": [
+        {
+          "filename": "terrain.shp",
+          "bytes": 5000824,
+          "sha256": "2c98a5d40a13a64cc8240c298062b06eeb23add8cbad487be90027ce9f44384c"
+        },
+        {
+          "filename": "terrain.shx",
+          "bytes": 108,
+          "sha256": "fefb4824878d12794c09c2e7b158f19bd871777a15463b0763abeec08a9a62f8"
+        },
+        {
+          "filename": "terrain.dbf",
+          "bytes": 82,
+          "sha256": "34139b4a524853afd69ba779c48ca694024ca3885be104d7a414e73aa0a7ebbd"
+        },
+        {
+          "filename": "terrain.prj",
+          "bytes": 470,
+          "sha256": "b271ff23e1a8e8f65f1afb9d4f5f396a71813b1bcba738ae97231e37e609016d"
+        },
+        {
+          "filename": "terrain.cpg",
+          "bytes": 7,
+          "sha256": "be84ffea9cfc49172ddf1c2102bd8d4148efa3b9ed3e3fd4a7cdb266349c2d7e"
+        }
+      ],
+      "sidecar_sha256": "30cc8ea2c9b5f874b5820d6faa7d5062300c7a32f8e922d1c68454ca803d36bd",
+      "arcgis_execution": null
+    },
+    {
+      "id": "gugis-8m",
+      "stride_m": 8,
+      "native_sha256": "9df359da24fb2421cc08fd4891efcc57d2d7e3d4b2f795ea7289a98c135fa85c",
+      "native_bytes": 1058814,
+      "per_patch_bytes": 2621989,
+      "geometry_only_bytes": 1246155,
+      "patch_metadata_bytes": 263772,
+      "with_patch_metadata_bytes": 1509927,
+      "geometry_only_native_saving_percent": 15.033523117108228,
+      "with_patch_metadata_native_saving_percent": 29.876477472089714,
+      "absent_measure_bytes_removed": 391536,
+      "original": {
+        "parts": 8845,
+        "vertices": 48940,
+        "records": 7875,
+        "xyz_parts_sha256": "133807d95512e1e7b6e2309c263bca6445e6ff584ec5ed2db613c649b954b674"
+      },
+      "packed": {
+        "parts": 8845,
+        "vertices": 48940,
+        "records": 1,
+        "xyz_parts_sha256": "133807d95512e1e7b6e2309c263bca6445e6ff584ec5ed2db613c649b954b674"
+      },
+      "readback_vs_per_patch_max_m": 0.0,
+      "components": [
+        {
+          "filename": "terrain.shp",
+          "bytes": 1245488,
+          "sha256": "6e93ac9c2b3cd1d090e5c9bb82ca7a297a228f6e16eaf167244a35baf8d030d3"
+        },
+        {
+          "filename": "terrain.shx",
+          "bytes": 108,
+          "sha256": "62734ea1bbe94232bb0877ba39082e543fc74f01aaf0535f358a703ad77f48c7"
+        },
+        {
+          "filename": "terrain.dbf",
+          "bytes": 82,
+          "sha256": "c32f14eb0abcfcda03020ed132250025e7e62cb185ef116f136c945a8c82fae1"
+        },
+        {
+          "filename": "terrain.prj",
+          "bytes": 470,
+          "sha256": "b271ff23e1a8e8f65f1afb9d4f5f396a71813b1bcba738ae97231e37e609016d"
+        },
+        {
+          "filename": "terrain.cpg",
+          "bytes": 7,
+          "sha256": "be84ffea9cfc49172ddf1c2102bd8d4148efa3b9ed3e3fd4a7cdb266349c2d7e"
+        }
+      ],
+      "sidecar_sha256": "0041ebe20b12aa8ec6b0586abf8ef28b36356706d47558f967c6942cda97769f",
+      "arcgis_execution": null
+    },
+    {
+      "id": "gugis-16m",
+      "stride_m": 16,
+      "native_sha256": "adf6d91e626c1042f827743f0fba39c7461b6ce5b9ae0baf8dabfdcf24dc63fb",
+      "native_bytes": 264106,
+      "per_patch_bytes": 663966,
+      "geometry_only_bytes": 313595,
+      "patch_metadata_bytes": 67009,
+      "with_patch_metadata_bytes": 380604,
+      "geometry_only_native_saving_percent": 15.781182735694133,
+      "with_patch_metadata_native_saving_percent": 30.608716671395996,
+      "absent_measure_bytes_removed": 98448,
+      "original": {
+        "parts": 2183,
+        "vertices": 12304,
+        "records": 2016,
+        "xyz_parts_sha256": "486d50b4dc976f50e712c186aa3af1d8ec53cdff3d416c1023c6afe13ca0bb03"
+      },
+      "packed": {
+        "parts": 2183,
+        "vertices": 12304,
+        "records": 1,
+        "xyz_parts_sha256": "486d50b4dc976f50e712c186aa3af1d8ec53cdff3d416c1023c6afe13ca0bb03"
+      },
+      "readback_vs_per_patch_max_m": 0.0,
+      "components": [
+        {
+          "filename": "terrain.shp",
+          "bytes": 312928,
+          "sha256": "fde251cc914c3bd7948b01820371959885daa0fe10234ac9342288c22e4f51f4"
+        },
+        {
+          "filename": "terrain.shx",
+          "bytes": 108,
+          "sha256": "3e897502917eeb6509ed1f6e6d3bc358176e06f406ca12b638b3378f3bd2cee9"
+        },
+        {
+          "filename": "terrain.dbf",
+          "bytes": 82,
+          "sha256": "19fb13e5612d9d62c5be5deb5426cdc44c3d11483a5e2d9344625390cfeb08d3"
+        },
+        {
+          "filename": "terrain.prj",
+          "bytes": 470,
+          "sha256": "b271ff23e1a8e8f65f1afb9d4f5f396a71813b1bcba738ae97231e37e609016d"
+        },
+        {
+          "filename": "terrain.cpg",
+          "bytes": 7,
+          "sha256": "be84ffea9cfc49172ddf1c2102bd8d4148efa3b9ed3e3fd4a7cdb266349c2d7e"
+        }
+      ],
+      "sidecar_sha256": "02cb9ed683da273b2eb6f39534ea9215ca69d4c272fe5a65e3322009f4018760",
+      "arcgis_execution": null
+    },
+    {
+      "id": "gugis-32m",
+      "stride_m": 32,
+      "native_sha256": "800a8569413a25e34642d4dfd17aa6f93416055919a6b6737b30563649f347c8",
+      "native_bytes": 66412,
+      "per_patch_bytes": 170774,
+      "geometry_only_bytes": 81459,
+      "patch_metadata_bytes": 17125,
+      "with_patch_metadata_bytes": 98584,
+      "geometry_only_native_saving_percent": 18.47186928393425,
+      "with_patch_metadata_native_saving_percent": 32.63409883956828,
+      "absent_measure_bytes_removed": 25392,
+      "original": {
+        "parts": 562,
+        "vertices": 3172,
+        "records": 512,
+        "xyz_parts_sha256": "2f9a5ec0fb0cc9ae02d39651d903a14dc66038ba61efa45faf42013593d560ca"
+      },
+      "packed": {
+        "parts": 562,
+        "vertices": 3172,
+        "records": 1,
+        "xyz_parts_sha256": "2f9a5ec0fb0cc9ae02d39651d903a14dc66038ba61efa45faf42013593d560ca"
+      },
+      "readback_vs_per_patch_max_m": null,
+      "components": [
+        {
+          "filename": "terrain.shp",
+          "bytes": 80792,
+          "sha256": "09920fe40b54462123b1bf9d0997c56705700ead0c5f2351b2773f8a6d78212d"
+        },
+        {
+          "filename": "terrain.shx",
+          "bytes": 108,
+          "sha256": "414e4cdb0f663b8f7eb9d4a1c41685b384b7edfc248970ca6ba76903d2996dc0"
+        },
+        {
+          "filename": "terrain.dbf",
+          "bytes": 82,
+          "sha256": "da836b67a4d8141d1b0c566306ccc175f5312ad8fc51704a91d94b40a2386f7a"
+        },
+        {
+          "filename": "terrain.prj",
+          "bytes": 470,
+          "sha256": "b271ff23e1a8e8f65f1afb9d4f5f396a71813b1bcba738ae97231e37e609016d"
+        },
+        {
+          "filename": "terrain.cpg",
+          "bytes": 7,
+          "sha256": "be84ffea9cfc49172ddf1c2102bd8d4148efa3b9ed3e3fd4a7cdb266349c2d7e"
+        }
+      ],
+      "sidecar_sha256": "be59ab904f01c8bc9a1d7d2a64f6f04d985e2af2f7d99b7652a8822e12553e98",
+      "arcgis_execution": null
+    },
+    {
+      "id": "gugis-64m",
+      "stride_m": 64,
+      "native_sha256": "10ccb5674726bd4890cdab8fd81022bbeead5293bf25d98d2539c5f2b1a64cd7",
+      "native_bytes": 17211,
+      "per_patch_bytes": 43382,
+      "geometry_only_bytes": 21075,
+      "patch_metadata_bytes": 4935,
+      "with_patch_metadata_bytes": 26010,
+      "geometry_only_native_saving_percent": 18.334519572953734,
+      "with_patch_metadata_native_saving_percent": 33.82929642445214,
+      "absent_measure_bytes_removed": 6384,
+      "original": {
+        "parts": 142,
+        "vertices": 796,
+        "records": 128,
+        "xyz_parts_sha256": "aa416d46886be6bb9fa83530568b4a756ed5f965e03e7bb250030fede467c87e"
+      },
+      "packed": {
+        "parts": 142,
+        "vertices": 796,
+        "records": 1,
+        "xyz_parts_sha256": "aa416d46886be6bb9fa83530568b4a756ed5f965e03e7bb250030fede467c87e"
+      },
+      "readback_vs_per_patch_max_m": null,
+      "components": [
+        {
+          "filename": "terrain.shp",
+          "bytes": 20408,
+          "sha256": "b3967ce2a992ce931ae2340d58df139172b788892f3323ff87c6bf6327985233"
+        },
+        {
+          "filename": "terrain.shx",
+          "bytes": 108,
+          "sha256": "3dc09980228cc0308c913797e2e2a0227aa313859cea72cbe78d0ac1d5b375d1"
+        },
+        {
+          "filename": "terrain.dbf",
+          "bytes": 82,
+          "sha256": "938a8e3619455f96c17511d1e0cc5b769b7d674e7f86c08b63887529d8138879"
+        },
+        {
+          "filename": "terrain.prj",
+          "bytes": 470,
+          "sha256": "b271ff23e1a8e8f65f1afb9d4f5f396a71813b1bcba738ae97231e37e609016d"
+        },
+        {
+          "filename": "terrain.cpg",
+          "bytes": 7,
+          "sha256": "be84ffea9cfc49172ddf1c2102bd8d4148efa3b9ed3e3fd4a7cdb266349c2d7e"
+        }
+      ],
+      "sidecar_sha256": "cf5454228a3b6178d6d66471104c7624de88abaeb56245065dc526f239127e54",
+      "arcgis_execution": null
+    }
+  ]
+}

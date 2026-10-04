@@ -98,6 +98,21 @@ node frontend/scripts/benchmark-terrain-index.mjs .local/benchmark/implicit-terr
 
 该命令从 Git 读取旧代码，分别在本地临时目录编译运行，不更改工作区或正式城市；更新 `shared/terrain-index-benchmark.json` 与公开下载副本。在另一台机器复现时应保留完整数据和运行库版本，不期待耗时一致。
 
+## 更紧凑的 MultiPatch 基线
+
+原来的五组件 MultiPatch 按原面片分成多个要素，保留 DBF 中的 ID 和类型。现在补充单要素 XYZ 版，按 [Esri Shapefile 技术说明](https://www.esri.com/library/whitepapers/pdfs/shapefile.pdf)省略不存在的可选 M 值，并进一步连接端点完全一致、顶点数为偶数的三角带。连接必须有唯一前驱与后继，不添加桥接三角形。全部六档保存前后验证有向三角形集合哈希，8 m / 16 m 另做百万像元独立读回，高程逐点相同。
+
+8 m 档原每面片一个要素的五组件为 2.622 MB；单要素 XYZ 为 1.246 MB；合并相邻带后为 0.758 MB（8,845 部件降为 125）。同一 GUGIS JSON 为 1.059 MB，比最紧凑的纯几何基线大 39.7%。原 59.6% 文件节省只属于原分组方式，不应作为一般性方法优势。网站主结果采用更紧凑的基线，另列各分组方式。
+
+纯几何版没有逐面片 DBF 属性。另提供属性映射与合并位置映射，大小单独计入；映射保留面片 ID、原类型、来源元数据与原部件位置，但不能恢复共享控制点 ID 或离散前的直纹曲面。三角带文件的高程误差继承原格式对照；不是 ArcGIS 软件执行结果。
+
+```powershell
+.venv/Scripts/python.exe data-pipeline/benchmark_research_packing.py --input .local/benchmark/implicit-terrain-replay
+.venv/Scripts/python.exe data-pipeline/benchmark_research_joined_strips.py --input .local/benchmark/implicit-terrain-replay
+```
+
+上述过程校验原档案和文件 SHA-256，生成新的研究目录；不修改正式城市。发布完整 JSON，以及 8 m / 16 m 紧凑和合并版对照包，不含作者权重或代码。下一步需要从有限尺度的可逼近性和相同精度下的总成本建立方法优势，而不是依赖不够紧凑的保存方式。
+
 ## 后续需要实测
 
 ArcGIS Pro 的实际读取与分析、GPU 内存与帧率；SPG 重新训练成本及多随机种子稳定性；统一流程的临界网络 precision / recall / F₀.₅ 与 MIG 距离；独立来源和独立留出实验。上述指标在页面标为待测，不填入推测值。

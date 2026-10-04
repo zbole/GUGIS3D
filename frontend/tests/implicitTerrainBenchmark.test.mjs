@@ -123,3 +123,33 @@ test('native index comparison publishes matched archives, identical complete hit
   }
   act(()=>renderer.unmount());
 });
+test('format comparison includes compact and joined baselines, full accounting and signed losses',async()=>{
+  const packingBytes=await readFile(new URL('../../shared/implicit-terrain-packing.json',import.meta.url));
+  const packing=JSON.parse(packingBytes);
+  const joined=JSON.parse(await readFile(new URL('../../shared/implicit-terrain-joined.json',import.meta.url)));
+  const base=await readFile(new URL('../../shared/implicit-terrain-benchmark.json',import.meta.url));
+  assert.equal(packing.parent_report_sha256,createHash('sha256').update(base).digest('hex'));
+  assert.equal(joined.parent_packing_sha256,createHash('sha256').update(packingBytes).digest('hex'));
+  for(const [file,report] of [['packing-results.json',packing],['joined-results.json',joined]])
+    assert.deepEqual(JSON.parse(await readFile(new URL(`../public/research/implicit-terrain/${file}`,import.meta.url))),report);
+  let renderer;act(()=>{renderer=create(React.createElement(Benchmark));});
+  for(const row of joined.variants){
+    const previous=packing.variants.find(v=>v.id===row.id);
+    assert.equal(row.native_sha256,report.variants.find(v=>v.id===row.id).sha256);
+    assert.equal(row.geometry_only_bytes,row.components.reduce((sum,f)=>sum+f.bytes,0));
+    assert.equal(row.with_patch_metadata_bytes,row.geometry_only_bytes+row.sidecars.reduce((sum,f)=>sum+f.bytes,0));
+    assert.equal(row.triangles,report.variants.find(v=>v.id===row.id).multipatch.triangles);
+    assert.ok(row.after_parts<=row.before_parts);assert.ok(row.after_vertices<=row.before_vertices);
+    assert.equal(previous.original.xyz_parts_sha256,previous.packed.xyz_parts_sha256);
+    assert.equal(previous.geometry_only_bytes,previous.components.reduce((sum,f)=>sum+f.bytes,0));
+    assert.equal(row.native_saving_percent,100*(1-row.native_bytes/row.geometry_only_bytes));
+    assert.equal(row.arcgis_execution,null);
+    if([8,16].includes(row.stride_m))assert.equal(row.readback_vs_original_max_m,0);
+    act(()=>renderer.root.findByType('select').props.onChange({target:{value:String(row.stride_m)}}));
+    const section=text(renderer.root.findByProps({className:'research-format-result'}));
+    assert.ok(section.includes((row.geometry_only_bytes/1e6).toFixed(3)));
+    assert.ok(section.includes(`${row.native_saving_percent>=0?'小':'大'} ${Math.abs(row.native_saving_percent).toFixed(1)}%`));
+    assert.match(section,/不能沿用原分组方式的文件节省百分比/);
+  }
+  act(()=>renderer.unmount());
+});

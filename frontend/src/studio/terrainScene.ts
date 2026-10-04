@@ -13,6 +13,8 @@ import {
 } from "cesium";
 import type { Terrain, TerrainPatch } from "./environment";
 import { terrainIndex, terrainMesh } from "./terrainMath";
+import type { Vec3 } from './model';
+export type SurfaceMesh = { vertices: Vec3[]; triangles: Vec3[] };
 export function terrainSampler(terrain?: Terrain | null) {
   if (!terrain) return null;
   const frame = Transforms.eastNorthUpToFixedFrame(
@@ -54,8 +56,8 @@ export function terrainSampler(terrain?: Terrain | null) {
     },
   };
 }
-export function surfaceGeometry(terrain: Terrain, kind: TerrainPatch["kind"]) {
-  const mesh = terrainMesh(terrain, kind);
+export function surfaceGeometry(terrain: Terrain, kind: TerrainPatch["kind"], override?: SurfaceMesh) {
+  const mesh = override ?? terrainMesh(terrain, kind);
   if (!mesh.triangles.length) return null;
   const values = new Float64Array(
     mesh.vertices.flatMap((p) => [p[0], p[1], p[2] - terrain.reference_height]),

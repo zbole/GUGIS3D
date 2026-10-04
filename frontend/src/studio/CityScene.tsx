@@ -48,6 +48,7 @@ import { functionSolid, terrainColors, type TerrainPatch } from "./environment";
 import {
   terrainSampler,
   surfaceGeometry,
+  type SurfaceMesh,
 } from "./terrainScene";
 import { terrainLineColors, terrainTopologyPreview } from "./terrainTopology";
 import type { TerrainHit } from "./terrainMath";
@@ -80,6 +81,8 @@ interface Props {
   onPlace?: (position: GeographicPosition | null) => void;
   terrainOpacity?: number;
   terrainWire?: boolean;
+  terrainMeshes?: Partial<Record<TerrainPatch['kind'],SurfaceMesh>>;
+  scenePurpose?: 'city' | 'research';
   queryTerrain?: boolean;
   onTerrainQuery?: (hit: TerrainHit | null) => void;
   onFeatureSelect?: (id: string) => void;
@@ -126,6 +129,8 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     onPlace,
     terrainOpacity = 1,
     terrainWire = false,
+    terrainMeshes,
+    scenePurpose = 'city',
     queryTerrain = false,
     onTerrainQuery,
     onFeatureSelect,
@@ -195,6 +200,9 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     [distance, setDistance] = useState(0);
   const [topologyNotice, setTopologyNotice] = useState("");
   const terrain = city.environment?.terrain;
+  const surfaceColors = scenePurpose==='research'
+    ? {'ruled-strip':'#63b7a7','triangle-strip':'#aabac6','triangle-fan':'#8f86b0'}
+    : terrainColors;
   const drapeBuildings = city.environment?.drape_buildings;
   const features = city.environment?.features;
   const featureAssets = city.environment?.feature_assets;
@@ -266,12 +274,12 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
           ? spheres.current.get(selection.current)
           : bounds.current) ?? bounds.current;
     if (v && s)
-      v.camera.flyToBoundingSphere(s, {
+      v.camera.flyToBoundingSphere(scenePurpose==='research'?new BoundingSphere(s.center,s.radius*1.15):s, {
         duration: 0.6,
         offset: new HeadingPitchRange(
           CM.toRadians(18),
           CM.toRadians(top ? -89 : -45),
-          Math.max(s.radius * (focus ? 3.3 : 2.7), 40),
+          scenePurpose==='research'?0:Math.max(s.radius * (focus ? 3.3 : 2.7), 40),
         ),
       });
   }
@@ -706,10 +714,11 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       );
       for (const x of [min[0], max[0]])
         for (const y of [min[1], max[1]])
+          for (const z of scenePurpose==='research'?[min[2],max[2]]:[max[2]])
           allPoints.push(
             Matrix4.multiplyByPoint(
               sampler.frame,
-              new Cartesian3(x, y, max[2] - terrain.reference_height),
+              new Cartesian3(x, y, z - terrain.reference_height),
               new Cartesian3(),
             ),
           );
@@ -833,6 +842,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     city.instances,
     center.longitude,
     center.latitude,
+    scenePurpose,
     city.assets,
     city.roads,
     showGround,
@@ -978,7 +988,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     const objects: Primitive[] = [];
     if (terrain && sampler) {
       for (const kind of Object.keys(terrainColors) as TerrainPatch["kind"][]) {
-        const geometry = surfaceGeometry(terrain, kind);
+        const geometry = surfaceGeometry(terrain, kind, terrainMeshes?.[kind]);
         if (!geometry) continue;
         objects.push(
           v.scene.primitives.add(
@@ -989,7 +999,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
                 modelMatrix: sampler.frame,
                 attributes: {
                   color: ColorGeometryInstanceAttribute.fromColor(
-                    Color.fromCssColorString(terrainColors[kind]),
+                    Color.fromCssColorString(surfaceColors[kind]),
                   ),
                 },
               }),
@@ -1010,7 +1020,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
         if (!v.isDestroyed()) v.scene.primitives.remove(p);
       terrainBatches.current = [];
     };
-  }, [terrain, sampler]);
+  }, [terrain, sampler, terrainMeshes, scenePurpose]);
   useEffect(() => {
     const v = viewer.current;
     if (!v) return;
@@ -1022,7 +1032,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
           const attrs = b.getGeometryInstanceAttributes(`terrain/${kind}`);
           if (attrs)
             attrs.color = ColorGeometryInstanceAttribute.toValue(
-              Color.fromCssColorString(terrainColors[kind]).withAlpha(
+              Color.fromCssColorString(surfaceColors[kind]).withAlpha(
                 terrainOpacity,
               ),
             );
@@ -1046,6 +1056,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     return off;
   }, [
     terrainOpacity,
+    scenePurpose,
     showGround,
     terrain,
     city.instances,
@@ -1335,13 +1346,13 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     <div
       className={`building-scene${placing || queryTerrain || analysisDrawing || spatialPicking ? " is-placing" : ""}`}
       role="region"
-      aria-label="三维城市视图"
+      aria-label={scenePurpose==='research'?'混合地形研究三维视图':'三维城市视图'}
     >
       <div className="scene-canvas" ref={host} />
       <div className="camera-distance" role="status">
         视距 {distance.toLocaleString()} m · 缓速缩放
       </div>
-      <div className="lod-note" role="status" title="构件模型与 LoD1 轮廓分开统计；数量依据模型类型，不代表实测精度或内部已核验。">
+      {scenePurpose==='research'?<div className="lod-note" role="status">研究地形 · 原生查询与显示三角网分别计算</div>:<div className="lod-note" role="status" title="构件模型与 LoD1 轮廓分开统计；数量依据模型类型，不代表实测精度或内部已核验。">
         {renderOnly ? "渲染包原始构件 · 不含编辑语义" : <>
           {fullDetails ? detailProgress.ready < detailProgress.total
             ? `构件加载中 · ${detailProgress.ready} / ${detailProgress.total} 栋`
@@ -1352,11 +1363,11 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
         </>}
         {` · 已渲染 ${renderProgress.buildings.toLocaleString()} / ${city.instances.length.toLocaleString()} 栋 · 按视域与预算加载`}
         {topologyNotice && <div className="terrain-topology-notice">{topologyNotice}</div>}
-      </div>
+      </div>}
       {error && (
         <div className="scene-error" role="alert">
           <strong>{renderFailed.current ? "三维渲染暂时中断" : "三维视图提示"}</strong>
-          <p>城市数据仍然保留。可重新建立三维视图后继续操作。</p>
+          <p>{scenePurpose==='research'?'研究档案未改动。可重新建立三维视图后继续核查。':'城市数据仍然保留。可重新建立三维视图后继续操作。'}</p>
           <details><summary>错误详情</summary>{error}</details>
           {onRetry && <button onClick={onRetry}>恢复三维视图</button>}
         </div>

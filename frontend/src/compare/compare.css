@@ -23,8 +23,8 @@
 .cmp-logo em { color: var(--cmp-cyan); font-style: normal; }
 .cmp-logo-mark { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 7px; background: #133747; color: #f7ffff; letter-spacing: -.1em; font-size: 14px; }
 .cmp-logo-mark span { color: #66d1c6; }
-.cmp-header nav { display: flex; align-items: center; gap: clamp(22px, 3vw, 48px); margin-left: auto; }
-.cmp-header nav a { color: #51656c; font-size: 13px; font-weight: 650; transition: color .2s; }
+.cmp-header nav { display: flex; align-items: center; gap: clamp(10px, 1.2vw, 20px); margin-left: auto; min-width: 0; overflow-x: auto; padding: 8px 0; }
+.cmp-header nav a { flex: none; white-space: nowrap; color: #51656c; font-size: 13px; font-weight: 650; transition: color .2s; }
 .cmp-header nav a:hover { color: #067987; }
 .cmp-header-action { display: inline-flex; align-items: center; gap: 9px; padding: 10px 14px; border: 1px solid #9bb3b8; border-radius: 6px; color: #173d4c !important; font-size: 12px; font-weight: 750; white-space: nowrap; transition: background .2s; }
 .cmp-header-action:hover { background: #e6f3f1; }
