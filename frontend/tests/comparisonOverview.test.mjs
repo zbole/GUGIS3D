@@ -109,3 +109,33 @@ test("the full table keeps four distinct measured resolutions and follows the ch
   assert.match(text(f.root), /下载文件保留原始数值/);
   f.close();
 });
+
+test("chart bars expose measured values and support keyboard selection without repeated activations", () => {
+  const f = fixture();
+  const columns = () => f.root.findByProps({ className: "co-chart" }).findAllByProps({ role: "button" });
+  const svg = f.root.findByProps({ className: "co-chart" });
+  assert.equal(svg.props.role, "group", "an image role must not hide interactive descendants");
+  assert.equal(columns().length, report.variants.length);
+  for (const [index, column] of columns().entries()) {
+    const variant = report.variants[index];
+    assert.equal(column.props.tabIndex, 0);
+    assert.ok(column.props["aria-label"].includes(`${variant.ruledSubdivisions}×${variant.ruledSubdivisions}`));
+    assert.ok(column.props["aria-label"].includes(`${format(variant.multipatchFilesBytes / 1e6)} MB`));
+    assert.equal(column.props["aria-controls"], f.root.findByProps({ className: "co-readout" }).props.id);
+  }
+  let prevented = 0;
+  for (const [key, index] of [["Enter", 0], [" ", 1]]) {
+    act(() => columns()[index].props.onKeyDown({ key, repeat: false, preventDefault() { prevented++; } }));
+    assert.equal(columns().findIndex(c => c.props["aria-pressed"]), index);
+    assert.equal(f.group("查看离散档位").findAllByType("button").findIndex(b => b.props["aria-pressed"]), index);
+  }
+  act(() => columns()[3].props.onKeyDown({ key: " ", repeat: true, preventDefault() { prevented++; } }));
+  assert.equal(columns().findIndex(c => c.props["aria-pressed"]), 1);
+  assert.equal(prevented, 3, "Space never scrolls the page, including repeats");
+  act(() => columns()[3].props.onKeyDown({ key: "Tab", repeat: false, preventDefault() { assert.fail("normal focus navigation must remain native"); } }));
+  assert.equal(columns().findIndex(c => c.props["aria-pressed"]), 1);
+  act(() => f.group("对比总览指标").findAllByType("button").find(b => text(b).startsWith("点高程 RMS")).props.onClick());
+  assert.match(columns()[1].props["aria-label"], /点高程 RMS.*cm/);
+  assert.match(text(f.root.findByProps({ className: "co-readout" })), /2×2/);
+  f.close();
+});

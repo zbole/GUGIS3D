@@ -79,6 +79,8 @@
 .co-chart-column { cursor: pointer; }
 .co-chart-hit { fill: transparent; transition: fill .15s; }
 .co-chart-column:hover .co-chart-hit { fill: #f6f9fb; }
+.co-chart-column:focus-visible { outline: none; }
+.co-chart-column:focus-visible .co-chart-hit { fill: #eef9f6; stroke: #0e928d; stroke-width: 2.5; }
 .co-chart-column.is-selected .co-chart-hit { fill: #f0f6fa; }
 .co-chart-bar { fill: #9bb5ca; transition: fill .15s; }
 .co-chart-column.is-selected .co-chart-bar { fill: var(--co-mesh); }
@@ -103,7 +105,7 @@
 .co-selected-value > strong { display: block; font-size: 38px; font-weight: 700; letter-spacing: -.05em; margin-top: 5px; line-height: 1.3; color: #285e84; font-variant-numeric: tabular-nums; }
 .co-selected-value > strong small { font-size: 14px; letter-spacing: 0; font-weight: 600; }
 .co-selected-value > p { color: #6c8190; font-size: 11px; margin: 6px 0 20px; }
-.co-detail-list { margin: 0; border-top: 1px solid #e1eaf0; padding: 11px 0; }
+.co-detail-list { display: block; margin: 0; border-top: 1px solid #e1eaf0; padding: 11px 0; }
 .co-detail-list > div { display: flex; justify-content: space-between; gap: 12px; font-size: 11px; padding: 6px 0; }
 .co-detail-list dt { color: #6b8290; }
 .co-detail-list dd { margin: 0; font-weight: 650; font-variant-numeric: tabular-nums; white-space: nowrap; color: #37586f; }

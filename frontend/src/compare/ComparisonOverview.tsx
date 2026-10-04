@@ -55,6 +55,7 @@ export default function ComparisonOverview({ resolution: linkedResolution, onRes
   const titleId = `${instance}-overview-title`;
   const chartTitleId = `${instance}-chart-title`;
   const chartDescriptionId = `${instance}-chart-description`;
+  const readoutId = `${instance}-readout`;
   const [metricKey, setMetricKey] = useState<MetricKey>("storage");
   const defaultResolution = targetVariant?.ruledSubdivisions ?? variants[0].ruledSubdivisions;
   const [localResolution, setLocalResolution] = useState(defaultResolution);
@@ -109,15 +110,23 @@ export default function ComparisonOverview({ resolution: linkedResolution, onRes
       <div className="co-chart-layout">
         <div className="co-chart-panel">
           <div className="co-chart-legend"><span><i className="co-native-key"/>{metricKey === "storage" ? "GUGIS 原生文件" : "GUGIS 原生 / 差异基准 0"}</span><span><i className="co-mesh-key"/>MultiPatch {metricKey === "storage" ? "文件" : "参考读回差异"}</span></div>
-          <svg className="co-chart" viewBox="0 0 710 314" role="img" aria-labelledby={`${chartTitleId} ${chartDescriptionId}`}>
+          <svg className="co-chart" viewBox="0 0 710 314" role="group" aria-labelledby={chartTitleId} aria-describedby={chartDescriptionId}>
             <title id={chartTitleId}>{metric.label}：四档 MultiPatch 与 GUGIS 原生对比</title>
-            <desc id={chartDescriptionId}>线性纵轴，单位 {metric.unit}。{variants.map(variant => `${resolutionName(variant)} 为 ${format(metric.value(variant))} ${metric.unit}`).join("；")}。GUGIS {metricKey === "storage" ? `文件为 ${format(metric.nativeValue(selected))} MB` : "是差异基准 0，并不表示原生坡度或坡向为零"}。可通过图下档位按钮切换详情。</desc>
+            <desc id={chartDescriptionId}>线性纵轴，单位 {metric.unit}。{variants.map(variant => `${resolutionName(variant)} 为 ${format(metric.value(variant))} ${metric.unit}`).join("；")}。GUGIS {metricKey === "storage" ? `文件为 ${format(metric.nativeValue(selected))} MB` : "是差异基准 0，并不表示原生坡度或坡向为零"}。Tab 选择柱形，Enter 或空格切换详情；也可使用图下档位按钮。</desc>
             <text className="co-chart-axis-title" x={chart.left} y="20">{metric.label} / {metric.unit}</text>
             {[0, .25, .5, .75, 1].map(tick => <g key={tick}><line className="co-chart-grid" x1={chart.left} x2={chart.right} y1={y(maximum * tick)} y2={y(maximum * tick)}/><text className="co-chart-tick" x={chart.left - 12} y={y(maximum * tick) + 4} textAnchor="end">{tick === 0 ? "0" : (maximum * tick).toFixed(metricKey === "storage" ? 1 : 2)}</text></g>)}
             {variants.map((variant, index) => {
               const x = chart.left + chart.width / variants.length * (index + .5);
               const value = metric.value(variant);
-              return <g className={`co-chart-column${resolution === variant.ruledSubdivisions ? " is-selected" : ""}`} key={variant.ruledSubdivisions} onClick={() => setResolution(variant.ruledSubdivisions)}>
+              return <g className={`co-chart-column${resolution === variant.ruledSubdivisions ? " is-selected" : ""}`} key={variant.ruledSubdivisions}
+                role="button" tabIndex={0} aria-pressed={resolution === variant.ruledSubdivisions} aria-controls={readoutId}
+                aria-label={`选择 ${resolutionName(variant)} 档：${metric.label} ${format(value)} ${metric.unit}`}
+                onClick={() => setResolution(variant.ruledSubdivisions)}
+                onKeyDown={event => {
+                  if (event.key !== "Enter" && event.key !== " ") return;
+                  event.preventDefault();
+                  if (!event.repeat) setResolution(variant.ruledSubdivisions);
+                }}>
                 <rect className="co-chart-hit" x={x - 62} y={chart.top - 12} width="124" height={chart.height + 56} rx="8"/>
                 <rect className="co-chart-bar" x={x - 27} y={y(value)} width="54" height={chart.bottom - y(value)} rx="4"/>
                 <text className="co-chart-value" x={x} y={y(value) - 12} textAnchor="middle">{format(value)}</text>
@@ -132,7 +141,7 @@ export default function ComparisonOverview({ resolution: linkedResolution, onRes
           <p className="co-chart-explanation">{metric.description}</p>
         </div>
 
-        <aside className="co-readout" aria-label="当前档位的测量结果" aria-live="polite" aria-atomic="true">
+        <aside id={readoutId} className="co-readout" aria-label="当前档位的测量结果" aria-live="polite" aria-atomic="true">
           <div className="co-readout-head"><span>当前档位</span><strong>{resolutionName(selected)}</strong></div>
           <div className="co-selected-value"><span>{metric.label}{metricKey === "storage" ? " / MultiPatch" : " / 相对原生"}</span><strong>{format(metric.value(selected))}<small> {metric.unit}</small></strong><p>{metricKey === "storage" ? `原生 ${format(metric.nativeValue(selected))} MB · 节省 ${selected.storageSavingPercent.toFixed(1)}%` : `${sampleCount.toLocaleString()} 个有效${metricKey === "aspect" ? "方向" : "查询点"}参与 RMS`}</p></div>
           <dl className="co-detail-list"><div><dt>MultiPatch 文件</dt><dd>{format(selected.multipatchFilesBytes / 1e6)} MB</dd></div><div><dt>点高程 RMS 差</dt><dd>{format(selected.queries.sampledRmsHeightErrorMetres * 100)} cm</dd></div><div><dt>坡度 RMS 差</dt><dd>{format(selected.queries.derivatives.slope.rmsDegrees)}°</dd></div><div><dt>坡向 RMS 差</dt><dd>{format(selected.queries.derivatives.aspect.rmsDegrees)}°</dd></div></dl>
