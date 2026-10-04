@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import report from '../../../shared/hybrid-terrain-research.json';
 import './hybridTerrainLab.css';
+import LocalTriangleComparison, {localTrianglePair,localTriangleOutcome} from './LocalTriangleComparison';
 const kb=(bytes:number)=>(bytes/1000).toFixed(2);
 const cm=(m:number)=>(m*100).toFixed(3);
 const median=(a:number[])=>[...a].sort((a,b)=>a-b)[Math.floor(a.length/2)];
@@ -14,9 +15,12 @@ export default function HybridTerrainLab(){
   const data=report.cases.find(c=>c.id===caseId)!;
   const pair=data.variants.find(v=>v.target_m===target)!;
   const a=pair.hybrid,b=pair.triangles;
+  const local=localTrianglePair(caseId,target);
   useEffect(()=>{
-    if(typeof window==='undefined'||window.location?.hash!=='#hybrid-terrain-lab')return;
-    const frame=window.requestAnimationFrame(()=>document.getElementById('hybrid-terrain-lab')?.scrollIntoView());
+    if(typeof window==='undefined')return;
+    const id=window.location?.hash?.slice(1)??'';
+    if(!['hybrid-terrain-lab','local-triangle-audit'].includes(id))return;
+    const frame=window.requestAnimationFrame(()=>document.getElementById(id)?.scrollIntoView());
     return()=>window.cancelAnimationFrame(frame);
   },[]);
   return <section id="hybrid-terrain-lab" className="hybrid-lab" aria-labelledby="hybrid-lab-title">
@@ -30,8 +34,9 @@ export default function HybridTerrainLab(){
         {[.05,.1,.25,.5].map(v=><option key={v} value={v}>{v*100} cm</option>)}</select></label>
       <span>{a.continuous_bound_available?'解析样本 · 含逐单元误差界':'真实 DEM · 仅采样核验'} · 相同全局相容网格候选族</span></div>
     <p className="hybrid-case-intent">{data.expectation}</p>
+    <p className="local-triangle-summary"><strong>更强局部三角基线：</strong>{localTriangleOutcome(caseId,target)} <a href="#local-triangle-audit">查看同误差的另一组结果 ↓</a></p>
     <div className="hybrid-kpis" aria-live="polite">
-      <article><small>同误差成本比较</small><strong>{pair.comparison_eligible?'可比较':'暂不可比较'}</strong><span>{pair.comparison_eligible?'双方构建与离网格抽查均通过':'至少一方未通过全部核验，排除节省结论'}</span></article>
+      <article><small>全局网格 · 同误差比较</small><strong>{pair.comparison_eligible?'可比较':'暂不可比较'}</strong><span>{pair.comparison_eligible?'双方构建与离网格抽查均通过':'至少一方未通过全部核验，排除节省结论'}</span></article>
       <article><small>混合表示控制点</small><strong>{a.points.toLocaleString()}</strong><span>纯三角面 {b.points.toLocaleString()} · 两者计入共享控制点</span></article>
       <article><small>完整原生 JSON</small><strong>{kb(a.bytes)}<em> kB</em></strong><span>纯三角面 {kb(b.bytes)} kB · 含结构和元数据</span></article>
       <article><small>相对同候选族的文件变化</small><strong>{pair.native_file_saving_percent===null?'—':`${Math.abs(pair.native_file_saving_percent).toFixed(1)}%`}</strong>
@@ -44,7 +49,7 @@ export default function HybridTerrainLab(){
     </div>
     <div className="hybrid-legend"><span><i className="hybrid-ruled"/>直纹面</span><span><i className="hybrid-triangle"/>三角面</span><span>绿线为母线方向；两类面共享边界控制点，保持 C⁰ 相容。</span></div>
     <div className="hybrid-live-entry"><button aria-expanded={live} onClick={()=>setLive(v=>!v)}>{live?'关闭三维研究视图':'打开可旋转的原生三维模型'}</button><span>按需加载当前模型，不写入正式城市。</span></div>
-    {live&&<Suspense fallback={<p role="status">正在准备三维研究视图…</p>}><HybridTerrainViewer key={`${caseId}/${target}`} caseId={caseId} target={target} hybrid={a} triangles={b}/></Suspense>}
+    {live&&<Suspense fallback={<p role="status">正在准备三维研究视图…</p>}><HybridTerrainViewer key={`${caseId}/${target}`} caseId={caseId} target={target} hybrid={a} triangles={b} localTriangles={local?.local_triangles}/></Suspense>}
     <div className="hybrid-table-scroll"><table><caption>精度、结构与实际查询 · {data.name} · {target*100} cm 目标</caption>
       <thead><tr><th>核验项目</th><th>混合表示</th><th>纯三角面 · 同候选族</th></tr></thead><tbody>
         <tr><th>构建状态</th><td>{status(a.status)}</td><td>{status(b.status)}</td></tr>
@@ -73,5 +78,6 @@ export default function HybridTerrainLab(){
     </details>
     <div className="hybrid-downloads"><a href={`/research/hybrid-terrain/${data.id}.zip`} download>下载此地形全部模型与核验数据 ↓</a><a href="/research/hybrid-terrain/results.json" download>完整结果 JSON ↓</a><a href="/research/hybrid-terrain/results.csv" download>56 个模型数值 CSV ↓</a></div>
     <p className="hybrid-attribution">真实 DEM 来源：ImplicitTerrain 作者公开示例 / swissALTI3D · Federal Office of Topography swisstopo。解析样本、图片、构建器与核验脚本由本项目生成；不包含作者权重或代码。</p>
+    <LocalTriangleComparison caseId={caseId} target={target}/>
   </section>;
 }
