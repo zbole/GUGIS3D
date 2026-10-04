@@ -35,7 +35,7 @@ const kindNames: Record<string, string> = {
 function ObjectButton({ object, focus, extra }: { object: SpatialObject; focus: Props["onFocus"]; extra?: string }) {
   return <button className="spatial-object" onClick={() => focus(object)} title="在三维场景中定位对象">
     <span><b>{object.name}</b><small>{object.layer === "underground" ? "地下设计地物" : object.layer === "building" ? "建筑模型" : "地上函数地物"} · {kindNames[object.kind] ?? object.kind}</small></span>
-    <span className="spatial-object-values">{extra ?? metres(object.distance)}{object.layer === "underground" && <small>覆土 {metres(object.burialDepth)}</small>}</span>
+    <span className="spatial-object-values">{extra ?? metres(object.distance)}{object.layer === "underground" && <small>基点覆土 {metres(object.burialDepth)}</small>}</span>
   </button>;
 }
 function ObjectSemantics({ city, object, component }: { city: CityDocument; object: SpatialObject; component?: string }) {
@@ -73,7 +73,7 @@ function ObjectSemantics({ city, object, component }: { city: CityDocument; obje
     {part ? <><p>命中构件：<strong>{part.category}</strong> · 函数 {part.function} · ID {part.id}</p>
       <dl>{Object.entries(part.parameters).map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl></>
       : <p>构成函数：{asset.components.map(item => `${item.category}=${item.function}`).join(" / ")}</p>}
-    <p>模型垂直包络：{metres(object.bottom, 2)} 至 {metres(object.top, 2)}。地下覆土深度：{metres(object.burialDepth, 2)}。</p>
+    <p>模型垂直包络：{metres(object.bottom, 2)} 至 {metres(object.top, 2)}。基点参考覆土：{metres(object.burialDepth, 2)}。</p>
   </div>;
 }
 function SectionChart({ profile, section, trace, focus }: { profile: PathAnalysis; section: SectionResult;
@@ -197,7 +197,7 @@ export default function SpatialPanel({ city, points, terrain, query, section, pr
       <p className="spatial-muted">项目保存路线与带宽。对象数量和高程每次按当前城市重算，因此建筑、地物或地形修改后不会沿用旧统计。</p>
     </div>
     <div className="spatial-card spatial-source">
-      <h3>数值边界</h3><p>高程取原生地形，基准：{terrain?.vertical_datum ?? "未声明"}。矩形是模型局部几何的垂直包络与平面半径，用于快速筛选和概览；覆土深度按地物模型最高点到地表计算，只有模型整体位于地表下方时为正，缺测时不估算。</p>
+      <h3>数值边界</h3><p>高程取原生地形，基准：{terrain?.vertical_datum ?? "未声明"}。矩形是模型局部几何的垂直包络与平面半径，用于快速筛选和概览。基点参考覆土 = max(0, 基点地形源高程 − 模型包络最高点源高程)，基点缺测时不估算。正值仅表示基点参考间距，不能证明整个模型位于地表下方；坡地及跨越缺测区域须进一步核对。</p>
       <p>选中对象后的红色线段是中心剖切平面与存储模型三角面的交线；函数曲面按当前显示网格离散，不能用作施工净距。三维视图未执行实体裁剪。</p>
       <p>地下间距初筛以对象水平包围圆与垂直包络计算。正间距是保守的竖向界限；包络重叠只表示需要复核，不能直接判定实体碰撞。</p>
       <p>地下地物为项目中的设计对象，来源 DEM 需另行核验。当前地形：{terrain?.name ?? "未载入"}。</p>

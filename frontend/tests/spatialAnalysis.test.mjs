@@ -55,6 +55,20 @@ test("joint query traces native terrain, building envelope, road and underground
   assert.equal(result.inspected.id, "duct-1");
 });
 
+test("positive origin-reference cover can coexist with an exposed model edge on a slope", () => {
+  const c = city();
+  c.environment.terrain = { ...terrain,
+    points: [[0, 0, 260], [200, 0, -140], [0, 200, 260], [200, 200, -140]] };
+  const reference = queryCityPoint(c, point(80, 50), 30);
+  const duct = reference.features.find(o => o.id === "duct-1");
+  assert.ok(Math.abs(reference.terrain.height - 100) < .001);
+  assert.ok(Math.abs(duct.top - 97) < .001);
+  assert.ok(Math.abs(duct.burialDepth - 3) < .001);
+  const edge = queryCityPoint(c, point(82, 50), 30);
+  assert.ok(Math.abs(edge.terrain.height - 96) < .001);
+  assert.ok(duct.top > edge.terrain.height, "3 m at the origin does not imply the entire 4 m wide model is buried");
+});
+
 test("dense point queries retain the inspected building within the twelve-result budget", () => {
   for (const clickedX of [80, 150]) {
     const c = city();

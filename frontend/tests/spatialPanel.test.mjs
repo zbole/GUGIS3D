@@ -49,6 +49,8 @@ test("point query reveals source height and selected function component with des
   assert.match(text(f.root.findByProps({ "aria-label": "对象结构详情" })), /body.*box/s);
   assert.match(text(f.root.findByProps({ "aria-label": "对象结构详情" })), /height.*2/s);
   assert.match(text(f.root.findByProps({ "aria-label": "对象结构详情" })), /3 m/);
+  assert.match(text(f.root.findByProps({ "aria-label": "对象结构详情" })), /基点参考覆土：3 m/);
+  assert.match(text(f.root), /正值仅表示基点参考间距，不能证明整个模型位于地表下方/);
   act(() => button(f.root, "在场景中选点查询").props.onClick());
   assert.deepEqual(picks, [true]);
   const objectButton = f.root.findAllByProps({ className: "spatial-object" }).find(node => text(node).includes("House"));

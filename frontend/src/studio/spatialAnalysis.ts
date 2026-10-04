@@ -19,7 +19,8 @@ export interface SpatialObject {
   /** Elevations in the terrain's source vertical datum; null when absent. */
   bottom: number | null;
   top: number | null;
-  /** Positive only when the complete model envelope lies below the terrain. */
+  /** Nonnegative clearance from the model top to terrain at its placement origin.
+   * Does not prove the complete footprint is buried on sloped or missing terrain. */
   burialDepth: number | null;
   /** A vertical model envelope, not a surveyed floor/roof measurement. */
   basis: "model-envelope";
