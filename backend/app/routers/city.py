@@ -285,13 +285,18 @@ async def terrain_import(request: Request, filename: str = Query(max_length=200)
 
 @router.post("/refine")
 async def refine(request: Request):
-    from ..services.urban_detail import refine_document
     document = await parse(request, BuildingDocument)
     try:
-        result = refine_document(document)
+        return await run_in_threadpool(refine_document_response, document)
     except ValueError as error:
         raise HTTPException(422, str(error)[:250]) from error
-    return {"document": json.loads(document_bytes(result))}
+
+
+def refine_document_response(document):
+    """Construct components and encode their response in the same worker."""
+    from ..services.urban_detail import refine_document
+    result = refine_document(document)
+    return Response(b'{"document":' + document_bytes(result) + b'}', media_type='application/json')
 
 
 @router.post("/geojson")

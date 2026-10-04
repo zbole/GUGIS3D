@@ -15,6 +15,9 @@ from app.city_models import CityDocument
 from app.environment_models import Terrain, TerrainPatch
 from app.services import terrain_builder
 from app.services import terrain_multipatch
+from app.services import urban_detail
+from app.services.city_generator import footprint_document
+from app.services.building_generator import document_bytes
 
 
 def small_terrain():
@@ -145,6 +148,29 @@ class ValidationResponsivenessTests(unittest.IsolatedAsyncioTestCase):
                 self.assertEqual(len(workers), 1)
                 self.assertNotEqual(workers[0], loop_thread)
                 self.assertEqual([path.name for path in Path(temp).iterdir()], [f'terrain-{digest[:16]}.zip'])
+
+    async def test_building_refinement_and_encoding_do_not_block_health(self):
+        document = footprint_document([[-2.6, 51.45], [-2.5997, 51.45], [-2.5997, 51.4502],
+                                       [-2.6, 51.4502], [-2.6, 51.45]],
+                                      'Synthetic response check', 12, 'test-only', 'synthetic height')
+        before = document_bytes(document)
+        expected = {'document': json.loads(document_bytes(urban_detail.refine_document(document)))}
+        await self.assert_responsive('refine_document_response', city.refine_document_response,
+                                     lambda client: client.post('/cities/london/city/refine', content=before), expected)
+        self.assertEqual(document_bytes(document), before)
+
+    async def test_refinement_value_errors_remain_422_without_saving_or_encoding_invalid_data(self):
+        document = footprint_document([[-2.6, 51.45], [-2.5997, 51.45], [-2.5997, 51.4502],
+                                       [-2.6, 51.4502], [-2.6, 51.45]],
+                                      'Synthetic rejection check', 12, 'test-only', 'synthetic height')
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url='http://test') as client:
+            with patch.object(urban_detail, 'refine_document', side_effect=ValueError('synthetic refusal')):
+                response = await client.post('/city/refine', content=document_bytes(document))
+                self.assertEqual(response.status_code, 422)
+                self.assertEqual(response.json(), {'detail': 'synthetic refusal'})
+            with patch.object(city, 'refine_document_response') as encoded:
+                self.assertEqual((await client.post('/city/refine', content=b'null')).status_code, 422)
+                encoded.assert_not_called()
 
 
 if __name__ == '__main__':
