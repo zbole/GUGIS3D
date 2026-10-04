@@ -155,7 +155,13 @@ def write_snapshot(document, content, stats, base_revision):
 
 @router.post("/validate")
 async def validate(request:Request):
-    doc=expand_city(await parse(request,CITY_ADAPTER))
+    document = await parse(request,CITY_ADAPTER)
+    return await run_in_threadpool(validate_city_response, document)
+
+
+def validate_city_response(document):
+    """Expand, deduplicate and encode large city files away from the API loop."""
+    doc=expand_city(document)
     packed,stats=pack_city(doc)
     return Response(b'{"document":'+packed+b',"storage":'+json.dumps(stats).encode()+b'}',media_type="application/json")
 
@@ -181,8 +187,14 @@ def schema():return CITY_ADAPTER.json_schema()
 def terrain_demo():
     from ..services.terrain_builder import demo_terrain
     workspace = city_workspaces.workspace_entry(city_workspaces.ACTIVE_CITY.get())
-    return {'terrain':demo_terrain(center=workspace['center_wgs84'],
-                                  name=f"{workspace['name']}范围 · 方法演示地形（非实测）").model_dump(mode='json',exclude_none=True)}
+    return terrain_response(demo_terrain(center=workspace['center_wgs84'],
+                                  name=f"{workspace['name']}范围 · 方法演示地形（非实测）"))
+
+
+def terrain_response(terrain):
+    """Return encoded bytes so FastAPI never serializes a large control grid on the loop."""
+    return Response(b'{"terrain":' + terrain.model_dump_json(exclude_none=True).encode('utf-8') + b'}',
+                    media_type='application/json')
 
 
 @router.post('/terrain/upgrade')
@@ -192,7 +204,7 @@ async def terrain_upgrade(request: Request):
     from ..services.terrain_builder import upgrade_legacy_fans
     terrain = await parse(request, Terrain)
     upgraded = await run_in_threadpool(upgrade_legacy_fans, terrain)
-    return {'terrain': upgraded.model_dump(mode='json', exclude_none=True)}
+    return await run_in_threadpool(terrain_response, upgraded)
 
 
 @router.get('/terrain/benchmark.zip')
@@ -266,7 +278,7 @@ async def terrain_import(request: Request, filename: str = Query(max_length=200)
         terrain=await run_in_threadpool(import_dem,bytes(content),filename,source_crs,datum,stride,
                                        clip_bounds=workspace['query_bbox_wgs84'],
                                        center=workspace['center_wgs84'], coverage_label=workspace['coverage_label'])
-        return {'terrain':terrain.model_dump(mode='json',exclude_none=True)}
+        return await run_in_threadpool(terrain_response, terrain)
     except Exception as error:
         raise HTTPException(422,str(error)[:350]) from error
 
