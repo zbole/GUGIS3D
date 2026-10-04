@@ -267,7 +267,11 @@ class RenderTilesTests(unittest.TestCase):
         self.assertEqual(client.get(first['tiles'][0]['url']).status_code, 200)
         self.assertEqual(client.get('/cities/bristol/render/manifest').json()['revision'], second['revision'])
         path = self.cache / 'bristol' / first['revision'] / 'tiles' / f"{first['tiles'][0]['id']}.json"
-        path.unlink(); path.symlink_to(self.source)
+        path.unlink()
+        try:
+            path.symlink_to(self.source)
+        except (OSError, NotImplementedError):
+            self.skipTest('Host cannot create test symlinks')
         self.assertEqual(client.get(first['tiles'][0]['url']).status_code, 404)
 
 

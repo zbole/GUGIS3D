@@ -17,6 +17,10 @@ from app.services.city_archive import archive_bytes
 from app.services.city_sample_import import build_osm_sample
 
 
+RECEIPT_IO_SUPPORTED = (hasattr(os, 'O_NOFOLLOW') and hasattr(os, 'O_DIRECTORY')
+                        and os.open in os.supports_dir_fd)
+
+
 class UKCityRegistryTests(unittest.TestCase):
     def test_exact_membership_country_counts_and_unique_country_qualified_ids(self):
         registry = uk_city_registry.read_registry()
@@ -234,13 +238,17 @@ class UKReadinessAPITests(unittest.TestCase):
         (self.boundaries / 'uk-eng-bristol.json').write_bytes(content)
         before = self.snapshots()
         payload = self.response(); row = self.records(payload)['uk-eng-bristol']
-        self.assertEqual(row['boundary']['state'], 'receipt-recorded')
-        safe = row['boundary']['receipt']
-        self.assertEqual(set(safe), {'schema', 'city_id', 'checksum_sha256', 'source_sha256',
-                                   'geometry_sha256', 'validation_level', 'topology', 'city_boundary_authority'})
-        self.assertEqual(safe['validation_level'], 'integrity_and_structure')
-        self.assertEqual(safe['topology'], 'not_checked')
-        self.assertEqual(safe['city_boundary_authority'], 'not_verified')
+        if RECEIPT_IO_SUPPORTED:
+            self.assertEqual(row['boundary']['state'], 'receipt-recorded')
+            safe = row['boundary']['receipt']
+            self.assertEqual(set(safe), {'schema', 'city_id', 'checksum_sha256', 'source_sha256',
+                                       'geometry_sha256', 'validation_level', 'topology', 'city_boundary_authority'})
+            self.assertEqual(safe['validation_level'], 'integrity_and_structure')
+            self.assertEqual(safe['topology'], 'not_checked')
+            self.assertEqual(safe['city_boundary_authority'], 'not_verified')
+        else:
+            self.assertEqual(row['boundary'],
+                             {'state': 'validation-failed', 'receipt': None, 'reason_code': 'unsupported-platform'})
         self.assertEqual(row['coverage']['state'], 'not-assessed')
         self.assertEqual(row['import'], {'state': 'not-imported', 'scope': 'full-boundary'})
         self.assertIs(row['sample']['boundary_membership_verified'], False)
@@ -265,7 +273,10 @@ class UKReadinessAPITests(unittest.TestCase):
         elsewhere = self.root / 'elsewhere'; elsewhere.mkdir()
         (elsewhere / 'uk-eng-bristol.json').write_bytes(self.synthetic_receipt())
         self.boundaries.parent.mkdir(parents=True)
-        self.boundaries.symlink_to(elsewhere, target_is_directory=True)
+        try:
+            self.boundaries.symlink_to(elsewhere, target_is_directory=True)
+        except (OSError, NotImplementedError):
+            self.skipTest('Host cannot create test symlinks')
         payload = self.response()
         self.assertEqual(self.records(payload)['uk-eng-bristol']['boundary']['state'], 'validation-failed')
         self.assertEqual(len(payload['cities']), 76)
@@ -304,7 +315,10 @@ class UKReadinessAPITests(unittest.TestCase):
         before = self.snapshots()
         payload = self.response(); rows = self.records(payload)
         for city_id in ('uk-eng-bristol', 'uk-eng-bath'):
-            self.assertEqual(rows[city_id]['boundary'], {'state': 'validation-failed', 'receipt': None})
+            expected = {'state': 'validation-failed', 'receipt': None}
+            if not RECEIPT_IO_SUPPORTED:
+                expected['reason_code'] = 'unsupported-platform'
+            self.assertEqual(rows[city_id]['boundary'], expected)
             self.assertEqual(rows[city_id]['coverage']['state'], 'not-assessed')
         self.assertEqual(rows['uk-eng-birmingham']['boundary']['state'], 'not-recorded')
         self.assertEqual(self.snapshots(), before)
@@ -312,7 +326,10 @@ class UKReadinessAPITests(unittest.TestCase):
     def test_symlink_receipts_and_unknown_receipt_filenames_are_not_followed(self):
         self.boundaries.mkdir(parents=True)
         outside = self.root / 'outside.json'; outside.write_text('{"private":"never return"}')
-        (self.boundaries / 'uk-eng-bristol.json').symlink_to(outside)
+        try:
+            (self.boundaries / 'uk-eng-bristol.json').symlink_to(outside)
+        except (OSError, NotImplementedError):
+            self.skipTest('Host cannot create test symlinks')
         (self.boundaries / 'unknown-city.json').write_bytes(b'not a registered city')
         payload = self.response()
         self.assertEqual(self.records(payload)['uk-eng-bristol']['boundary']['state'], 'validation-failed')

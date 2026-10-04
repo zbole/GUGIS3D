@@ -362,6 +362,16 @@ class CandidateEndpointTests(unittest.TestCase):
         reparse = SimpleNamespace(st_mode=stat.S_IFDIR | 0o755, st_file_attributes=0x400)
         self.assertTrue(candidates._is_link(reparse), 'Windows junction/reparse point was accepted')
 
+    def test_windows_cross_api_ctime_difference_keeps_other_identity_checks(self):
+        path = (1, 2, stat.S_IFREG | 0o644, 50, 100, 200)
+        descriptor = (*path[:5], 300)
+        self.assertTrue(candidates._same_opened_file(path, descriptor, platform='nt'))
+        self.assertFalse(candidates._same_opened_file(path, descriptor, platform='posix'))
+        for index in range(5):
+            changed = list(descriptor); changed[index] += 1
+            with self.subTest(field=index):
+                self.assertFalse(candidates._same_opened_file(path, tuple(changed), platform='nt'))
+
     def test_reader_rejects_racing_replacement_before_open(self):
         relative = 'candidates/v2/london-import.json'; path = self.data / relative
         real_open = os.open
@@ -380,20 +390,21 @@ class CandidateEndpointTests(unittest.TestCase):
     def test_reader_rejects_changed_descriptor_during_read(self):
         relative = 'candidates/v2/london-import.json'
         real_fstat = os.fstat
-        calls = 0
-        def changed_fstat(descriptor):
-            nonlocal calls
-            calls += 1
-            value = real_fstat(descriptor)
-            if calls == 2:
-                fields = {name: getattr(value, name) for name in ('st_dev', 'st_ino', 'st_mode', 'st_size', 'st_mtime_ns', 'st_ctime_ns')}
-                fields['st_mtime_ns'] += 1
-                return SimpleNamespace(**fields)
-            return value
-        with patch.object(candidates.os, 'fstat', side_effect=changed_fstat):
-            with self.assertRaises(candidates.CandidateIntegrityError):
-                candidates.bounded_read(self.data, relative, 65536)
-        self.assertEqual(calls, 2)
+        for changed_field in ('st_mtime_ns', 'st_ctime_ns'):
+            calls = 0
+            def changed_fstat(descriptor):
+                nonlocal calls
+                calls += 1
+                value = real_fstat(descriptor)
+                if calls == 2:
+                    fields = {name: getattr(value, name) for name in ('st_dev', 'st_ino', 'st_mode', 'st_size', 'st_mtime_ns', 'st_ctime_ns')}
+                    fields[changed_field] += 1
+                    return SimpleNamespace(**fields)
+                return value
+            with self.subTest(field=changed_field), patch.object(candidates.os, 'fstat', side_effect=changed_fstat):
+                with self.assertRaises(candidates.CandidateIntegrityError):
+                    candidates.bounded_read(self.data, relative, 65536)
+            self.assertEqual(calls, 2)
 
     def test_reader_rejects_internal_relative_path_escape_and_invalid_limits(self):
         for relative in ('../london.gugis.json', '/etc/passwd', 'candidates//v2', 'candidates\\v2', 'C:evil'):

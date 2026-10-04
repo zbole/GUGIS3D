@@ -39,6 +39,44 @@ function harness(f, budget = { ...tileBudget, activeTiles: 2, cacheTiles: 3, con
   const finish = request => request.resolve(response(f.contents.get(request.id).bytes));
   return { requests, states, stream, finish, current: () => states.at(-1) };
 }
+test("default manifest and tile fetch retain the browser global receiver", async t => {
+  const f = fixture(1), calls = [], states = [];
+  const manifestBytes = new TextEncoder().encode(JSON.stringify(f.manifest));
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async function (url, options) {
+    // Window.fetch rejects a RenderTileStream instance as its receiver. Node's
+    // native fetch and arrow-based doubles do not catch that browser failure.
+    assert.ok(this === globalThis, "native browser fetch must retain its global receiver");
+    calls.push({ url, options });
+    return url.endsWith("/manifest")
+      ? response(manifestBytes, { ETag: `"${hash(manifestBytes)}"` })
+      : response(f.contents.get(url.split("/").at(-1)).bytes);
+  };
+  t.after(() => { globalThis.fetch = originalFetch; });
+  const { manifest } = await loadRenderManifest(cityId, new AbortController().signal);
+  const stream = new RenderTileStream(manifest, state => states.push(state));
+  t.after(() => stream.dispose());
+  stream.setView(view()); await settle();
+  assert.deepEqual(calls.map(call => call.url), ["/api/cities/london/render/manifest", `/api${manifest.tiles[0].url}`]);
+  assert.equal(states.at(-1).failures.length, 0);
+  assert.equal(states.at(-1).tiles.length, 1);
+});
+
+test("injected tile transports are called without a stream receiver", async t => {
+  const f = fixture(1), receivers = [], states = [];
+  const stream = new RenderTileStream(f.manifest, state => states.push(state), {
+    fetcher: async function (url) {
+      receivers.push(this === undefined);
+      return response(f.contents.get(url.split("/").at(-1)).bytes);
+    },
+  });
+  t.after(() => stream.dispose());
+  stream.setView(view()); await settle();
+  assert.deepEqual(receivers, [true]);
+  assert.equal(states.at(-1).failures.length, 0);
+  assert.equal(states.at(-1).tiles.length, 1);
+});
+
 test("manifest verifies exact ETag bytes including Python numeric forms, with read-only city URLs", async () => {
   const f = fixture(1), serialized = canonicalJson(f.manifest).replace('"tile_size_m":250', '"tile_size_m":250.0').replace('"source_byte_length":1000', '"source_byte_length":1e3');
   const bytes = new TextEncoder().encode(serialized), calls = [];

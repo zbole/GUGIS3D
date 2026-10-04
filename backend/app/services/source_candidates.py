@@ -68,6 +68,15 @@ def _signature(value):
             value.st_mtime_ns, value.st_ctime_ns)
 
 
+def _same_opened_file(path_signature, descriptor_signature, *, platform=os.name):
+    # CPython on Windows can report creation time for lstat().st_ctime_ns and
+    # metadata-change time for fstat().st_ctime_ns on the same unchanged file.
+    # Keep identity, mode, length and modification time checks across the open;
+    # compare full signatures within each API before/after reading below.
+    fields = 5 if platform == 'nt' else 6
+    return path_signature[:fields] == descriptor_signature[:fields]
+
+
 def _is_link(value):
     # Windows junctions and other reparse points must also fail closed. Merely
     # checking S_ISLNK is insufficient for directory junctions on Windows.
@@ -115,12 +124,14 @@ def bounded_read(root, relative, limit, expected_length=None):
     descriptor = os.open(path, flags)
     with os.fdopen(descriptor, 'rb') as source:
         opened = os.fstat(source.fileno())
-        if _is_link(opened) or not stat.S_ISREG(opened.st_mode) or _signature(opened) != before[-1]:
+        opened_signature = _signature(opened)
+        if (_is_link(opened) or not stat.S_ISREG(opened.st_mode) or
+                not _same_opened_file(before[-1], opened_signature)):
             raise CandidateIntegrityError('Immutable input changed before opening')
         content = source.read((expected_length if expected_length is not None else limit) + 1)
         after = os.fstat(source.fileno())
     _, paths_after = _chain(root, relative)
-    if (_signature(after) != before[-1] or paths_after != before or len(content) != length or
+    if (_signature(after) != opened_signature or paths_after != before or len(content) != length or
             len(content) > limit or (expected_length is not None and len(content) != expected_length)):
         raise CandidateIntegrityError('Immutable input changed during reading')
     return content

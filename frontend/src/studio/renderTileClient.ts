@@ -192,7 +192,10 @@ export function validateTile(value: unknown, manifest: RenderManifest, descripto
   return value as RenderTile;
 }
 export class RenderPackageUnavailable extends Error {}
-export async function loadRenderManifest(cityId: string, signal: AbortSignal, base = "/api", fetcher: typeof fetch = fetch) {
+// Window.fetch needs its browser global receiver. A class property call would
+// otherwise pass RenderTileStream as `this`, causing "Illegal invocation".
+const browserFetch: typeof fetch = (input, init) => globalThis.fetch(input, init);
+export async function loadRenderManifest(cityId: string, signal: AbortSignal, base = "/api", fetcher: typeof fetch = browserFetch) {
   requireValue(cities.has(cityId), "未知城市，不能读取其他城市作为替代");
   const response = await fetcher(`${base.replace(/\/$/, "")}/cities/${cityId}/render/manifest`, { signal, cache: "no-store" });
   if (response.status === 404) { await response.body?.cancel(); throw new RenderPackageUnavailable("此城市尚无可用的离线渲染包"); }
@@ -297,7 +300,9 @@ export class RenderTileStream {
   private retryOnResume = false;
   private lastTiles: readonly RenderTile[] = [];
   constructor(manifest: RenderManifest, notify: (state: TileStreamState) => void, options: { fetcher?: typeof fetch; base?: string; budget?: TileBudget } = {}) {
-    this.manifest = manifest; this.notify = notify; this.fetcher = options.fetcher ?? fetch;
+    this.manifest = manifest; this.notify = notify;
+    const transport = options.fetcher ?? browserFetch;
+    this.fetcher = (input, init) => transport(input, init);
     this.base = (options.base ?? "/api").replace(/\/$/, ""); this.budget = options.budget ?? tileBudget;
     const b = this.budget;
     requireValue(Object.values(b).every(v => Number.isSafeInteger(v) && v > 0) && b.activeTiles <= b.cacheTiles &&
