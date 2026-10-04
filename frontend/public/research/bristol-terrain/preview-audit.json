@@ -1,0 +1,24 @@
+{
+  "schema": "gugis-ea-bristol-preview-audit-v1",
+  "model_sha256": "eb21c95181b4dad96eb3e87b3a20ae556aec77eb89b8f5a3a5af1f4e3e8f0e65",
+  "raster_sha256": "eba5ddd68fd58472d236d681f8af8da98df5a29762673414cb916658a264bfbf",
+  "fixture_sha256": "4a271d581ede18a8e06169fb076a982dd70e6fb03ba306adbb96ef21adde0bf0",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "bdba35a4b9738be81bfc04400e3c4f195552ec49c9402a122413ca825a9b1fc3",
+    "python": "c6efffa3d2aee39e09c9e9596200f72d369e0d0ca99767f77a164afa78973b9d"
+  },
+  "method": "4096 unique source 1m pixel centres; seed 20261005; 40-pixel rim excluded; website native kernel vs original pixel values; source participates in preview construction, not independent held-out ground truth",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.6079005438742159,
+  "mae_m": 0.3453740014466713,
+  "p95_absolute_m": 1.3228806879022255,
+  "max_absolute_m": 6.8222997353008115,
+  "controls_checked": 15480,
+  "max_control_query_error_m": 3.552713678800501e-14,
+  "limits": "Sampled relative raster differences only; no continuous bound, no actual-ground accuracy guarantee; no ArcGIS run; ODN heights unchanged"
+}

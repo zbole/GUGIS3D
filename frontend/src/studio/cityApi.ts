@@ -44,6 +44,14 @@ export interface CityVersion {
   bytes: number;
   current: boolean;
 }
+export interface PublicTerrainSource {
+  city_id: string; name: string; product: string; dataset_url: string;
+  license: string; license_url: string; attribution: string; retrieved_utc: string;
+  coverage_label: string; source_pixel_m: number; source_crs: string; vertical_datum: string;
+  preview_stride_pixels: number; preview_points: number; raster_bytes: number;
+  accuracy_note: string; unit_metadata_warning: string;
+  sample_audit: {requested:number;hits:number;rmse_m:number;max_absolute_m:number};
+}
 /** Immutable API binding: delayed requests can never target a newly selected city. */
 export function createCityApi(cityId?: string) {
   if (cityId && !/^[a-z][a-z0-9-]*$/.test(cityId)) throw new Error("城市标识无效");
@@ -121,6 +129,9 @@ const importGeoJSON = (value: unknown) =>
 const refineBuilding = (document: BuildingDocument) =>
   cityRequest<{ document: BuildingDocument }>("/refine", document);
 const demoTerrain = () => cityRequest<{ terrain: Terrain }>("/terrain/demo");
+const publicTerrainSource = () => cityRequest<{status:'available'|'pending';source:PublicTerrainSource|null}>("/terrain/public-source");
+const publicTerrainPreview = () => cityRequest<{terrain:Terrain}>("/terrain/public-preview");
+const publicTerrainRasterUrl = `${base}${prefix}/terrain/public-raster.tif`;
 const upgradeLegacyTerrain = (terrain: Terrain) =>
   cityRequest<{ terrain: Terrain }>("/terrain/upgrade", terrain);
 const terrainMultipatchUrl = `${base}${prefix}/terrain/benchmark.zip`;
@@ -144,9 +155,9 @@ async function importTerrain(
   });
 }
 
-  return { loadCity, persistCity, commitDraft, validateCity, cityExportUrl, generateBlock, loadDraft, persistDraft, discardDraft, listVersions, loadVersion, importGeoJSON, refineBuilding, demoTerrain, upgradeLegacyTerrain, terrainMultipatchUrl, importTerrain };
+  return { loadCity, persistCity, commitDraft, validateCity, cityExportUrl, generateBlock, loadDraft, persistDraft, discardDraft, listVersions, loadVersion, importGeoJSON, refineBuilding, demoTerrain, upgradeLegacyTerrain, terrainMultipatchUrl, importTerrain, publicTerrainSource, publicTerrainPreview, publicTerrainRasterUrl };
 }
 
 export type CityApi = ReturnType<typeof createCityApi>;
 const legacyCityApi = createCityApi();
-export const { loadCity, persistCity, commitDraft, validateCity, cityExportUrl, generateBlock, loadDraft, persistDraft, discardDraft, listVersions, loadVersion, importGeoJSON, refineBuilding, demoTerrain, upgradeLegacyTerrain, terrainMultipatchUrl, importTerrain } = legacyCityApi;
+export const { loadCity, persistCity, commitDraft, validateCity, cityExportUrl, generateBlock, loadDraft, persistDraft, discardDraft, listVersions, loadVersion, importGeoJSON, refineBuilding, demoTerrain, upgradeLegacyTerrain, terrainMultipatchUrl, importTerrain, publicTerrainSource, publicTerrainPreview, publicTerrainRasterUrl } = legacyCityApi;

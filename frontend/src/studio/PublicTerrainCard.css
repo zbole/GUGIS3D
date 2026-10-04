@@ -1,0 +1,10 @@
+.public-terrain-card{border:1px solid #d9e5df;border-radius:12px;background:#f7faf8;padding:14px;margin:14px 0;color:#35534b}
+.public-terrain-card>small{font-size:10px;letter-spacing:.08em;color:#6b857c}
+.public-terrain-card h3{font-size:15px;margin:9px 0 5px;line-height:1.5}
+.public-terrain-card p{font-size:12px;line-height:1.75;margin:7px 0}
+.public-terrain-card dl{display:grid;grid-template-columns:1fr;gap:4px;margin:12px 0;font-size:12px}
+.public-terrain-card dt{color:#71847d}.public-terrain-card dd{margin:0 0 5px;font-weight:600}
+.public-terrain-card__links{display:flex;flex-direction:column;gap:9px;font-size:12px;margin:12px 0}
+.public-terrain-card a{color:#326b5b;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.public-terrain-card details{font-size:12px;padding-top:8px;border-top:1px solid #e0e9e4;line-height:1.6}
+.public-terrain-card summary{cursor:pointer}.public-terrain-card [role=alert]{color:#93562e}

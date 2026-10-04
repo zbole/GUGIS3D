@@ -15,6 +15,7 @@ import type { CityApi } from "./cityApi";
 import { featureErrors } from "./featureEditing";
 import FunctionExplanation from "./FunctionExplanation";
 import { terrainLineColors } from "./terrainTopology";
+import PublicTerrainCard from "./PublicTerrainCard";
 
 type Position = { longitude: number; latitude: number; altitude: number };
 
@@ -176,7 +177,7 @@ export default function EnvironmentPanel({
     }
     if (selected) setSection("features");
   }, [selected]);
-  async function terrainAction(chosen?: File) {
+  async function terrainAction(chosen?: File, publicSource = false) {
     if (disabled || terrainOperation.current) return;
     terrainOperation.current = true;
     if (file.current) file.current.value = "";
@@ -188,11 +189,11 @@ export default function EnvironmentPanel({
       if (chosen && (!Number.isInteger(stride) || stride < 1 || stride > 100))
         throw new Error("采样步长必须为 1 至 100 的整数。");
       if (!previewTerrain) throw new Error("当前工作区不支持独立地形预览，请重新打开城市工作台。");
-      const r = chosen
+      const r = publicSource ? await api.publicTerrainPreview() : chosen
         ? await importTerrain(chosen, crs, datum, stride)
         : await demoTerrain();
       if (!mounted.current) return;
-      if (await previewTerrain(r.terrain, chosen ? "DEM 地形预览" : "非实测演示地形预览"))
+      if (await previewTerrain(r.terrain, publicSource ? "环境署真实 DTM · 独立预览" : chosen ? "DEM 地形预览" : "非实测演示地形预览"))
         setQuery(false);
     } catch (e) {
       if (mounted.current) setError(e instanceof Error ? e.message : String(e));
@@ -366,6 +367,7 @@ export default function EnvironmentPanel({
               本阶段使用直纹面带和三角带：平缓区域保留连续曲面，较大起伏用三角带。原生结构与高程基准保存在城市文件中。
             </p>
             <p className="form-note">生成、导入或转换地形先创建独立草稿。在场景中检查后，点击上方“确认写入”才替换正式地形；丢弃草稿可返回原项目。</p>
+            {typeof api.publicTerrainSource === 'function'&&<PublicTerrainCard api={api} disabled={disabled} onPreview={()=>void terrainAction(undefined,true)}/>}
             <button
               className="full"
               disabled={disabled}
@@ -451,7 +453,7 @@ export default function EnvironmentPanel({
                 >
                   {terrain.demonstration
                     ? `方法演示 · 非${cityName}实测地形`
-                    : "用户 DEM · 已保留来源与采样信息"}
+                    : "DTM / DEM · 已保留来源与采样信息"}
                 </p>
                 <dl className="environment-stats">
                   <dt>共享控制点</dt>

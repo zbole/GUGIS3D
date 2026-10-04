@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "eba5ddd68fd58472d236d681f8af8da98df5a29762673414cb916658a264bfbf",
+  "audit_sha256": "f6b41f21290bef44f5d01c891dde29bc137cafdd43b7ad59fb1966dbaa56d272",
+  "plotter_sha256": "6cc76301f0d10a44d8947eec5d7cf9d07cc4b4abd3ad76b2ad4db5fbbd1e0caa",
+  "files": {
+    "bristol-source-preview.png": {
+      "bytes": 493299,
+      "sha256": "c94e03659dd17788b2c9798150dac08f10a18f58fa37b70453dc7bb2e57ef093"
+    },
+    "bristol-source-preview.svg": {
+      "bytes": 842890,
+      "sha256": "d3df1f05af9e0514bb74d1658e0228c19d90cec2333d0eb24ba11f3bdf33e265"
+    }
+  }
+}

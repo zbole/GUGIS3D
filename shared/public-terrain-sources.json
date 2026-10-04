@@ -1,0 +1,64 @@
+{
+  "schema": "gugis-public-terrain-sources-v1",
+  "sources": [
+    {
+      "city_id": "bristol",
+      "name": "布里斯托 · 英国环境署裸地 DTM",
+      "product": "EA 2022 LIDAR Composite DTM · 1 m",
+      "dataset_url": "https://www.data.gov.uk/dataset/01b3ee39-da3f-47b6-83da-dc98e73a461f/lidar-composite-dtm-2022-1m",
+      "license": "Open Government Licence v3.0",
+      "attribution": "© Environment Agency copyright and/or database right 2022. All rights reserved.",
+      "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "source_url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28356936%2C359320%29&subset=N%28171720%2C174298%29&format=image%2Ftiff",
+      "retrieved_utc": "2026-10-04T17:15:49Z",
+      "query_bbox_wgs84": [
+        -2.621,
+        51.443,
+        -2.587,
+        51.466
+      ],
+      "raster_bbox_bng": [
+        356936,
+        171720,
+        359320,
+        174298
+      ],
+      "source_crs": "EPSG:27700",
+      "vertical_datum": "ODN",
+      "height_unit": "m",
+      "width": 2384,
+      "height": 2578,
+      "source_pixel_m": 1,
+      "valid_pixels": 6145952,
+      "nodata_pixels": 0,
+      "min_height_m": -1.1660000085830688,
+      "max_height_m": 82.54300689697266,
+      "raw_bytes": 31457939,
+      "raw_sha256": "6de1eca2b9865948bad1796fc6e68fa5b92e49a1e036706a06fec76162744d8d",
+      "raster_bytes": 13112384,
+      "raster_sha256": "eba5ddd68fd58472d236d681f8af8da98df5a29762673414cb916658a264bfbf",
+      "raster_pixel_block_sha256": "d42b33b47b95e2582d459458bb2ba2353c57df7b2a0877fcd95f7111724afecf",
+      "compression_audit": "DEFLATE only; every Float32 pixel, CRS, transform, NoData and scale/offset preserved",
+      "preview_stride_pixels": 20,
+      "preview_points": 15480,
+      "preview_patches": {
+        "ruled-strip": 5110,
+        "triangle-strip": 2570
+      },
+      "model_bytes": 1116439,
+      "model_sha256": "eb21c95181b4dad96eb3e87b3a20ae556aec77eb89b8f5a3a5af1f4e3e8f0e65",
+      "coverage_label": "布里斯托中心街区外接矩形，非全城；模型边界为采样像元中心",
+      "accuracy_note": "1 m 源分辨率不等于20像元采样预览精度。保留ODN原高程；未保证全分辨率误差或工程精度。",
+      "unit_metadata_warning": "WCS Elevation 单位字段与官方米制说明冲突；GeoTIFF 未写高程单位，依据官方数据集正文采用米。",
+      "sample_audit": {
+        "requested": 4096,
+        "hits": 4096,
+        "rmse_m": 0.6079005438742159,
+        "mae_m": 0.3453740014466713,
+        "p95_absolute_m": 1.3228806879022255,
+        "max_absolute_m": 6.8222997353008115
+      },
+      "sample_audit_sha256": "f6b41f21290bef44f5d01c891dde29bc137cafdd43b7ad59fb1966dbaa56d272"
+    }
+  ]
+}

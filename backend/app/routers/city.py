@@ -206,6 +206,28 @@ def terrain_demo():
                                   name=f"{workspace['name']}范围 · 方法演示地形（非实测）"))
 
 
+@router.get('/terrain/public-source')
+def public_terrain_source():
+    from ..services.public_terrain import source_info
+    return source_info(city_workspaces.ACTIVE_CITY.get())
+
+
+@router.get('/terrain/public-preview')
+def public_terrain_preview():
+    from ..services.public_terrain import candidate
+    content = candidate(city_workspaces.ACTIVE_CITY.get(), 'model')
+    return Response(b'{"terrain":' + content + b'}', media_type='application/json')
+
+
+@router.get('/terrain/public-raster.tif')
+def public_terrain_raster():
+    from ..services.public_terrain import candidate
+    content = candidate(city_workspaces.ACTIVE_CITY.get(), 'raster')
+    return Response(content, media_type='image/tiff', headers={
+        'Content-Disposition': 'attachment; filename="bristol-ea-dtm-1m.tif"',
+        'X-GUGIS-Source-SHA256': hashlib.sha256(content).hexdigest()})
+
+
 def terrain_response(terrain):
     """Return encoded bytes so FastAPI never serializes a large control grid on the loop."""
     return Response(b'{"terrain":' + terrain.model_dump_json(exclude_none=True).encode('utf-8') + b'}',

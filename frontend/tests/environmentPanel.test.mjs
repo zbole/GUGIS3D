@@ -373,3 +373,21 @@ test("the terrain comparison link opens terrain even with a preselected feature"
   assert.ok(button(f.root, "保存地物修改"));
   f.close();
 });
+
+test('public terrain preview uses the bound read-only API and draft callback, never formal save or demo',async()=>{
+  const source=JSON.parse(await (await import('node:fs/promises')).readFile(new URL('../../shared/public-terrain-sources.json',import.meta.url))).sources[0];
+  let previews=0,saves=0,drafts=0;
+  const terrain={name:'Actual source preview'};
+  const api={...globalThis.environmentApiMock,publicTerrainSource:async()=>({status:'available',source}),
+    publicTerrainPreview:async()=>{previews++;return {terrain};},publicTerrainRasterUrl:'/bristol-source.tif'};
+  let f;await act(async()=>{f=fixture({api,save:async()=>{saves++;return true;},previewTerrain:async(value,label)=>{
+    assert.equal(value,terrain);assert.match(label,/环境署真实 DTM/);drafts++;return true;
+  }});});
+  const before=demoCalls;
+  await act(async()=>button(f.root,'预览环境署真实 DTM').props.onClick());
+  assert.equal(previews,1);assert.equal(drafts,1);assert.equal(saves,0);assert.equal(demoCalls,before);
+  f.update({readOnly:true});
+  await act(async()=>button(f.root,'预览环境署真实 DTM').props.onClick());
+  assert.equal(previews,1,'Guarded action remains disabled even if a stale callback is invoked');
+  f.close();
+});

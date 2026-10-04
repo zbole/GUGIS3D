@@ -8,6 +8,17 @@ await build({ entryPoints: [fileURLToPath(new URL("../src/studio/cityApi.ts", im
   bundle: true, platform: "node", format: "esm", packages: "external", outfile,
   define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' } });
 const { commitDraft, createCityApi } = await import(pathToFileURL(outfile).href);
+
+test('public DTM reads and source downloads retain their independently bound city prefix',async t=>{
+  const original=globalThis.fetch,calls=[];
+  globalThis.fetch=async(url,options)=>{calls.push({url,options});return new Response(JSON.stringify({status:'pending',source:null}),{headers:{'Content-Type':'application/json'}});};
+  t.after(()=>{globalThis.fetch=original;});
+  const bristol=createCityApi('bristol'),london=createCityApi('london');
+  await bristol.publicTerrainSource();await london.publicTerrainSource();await bristol.publicTerrainPreview();
+  assert.deepEqual(calls.map(c=>c.url),['/api/cities/bristol/city/terrain/public-source','/api/cities/london/city/terrain/public-source','/api/cities/bristol/city/terrain/public-preview']);
+  assert.ok(calls.every(c=>c.options.method==='GET'&&c.options.body===undefined));
+  assert.equal(london.publicTerrainRasterUrl,'/api/cities/london/city/terrain/public-raster.tif');
+});
 const studioFile = outfile.replace("city-api", "studio-api");
 await build({ entryPoints: [fileURLToPath(new URL("../src/studio/api.ts", import.meta.url))], outfile: studioFile,
   bundle: true, platform: "node", format: "esm", packages: "external", define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' } });
