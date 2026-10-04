@@ -1,0 +1,14 @@
+{
+  "source_sha256": "7a26da613537eab2651f1bbbac35870b8a2bb534176faab0770ed23b4774f7ef",
+  "plotter_sha256": "11c83f5ca6f1f5a0496fe147b0ae5a477a31fb1b1254fef816568cf87c8a5588",
+  "figure_files": {
+    "swiss-10cm-display-reuse.png": {
+      "bytes": 104876,
+      "sha256": "8d48b52e9562502922bae51a8297ab67353f26b507e991a3b9d1806a4ad0ca85"
+    },
+    "swiss-10cm-display-reuse.svg": {
+      "bytes": 26027,
+      "sha256": "a30332533ff0ee84fb03a73f7e03da28096b0de509aca8b49678068ba099da3b"
+    }
+  }
+}

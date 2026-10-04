@@ -12,7 +12,7 @@ async function bundle(name,path){
   await build({entryPoints:[source(path)],bundle:true,platform:'node',format:'esm',packages:'external',outfile,loader:{'.css':'empty'}});
   return import(pathToFileURL(outfile).href);
 }
-const {researchTerrainMeshes}=await bundle('research-mesh','../src/compare/researchTerrainMesh.ts');
+const {researchTerrainMeshes,shareResearchVertices}=await bundle('research-mesh','../src/compare/researchTerrainMesh.ts');
 const {loadResearchTerrain}=await bundle('research-loader','../src/compare/loadResearchTerrain.ts');
 const Lab=(await bundle('hybrid-lab','../src/compare/HybridTerrainLab.tsx')).default;
 const report=JSON.parse(await readFile(source('../../shared/hybrid-terrain-research.json'),'utf8'));
@@ -75,6 +75,34 @@ test('four native saddle controls render a bounded curved surface without modify
   assert.throws(()=>researchTerrainMeshes(terrain,.01,3),/预算/);
   const invalid=structuredClone(terrain);invalid.points[0][0]+=.1;
   assert.throws(()=>researchTerrainMeshes(invalid,.01),/平行四边形/);
+});
+
+test('display sharing preserves exact oriented faces and never merges nearby coordinates',()=>{
+  const mesh={vertices:[[0,0,0],[1,0,0],[0,1,0],[0,0,0],[1,0,0],[1,1,0],[1+1e-12,0,0]],
+    triangles:[[0,1,2],[3,5,4],[6,2,0]]};
+  const original=JSON.stringify(mesh),shared=shareResearchVertices(mesh);
+  assert.equal(shared.vertices.length,5);
+  assert.deepEqual(shared.triangles.map(face=>face.map(i=>shared.vertices[i])),mesh.triangles.map(face=>face.map(i=>mesh.vertices[i])));
+  assert.equal(JSON.stringify(mesh),original);
+});
+
+test('real Swiss display sharing preserves tessellation bounds, budgets and native archive bytes',async()=>{
+  const raster=JSON.parse(await readFile(source('../../shared/raster-triangle-benchmark.json'),'utf8'));
+  const variant=raster.cases[0].variants.find(v=>v.target_m===.1);
+  for(const family of ['hybrid','local_triangles','compact_hybrid']){
+    const receipt=variant[family],raw=await readFile(modelPath('swiss-dem-crop',receipt)),terrain=JSON.parse(raw);
+    const before=JSON.stringify(terrain),expanded=researchTerrainMeshes(terrain,.05,180000,false),shared=researchTerrainMeshes(terrain,.05);
+    assert.ok(shared.vertices<expanded.vertices/2);
+    assert.equal(shared.expandedVertices,expanded.vertices);
+    assert.equal(shared.displayBound,expanded.displayBound);
+    assert.equal(shared.capped,expanded.capped);
+    for(const kind of Object.keys(expanded.meshes)){
+      const a=expanded.meshes[kind],b=shared.meshes[kind];
+      assert.equal(a.triangles.length,b.triangles.length);
+      assert.deepEqual(b.triangles.map(face=>face.map(i=>b.vertices[i])),a.triangles.map(face=>face.map(i=>a.vertices[i])));
+    }
+    assert.equal(JSON.stringify(terrain),before);assert.equal(hash(raw),receipt.sha256);
+  }
 });
 
 test('research loading checks lengths, hash, cancellation and restricts the local data path',async()=>{

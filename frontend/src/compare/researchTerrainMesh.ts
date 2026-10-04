@@ -2,10 +2,24 @@ import type { Terrain } from '../studio/environment';
 import type { Vec3 } from '../studio/model';
 import { patchFaces, ruledPoint } from '../studio/terrainMath';
 export type ResearchMesh = {vertices:Vec3[];triangles:Vec3[]};
+
+/** Exact coordinate interning: no rounding, resampling or face removal. */
+export function shareResearchVertices(mesh:ResearchMesh):ResearchMesh{
+  const vertices:Vec3[]=[],lookup=new Map<string,number>();
+  const indices=mesh.vertices.map(point=>{
+    if(!point.every(Number.isFinite))throw new Error('Nonfinite research display vertex');
+    const key=point.join(',');
+    const existing=lookup.get(key);
+    if(existing!==undefined)return existing;
+    const index=vertices.length;lookup.set(key,index);vertices.push(point);return index;
+  });
+  return {vertices,triangles:mesh.triangles.map(face=>face.map(index=>indices[index]) as Vec3)};
+}
 /** Display-only tessellation. Native archives and query statistics stay intact. */
-export function researchTerrainMeshes(terrain:Terrain,tolerance:number,maxVertices=180000){
+export function researchTerrainMeshes(terrain:Terrain,tolerance:number,maxVertices=180000,shareVertices=true){
   if(!Number.isFinite(tolerance)||tolerance<=0)throw new Error('Invalid display tolerance');
   if(!Number.isSafeInteger(maxVertices)||maxVertices<1)throw new Error('Invalid display vertex budget');
+  if(typeof shareVertices!=='boolean')throw new Error('Invalid display sharing option');
   const quads=terrain.patches.filter(p=>p.kind==='ruled-strip').flatMap(p=>p.left!.slice(0,-1).map((a,i)=>{
     const corners=[a,p.right![i],p.left![i+1],p.right![i+1]].map(id=>terrain.points[id]);
     if([0,1].some(axis=>Math.abs(corners[3][axis]-corners[1][axis]-corners[2][axis]+corners[0][axis])>1e-8))
@@ -32,6 +46,10 @@ export function researchTerrainMeshes(terrain:Terrain,tolerance:number,maxVertic
     }
     displayBound=Math.max(displayBound,twist/(4*d*d));
   }
-  return {meshes:{'ruled-strip':ruled,'triangle-strip':triangles,'triangle-fan':{vertices:[],triangles:[]} as ResearchMesh},
-    displayBound,vertices:estimated,capped:displayBound>tolerance};
+  const meshes={'ruled-strip':shareVertices?shareResearchVertices(ruled):ruled,
+    'triangle-strip':shareVertices?shareResearchVertices(triangles):triangles,
+    'triangle-fan':{vertices:[],triangles:[]} as ResearchMesh};
+  const vertices=Object.values(meshes).reduce((sum,mesh)=>sum+mesh.vertices.length,0);
+  return {meshes,displayBound,vertices,expandedVertices:estimated,sharedVertices:shareVertices,
+    vertexSavingPercent:estimated?(1-vertices/estimated)*100:0,capped:displayBound>tolerance};
 }
