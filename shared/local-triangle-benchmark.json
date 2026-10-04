@@ -50,8 +50,8 @@
             "native_bytes": 923,
             "build_and_validate_ms": 6.5737999975681305,
             "filename": "paired-hybrid-0.05m.json",
-            "sha256": "779cd480035bff0d881f62fb438fc2608e2d0cb554a8121e3ced6c1e501b13ff",
-            "bytes": 1080,
+            "sha256": "b7ad4902518b9358116f92d2d9fe7fea6fab284388457d38b1d7116a07edab8e",
+            "bytes": 753,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -63,14 +63,14 @@
               "max_absolute_m": 4.263256414560601e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 0.3440999999999974,
-              "retained_index_heap_bytes": 83968,
+              "index_ms": 0.34949999999999193,
+              "retained_index_heap_bytes": 82624,
               "query_repetitions_ms": [
-                1.6325000000000074,
-                1.5815000000000055,
-                1.6064000000000078,
-                2.829800000000006,
-                1.2312000000000012
+                2.184899999999999,
+                1.8690999999999889,
+                1.598700000000008,
+                2.592899999999986,
+                1.4602000000000004
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -105,10 +105,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 6.41250004991889,
+            "build_and_validate_ms": 6.109199952334166,
             "filename": "local-triangles-0.05m.json",
-            "bytes": 1080,
-            "sha256": "24f529789bbd78acb8470c7b0632a47b335f00dd4501c9d713e550ade81e4db6",
+            "bytes": 753,
+            "sha256": "476ea0010dc3b24cd7b93ed02e8c53fa6caa62f6f8cfe319a0cebc9355c1d4ca",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -125,14 +125,14 @@
               "max_absolute_m": 4.263256414560601e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 0.06310000000000571,
-              "retained_index_heap_bytes": -4424,
+              "index_ms": 0.13419999999999277,
+              "retained_index_heap_bytes": 10800,
               "query_repetitions_ms": [
-                2.2560999999999893,
-                1.6563999999999908,
-                1.4473000000000127,
-                2.2221999999999866,
-                1.6807000000000016
+                2.1329999999999956,
+                1.822499999999991,
+                1.436000000000007,
+                2.0422000000000082,
+                1.5243999999999858
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -176,8 +176,8 @@
             "native_bytes": 922,
             "build_and_validate_ms": 0.6302000256255269,
             "filename": "paired-hybrid-0.1m.json",
-            "sha256": "2b0438b93c5bfe44a3a0dbf4bf78dcaf2a4e8bdaece6412e61334c0b3aceab59",
-            "bytes": 1079,
+            "sha256": "b86f3ec2f1a6a43f00d7e0b1a8bf42f3e4cdca7c8301e307baf32336f011e3ec",
+            "bytes": 752,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -189,14 +189,14 @@
               "max_absolute_m": 4.263256414560601e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 0.06329999999999814,
-              "retained_index_heap_bytes": 1880,
+              "index_ms": 0.06319999999999482,
+              "retained_index_heap_bytes": -2040,
               "query_repetitions_ms": [
-                1.349599999999981,
-                1.243300000000005,
-                1.4119000000000028,
-                0.8588999999999771,
-                0.9005999999999972
+                1.5328000000000088,
+                1.4414999999999907,
+                1.4180999999999813,
+                1.2190000000000225,
+                0.7339000000000055
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -231,10 +231,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 0.36049995105713606,
+            "build_and_validate_ms": 0.31969998963177204,
             "filename": "local-triangles-0.1m.json",
-            "bytes": 1079,
-            "sha256": "ecd85c4325f225c4868c206259e431bf4948d6ca39c3389985655f71618c45f2",
+            "bytes": 752,
+            "sha256": "4be40a1caebae9ff2bb6481d1e5ecd1fe81f61969731c60958635e0e4437b14d",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -251,14 +251,14 @@
               "max_absolute_m": 4.263256414560601e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 0.04449999999999932,
-              "retained_index_heap_bytes": 3416,
+              "index_ms": 0.05649999999999977,
+              "retained_index_heap_bytes": 5024,
               "query_repetitions_ms": [
-                0.8956000000000017,
-                0.9927000000000135,
-                0.7660999999999945,
-                0.8016999999999825,
-                0.7531999999999925
+                0.9462000000000046,
+                0.8055999999999983,
+                0.7605000000000075,
+                0.7880999999999858,
+                0.7790999999999997
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -302,8 +302,8 @@
             "native_bytes": 923,
             "build_and_validate_ms": 0.5132000660523772,
             "filename": "paired-hybrid-0.25m.json",
-            "sha256": "e9a28681d4203c0d2b513deaef70e8e6d4532afe661f49fb8020b035af6d1fcf",
-            "bytes": 1080,
+            "sha256": "79d6b7aba2f6447c088eba0fef063409cf143fcc434b160de75229d461988bf3",
+            "bytes": 753,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -315,14 +315,14 @@
               "max_absolute_m": 4.263256414560601e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 0.06720000000001392,
-              "retained_index_heap_bytes": -72,
+              "index_ms": 0.06069999999999709,
+              "retained_index_heap_bytes": -776,
               "query_repetitions_ms": [
-                0.820999999999998,
-                0.745599999999996,
-                0.6321999999999832,
-                0.663800000000009,
-                0.6701999999999941
+                0.8814000000000135,
+                0.8983000000000061,
+                0.6557999999999993,
+                0.7144999999999868,
+                0.7687999999999988
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -357,10 +357,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 0.20819995552301407,
+            "build_and_validate_ms": 0.22579997312277555,
             "filename": "local-triangles-0.25m.json",
-            "bytes": 1080,
-            "sha256": "03d04fbaf51c2fd04ee42fa1d3f786cc15c906c0cbaf01f3893eb5da22cd0477",
+            "bytes": 753,
+            "sha256": "96e9bdf2c5d421b41c9b66f1b53b0560bd357dae1185a4729e09849651ae104f",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -377,14 +377,14 @@
               "max_absolute_m": 4.263256414560601e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 0.036200000000008004,
-              "retained_index_heap_bytes": -1080,
+              "index_ms": 0.03819999999998913,
+              "retained_index_heap_bytes": -1784,
               "query_repetitions_ms": [
-                0.8566999999999894,
-                0.7095999999999947,
-                0.6363000000000056,
-                1.0965000000000202,
-                0.851300000000009
+                1.100999999999999,
+                1.1503999999999905,
+                0.7132000000000005,
+                1.0409999999999968,
+                1.048400000000015
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -428,8 +428,8 @@
             "native_bytes": 922,
             "build_and_validate_ms": 0.5663000047206879,
             "filename": "paired-hybrid-0.5m.json",
-            "sha256": "c9ddb5966b19c0897b12030ba81a35f10c7d882eb06bda0d089c2104696d1abe",
-            "bytes": 1079,
+            "sha256": "40ed29b591599e3116a1a4e65ac9f82324f42a42cc789dbac538ea52ed88706d",
+            "bytes": 752,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -441,14 +441,14 @@
               "max_absolute_m": 4.263256414560601e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 0.026499999999998636,
-              "retained_index_heap_bytes": -1960,
+              "index_ms": 0.02749999999997499,
+              "retained_index_heap_bytes": -2664,
               "query_repetitions_ms": [
-                1.0498000000000047,
-                1.039199999999994,
-                0.7653999999999996,
-                1.0371000000000095,
-                0.948900000000009
+                0.8162000000000091,
+                0.7906999999999869,
+                0.6710999999999956,
+                0.6859000000000037,
+                0.7863999999999862
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -483,10 +483,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 0.1965999836102128,
+            "build_and_validate_ms": 0.2316000172868371,
             "filename": "local-triangles-0.5m.json",
-            "bytes": 1079,
-            "sha256": "4ff514cc225c1c947d73ae95fefcea60819b36eb775b81b93c121287aed9b84e",
+            "bytes": 752,
+            "sha256": "ad6d4b8be7582dd80fe2ebb076b46ee402814bca18c19a9b38a104e37d547b93",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -503,14 +503,14 @@
               "max_absolute_m": 4.263256414560601e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 0.032199999999988904,
-              "retained_index_heap_bytes": -2008,
+              "index_ms": 0.028599999999983083,
+              "retained_index_heap_bytes": -2712,
               "query_repetitions_ms": [
-                0.7881000000000142,
-                0.7316999999999894,
-                0.6218000000000075,
-                0.6330999999999847,
-                0.9543999999999926
+                0.8331000000000017,
+                0.8710999999999842,
+                0.7214999999999918,
+                0.7732000000000028,
+                0.8660999999999888
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -527,8 +527,8 @@
           "control_point_saving_percent": 0.0
         }
       ],
-      "download_bytes": 126143,
-      "download_sha256": "ba447b1d1b12c066feccb5b73aedd5fc0746cce9dad573b242f6006a40ee36e1"
+      "download_bytes": 125166,
+      "download_sha256": "8b6b93474925fa96f5d6481585dba4686ca5351e56a3aef8831575bbacf95292"
     },
     {
       "id": "bilinear-saddle",
@@ -568,8 +568,8 @@
             "native_bytes": 936,
             "build_and_validate_ms": 0.810900004580617,
             "filename": "paired-hybrid-0.05m.json",
-            "sha256": "7fc51c54a8f758da8f67461e0659591b52ff86acfaf51d2a2ec47465b4927180",
-            "bytes": 1093,
+            "sha256": "26789f74bace6376bba93f6d78393ac75b59d93fe450dccab2330edce0026f76",
+            "bytes": 766,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -581,14 +581,14 @@
               "max_absolute_m": 1.4210854715202004e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
-              "index_ms": 0.08609999999998763,
-              "retained_index_heap_bytes": -14528,
+              "index_ms": 0.08559999999999945,
+              "retained_index_heap_bytes": -15232,
               "query_repetitions_ms": [
-                4.1644000000000005,
-                3.265800000000013,
-                3.9385000000000048,
-                3.591399999999993,
-                4.108299999999986
+                4.251499999999993,
+                3.9513000000000034,
+                3.9692000000000007,
+                4.197900000000004,
+                3.6676999999999964
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -623,10 +623,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 134.2937999870628,
+            "build_and_validate_ms": 134.9594999337569,
             "filename": "local-triangles-0.05m.json",
-            "bytes": 30394,
-            "sha256": "8a4d80219105611c0c858262b534b54feb78859b8d902b05ead616c8c5177032",
+            "bytes": 30067,
+            "sha256": "4ec622a79b377247fa97058e55e84be7408c1f47f63e949f2e2153ec386e2047",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -643,14 +643,14 @@
               "max_absolute_m": 0.038977955107007745,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 2.1206999999999994,
-              "retained_index_heap_bytes": 549568,
+              "index_ms": 2.1807000000000016,
+              "retained_index_heap_bytes": 557824,
               "query_repetitions_ms": [
-                3.673000000000002,
-                2.654599999999988,
-                3.1156999999999755,
-                2.9649,
-                2.8765000000000214
+                2.900400000000019,
+                3.147800000000018,
+                3.1662000000000035,
+                2.985400000000027,
+                3.9163999999999533
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -663,7 +663,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 96.40389550569192,
+          "native_file_saving_percent": 97.452356404031,
           "control_point_saving_percent": 99.26605504587155
         },
         {
@@ -694,8 +694,8 @@
             "native_bytes": 935,
             "build_and_validate_ms": 1.0791999520733953,
             "filename": "paired-hybrid-0.1m.json",
-            "sha256": "52a9c3d5edff31684f47a5274ca6091c44e0fbc37ee2ded67be863ff7dd7d8c4",
-            "bytes": 1092,
+            "sha256": "780213f05e922e20da6f0c78a466ae7c3179e068049f4ee6313a1909b23ca91b",
+            "bytes": 765,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -707,14 +707,14 @@
               "max_absolute_m": 1.4210854715202004e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
-              "index_ms": 0.10140000000001237,
-              "retained_index_heap_bytes": -2208,
+              "index_ms": 0.07080000000001974,
+              "retained_index_heap_bytes": 49112,
               "query_repetitions_ms": [
-                3.084000000000003,
-                3.308400000000006,
-                3.6317999999999984,
-                3.7916000000000167,
-                3.515899999999988
+                3.5535999999999603,
+                3.584600000000023,
+                3.3926999999999907,
+                3.9273000000000025,
+                3.3928999999999974
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -749,10 +749,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 134.45919996593148,
+            "build_and_validate_ms": 139.59629996679723,
             "filename": "local-triangles-0.1m.json",
-            "bytes": 30393,
-            "sha256": "57d47788145a0494855b4b1266440fa264749837493b07301a3fd5cfef22863e",
+            "bytes": 30066,
+            "sha256": "866292dd5400338f58a0eac1fbdf5684e505b37c52396343d28b0ff26fe58dcd",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -769,14 +769,14 @@
               "max_absolute_m": 0.038977955107007745,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 1.839999999999975,
-              "retained_index_heap_bytes": 501744,
+              "index_ms": 1.7027000000000498,
+              "retained_index_heap_bytes": 447088,
               "query_repetitions_ms": [
-                2.5498000000000047,
-                2.9248999999999796,
-                2.398900000000026,
-                2.6597000000000435,
-                2.813199999999995
+                2.8926999999999907,
+                2.7556000000000154,
+                2.5411000000000286,
+                2.6546000000000163,
+                2.6591999999999985
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -789,7 +789,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 96.4070674168394,
+          "native_file_saving_percent": 97.4555976850928,
           "control_point_saving_percent": 99.26605504587155
         },
         {
@@ -820,8 +820,8 @@
             "native_bytes": 936,
             "build_and_validate_ms": 0.700599979609251,
             "filename": "paired-hybrid-0.25m.json",
-            "sha256": "8aefa2882ad8238461508248bc9578429d1cae6c0397b12c26706e5049dd5387",
-            "bytes": 1093,
+            "sha256": "8b8d373f18cc1d3fab2c78d021a1278d5f8bca414a54afc10bc58345205a4702",
+            "bytes": 766,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -833,14 +833,14 @@
               "max_absolute_m": 1.4210854715202004e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
-              "index_ms": 0.02909999999997126,
-              "retained_index_heap_bytes": -55088,
+              "index_ms": 0.034500000000036835,
+              "retained_index_heap_bytes": 1648,
               "query_repetitions_ms": [
-                2.7819999999999823,
-                3.045400000000029,
-                3.0632999999999697,
-                3.029699999999991,
-                2.629599999999982
+                3.1000999999999976,
+                3.6836999999999875,
+                3.5872999999999706,
+                3.500099999999975,
+                3.6124999999999545
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -875,10 +875,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 35.157499951310456,
+            "build_and_validate_ms": 33.893599989824,
             "filename": "local-triangles-0.25m.json",
-            "bytes": 8254,
-            "sha256": "685eef4739e419f23345b8900ef4a23b0090052b3f03c10af52559cc87a380eb",
+            "bytes": 7927,
+            "sha256": "32d8c1d76bdb9f62bb4706a207cde5ad4a7cfb0828c948167d5c9900c90c4df2",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -895,14 +895,14 @@
               "max_absolute_m": 0.15563743344751302,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.4913999999999987,
-              "retained_index_heap_bytes": 134464,
+              "index_ms": 0.49020000000001573,
+              "retained_index_heap_bytes": 137624,
               "query_repetitions_ms": [
-                2.518700000000024,
-                2.070500000000038,
-                2.067800000000034,
-                2.1680000000000064,
-                2.390699999999981
+                2.1832999999999743,
+                2.351600000000019,
+                2.415300000000002,
+                2.442099999999982,
+                2.816599999999994
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -915,7 +915,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 86.75793554640174,
+          "native_file_saving_percent": 90.33682351457045,
           "control_point_saving_percent": 97.24137931034483
         },
         {
@@ -946,8 +946,8 @@
             "native_bytes": 935,
             "build_and_validate_ms": 0.6846000906080008,
             "filename": "paired-hybrid-0.5m.json",
-            "sha256": "b20ea50a0df4e6924ee9e32f2831e00c179dcba4cc1f180ebf6a224e1274ed00",
-            "bytes": 1092,
+            "sha256": "76335270f78c4cd6393426c12775a30f96ecbba1a87bf70e9081448778b3c49c",
+            "bytes": 765,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -959,14 +959,14 @@
               "max_absolute_m": 1.4210854715202004e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
-              "index_ms": 0.027500000000031832,
-              "retained_index_heap_bytes": 4680,
+              "index_ms": 0.023300000000006094,
+              "retained_index_heap_bytes": 4632,
               "query_repetitions_ms": [
-                2.8467999999999734,
-                2.633199999999988,
-                2.5680000000000405,
-                2.7771999999999935,
-                2.528099999999995
+                3.003399999999999,
+                2.8754000000000133,
+                3.1813000000000216,
+                3.3491000000000213,
+                2.8637999999999693
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1001,10 +1001,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 35.250999964773655,
+            "build_and_validate_ms": 36.53649997431785,
             "filename": "local-triangles-0.5m.json",
-            "bytes": 8253,
-            "sha256": "43b7193e2e939299d496ecb9bc5136303d2055a281735bd0ae5d56ee510faf95",
+            "bytes": 7926,
+            "sha256": "72993989398abd0b06fa5a3355652bb9d0f3e7a5691444594769e0d8152f448b",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1021,14 +1021,14 @@
               "max_absolute_m": 0.15563743344751302,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.6027999999999452,
-              "retained_index_heap_bytes": 139736,
+              "index_ms": 0.5063999999999851,
+              "retained_index_heap_bytes": 139688,
               "query_repetitions_ms": [
-                2.2192000000000007,
-                2.209000000000003,
-                2.7595999999999776,
-                3.089499999999987,
-                3.1533000000000015
+                2.9384999999999764,
+                3.8496000000000095,
+                2.7017999999999915,
+                2.3648999999999774,
+                2.9067000000000007
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1041,12 +1041,12 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 86.76844783715013,
+          "native_file_saving_percent": 90.34822104466313,
           "control_point_saving_percent": 97.24137931034483
         }
       ],
-      "download_bytes": 164373,
-      "download_sha256": "f801259afffccac06f048da036d61932742954abc6b98607ad24c0f357ea3d5e"
+      "download_bytes": 163355,
+      "download_sha256": "9283b400481761bd6fa5aad7dc3ae2db476fab5303006035f576da2768bcab35"
     },
     {
       "id": "linear-flow",
@@ -1086,8 +1086,8 @@
             "native_bytes": 4392,
             "build_and_validate_ms": 10.53259999025613,
             "filename": "paired-hybrid-0.05m.json",
-            "sha256": "552fba29295d99b6019249cf788292e76b05364e7cc441635e5bd867e5b39b19",
-            "bytes": 4549,
+            "sha256": "9fc67a563a911257d921da181112fd4382d55cbc9e813c5bb65173dd0c2fe1b8",
+            "bytes": 4222,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1099,14 +1099,14 @@
               "max_absolute_m": 0.03182196568092621,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
-              "index_ms": 0.10960000000000036,
+              "index_ms": 0.09489999999999554,
               "retained_index_heap_bytes": 16944,
               "query_repetitions_ms": [
-                3.2929000000000315,
-                3.147699999999986,
-                3.2327999999999975,
-                3.4295000000000186,
-                2.785000000000025
+                3.204999999999984,
+                3.3506000000000427,
+                3.1154999999999973,
+                3.822399999999959,
+                3.2350000000000136
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1141,10 +1141,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 528.8992000278085,
+            "build_and_validate_ms": 524.7947999741882,
             "filename": "local-triangles-0.05m.json",
-            "bytes": 124239,
-            "sha256": "464544cee1df2a5ce6b4e82a88ad43bdc10d0dd4e59a9dc0c2dc937957ff24e5",
+            "bytes": 123912,
+            "sha256": "34a98c2b6853748ec139b8378127d2fc13372f0f9d49c544fb54e57df867bb80",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1161,14 +1161,14 @@
               "max_absolute_m": 0.030577538965179007,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 6.760299999999972,
+              "index_ms": 7.7801000000000045,
               "retained_index_heap_bytes": 2170144,
               "query_repetitions_ms": [
-                2.435800000000029,
-                2.6463999999999714,
-                2.630800000000022,
-                2.5371999999999844,
-                2.420599999999979
+                2.649400000000014,
+                3.592800000000011,
+                3.1929999999999836,
+                2.9594000000000165,
+                3.1467999999999847
               ],
               "index_statistics": {
                 "binSizeMetres": 16,
@@ -1181,7 +1181,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 96.33850884182905,
+          "native_file_saving_percent": 96.59274323713603,
           "control_point_saving_percent": 96.87647893989589
         },
         {
@@ -1212,8 +1212,8 @@
             "native_bytes": 4391,
             "build_and_validate_ms": 11.168300057761371,
             "filename": "paired-hybrid-0.1m.json",
-            "sha256": "0b5c14fd9f0449e33130519a756a0a1466316dbcf35c5dd46f02f5147eaf951a",
-            "bytes": 4548,
+            "sha256": "837b754bfea8859bd429e60dac5f3134b4315544361af50361b498884d68550e",
+            "bytes": 4221,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1225,14 +1225,14 @@
               "max_absolute_m": 0.03182196568092621,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
-              "index_ms": 0.08909999999997353,
+              "index_ms": 0.14950000000004593,
               "retained_index_heap_bytes": 20512,
               "query_repetitions_ms": [
-                3.048400000000015,
-                2.813099999999963,
-                2.5838999999999714,
-                2.8105999999999653,
-                2.98539999999997
+                2.8618999999999915,
+                2.8062999999999647,
+                3.127200000000016,
+                3.339300000000037,
+                3.33299999999997
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1267,10 +1267,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 199.06240003183484,
+            "build_and_validate_ms": 196.16900000255555,
             "filename": "local-triangles-0.1m.json",
-            "bytes": 43577,
-            "sha256": "78210f9b7f01d4a4b76362d705d06998e956d0cdebd12674281c0f0f276f325a",
+            "bytes": 43250,
+            "sha256": "9459381a2a433d325bed11ce9d5eb90e4523b1559a6535fbc2811938248b9bb1",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1287,14 +1287,14 @@
               "max_absolute_m": 0.05970657021833148,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 2.517099999999971,
+              "index_ms": 2.838300000000004,
               "retained_index_heap_bytes": 811504,
               "query_repetitions_ms": [
-                2.6294000000000324,
-                3.16640000000001,
-                3.049799999999948,
-                3.26339999999999,
-                2.3590000000000373
+                3.241899999999987,
+                2.6760000000000446,
+                3.096900000000005,
+                2.5638000000000147,
+                2.738899999999944
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -1307,7 +1307,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 89.5633017417445,
+          "native_file_saving_percent": 90.24046242774565,
           "control_point_saving_percent": 91.92166462668298
         },
         {
@@ -1338,8 +1338,8 @@
             "native_bytes": 2589,
             "build_and_validate_ms": 5.604999954812229,
             "filename": "paired-hybrid-0.25m.json",
-            "sha256": "50fe40082906215c85bb1f6a8a28f0df96dd2757b49b9258b92e0e46b9553070",
-            "bytes": 2746,
+            "sha256": "0387e7a3374d38ce31afefd816a8fe77d7d37c8ffed8569b171e65f37be7406f",
+            "bytes": 2419,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1351,14 +1351,14 @@
               "max_absolute_m": 0.12713144766213702,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
-              "index_ms": 0.057200000000079854,
-              "retained_index_heap_bytes": 12192,
+              "index_ms": 0.062200000000075306,
+              "retained_index_heap_bytes": 12240,
               "query_repetitions_ms": [
-                3.0194000000000187,
-                2.484899999999925,
-                3.1676000000001068,
-                3.1427999999999656,
-                2.6579000000000406
+                2.584799999999973,
+                3.209699999999998,
+                2.7228000000000065,
+                2.7170000000000982,
+                2.663499999999999
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1393,10 +1393,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 131.50189991574734,
+            "build_and_validate_ms": 133.60310008283705,
             "filename": "local-triangles-0.25m.json",
-            "bytes": 30851,
-            "sha256": "7a44db4bfd59b04d5d1bb041eccd0f582015d696a43f1c34b294c0b5d5f1c7bf",
+            "bytes": 30524,
+            "sha256": "0e1462154c739eb5d1e517410fd377dad2510a9e27d5046df09a290e2b671fd0",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1413,14 +1413,14 @@
               "max_absolute_m": 0.12672372900086515,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 1.6357000000000426,
+              "index_ms": 1.774000000000001,
               "retained_index_heap_bytes": 548512,
               "query_repetitions_ms": [
-                2.4553000000000793,
-                2.768599999999992,
-                2.3717000000000326,
-                2.4465000000000146,
-                2.8310000000000173
+                2.5670000000000073,
+                2.3689999999999145,
+                2.5167999999999893,
+                2.63029999999992,
+                3.0243000000000393
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -1433,7 +1433,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 91.09915399824965,
+          "native_file_saving_percent": 92.07508845498624,
           "control_point_saving_percent": 93.76146788990826
         },
         {
@@ -1464,8 +1464,8 @@
             "native_bytes": 2588,
             "build_and_validate_ms": 5.6099999928846955,
             "filename": "paired-hybrid-0.5m.json",
-            "sha256": "281f5d50f97b57a1d862c0aa20dd48f3b9e40ad8bfeec094ace0e8b5ba5a84aa",
-            "bytes": 2745,
+            "sha256": "d6488f61392f7ea85d0192dbaf09017eda9ebc92596cd6361ff263f544862d7d",
+            "bytes": 2418,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1477,14 +1477,14 @@
               "max_absolute_m": 0.12713144766213702,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
-              "index_ms": 0.22870000000000346,
+              "index_ms": 0.06090000000006057,
               "retained_index_heap_bytes": 12192,
               "query_repetitions_ms": [
-                2.480099999999993,
-                2.6946000000000367,
-                2.509399999999914,
-                3.1942000000000235,
-                2.610200000000077
+                2.7906000000000404,
+                3.070100000000025,
+                5.384500000000003,
+                4.170399999999972,
+                2.6236000000000104
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1519,10 +1519,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 54.12899993825704,
+            "build_and_validate_ms": 51.50940001476556,
             "filename": "local-triangles-0.5m.json",
-            "bytes": 11980,
-            "sha256": "268bb67a088ba92bcc20e979c5a2aa5f070a6a49dbb05099c075674bc6752e97",
+            "bytes": 11653,
+            "sha256": "6a39d62d2d1ac7ac024a83bd889994078c74f350ad4d20b1370c7612437b8d6e",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1539,14 +1539,14 @@
               "max_absolute_m": 0.24175543054068527,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.6660999999999149,
-              "retained_index_heap_bytes": 202632,
+              "index_ms": 0.6436999999999671,
+              "retained_index_heap_bytes": 202680,
               "query_repetitions_ms": [
-                3.1971999999999525,
-                2.6609999999999445,
-                2.546100000000024,
-                2.4103999999999814,
-                2.445899999999938
+                2.470100000000002,
+                2.8449999999999136,
+                2.91820000000007,
+                2.71550000000002,
+                2.792599999999993
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1559,12 +1559,12 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 77.08681135225376,
+          "native_file_saving_percent": 79.2499785462971,
           "control_point_saving_percent": 84.33179723502305
         }
       ],
-      "download_bytes": 235965,
-      "download_sha256": "22a8cf1b91341c2825816689e96de1036d6effef202295496906c0d06f2ca7d3"
+      "download_bytes": 234936,
+      "download_sha256": "a5f4e586b26b745e6a762faf9656aa522b9c3ad3d37eeb342ecf3254d347ebf7"
     },
     {
       "id": "convex-bowl",
@@ -1604,8 +1604,8 @@
             "native_bytes": 92847,
             "build_and_validate_ms": 320.4567999346182,
             "filename": "paired-hybrid-0.05m.json",
-            "sha256": "cbb4d251b510bf7c866ff18c35f8e41435f173343f02fe0b49909807ceceeca6",
-            "bytes": 93004,
+            "sha256": "ef055b857ba70d978f01534f9c0f6ce7e9680110d87cb93618d7baa46e5f6967",
+            "bytes": 92677,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1617,14 +1617,14 @@
               "max_absolute_m": 0.04882676542659681,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 3.4805000000000064,
-              "retained_index_heap_bytes": 1058664,
+              "index_ms": 3.253600000000006,
+              "retained_index_heap_bytes": 1052824,
               "query_repetitions_ms": [
-                5.712200000000053,
-                3.083599999999933,
-                2.9020000000000437,
-                2.9728000000000065,
-                2.9294000000001006
+                5.421799999999962,
+                3.588600000000042,
+                3.5696000000000367,
+                3.473500000000058,
+                4.715800000000058
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -1659,10 +1659,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 147.6994000840932,
+            "build_and_validate_ms": 151.82860009372234,
             "filename": "local-triangles-0.05m.json",
-            "bytes": 53641,
-            "sha256": "70439bb794e8d3c5a04fd184025c89f980240d4067bb3029ee9fd91dd59ca8b3",
+            "bytes": 53314,
+            "sha256": "4ce19cc060754105efbf47389174af75a001ae10cc445b0dd269e93f00f59ed4",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1679,14 +1679,14 @@
               "max_absolute_m": 0.04882676542659681,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 3.1154999999999973,
+              "index_ms": 3.5371999999999844,
               "retained_index_heap_bytes": 1082808,
               "query_repetitions_ms": [
-                3.5047000000000708,
-                2.994100000000003,
-                2.7635999999999967,
-                2.9105999999999312,
-                2.7093999999999596
+                3.3473999999999933,
+                3.040200000000027,
+                3.00750000000005,
+                3.399799999999914,
+                3.1859000000000606
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -1699,7 +1699,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": -73.38230085196025,
+          "native_file_saving_percent": -73.83238924109989,
           "control_point_saving_percent": 0.0
         },
         {
@@ -1730,8 +1730,8 @@
             "native_bytes": 92846,
             "build_and_validate_ms": 328.187600011006,
             "filename": "paired-hybrid-0.1m.json",
-            "sha256": "ed30953cf4ad5d01a3d1bc997843aff931cd4262b20ebf78c8205b7c719c14b2",
-            "bytes": 93003,
+            "sha256": "e179709186ddc974ea0b3cb32010a5282f44e0ae8098be2bd8e75233ca2295b3",
+            "bytes": 92676,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1743,14 +1743,14 @@
               "max_absolute_m": 0.04882676542659681,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 3.201999999999998,
+              "index_ms": 3.297900000000027,
               "retained_index_heap_bytes": 1082696,
               "query_repetitions_ms": [
-                3.3092000000000326,
-                2.9693999999999505,
-                2.7385000000000446,
-                2.5825999999999567,
-                2.721300000000042
+                2.8648000000000593,
+                3.025500000000079,
+                2.8057999999999765,
+                2.9552000000001044,
+                3.088899999999967
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -1785,10 +1785,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 108.69560006540269,
+            "build_and_validate_ms": 117.2879000660032,
             "filename": "local-triangles-0.1m.json",
-            "bytes": 43552,
-            "sha256": "aa931ea7cb89d899cf3d9080d2cde200ea7e9cf02e37d62ddd85b3e4d1274d66",
+            "bytes": 43225,
+            "sha256": "438511df273d6ce64c4e036cb9b31bf47f02fcc6449d2e08413afa493f43df50",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1805,14 +1805,14 @@
               "max_absolute_m": 0.08136859430340948,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 2.416400000000067,
+              "index_ms": 2.536200000000008,
               "retained_index_heap_bytes": 811520,
               "query_repetitions_ms": [
-                3.850599999999986,
-                3.151200000000017,
-                3.5190999999999804,
-                4.017599999999902,
-                2.7543000000000575
+                4.343200000000024,
+                3.3560999999999694,
+                3.6182999999999765,
+                3.7432999999999765,
+                2.7468000000000075
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -1825,7 +1825,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": -113.54472814107272,
+          "native_file_saving_percent": -114.40370156159632,
           "control_point_saving_percent": -33.29253365973073
         },
         {
@@ -1856,8 +1856,8 @@
             "native_bytes": 23289,
             "build_and_validate_ms": 88.57269992586225,
             "filename": "paired-hybrid-0.25m.json",
-            "sha256": "f552d2f5a4cc1d8dc318f81930621e67c54d7a826b9e82dd7a1fd13d63eadf68",
-            "bytes": 23446,
+            "sha256": "fbd076812a85c932817f4370c715572da8d8cee9c75608df4bcf4fb4a8876490",
+            "bytes": 23119,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1869,14 +1869,14 @@
               "max_absolute_m": 0.19531176736987987,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 0.8932999999999538,
-              "retained_index_heap_bytes": 268872,
+              "index_ms": 0.839800000000082,
+              "retained_index_heap_bytes": 268824,
               "query_repetitions_ms": [
-                2.4670999999999594,
-                2.626800000000003,
-                2.5095999999999776,
-                2.3828000000000884,
-                2.4904999999999973
+                2.3163000000000693,
+                2.6759000000000697,
+                2.397699999999986,
+                2.6960000000000264,
+                2.7134999999999536
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1911,10 +1911,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 40.30210000928491,
+            "build_and_validate_ms": 35.54810001514852,
             "filename": "local-triangles-0.25m.json",
-            "bytes": 14732,
-            "sha256": "f0e396f38fb95bf81f3be2910f8595680ecc3f5ec7dc5b7f838fc3dfd512e94b",
+            "bytes": 14405,
+            "sha256": "a4b9a2869dccc96c33284e35fc2f22d358996b8ac9c512c945cc22086fd2e04d",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1931,14 +1931,14 @@
               "max_absolute_m": 0.19531176736989408,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 1.2087999999999965,
+              "index_ms": 0.9687999999999874,
               "retained_index_heap_bytes": 268824,
               "query_repetitions_ms": [
-                2.8069000000000415,
-                3.067700000000059,
-                2.743600000000015,
-                2.9062999999999874,
-                2.614500000000021
+                2.6881000000000768,
+                2.6426999999999907,
+                2.449299999999994,
+                3.002299999999991,
+                2.641899999999964
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1951,7 +1951,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": -59.15014933478142,
+          "native_file_saving_percent": -60.49288441513363,
           "control_point_saving_percent": 0.0
         },
         {
@@ -1982,8 +1982,8 @@
             "native_bytes": 11925,
             "build_and_validate_ms": 45.099399983882904,
             "filename": "paired-hybrid-0.5m.json",
-            "sha256": "a928a241feeabeefb7cbadddb080d8d1c2ef7129764a39a4eb453c26f98cc7d8",
-            "bytes": 12082,
+            "sha256": "02b75eda787c0aac971f6137bc602e50851d13db9b584a861f051782ef17b0f0",
+            "bytes": 11755,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1995,14 +1995,14 @@
               "max_absolute_m": 0.42958609899061884,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 0.4660999999999831,
-              "retained_index_heap_bytes": 137640,
+              "index_ms": 0.6066000000000713,
+              "retained_index_heap_bytes": 137592,
               "query_repetitions_ms": [
-                2.186399999999935,
-                2.080600000000004,
-                2.4799000000000433,
-                2.100400000000036,
-                1.7870000000000346
+                2.231400000000008,
+                2.2169000000000096,
+                1.987100000000055,
+                2.153099999999995,
+                2.039199999999937
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2037,10 +2037,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 17.11850007995963,
+            "build_and_validate_ms": 17.02990010380745,
             "filename": "local-triangles-0.5m.json",
-            "bytes": 8209,
-            "sha256": "165080b01d8de7d65cb1510a9c4818b3c088ad997b327feb7b90894282e6ae5f",
+            "bytes": 7882,
+            "sha256": "8ed13c748834490a8fb6dbe5fa3d416f63476ef917fc12d83701166ebf0bbe4f",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2057,14 +2057,14 @@
               "max_absolute_m": 0.46811420748162647,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 0.4331999999999425,
-              "retained_index_heap_bytes": 137592,
+              "index_ms": 0.44689999999991414,
+              "retained_index_heap_bytes": 137640,
               "query_repetitions_ms": [
-                1.8880999999998949,
-                2.3168000000000575,
-                2.1789999999999736,
-                2.227800000000002,
-                2.6580999999999904
+                1.919499999999971,
+                2.381999999999948,
+                2.024000000000001,
+                1.9688999999999623,
+                2.192800000000034
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2077,12 +2077,12 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": -47.17992447313924,
+          "native_file_saving_percent": -49.1372748033494,
           "control_point_saving_percent": -5.517241379310356
         }
       ],
-      "download_bytes": 214531,
-      "download_sha256": "798a663f2b2b59e3a1c47e337b9c8fabcc1d6053f598ec6a41b871c263a0c434"
+      "download_bytes": 213412,
+      "download_sha256": "b563d120ea6d08a3e0192a8c528ba06828671e7b1eac43386275258ad6b43b29"
     },
     {
       "id": "rotating-direction",
@@ -2122,8 +2122,8 @@
             "native_bytes": 237574,
             "build_and_validate_ms": 399.67270009219646,
             "filename": "paired-hybrid-0.05m.json",
-            "sha256": "3030efbd20d10557426f61901a74387a8f2e090ddfaf34175069cbaae9d5d6f7",
-            "bytes": 237731,
+            "sha256": "ee5d45308e3972b0669ff87e6b9b31cfb59d8dfb092cb982766745fa52d19ceb",
+            "bytes": 237404,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2135,14 +2135,14 @@
               "max_absolute_m": 0.022069137104391956,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 8.36990000000003,
+              "index_ms": 6.669300000000021,
               "retained_index_heap_bytes": 2244600,
               "query_repetitions_ms": [
-                3.8134000000000015,
-                3.495700000000056,
-                3.2233999999999696,
-                3.834699999999998,
-                3.0852000000001
+                3.226199999999949,
+                3.5597000000000207,
+                3.0739000000000942,
+                3.6703999999999724,
+                2.921100000000024
               ],
               "index_statistics": {
                 "binSizeMetres": 16,
@@ -2177,10 +2177,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 967.0594999333844,
+            "build_and_validate_ms": 1012.0488000102341,
             "filename": "local-triangles-0.05m.json",
-            "bytes": 224800,
-            "sha256": "32a03508602aa794dfed40b3a424825c489de83629e367ca8f6adaea884ae17a",
+            "bytes": 224473,
+            "sha256": "99d67e8dd8deb367bcfcc9d83945d5f7074a1d7bf0f11c3b64b928d47e0988b4",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2197,14 +2197,14 @@
               "max_absolute_m": 0.029622283225890556,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 3.552713678800501e-15,
-              "index_ms": 13.35430000000008,
+              "index_ms": 13.691599999999994,
               "retained_index_heap_bytes": 3811016,
               "query_repetitions_ms": [
-                3.47199999999998,
-                3.80499999999995,
-                3.439999999999941,
-                4.72300000000007,
-                3.4137000000000626
+                3.44620000000009,
+                3.9978999999999587,
+                3.4746000000000095,
+                3.95150000000001,
+                3.602700000000027
               ],
               "index_statistics": {
                 "binSizeMetres": 16,
@@ -2217,7 +2217,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": -5.752224199288247,
+          "native_file_saving_percent": -5.760603725169622,
           "control_point_saving_percent": 29.18595153825211
         },
         {
@@ -2248,8 +2248,8 @@
             "native_bytes": 131421,
             "build_and_validate_ms": 243.43550007324666,
             "filename": "paired-hybrid-0.1m.json",
-            "sha256": "7bbda13f5658df88e7393c7d784535d105cc404965501e62731508007ff0db85",
-            "bytes": 131578,
+            "sha256": "3d9d8fb13b123f033e94872e37961010712fa972fba4bd1f33aeaf99ff17bcca",
+            "bytes": 131251,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2261,14 +2261,14 @@
               "max_absolute_m": 0.07025151248597439,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.0658141036401503e-14,
-              "index_ms": 3.470199999999977,
+              "index_ms": 3.308499999999981,
               "retained_index_heap_bytes": 1283168,
               "query_repetitions_ms": [
-                3.7011999999999716,
-                3.27800000000002,
-                3.2409000000000106,
-                3.3500999999999976,
-                3.2369999999999663
+                3.451999999999998,
+                4.2830000000000155,
+                3.5587999999999056,
+                3.3156000000000176,
+                3.340599999999995
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -2303,10 +2303,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 501.10530003439635,
+            "build_and_validate_ms": 502.23350001033396,
             "filename": "local-triangles-0.1m.json",
-            "bytes": 113383,
-            "sha256": "1414301a3d4ef016ff1f71e027c6d3ec282a30a7b3860eb4a9e7b557f917aafe",
+            "bytes": 113056,
+            "sha256": "8bd7c089043cf5fee55bbebd9b963b062fc8832e87862108b98c33134cefbe72",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2323,14 +2323,14 @@
               "max_absolute_m": 0.05233596061255241,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 3.552713678800501e-15,
-              "index_ms": 5.783500000000004,
-              "retained_index_heap_bytes": 1956584,
+              "index_ms": 5.133699999999976,
+              "retained_index_heap_bytes": 1956904,
               "query_repetitions_ms": [
-                2.4015999999999167,
-                2.462099999999964,
-                2.6638000000000375,
-                2.4353999999999587,
-                2.4945999999999913
+                2.502399999999966,
+                2.6539000000000215,
+                2.9781000000000404,
+                2.5884999999999536,
+                2.7075999999999567
               ],
               "index_statistics": {
                 "binSizeMetres": 16,
@@ -2343,7 +2343,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": -16.047379236746238,
+          "native_file_saving_percent": -16.09379422587036,
           "control_point_saving_percent": 22.373235755358078
         },
         {
@@ -2374,8 +2374,8 @@
             "native_bytes": 44724,
             "build_and_validate_ms": 81.35749993380159,
             "filename": "paired-hybrid-0.25m.json",
-            "sha256": "683a1554d062890fe05caafc843b518c828792336e5dda6847f03c7ee562b9ec",
-            "bytes": 44881,
+            "sha256": "db500229f560d68e08c6866fceaf98e3fec48557768cd41a2eac5cc4c80889cc",
+            "bytes": 44554,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2387,14 +2387,14 @@
               "max_absolute_m": 0.10229019431687192,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.0658141036401503e-14,
-              "index_ms": 1.158399999999915,
+              "index_ms": 1.2105000000000246,
               "retained_index_heap_bytes": 419968,
               "query_repetitions_ms": [
-                3.258100000000013,
-                2.7110999999999876,
-                2.939799999999991,
-                3.4218000000000757,
-                3.276399999999967
+                2.859199999999987,
+                3.052699999999959,
+                2.644600000000082,
+                3.0276000000000067,
+                2.597599999999943
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -2429,10 +2429,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 200.48999995924532,
+            "build_and_validate_ms": 201.995600014925,
             "filename": "local-triangles-0.25m.json",
-            "bytes": 44528,
-            "sha256": "f58c93d4353095ff2b443fd31a1dfeec0b30eaabb605eb0c1cbea00604a9fbf8",
+            "bytes": 44201,
+            "sha256": "5c9184cf0b44e344d48d559709b19321f444f0c7d973fe7fc0499bde1950341d",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2449,14 +2449,14 @@
               "max_absolute_m": 0.14405007555491522,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 3.552713678800501e-15,
-              "index_ms": 2.5249000000000024,
+              "index_ms": 2.20819999999992,
               "retained_index_heap_bytes": 782032,
               "query_repetitions_ms": [
-                3.132099999999923,
-                2.633899999999926,
-                2.460399999999936,
-                3.005300000000034,
-                2.4377999999999247
+                2.6170999999999367,
+                3.373700000000099,
+                2.8308999999999287,
+                3.176800000000185,
+                2.9308999999998377
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -2469,7 +2469,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": -0.7927596119295721,
+          "native_file_saving_percent": -0.7986244655098229,
           "control_point_saving_percent": 32.2663252240717
         },
         {
@@ -2500,8 +2500,8 @@
             "native_bytes": 23885,
             "build_and_validate_ms": 45.286000007763505,
             "filename": "paired-hybrid-0.5m.json",
-            "sha256": "8b3ba27cef6e4902184ddf9c7f4ccc381dfa140daef823d6cec095529d8a82e5",
-            "bytes": 24042,
+            "sha256": "086a2781845135aad7aa1894264fd085771cce23cdb325ede3de3c6fdac807a9",
+            "bytes": 23715,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2513,14 +2513,14 @@
               "max_absolute_m": 0.28061988199418764,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 0.6666000000000167,
-              "retained_index_heap_bytes": 218056,
+              "index_ms": 0.6702000000000226,
+              "retained_index_heap_bytes": 216400,
               "query_repetitions_ms": [
-                3.012299999999982,
-                3.61869999999999,
-                3.1259000000000015,
-                3.0183999999999287,
-                2.679500000000189
+                3.28650000000016,
+                2.9318000000000666,
+                2.7771000000000186,
+                2.82120000000009,
+                2.7800999999999476
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2555,10 +2555,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 114.50639995746315,
+            "build_and_validate_ms": 112.35960002522916,
             "filename": "local-triangles-0.5m.json",
-            "bytes": 25336,
-            "sha256": "2d496fa9bff8123c0e0a430a5e53e6d82ab725f9d1347f52fcadb36e2736a147",
+            "bytes": 25009,
+            "sha256": "af62ed5153c85a0dfa92ce63d642e8cb4f7a1ba3094827a99158e5a65bfa73dc",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2575,14 +2575,14 @@
               "max_absolute_m": 0.1965629267718363,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 3.552713678800501e-15,
-              "index_ms": 1.2648000000001502,
+              "index_ms": 1.2532999999998538,
               "retained_index_heap_bytes": 438272,
               "query_repetitions_ms": [
-                2.5320999999999003,
-                2.125,
-                2.539600000000064,
-                2.7683999999999287,
-                2.3342999999999847
+                2.210399999999936,
+                2.7730999999998858,
+                2.4413999999999305,
+                2.4447000000000116,
+                2.971499999999878
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -2595,12 +2595,12 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 5.107357120303124,
+          "native_file_saving_percent": 5.174137310568194,
           "control_point_saving_percent": 34.467120181405896
         }
       ],
-      "download_bytes": 358682,
-      "download_sha256": "cb911ecc78252309ce0c75f7648e7869f07ac6a667ffe37f2d9a30b7e5a7676a"
+      "download_bytes": 357669,
+      "download_sha256": "07d0fa2e77a5dcf1a8b14b75e4d34ea107ab21c266c8055f0b4e237bd836ae83"
     },
     {
       "id": "sharp-ridge",
@@ -2640,8 +2640,8 @@
             "native_bytes": 1021,
             "build_and_validate_ms": 1.3689000625163317,
             "filename": "paired-hybrid-0.05m.json",
-            "sha256": "311e38a2785635e7448c373acc204cee1f4b039199e591ce06af965f446eaba2",
-            "bytes": 1178,
+            "sha256": "9669be99ee1d4719468553932585b8712cba34f843c30066cbf92391e472e206",
+            "bytes": 851,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2653,14 +2653,14 @@
               "max_absolute_m": 1.4210854715202004e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.04349999999999454,
-              "retained_index_heap_bytes": -57048,
+              "index_ms": 0.044599999999945794,
+              "retained_index_heap_bytes": -62744,
               "query_repetitions_ms": [
-                3.4698000000000775,
-                2.195199999999886,
-                1.9676999999999225,
-                2.127899999999954,
-                2.0813000000000557
+                3.8797000000001844,
+                1.9821999999999207,
+                1.904399999999896,
+                2.06029999999987,
+                1.914299999999912
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2695,10 +2695,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 1.3479000190272927,
+            "build_and_validate_ms": 1.440799911506474,
             "filename": "local-triangles-0.05m.json",
-            "bytes": 1197,
-            "sha256": "524b96a6291553de12d34df1b4c10f97e5ef79a4570bbe1c6504a84eb40d6018",
+            "bytes": 870,
+            "sha256": "9460410c16f944ee95733e71f1adfb0dafd2ef9c7924d396f8a9d32669994a34",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2715,14 +2715,14 @@
               "max_absolute_m": 1.4210854715202004e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.04570000000012442,
-              "retained_index_heap_bytes": 27752,
+              "index_ms": 0.045900000000074215,
+              "retained_index_heap_bytes": 7120,
               "query_repetitions_ms": [
-                1.562599999999975,
-                1.5389000000000124,
-                1.5701000000001386,
-                1.6341999999999643,
-                1.8570999999999458
+                1.3602000000000771,
+                1.5401999999999134,
+                1.459400000000187,
+                1.5695999999998094,
+                1.7302999999999429
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2735,7 +2735,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 1.5873015873015928,
+          "native_file_saving_percent": 2.183908045977012,
           "control_point_saving_percent": 14.28571428571429
         },
         {
@@ -2766,8 +2766,8 @@
             "native_bytes": 1020,
             "build_and_validate_ms": 0.8973999647423625,
             "filename": "paired-hybrid-0.1m.json",
-            "sha256": "1922b0eff15b29dc650a5d450cc63ff4abaf3c68bba0a1fadfd45baa4a2e804d",
-            "bytes": 1177,
+            "sha256": "9be6fe4e822472dd9efbd91e2d78f112e6b38aaa305eab243b0641f414958ab5",
+            "bytes": 850,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2779,14 +2779,14 @@
               "max_absolute_m": 1.4210854715202004e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.08389999999985776,
-              "retained_index_heap_bytes": 6336,
+              "index_ms": 0.08669999999983702,
+              "retained_index_heap_bytes": 6384,
               "query_repetitions_ms": [
-                1.4751000000001113,
-                1.4195000000001983,
-                1.5084999999999127,
-                1.524900000000116,
-                1.6326999999998861
+                1.4561999999998534,
+                1.4714000000001306,
+                1.3804999999999836,
+                1.372899999999845,
+                1.5623000000000502
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2821,10 +2821,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 1.3319000136107206,
+            "build_and_validate_ms": 1.2574000284075737,
             "filename": "local-triangles-0.1m.json",
-            "bytes": 1196,
-            "sha256": "c97b262db3d6d205039dc6434b2ca0506f8f86faf26f9ef8027eb885f699011f",
+            "bytes": 869,
+            "sha256": "23cb9d3f3428462b80d36f39a7b47ebd7155f6a4b1c7aa63a927018c4244c5fb",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2841,14 +2841,14 @@
               "max_absolute_m": 1.4210854715202004e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.038000000000010914,
+              "index_ms": 0.04570000000012442,
               "retained_index_heap_bytes": 7168,
               "query_repetitions_ms": [
-                1.445799999999963,
-                1.4725000000000819,
-                1.6227000000001226,
-                1.6764000000000578,
-                2.1438000000000557
+                1.8509999999998854,
+                1.536200000000008,
+                1.419399999999996,
+                1.3935999999998785,
+                1.6959999999999127
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2861,7 +2861,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 1.5886287625418105,
+          "native_file_saving_percent": 2.1864211737629424,
           "control_point_saving_percent": 14.28571428571429
         },
         {
@@ -2892,8 +2892,8 @@
             "native_bytes": 1021,
             "build_and_validate_ms": 0.9926999919116497,
             "filename": "paired-hybrid-0.25m.json",
-            "sha256": "fc7da7bf0ebd8c6b38c043a566f92b69a2c1ea0ff069e97c0a72154f61fa9292",
-            "bytes": 1178,
+            "sha256": "07c2624c75508d84733aa189b857537efdeb051a81da790fe81dec61d4017895",
+            "bytes": 851,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2905,14 +2905,14 @@
               "max_absolute_m": 1.4210854715202004e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.03530000000000655,
+              "index_ms": 0.03269999999997708,
               "retained_index_heap_bytes": 6176,
               "query_repetitions_ms": [
-                1.501700000000028,
-                1.5617999999999483,
-                1.5588000000000193,
-                1.6838999999999942,
-                1.8865999999998166
+                1.4451999999998861,
+                1.4238000000000284,
+                1.4607999999998356,
+                1.5022999999998774,
+                1.9664999999999964
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2947,10 +2947,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 1.155099947936833,
+            "build_and_validate_ms": 1.1515000369399786,
             "filename": "local-triangles-0.25m.json",
-            "bytes": 1197,
-            "sha256": "4fb16b5cb9204e561d3290a3525d2cf2693b4ef3b9b9c171b4456e32e5e91fa0",
+            "bytes": 870,
+            "sha256": "5cf420e1bceaf621b3e1a2163575f166a09bdd12057126f535a76069e8f47779",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2967,14 +2967,14 @@
               "max_absolute_m": 1.4210854715202004e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.09559999999987667,
-              "retained_index_heap_bytes": 7632,
+              "index_ms": 0.06410000000005311,
+              "retained_index_heap_bytes": 7376,
               "query_repetitions_ms": [
-                1.5582999999999174,
-                1.5196000000000822,
-                1.4785999999999149,
-                1.4636000000000422,
-                1.5866000000000895
+                1.5157000000001517,
+                1.4639000000001943,
+                1.450900000000047,
+                1.437900000000127,
+                1.804300000000012
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2987,7 +2987,7 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 1.5873015873015928,
+          "native_file_saving_percent": 2.183908045977012,
           "control_point_saving_percent": 14.28571428571429
         },
         {
@@ -3018,8 +3018,8 @@
             "native_bytes": 1020,
             "build_and_validate_ms": 0.9372999193146825,
             "filename": "paired-hybrid-0.5m.json",
-            "sha256": "3714450a8a8529c4e335eb87dfc3049524dbfab565d6aafd7d7a40778338f33b",
-            "bytes": 1177,
+            "sha256": "694c05ff42570d94febda1b3a60ddaa86985c33de1eb7c0c3b8f8abf9e3e1900",
+            "bytes": 850,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -3031,14 +3031,14 @@
               "max_absolute_m": 1.4210854715202004e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.03209999999990032,
+              "index_ms": 0.033100000000104046,
               "retained_index_heap_bytes": 6224,
               "query_repetitions_ms": [
-                1.6222999999999956,
-                1.5398000000000138,
-                1.3868999999999687,
-                1.4079000000001543,
-                1.6583000000000538
+                1.455500000000029,
+                1.5141999999998461,
+                1.6221000000000458,
+                1.7516000000000531,
+                1.7703999999998814
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -3073,10 +3073,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 1.1112999636679888,
+            "build_and_validate_ms": 1.3085000682622194,
             "filename": "local-triangles-0.5m.json",
-            "bytes": 1196,
-            "sha256": "76ae8d1320e3be7214ed1a21d9555c8cf22a653f3b351017e1cae412e9bef315",
+            "bytes": 869,
+            "sha256": "0bd7bced16230b3b2e90987351938939bc874b561065f6a77622b92b91d49d06",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -3093,14 +3093,14 @@
               "max_absolute_m": 1.4210854715202004e-14,
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.03829999999993561,
-              "retained_index_heap_bytes": 7168,
+              "index_ms": 0.03520000000003165,
+              "retained_index_heap_bytes": 7216,
               "query_repetitions_ms": [
-                1.5647000000001299,
-                1.5401999999999134,
-                1.4581000000000586,
-                1.5150000000001,
-                1.848299999999881
+                1.3554000000001452,
+                1.380100000000084,
+                1.4302000000000135,
+                1.815900000000056,
+                1.8459000000000287
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -3113,12 +3113,12 @@
             }
           },
           "comparison_eligible": true,
-          "native_file_saving_percent": 1.5886287625418105,
+          "native_file_saving_percent": 2.1864211737629424,
           "control_point_saving_percent": 14.28571428571429
         }
       ],
-      "download_bytes": 125216,
-      "download_sha256": "2da4737714c876fa8189efdcb37342a787d4c2113f664dbeaf9fd523b240f156"
+      "download_bytes": 124237,
+      "download_sha256": "8615b1702462d1aaffe0117695f2c4a948272bc93023ce1c21d95f4ccbe7e8bc"
     }
   ],
   "builder_source_sha256": "b2e36e1f49fcd380279b41a925a7c762996d059cb7a41a6f0577df404692aae8",

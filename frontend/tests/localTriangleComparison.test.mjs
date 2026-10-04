@@ -28,8 +28,8 @@ test('all stronger baseline selections show measured signed outcomes, actual top
     assert.match(text(renderer.root),/未运行 ArcGIS Pro/);
     assert.equal(renderer.root.findByType('section').props.className.includes('has-loss'),p.native_file_saving_percent<0);
   }
-  assert.match(localTriangleOutcome('convex-bowl',.1),/增加 113.5%/);
-  assert.match(localTriangleOutcome('rotating-direction',.1),/增加 16.0%/);
+  assert.match(localTriangleOutcome('convex-bowl',.1),/增加 114.4%/);
+  assert.match(localTriangleOutcome('rotating-direction',.1),/增加 16.1%/);
   assert.match(localTriangleOutcome('steep-plane',.1),/一样大/);
   act(()=>renderer.update(React.createElement(Comparison,{caseId:'swiss-dem-crop',target:.1})));
   assert.match(text(renderer.root),/待补齐真实 DEM/);
@@ -57,6 +57,8 @@ test('paired published archives have equal metadata and preserve the original hy
     const [hybrid,local]=models;
     const meta=model=>Object.fromEntries(Object.entries(model).filter(([k])=>!['points','patches'].includes(k)));
     assert.deepEqual(meta(hybrid),meta(local));
+    assert.equal('构建方法' in local.source,false);
+    assert.equal('误差口径' in local.source,false);
     const original=parent.cases.find(v=>v.id===c.id).variants.find(v=>v.target_m===p.target_m).hybrid;
     assert.equal(p.hybrid.origin_archive_sha256,original.sha256);
     const originalModel=JSON.parse(await readFile(source(`../public/research/hybrid-terrain/models/${c.id}/${original.filename}`),'utf8'));

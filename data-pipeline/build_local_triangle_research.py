@@ -86,7 +86,7 @@ def main():
             local['build_and_validate_ms']=(time.perf_counter()-start)*1000
             triangle=terrain.model_dump(exclude_none=True)
             metadata={k:v for k,v in hybrid.items() if k not in ('points','patches','source')}
-            metadata['source']={k:v for k,v in hybrid['source'].items() if k not in ('构建器','证书口径')}
+            metadata['source']={k:v for k,v in hybrid['source'].items() if k not in ('构建器','证书口径','构建方法','误差口径')}
             metadata['source']['算法回执']='同包 results.json；两份档案元数据统一以公平计量成本'
             outputs={}
             for mode,model,stats in [('hybrid',hybrid,legacy),('local_triangles',triangle,local)]:

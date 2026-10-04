@@ -27,7 +27,7 @@ test('all compaction selections expose three actual byte counts and boundary slo
     assert.match(text(renderer.root),/不能算作曲面逼近算法或内存节省/);
     assert.match(text(renderer.root),/未运行 ArcGIS Pro/);
   }
-  assert.match(compactOutcome('rotating-direction',.1),/小 49.5%/);
+  assert.match(compactOutcome('rotating-direction',.1),/小 49.6%/);
   assert.match(compactOutcome('steep-plane',.1),/一样大/);
   act(()=>renderer.update(React.createElement(Comparison,{caseId:'swiss-dem-crop',target:.1})));
   assert.match(text(renderer.root),/真实 DEM 待测/);

@@ -1,7 +1,7 @@
 {
   "schema": "gugis-strip-compaction-research-v1",
   "generated_at": "2026-10-04",
-  "parent_sha256": "c61d1b9cd2f763f098192db046b60ee2ba06ba6a9182b3aef9ad92b68aa67fe6",
+  "parent_sha256": "47e96f1a751c10070f68be48685b48de9ea7722f6b3f2d5cf1e380f1872e8d57",
   "builder_source_sha256": "2ede55fa2d95739f833a5197c5b7d6c81991b2fc668d7100781c0aec5dec4b51",
   "strip_packer_source_sha256": "b2e36e1f49fcd380279b41a925a7c762996d059cb7a41a6f0577df404692aae8",
   "method": "Join only matching ruled boundary endpoints; repack identical oriented triangles. Controls and represented bilinear/linear functions unchanged. No refinement or new function access.",
@@ -40,8 +40,8 @@
             "native_bytes": 923,
             "build_and_validate_ms": 6.5737999975681305,
             "filename": "paired-hybrid-0.05m.json",
-            "sha256": "779cd480035bff0d881f62fb438fc2608e2d0cb554a8121e3ced6c1e501b13ff",
-            "bytes": 1080,
+            "sha256": "b7ad4902518b9358116f92d2d9fe7fea6fab284388457d38b1d7116a07edab8e",
+            "bytes": 753,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -51,14 +51,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.3195999999999941,
-              "retained_index_heap_bytes": 82256,
+              "index_ms": 0.5650000000000119,
+              "retained_index_heap_bytes": 83024,
               "query_repetitions_ms": [
-                1.5634000000000015,
-                1.6260999999999939,
-                1.8734000000000037,
-                2.5311999999999983,
-                1.950400000000002
+                1.8166999999999973,
+                1.7941000000000003,
+                1.7209000000000003,
+                2.8285000000000053,
+                1.556999999999988
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -93,10 +93,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 6.41250004991889,
+            "build_and_validate_ms": 6.109199952334166,
             "filename": "local-triangles-0.05m.json",
-            "bytes": 1080,
-            "sha256": "24f529789bbd78acb8470c7b0632a47b335f00dd4501c9d713e550ade81e4db6",
+            "bytes": 753,
+            "sha256": "476ea0010dc3b24cd7b93ed02e8c53fa6caa62f6f8cfe319a0cebc9355c1d4ca",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -111,14 +111,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.0630999999999915,
+              "index_ms": 0.0630000000000166,
               "retained_index_heap_bytes": -3104,
               "query_repetitions_ms": [
-                1.2994999999999948,
-                1.6338999999999828,
-                1.5575000000000045,
-                1.3669000000000153,
-                1.3631000000000029
+                1.3928999999999974,
+                1.3192999999999984,
+                1.4180000000000064,
+                1.3062999999999931,
+                1.4159999999999968
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -156,8 +156,8 @@
             "native_bytes": 923,
             "build_and_validate_ms": 6.5737999975681305,
             "filename": "compact-hybrid-0.05m.json",
-            "sha256": "cc26266a8b7e24a87e6fd10dfddbceb798b9c885c9d16b813e83715d0e92d5f3",
-            "bytes": 1080,
+            "sha256": "2acab89c219766f66d48f7191c79a0796d470d5593adcb7845fe16be02e3a30a",
+            "bytes": 753,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -167,14 +167,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.07450000000000045,
-              "retained_index_heap_bytes": -7168,
+              "index_ms": 0.06940000000000168,
+              "retained_index_heap_bytes": -7216,
               "query_repetitions_ms": [
-                1.9972999999999956,
-                0.981899999999996,
-                1.0187999999999988,
-                0.7503999999999849,
-                0.7787000000000148
+                2.2723000000000013,
+                1.272500000000008,
+                0.9346000000000032,
+                0.7876000000000118,
+                0.7091999999999814
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -202,7 +202,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.20420004148036242
+            "compaction_validate_ms": 0.20869995933026075
           },
           "boundary_fixture": "boundary-0.05m.json",
           "boundary_fixture_sha256": "b6c0f36d27eb989da24df05b59971334746a15d9eb3ef6cba7cae4febbe20e42",
@@ -260,8 +260,8 @@
             "native_bytes": 922,
             "build_and_validate_ms": 0.6302000256255269,
             "filename": "paired-hybrid-0.1m.json",
-            "sha256": "2b0438b93c5bfe44a3a0dbf4bf78dcaf2a4e8bdaece6412e61334c0b3aceab59",
-            "bytes": 1079,
+            "sha256": "b86f3ec2f1a6a43f00d7e0b1a8bf42f3e4cdca7c8301e307baf32336f011e3ec",
+            "bytes": 752,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -271,14 +271,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.045000000000015916,
+              "index_ms": 0.05509999999998172,
               "retained_index_heap_bytes": 504,
               "query_repetitions_ms": [
-                1.1340999999999894,
-                0.9113000000000113,
-                1.0144999999999982,
-                0.7419999999999902,
-                0.8199999999999932
+                1.1370000000000005,
+                1.0460000000000207,
+                0.7656000000000063,
+                1.071799999999996,
+                0.9772999999999854
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -313,10 +313,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 0.36049995105713606,
+            "build_and_validate_ms": 0.31969998963177204,
             "filename": "local-triangles-0.1m.json",
-            "bytes": 1079,
-            "sha256": "ecd85c4325f225c4868c206259e431bf4948d6ca39c3389985655f71618c45f2",
+            "bytes": 752,
+            "sha256": "4be40a1caebae9ff2bb6481d1e5ecd1fe81f61969731c60958635e0e4437b14d",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -331,14 +331,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.04179999999999495,
+              "index_ms": 0.03900000000001569,
               "retained_index_heap_bytes": -2848,
               "query_repetitions_ms": [
-                0.8132999999999981,
-                0.7513000000000147,
-                0.7202000000000055,
-                0.6742999999999881,
-                0.748500000000007
+                0.8092000000000041,
+                0.796999999999997,
+                0.6905999999999892,
+                0.7179999999999893,
+                0.7977999999999952
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -376,8 +376,8 @@
             "native_bytes": 922,
             "build_and_validate_ms": 0.6302000256255269,
             "filename": "compact-hybrid-0.1m.json",
-            "sha256": "98fd83a516e5e9dac26e3bcf1645e5c7ddb950e0122521d8d3582d9cabc8d816",
-            "bytes": 1079,
+            "sha256": "94897411e86f6bfa91f9bdd41e53cd628f1983a146cb3b7c9d71628b8f0acca8",
+            "bytes": 752,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -387,14 +387,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.07630000000000337,
+              "index_ms": 0.08250000000001023,
               "retained_index_heap_bytes": -1744,
               "query_repetitions_ms": [
-                0.809899999999999,
-                0.859499999999997,
-                0.6557999999999993,
-                0.653899999999993,
-                0.7179999999999893
+                0.81280000000001,
+                0.9038000000000181,
+                0.6885000000000048,
+                0.7075000000000102,
+                0.8007000000000062
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -422,7 +422,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.11699995957314968
+            "compaction_validate_ms": 0.10459998156875372
           },
           "boundary_fixture": "boundary-0.1m.json",
           "boundary_fixture_sha256": "b6c0f36d27eb989da24df05b59971334746a15d9eb3ef6cba7cae4febbe20e42",
@@ -480,8 +480,8 @@
             "native_bytes": 923,
             "build_and_validate_ms": 0.5132000660523772,
             "filename": "paired-hybrid-0.25m.json",
-            "sha256": "e9a28681d4203c0d2b513deaef70e8e6d4532afe661f49fb8020b035af6d1fcf",
-            "bytes": 1080,
+            "sha256": "79d6b7aba2f6447c088eba0fef063409cf143fcc434b160de75229d461988bf3",
+            "bytes": 753,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -491,14 +491,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.03619999999997958,
-              "retained_index_heap_bytes": -3680,
+              "index_ms": 0.030799999999999272,
+              "retained_index_heap_bytes": -3712,
               "query_repetitions_ms": [
-                0.7588000000000079,
-                0.7685999999999922,
-                0.6614000000000146,
-                0.6965000000000146,
-                0.7464999999999975
+                0.9142999999999972,
+                0.8556000000000097,
+                0.7257000000000176,
+                0.7245000000000061,
+                0.8200999999999965
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -533,10 +533,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 0.20819995552301407,
+            "build_and_validate_ms": 0.22579997312277555,
             "filename": "local-triangles-0.25m.json",
-            "bytes": 1080,
-            "sha256": "03d04fbaf51c2fd04ee42fa1d3f786cc15c906c0cbaf01f3893eb5da22cd0477",
+            "bytes": 753,
+            "sha256": "96e9bdf2c5d421b41c9b66f1b53b0560bd357dae1185a4729e09849651ae104f",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -551,14 +551,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.04609999999999559,
+              "index_ms": 0.03200000000001069,
               "retained_index_heap_bytes": -3552,
               "query_repetitions_ms": [
-                0.829100000000011,
-                0.7925999999999931,
-                0.6396000000000015,
-                0.6291999999999973,
-                0.7199999999999989
+                0.8902999999999963,
+                0.8369000000000142,
+                0.711199999999991,
+                0.6337999999999795,
+                0.7646000000000015
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -596,8 +596,8 @@
             "native_bytes": 923,
             "build_and_validate_ms": 0.5132000660523772,
             "filename": "compact-hybrid-0.25m.json",
-            "sha256": "e70536c0f60dd125fe57213a03a4f3b511a456c078c07910f2574e705c6aa1c2",
-            "bytes": 1080,
+            "sha256": "74d4760236b3badd97710bb6398336f8b15db335acab391b6baae43941f89797",
+            "bytes": 753,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -607,14 +607,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.03110000000000923,
+              "index_ms": 0.034199999999998454,
               "retained_index_heap_bytes": -3680,
               "query_repetitions_ms": [
-                0.7926999999999964,
-                0.8389999999999986,
-                0.6186000000000149,
-                0.643100000000004,
-                0.7173999999999978
+                0.9128000000000043,
+                0.8055999999999983,
+                0.7027999999999963,
+                0.7073000000000036,
+                0.7883999999999958
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -700,8 +700,8 @@
             "native_bytes": 922,
             "build_and_validate_ms": 0.5663000047206879,
             "filename": "paired-hybrid-0.5m.json",
-            "sha256": "c9ddb5966b19c0897b12030ba81a35f10c7d882eb06bda0d089c2104696d1abe",
-            "bytes": 1079,
+            "sha256": "40ed29b591599e3116a1a4e65ac9f82324f42a42cc789dbac538ea52ed88706d",
+            "bytes": 752,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -711,14 +711,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.041500000000013415,
-              "retained_index_heap_bytes": 2400,
+              "index_ms": 0.03540000000000987,
+              "retained_index_heap_bytes": 3576,
               "query_repetitions_ms": [
-                0.8594000000000221,
-                0.761099999999999,
-                0.7125000000000057,
-                0.6519000000000119,
-                0.725200000000001
+                0.7908999999999935,
+                0.8787000000000091,
+                0.6236999999999853,
+                0.6254999999999882,
+                0.7786000000000115
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -753,10 +753,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 0.1965999836102128,
+            "build_and_validate_ms": 0.2316000172868371,
             "filename": "local-triangles-0.5m.json",
-            "bytes": 1079,
-            "sha256": "4ff514cc225c1c947d73ae95fefcea60819b36eb775b81b93c121287aed9b84e",
+            "bytes": 752,
+            "sha256": "ad6d4b8be7582dd80fe2ebb076b46ee402814bca18c19a9b38a104e37d547b93",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -771,14 +771,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.033299999999997,
+              "index_ms": 0.03309999999999036,
               "retained_index_heap_bytes": -3680,
               "query_repetitions_ms": [
-                0.9074999999999704,
-                0.8407000000000266,
-                0.6317999999999984,
-                0.6397000000000048,
-                0.7089000000000283
+                0.9027999999999565,
+                0.8249999999999886,
+                0.6904999999999859,
+                0.6899999999999977,
+                0.8136000000000081
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -816,8 +816,8 @@
             "native_bytes": 922,
             "build_and_validate_ms": 0.5663000047206879,
             "filename": "compact-hybrid-0.5m.json",
-            "sha256": "a407a233a3a65fc762a278d97c33019f84348d5f6958b0f0d0e4315eda47c5e6",
-            "bytes": 1079,
+            "sha256": "615dd5aab81d5c7c6f7a9a71528d6db5db1cae388d7063dd63966998ffa5b615",
+            "bytes": 752,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -827,14 +827,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.03889999999998395,
+              "index_ms": 0.03100000000000591,
               "retained_index_heap_bytes": -3616,
               "query_repetitions_ms": [
-                0.9706000000000188,
-                0.8078999999999894,
-                0.6251000000000033,
-                0.6323999999999614,
-                0.7983000000000402
+                0.90979999999999,
+                0.7760000000000105,
+                0.6392999999999915,
+                0.6852000000000089,
+                0.7729999999999961
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -862,7 +862,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.08899997919797897
+            "compaction_validate_ms": 0.08919998072087765
           },
           "boundary_fixture": "boundary-0.5m.json",
           "boundary_fixture_sha256": "b6c0f36d27eb989da24df05b59971334746a15d9eb3ef6cba7cae4febbe20e42",
@@ -893,8 +893,8 @@
           "compact_vs_local_saving_percent": 0.0
         }
       ],
-      "download_bytes": 130247,
-      "download_sha256": "ea019a2da479d2e632823c0b9cbb742557d6c744dfd88dd3c6752f1e6744bbe1"
+      "download_bytes": 128721,
+      "download_sha256": "6a16eee7a6a8fa9399e1aefeeefce7e3048988b979ea8717934c9aebf091dcb2"
     },
     {
       "id": "bilinear-saddle",
@@ -929,8 +929,8 @@
             "native_bytes": 936,
             "build_and_validate_ms": 0.810900004580617,
             "filename": "paired-hybrid-0.05m.json",
-            "sha256": "7fc51c54a8f758da8f67461e0659591b52ff86acfaf51d2a2ec47465b4927180",
-            "bytes": 1093,
+            "sha256": "26789f74bace6376bba93f6d78393ac75b59d93fe450dccab2330edce0026f76",
+            "bytes": 766,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -940,14 +940,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.08439999999995962,
+              "index_ms": 0.09109999999998308,
               "retained_index_heap_bytes": -16584,
               "query_repetitions_ms": [
-                4.452200000000005,
-                4.019299999999987,
-                3.83299999999997,
-                3.5850000000000364,
-                3.5837999999999965
+                4.9319000000000415,
+                3.643100000000004,
+                3.489599999999996,
+                3.622600000000034,
+                3.397100000000023
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -982,10 +982,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 134.2937999870628,
+            "build_and_validate_ms": 134.9594999337569,
             "filename": "local-triangles-0.05m.json",
-            "bytes": 30394,
-            "sha256": "8a4d80219105611c0c858262b534b54feb78859b8d902b05ead616c8c5177032",
+            "bytes": 30067,
+            "sha256": "4ec622a79b377247fa97058e55e84be7408c1f47f63e949f2e2153ec386e2047",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1000,14 +1000,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 1.9886999999999944,
-              "retained_index_heap_bytes": 546208,
+              "index_ms": 1.869799999999998,
+              "retained_index_heap_bytes": 546256,
               "query_repetitions_ms": [
-                2.8041999999999803,
-                2.9442000000000235,
-                2.9530999999999494,
-                3.395999999999958,
-                3.2492000000000303
+                3.016899999999964,
+                3.382199999999955,
+                3.7660000000000196,
+                3.491300000000024,
+                3.1714999999999804
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -1045,8 +1045,8 @@
             "native_bytes": 936,
             "build_and_validate_ms": 0.810900004580617,
             "filename": "compact-hybrid-0.05m.json",
-            "sha256": "7911c2e6e8d2f9e8bf7afdae7c95a1d49d34d23215ebc26f7a7e78d7b5c63edb",
-            "bytes": 1093,
+            "sha256": "0160e4c2d0ac03d738fce26fe6d3142ebd2042b55b5d4e247565c5f4bea16b13",
+            "bytes": 766,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1056,14 +1056,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.034100000000023556,
-              "retained_index_heap_bytes": 520,
+              "index_ms": 0.03149999999999409,
+              "retained_index_heap_bytes": 568,
               "query_repetitions_ms": [
-                3.5726999999999975,
-                4.931899999999985,
-                3.595300000000009,
-                3.5686000000000035,
-                3.484299999999962
+                3.902300000000025,
+                5.231099999999969,
+                3.5202000000000453,
+                3.481900000000053,
+                3.6059999999999945
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1091,7 +1091,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.09890005458146334
+            "compaction_validate_ms": 0.09440002031624317
           },
           "boundary_fixture": "boundary-0.05m.json",
           "boundary_fixture_sha256": "b6c0f36d27eb989da24df05b59971334746a15d9eb3ef6cba7cae4febbe20e42",
@@ -1119,7 +1119,7 @@
           },
           "comparison_eligible": true,
           "organization_saving_percent": 0.0,
-          "compact_vs_local_saving_percent": 96.40389550569192
+          "compact_vs_local_saving_percent": 97.452356404031
         },
         {
           "target_m": 0.1,
@@ -1149,8 +1149,8 @@
             "native_bytes": 935,
             "build_and_validate_ms": 1.0791999520733953,
             "filename": "paired-hybrid-0.1m.json",
-            "sha256": "52a9c3d5edff31684f47a5274ca6091c44e0fbc37ee2ded67be863ff7dd7d8c4",
-            "bytes": 1092,
+            "sha256": "780213f05e922e20da6f0c78a466ae7c3179e068049f4ee6313a1909b23ca91b",
+            "bytes": 765,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1160,14 +1160,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.07080000000001974,
-              "retained_index_heap_bytes": 4824,
+              "index_ms": 0.070699999999988,
+              "retained_index_heap_bytes": 5112,
               "query_repetitions_ms": [
-                3.060099999999977,
-                3.31310000000002,
-                3.3121999999999616,
-                3.268100000000004,
-                3.3488000000000397
+                4.253600000000006,
+                3.4233999999999583,
+                3.7346000000000004,
+                3.4687000000000126,
+                3.6557000000000244
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1202,10 +1202,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 134.45919996593148,
+            "build_and_validate_ms": 139.59629996679723,
             "filename": "local-triangles-0.1m.json",
-            "bytes": 30393,
-            "sha256": "57d47788145a0494855b4b1266440fa264749837493b07301a3fd5cfef22863e",
+            "bytes": 30066,
+            "sha256": "866292dd5400338f58a0eac1fbdf5684e505b37c52396343d28b0ff26fe58dcd",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1220,14 +1220,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 1.651900000000012,
+              "index_ms": 2.0038000000000125,
               "retained_index_heap_bytes": 548512,
               "query_repetitions_ms": [
-                2.741200000000049,
-                3.206099999999992,
-                2.9225000000000136,
-                2.9639999999999986,
-                2.964400000000012
+                2.905900000000031,
+                3.5049999999999955,
+                3.0159999999999627,
+                3.058499999999981,
+                3.114399999999989
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -1265,8 +1265,8 @@
             "native_bytes": 935,
             "build_and_validate_ms": 1.0791999520733953,
             "filename": "compact-hybrid-0.1m.json",
-            "sha256": "eb0523b852a910b7f8a99284887d33d01647ee393acb1050bb73ea962db3662b",
-            "bytes": 1092,
+            "sha256": "3a7239245387d0e4b994b9c811ed59742bc97112e54d8a73f212ea4f629cacb0",
+            "bytes": 765,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1276,14 +1276,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.03710000000000946,
-              "retained_index_heap_bytes": -80576,
+              "index_ms": 0.03429999999997335,
+              "retained_index_heap_bytes": -80536,
               "query_repetitions_ms": [
-                6.481599999999958,
-                3.963799999999992,
-                4.126900000000035,
-                4.074900000000014,
-                3.7608999999999924
+                6.5079000000000065,
+                3.709099999999978,
+                4.265600000000006,
+                3.4682000000000244,
+                3.657800000000009
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1311,7 +1311,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.08030002936720848
+            "compaction_validate_ms": 0.08169992361217737
           },
           "boundary_fixture": "boundary-0.1m.json",
           "boundary_fixture_sha256": "b6c0f36d27eb989da24df05b59971334746a15d9eb3ef6cba7cae4febbe20e42",
@@ -1339,7 +1339,7 @@
           },
           "comparison_eligible": true,
           "organization_saving_percent": 0.0,
-          "compact_vs_local_saving_percent": 96.4070674168394
+          "compact_vs_local_saving_percent": 97.4555976850928
         },
         {
           "target_m": 0.25,
@@ -1369,8 +1369,8 @@
             "native_bytes": 936,
             "build_and_validate_ms": 0.700599979609251,
             "filename": "paired-hybrid-0.25m.json",
-            "sha256": "8aefa2882ad8238461508248bc9578429d1cae6c0397b12c26706e5049dd5387",
-            "bytes": 1093,
+            "sha256": "8b8d373f18cc1d3fab2c78d021a1278d5f8bca414a54afc10bc58345205a4702",
+            "bytes": 766,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1380,14 +1380,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.026900000000011914,
-              "retained_index_heap_bytes": 4680,
+              "index_ms": 0.02650000000005548,
+              "retained_index_heap_bytes": 4648,
               "query_repetitions_ms": [
-                2.765399999999943,
-                2.6638000000000375,
-                3.1798,
-                3.024699999999939,
-                3.2006000000000085
+                3.13960000000003,
+                2.455099999999902,
+                2.7011999999999716,
+                2.7072999999999183,
+                2.76400000000001
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1422,10 +1422,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 35.157499951310456,
+            "build_and_validate_ms": 33.893599989824,
             "filename": "local-triangles-0.25m.json",
-            "bytes": 8254,
-            "sha256": "685eef4739e419f23345b8900ef4a23b0090052b3f03c10af52559cc87a380eb",
+            "bytes": 7927,
+            "sha256": "32d8c1d76bdb9f62bb4706a207cde5ad4a7cfb0828c948167d5c9900c90c4df2",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1440,14 +1440,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.5061000000000604,
-              "retained_index_heap_bytes": 82432,
+              "index_ms": 0.5108999999999924,
+              "retained_index_heap_bytes": 137624,
               "query_repetitions_ms": [
-                2.5570999999999913,
-                2.4781000000000404,
-                2.6271000000000413,
-                2.8692000000000917,
-                2.736499999999978
+                2.7181000000000495,
+                2.8309000000000424,
+                3.5376999999999725,
+                3.1458000000000084,
+                3.1708999999999605
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1485,8 +1485,8 @@
             "native_bytes": 936,
             "build_and_validate_ms": 0.700599979609251,
             "filename": "compact-hybrid-0.25m.json",
-            "sha256": "692b2a086771a15eafbab3294a431d87f98b9d439b3cac4a7be927b1c8b8f9b9",
-            "bytes": 1093,
+            "sha256": "416cc64ba582494323e83a6fb8ff8995a4400c2f2eff32f8bb14abe7d54ba608",
+            "bytes": 766,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1496,14 +1496,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.031499999999937245,
-              "retained_index_heap_bytes": -41040,
+              "index_ms": 0.032199999999988904,
+              "retained_index_heap_bytes": -40856,
               "query_repetitions_ms": [
-                6.322599999999966,
-                4.067800000000034,
-                3.3048,
-                3.077099999999973,
-                3.288099999999986
+                6.822799999999916,
+                3.633899999999926,
+                3.474299999999971,
+                3.6404999999999745,
+                3.941100000000006
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1531,7 +1531,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.08279993198812008
+            "compaction_validate_ms": 0.07329997606575489
           },
           "boundary_fixture": "boundary-0.25m.json",
           "boundary_fixture_sha256": "b6c0f36d27eb989da24df05b59971334746a15d9eb3ef6cba7cae4febbe20e42",
@@ -1559,7 +1559,7 @@
           },
           "comparison_eligible": true,
           "organization_saving_percent": 0.0,
-          "compact_vs_local_saving_percent": 86.75793554640174
+          "compact_vs_local_saving_percent": 90.33682351457045
         },
         {
           "target_m": 0.5,
@@ -1589,8 +1589,8 @@
             "native_bytes": 935,
             "build_and_validate_ms": 0.6846000906080008,
             "filename": "paired-hybrid-0.5m.json",
-            "sha256": "b20ea50a0df4e6924ee9e32f2831e00c179dcba4cc1f180ebf6a224e1274ed00",
-            "bytes": 1092,
+            "sha256": "76335270f78c4cd6393426c12775a30f96ecbba1a87bf70e9081448778b3c49c",
+            "bytes": 765,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1600,14 +1600,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.029999999999972715,
-              "retained_index_heap_bytes": 4600,
+              "index_ms": 0.024800000000027467,
+              "retained_index_heap_bytes": 4648,
               "query_repetitions_ms": [
-                3.264499999999998,
-                2.599199999999996,
-                2.697400000000016,
-                2.7794999999999845,
-                3.116200000000049
+                3.4355999999999085,
+                2.960299999999961,
+                3.058599999999956,
+                2.9027999999999565,
+                3.29849999999999
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1642,10 +1642,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 35.250999964773655,
+            "build_and_validate_ms": 36.53649997431785,
             "filename": "local-triangles-0.5m.json",
-            "bytes": 8253,
-            "sha256": "43b7193e2e939299d496ecb9bc5136303d2055a281735bd0ae5d56ee510faf95",
+            "bytes": 7926,
+            "sha256": "72993989398abd0b06fa5a3355652bb9d0f3e7a5691444594769e0d8152f448b",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1660,14 +1660,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.4574000000000069,
-              "retained_index_heap_bytes": 137624,
+              "index_ms": 0.4619000000000142,
+              "retained_index_heap_bytes": 137576,
               "query_repetitions_ms": [
-                2.7817999999999756,
-                2.6277999999999793,
-                2.7999999999999545,
-                2.831899999999905,
-                2.4922000000000253
+                2.8855000000000928,
+                3.0686000000000604,
+                2.921699999999987,
+                2.8807999999999083,
+                2.8781999999999925
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1705,8 +1705,8 @@
             "native_bytes": 935,
             "build_and_validate_ms": 0.6846000906080008,
             "filename": "compact-hybrid-0.5m.json",
-            "sha256": "e1bbe85de86c4cfff3493627028d903f4b1c839bc803c0ae010bdeb4447bd6e7",
-            "bytes": 1092,
+            "sha256": "8c3fa4bd607c24eee4e292a9d56740e2397b2b0f96f9e8693566e729b8e9727a",
+            "bytes": 765,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1716,14 +1716,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.03209999999990032,
-              "retained_index_heap_bytes": -40640,
+              "index_ms": 0.03050000000007458,
+              "retained_index_heap_bytes": -40856,
               "query_repetitions_ms": [
-                6.3308000000000675,
-                3.9162999999999784,
-                3.8541000000000167,
-                3.9454999999999245,
-                4.324500000000057
+                6.911099999999919,
+                3.877399999999966,
+                3.84050000000002,
+                3.4945999999999913,
+                3.598600000000033
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1751,7 +1751,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.07320009171962738
+            "compaction_validate_ms": 0.07880001794546843
           },
           "boundary_fixture": "boundary-0.5m.json",
           "boundary_fixture_sha256": "b6c0f36d27eb989da24df05b59971334746a15d9eb3ef6cba7cae4febbe20e42",
@@ -1779,11 +1779,11 @@
           },
           "comparison_eligible": true,
           "organization_saving_percent": 0.0,
-          "compact_vs_local_saving_percent": 86.76844783715013
+          "compact_vs_local_saving_percent": 90.34822104466313
         }
       ],
-      "download_bytes": 153080,
-      "download_sha256": "6fc857aefb431b040c316dd8c3ae6a5ec326c0b69c83d07e2967af4c55899607"
+      "download_bytes": 151567,
+      "download_sha256": "5624c216c4368a1fd470d56b9672ad6a507efc7a61127dbfaf867fcbc3d16d9a"
     },
     {
       "id": "linear-flow",
@@ -1818,8 +1818,8 @@
             "native_bytes": 4392,
             "build_and_validate_ms": 10.53259999025613,
             "filename": "paired-hybrid-0.05m.json",
-            "sha256": "552fba29295d99b6019249cf788292e76b05364e7cc441635e5bd867e5b39b19",
-            "bytes": 4549,
+            "sha256": "9fc67a563a911257d921da181112fd4382d55cbc9e813c5bb65173dd0c2fe1b8",
+            "bytes": 4222,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1829,14 +1829,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 3.552713678800501e-15,
-              "index_ms": 0.11979999999994106,
-              "retained_index_heap_bytes": 17256,
+              "index_ms": 0.14269999999999072,
+              "retained_index_heap_bytes": 17208,
               "query_repetitions_ms": [
-                3.203000000000088,
-                3.052000000000021,
-                3.293800000000033,
-                3.24980000000005,
-                3.3518000000000256
+                3.2607000000000426,
+                3.2858999999999696,
+                3.7736999999999625,
+                3.7486999999999853,
+                3.3238000000000056
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1871,10 +1871,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 528.8992000278085,
+            "build_and_validate_ms": 524.7947999741882,
             "filename": "local-triangles-0.05m.json",
-            "bytes": 124239,
-            "sha256": "464544cee1df2a5ce6b4e82a88ad43bdc10d0dd4e59a9dc0c2dc937957ff24e5",
+            "bytes": 123912,
+            "sha256": "34a98c2b6853748ec139b8378127d2fc13372f0f9d49c544fb54e57df867bb80",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -1889,14 +1889,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 7.643900000000031,
+              "index_ms": 8.054499999999962,
               "retained_index_heap_bytes": 2172464,
               "query_repetitions_ms": [
-                4.509500000000003,
-                3.5149999999999864,
-                4.152499999999918,
-                3.9323000000000548,
-                2.3432000000000244
+                4.724300000000085,
+                3.5392000000000507,
+                4.578399999999988,
+                4.3390000000000555,
+                3.387100000000032
               ],
               "index_statistics": {
                 "binSizeMetres": 16,
@@ -1934,8 +1934,8 @@
             "native_bytes": 4392,
             "build_and_validate_ms": 10.53259999025613,
             "filename": "compact-hybrid-0.05m.json",
-            "sha256": "3aee5f4304ef89d99b519520c7813b3df2fb0f576c9634c78b1ba4b1db942230",
-            "bytes": 3137,
+            "sha256": "7116dd402d4d0727144916b1f95e218e088941de11adebd2d25ea4ab23c11c83",
+            "bytes": 2810,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -1945,14 +1945,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 3.552713678800501e-15,
-              "index_ms": 0.6645999999999503,
-              "retained_index_heap_bytes": 20448,
+              "index_ms": 0.09429999999997563,
+              "retained_index_heap_bytes": 20496,
               "query_repetitions_ms": [
-                3.1307999999999083,
-                3.4548999999999523,
-                3.831299999999942,
-                3.9886999999999944,
-                3.129199999999969
+                3.7034999999999627,
+                3.4366999999999734,
+                3.859299999999962,
+                3.7590999999999894,
+                3.199899999999957
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -1980,7 +1980,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.5079000256955624
+            "compaction_validate_ms": 0.453700078651309
           },
           "boundary_fixture": "boundary-0.05m.json",
           "boundary_fixture_sha256": "2f8bdee152dbafee12548b31741ed1c61ea03f6428d18487a3a4f57a08773a98",
@@ -2007,8 +2007,8 @@
             "boundary_derivative_tie_order_preserved": false
           },
           "comparison_eligible": true,
-          "organization_saving_percent": 31.039788964607606,
-          "compact_vs_local_saving_percent": 97.47502797028308
+          "organization_saving_percent": 33.443865466603505,
+          "compact_vs_local_saving_percent": 97.73226160501001
         },
         {
           "target_m": 0.1,
@@ -2038,8 +2038,8 @@
             "native_bytes": 4391,
             "build_and_validate_ms": 11.168300057761371,
             "filename": "paired-hybrid-0.1m.json",
-            "sha256": "0b5c14fd9f0449e33130519a756a0a1466316dbcf35c5dd46f02f5147eaf951a",
-            "bytes": 4548,
+            "sha256": "837b754bfea8859bd429e60dac5f3134b4315544361af50361b498884d68550e",
+            "bytes": 4221,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2049,14 +2049,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 3.552713678800501e-15,
-              "index_ms": 0.12319999999999709,
+              "index_ms": 0.10469999999997981,
               "retained_index_heap_bytes": 20480,
               "query_repetitions_ms": [
-                3.3111000000000104,
-                3.0778999999999996,
-                3.2963000000000875,
-                3.1195000000000164,
-                2.939999999999941
+                3.2375999999999294,
+                3.707899999999995,
+                3.597099999999955,
+                3.546299999999974,
+                3.1627999999999474
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2091,10 +2091,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 199.06240003183484,
+            "build_and_validate_ms": 196.16900000255555,
             "filename": "local-triangles-0.1m.json",
-            "bytes": 43577,
-            "sha256": "78210f9b7f01d4a4b76362d705d06998e956d0cdebd12674281c0f0f276f325a",
+            "bytes": 43250,
+            "sha256": "9459381a2a433d325bed11ce9d5eb90e4523b1559a6535fbc2811938248b9bb1",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2109,14 +2109,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 2.8391000000000304,
-              "retained_index_heap_bytes": 811552,
+              "index_ms": 2.893599999999992,
+              "retained_index_heap_bytes": 811600,
               "query_repetitions_ms": [
-                3.167599999999993,
-                2.973500000000058,
-                3.6702000000000226,
-                3.9569000000000187,
-                2.81149999999991
+                3.617599999999925,
+                3.081199999999967,
+                3.1585000000000036,
+                3.469000000000051,
+                2.9657000000000835
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -2154,8 +2154,8 @@
             "native_bytes": 4391,
             "build_and_validate_ms": 11.168300057761371,
             "filename": "compact-hybrid-0.1m.json",
-            "sha256": "a6a55c0172641e1cb8aa7580544fa8a2568f6c0897c915e97350a2aac0792d22",
-            "bytes": 3136,
+            "sha256": "dd57a850539f0ed32e66126b8fa1e62f5d48f79c9478dc398d59aa9a68c0b891",
+            "bytes": 2809,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2165,14 +2165,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 3.552713678800501e-15,
-              "index_ms": 0.15229999999996835,
+              "index_ms": 0.0967000000000553,
               "retained_index_heap_bytes": -8632,
               "query_repetitions_ms": [
-                6.9769000000000005,
-                3.6539000000000215,
-                3.9521000000000868,
-                3.563099999999963,
-                4.124399999999923
+                7.2690000000000055,
+                3.053500000000099,
+                3.9338000000000193,
+                3.7124999999999773,
+                3.9067999999999756
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2200,7 +2200,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.4393000854179263
+            "compaction_validate_ms": 0.4322000313550234
           },
           "boundary_fixture": "boundary-0.1m.json",
           "boundary_fixture_sha256": "2f8bdee152dbafee12548b31741ed1c61ea03f6428d18487a3a4f57a08773a98",
@@ -2227,8 +2227,8 @@
             "boundary_derivative_tie_order_preserved": false
           },
           "comparison_eligible": true,
-          "organization_saving_percent": 31.046613896218123,
-          "compact_vs_local_saving_percent": 92.8035431534984
+          "organization_saving_percent": 33.45178867566927,
+          "compact_vs_local_saving_percent": 93.50520231213872
         },
         {
           "target_m": 0.25,
@@ -2258,8 +2258,8 @@
             "native_bytes": 2589,
             "build_and_validate_ms": 5.604999954812229,
             "filename": "paired-hybrid-0.25m.json",
-            "sha256": "50fe40082906215c85bb1f6a8a28f0df96dd2757b49b9258b92e0e46b9553070",
-            "bytes": 2746,
+            "sha256": "0387e7a3374d38ce31afefd816a8fe77d7d37c8ffed8569b171e65f37be7406f",
+            "bytes": 2419,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2269,14 +2269,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.07920000000001437,
-              "retained_index_heap_bytes": 12512,
+              "index_ms": 0.0667999999999438,
+              "retained_index_heap_bytes": 12528,
               "query_repetitions_ms": [
-                2.6690000000000964,
-                2.8216999999999643,
-                3.4003000000000156,
-                4.9950000000000045,
-                3.1182000000000016
+                2.576000000000022,
+                3.0392000000000507,
+                2.810899999999947,
+                3.1485000000000127,
+                3.026899999999955
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2311,10 +2311,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 131.50189991574734,
+            "build_and_validate_ms": 133.60310008283705,
             "filename": "local-triangles-0.25m.json",
-            "bytes": 30851,
-            "sha256": "7a44db4bfd59b04d5d1bb041eccd0f582015d696a43f1c34b294c0b5d5f1c7bf",
+            "bytes": 30524,
+            "sha256": "0e1462154c739eb5d1e517410fd377dad2510a9e27d5046df09a290e2b671fd0",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2329,14 +2329,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 3.552713678800501e-15,
-              "index_ms": 1.7635999999999967,
-              "retained_index_heap_bytes": 548560,
+              "index_ms": 1.8711000000000695,
+              "retained_index_heap_bytes": 548608,
               "query_repetitions_ms": [
-                2.7917999999999665,
-                2.6618999999998323,
-                2.8594000000000506,
-                2.8543999999999414,
-                2.7308000000000447
+                2.7559000000001106,
+                3.0534000000000106,
+                3.0674999999998818,
+                3.260200000000168,
+                2.891099999999824
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -2374,8 +2374,8 @@
             "native_bytes": 2589,
             "build_and_validate_ms": 5.604999954812229,
             "filename": "compact-hybrid-0.25m.json",
-            "sha256": "c79138536f771cd7a53422208cd542ed37b7109c0d88a945a84cf6b2607bdf1b",
-            "bytes": 2396,
+            "sha256": "43ec14075b960f283f7f36b098bae96e3ef46966c7332c351053c4374bfc6431",
+            "bytes": 2069,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2385,14 +2385,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.07910000000003947,
+              "index_ms": 0.06740000000002055,
               "retained_index_heap_bytes": -14792,
               "query_repetitions_ms": [
-                6.658300000000054,
-                3.2013999999999214,
-                3.473199999999906,
-                3.4682000000000244,
-                3.4588999999998578
+                6.8320999999999685,
+                2.9724999999998545,
+                3.0649000000000797,
+                2.789399999999887,
+                2.9962000000000444
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2420,7 +2420,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.3043999895453453
+            "compaction_validate_ms": 0.28330006171017885
           },
           "boundary_fixture": "boundary-0.25m.json",
           "boundary_fixture_sha256": "53fad5e57854219dd508cd27328f8dea154440122da4c657f1c250e2a89fa7a4",
@@ -2447,8 +2447,8 @@
             "boundary_derivative_tie_order_preserved": false
           },
           "comparison_eligible": true,
-          "organization_saving_percent": 12.74581209031318,
-          "compact_vs_local_saving_percent": 92.23363910408091
+          "organization_saving_percent": 14.46878875568417,
+          "compact_vs_local_saving_percent": 93.22172716550911
         },
         {
           "target_m": 0.5,
@@ -2478,8 +2478,8 @@
             "native_bytes": 2588,
             "build_and_validate_ms": 5.6099999928846955,
             "filename": "paired-hybrid-0.5m.json",
-            "sha256": "281f5d50f97b57a1d862c0aa20dd48f3b9e40ad8bfeec094ace0e8b5ba5a84aa",
-            "bytes": 2745,
+            "sha256": "d6488f61392f7ea85d0192dbaf09017eda9ebc92596cd6361ff263f544862d7d",
+            "bytes": 2418,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2489,14 +2489,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.07009999999991123,
-              "retained_index_heap_bytes": 16128,
+              "index_ms": 0.06610000000000582,
+              "retained_index_heap_bytes": 16160,
               "query_repetitions_ms": [
-                2.9628999999999905,
-                3.5149999999998727,
-                3.0943999999999505,
-                3.598700000000008,
-                3.1748000000000047
+                2.990299999999934,
+                3.649799999999914,
+                3.5914000000000215,
+                3.1947999999999865,
+                2.9183999999997923
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2531,10 +2531,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 54.12899993825704,
+            "build_and_validate_ms": 51.50940001476556,
             "filename": "local-triangles-0.5m.json",
-            "bytes": 11980,
-            "sha256": "268bb67a088ba92bcc20e979c5a2aa5f070a6a49dbb05099c075674bc6752e97",
+            "bytes": 11653,
+            "sha256": "6a39d62d2d1ac7ac024a83bd889994078c74f350ad4d20b1370c7612437b8d6e",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2549,14 +2549,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 2.220446049250313e-16,
-              "index_ms": 0.7144999999998163,
-              "retained_index_heap_bytes": 202728,
+              "index_ms": 0.6902000000000044,
+              "retained_index_heap_bytes": 202632,
               "query_repetitions_ms": [
-                2.458499999999958,
-                3.307600000000093,
-                2.924099999999953,
-                2.8526999999999134,
-                3.0452000000000226
+                2.432800000000043,
+                2.702199999999948,
+                2.7703999999998814,
+                2.701799999999821,
+                2.7507000000000517
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2594,8 +2594,8 @@
             "native_bytes": 2588,
             "build_and_validate_ms": 5.6099999928846955,
             "filename": "compact-hybrid-0.5m.json",
-            "sha256": "6ea800b856e2b1f7a5f005c6f37c1d3e5b88f37b93ad30e013f90b706b46a7a0",
-            "bytes": 2395,
+            "sha256": "ad8dddbace8bec1096b505c24fd2a537b7090e50c92ca27b742a9bd6aea16035",
+            "bytes": 2068,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2605,14 +2605,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 2.1316282072803006e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.06759999999985666,
-              "retained_index_heap_bytes": 12176,
+              "index_ms": 0.06359999999995125,
+              "retained_index_heap_bytes": 12192,
               "query_repetitions_ms": [
-                3.5615999999999985,
-                3.281300000000101,
-                3.397299999999859,
-                3.3915000000001783,
-                3.305499999999938
+                2.832400000000007,
+                3.080500000000029,
+                2.6409000000001015,
+                3.0612999999998465,
+                2.869000000000142
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -2640,7 +2640,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.28339994605630636
+            "compaction_validate_ms": 0.28439995367079973
           },
           "boundary_fixture": "boundary-0.5m.json",
           "boundary_fixture_sha256": "53fad5e57854219dd508cd27328f8dea154440122da4c657f1c250e2a89fa7a4",
@@ -2667,12 +2667,12 @@
             "boundary_derivative_tie_order_preserved": false
           },
           "comparison_eligible": true,
-          "organization_saving_percent": 12.750455373406188,
-          "compact_vs_local_saving_percent": 80.00834724540901
+          "organization_saving_percent": 14.474772539288672,
+          "compact_vs_local_saving_percent": 82.25349695357419
         }
       ],
-      "download_bytes": 201087,
-      "download_sha256": "97fccc58e8b447b49af103dc72fcadc4fc740560dafe4fe25d1b694a11099657"
+      "download_bytes": 199592,
+      "download_sha256": "29b26260b49bbc7d07e5637f27968acee3a2218005d6fdd988a9bdd70de96504"
     },
     {
       "id": "convex-bowl",
@@ -2707,8 +2707,8 @@
             "native_bytes": 92847,
             "build_and_validate_ms": 320.4567999346182,
             "filename": "paired-hybrid-0.05m.json",
-            "sha256": "cbb4d251b510bf7c866ff18c35f8e41435f173343f02fe0b49909807ceceeca6",
-            "bytes": 93004,
+            "sha256": "ef055b857ba70d978f01534f9c0f6ce7e9680110d87cb93618d7baa46e5f6967",
+            "bytes": 92677,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2718,14 +2718,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 3.4402000000000044,
-              "retained_index_heap_bytes": 1055832,
+              "index_ms": 3.6329000000000633,
+              "retained_index_heap_bytes": 1055864,
               "query_repetitions_ms": [
-                6.6724999999999,
-                3.692800000000034,
-                4.053000000000111,
-                3.3362999999999374,
-                3.439999999999827
+                6.967200000000048,
+                3.539399999999887,
+                3.4661000000000968,
+                3.41170000000011,
+                3.2273999999999887
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -2760,10 +2760,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 147.6994000840932,
+            "build_and_validate_ms": 151.82860009372234,
             "filename": "local-triangles-0.05m.json",
-            "bytes": 53641,
-            "sha256": "70439bb794e8d3c5a04fd184025c89f980240d4067bb3029ee9fd91dd59ca8b3",
+            "bytes": 53314,
+            "sha256": "4ce19cc060754105efbf47389174af75a001ae10cc445b0dd269e93f00f59ed4",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2778,14 +2778,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 1.4210854715202004e-14,
-              "index_ms": 3.3514000000000124,
+              "index_ms": 3.6295000000000073,
               "retained_index_heap_bytes": 1083112,
               "query_repetitions_ms": [
-                2.7614000000000942,
-                3.399799999999914,
-                3.2653000000000247,
-                3.3501000000001113,
-                3.705500000000029
+                3.197599999999966,
+                3.3938000000000557,
+                3.5358000000001084,
+                3.444300000000112,
+                3.4989000000000487
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -2823,8 +2823,8 @@
             "native_bytes": 92847,
             "build_and_validate_ms": 320.4567999346182,
             "filename": "compact-hybrid-0.05m.json",
-            "sha256": "3fc57468ab0f7fc98e2f2c9076149d0d6a5be2b69c163abd8c8e6bb1606a1bc8",
-            "bytes": 35539,
+            "sha256": "92852d5cb241ec6403f1448c1e3ed267be7058b283c78ec61fa3d7537bf257bb",
+            "bytes": 35212,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2834,14 +2834,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 3.1995999999999185,
+              "index_ms": 3.597200000000157,
               "retained_index_heap_bytes": 1082776,
               "query_repetitions_ms": [
-                2.7192999999999756,
-                2.9143000000001393,
-                2.9353000000000975,
-                3.198599999999942,
-                3.0351999999998043
+                3.2835000000000036,
+                3.448699999999917,
+                3.2445000000000164,
+                3.539800000000014,
+                3.322599999999966
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -2869,7 +2869,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 17.862700042314827
+            "compaction_validate_ms": 19.60190001409501
           },
           "boundary_fixture": "boundary-0.05m.json",
           "boundary_fixture_sha256": "4afd93434d03b707a9f8a2689437025075aa85e5b0a0ac29aeb48f88dc8a7fec",
@@ -2896,8 +2896,8 @@
             "boundary_derivative_tie_order_preserved": false
           },
           "comparison_eligible": true,
-          "organization_saving_percent": 61.787665046664664,
-          "compact_vs_local_saving_percent": 33.746574448649355
+          "organization_saving_percent": 62.00567562609925,
+          "compact_vs_local_saving_percent": 33.95355816483475
         },
         {
           "target_m": 0.1,
@@ -2927,8 +2927,8 @@
             "native_bytes": 92846,
             "build_and_validate_ms": 328.187600011006,
             "filename": "paired-hybrid-0.1m.json",
-            "sha256": "ed30953cf4ad5d01a3d1bc997843aff931cd4262b20ebf78c8205b7c719c14b2",
-            "bytes": 93003,
+            "sha256": "e179709186ddc974ea0b3cb32010a5282f44e0ae8098be2bd8e75233ca2295b3",
+            "bytes": 92676,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -2938,14 +2938,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 3.3297000000000025,
+              "index_ms": 3.4121000000000095,
               "retained_index_heap_bytes": 1082048,
               "query_repetitions_ms": [
-                2.8688999999999396,
-                3.237899999999854,
-                2.9267999999999574,
-                2.9378999999998996,
-                2.724899999999934
+                3.1013000000000375,
+                3.373600000000124,
+                3.20049999999992,
+                3.4979000000000724,
+                3.16599999999994
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -2980,10 +2980,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 108.69560006540269,
+            "build_and_validate_ms": 117.2879000660032,
             "filename": "local-triangles-0.1m.json",
-            "bytes": 43552,
-            "sha256": "aa931ea7cb89d899cf3d9080d2cde200ea7e9cf02e37d62ddd85b3e4d1274d66",
+            "bytes": 43225,
+            "sha256": "438511df273d6ce64c4e036cb9b31bf47f02fcc6449d2e08413afa493f43df50",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -2998,14 +2998,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 2.6187999999999647,
+              "index_ms": 2.7554000000000087,
               "retained_index_heap_bytes": 844912,
               "query_repetitions_ms": [
-                2.5465999999998985,
-                3.3804000000000087,
-                3.1294000000000324,
-                3.6048000000000684,
-                3.0756000000001222
+                3.2708999999999833,
+                3.2756999999999152,
+                2.859100000000126,
+                3.037800000000061,
+                2.884699999999839
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -3043,8 +3043,8 @@
             "native_bytes": 92846,
             "build_and_validate_ms": 328.187600011006,
             "filename": "compact-hybrid-0.1m.json",
-            "sha256": "1f74df44d29362a5cd569fd0030e6b23c82d0e7dd3398b3748a93607d100994d",
-            "bytes": 35538,
+            "sha256": "b5a57cbe38c93a794f1d28927e81b8fd5e194021ee138fcf3b0b02fb267636c3",
+            "bytes": 35211,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -3054,14 +3054,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 3.310699999999997,
-              "retained_index_heap_bytes": 1083064,
+              "index_ms": 3.264799999999923,
+              "retained_index_heap_bytes": 1082840,
               "query_repetitions_ms": [
-                2.7047999999999774,
-                3.2691999999999553,
-                3.226599999999962,
-                3.7006999999998698,
-                2.9070999999999003
+                2.927199999999857,
+                3.313000000000102,
+                3.301200000000108,
+                3.0570999999999913,
+                3.0751999999999953
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -3089,7 +3089,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 16.94479992147535
+            "compaction_validate_ms": 19.132399931550026
           },
           "boundary_fixture": "boundary-0.1m.json",
           "boundary_fixture_sha256": "4afd93434d03b707a9f8a2689437025075aa85e5b0a0ac29aeb48f88dc8a7fec",
@@ -3116,8 +3116,8 @@
             "boundary_derivative_tie_order_preserved": false
           },
           "comparison_eligible": true,
-          "organization_saving_percent": 61.78832940872875,
-          "compact_vs_local_saving_percent": 18.400991917707564
+          "organization_saving_percent": 62.00634468470801,
+          "compact_vs_local_saving_percent": 18.540196645459805
         },
         {
           "target_m": 0.25,
@@ -3147,8 +3147,8 @@
             "native_bytes": 23289,
             "build_and_validate_ms": 88.57269992586225,
             "filename": "paired-hybrid-0.25m.json",
-            "sha256": "f552d2f5a4cc1d8dc318f81930621e67c54d7a826b9e82dd7a1fd13d63eadf68",
-            "bytes": 23446,
+            "sha256": "fbd076812a85c932817f4370c715572da8d8cee9c75608df4bcf4fb4a8876490",
+            "bytes": 23119,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -3158,14 +3158,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.7375999999999294,
-              "retained_index_heap_bytes": 268288,
+              "index_ms": 0.8044999999999618,
+              "retained_index_heap_bytes": 268344,
               "query_repetitions_ms": [
-                2.992999999999938,
-                2.9217999999998483,
-                2.6503999999999905,
-                3.0657000000001062,
-                3.054100000000062
+                2.3962000000001353,
+                2.7606000000000677,
+                2.468599999999924,
+                2.9167999999999665,
+                2.6682999999998174
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -3200,10 +3200,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 40.30210000928491,
+            "build_and_validate_ms": 35.54810001514852,
             "filename": "local-triangles-0.25m.json",
-            "bytes": 14732,
-            "sha256": "f0e396f38fb95bf81f3be2910f8595680ecc3f5ec7dc5b7f838fc3dfd512e94b",
+            "bytes": 14405,
+            "sha256": "a4b9a2869dccc96c33284e35fc2f22d358996b8ac9c512c945cc22086fd2e04d",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -3218,14 +3218,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.8898999999998978,
-              "retained_index_heap_bytes": 271520,
+              "index_ms": 0.8688999999999396,
+              "retained_index_heap_bytes": 269456,
               "query_repetitions_ms": [
-                2.420599999999922,
-                2.723500000000058,
-                3.0320999999999003,
-                3.154399999999896,
-                2.904600000000073
+                2.546600000000126,
+                3.120400000000018,
+                2.812400000000025,
+                2.9501000000000204,
+                2.8380999999999403
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -3263,8 +3263,8 @@
             "native_bytes": 23289,
             "build_and_validate_ms": 88.57269992586225,
             "filename": "compact-hybrid-0.25m.json",
-            "sha256": "f82e09606c0f6c93f2b3c713ef87d7c54509f1fecba6202804f50ee06befa691",
-            "bytes": 9782,
+            "sha256": "81239e518a7a4a3b99c15284a67c1e02bd8f79b06d3bcbaaf71b3950a60894a1",
+            "bytes": 9455,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -3274,14 +3274,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.8432000000000244,
-              "retained_index_heap_bytes": 268920,
+              "index_ms": 0.8713000000000193,
+              "retained_index_heap_bytes": 268968,
               "query_repetitions_ms": [
-                2.7837999999999283,
-                2.7799999999999727,
-                2.5091999999999643,
-                2.9886999999998807,
-                2.422900000000027
+                2.598600000000033,
+                2.70679999999993,
+                2.8788999999999305,
+                2.7911000000001422,
+                2.402900000000045
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -3309,7 +3309,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 3.986199968494475
+            "compaction_validate_ms": 4.000000073574483
           },
           "boundary_fixture": "boundary-0.25m.json",
           "boundary_fixture_sha256": "33910d983373bf17395055d5ac5e27c17c4bd96adbe7dfb165bd3ce26e8232d0",
@@ -3336,8 +3336,8 @@
             "boundary_derivative_tie_order_preserved": false
           },
           "comparison_eligible": true,
-          "organization_saving_percent": 58.27859762859337,
-          "compact_vs_local_saving_percent": 33.60032582134129
+          "organization_saving_percent": 59.10290237467019,
+          "compact_vs_local_saving_percent": 34.363068379035056
         },
         {
           "target_m": 0.5,
@@ -3367,8 +3367,8 @@
             "native_bytes": 11925,
             "build_and_validate_ms": 45.099399983882904,
             "filename": "paired-hybrid-0.5m.json",
-            "sha256": "a928a241feeabeefb7cbadddb080d8d1c2ef7129764a39a4eb453c26f98cc7d8",
-            "bytes": 12082,
+            "sha256": "02b75eda787c0aac971f6137bc602e50851d13db9b584a861f051782ef17b0f0",
+            "bytes": 11755,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -3378,14 +3378,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.515999999999849,
-              "retained_index_heap_bytes": 138440,
+              "index_ms": 0.5345000000002074,
+              "retained_index_heap_bytes": 137784,
               "query_repetitions_ms": [
-                1.8391999999998916,
-                2.255600000000186,
-                2.2023000000001502,
-                2.090599999999995,
-                2.34719999999993
+                2.1291000000001077,
+                2.2656999999999243,
+                2.216899999999896,
+                2.1410000000000764,
+                2.046899999999823
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -3420,10 +3420,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 17.11850007995963,
+            "build_and_validate_ms": 17.02990010380745,
             "filename": "local-triangles-0.5m.json",
-            "bytes": 8209,
-            "sha256": "165080b01d8de7d65cb1510a9c4818b3c088ad997b327feb7b90894282e6ae5f",
+            "bytes": 7882,
+            "sha256": "8ed13c748834490a8fb6dbe5fa3d416f63476ef917fc12d83701166ebf0bbe4f",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -3438,14 +3438,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.4800000000000182,
+              "index_ms": 0.47199999999998,
               "retained_index_heap_bytes": 137672,
               "query_repetitions_ms": [
-                2.318200000000161,
-                2.3296000000000276,
-                4.037800000000061,
-                3.7920999999998912,
-                3.838899999999967
+                2.34699999999998,
+                2.6917000000000826,
+                3.8034999999999854,
+                3.936100000000124,
+                3.98720000000003
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -3483,8 +3483,8 @@
             "native_bytes": 11925,
             "build_and_validate_ms": 45.099399983882904,
             "filename": "compact-hybrid-0.5m.json",
-            "sha256": "c39d05e81a8dd84c589900adf103dd0959804798c98998876d2dae74ba3511b2",
-            "bytes": 5815,
+            "sha256": "8a46da26c3b7406b76266a9f9145e98e97b76973be2b5f2af74d2ed29290f658",
+            "bytes": 5488,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -3494,14 +3494,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.4554000000000542,
-              "retained_index_heap_bytes": 137728,
+              "index_ms": 0.4756999999999607,
+              "retained_index_heap_bytes": 137680,
               "query_repetitions_ms": [
-                1.991800000000012,
-                2.3858000000000175,
-                2.211900000000014,
-                2.1510000000000673,
-                2.1868000000001757
+                2.3638999999998305,
+                2.5546999999999116,
+                2.3293999999998505,
+                2.3904999999999745,
+                2.539500000000089
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -3529,7 +3529,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 2.002399996854365
+            "compaction_validate_ms": 1.96899997536093
           },
           "boundary_fixture": "boundary-0.5m.json",
           "boundary_fixture_sha256": "726403f892f148681cd62ad1ea0d0dfb44d9197fe1a4a6ee4bfaa52299aa938f",
@@ -3556,12 +3556,12 @@
             "boundary_derivative_tie_order_preserved": false
           },
           "comparison_eligible": true,
-          "organization_saving_percent": 51.87055123323954,
-          "compact_vs_local_saving_percent": 29.1631136557437
+          "organization_saving_percent": 53.3134836239898,
+          "compact_vs_local_saving_percent": 30.373001776198937
         }
       ],
-      "download_bytes": 221533,
-      "download_sha256": "660395b12e42b5db74b0b343b8454ecf0b909ea01b5f793c3ae27c1c2c887692"
+      "download_bytes": 219910,
+      "download_sha256": "7d0495ed6fcac5bc4b22564928230813441dcfe8ab44609b294f08769bf0f85e"
     },
     {
       "id": "rotating-direction",
@@ -3596,8 +3596,8 @@
             "native_bytes": 237574,
             "build_and_validate_ms": 399.67270009219646,
             "filename": "paired-hybrid-0.05m.json",
-            "sha256": "3030efbd20d10557426f61901a74387a8f2e090ddfaf34175069cbaae9d5d6f7",
-            "bytes": 237731,
+            "sha256": "ee5d45308e3972b0669ff87e6b9b31cfb59d8dfb092cb982766745fa52d19ceb",
+            "bytes": 237404,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -3607,14 +3607,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 7.708899999999858,
+              "index_ms": 8.031200000000126,
               "retained_index_heap_bytes": 2276768,
               "query_repetitions_ms": [
-                3.491700000000037,
-                5.5577999999998156,
-                5.6141999999999825,
-                3.5976000000000568,
-                2.972300000000132
+                3.934500000000071,
+                5.73050000000012,
+                5.847999999999956,
+                3.759499999999889,
+                3.198599999999942
               ],
               "index_statistics": {
                 "binSizeMetres": 16,
@@ -3649,10 +3649,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 967.0594999333844,
+            "build_and_validate_ms": 1012.0488000102341,
             "filename": "local-triangles-0.05m.json",
-            "bytes": 224800,
-            "sha256": "32a03508602aa794dfed40b3a424825c489de83629e367ca8f6adaea884ae17a",
+            "bytes": 224473,
+            "sha256": "99d67e8dd8deb367bcfcc9d83945d5f7074a1d7bf0f11c3b64b928d47e0988b4",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -3667,14 +3667,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 3.552713678800501e-15,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 12.097299999999905,
+              "index_ms": 12.064000000000078,
               "retained_index_heap_bytes": 3770080,
               "query_repetitions_ms": [
-                3.238499999999931,
-                3.7198000000000775,
-                4.698499999999967,
-                3.861499999999978,
-                3.4268999999999323
+                3.4347000000000207,
+                4.065900000000056,
+                3.820699999999988,
+                3.383000000000038,
+                3.2276999999999134
               ],
               "index_statistics": {
                 "binSizeMetres": 16,
@@ -3712,8 +3712,8 @@
             "native_bytes": 237574,
             "build_and_validate_ms": 399.67270009219646,
             "filename": "compact-hybrid-0.05m.json",
-            "sha256": "9f87c6d37ac1fbfe5d6489730a5e68c974a682aacdd6e8b75747fedd3d8abfee",
-            "bytes": 105455,
+            "sha256": "434178800c4fc37c12e72b9b2ad99320c6417d2f59a73b48639b928267ae79be",
+            "bytes": 105128,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -3723,14 +3723,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 7.485099999999875,
-              "retained_index_heap_bytes": 2249560,
+              "index_ms": 7.418599999999969,
+              "retained_index_heap_bytes": 2249696,
               "query_repetitions_ms": [
-                6.3129999999998745,
-                3.4040999999999713,
-                3.808899999999994,
-                4.1784000000000106,
-                3.1661999999998898
+                6.310799999999972,
+                3.548200000000179,
+                3.5984000000000833,
+                3.2182999999999993,
+                3.2759000000000924
               ],
               "index_statistics": {
                 "binSizeMetres": 16,
@@ -3758,7 +3758,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 40.779999922961
+            "compaction_validate_ms": 44.88850000780076
           },
           "boundary_fixture": "boundary-0.05m.json",
           "boundary_fixture_sha256": "87a75f8a58573af47ab9b5d8b8053e7feaa19136d9abe012009364d7f8760134",
@@ -3785,8 +3785,8 @@
             "boundary_derivative_tie_order_preserved": false
           },
           "comparison_eligible": true,
-          "organization_saving_percent": 55.641039662475656,
-          "compact_vs_local_saving_percent": 53.0894128113879
+          "organization_saving_percent": 55.71767956731984,
+          "compact_vs_local_saving_percent": 53.166750566883316
         },
         {
           "target_m": 0.1,
@@ -3816,8 +3816,8 @@
             "native_bytes": 131421,
             "build_and_validate_ms": 243.43550007324666,
             "filename": "paired-hybrid-0.1m.json",
-            "sha256": "7bbda13f5658df88e7393c7d784535d105cc404965501e62731508007ff0db85",
-            "bytes": 131578,
+            "sha256": "3d9d8fb13b123f033e94872e37961010712fa972fba4bd1f33aeaf99ff17bcca",
+            "bytes": 131251,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -3827,14 +3827,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.0658141036401503e-14,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 4.316500000000133,
+              "index_ms": 4.593299999999999,
               "retained_index_heap_bytes": 1315576,
               "query_repetitions_ms": [
-                3.473700000000008,
-                3.7326000000000477,
-                4.3646000000001095,
-                4.229900000000043,
-                3.8203000000000884
+                3.672399999999925,
+                3.8072000000001935,
+                4.302699999999959,
+                3.828499999999849,
+                3.8398999999999432
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -3869,10 +3869,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 501.10530003439635,
+            "build_and_validate_ms": 502.23350001033396,
             "filename": "local-triangles-0.1m.json",
-            "bytes": 113383,
-            "sha256": "1414301a3d4ef016ff1f71e027c6d3ec282a30a7b3860eb4a9e7b557f917aafe",
+            "bytes": 113056,
+            "sha256": "8bd7c089043cf5fee55bbebd9b963b062fc8832e87862108b98c33134cefbe72",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -3887,14 +3887,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 3.552713678800501e-15,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 7.8723999999999705,
-              "retained_index_heap_bytes": 1996376,
+              "index_ms": 6.8753999999999,
+              "retained_index_heap_bytes": 1996328,
               "query_repetitions_ms": [
-                2.5981000000001586,
-                2.5638000000001284,
-                2.898300000000063,
-                2.9044000000001233,
-                3.1741000000001804
+                2.7445999999999913,
+                2.563699999999926,
+                2.8064999999999145,
+                2.91820000000007,
+                3.143299999999954
               ],
               "index_statistics": {
                 "binSizeMetres": 16,
@@ -3932,8 +3932,8 @@
             "native_bytes": 131421,
             "build_and_validate_ms": 243.43550007324666,
             "filename": "compact-hybrid-0.1m.json",
-            "sha256": "f0d4ba7f220f5649df38f175de0ccca6e2d83353e861d193f49b8e7435346f88",
-            "bytes": 57256,
+            "sha256": "05378003baa5b03720d1df31a600d57589598f2c80c6a6ada91de0b87fbfae56",
+            "bytes": 56929,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -3943,14 +3943,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.0658141036401503e-14,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 4.164599999999837,
-              "retained_index_heap_bytes": 1236144,
+              "index_ms": 4.078600000000051,
+              "retained_index_heap_bytes": 1236184,
               "query_repetitions_ms": [
-                3.3262999999999465,
-                3.7450999999998658,
-                3.952199999999948,
-                3.4903999999999087,
-                3.586900000000014
+                3.2834000000000287,
+                3.6782999999998083,
+                3.7712000000001353,
+                3.7312999999999192,
+                3.3463999999999032
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -3978,7 +3978,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 24.22109991312027
+            "compaction_validate_ms": 25.752099929377437
           },
           "boundary_fixture": "boundary-0.1m.json",
           "boundary_fixture_sha256": "40cfe482402f8c4d5049c396ac6ed9d237274e8d51542b352f83a3700682b769",
@@ -4005,8 +4005,8 @@
             "boundary_derivative_tie_order_preserved": false
           },
           "comparison_eligible": true,
-          "organization_saving_percent": 56.48512669291219,
-          "compact_vs_local_saving_percent": 49.50212994893415
+          "organization_saving_percent": 56.62585427920549,
+          "compact_vs_local_saving_percent": 49.64530851967167
         },
         {
           "target_m": 0.25,
@@ -4036,8 +4036,8 @@
             "native_bytes": 44724,
             "build_and_validate_ms": 81.35749993380159,
             "filename": "paired-hybrid-0.25m.json",
-            "sha256": "683a1554d062890fe05caafc843b518c828792336e5dda6847f03c7ee562b9ec",
-            "bytes": 44881,
+            "sha256": "db500229f560d68e08c6866fceaf98e3fec48557768cd41a2eac5cc4c80889cc",
+            "bytes": 44554,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -4047,14 +4047,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.0658141036401503e-14,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 1.570799999999963,
-              "retained_index_heap_bytes": 380200,
+              "index_ms": 1.447400000000016,
+              "retained_index_heap_bytes": 380472,
               "query_repetitions_ms": [
-                2.675899999999956,
-                3.0737000000001444,
-                3.11850000000004,
-                3.201100000000224,
-                2.6855000000000473
+                2.7273999999999887,
+                2.7346999999999753,
+                3.053599999999733,
+                3.3059000000002925,
+                2.9546000000000276
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -4089,10 +4089,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 200.48999995924532,
+            "build_and_validate_ms": 201.995600014925,
             "filename": "local-triangles-0.25m.json",
-            "bytes": 44528,
-            "sha256": "f58c93d4353095ff2b443fd31a1dfeec0b30eaabb605eb0c1cbea00604a9fbf8",
+            "bytes": 44201,
+            "sha256": "5c9184cf0b44e344d48d559709b19321f444f0c7d973fe7fc0499bde1950341d",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -4107,14 +4107,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 3.552713678800501e-15,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 3.3975000000000364,
+              "index_ms": 2.882100000000264,
               "retained_index_heap_bytes": 782272,
               "query_repetitions_ms": [
-                3.4841999999998734,
-                3.659299999999803,
-                4.015100000000075,
-                3.550799999999981,
-                2.8059000000002925
+                3.137499999999818,
+                3.4985999999998967,
+                3.434600000000046,
+                3.4817999999995664,
+                3.0377000000003136
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -4152,8 +4152,8 @@
             "native_bytes": 44724,
             "build_and_validate_ms": 81.35749993380159,
             "filename": "compact-hybrid-0.25m.json",
-            "sha256": "962fa3cfe0888a0e40c3a4d64549edfe6a85f7d95c8aeeb7d95d7d0141ac99eb",
-            "bytes": 26095,
+            "sha256": "dc4c7347fd388471ff07dbf08feebb43cdc2a4b9a5b2c875e74d1e090604d56b",
+            "bytes": 25768,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -4163,14 +4163,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.0658141036401503e-14,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 1.3924000000001797,
-              "retained_index_heap_bytes": 393160,
+              "index_ms": 1.404399999999896,
+              "retained_index_heap_bytes": 392840,
               "query_repetitions_ms": [
-                5.353599999999915,
-                3.053399999999783,
-                3.5208000000002357,
-                3.136800000000221,
-                3.211999999999989
+                6.214500000000044,
+                3.4544999999998254,
+                3.698899999999867,
+                3.0369000000000597,
+                3.1095000000000255
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -4198,7 +4198,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 8.262200048193336
+            "compaction_validate_ms": 8.487900020554662
           },
           "boundary_fixture": "boundary-0.25m.json",
           "boundary_fixture_sha256": "b7e331ad332ec1abc5c213f3cc493d81689a126995ba81a2f7f294b7b6114c57",
@@ -4225,8 +4225,8 @@
             "boundary_derivative_tie_order_preserved": false
           },
           "comparison_eligible": true,
-          "organization_saving_percent": 41.857356119516055,
-          "compact_vs_local_saving_percent": 41.39642472152354
+          "organization_saving_percent": 42.164564348880006,
+          "compact_vs_local_saving_percent": 41.70267641003598
         },
         {
           "target_m": 0.5,
@@ -4256,8 +4256,8 @@
             "native_bytes": 23885,
             "build_and_validate_ms": 45.286000007763505,
             "filename": "paired-hybrid-0.5m.json",
-            "sha256": "8b3ba27cef6e4902184ddf9c7f4ccc381dfa140daef823d6cec095529d8a82e5",
-            "bytes": 24042,
+            "sha256": "086a2781845135aad7aa1894264fd085771cce23cdb325ede3de3c6fdac807a9",
+            "bytes": 23715,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -4267,14 +4267,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.9402000000000044,
-              "retained_index_heap_bytes": 216320,
+              "index_ms": 0.7923999999998159,
+              "retained_index_heap_bytes": 216368,
               "query_repetitions_ms": [
-                2.777299999999741,
-                3.143199999999979,
-                3.0888999999997395,
-                3.6642000000001644,
-                3.26050000000032
+                3.1067000000002736,
+                3.577099999999973,
+                3.5031000000003587,
+                3.5284999999998945,
+                3.0938999999998487
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -4309,10 +4309,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 114.50639995746315,
+            "build_and_validate_ms": 112.35960002522916,
             "filename": "local-triangles-0.5m.json",
-            "bytes": 25336,
-            "sha256": "2d496fa9bff8123c0e0a430a5e53e6d82ab725f9d1347f52fcadb36e2736a147",
+            "bytes": 25009,
+            "sha256": "af62ed5153c85a0dfa92ce63d642e8cb4f7a1ba3094827a99158e5a65bfa73dc",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -4327,14 +4327,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 3.552713678800501e-15,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 1.7863000000002103,
-              "retained_index_heap_bytes": 438672,
+              "index_ms": 1.4976999999998952,
+              "retained_index_heap_bytes": 438616,
               "query_repetitions_ms": [
-                2.8976000000002387,
-                2.392399999999725,
-                2.2847999999999047,
-                2.6575000000002547,
-                2.7051000000001295
+                2.5162999999997737,
+                2.4112999999997555,
+                2.4196999999999207,
+                2.3367000000002918,
+                2.7872999999999593
               ],
               "index_statistics": {
                 "binSizeMetres": 32,
@@ -4372,8 +4372,8 @@
             "native_bytes": 23885,
             "build_and_validate_ms": 45.286000007763505,
             "filename": "compact-hybrid-0.5m.json",
-            "sha256": "45cc8c95206d2a26efd4815c57a94cfc74317264dc13133add77e0f89f7357fc",
-            "bytes": 14773,
+            "sha256": "f79054d896231b91892474e0523ffba6e403397011b0af089d96aa84c309fad7",
+            "bytes": 14446,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -4383,14 +4383,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 1.4210854715202004e-14,
               "boundary_decoder_max_difference_m": 7.105427357601002e-15,
-              "index_ms": 0.7489000000000487,
+              "index_ms": 0.7314000000001215,
               "retained_index_heap_bytes": 216400,
               "query_repetitions_ms": [
-                2.8492999999998574,
-                3.565399999999954,
-                3.29950000000008,
-                3.640400000000227,
-                3.360099999999875
+                3.0634000000000015,
+                3.1678000000001703,
+                3.193500000000313,
+                3.488600000000133,
+                3.281000000000404
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -4418,7 +4418,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 4.5183999463915825
+            "compaction_validate_ms": 4.52479999512434
           },
           "boundary_fixture": "boundary-0.5m.json",
           "boundary_fixture_sha256": "577ae398fdd9ed30cd308cd7bbb22fc5e0c2928753dbf55b2eae42206e3f43a3",
@@ -4445,12 +4445,12 @@
             "boundary_derivative_tie_order_preserved": false
           },
           "comparison_eligible": true,
-          "organization_saving_percent": 38.55336494468015,
-          "compact_vs_local_saving_percent": 41.691664035364695
+          "organization_saving_percent": 39.08496732026144,
+          "compact_vs_local_saving_percent": 42.236794753888596
         }
       ],
-      "download_bytes": 343971,
-      "download_sha256": "d136e2f2a4f23849299c03b56f6432e62cd79ddb56bc6f5091bd9530393a7bc5"
+      "download_bytes": 342409,
+      "download_sha256": "35921dff8a94af8e71846a090eb5c2ae46d17af477290c326ee2dfef5ff80e02"
     },
     {
       "id": "sharp-ridge",
@@ -4485,8 +4485,8 @@
             "native_bytes": 1021,
             "build_and_validate_ms": 1.3689000625163317,
             "filename": "paired-hybrid-0.05m.json",
-            "sha256": "311e38a2785635e7448c373acc204cee1f4b039199e591ce06af965f446eaba2",
-            "bytes": 1178,
+            "sha256": "9669be99ee1d4719468553932585b8712cba34f843c30066cbf92391e472e206",
+            "bytes": 851,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -4496,14 +4496,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.042699999999967986,
-              "retained_index_heap_bytes": -21048,
+              "index_ms": 0.04820000000017899,
+              "retained_index_heap_bytes": -20864,
               "query_repetitions_ms": [
-                3.672299999999723,
-                2.1053000000001703,
-                1.9606000000003405,
-                2.001300000000356,
-                1.980199999999968
+                3.5855999999998858,
+                2.2467999999998938,
+                2.02599999999984,
+                2.144600000000082,
+                2.5219999999999345
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -4538,10 +4538,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 1.3479000190272927,
+            "build_and_validate_ms": 1.440799911506474,
             "filename": "local-triangles-0.05m.json",
-            "bytes": 1197,
-            "sha256": "524b96a6291553de12d34df1b4c10f97e5ef79a4570bbe1c6504a84eb40d6018",
+            "bytes": 870,
+            "sha256": "9460410c16f944ee95733e71f1adfb0dafd2ef9c7924d396f8a9d32669994a34",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -4556,14 +4556,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.07670000000007349,
-              "retained_index_heap_bytes": 7304,
+              "index_ms": 0.07070000000021537,
+              "retained_index_heap_bytes": 7624,
               "query_repetitions_ms": [
-                1.4764000000000124,
-                1.587500000000091,
-                1.6158999999997832,
-                1.6900000000000546,
-                1.607300000000123
+                1.4674999999997453,
+                1.5589999999997417,
+                1.7653999999997723,
+                1.6650999999997111,
+                1.719600000000355
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -4601,8 +4601,8 @@
             "native_bytes": 1021,
             "build_and_validate_ms": 1.3689000625163317,
             "filename": "compact-hybrid-0.05m.json",
-            "sha256": "1e57d0455b018720fb44d24831964733a51faaeebe6da41a71baebfa732e227d",
-            "bytes": 1178,
+            "sha256": "34574ce21fc18c3b25593056200a1b76841f7231ed9121d66c10bc6e598bd66f",
+            "bytes": 851,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -4612,14 +4612,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.03749999999990905,
-              "retained_index_heap_bytes": 6432,
+              "index_ms": 0.041199999999662396,
+              "retained_index_heap_bytes": 6112,
               "query_repetitions_ms": [
-                1.9326000000000931,
-                1.5091999999999643,
-                1.5030000000001564,
-                1.3537999999998647,
-                1.3587999999999738
+                1.8782000000001062,
+                1.693199999999706,
+                1.5416000000000167,
+                1.5787000000000262,
+                1.6570999999999003
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -4647,7 +4647,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.16529997810721397
+            "compaction_validate_ms": 0.16359996516257524
           },
           "boundary_fixture": "boundary-0.05m.json",
           "boundary_fixture_sha256": "c02d78bd71f8798aa6c2beaea8ec7a9b2d4992188dbe9101d94bc740ac26f9c6",
@@ -4675,7 +4675,7 @@
           },
           "comparison_eligible": true,
           "organization_saving_percent": 0.0,
-          "compact_vs_local_saving_percent": 1.5873015873015928
+          "compact_vs_local_saving_percent": 2.183908045977012
         },
         {
           "target_m": 0.1,
@@ -4705,8 +4705,8 @@
             "native_bytes": 1020,
             "build_and_validate_ms": 0.8973999647423625,
             "filename": "paired-hybrid-0.1m.json",
-            "sha256": "1922b0eff15b29dc650a5d450cc63ff4abaf3c68bba0a1fadfd45baa4a2e804d",
-            "bytes": 1177,
+            "sha256": "9be6fe4e822472dd9efbd91e2d78f112e6b38aaa305eab243b0641f414958ab5",
+            "bytes": 850,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -4716,14 +4716,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.03819999999996071,
+              "index_ms": 0.04179999999996653,
               "retained_index_heap_bytes": 6448,
               "query_repetitions_ms": [
-                1.8066000000003442,
-                1.3987999999999374,
-                1.4474999999997635,
-                1.4195999999997184,
-                1.4963000000002467
+                1.9167999999999665,
+                1.6159999999999854,
+                1.4253999999996267,
+                1.4681000000000495,
+                1.5506000000000313
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -4758,10 +4758,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 1.3319000136107206,
+            "build_and_validate_ms": 1.2574000284075737,
             "filename": "local-triangles-0.1m.json",
-            "bytes": 1196,
-            "sha256": "c97b262db3d6d205039dc6434b2ca0506f8f86faf26f9ef8027eb885f699011f",
+            "bytes": 869,
+            "sha256": "23cb9d3f3428462b80d36f39a7b47ebd7155f6a4b1c7aa63a927018c4244c5fb",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -4776,14 +4776,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.09439999999995052,
+              "index_ms": 0.07520000000022264,
               "retained_index_heap_bytes": 7624,
               "query_repetitions_ms": [
-                1.9945000000002437,
-                1.544300000000021,
-                1.452099999999973,
-                1.4461999999998625,
-                1.684700000000248
+                1.6431000000002314,
+                1.4321999999997388,
+                1.4911000000001877,
+                1.624699999999848,
+                1.631800000000112
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -4821,8 +4821,8 @@
             "native_bytes": 1020,
             "build_and_validate_ms": 0.8973999647423625,
             "filename": "compact-hybrid-0.1m.json",
-            "sha256": "93ab850dde4b6ea68b1cee9754fe76dfe2d9609a734dd4d60e00cfffa80b125d",
-            "bytes": 1177,
+            "sha256": "b785ea0993ad6c5327fa0af3fd21e3837bb6bf921961de882aed609912cc860d",
+            "bytes": 850,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -4832,14 +4832,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.041999999999916326,
+              "index_ms": 0.045600000000376895,
               "retained_index_heap_bytes": 6160,
               "query_repetitions_ms": [
-                1.8735999999998967,
-                1.5215000000002874,
-                1.8231000000000677,
-                1.7029999999999745,
-                1.7805999999995947
+                1.8575999999998203,
+                1.491899999999987,
+                1.643000000000029,
+                1.9027000000000953,
+                1.908100000000104
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -4867,7 +4867,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.12179999612271786
+            "compaction_validate_ms": 0.12260000221431255
           },
           "boundary_fixture": "boundary-0.1m.json",
           "boundary_fixture_sha256": "c02d78bd71f8798aa6c2beaea8ec7a9b2d4992188dbe9101d94bc740ac26f9c6",
@@ -4895,7 +4895,7 @@
           },
           "comparison_eligible": true,
           "organization_saving_percent": 0.0,
-          "compact_vs_local_saving_percent": 1.5886287625418105
+          "compact_vs_local_saving_percent": 2.1864211737629424
         },
         {
           "target_m": 0.25,
@@ -4925,8 +4925,8 @@
             "native_bytes": 1021,
             "build_and_validate_ms": 0.9926999919116497,
             "filename": "paired-hybrid-0.25m.json",
-            "sha256": "fc7da7bf0ebd8c6b38c043a566f92b69a2c1ea0ff069e97c0a72154f61fa9292",
-            "bytes": 1178,
+            "sha256": "07c2624c75508d84733aa189b857537efdeb051a81da790fe81dec61d4017895",
+            "bytes": 851,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -4936,14 +4936,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.047000000000025466,
+              "index_ms": 0.06099999999969441,
               "retained_index_heap_bytes": 6448,
               "query_repetitions_ms": [
-                1.8893000000002758,
-                1.6585999999997512,
-                1.515599999999722,
-                1.4807999999998174,
-                1.53899999999976
+                1.9323999999996886,
+                1.6806000000001404,
+                1.6855999999997948,
+                1.6842999999998938,
+                1.6626000000001113
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -4978,10 +4978,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 1.155099947936833,
+            "build_and_validate_ms": 1.1515000369399786,
             "filename": "local-triangles-0.25m.json",
-            "bytes": 1197,
-            "sha256": "4fb16b5cb9204e561d3290a3525d2cf2693b4ef3b9b9c171b4456e32e5e91fa0",
+            "bytes": 870,
+            "sha256": "5cf420e1bceaf621b3e1a2163575f166a09bdd12057126f535a76069e8f47779",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -4996,14 +4996,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.0706000000000131,
+              "index_ms": 0.06790000000000873,
               "retained_index_heap_bytes": 7624,
               "query_repetitions_ms": [
-                1.679200000000037,
-                1.5057000000001608,
-                1.5431000000003223,
-                1.8867999999997664,
-                1.7025999999996202
+                1.9729000000002088,
+                1.548899999999776,
+                1.5963999999999032,
+                1.7613000000001193,
+                1.8039000000003398
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -5041,8 +5041,8 @@
             "native_bytes": 1021,
             "build_and_validate_ms": 0.9926999919116497,
             "filename": "compact-hybrid-0.25m.json",
-            "sha256": "bec3ec701f60024fb7302a8221afdc2e29e6b26dc91f01fb9e430ef9b636a6ba",
-            "bytes": 1178,
+            "sha256": "5b63c1f3d47c4828fa6d607477c0bae2b5a557a221c3dc95883182316fb2070f",
+            "bytes": 851,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -5052,14 +5052,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.045900000000074215,
+              "index_ms": 0.049100000000180444,
               "retained_index_heap_bytes": 6480,
               "query_repetitions_ms": [
-                2.014599999999973,
-                1.4517000000000735,
-                1.514599999999973,
-                1.5367999999998574,
-                1.5284999999998945
+                2.0441000000000713,
+                1.6475000000000364,
+                1.7894999999998618,
+                1.7395999999998821,
+                1.7415000000000873
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -5087,7 +5087,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.1458000624552369
+            "compaction_validate_ms": 0.1110999146476388
           },
           "boundary_fixture": "boundary-0.25m.json",
           "boundary_fixture_sha256": "c02d78bd71f8798aa6c2beaea8ec7a9b2d4992188dbe9101d94bc740ac26f9c6",
@@ -5115,7 +5115,7 @@
           },
           "comparison_eligible": true,
           "organization_saving_percent": 0.0,
-          "compact_vs_local_saving_percent": 1.5873015873015928
+          "compact_vs_local_saving_percent": 2.183908045977012
         },
         {
           "target_m": 0.5,
@@ -5145,8 +5145,8 @@
             "native_bytes": 1020,
             "build_and_validate_ms": 0.9372999193146825,
             "filename": "paired-hybrid-0.5m.json",
-            "sha256": "3714450a8a8529c4e335eb87dfc3049524dbfab565d6aafd7d7a40778338f33b",
-            "bytes": 1177,
+            "sha256": "694c05ff42570d94febda1b3a60ddaa86985c33de1eb7c0c3b8f8abf9e3e1900",
+            "bytes": 850,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -5156,14 +5156,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.039099999999962165,
+              "index_ms": 0.06799999999975626,
               "retained_index_heap_bytes": 6448,
               "query_repetitions_ms": [
-                2.1383999999998196,
-                1.5896999999999935,
-                1.5805999999997766,
-                1.6192000000000917,
-                1.685399999999845
+                1.863299999999981,
+                1.4792999999999665,
+                2.058899999999994,
+                1.5654999999997017,
+                1.598399999999856
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -5198,10 +5198,10 @@
             "coordinate_precision": "Unrounded binary64 dyadic XY; five-decimal Z; additional coordinate digits count in archive bytes",
             "seams": "C0 shared-edge bisection closure; no hanging nodes; not C1",
             "scope": "Trusted authored analytic functions; different stronger candidate family than the tensor-grid hybrid; no ArcGIS execution",
-            "build_and_validate_ms": 1.1112999636679888,
+            "build_and_validate_ms": 1.3085000682622194,
             "filename": "local-triangles-0.5m.json",
-            "bytes": 1196,
-            "sha256": "76ae8d1320e3be7214ed1a21d9555c8cf22a653f3b351017e1cae412e9bef315",
+            "bytes": 869,
+            "sha256": "0bd7bced16230b3b2e90987351938939bc874b561065f6a77622b92b91d49d06",
             "origin_archive_sha256": null,
             "source_grid": {
               "samples": 4225,
@@ -5216,14 +5216,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.06930000000011205,
+              "index_ms": 0.07070000000021537,
               "retained_index_heap_bytes": 7624,
               "query_repetitions_ms": [
-                1.673699999999826,
-                1.638600000000224,
-                1.5849000000002889,
-                1.7415000000000873,
-                1.545400000000427
+                1.5403999999998632,
+                1.468199999999797,
+                1.5966000000003078,
+                1.645799999999781,
+                1.731000000000222
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -5261,8 +5261,8 @@
             "native_bytes": 1020,
             "build_and_validate_ms": 0.9372999193146825,
             "filename": "compact-hybrid-0.5m.json",
-            "sha256": "635feca6b368bbe76a5aba60e5438d689eb543e4a99979591851db50540cef78",
-            "bytes": 1177,
+            "sha256": "c6692c2f20629cb755180d6a5e33606a894ae15df51f08fdb9cf4ed11d270627",
+            "bytes": 850,
             "continuous_bound_available": true,
             "offgrid": {
               "samples": 4096,
@@ -5272,14 +5272,14 @@
               "meets_sampled_target": true,
               "decoded_kernel_max_difference_m": 7.105427357601002e-15,
               "boundary_decoder_max_difference_m": 0.0,
-              "index_ms": 0.047899999999572174,
+              "index_ms": 0.06910000000016225,
               "retained_index_heap_bytes": 6480,
               "query_repetitions_ms": [
-                1.8587000000002263,
-                1.4707000000003063,
-                1.450800000000072,
-                1.5752000000002226,
-                1.6004000000002634
+                2.1219999999998436,
+                1.7615000000000691,
+                1.729399999999714,
+                1.7565999999997075,
+                1.7244999999998072
               ],
               "index_statistics": {
                 "binSizeMetres": 64,
@@ -5307,7 +5307,7 @@
             "controls_unchanged": true,
             "patch_ids_preserved": false,
             "boundary_derivative_tie_order_preserved": false,
-            "compaction_validate_ms": 0.12790004257112741
+            "compaction_validate_ms": 0.1463000662624836
           },
           "boundary_fixture": "boundary-0.5m.json",
           "boundary_fixture_sha256": "c02d78bd71f8798aa6c2beaea8ec7a9b2d4992188dbe9101d94bc740ac26f9c6",
@@ -5335,11 +5335,11 @@
           },
           "comparison_eligible": true,
           "organization_saving_percent": 0.0,
-          "compact_vs_local_saving_percent": 1.5886287625418105
+          "compact_vs_local_saving_percent": 2.1864211737629424
         }
       ],
-      "download_bytes": 129326,
-      "download_sha256": "8d711cfa361e047990fdfe93163122b37ca4509fb651542f71c2d937d58e53ac"
+      "download_bytes": 127863,
+      "download_sha256": "f8ca8cacb519c76b284ad4f370493e0573d7a3d410229e46c5b0463e293ec6ad"
     }
   ],
   "native_query_source_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
