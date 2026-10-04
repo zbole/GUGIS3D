@@ -1,11 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdir } from "node:fs/promises";
+import { mkdir, readFile } from "node:fs/promises";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { build } from "esbuild";
 import React from "react";
 import { act, create } from "react-test-renderer";
 import { emptyEnvironment, featurePresets } from "../src/studio/environment.ts";
+import { decodeCity } from "../src/studio/cityArchive.ts";
 
 const cache = new URL("../node_modules/.cache/gugis-tests/", import.meta.url);
 await mkdir(cache, { recursive: true });
@@ -20,6 +21,52 @@ await build({ entryPoints: [fileURLToPath(new URL("../src/studio/CityStudio.tsx"
       ? 'import React from "react"; export default React.forwardRef((props, ref) => { globalThis.terrainDraftScene = props; return React.createElement("div", {className:"test-scene"}); });'
       : "export default () => null", loader: "js" }));
   } }],
+});
+
+test("single-building export receipts retain the exported identity and never overwrite the formal-city path", async () => {
+  const windowBefore = globalThis.window, fetchBefore = globalThis.fetch;
+  globalThis.window = { location: new URL("http://localhost/?city=london"), addEventListener() {}, removeEventListener() {} };
+  const seed = decodeCity(JSON.parse(await readFile(new URL("../../backend/data/cities/london.gugis.json", import.meta.url), "utf8")));
+  const first = seed.instances[0], asset = seed.assets[first.asset];
+  const city = { ...seed, assets: { asset }, instances: [
+    { ...first, id: "one", asset: "asset", name: "QA exported one" },
+    { ...first, id: "two", asset: "asset", name: "QA selected two" },
+  ], roads: [] };
+  let resolve, exports = 0, cityWrites = 0, renderer;
+  const pending = new Promise(yes => { resolve = yes; });
+  globalThis.fetch = async (url, options) => {
+    assert.equal(url, "/api/studio/save"); assert.equal(JSON.parse(options.body).parameters.name, "QA exported one");
+    exports++; return pending;
+  };
+  const api = { cityExportUrl: "/qa/city-export", loadCity: async () => ({ document: city, revision: "a".repeat(64), storage: null }),
+    loadDraft: async () => null, persistCity: async () => { cityWrites++; return { revision: "b".repeat(64), storage: null, directory: "C:/qa/city", filename: "current.gugis.json" }; } };
+  const workspace = { id: "london", name: "伦敦", status: "ready", coverage_kind: "sample", coverage_label: "QA sample" };
+  try {
+    await act(async () => { renderer = create(React.createElement(Studio, { api, workspace })); });
+    const exportClick = button(renderer.root, "单栋导出").props.onClick;
+    act(() => { exportClick(); exportClick(); });
+    assert.equal(exports, 1, "double clicks cannot create duplicate export writes");
+    act(() => globalThis.terrainDraftScene.onSelect("two"));
+    await act(async () => resolve(new Response(JSON.stringify({ directory: "C:/qa/objects", filename: "one.json", download_path: "/studio/download/one.json" }))));
+    const receipt = renderer.root.findByProps({ className: "save-receipt" });
+    assert.match(text(receipt), /QA exported one.*one.*C:\/qa\/objects\/one.json/);
+    assert.doesNotMatch(text(receipt), /QA selected two/);
+    assert.equal(receipt.findByType("a").props.href, "/api/studio/download/one.json");
+    const pathText = () => renderer.root.findByProps({ className: "studio-status" }).findAllByType("span").find(n => n.props.title);
+    assert.match(pathText().props.title, /伦敦独立城市工作区/);
+    assert.doesNotMatch(pathText().props.title, /objects|\.local\/city/);
+    await act(async () => button(renderer.root, "删除").props.onClick());
+    assert.equal(cityWrites, 1);
+    assert.equal(pathText().props.title, "C:/qa/city/current.gugis.json");
+    assert.match(text(renderer.root.findByProps({ className: "save-receipt" })), /C:\/qa\/objects\/one.json/);
+    act(() => renderer.root.findByProps({ "aria-label": "关闭保存位置" }).props.onClick());
+    assert.equal(renderer.root.findAllByProps({ className: "save-receipt" }).length, 0);
+    assert.equal(pathText().props.title, "C:/qa/city/current.gugis.json");
+  } finally {
+    if (renderer) act(() => renderer.unmount());
+    if (windowBefore === undefined) delete globalThis.window; else globalThis.window = windowBefore;
+    globalThis.fetch = fetchBefore; delete globalThis.terrainDraftScene;
+  }
 });
 const Studio = (await import(pathToFileURL(outfile).href)).default;
 const text = node => typeof node === "string" ? node : (node.children ?? []).map(text).join("");

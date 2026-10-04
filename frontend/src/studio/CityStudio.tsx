@@ -100,7 +100,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     [editId, setEditId] = useState<string | null>(null),
     [placing, setPlacing] = useState(false),
     [addedId, setAddedId] = useState<string | null>(null),
-    [objectLink, setObjectLink] = useState("");
+    [objectReceipt, setObjectReceipt] = useState<{ url: string; path: string; name: string; id: string | null } | null>(null);
   const [environmentPosition, setEnvironmentPosition] = useState({
       ...center,
       altitude: 0,
@@ -160,7 +160,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
   const [busy, setBusy] = useState(true),
     [error, setError] = useState(""),
     [notice, setNotice] = useState("正在恢复本地城市项目…"),
-    [savedPath, setSavedPath] = useState("");
+    [savedCityPath, setSavedCityPath] = useState("");
   const [query, setQuery] = useState(""),
     [filter, setFilter] = useState("all"),
     [visibleCount, setVisibleCount] = useState(40),
@@ -314,6 +314,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
       setCity(r.document);
       setRevision(r.revision);
       setStorage(r.storage);
+      setSavedCityPath("");
       setHistory([]);
       setPreview(pending);
       setSelectedFeature((pending?.document ?? r.document).environment?.features[0]?.id ?? null);
@@ -417,7 +418,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
       setCity(preview.document);
       setRevision(result.revision);
       setStorage(result.storage);
-      setSavedPath(`${result.directory}/${result.filename}`);
+      setSavedCityPath(`${result.directory}/${result.filename}`);
       setNotice(`${preview.label} · 已写入正式城市，上一版本可恢复`);
       setPreview(null);
       setNeedsRegenerate(false);
@@ -512,7 +513,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
       setCity(next);
       setRevision(result.revision);
       setStorage(result.storage);
-      setSavedPath(`${result.directory}/${result.filename}`);
+      setSavedCityPath(`${result.directory}/${result.filename}`);
       setNotice(`${message} · 已自动保存`);
       return true;
     } catch (e) {
@@ -716,18 +717,20 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     }
   }
   async function exportObject() {
-    if (!document) return;
+    if (!document || busy || locked.current) return;
+    locked.current = true;
     setBusy(true);
     setError("");
     try {
       const r = await saveDocument(document);
-      setSavedPath(`${r.directory}/${r.filename}`);
-      setNotice("选中建筑已单独保存，城市项目保持完整");
-      setObjectLink(downloadUrl(r.download_path));
+      if (!mounted.current) return;
+      setObjectReceipt({ path: `${r.directory}/${r.filename}`, name: document.parameters.name, id: active, url: downloadUrl(r.download_path) });
+      setNotice(`建筑“${document.parameters.name}”已单独保存，城市项目保持完整`);
     } catch (e) {
-      setError(String(e));
+      if (mounted.current) setError(String(e));
     } finally {
-      setBusy(false);
+      locked.current = false;
+      if (mounted.current) setBusy(false);
     }
   }
   return (
@@ -893,15 +896,15 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
           </button>
         </div>
       )}
-      {objectLink && (
+      {objectReceipt && (
         <div className="save-receipt">
           <span>
-            选中建筑已保存到本机<code>{savedPath}</code>
+            已导出建筑“{objectReceipt.name}”{objectReceipt.id ? `（${objectReceipt.id}）` : ""}<code>{objectReceipt.path}</code>
           </span>
-          <a href={objectLink} download>
+          <a href={objectReceipt.url} download>
             下载单栋文件
           </a>
-          <button aria-label="关闭保存位置" onClick={() => setObjectLink("")}>
+          <button aria-label="关闭保存位置" onClick={() => setObjectReceipt(null)}>
             <X size={15} />
           </button>
         </div>
@@ -1443,11 +1446,11 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
       )}
       <footer className="studio-status">
         <span role="status">{busy ? "正在处理，请稍候…" : notice}</span>
-        <span title={savedPath || "GUGIS3D/.local/city/current.gugis.json"}>
-          {savedPath ? "本地文件已写入" : "本地城市工作区"}
+        <span title={savedCityPath || `${workspace.name}独立城市工作区 · 正式修订 ${revision || "尚未读取"}`}>
+          {savedCityPath ? "正式城市已写入" : "本地城市工作区"}
         </span>
         <span>
-          {city?.environment
+          {preview ? "草稿 · " : ""}{displayCity?.environment
             ? "City 1.2 · 函数地物与地形"
             : "City 1.1 · 共享几何"}
         </span>
