@@ -21,8 +21,8 @@ export default function LocalTriangleComparison({caseId,target}:{caseId:string;t
     <h3 id="local-triangle-title">换成局部三角剖分，优势还成立吗？</h3>
     <p>相同 {target*100} cm 最大误差目标，比较当前混合模型与逐三角形局部细分。保持共享边连续，并把相邻三角形合成三角带；不再要求整行或整列一起细分。</p>
     <div className="local-triangle-result" aria-live="polite"><strong>{localTriangleOutcome(caseId,target)}</strong><span>统一元数据的完整原生 JSON：混合 {kb(a.bytes)} kB / 局部三角 {kb(b.bytes)} kB。</span></div>
-    <div className="local-triangle-models"><figure><img loading="lazy" src={`/research/hybrid-terrain/${caseId}-hybrid-${target}m.png`} alt={`${data.name}的原混合模型拓扑`}/><figcaption>混合 · {a.points.toLocaleString()} 点 · {a.patches.toLocaleString()} 面片</figcaption></figure>
-      <figure><img loading="lazy" src={`/research/hybrid-terrain/${caseId}-local-triangles-${target}m.png`} alt={`${data.name}的实际局部相容三角剖分`}/><figcaption>局部三角 · {b.points.toLocaleString()} 点 · {b.triangles.toLocaleString()} 三角形 / {b.patches.toLocaleString()} 三角带</figcaption></figure></div>
+    <div className="local-triangle-models"><figure><img loading="lazy" width={784} height={630} src={`/research/hybrid-terrain/${caseId}-hybrid-${target}m.png`} alt={`${data.name}的原混合模型拓扑`}/><figcaption>混合 · {a.points.toLocaleString()} 点 · {a.patches.toLocaleString()} 面片</figcaption></figure>
+      <figure><img loading="lazy" width={784} height={630} src={`/research/hybrid-terrain/${caseId}-local-triangles-${target}m.png`} alt={`${data.name}的实际局部相容三角剖分`}/><figcaption>局部三角 · {b.points.toLocaleString()} 点 · {b.triangles.toLocaleString()} 三角形 / {b.patches.toLocaleString()} 三角带</figcaption></figure></div>
     <div className="hybrid-table-scroll"><table><caption>更强候选族 · {data.name} · {target*100} cm 目标</caption><thead><tr><th>实测项目</th><th>混合原生面带</th><th>局部相容三角带</th></tr></thead><tbody>
       <tr><th>构建 / 离网格目标</th><td>{a.target_met&&a.offgrid.meets_sampled_target?'均通过':'未全部通过'}</td><td>{b.target_met&&b.offgrid.meets_sampled_target?'均通过':'未全部通过'}</td></tr>
       <tr><th>源网格 RMSE / 最大差</th><td>{cm(a.source_grid.rmse_m)} / {cm(a.source_grid.max_absolute_m)} cm</td><td>{cm(b.source_grid.rmse_m)} / {cm(b.source_grid.max_absolute_m)} cm</td></tr>

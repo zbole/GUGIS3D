@@ -1,6 +1,6 @@
 import type { Terrain } from '../studio/environment';
 export async function loadResearchTerrain(url:string,bytes:number,sha256:string,signal:AbortSignal):Promise<Terrain>{
-  if(!/^\/research\/hybrid-terrain\/models\/[a-z-]+\/(hybrid|triangles|local-triangles|paired-hybrid)-(0\.05|0\.1|0\.25|0\.5)m\.json$/.test(url)||!Number.isSafeInteger(bytes)||bytes<1||bytes>4*1024*1024||!/^[a-f0-9]{64}$/.test(sha256))throw new Error('Invalid research archive receipt');
+  if(!/^\/research\/hybrid-terrain\/models\/[a-z-]+\/(hybrid|triangles|local-triangles|paired-hybrid|compact-hybrid)-(0\.05|0\.1|0\.25|0\.5)m\.json$/.test(url)||!Number.isSafeInteger(bytes)||bytes<1||bytes>4*1024*1024||!/^[a-f0-9]{64}$/.test(sha256))throw new Error('Invalid research archive receipt');
   const response=await fetch(url,{signal});
   if(!response.ok||!response.body)throw new Error('研究档案读取失败');
   const reader=response.body.getReader();const chunks:Uint8Array[]=[];let received=0;

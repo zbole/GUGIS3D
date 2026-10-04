@@ -1,5 +1,7 @@
 # GUGIS3D 本地城市工作台
 
+新增：[相同曲面的面带编码合并](docs/finite_scale_hybrid_terrain.md#同一曲面的编码组织优化)。10 cm 方向变化样本保留原控制点与函数，完整 JSON 从 131.58 kB 降至 57.26 kB，比局部三角基线小 49.5%；同时公开面片编号与边界单侧坡度变化。入口：http://127.0.0.1:5173/compare#strip-compaction-audit 。
+
 更强对照：[相容局部三角剖分](docs/finite_scale_hybrid_terrain.md#更强局部三角剖分结果会反转)新增 24 组同误差实验、48 份配对模型及原生三维切换。10 cm 目标下，混合表示在鞍面 / 长母线样本的文件分别小 96.4% / 89.6%，在凸碗 / 方向变化样本反而大 113.5% / 16.0%；页面同时展示这些结果。入口：http://127.0.0.1:5173/compare#local-triangle-audit 。
 
 新增：[有限尺度直纹面与三角面混合研究](docs/finite_scale_hybrid_terrain.md)，七类地形、四档误差目标、56 份可下载原生模型，含误差核验、实际拓扑图、可旋转三维视图与点击查询。入口：http://127.0.0.1:5173/compare#hybrid-terrain-lab 。结果同时公开优势、无优势和未达标档位；同候选族对照不等于 ArcGIS 软件跑分或近最优证明。

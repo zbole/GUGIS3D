@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import report from '../../../shared/hybrid-terrain-research.json';
 import './hybridTerrainLab.css';
 import LocalTriangleComparison, {localTrianglePair,localTriangleOutcome} from './LocalTriangleComparison';
+import StripCompactionComparison, {compactPair,compactOutcome} from './StripCompactionComparison';
 const kb=(bytes:number)=>(bytes/1000).toFixed(2);
 const cm=(m:number)=>(m*100).toFixed(3);
 const median=(a:number[])=>[...a].sort((a,b)=>a-b)[Math.floor(a.length/2)];
@@ -16,10 +17,11 @@ export default function HybridTerrainLab(){
   const pair=data.variants.find(v=>v.target_m===target)!;
   const a=pair.hybrid,b=pair.triangles;
   const local=localTrianglePair(caseId,target);
+  const compact=compactPair(caseId,target);
   useEffect(()=>{
     if(typeof window==='undefined')return;
     const id=window.location?.hash?.slice(1)??'';
-    if(!['hybrid-terrain-lab','local-triangle-audit'].includes(id))return;
+    if(!['hybrid-terrain-lab','local-triangle-audit','strip-compaction-audit'].includes(id))return;
     const frame=window.requestAnimationFrame(()=>document.getElementById(id)?.scrollIntoView());
     return()=>window.cancelAnimationFrame(frame);
   },[]);
@@ -35,6 +37,7 @@ export default function HybridTerrainLab(){
       <span>{a.continuous_bound_available?'解析样本 · 含逐单元误差界':'真实 DEM · 仅采样核验'} · 相同全局相容网格候选族</span></div>
     <p className="hybrid-case-intent">{data.expectation}</p>
     <p className="local-triangle-summary"><strong>更强局部三角基线：</strong>{localTriangleOutcome(caseId,target)} <a href="#local-triangle-audit">查看同误差的另一组结果 ↓</a></p>
+    <p className="strip-compaction-summary"><strong>相同曲面 · 编码合并后：</strong>{compactOutcome(caseId,target)} <a href="#strip-compaction-audit">查看三种文件及保持情况 ↓</a></p>
     <div className="hybrid-kpis" aria-live="polite">
       <article><small>全局网格 · 同误差比较</small><strong>{pair.comparison_eligible?'可比较':'暂不可比较'}</strong><span>{pair.comparison_eligible?'双方构建与离网格抽查均通过':'至少一方未通过全部核验，排除节省结论'}</span></article>
       <article><small>混合表示控制点</small><strong>{a.points.toLocaleString()}</strong><span>纯三角面 {b.points.toLocaleString()} · 两者计入共享控制点</span></article>
@@ -43,13 +46,13 @@ export default function HybridTerrainLab(){
         <span>{pair.native_file_saving_percent===null?'未建立同误差可比结论':pair.native_file_saving_percent>=0?'文件减少；不是内存节省':'文件增加；本档不具文件优势'}</span></article>
     </div>
     <div className="hybrid-models">
-      <figure><img loading="lazy" src={`/research/hybrid-terrain/${data.id}-reference.png`} alt={`${data.name}的参考表面三维预览`}/><figcaption>参考形态 · 显示抽样，统计使用全部源网格</figcaption></figure>
-      {(['hybrid','triangles'] as const).map(mode=><figure key={mode}><img loading="lazy" src={`/research/hybrid-terrain/${data.id}-${mode}-${target}m.png`} alt={`${data.name}在${target}米目标下${mode==='hybrid'?'混合':'纯三角'}表示的实际XY拓扑图`}/>
+      <figure><img loading="lazy" width={1050} height={630} src={`/research/hybrid-terrain/${data.id}-reference.png`} alt={`${data.name}的参考表面三维预览`}/><figcaption>参考形态 · 显示抽样，统计使用全部源网格</figcaption></figure>
+      {(['hybrid','triangles'] as const).map(mode=><figure key={mode}><img loading="lazy" width={784} height={630} src={`/research/hybrid-terrain/${data.id}-${mode}-${target}m.png`} alt={`${data.name}在${target}米目标下${mode==='hybrid'?'混合':'纯三角'}表示的实际XY拓扑图`}/>
         <figcaption>{mode==='hybrid'?'混合表示':'纯三角面'} · 保存档案的 XY 拓扑与母线</figcaption></figure>)}
     </div>
     <div className="hybrid-legend"><span><i className="hybrid-ruled"/>直纹面</span><span><i className="hybrid-triangle"/>三角面</span><span>绿线为母线方向；两类面共享边界控制点，保持 C⁰ 相容。</span></div>
     <div className="hybrid-live-entry"><button aria-expanded={live} onClick={()=>setLive(v=>!v)}>{live?'关闭三维研究视图':'打开可旋转的原生三维模型'}</button><span>按需加载当前模型，不写入正式城市。</span></div>
-    {live&&<Suspense fallback={<p role="status">正在准备三维研究视图…</p>}><HybridTerrainViewer key={`${caseId}/${target}`} caseId={caseId} target={target} hybrid={a} triangles={b} localTriangles={local?.local_triangles}/></Suspense>}
+    {live&&<Suspense fallback={<p role="status">正在准备三维研究视图…</p>}><HybridTerrainViewer key={`${caseId}/${target}`} caseId={caseId} target={target} hybrid={a} triangles={b} localTriangles={local?.local_triangles} compactHybrid={compact?.compact_hybrid}/></Suspense>}
     <div className="hybrid-table-scroll"><table><caption>精度、结构与实际查询 · {data.name} · {target*100} cm 目标</caption>
       <thead><tr><th>核验项目</th><th>混合表示</th><th>纯三角面 · 同候选族</th></tr></thead><tbody>
         <tr><th>构建状态</th><td>{status(a.status)}</td><td>{status(b.status)}</td></tr>
@@ -71,7 +74,7 @@ export default function HybridTerrainLab(){
     <details className="hybrid-method"><summary>查看有限尺度选择依据与研究边界</summary>
       <p>单个点上的低曲率方向不保证长母线可用。构建器检查区域内全部源采样的母线线性残差，以及两条边界曲线的插值残差；两项和必须达到误差目标。解析样本另计明确的逐单元误差界；不达标时比较两个方向的细分收益，受控制点、细分次数和源分辨率约束。</p>
       <p>每个矩形同时检查两条三角形对角线。三角面已达标时优先选择编码较短的三角带，直纹面必须通过减少所需控制点体现价值。所有切分使用全局相容网格，计入完整控制点、面片索引、边界数组和元数据；边界共享而非免费省略。这里保持 C⁰ 高程连续，不保证 C¹ 坡度连续。</p>
-      <p>论文证明的结论有明确的函数及剖分条件。本实现是相容张量网格的工程原型，尚未复现论文的三角形贪心二分，也未证明混合成本近最优。对照使用相同候选划分族，不是最佳任意三角网或 ArcGIS 软件结果。</p>
+      <p>论文证明的结论有明确的函数及剖分条件。本段混合构建是相容张量网格的工程原型，未证明混合成本近最优。下方另列局部二分与编码合并结果；本段对照仍使用相同候选划分族，不是最佳任意三角网或 ArcGIS 软件结果。</p>
       <p>网站查询采用实际保存档案，七类地形共 56 个模型、每模型 4,096 个相同坐标，独立 Python 读回互核。Node 留存堆为强制 GC 后的索引增量，不是浏览器或 GPU 内存；跨机器耗时会改变。</p>
       {a.diagnostic_examples.length>0&&<div className="hybrid-table-scroll"><table><caption>选定混合模型的示例区域 · 源采样残差</caption><thead><tr><th>面片 / 类型</th><th>母线方向 / 长度</th><th>母线 / 边界残差</th><th>选择误差界</th></tr></thead>
         <tbody>{a.diagnostic_examples.map(d=><tr key={d.patch}><td>{d.patch} · {d.kind==='ruled-strip'?'直纹面':'三角面'}</td><td>{d.mother_direction.toUpperCase()} / {d.mother_length_m.toFixed(2)} m</td><td>{cm(d.mother_error)} / {cm(d.boundary_error)} cm</td><td>{cm(d.error)} cm</td></tr>)}</tbody></table></div>}
@@ -79,5 +82,6 @@ export default function HybridTerrainLab(){
     <div className="hybrid-downloads"><a href={`/research/hybrid-terrain/${data.id}.zip`} download>下载此地形全部模型与核验数据 ↓</a><a href="/research/hybrid-terrain/results.json" download>完整结果 JSON ↓</a><a href="/research/hybrid-terrain/results.csv" download>56 个模型数值 CSV ↓</a></div>
     <p className="hybrid-attribution">真实 DEM 来源：ImplicitTerrain 作者公开示例 / swissALTI3D · Federal Office of Topography swisstopo。解析样本、图片、构建器与核验脚本由本项目生成；不包含作者权重或代码。</p>
     <LocalTriangleComparison caseId={caseId} target={target}/>
+    <StripCompactionComparison caseId={caseId} target={target}/>
   </section>;
 }

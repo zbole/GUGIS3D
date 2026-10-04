@@ -6,15 +6,15 @@ import { researchTerrainMeshes } from './researchTerrainMesh';
 import { loadResearchTerrain } from './loadResearchTerrain';
 type Receipt={filename:string;bytes:number;sha256:string};
 const noSelection=()=>{};
-export default function HybridTerrainViewer({caseId,target,hybrid,triangles,localTriangles}:{caseId:string;target:number;hybrid:Receipt;triangles:Receipt;localTriangles?:Receipt}){
-  const [mode,setMode]=useState<'hybrid'|'triangles'|'local_triangles'>('hybrid');
+export default function HybridTerrainViewer({caseId,target,hybrid,triangles,localTriangles,compactHybrid}:{caseId:string;target:number;hybrid:Receipt;triangles:Receipt;localTriangles?:Receipt;compactHybrid?:Receipt}){
+  const [mode,setMode]=useState<'hybrid'|'triangles'|'local_triangles'|'compact_hybrid'>('hybrid');
   const [terrain,setTerrain]=useState<Terrain|null>(null);
   const [error,setError]=useState('');
   const [hit,setHit]=useState<TerrainHit|null>(null);
   const [attempt,setAttempt]=useState(0);
   const [wire,setWire]=useState(true);
   const scene=useRef<CitySceneHandle>(null);
-  const receipt=mode==='hybrid'?hybrid:mode==='local_triangles'&&localTriangles?localTriangles:triangles;
+  const receipt=mode==='hybrid'?hybrid:mode==='local_triangles'&&localTriangles?localTriangles:mode==='compact_hybrid'&&compactHybrid?compactHybrid:triangles;
   useEffect(()=>{
     const controller=new AbortController();let active=true;
     setTerrain(null);setHit(null);setError('');
@@ -35,7 +35,7 @@ export default function HybridTerrainViewer({caseId,target,hybrid,triangles,loca
   const issue=error||prepared?.error;
   return <div className="hybrid-live-view">
     <div className="hybrid-live-controls"><label>三维查看表示<select aria-label="研究三维表示" value={mode} onChange={e=>setMode(e.target.value as typeof mode)}>
-      <option value="hybrid">混合表示</option><option value="triangles">纯三角面 · 全局网格</option>{localTriangles&&<option value="local_triangles">局部三角剖分 · 更强对照</option>}</select></label>
+      <option value="hybrid">混合表示</option><option value="triangles">纯三角面 · 全局网格</option>{localTriangles&&<option value="local_triangles">局部三角剖分 · 更强对照</option>}{compactHybrid&&<option value="compact_hybrid">紧凑混合 · 同一曲面</option>}</select></label>
       <button onClick={()=>scene.current?.reset()} disabled={!terrain}>恢复视角</button><button onClick={()=>scene.current?.top()} disabled={!terrain}>俯视拓扑</button>
       <label><input type="checkbox" checked={wire} onChange={e=>setWire(e.target.checked)}/>显示面带边界与母线</label>
       <span>拖动旋转，滚轮缓速缩放；点击表面读取原生高程与坡度。</span></div>
