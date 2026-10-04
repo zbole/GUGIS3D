@@ -36,6 +36,7 @@ import BlockForm from "./BlockForm";
 import AnalysisPanel from "./AnalysisPanel";
 import SpatialPanel from "./SpatialPanel";
 import ProjectStatusPanel, { type ProjectDataSource } from "./ProjectStatusPanel";
+import TerrainPreviewReview from "./TerrainPreviewReview";
 import { analyzeCitySection, queryCityPoint, type PointQuery, type SpatialObject } from "./spatialAnalysis";
 import { type AnalysisPoint, pathPointAtDistance } from "./terrainAnalysis";
 import { usePathAnalysis } from "./usePathAnalysis";
@@ -863,6 +864,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
                 ? " 草稿已过期，不能直接写入。"
                 : ""}
             </small>
+            <TerrainPreviewReview before={city.environment?.terrain} after={preview.document.environment?.terrain}/>
           </div>
           <button
             className="primary"

@@ -160,7 +160,7 @@ test("failed terrain conversion and oversized DEM cannot create a draft or save 
 });
 
 test("legacy fan conversion also stages a preview and draft views cannot download stale formal terrain", async () => {
-  const original = { ...terrainFixture(), patches: [{ id: "legacy", kind: "triangle-fan", center: 0, ring: [1,2,3] }] };
+  const original = { ...terrainFixture(), patches: [{ id: "legacy", kind: "triangle-fan", hub: 0, ring: [1,2,3] }] };
   const converted = terrainFixture(), env = { ...emptyEnvironment(), terrain: original };
   let staged, saves = 0;
   const f = fixture({ environment: env, initialSection: "terrain", save: async () => { saves++; return true; },
