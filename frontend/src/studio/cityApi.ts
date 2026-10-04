@@ -1,6 +1,7 @@
 import type { BuildingDocument, Parameters } from "./model";
 import type { CityDocument } from "./cityModel";
 import type { Terrain } from "./environment";
+import { fetchApiJson } from "./apiResponse";
 import {
   encodeCity,
   decodeCity,
@@ -9,36 +10,13 @@ import {
 } from "./cityArchive";
 const base = (import.meta.env.VITE_API_BASE_URL ?? "/api").replace(/\/$/, "");
 async function request<T>(prefix: string, path: string, body?: unknown): Promise<T> {
-  const r = await fetch(`${base}${prefix}${path}`, {
+  return fetchApiJson<T>(`${base}${prefix}${path}`, {
     method: body === undefined ? "GET" : "POST",
     headers: { "Content-Type": "application/json" },
     body: body === undefined ? undefined : JSON.stringify(body),
     signal: AbortSignal.timeout(120000),
-  });
-  if (!r.ok) {
-    const p = await r.json().catch(() => ({ detail: r.statusText }));
-    throw new Error(
-      r.status === 409
-        ? p.detail?.code === "snapshot_integrity" && typeof p.detail.message === "string"
-          ? p.detail.message
-          : "另一窗口已修改项目，请先重新载入。当前草稿仍保留，未覆盖已保存的数据。"
-        : `${r.status}：${
-            typeof p.detail === "string"
-              ? p.detail
-              : Array.isArray(p.detail)
-                ? "文件校验未通过。" +
-                  p.detail
-                    .slice(0, 3)
-                    .map(
-                      (e: { loc: string[]; msg: string }) =>
-                        `${e.loc.join(".")}：${e.msg === "Field required" ? "缺少必需字段" : e.msg}`,
-                    )
-                    .join("；")
-                : "文件或参数无效"
-          }`,
-    );
-  }
-  return r.json();
+  }, { writes: body !== undefined && ["/current", "/draft", "/draft/commit", "/draft/discard"].includes(path),
+    conflictMessage: "另一窗口已修改项目，请先重新载入。当前草稿仍保留，未覆盖已保存的数据。" });
 }
 
 export interface CityReceipt {
@@ -158,20 +136,12 @@ async function importTerrain(
     datum,
     stride: String(stride),
   });
-  const r = await fetch(`${base}${prefix}/terrain/import?${query}`, {
+  return fetchApiJson<{ terrain: Terrain }>(`${base}${prefix}/terrain/import?${query}`, {
     method: "POST",
     headers: { "Content-Type": "application/octet-stream" },
     body: file,
     signal: AbortSignal.timeout(120000),
   });
-  const result = await r.json();
-  if (!r.ok)
-    throw new Error(
-      typeof result.detail === "string"
-        ? result.detail
-        : JSON.stringify(result.detail),
-    );
-  return result as { terrain: Terrain };
 }
 
   return { loadCity, persistCity, commitDraft, validateCity, cityExportUrl, generateBlock, loadDraft, persistDraft, discardDraft, listVersions, loadVersion, importGeoJSON, refineBuilding, demoTerrain, upgradeLegacyTerrain, terrainMultipatchUrl, importTerrain };

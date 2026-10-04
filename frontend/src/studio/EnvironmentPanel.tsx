@@ -352,7 +352,7 @@ export default function EnvironmentPanel({
           </button>
         </div>
         {error && (
-          <p className="form-note" role="alert">
+          <p className="form-note environment-error" role="alert">
             {error}
           </p>
         )}

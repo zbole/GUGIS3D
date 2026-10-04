@@ -8,6 +8,10 @@ await build({ entryPoints: [fileURLToPath(new URL("../src/studio/cityApi.ts", im
   bundle: true, platform: "node", format: "esm", packages: "external", outfile,
   define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' } });
 const { commitDraft, createCityApi } = await import(pathToFileURL(outfile).href);
+const studioFile = outfile.replace("city-api", "studio-api");
+await build({ entryPoints: [fileURLToPath(new URL("../src/studio/api.ts", import.meta.url))], outfile: studioFile,
+  bundle: true, platform: "node", format: "esm", packages: "external", define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' } });
+const { saveDocument, loadExample, generateBuilding } = await import(pathToFileURL(studioFile).href);
 
 function mockResponse(t, status, detail) {
   const original = globalThis.fetch, requests = [];
@@ -27,6 +31,54 @@ test("snapshot-integrity failures retain backup instructions instead of claiming
   assert.equal(requests[0].url, "/api/city/draft/commit");
   assert.equal(requests[0].options.method, "POST");
   assert.deepEqual(JSON.parse(requests[0].options.body), { revision: "a".repeat(64) });
+});
+
+test("HTML gateway failures show HTTP status, keep writes uncertain and never replay them", async t => {
+  const original = globalThis.fetch, calls = [];
+  globalThis.fetch = async (url, options) => { calls.push({ url, options }); return new Response("<html>private gateway trace</html>", { status: 502 }); };
+  t.after(() => { globalThis.fetch = original; });
+  const api = createCityApi("london");
+  await assert.rejects(api.listVersions(), /502：本地服务暂不可用/);
+  await assert.rejects(api.commitDraft("draft"), /502：本地服务暂不可用.*操作结果未确认/);
+  await assert.rejects(api.importTerrain(new File(["test"], "qa.asc"), "", "unknown", 1), /502：本地服务暂不可用/);
+  await assert.rejects(saveDocument({ parameters: { name: "QA" } }), /502：本地服务暂不可用.*操作结果未确认/);
+  assert.equal(calls.length, 4);
+  assert.equal(calls.filter(call => call.options.method === "POST").length, 3);
+});
+
+test("timeouts and disconnections distinguish reads, calculations and uncertain writes", async t => {
+  const original = globalThis.fetch; let calls = 0, cause = new DOMException("QA timed out", "TimeoutError");
+  globalThis.fetch = async () => { calls++; throw cause; }; t.after(() => { globalThis.fetch = original; });
+  const api = createCityApi("london");
+  await assert.rejects(api.commitDraft("draft"), /请求超时，操作结果未确认.*重新载入核对/);
+  const emptyCity = { format: "gugis-city", version: "1.0", coordinate_system: "ENU_METERS_WGS84", name: "QA", assets: {}, instances: [], roads: [], metadata: {} };
+  await assert.rejects(api.persistDraft(emptyCity, "formal", null, "QA"), /请求超时，操作结果未确认/);
+  await assert.rejects(loadExample(), /请求超时。请确认本地服务/);
+  await assert.rejects(generateBuilding({ name: "QA" }), error => /请求超时/.test(error.message) && !/操作结果未确认/.test(error.message));
+  cause = new TypeError("Failed to fetch");
+  await assert.rejects(api.loadCity(), /无法连接本地服务/);
+  await assert.rejects(saveDocument({}), /无法连接本地服务，操作结果未确认/);
+  assert.equal(calls, 6);
+});
+
+test("successful HTTP status with an unreadable body never confirms a save or hides an interrupted response", async t => {
+  const original = globalThis.fetch; let calls = 0, interrupted = false;
+  globalThis.fetch = async () => { calls++; return interrupted
+    ? { ok: true, status: 200, json: async () => { throw new DOMException("QA body read aborted", "AbortError"); } }
+    : new Response("<html>not JSON</html>", { status: 200 }); };
+  t.after(() => { globalThis.fetch = original; });
+  await assert.rejects(commitDraft("draft"), /HTTP 200.*操作结果未确认/);
+  await assert.rejects(loadExample(), /HTTP 200.*检查本地服务/);
+  interrupted = true;
+  await assert.rejects(commitDraft("draft"), /请求已中断，操作结果未确认/);
+  assert.equal(calls, 3);
+});
+
+test("malformed validation entries and empty error bodies retain an actionable failure", async t => {
+  mockResponse(t, 422, [null, { msg: "Field required" }, { loc: ["body", 0], msg: "not valid" }]);
+  await assert.rejects(commitDraft("draft"), /输入：缺少必需字段.*body.0：not valid/);
+  globalThis.fetch = async () => new Response(null, { status: 413 });
+  await assert.rejects(createCityApi("london").importTerrain(new File(["test"], "qa.asc"), "", "unknown", 1), /413：文件过大/);
 });
 
 test("ordinary revision conflicts still explain that current drafts remain preserved", async t => {
