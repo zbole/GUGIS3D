@@ -71,7 +71,7 @@ def valid_bounds(value):
 
 
 # Cache small, fully validated summaries, not expanded city geometry. A stat
-# fingerprint avoids reparsing Bristol's 32 MiB archive on every catalogue/DEM
+# fingerprint avoids reparsing city archives on every catalogue/DEM
 # request. Atomic replacements and in-place edits both invalidate the summary.
 _summary_lock = threading.RLock()
 _MAX_CITY_BYTES = 128 * 1024 * 1024
@@ -186,6 +186,11 @@ def _validated_summary(path, fingerprint):
         raise _SnapshotChanged('City changed while reading its summary')
     if len(content) > _MAX_CITY_BYTES:
         return invalid
+    revision = hashlib.sha256(content).hexdigest()
+    from .seed_summaries import trusted_seed_summary
+    trusted = trusted_seed_summary(content, revision)
+    if trusted is not None:
+        return trusted
     try:
         document = load_city(content)
     except (ValueError, TypeError, KeyError):
@@ -200,7 +205,7 @@ def _validated_summary(path, fingerprint):
             'metadata': _bounded_catalog_metadata(document.metadata),
             'count': len(instances),
             'extent': extent, 'road_count': len(document.roads),
-            'revision': hashlib.sha256(content).hexdigest()}
+            'revision': revision}
 
 
 def _source_summary(path):

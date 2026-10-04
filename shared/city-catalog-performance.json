@@ -1,0 +1,43 @@
+{
+  "schema": "gugis-catalog-summary-cpu-v1",
+  "method": "3 fresh Python processes per method/scope; first read-only catalogue call; process import excluded; OS file cache uncontrolled; full mode disables receipt reuse",
+  "limits": "Own catalogue CPU call, not full UI, FPS, GPU, ArcGIS or guaranteed cold disk latency. Current Bristol has private edits and therefore retains full validation. No formal files initialized.",
+  "records": [
+    {
+      "scope": "seeds",
+      "full_ms": [
+        17916.988000040874,
+        17904.017599998042,
+        18306.657599983737
+      ],
+      "trusted_ms": [
+        264.40159999765456,
+        254.55980002880096,
+        256.9715999998152
+      ],
+      "full_median_ms": 17916.988000040874,
+      "trusted_median_ms": 256.9715999998152,
+      "response_sha256": "273d2b279a7ba3e8537541ced463be6964dcb3c6a3109d41b8e285b0d9059275",
+      "responses_identical": true
+    },
+    {
+      "scope": "current",
+      "full_ms": [
+        17655.916100018658,
+        17528.421299997717,
+        17396.044899942353
+      ],
+      "trusted_ms": [
+        8644.191199913621,
+        8591.683899983764,
+        8732.810399960726
+      ],
+      "full_median_ms": 17528.421299997717,
+      "trusted_median_ms": 8644.191199913621,
+      "response_sha256": "119d693222fc426c5d8a3244f979370cb74112e202e7127e2fbc20c93cc13bc5",
+      "responses_identical": true
+    }
+  ],
+  "receipt_sha256": "b75244b64ec5b5a7e0ee91321cfe57e7a180e5255720bfa48520dda9d9a44c6a",
+  "measurement_script_sha256": "cf6a0198fe6432516832b610e44679b77b44bd172a1a79923f392f6240a59055"
+}

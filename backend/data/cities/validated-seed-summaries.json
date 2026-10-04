@@ -1,0 +1,267 @@
+{
+  "schema": "gugis-validated-seed-summaries-v1",
+  "runtime": {
+    "python": [
+      3,
+      13,
+      0
+    ],
+    "pydantic": "2.13.5",
+    "pydantic_core": "2.46.5"
+  },
+  "dependencies": {
+    "backend/app/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/app/city_models.py": "a6fbebc2cf004c6dd767066f9ae8b984ed8c7a036cdb88d9be20283bec0fad0e",
+    "backend/app/database.py": "f917504d48fefa0ac4784213945667d1ac89ddd0203a11ad5cf26057a214eef5",
+    "backend/app/environment_models.py": "8aae020e6873f37ad5960adbf2f98aaebbbde08e4aaa95ed6732b3bb42dbfc61",
+    "backend/app/main.py": "1f80e4b5029c627bc8b4d9dd47cf79809821b7df983b80d2e13f84ed9894ca56",
+    "backend/app/models.py": "24d3c195ad153370d02a9d5e92614324a8c190f190bb4223b392b06e94ac3d77",
+    "backend/app/routers/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "backend/app/routers/analysis.py": "534060931fcd99bc46a30af6e9ee8e884bdb1f976651200b7adae29907828fcf",
+    "backend/app/routers/city.py": "665a9bd92fc4946f21308e9dcd1dbb6a9babc1f1753a76c9fe9ee40272d31099",
+    "backend/app/routers/coverage.py": "5593201bbc8f71d43dacb701088cf88eb8ad34ed80f437722c2b4cbbd1918caf",
+    "backend/app/routers/export.py": "bb2e67bf62316f21c94807259949b578c08cdd0a44bbde06deca6f19a756b243",
+    "backend/app/routers/layers.py": "86a4f391cc0200641713cae16e8d707e328305ed0bc410de62422128c422b252",
+    "backend/app/routers/objects.py": "d5e2d91f6536f965654dd35c2997978ad066d841ada3c241db4d082d1c070257",
+    "backend/app/routers/render_tiles.py": "3a0b8b3313b28b4c7a9a4c3164bb9646c1a6898ee52a63ba88e22f3507b8d818",
+    "backend/app/routers/source_candidates.py": "76ea9ec921afbe1c68248c4e4d459fe9d8e2c1f30accd1f757e3cb26e5df5bb7",
+    "backend/app/routers/studio.py": "e7c5cf9f0b2ce1b3feb56a033b3b31116c70942aca980cd3716727a245c0f80f",
+    "backend/app/routers/workspace.py": "036cae4f81c133151992116bccd4a5004ce3599a21443d178fe06a9614493a34",
+    "backend/app/schemas.py": "54a3240fdb1c3f9c7464671179403f76ddfa39deb38f976bc95a4a783e7a0c0c",
+    "backend/app/services/boundary_receipts.py": "359d15d1c8dbf8c1d569bff969492fdc01f1fddf6efed42e3b06512ca765ea05",
+    "backend/app/services/box_parameters.py": "7b753394dbbfa6fe7ab7ce1674e55fcc1dff0e85326145067d2866723d7a41ae",
+    "backend/app/services/british_generator.py": "a208cfb13eaaafa417b833e19878026e98aae55b3aba9ebbae9a5d0293444eaf",
+    "backend/app/services/building_generator.py": "2e612c2098b1eaac179586881c9077689b26c6fe87e5fd7b8c73d41f87426d4a",
+    "backend/app/services/city_archive.py": "08ac047e21768bc7dcf9fcbb58ab8c5b386f5355c86cca93dc55ea7471c1225b",
+    "backend/app/services/city_expansion.py": "d84a00b9e32ca08838010a66632639cc03a2c8a1a19c1b0298dcc78070e14829",
+    "backend/app/services/city_generator.py": "0839bfdd92d6f43599215bb42b966093c3ed681f0f23a2fa6999dd2a5bcd3bc3",
+    "backend/app/services/city_sample_import.py": "45c23ca13ede45c750f5b3a7a3cadf8c08128040dbb9029b691636bcbb709803",
+    "backend/app/services/city_workspaces.py": "5fc7ab292eb733294e38153b184c7721ecb1791f25c9ad3d548e96ff211c6113",
+    "backend/app/services/component_colors.py": "c7829662314b1eaeb4b0da7642eb9841e27a39eca96711e71e59a465e21c6cb3",
+    "backend/app/services/extra_buildings.py": "6744a0a2f2cd512dfc2ce608be682592bfc91b104cd9e4be54b09c6de6bc1065",
+    "backend/app/services/function_geometry.py": "b4683cab8ab6599561ff9e28e99eb88e1ce353c84c4757de832816ec06c60ca4",
+    "backend/app/services/gugis_adapter.py": "1d8a82c6e9cda73441a9a9b795c05042346ee5209144b6903d57c71568638515",
+    "backend/app/services/hybrid_box.py": "4d0f113455f9df271ba716211992eb71e62e3de63329a747acafd273544649e9",
+    "backend/app/services/render_profiles.py": "98059d6914235cb6a8ef4d263164554997074ca9ecb26eff0c72e414c7125e8c",
+    "backend/app/services/render_tiles.py": "98dcfae7d259da0639db3308520781e2a665a084696ac27016285fcd6e7ca5f9",
+    "backend/app/services/sample_loader.py": "591db57af48d625648df517f8acdb581ef6d25d14fe4be38d1c6586f144b3396",
+    "backend/app/services/source_candidates.py": "0d943eac6e441c82765e8ea6870cccbd7ee781a9cc04e3bec37879e724563ba0",
+    "backend/app/services/template_geometry.py": "f85d2a388c029aa34648b351804d2f9e2f242e6146cc1a4eeb62b54e73176f82",
+    "backend/app/services/terrain_builder.py": "e47db123dfd27f33252fe9d1198ebad3d15b51d171de5d3c618986ac27bc7b0c",
+    "backend/app/services/terrain_compaction.py": "2ede55fa2d95739f833a5197c5b7d6c81991b2fc668d7100781c0aec5dec4b51",
+    "backend/app/services/terrain_comparison.py": "9ad1acf82cf0a663f43a6a44ef2b60c6f82511a34773ecf9ea8afcf463df00e8",
+    "backend/app/services/terrain_hybrid.py": "e0138ff616da86cdd784c9932b9e60527fdfb061c5972f9c6675869dbb3946b9",
+    "backend/app/services/terrain_multipatch.py": "0775bb3411356bb3ddd07a2466c30c2058de5df937872dd1c5f1ba2f6045eb0b",
+    "backend/app/services/terrain_raster_reference.py": "d1fbd385f4cd3216178944fa81548e67242ca6ad5a82fb7e13d0fd8b7f32941f",
+    "backend/app/services/terrain_triangles.py": "f07934cb19cd43dbbe384b6fd597371e3e421cc83482c5f3bfd82a9c0cbd6bab",
+    "backend/app/services/uk_city_registry.py": "fcd65854df0d9d3ec1b18ba4d742792698cb9269e52187a2f5267e3e888861df",
+    "backend/app/services/urban_detail.py": "bce50becfa9ceb730eb80dbef5cdcb8dee8ce3db46e8f211f522fa84e49d6a61",
+    "backend/app/services/workspace_catalog.py": "e1972c0dde3250ba86304dc501cc811b022bc3c45b3297f8e2774e1d6b96358f",
+    "backend/app/studio_models.py": "2d73ad18685b87d719dff6cd8c56502b761285e2ab3a14fa75c6bb7475f38bd3",
+    "shared/box-topology.json": "558f7cc25e2701068af0d3985e1ad065dea3d19957b75509b8bd15dc1b91f4ac",
+    "shared/city-workspaces.json": "4114b8803b31fc9886ae25a2149551d33facaa175f2adb0f861cb0e8e0113ea9"
+  },
+  "builder_sha256": "29d62ad5e674b597575dc992fb1bcfce897f94cbeeb8cf36c0e8a975ca8466a1",
+  "records": [
+    {
+      "city_id": "bristol",
+      "path": "backend/data/bristol.gugis.json",
+      "bytes": 52031635,
+      "sha256": "898801e2b879fbf792fc33b364d3be4f6be4cd62c5f55e201fcd8c8aaff3899c",
+      "summary": {
+        "corrupt": false,
+        "metadata": {
+          "coverage_kind": "sample-area",
+          "source": "保留原项目对象 + 新增 © OpenStreetMap contributors · ODbL 1.0",
+          "coverage_label": "Bristol expanded district 中心街区样本（非全城覆盖） · 保留原项目对象的扩展",
+          "source_retrieved_at": "2026-10-04T11:55:56.827806+00:00",
+          "license": "新增 OSM 数据：ODbL 1.0；保留对象沿用其原来源许可",
+          "source_url": "https://www.openstreetmap.org/copyright",
+          "height_policy": "保留 615 栋原项目对象及其高度依据；新增 10292 栋：23 高度标签 / 1279 楼层推算 / 8990 假设9.6m / 0 其他依据；均未整体实测核验",
+          "coverage_bbox_wgs84": "[-2.621,51.443,-2.587,51.466]"
+        },
+        "count": 10907,
+        "extent": [
+          -2.6212005692307696,
+          51.442858855,
+          -2.5866654511627907,
+          51.466115192857146
+        ],
+        "road_count": 1794,
+        "revision": "898801e2b879fbf792fc33b364d3be4f6be4cd62c5f55e201fcd8c8aaff3899c"
+      }
+    },
+    {
+      "city_id": "london",
+      "path": "backend/data/cities/london.gugis.json",
+      "bytes": 11395674,
+      "sha256": "1dac757d9fa98e710a924a1b41383dd4e397854d1066c037838dc246591ed2ff",
+      "summary": {
+        "corrupt": false,
+        "metadata": {
+          "coverage_kind": "sample-area",
+          "source": "保留原项目对象 + 新增 © OpenStreetMap contributors · ODbL 1.0",
+          "coverage_label": "London expanded district 中心街区样本（非全城覆盖） · 保留原项目对象的扩展",
+          "source_retrieved_at": "2026-10-04T11:56:02.295668+00:00",
+          "license": "新增 OSM 数据：ODbL 1.0；保留对象沿用其原来源许可",
+          "source_url": "https://www.openstreetmap.org/copyright",
+          "height_policy": "保留 823 栋原项目对象及其高度依据；新增 4549 栋：28 高度标签 / 1763 楼层推算 / 2758 假设9.6m / 0 其他依据；均未整体实测核验",
+          "coverage_bbox_wgs84": "[-0.151,51.491,-0.114,51.513]"
+        },
+        "count": 5372,
+        "extent": [
+          -0.151608625,
+          51.490594924999996,
+          -0.11372947,
+          51.51315464
+        ],
+        "road_count": 3416,
+        "revision": "1dac757d9fa98e710a924a1b41383dd4e397854d1066c037838dc246591ed2ff"
+      }
+    },
+    {
+      "city_id": "birmingham",
+      "path": "backend/data/cities/birmingham.gugis.json",
+      "bytes": 8287105,
+      "sha256": "3de7da99e96f58992902d94798fd8e7702218ed5ceb3c9b0d01ac659f1e67c1c",
+      "summary": {
+        "corrupt": false,
+        "metadata": {
+          "coverage_kind": "sample-area",
+          "source": "保留原项目对象 + 新增 © OpenStreetMap contributors · ODbL 1.0",
+          "coverage_label": "Birmingham expanded district 中心街区样本（非全城覆盖） · 保留原项目对象的扩展",
+          "source_retrieved_at": "2026-10-04T11:56:05.988761+00:00",
+          "license": "新增 OSM 数据：ODbL 1.0；保留对象沿用其原来源许可",
+          "source_url": "https://www.openstreetmap.org/copyright",
+          "height_policy": "保留 809 栋原项目对象及其高度依据；新增 3317 栋：224 高度标签 / 423 楼层推算 / 2670 假设9.6m / 0 其他依据；均未整体实测核验",
+          "coverage_bbox_wgs84": "[-1.927,52.469,-1.888,52.494]"
+        },
+        "count": 4126,
+        "extent": [
+          -1.9271638714285715,
+          52.468788492,
+          -1.8873283105263157,
+          52.49444999999999
+        ],
+        "road_count": 2131,
+        "revision": "3de7da99e96f58992902d94798fd8e7702218ed5ceb3c9b0d01ac659f1e67c1c"
+      }
+    },
+    {
+      "city_id": "manchester",
+      "path": "backend/data/cities/manchester.gugis.json",
+      "bytes": 7212296,
+      "sha256": "fad3dc2e480cf06824efee76ad88d6fc976dc0ae8589e0f9f21d6bd6078700b6",
+      "summary": {
+        "corrupt": false,
+        "metadata": {
+          "data_bbox_wgs84": "[-2.2675808,53.4688492,-2.2243831,53.4972127]",
+          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "coverage_label": "Manchester city centre 中心街区样本（非全城覆盖）",
+          "source_retrieved_at": "2026-10-04T11:44:50.540472+00:00",
+          "license": "ODbL 1.0",
+          "source_url": "https://overpass-api.de/api/interpreter",
+          "height_policy": "{\"height-tag\":68,\"levels-derived\":1226,\"assumed\":2136}",
+          "coverage_bbox_wgs84": "[-2.263,53.471,-2.228,53.492]"
+        },
+        "count": 3430,
+        "extent": [
+          -2.2635820562499998,
+          53.47086183333334,
+          -2.22742329,
+          53.49231198
+        ],
+        "road_count": 2756,
+        "revision": "fad3dc2e480cf06824efee76ad88d6fc976dc0ae8589e0f9f21d6bd6078700b6"
+      }
+    },
+    {
+      "city_id": "edinburgh",
+      "path": "backend/data/cities/edinburgh.gugis.json",
+      "bytes": 14745197,
+      "sha256": "49adc2dddfc7fb7992f6389ee3d51da928f52e4d11a518c9325515cf507a69e5",
+      "summary": {
+        "corrupt": false,
+        "metadata": {
+          "data_bbox_wgs84": "[-3.2120842,55.9314456,-3.1706592,55.9612877]",
+          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "coverage_label": "Edinburgh city centre 中心街区样本（非全城覆盖）",
+          "source_retrieved_at": "2026-10-04T11:45:00.978672+00:00",
+          "license": "ODbL 1.0",
+          "source_url": "https://overpass-api.de/api/interpreter",
+          "height_policy": "{\"height-tag\":100,\"levels-derived\":2249,\"assumed\":4194}",
+          "coverage_bbox_wgs84": "[-3.21,55.938,-3.177,55.96]"
+        },
+        "count": 6543,
+        "extent": [
+          -3.210458675,
+          55.93791565714285,
+          -3.1764754485294118,
+          55.960269648571426
+        ],
+        "road_count": 1888,
+        "revision": "49adc2dddfc7fb7992f6389ee3d51da928f52e4d11a518c9325515cf507a69e5"
+      }
+    },
+    {
+      "city_id": "cardiff",
+      "path": "backend/data/cities/cardiff.gugis.json",
+      "bytes": 8940081,
+      "sha256": "ddfaec4d489990702d7bb65311098f28d3313a442028aa8369aa2be4b7470189",
+      "summary": {
+        "corrupt": false,
+        "metadata": {
+          "data_bbox_wgs84": "[-3.2001608,51.4646377,-3.1630368,51.4972265]",
+          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "coverage_label": "Cardiff city centre 中心街区样本（非全城覆盖）",
+          "source_retrieved_at": "2026-10-04T11:45:08.370009+00:00",
+          "license": "ODbL 1.0",
+          "source_url": "https://overpass-api.de/api/interpreter",
+          "height_policy": "{\"height-tag\":58,\"levels-derived\":1032,\"assumed\":3382}",
+          "coverage_bbox_wgs84": "[-3.19,51.47,-3.166,51.491]"
+        },
+        "count": 4472,
+        "extent": [
+          -3.1902957647058825,
+          51.46982699090909,
+          -3.165646121875,
+          51.491297144827584
+        ],
+        "road_count": 1040,
+        "revision": "ddfaec4d489990702d7bb65311098f28d3313a442028aa8369aa2be4b7470189"
+      }
+    },
+    {
+      "city_id": "york",
+      "path": "backend/data/cities/york.gugis.json",
+      "bytes": 11849348,
+      "sha256": "143816c82b7d621f4f506970d3a88e986c07258535b5b71e4e8a07ee6d6affb5",
+      "summary": {
+        "corrupt": false,
+        "metadata": {
+          "data_bbox_wgs84": "[-1.1051514,53.944665,-1.060182,53.9763925]",
+          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "coverage_label": "York city centre 中心街区样本（非全城覆盖）",
+          "source_retrieved_at": "2026-10-04T16:11:13.901276+00:00",
+          "license": "ODbL 1.0",
+          "source_url": "https://gall.openstreetmap.de/api/interpreter",
+          "height_policy": "{\"height-tag\":465,\"levels-derived\":2357,\"assumed\":3270}",
+          "coverage_bbox_wgs84": "[-1.1,53.947,-1.066,53.972]"
+        },
+        "count": 6092,
+        "extent": [
+          -1.10045635,
+          53.946572964285714,
+          -1.0655301181818182,
+          53.972272421739135
+        ],
+        "road_count": 1853,
+        "revision": "143816c82b7d621f4f506970d3a88e986c07258535b5b71e4e8a07ee6d6affb5"
+      }
+    }
+  ]
+}
