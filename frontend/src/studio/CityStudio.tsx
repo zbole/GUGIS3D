@@ -964,6 +964,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
                 previewChanges
                 previewTerrain={previewTerrain}
                 terrainIsDraft={!!preview}
+                formalRevision={revision}
                 position={environmentPosition}
                 setPosition={setEnvironmentPosition}
                 placing={placing}

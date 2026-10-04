@@ -196,6 +196,26 @@ test("legacy fan conversion also stages a preview and draft views cannot downloa
   f.close();
 });
 
+test("formal terrain download follows displayed full revision and never substitutes an unverified snapshot", () => {
+  const first = "a".repeat(64), second = "b".repeat(64), base = "/api/cities/london/city/terrain/benchmark.zip";
+  const f = fixture({ environment: { ...emptyEnvironment(), terrain: terrainFixture() }, initialSection: "terrain",
+    formalRevision: first, api: { terrainMultipatchUrl: base } });
+  const downloads = () => f.root.findAllByType("a").filter(node => text(node).includes("MultiPatch"));
+  assert.equal(downloads()[0].props.href, `${base}?snapshot=${first}`);
+  assert.match(text(f.root), /对应当前显示修订 aaaaaaaaaaaa/);
+  f.update({ formalRevision: second });
+  assert.equal(downloads()[0].props.href, `${base}?snapshot=${second}`);
+  f.update({ formalRevision: "" });
+  assert.equal(downloads().length, 0);
+  assert.match(text(f.root), /正式修订号尚未核验/);
+  f.update({ formalRevision: "../current" });
+  assert.equal(downloads().length, 0);
+  f.update({ formalRevision: second, terrainIsDraft: true });
+  assert.equal(downloads().length, 0);
+  assert.match(text(f.root), /确认写入后可下载/);
+  f.close();
+});
+
 test("undo/reload refreshes the selected feature form even when its ID is unchanged", () => {
   const before = {
     ...emptyEnvironment(),

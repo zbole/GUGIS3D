@@ -201,7 +201,9 @@
 .city-shell .environment-overview > p { color: var(--muted); font-size: 12px; }
 .city-shell .feature-view-controls { padding: 12px; background: #f7f8f5; border: 1px solid var(--line); border-radius: 7px; }
 .city-shell .feature-view-controls select { padding: 6px; }
-.city-shell .environment-panel { padding: 14px; gap: 12px; font-size: 12px; }
+.city-shell .environment-panel { padding: 14px; gap: 12px; font-size: 12px; grid-template-columns:minmax(0, 1fr); }
+.city-shell .environment-panel > * { min-width:0; overflow-wrap:anywhere; }
+.city-shell .environment-panel a.button-link { white-space:normal; }
 .city-shell .environment-panel details { border-color: var(--line); }
 .city-shell .environment-panel h3 { font-size: 13px; }
 .city-shell .environment-tabs { padding: 3px; background: var(--field); border: 1px solid var(--line); border-radius: 7px; gap: 3px; }

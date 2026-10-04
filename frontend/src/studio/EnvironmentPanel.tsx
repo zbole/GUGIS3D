@@ -55,6 +55,7 @@ export default function EnvironmentPanel({
   save,
   previewTerrain,
   terrainIsDraft = false,
+  formalRevision,
   position,
   setPosition,
   placing,
@@ -83,6 +84,7 @@ export default function EnvironmentPanel({
   save: (e: Environment, message: string) => Promise<boolean>;
   previewTerrain?: (terrain: Terrain, label: string) => Promise<boolean>;
   terrainIsDraft?: boolean;
+  formalRevision?: string;
   position: Position;
   setPosition: (p: Position) => void;
   placing: boolean;
@@ -107,6 +109,8 @@ export default function EnvironmentPanel({
   readOnly?: boolean;
 }) {
   const { demoTerrain, importTerrain, terrainMultipatchUrl, upgradeLegacyTerrain } = api;
+  const verifiedRevision = formalRevision && /^[0-9a-f]{64}$/.test(formalRevision) ? formalRevision : null;
+  const benchmarkHref = verifiedRevision ? `${terrainMultipatchUrl}?snapshot=${verifiedRevision}` : terrainMultipatchUrl;
   const [section, setSection] = useState<"terrain" | "features">(() =>
       initialSection ?? (environment?.features.length ? "features" : "terrain"),
     ),
@@ -469,9 +473,9 @@ export default function EnvironmentPanel({
                 </dl>
                 {stats.count["triangle-fan"] > 0 && <button className="full" disabled={disabled}
                   onClick={() => void convertLegacyTerrain()}>转换旧三角扇为三角带（保留原三角面）</button>}
-                {terrainIsDraft ? <p className="form-note">当前地形属于独立草稿；确认写入后可下载对应的 MultiPatch 对照数据。</p> : <a className="button-link full" href={terrainMultipatchUrl} download>
+                {terrainIsDraft ? <p className="form-note">当前地形属于独立草稿；确认写入后可下载对应的 MultiPatch 对照数据。</p> : formalRevision !== undefined && !verifiedRevision ? <p className="form-note">正式修订号尚未核验，暂不能下载地形对照数据。</p> : <><a className="button-link full" href={benchmarkHref} download>
                   下载 ArcGIS Pro 对照数据 · MultiPatch 三角带
-                </a>}
+                </a>{verifiedRevision && <p className="form-note">对应当前显示修订 {verifiedRevision.slice(0, 12)}…；历史快照不存在时拒绝下载，不替换为其他修订。</p>}</>}
                 <p className="muted">
                   相对同一控制网的独立三角索引，拓扑索引容量减少{" "}
                   {stats.indexSaving.toFixed(1)}%（Uint32
