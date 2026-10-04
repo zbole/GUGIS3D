@@ -8,18 +8,22 @@ interface Props {
   selected: string | null;
   onSelect: (id: string | null) => void;
   onFocus: (id: string) => void;
+  hidden?: boolean;
+  panelId?: string;
 }
 
 /** A read-only view over active tiles, with a hard DOM row limit. */
-export default function LoadedBuildingInspector({ buildings, manifest, selected, onSelect, onFocus }: Props) {
+export default function LoadedBuildingInspector({ buildings, manifest, selected, onSelect, onFocus, hidden = false, panelId }: Props) {
   const id = useId();
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
   const results = useMemo(() => loadedBuildingPage(buildings, query, page), [buildings, query, page]);
   const building = useMemo(() => buildings.find(item => item.placement.id === selected), [buildings, selected]);
+  const selectedMatchesQuery = !query.trim() || !building ||
+    [building.placement.name, building.placement.id].some(value => value.toLowerCase().includes(query.trim().toLowerCase()));
   useEffect(() => { if (page !== results.page) setPage(results.page); }, [page, results.page]);
   const search = (value: string) => { setQuery(value); setPage(0); };
-  return <aside className="tile-building-inspector" aria-label="已加载建筑查询与详情">
+  return <aside id={panelId} hidden={hidden} className="tile-building-inspector" aria-label="已加载建筑查询与详情">
     <h2>已加载建筑</h2>
     <p id={`${id}-scope`} className="tile-building-scope">仅查询当前驻留瓦片中的 {buildings.length} 栋唯一建筑，不搜索全城。移动视口后列表会更新；搜索不请求其他瓦片。</p>
     <label htmlFor={`${id}-search`}>按名称或建筑 ID 搜索</label>
@@ -49,11 +53,22 @@ export default function LoadedBuildingInspector({ buildings, manifest, selected,
     <div className="tile-building-details" aria-label="所选建筑详情">
       <h3>所选建筑 · 只读</h3>
       {building ? <>
+        <strong className="tile-selected-name">{building.placement.name || "未命名建筑"}</strong>
+        <span className="tile-selected-id">{building.placement.id} · {building.primitiveCount} 个渲染构件</span>
+        {!selectedMatchesQuery && <div className="tile-selection-filter-note" role="status">
+          所选建筑不符合当前搜索条件，选择仍然保留。
+          <button type="button" onClick={() => {
+            setQuery("");
+            const index = buildings.findIndex(item => item.placement.id === selected);
+            setPage(Math.max(0, Math.floor(index / LOADED_BUILDINGS_PAGE_SIZE)));
+          }}>查看所选建筑所在列表</button>
+        </div>}
         <div className="tile-building-controls">
           <button type="button" onClick={() => onFocus(building.placement.id)}>定位所选建筑</button>
           <button type="button" onClick={() => onSelect(null)}>清除选择</button>
         </div>
-        <dl>
+        <details className="tile-building-raw" key={building.placement.id}>
+        <summary>原始属性与来源</summary><dl>
           <dt>名称</dt><dd>{building.placement.name || "未命名建筑"}</dd>
           <dt>建筑 ID</dt><dd>{building.placement.id}</dd>
           <dt>资产 ID</dt><dd>{building.placement.asset}</dd>
@@ -70,6 +85,7 @@ export default function LoadedBuildingInspector({ buildings, manifest, selected,
         </dl>
         <p>坐标、放置高程与朝向按包内原值显示。放置高程不是建筑高度，垂直基准未经独立核验；此渲染包不含原始 OSM 标签，也不提供实测高度。全源修订的质量警告见上方来源说明，不能据此判断单栋建筑精度。</p>
         <p>选择会在硬预算内固定一个关联瓦片；清除选择后，该建筑可能随视口移出列表。</p>
+        </details>
       </> : <p>{selected ? "所选建筑已不在当前加载范围，请重新选择。" : "在场景或上方列表中选择一栋建筑以查看包内数据。"}</p>}
     </div>
   </aside>;

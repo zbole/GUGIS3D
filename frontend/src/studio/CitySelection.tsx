@@ -25,6 +25,7 @@ export default function CitySelection({ cities, selected, multiple, error, previ
     <section className="city-selection-intro"><span>CITY WORKSPACES</span><h1>先选择你要探索的城市</h1>
       <p>每座城市独立保存。按需载入真实轮廓，保留来源、范围与精度说明。</p></section>
     <section className="city-selection-main" aria-label="选择起始城市">
+      <h2 className="city-selection-step"><span>01</span>选择城市</h2>
       <div className="city-selection-controls"><div role="group" aria-label="城市选择方式">
         <button aria-pressed={!multiple} onClick={() => onMultiple(false)}>单选城市</button>
         <button aria-pressed={multiple} onClick={() => onMultiple(true)}>多选城市</button>
@@ -44,12 +45,12 @@ export default function CitySelection({ cities, selected, multiple, error, previ
           <small className="city-selection-source">{source?.label ?? city.source ?? "当前项目数据"}</small>
         </label>;
       })}</div>
-      <Suspense fallback={<p>正在载入源修订检查面板…</p>}><SourceCandidateReview cities={cities} /></Suspense>
-      <Suspense fallback={<p>正在载入接入进度面板…</p>}><UkCoverageProgress /></Suspense>
-      <label className="city-selection-mode"><input type="checkbox" checked={previewMode}
+      <h2 className="city-selection-step city-selection-step--mode"><span>02</span>选择浏览方式</h2>
+      <label className={`city-selection-mode${previewMode ? " is-selected" : ""}`}><input type="checkbox" checked={previewMode}
         aria-label="轻量分块浏览（只读）" onChange={event => onPreviewModeChange(event.target.checked)} />
         <span><strong>轻量分块浏览（只读）</strong><small>仅请求视域附近的建筑分块；需已生成渲染缓存。关闭后载入完整可编辑项目。</small></span>
       </label>
+      <details className="city-selection-profile-options" open={previewMode}><summary>只读模式的加载配置</summary>
       <fieldset className="city-selection-tile-profile" disabled={!previewMode}>
         <legend>分块读取配置（进入前选择）</legend>
         <div>{(["balanced", "economy"] as const).map(profile => <label key={profile}>
@@ -62,9 +63,16 @@ export default function CitySelection({ cities, selected, multiple, error, previ
         </label>)}</div>
         <p>限制已验证的源瓦片字节与请求数，并非 GPU / JS 内存或帧率保证。超出单瓦片预算的源数据不会读取；可重新选择均衡配置或离线生成更小瓦片。完整编辑不使用此配置。</p>
       </fieldset>
+      </details>
       <div className="city-selection-actions"><div><strong>已选 {selected.length} 个城市</strong>
+        <span className="city-selection-current-mode">{previewMode ? `只读浏览 · ${tileProfile === "economy" ? "低资源" : "均衡"}` : "完整编辑"}</span>
         <p>多选后可切换查看；同时仅保留一个城市场景，降低内存与 GPU 负担。</p></div>
         <button className="primary" disabled={!selected.some(id => cities.some(city => city.id === id && city.status !== "invalid"))} onClick={onEnter}>进入工作区 →</button></div>
+      <section className="city-selection-secondary" aria-label="数据来源与接入说明">
+        <strong>数据来源与覆盖说明</strong><p>核对来源修订、候选数据与城市接入进度；不影响上方城市选择。</p>
+        <Suspense fallback={<p>正在载入源修订检查面板…</p>}><SourceCandidateReview cities={cities} /></Suspense>
+        <Suspense fallback={<p>正在载入接入进度面板…</p>}><UkCoverageProgress /></Suspense>
+      </section>
     </section>
     <footer>当前样本不代表英国全部城市或完整行政区域。部分高度为推算值，设计构件与演示地形均不是实测成果。</footer>
   </main>;

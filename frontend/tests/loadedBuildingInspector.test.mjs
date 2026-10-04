@@ -103,3 +103,24 @@ test("eviction clamps pages permanently and an empty stream never claims there a
   assert.match(f.content, /当前没有已加载建筑/);
   assert.match(f.content, /等待瓦片读取，或移动视口/);
 });
+
+test("a filtered-out selection is explicit and returning to its list finds the correct page without clearing selection", t => {
+  const selections = [];
+  const f = setup(t, { selected: "id-062", onSelect: id => selections.push(id) });
+  f.change("Building 000");
+  assert.equal(f.rows.length, 1);
+  assert.match(f.content, /所选建筑不符合当前搜索条件，选择仍然保留/);
+  assert.match(text(f.root.findByProps({ className: "tile-selected-name" })), /Building 062/);
+  f.click("查看所选建筑所在列表");
+  assert.equal(f.input.props.value, "");
+  assert.match(f.content, /第 3 \/ 3 页/);
+  assert.ok(f.rows.some(row => row.findByType("button").props["aria-pressed"]));
+  assert.doesNotMatch(f.content, /所选建筑不符合当前搜索条件/);
+  assert.deepEqual(selections, [], "returning to results does not unselect or replace the selected building");
+  f.update({ hidden: true, panelId: "inspector-panel" });
+  assert.equal(f.root.findByType("aside").props.hidden, true);
+  assert.equal(f.root.findByType("aside").props.id, "inspector-panel");
+  f.update({ hidden: false });
+  assert.match(f.content, /第 3 \/ 3 页/);
+  assert.match(f.content, /source-asset/);
+});

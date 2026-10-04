@@ -20,6 +20,14 @@
 .city-source-warning{margin:0;padding:10px 28px;background:#fff7e7;border-bottom:1px solid #ead2aa;color:#80581d;font-size:12px;line-height:1.7}.city-source-warning summary{font-weight:600;cursor:pointer}.city-source-warning p{margin:6px 0}.city-source-warning small{font-size:11px}
 
 .city-session-shell{height:100dvh;overflow:auto}
+.city-session-shell--tiles .city-workspaces{gap:14px;padding:12px 22px;background:#fff;font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}
+.city-session-shell--tiles .city-workspaces button{min-height:34px;border-radius:7px;padding:7px 10px;font:inherit;font-size:12px}
+.city-session-shell--tiles .city-workspaces__coverage strong{font-size:12px}
+.city-workspaces__extent{font-size:11px;color:#637985}
+.city-workspaces__extent summary{cursor:pointer}
+.city-workspaces__extent span{display:block;margin-top:5px;overflow-wrap:anywhere}
+.city-workspaces button:focus-visible,.city-workspaces select:focus-visible,.city-workspaces__extent summary:focus-visible{outline:3px solid #2e7160;outline-offset:2px}
+@media(max-width:700px){.city-session-shell--tiles .city-workspaces{padding:12px 16px}}
 .workspace-leave-notice{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 28px;background:#fff8e8;border-bottom:1px solid #ead7ae;color:#574421;font-size:13px}
 .workspace-leave-notice p{margin:6px 0 0;line-height:1.6}
 .workspace-leave-actions{display:flex;gap:8px;flex-shrink:0}

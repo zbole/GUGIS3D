@@ -184,3 +184,26 @@ test("invalid camera identity blocks the profile selector until explicitly dismi
   assert.deepEqual(changes, []);
   assert.equal(f.calls.length, 1, "no tile reads behind an invalid camera link");
 });
+
+test("collapsing the inspector retains search and selection and a map selection reopens the existing inspector", async t => {
+  const f = fixture(t);
+  await until(() => f.content.includes("匹配 60 / 60"), "tiles loaded");
+  f.search("building-001"); f.selectRow();
+  const count = f.calls.length;
+  f.click("收起建筑列表");
+  assert.equal(f.root.findByType("aside").props.hidden, true);
+  assert.equal(inspectorScene.props.selected, "building-001");
+  assert.equal(f.input.props.value, "building-001");
+  const toggle = f.root.findAllByType("button").find(node => text(node) === "显示建筑列表");
+  assert.equal(toggle.props["aria-expanded"], false);
+  assert.equal(toggle.props["aria-controls"], f.root.findByType("aside").props.id);
+  f.click("显示建筑列表");
+  assert.equal(f.input.props.value, "building-001");
+  f.click("收起建筑列表");
+  act(() => inspectorScene.props.onSelect("building-002"));
+  assert.equal(f.root.findByType("aside").props.hidden, false);
+  assert.equal(inspectorScene.props.selected, "building-002");
+  assert.match(f.content, /所选建筑不符合当前搜索条件/);
+  assert.equal(f.calls.length, count, "collapsing does not create another scene or request a full project");
+  f.assertReadOnly();
+});
