@@ -96,7 +96,7 @@ def main():
     packed=(json.dumps(report,indent=2)+'\n').encode()
     (ROOT/'shared/strip-compaction-benchmark.json').write_bytes(packed);(public/'strip-compaction-results.json').write_bytes(packed)
     stream=io.StringIO();writer=csv.writer(stream,lineterminator='\n');writer.writerow(['case','target_m','mode','bytes','points','patches','rmse_m','max_m']);writer.writerows(rows)
-    (public/'strip-compaction-results.csv').write_text(stream.getvalue(),encoding='utf-8')
+    (public/'strip-compaction-results.csv').write_bytes(stream.getvalue().encode('utf-8'))
     print(json.dumps({'models':len(rows),'eligible_pairs':sum(p['comparison_eligible'] for c in report['cases'] for p in c['variants']),
         'max_height_difference_m':max(p['preservation']['random_queries']['max_height_difference_m'] for c in report['cases'] for p in c['variants']),
         'boundary_slope_ties_changed':sum(p['preservation']['boundary_queries']['slope_ties_changed'] for c in report['cases'] for p in c['variants'])}),flush=True)

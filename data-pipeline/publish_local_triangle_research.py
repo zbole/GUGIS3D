@@ -79,9 +79,9 @@ def main():
     packed=(json.dumps(report,indent=2)+'\n').encode()
     (ROOT/'shared/local-triangle-benchmark.json').write_bytes(packed)
     (output/'local-triangle-results.json').write_bytes(packed)
-    csv_data=io.StringIO();writer=csv.writer(csv_data)
+    csv_data=io.StringIO();writer=csv.writer(csv_data,lineterminator='\n')
     writer.writerow(['case','target_m','mode','bytes','points','patches','target_met','source_rmse_m','source_max_m','offgrid_rmse_m','offgrid_max_m','offgrid_met'])
-    writer.writerows(rows);(output/'local-triangle-results.csv').write_text(csv_data.getvalue(),encoding='utf-8')
+    writer.writerows(rows);(output/'local-triangle-results.csv').write_bytes(csv_data.getvalue().encode('utf-8'))
     print(json.dumps({'models':len(rows),'eligible_pairs':sum(p['comparison_eligible'] for c in report['cases'] for p in c['variants']),
         'max_kernel_difference_m':max(p[m]['offgrid']['decoded_kernel_max_difference_m'] for c in report['cases'] for p in c['variants'] for m in ('hybrid','local_triangles'))}),flush=True)
 

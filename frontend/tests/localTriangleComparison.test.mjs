@@ -41,6 +41,8 @@ test('paired published archives have equal metadata and preserve the original hy
   const parentBytes=await readFile(source('../../shared/hybrid-terrain-research.json'));
   assert.equal(digest(parentBytes),report.parent_sha256);
   assert.deepEqual(JSON.parse(await readFile(source('../public/research/hybrid-terrain/local-triangle-results.json'),'utf8')),report);
+  const csv=await readFile(source('../public/research/hybrid-terrain/local-triangle-results.csv'),'utf8');
+  assert.equal(csv.includes('\r'),false);assert.equal(csv.trim().split('\n').length,49);
   const parent=JSON.parse(parentBytes);let count=0;
   for(const c of report.cases)for(const p of c.variants){
     assert.equal(p.comparison_eligible,[p.hybrid,p.local_triangles].every(v=>v.target_met&&v.offgrid.meets_sampled_target));

@@ -38,6 +38,8 @@ test('all compaction selections expose three actual byte counts and boundary slo
 test('compacted model controls and function primitives equal originals, with exact metadata costs',async()=>{
   assert.equal(digest(await readFile(source('../../shared/local-triangle-benchmark.json'))),report.parent_sha256);
   assert.deepEqual(JSON.parse(await readFile(source('../public/research/hybrid-terrain/strip-compaction-results.json'),'utf8')),report);
+  const csv=await readFile(source('../public/research/hybrid-terrain/strip-compaction-results.csv'),'utf8');
+  assert.equal(csv.includes('\r'),false);assert.equal(csv.trim().split('\n').length,73);
   const primitives=model=>{
     const cyclic=t=>[t,[t[1],t[2],t[0]],[t[2],t[0],t[1]]].map(x=>JSON.stringify(x)).sort()[0];
     return model.patches.flatMap(p=>p.kind==='ruled-strip'?p.left.slice(1).map((_,i)=>`q:${JSON.stringify([p.left[i],p.right[i],p.left[i+1],p.right[i+1]])}`):p.indices.slice(2).map((_,i)=>{
