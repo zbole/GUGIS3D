@@ -1,6 +1,10 @@
 # Local city source samples
 
-`london-osm.json` and `birmingham-osm.json` are retained OpenStreetMap extracts,
+Current coverage notes are separate from the immutable `DATA_LICENSE.md`
+included in the audited historical candidate bundles. Do not edit that historical
+licence file or weaken its hash checks to add new cities.
+
+The retained `*-osm.json` files are OpenStreetMap extracts,
 © OpenStreetMap contributors, distributed under the
 [Open Data Commons Open Database License 1.0](https://opendatacommons.org/licenses/odbl/1-0/).
 Any GUGIS city database derived from these extracts is distributed under the same
@@ -14,7 +18,9 @@ the query box and actual geometry extent are different. The import manifest
 must report actual imported bounds and conversion omissions. These are central
 district samples, **not complete city surveys**.
 
-| Source | Query box: west, south, east, north (WGS84 degrees) | Building ways | Non-area named highway ways | Source snapshot |
+The following table describes historical initial requests, not the current expanded seeds. Current counts and exact bounds are recorded in each import manifest and the workspace catalogue.
+
+| Historical source | Query box: west, south, east, north (WGS84 degrees) | Building ways | Non-area named highway ways | Source snapshot |
 | --- | --- | ---: | ---: | --- |
 | London: Westminster / Whitehall | -0.138, 51.496, -0.123, 51.508 | 825 | 762 | 2026-10-03T04:31:51Z |
 | Birmingham: Civic centre / Jewellery Quarter | -1.914, 52.476, -1.901, 52.488 | 809 | 479 | 2026-10-03T04:31:51Z |
@@ -56,6 +62,26 @@ Birmingham query:
 );
 out tags geom;
 ```
+
+## York source, 2026-10-05 local time
+
+`york-source.json` records the successful bounded GET request to the public
+Overpass server `https://gall.openstreetmap.de/api/interpreter`, announced by
+the official Overpass status service. Original response SHA-256:
+`d60ca4e924aa4e2a8eac5b62db8c8d0891c705dce331f08f3b63c439d23e9a3a`.
+The checked-in public extract removes 348 unrelated contact and free-text tags;
+IDs, modelling tags and geometry are retained. Public extract SHA-256:
+`b17bfb5fb899acd19d2e2e9687a0e62f3f57d2202d8989afb85f0ee1d68231be`.
+The preparation script fingerprint and both byte counts are in the manifest.
+
+Query bounds are `[-1.1, 53.947, -1.066, 53.972]`; imported geometry bounds are
+`[-1.1051514, 53.944665, -1.060182, 53.9763925]`. The importer retains 6,092
+whole-building ways and 1,853 non-area named highway ways. Six building ways
+with unsupported elevated/part semantics are omitted, with IDs and reasons in
+`york-import.json`. Heights use 465 height tags, 2,357 floor-derived estimates
+(3.2 m/floor), and 3,270 assumed values (9.6 m). These are LoD1 volumes, not
+surveyed heights, detailed facades, interiors or terrain. All source and derived
+York databases carry © OpenStreetMap contributors / ODbL 1.0 attribution.
 
 ## Wider data for future work
 

@@ -2,7 +2,7 @@ import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } fro
 import { cameraBookmarkForLocation, cameraBookmarkUrl, stripCameraFragment, type CameraBookmark, type CameraNavigation } from "./studio/cameraBookmark";
 import AppErrorBoundary from "./AppErrorBoundary";
 import { createCityApi } from "./studio/cityApi";
-import { cityCoverageCoordinates, citySessionUrl, tileProfileFromSearch, tileProfileUrl, selectedCitiesFromSearch, selectedCityFromSearch, knownCities, loadCityWorkspaces, type CityId, type CityWorkspace } from "./studio/cityWorkspaces";
+import { cityDataOriginLabel, cityCoverageCoordinates, citySessionUrl, tileProfileFromSearch, tileProfileUrl, selectedCitiesFromSearch, selectedCityFromSearch, knownCities, loadCityWorkspaces, type CityId, type CityWorkspace } from "./studio/cityWorkspaces";
 import "./studio/cityWorkspaces.css";
 import CitySelection from "./studio/CitySelection";
 import WorkspaceLeaveNotice from "./studio/WorkspaceLeaveNotice";
@@ -200,7 +200,7 @@ export default function App() {
           {cities.filter(item => selectedCities.includes(item.id as CityId)).map(item => <option key={item.id} value={item.id} disabled={item.status === "invalid"}>{item.name} · {item.status === "pending" ? "待导入" : item.status === "invalid" ? "数据异常" : "已导入"}</option>)}
         </select></label>
         {city && <div className="city-workspaces__coverage"><strong>{city.coverage_label}</strong>
-          <span>{previewMode ? "正式项目目录：" : ""}{city.status === "pending" ? "尚无已导入数据" : `${city.building_count ?? 0} 栋建筑 · ${city.road_count ?? 0} 条道路`} · {previewMode ? "预览以渲染快照及下方实际加载数为准" : "每城独立保存与恢复"}</span>
+          <span>{cityDataOriginLabel(city)}：{city.status === "pending" ? "尚无已导入数据" : `${city.building_count ?? 0} 栋建筑 · ${city.road_count ?? 0} 条道路`} · {previewMode ? "预览以渲染快照及下方实际加载数为准" : "每城独立保存与恢复"}</span>
           {cityCoverageCoordinates(city) && (previewMode || comparison ? <details className="city-workspaces__extent"><summary>实际要素范围</summary><span>{cityCoverageCoordinates(city)} · 非城市行政边界</span></details>
             : <span>{cityCoverageCoordinates(city)} · 非城市行政边界</span>)}</div>}
         {switchNotice && <p role="status">{switchNotice}</p>}

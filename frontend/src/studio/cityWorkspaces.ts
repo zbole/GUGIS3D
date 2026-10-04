@@ -19,6 +19,7 @@ export interface CityWorkspace {
   road_count?: number;
   height_policy?: string;
   data_revision?: string | null;
+  data_origin?: "saved-project" | "public-seed" | "missing";
   quality_warnings?: Array<{ code: string; message: string; osm_ids: number[] }>;
 }
 
@@ -68,6 +69,13 @@ export function heightPolicyLabel(policy?: string): string {
     const count = (key: string) => counts[key].toLocaleString("zh-CN");
     return `${count("height-tag")} 栋采用 OSM 高度标签 / ${count("levels-derived")} 栋按楼层数 × 3.2 m 估算 / ${count("assumed")} 栋假定 9.6 m；高度标签未独立核验`;
   } catch { return fallback; }
+}
+
+export function cityDataOriginLabel(workspace: CityWorkspace): string {
+  if (workspace.data_origin === "saved-project") return "本机已保存项目";
+  if (workspace.data_origin === "public-seed") return "公开种子样本（尚未保存为本机项目）";
+  if (workspace.data_origin === "missing") return "待导入工作区";
+  return "城市数据目录";
 }
 
 export function citySourceLicense(workspace: CityWorkspace): { url: string; label: string } | null {

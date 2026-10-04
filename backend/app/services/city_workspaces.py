@@ -221,7 +221,8 @@ def workspace_entry(city_id: str):
     from ..routers import city
     defaults = CITY_DEFAULTS[city_id]
     current = directory(city.CITY_DIR, city_id) / 'current.gugis.json'
-    source_path = current if current.is_file() else seed_path(city.SEED, city_id)
+    saved = current.is_file()
+    source_path = current if saved else seed_path(city.SEED, city_id)
     summary = (_source_summary(source_path) if source_path.is_file() else
                {'corrupt': False, 'metadata': {}, 'count': 0, 'extent': None, 'road_count': 0})
     corrupt, metadata = summary['corrupt'], summary['metadata']
@@ -229,6 +230,7 @@ def workspace_entry(city_id: str):
     bounds = valid_bounds(metadata.get('coverage_bbox_wgs84')) or defaults['query_bbox_wgs84']
     return {
         'id': city_id, **defaults,
+        'data_origin': 'saved-project' if saved else ('public-seed' if source_path.is_file() else 'missing'),
         'status': 'invalid' if corrupt else ('ready' if count else 'pending'),
         'coverage_kind': metadata.get('coverage_kind', 'sample-area'),
         'coverage_label': metadata.get('coverage_label', defaults['coverage_label']),

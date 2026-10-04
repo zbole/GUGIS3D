@@ -41,10 +41,13 @@ python data-pipeline/build_render_tiles.py backend/data/cities/london.gugis.json
 python data-pipeline/build_render_tiles.py backend/data/cities/birmingham.gugis.json --city birmingham
 ```
 
-For the expanded public seeds, choose the verified cell size explicitly:
+The CLI now defaults to `--tile-size auto`, selecting the observed cell size
+from `shared/render-package-profiles.json`:
 Bristol 125 m; London / Birmingham / Cardiff 175 m; Manchester / Edinburgh
-250 m; York 125 m. The original 250 m examples above apply to the initial
-samples; dense expanded cells can correctly fail the unchanged 256-building cap.
+250 m; York 125 m. This selects a size before building, not an automatic retry
+or a guarantee for every future source. Dense or complex custom projects can
+still correctly fail the unchanged caps. Use an explicit `--tile-size` to tune
+such a source; no geometry is dropped to make the build succeed.
 
 ```sh
 python data-pipeline/build_render_tiles.py backend/data/cities/york.gugis.json --city york --tile-size 125
@@ -62,7 +65,7 @@ the existing CityDocument/CityArchive validation and hashes its **exact bytes**.
 Sources above the existing 128 MiB input limit are refused before validation.
 It never imports, packs back into, initializes or rewrites a formal city.
 
-Options: `--tile-size 250` (metres, range 10–10000), `--max-buildings 256`,
+Options: `--tile-size auto` (default) or metres in range 10–10000, `--max-buildings 256`,
 `--max-primitives 12000`, `--max-bytes 2097152`, `--max-tiles 20000`.
 Primitives count geometry instances, not triangles; per-solid triangle/vertex
 limits remain those of the validated authoring format. Bytes and building counts

@@ -7,7 +7,14 @@ const outfile = fileURLToPath(new URL("../node_modules/.cache/gugis-tests/city-w
 await build({ entryPoints: [fileURLToPath(new URL("../src/studio/cityWorkspaces.ts", import.meta.url))], bundle: true,
   platform: "node", format: "esm", packages: "external", outfile,
   define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' } });
-const { knownCities, cityIdFromSearch, cityWorkspaceUrl, cityWorkspaceHref, cityCenter, cityCoverageCoordinates, heightPolicyLabel, citySourceLicense, selectedCitiesFromSearch, selectedCityFromSearch, citySessionUrl, tileProfileFromSearch } = await import(pathToFileURL(outfile).href);
+const { cityDataOriginLabel, knownCities, cityIdFromSearch, cityWorkspaceUrl, cityWorkspaceHref, cityCenter, cityCoverageCoordinates, heightPolicyLabel, citySourceLicense, selectedCitiesFromSearch, selectedCityFromSearch, citySessionUrl, tileProfileFromSearch } = await import(pathToFileURL(outfile).href);
+
+test("public seeds and missing workspaces never imply a saved local project", () => {
+  assert.equal(cityDataOriginLabel({data_origin:"saved-project"}), "本机已保存项目");
+  assert.match(cityDataOriginLabel({data_origin:"public-seed"}), /尚未保存/);
+  assert.match(cityDataOriginLabel({data_origin:"missing"}), /待导入/);
+  assert.equal(cityDataOriginLabel({}), "城市数据目录");
+});
 
 test("city URLs survive workspace navigation while unknown city ids fall back to Bristol", () => {
   assert.equal(cityIdFromSearch("?city=london&workspace=environment"), "london");
