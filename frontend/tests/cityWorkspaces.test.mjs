@@ -7,7 +7,7 @@ const outfile = fileURLToPath(new URL("../node_modules/.cache/gugis-tests/city-w
 await build({ entryPoints: [fileURLToPath(new URL("../src/studio/cityWorkspaces.ts", import.meta.url))], bundle: true,
   platform: "node", format: "esm", packages: "external", outfile,
   define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' } });
-const { cityIdFromSearch, cityWorkspaceUrl, cityWorkspaceHref, cityCenter, cityCoverageCoordinates, heightPolicyLabel, citySourceLicense, selectedCitiesFromSearch, selectedCityFromSearch, citySessionUrl, tileProfileFromSearch } = await import(pathToFileURL(outfile).href);
+const { knownCities, cityIdFromSearch, cityWorkspaceUrl, cityWorkspaceHref, cityCenter, cityCoverageCoordinates, heightPolicyLabel, citySourceLicense, selectedCitiesFromSearch, selectedCityFromSearch, citySessionUrl, tileProfileFromSearch } = await import(pathToFileURL(outfile).href);
 
 test("city URLs survive workspace navigation while unknown city ids fall back to Bristol", () => {
   assert.equal(cityIdFromSearch("?city=london&workspace=environment"), "london");
@@ -22,6 +22,16 @@ test("city centers and empty-workspace placement never fall back to Bristol for 
   assert.deepEqual(cityCenter({ id: "london", query_bbox_wgs84: [-0.138, 51.496, -0.123, 51.508] }), { longitude: -0.1305, latitude: 51.502 });
   assert.deepEqual(cityCenter({ id: "birmingham", center_wgs84: [-1.9075, 52.482] }), { longitude: -1.9075, latitude: 52.482 });
   assert.notEqual(cityCenter({ id: "london" }).longitude, cityCenter({ id: "bristol" }).longitude);
+});
+
+test("new cities retain independent deep links, selection and geographic fallbacks", () => {
+  for (const [id, longitude, latitude] of [["manchester", -2.2455, 53.4815], ["edinburgh", -3.1935, 55.949], ["cardiff", -3.178, 51.4805]]) {
+    assert.equal(cityIdFromSearch(`?city=${id}`), id);
+    assert.deepEqual(selectedCitiesFromSearch(`?cities=${id},london,${id}`), [id, "london"]);
+    assert.equal(cityWorkspaceHref(id, "/compare#implicit-terrain"), `/compare?city=${id}#implicit-terrain`);
+    assert.ok(Math.abs(cityCenter({ id }).longitude - longitude) < 1e-10);
+    assert.ok(Math.abs(cityCenter({ id }).latitude - latitude) < 1e-10);
+  }
 });
 
 test("coverage labels distinguish actual polygon extents from Bristol placement anchors", () => {
@@ -51,8 +61,8 @@ test("entry choices reject unknown IDs, deduplicate multi-selection and preserve
   assert.deepEqual(selectedCitiesFromSearch(""), []);
   assert.deepEqual(selectedCitiesFromSearch("?city=unknown"), []);
   assert.deepEqual(selectedCitiesFromSearch("?cities=london,london,birmingham,../other"), ["london", "birmingham"]);
-  assert.deepEqual(selectedCitiesFromSearch("?city=london"), ["bristol", "london", "birmingham"]);
-  assert.deepEqual(selectedCitiesFromSearch("?workspace=analysis"), ["bristol", "london", "birmingham"]);
+  assert.deepEqual(selectedCitiesFromSearch("?city=london"), knownCities);
+  assert.deepEqual(selectedCitiesFromSearch("?workspace=analysis"), knownCities);
   assert.equal(selectedCityFromSearch("?city=bristol", ["london", "birmingham"]), "london");
   const url = new URL(citySessionUrl("http://localhost/?workspace=analysis&foo=bar", ["bristol"], "bristol"));
   assert.equal(url.searchParams.get("city"), "bristol");

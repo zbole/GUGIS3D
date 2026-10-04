@@ -1,0 +1,198 @@
+{
+  "city_id": "manchester",
+  "source_sha256": "8836a4269af5a5c49f2225a42540babd47e27b2a104641cfff257c918ee8b235",
+  "source_building_ways": 3472,
+  "imported_buildings": 3430,
+  "imported_roads": 2756,
+  "query_bbox_wgs84": [
+    -2.263,
+    53.471,
+    -2.228,
+    53.492
+  ],
+  "actual_data_bbox_wgs84": [
+    -2.2675808,
+    53.4688492,
+    -2.2243831,
+    53.4972127
+  ],
+  "height_policy": {
+    "height-tag": 68,
+    "levels-derived": 1226,
+    "assumed": 2136
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 4960939,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 27930260,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 30333665,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 132090415,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 132090416,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 132090419,
+      "reason": "OSM building:min_level '3' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 135978253,
+      "reason": "OSM min_height '6' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 137862330,
+      "reason": "OSM min_height '9' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 155766671,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 205197180,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 448484293,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 448484294,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 448484295,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 448499600,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 448772207,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 448776664,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 448776665,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 448776666,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 448776667,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 448776668,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 448776669,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 448776670,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 448776671,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 589697229,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 637214557,
+      "reason": "OSM building:min_level '2.75' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 637214562,
+      "reason": "OSM building:min_level '3.75' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 639835175,
+      "reason": "OSM min_height '7' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 639835177,
+      "reason": "OSM min_height '7' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 647038581,
+      "reason": "OSM min_height '16' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 647693173,
+      "reason": "OSM min_height '5' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 647693175,
+      "reason": "OSM min_height '12' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 679591575,
+      "reason": "OSM min_height '4' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 683788773,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 684232068,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 685517417,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 686948358,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 686948359,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 686948365,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 738034619,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 738348855,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 738799436,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 984426168,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 7212296,
+  "gugis_sha256": "fad3dc2e480cf06824efee76ad88d6fc976dc0ae8589e0f9f21d6bd6078700b6"
+}

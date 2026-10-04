@@ -5,15 +5,13 @@ from pathlib import Path
 from fastapi import APIRouter
 
 from ..services import city_workspaces, uk_city_registry
+from ..services.workspace_catalog import WORKSPACES
 
 router = APIRouter(prefix='/coverage', tags=['UK city readiness'])
 BOUNDARY_RECEIPTS_ROOT = Path(__file__).resolve().parents[3] / '.local' / 'coverage' / 'boundaries'
 # Associations are labels, not spatial assertions; no new workspace is created.
-_SAMPLES = (
-    ('bristol', 'Bristol sample', 'uk-eng-bristol'),
-    ('london', 'Westminster / Whitehall sample (legacy London workspace)', 'uk-eng-westminster'),
-    ('birmingham', 'Birmingham sample', 'uk-eng-birmingham'),
-)
+_SAMPLES = tuple((record['id'], 'Westminster / Whitehall sample (legacy London workspace)' if record['id'] == 'london'
+                 else f"{record['city_name']} sample", record['related_registry_id']) for record in WORKSPACES)
 _SAMPLE_NOTE = 'Name-based sample association only; membership within a city boundary has not been verified.'
 _LONDON_NOTE = ('The legacy london workspace is a Westminster / Whitehall sample. Its association with Westminster '
                 'is not verified against a city boundary and does not establish City of London coverage.')

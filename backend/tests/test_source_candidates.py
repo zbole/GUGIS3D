@@ -64,7 +64,7 @@ class CandidateSemanticAuditTests(unittest.TestCase):
             with self.subTest(city_id=city_id):
                 entry = self.audit['cities'][city_id]
                 summary = entry['summary']; changes = summary['changes']
-                base = load_city((DATA / f'{city_id}.gugis.json').read_bytes())
+                base = load_city((DATA / 'baselines/v1' / f'{city_id}.gugis.json').read_bytes())
                 next_city = load_city((DATA / 'candidates/v2' / f'{city_id}.gugis.json').read_bytes())
                 source = json.loads((DATA / f'{city_id}-osm.json').read_bytes())
                 source_ways = {way['id']: way for way in source['elements'] if way['type'] == 'way'}
@@ -138,7 +138,11 @@ class CandidateEndpointTests(unittest.TestCase):
     def setUp(self):
         self.temporary = TemporaryDirectory(); self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
-        self.data = self.root / 'data'; shutil.copytree(DATA, self.data)
+        self.data = self.root / 'data'; self.data.mkdir()
+        paths = {candidates.AUDIT_NAME, *[path for city_id in EXPECTED for path,_ in candidates.input_paths(city_id).values()]}
+        for relative in paths:
+            target = self.data / relative; target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(DATA / relative, target)
         self.patch(candidates, 'DATA_ROOT', self.data)
         self.patch(city, 'CITY_DIR', self.root / 'state' / 'city')
         self.patch(city, 'SEED', self.root / 'never-read.gugis.json')
@@ -218,7 +222,7 @@ class CandidateEndpointTests(unittest.TestCase):
             notice = package.read('PACKAGE-README.txt').decode('utf-8')
             self.assertIn('raw OpenStreetMap extract and original seed archive are NOT bundled', notice)
             self.assertIn(f'backend/data/cities/{city_id}-osm.json', notice)
-            self.assertIn(f'backend/data/cities/{city_id}.gugis.json', notice)
+            self.assertIn(f'backend/data/cities/baselines/v1/{city_id}.gugis.json', notice)
             self.assertIn('full replacement candidate', notice)
             self.assertIn('explicit manual draft', notice)
             self.assertIn('non-active', notice)

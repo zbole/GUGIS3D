@@ -7,7 +7,7 @@ import LoadedBuildingInspector from "./LoadedBuildingInspector";
 import { loadedBuildings } from "./loadedBuildings";
 import { useTileLoadingControl } from "./useTileLoadingControl";
 import { cityCenter, heightPolicyLabel, type CityWorkspace, type CityId } from "./cityWorkspaces";
-import { loadRenderManifest, RenderPackageUnavailable, RenderTileStream, renderTilesToCity, tileLoadingProfiles, normalizeTileLoadingProfile,
+import { loadRenderManifest, RenderPackageUnavailable, RenderTileStream, renderTilesToCity, tileLoadingProfiles, normalizeTileLoadingProfile, initialTileViewBounds,
   type RenderManifest, type RenderView, type TileStreamState, type TileLoadingProfile } from "./renderTileClient";
 import "./CityTilePreview.css";
 
@@ -44,6 +44,7 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
   const [attempt, setAttempt] = useState(0);
   const [dismissedSequence, setDismissedSequence] = useState<number | null>(null);
   const [defaultViewAttempt, setDefaultViewAttempt] = useState(0);
+  const [fullExtent, setFullExtent] = useState(false);
   const [failedCamera, setFailedCamera] = useState<string | null>(null);
   const [readyCamera, setReadyCamera] = useState<string | null>(null);
   const [copyMessage, setCopyMessage] = useState("");
@@ -61,9 +62,9 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
     // Default navigation aims at the verified sample footprint. A camera placed
     // above its center with an oblique pitch would look past the sample.
     if (cameraNavigation.sequence > 0 || dismissedSequence !== null || defaultViewAttempt > 0) return { sequence: cameraKey,
-      target: defaultCameraTarget(manifest.bounds_wgs84, center) };
+      target: defaultCameraTarget(fullExtent ? manifest.bounds_wgs84 : initialTileViewBounds(manifest, center, budget), center) };
     return undefined;
-  }, [blocked, manifest, cameraKey, bookmark, cameraNavigation.sequence, dismissedSequence, defaultViewAttempt, center]);
+  }, [blocked, manifest, cameraKey, bookmark, cameraNavigation.sequence, dismissedSequence, defaultViewAttempt, center, budget, fullExtent]);
   const gate = useRef({ blocked, sequence: cameraRequest?.sequence });
   gate.current = { blocked, sequence: cameraRequest?.sequence };
   const readySequence = useRef<string | null>(null);
@@ -164,6 +165,7 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
   }, []);
   const useCurrentDefault = () => {
     if (!sessionActive.current) return;
+    setFullExtent(false);
     setDismissedSequence(cameraNavigation.sequence); setFailedCamera(null);
     setDefaultViewAttempt(value => value + 1);
     readySequence.current = null; setReadyCamera(null);
@@ -247,6 +249,12 @@ function TilePreviewSession({ workspace, tileProfile = "balanced", onTileProfile
             onClick={() => { closeMoreTools(true); void copyCurrentView(); }}><Link2 size={15} aria-hidden="true" />复制当前视角链接</button>
           {activeSelected && <button type="button" onClick={() => { closeMoreTools(true); onSelect(null); }}>取消建筑选择</button>}
           <button type="button" disabled={loadingManifest} onClick={() => { closeMoreTools(true); setAttempt(value => value + 1); }}><RefreshCw size={15} aria-hidden="true" />重新检查渲染包</button>
+          <button type="button" disabled={!manifest || blocked || cameraWaiting} onClick={() => {
+            closeMoreTools(true); setFullExtent(true); setDefaultViewAttempt(value => value + 1);
+            setDismissedSequence(cameraNavigation.sequence); readySequence.current = null; setReadyCamera(null);
+            onCameraBookmarkDismiss?.();
+          }}>查看样本全范围</button>
+          <button type="button" disabled={!manifest || blocked || cameraWaiting} onClick={() => { closeMoreTools(true); useCurrentDefault(); }}>返回中心街区</button>
           <p>重新核验来源修订，清除当前查询与选择；保留正式城市数据。</p>
           <details><summary>视角分享说明</summary><p>视角链接只记录城市、来源修订与相机位置，不包含或分发城市数据。接收方使用自己明确选择或默认的读取配置；链接不携带配置或预算。接收方须能访问此站点及匹配的渲染包；localhost 地址仅指接收方自己的电脑。</p></details>
         </div></details>

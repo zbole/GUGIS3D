@@ -1,0 +1,36 @@
+{
+  "city_id": "edinburgh",
+  "coverage_label": "Edinburgh city centre",
+  "bbox": [
+    -3.21,
+    55.938,
+    -3.177,
+    55.96
+  ],
+  "centre_lon_lat": [
+    -3.1935000000000002,
+    55.949
+  ],
+  "query_bbox_south_west_north_east": [
+    55.938,
+    -3.21,
+    55.96,
+    -3.177
+  ],
+  "query": "[out:json][timeout:120][maxsize:268435456];(way[\"building\"](55.938,-3.21,55.96,-3.177);way[\"highway\"][\"name\"](55.938,-3.21,55.96,-3.177););out tags geom;",
+  "source_url": "https://overpass-api.de/api/interpreter",
+  "downloaded_at": "2026-10-04T11:45:00.978672+00:00",
+  "osm_timestamp": "2026-10-04T11:43:06Z",
+  "sha256": "6edb6fda2dce22bf19af6c407f9e5daee2b718d1108e0fe9c9b60869a0fdc0d3",
+  "bytes": 6916591,
+  "elements": 8483,
+  "building_ways": 6571,
+  "road_ways": 1912,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 10.407,
+  "previous_attempts": []
+}

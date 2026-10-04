@@ -16,7 +16,8 @@ const streamfile = outfile.replace("camera-framing", "camera-framing-stream");
 await build({ entryPoints: [fileURLToPath(new URL("../src/studio/renderTileClient.ts", import.meta.url))], outfile: streamfile,
   bundle: true, platform: "node", format: "esm", packages: "external" });
 const { chooseViewportTiles, tileLoadingProfiles } = await import(pathToFileURL(streamfile).href);
-const centers = { bristol: [-2.603, 51.454], london: [-.1305, 51.502], birmingham: [-1.9075, 52.482] };
+const catalog = JSON.parse(await readFile(new URL('../../shared/city-workspaces.json', import.meta.url), 'utf8'));
+const centers = Object.fromEntries(catalog.map(({ id, query_bbox_wgs84: b }) => [id, [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2]]));
 const dimensions = [[1040, 500], [800, 500], [1400, 400], [390, 700]];
 const evidence = [];
 
@@ -64,7 +65,7 @@ test("empty package framing stays aimed at its own catalog city", () => {
 });
 
 test("save reproducible no-GPU framing evidence", async () => {
-  assert.equal(evidence.length, 24);
+  assert.equal(evidence.length, 48);
   // Test output, not a formal city/cache write. The evidence explicitly excludes GPU QA.
   await writeFile(join(tmpdir(), "gugis-default-camera-after.json"), JSON.stringify({ method: "Real Cesium Camera math; no browser, WebGL or GPU", cases: evidence }, null, 2));
 });

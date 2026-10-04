@@ -105,7 +105,7 @@ class UKReadinessAPITests(unittest.TestCase):
         shape = {'type': 'way', 'id': 1, 'tags': {'building': 'yes', 'height': '12'},
                  'geometry': [{'lon': x, 'lat': y} for x, y in
                               [(-2.6, 51.45), (-2.599, 51.45), (-2.599, 51.451), (-2.6, 51.451), (-2.6, 51.45)]]}
-        for workspace_id in ('bristol', 'london', 'birmingham'):
+        for workspace_id in city_workspaces.CITY_DEFAULTS:
             document, _ = build_osm_sample({'elements': [shape]},
                                           {'city_id': 'london', 'bbox': [-3, 51, -2, 52],
                                            'coverage_label': 'Synthetic test sample',
@@ -133,16 +133,16 @@ class UKReadinessAPITests(unittest.TestCase):
         return {str(path.relative_to(self.root)): hashlib.sha256(path.read_bytes()).hexdigest()
                 for path in self.root.rglob('*') if path.is_file()}
 
-    def test_readiness_is_separate_from_exact_three_city_readonly_catalogue(self):
+    def test_readiness_is_separate_from_shared_city_readonly_catalogue(self):
         before = self.snapshots()
         payload = self.response()
         self.assertEqual(payload['schema'], 'gugis-uk-readiness-v1')
-        self.assertEqual(payload['summary'], {'registered_cities': 76, 'sample_workspaces': 3,
-                                             'available_sample_workspaces': 3, 'coverage_assessment': 'not-assessed'})
-        self.assertEqual(len(payload['samples']), 3)
+        self.assertEqual(payload['summary'], {'registered_cities': 76, 'sample_workspaces': 6,
+                                             'available_sample_workspaces': 6, 'coverage_assessment': 'not-assessed'})
+        self.assertEqual(len(payload['samples']), 6)
         catalogue = self.client.get('/cities').json()['cities']
-        self.assertEqual({entry['id'] for entry in catalogue}, {'bristol', 'london', 'birmingham'})
-        self.assertEqual(len(catalogue), 3)
+        self.assertEqual({entry['id'] for entry in catalogue}, set(city_workspaces.CITY_DEFAULTS))
+        self.assertEqual(len(catalogue), 6)
         self.assertEqual(self.snapshots(), before)
         self.assertFalse((self.root / '.local').exists())
         self.assertEqual(self.client.get('/cities/uk-eng-bath/city/current').status_code, 404)
@@ -158,7 +158,7 @@ class UKReadinessAPITests(unittest.TestCase):
         self.assertIn('Whitehall', samples['london']['display_name'])
         self.assertIn('does not establish City of London coverage', samples['london']['association_note'])
         self.assertTrue(all(sample['boundary_membership_verified'] is False for sample in payload['samples']))
-        self.assertEqual(sum(record['sample']['state'] == 'none' for record in rows.values()), 73)
+        self.assertEqual(sum(record['sample']['state'] == 'none' for record in rows.values()), 70)
         for record in rows.values():
             self.assertIs(record['sample']['boundary_membership_verified'], False)
             self.assertEqual(record['boundary'], {'state': 'not-recorded', 'receipt': None})
@@ -173,7 +173,7 @@ class UKReadinessAPITests(unittest.TestCase):
              patch.object(city, 'read_current', side_effect=AssertionError('Must not initialize')):
             self.response(); self.response()
         self.assertEqual([call.args[0] for call in entries.call_args_list],
-                         ['bristol', 'london', 'birmingham'] * 2)
+                         list(city_workspaces.CITY_DEFAULTS) * 2)
         self.assertFalse((self.root / '.local').exists())
 
     def test_missing_and_corrupt_sample_files_are_isolated(self):
@@ -181,8 +181,8 @@ class UKReadinessAPITests(unittest.TestCase):
         (self.seed.parent / 'cities' / 'london.gugis.json').write_bytes(b'broken archive')
         before = self.snapshots()
         payload = self.response(); rows = self.records(payload)
-        self.assertEqual(payload['summary']['available_sample_workspaces'], 1)
-        self.assertEqual(payload['summary']['sample_workspaces'], 3)
+        self.assertEqual(payload['summary']['available_sample_workspaces'], 4)
+        self.assertEqual(payload['summary']['sample_workspaces'], 6)
         self.assertEqual(rows['uk-eng-bristol']['sample']['state'], 'missing')
         self.assertEqual(rows['uk-eng-westminster']['sample']['state'], 'invalid')
         self.assertEqual(rows['uk-eng-birmingham']['sample']['state'], 'available')
@@ -200,7 +200,7 @@ class UKReadinessAPITests(unittest.TestCase):
         self.assertIsNone(sample['building_count'])
         self.assertIsNone(sample['road_count'])
         self.assertIsNone(sample['data_revision'])
-        self.assertEqual(payload['summary']['available_sample_workspaces'], 2)
+        self.assertEqual(payload['summary']['available_sample_workspaces'], 5)
         self.assertEqual(self.snapshots(), before)
 
     def test_unexpected_sample_read_failure_is_isolated_and_not_exposed(self):
@@ -212,7 +212,7 @@ class UKReadinessAPITests(unittest.TestCase):
         with patch.object(city_workspaces, 'workspace_entry', side_effect=entry):
             payload = self.response()
         self.assertEqual(self.records(payload)['uk-eng-westminster']['sample']['state'], 'unavailable')
-        self.assertEqual(payload['summary']['available_sample_workspaces'], 2)
+        self.assertEqual(payload['summary']['available_sample_workspaces'], 5)
         self.assertNotIn('private path', json.dumps(payload))
 
     @staticmethod
@@ -294,7 +294,7 @@ class UKReadinessAPITests(unittest.TestCase):
                          {'state': 'validation-failed', 'receipt': None, 'reason_code': 'unsupported-platform'})
         self.assertTrue(all(row['boundary'] == {'state': 'not-recorded', 'receipt': None}
                             for city_id, row in rows.items() if city_id != 'uk-eng-bristol'))
-        self.assertEqual({entry['id'] for entry in catalogue}, {'bristol', 'london', 'birmingham'})
+        self.assertEqual({entry['id'] for entry in catalogue}, set(city_workspaces.CITY_DEFAULTS))
         self.assertTrue(all(entry['status'] == 'ready' for entry in catalogue))
         self.assertEqual(payload['summary']['coverage_assessment'], 'not-assessed')
         self.assertEqual(self.snapshots(), before)

@@ -1,4 +1,5 @@
 import topology from "../../../shared/box-topology.json" with { type: "json" };
+import workspaceCatalog from "../../../shared/city-workspaces.json" with { type: "json" };
 import type { CityDocument, Placement } from "./cityModel";
 import type { BuildingDocument, Category, Parameters, Solid, Vec3 } from "./model";
 
@@ -57,7 +58,7 @@ export function normalizeTileLoadingProfile(value: unknown): TileLoadingProfile 
 }
 const MAX_MANIFEST_BYTES = 4 * 1024 * 1024, MAX_TILE_BYTES = 16 * 1024 * 1024;
 const hashPattern = /^[a-f0-9]{64}$/;
-const cities = new Set(["bristol", "london", "birmingham"]);
+const cities = new Set(workspaceCatalog.map(record => record.id));
 const kinds = new Set(["tower", "villa", "georgian", "victorian", "wills", "cabot", "cathedral", "tudor", "warehouse", "chapel", "civic", "footprint", "urban"]);
 const categories = new Set(["building", "unit", "floor", "dwelling", "room", "column", "ornament", "slab", "wall", "window", "door", "balcony", "railing", "roof", "stair"]);
 function requireValue(ok: unknown, message: string): asserts ok { if (!ok) throw new Error(message); }
@@ -227,6 +228,16 @@ export function chooseViewportTiles(manifest: RenderManifest, view: RenderView, 
     chosen.push(tile); bytes += tile.byte_length;
   }
   return { chosen, candidates: candidates.length, omitted: candidates.length - chosen.length, bytes };
+}
+/** A useful first view of a large sample, independent of tile arrival order.
+ * Use only the nearest budget-eligible descriptors; never load them here.
+ * The whole package remains available through explicit overview navigation.
+ */
+export function initialTileViewBounds(manifest: RenderManifest, center: RenderView['center'], budget: TileBudget): GeographicBounds | null {
+  const { chosen } = chooseViewportTiles(manifest, { bounds: null, center }, budget);
+  if (!chosen.length) return manifest.bounds_wgs84;
+  return [Math.min(...chosen.map(t => t.bounds_wgs84[0])), Math.min(...chosen.map(t => t.bounds_wgs84[1])),
+    Math.max(...chosen.map(t => t.bounds_wgs84[2])), Math.max(...chosen.map(t => t.bounds_wgs84[3]))];
 }
 function mergeTiles(manifest: RenderManifest, tiles: readonly RenderTile[]) {
   const assets = new Map<string, RenderAsset>(), geometry = new Map<string, Geometry>(), instances = new Map<string, Placement>();

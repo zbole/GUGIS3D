@@ -3,6 +3,12 @@ from pydantic import Field, PrivateAttr, model_validator
 from .studio_models import StrictModel, BuildingDocument, Identifier, SolidTemplate, BuildingParameters, SemanticNode, Number, Vector
 from .environment_models import Environment
 
+# Expanded districts keep bounded documents; render residency is limited separately.
+MAX_CITY_ASSETS = 15000
+MAX_CITY_INSTANCES = 15000
+MAX_CITY_ROADS = 10000
+MAX_INSTANCED_SEMANTIC_NODES = 300000
+
 
 class Placement(StrictModel):
     id: Identifier
@@ -32,9 +38,9 @@ class CityDocument(StrictModel):
     version: Literal["1.0"]
     coordinate_system: Literal["ENU_METERS_WGS84"]
     name: str = Field(min_length=1, max_length=80)
-    assets: dict[Identifier, BuildingDocument] = Field(max_length=3000)
-    instances: list[Placement] = Field(max_length=5000)
-    roads: list[Road] = Field(default_factory=list, max_length=3000)
+    assets: dict[Identifier, BuildingDocument] = Field(max_length=MAX_CITY_ASSETS)
+    instances: list[Placement] = Field(max_length=MAX_CITY_INSTANCES)
+    roads: list[Road] = Field(default_factory=list, max_length=MAX_CITY_ROADS)
     metadata: dict[str, str] = Field(default_factory=dict, max_length=30)
     environment: Environment | None = None
 
@@ -45,8 +51,8 @@ class CityDocument(StrictModel):
             raise ValueError("Duplicate city object id")
         if any(i.asset not in self.assets for i in self.instances):
             raise ValueError("Missing city asset")
-        if sum(len(self.assets[i.asset].nodes) for i in self.instances) > 200000:
-            raise ValueError("City exceeds 200,000 instanced semantic nodes")
+        if sum(len(self.assets[i.asset].nodes) for i in self.instances) > MAX_INSTANCED_SEMANTIC_NODES:
+            raise ValueError(f"City exceeds {MAX_INSTANCED_SEMANTIC_NODES:,} instanced semantic nodes")
         if len({r.id for r in self.roads}) != len(self.roads):
             raise ValueError("Duplicate road id")
         return self
@@ -128,9 +134,9 @@ class PooledCity(StrictModel):
     coordinate_system: Literal["ENU_METERS_WGS84"]
     name: str = Field(min_length=1, max_length=80)
     geometry_library: dict[Identifier, SharedGeometry] = Field(max_length=50000)
-    assets: dict[Identifier, PooledBuilding] = Field(max_length=3000)
-    instances: list[Placement] = Field(max_length=5000)
-    roads: list[Road] = Field(default_factory=list, max_length=3000)
+    assets: dict[Identifier, PooledBuilding] = Field(max_length=MAX_CITY_ASSETS)
+    instances: list[Placement] = Field(max_length=MAX_CITY_INSTANCES)
+    roads: list[Road] = Field(default_factory=list, max_length=MAX_CITY_ROADS)
     metadata: dict[str, str] = Field(default_factory=dict, max_length=30)
     environment: Environment | None = None
     _document: CityDocument = PrivateAttr()

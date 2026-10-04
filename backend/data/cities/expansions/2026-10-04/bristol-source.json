@@ -1,0 +1,36 @@
+{
+  "city_id": "bristol",
+  "coverage_label": "Bristol expanded district",
+  "bbox": [
+    -2.621,
+    51.443,
+    -2.587,
+    51.466
+  ],
+  "centre_lon_lat": [
+    -2.604,
+    51.454499999999996
+  ],
+  "query_bbox_south_west_north_east": [
+    51.443,
+    -2.621,
+    51.466,
+    -2.587
+  ],
+  "query": "[out:json][timeout:120][maxsize:268435456];(way[\"building\"](51.443,-2.621,51.466,-2.587);way[\"highway\"][\"name\"](51.443,-2.621,51.466,-2.587););out tags geom;",
+  "source_url": "https://overpass-api.de/api/interpreter",
+  "downloaded_at": "2026-10-04T11:55:56.827806+00:00",
+  "osm_timestamp": "2026-10-04T11:54:21Z",
+  "sha256": "62eab0be26d39050445ffe7d48e981c264d8ff013710ebbf9f50a0479e6610ac",
+  "bytes": 9537587,
+  "elements": 12715,
+  "building_ways": 10906,
+  "road_ways": 1809,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 12.493,
+  "previous_attempts": []
+}

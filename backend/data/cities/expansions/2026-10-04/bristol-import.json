@@ -1,0 +1,90 @@
+{
+  "city_id": "bristol",
+  "source_sha256": "62eab0be26d39050445ffe7d48e981c264d8ff013710ebbf9f50a0479e6610ac",
+  "source_building_ways": 10906,
+  "imported_buildings": 10891,
+  "imported_roads": 1793,
+  "query_bbox_wgs84": [
+    -2.621,
+    51.443,
+    -2.587,
+    51.466
+  ],
+  "actual_data_bbox_wgs84": [
+    -2.625217,
+    51.4417912,
+    -2.5833128,
+    51.4685133
+  ],
+  "height_policy": {
+    "height-tag": 24,
+    "levels-derived": 1534,
+    "assumed": 9333
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 15444893,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 15718953,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 36991063,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 48937938,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 99198514,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 123981294,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 128790927,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 175488942,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 207653246,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 444252427,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 671114378,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 677490962,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 784449668,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 1156325193,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 1156325195,
+      "reason": "OSM building:min_level '3' has unsupported vertical semantics; not grounded"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 20097764,
+  "gugis_sha256": "83f9e624a502e00c2dc70ed7a76f8b2ce4e8a0d34dc718a37d01092fbe218fa7"
+}

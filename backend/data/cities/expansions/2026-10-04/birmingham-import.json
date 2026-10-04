@@ -1,0 +1,62 @@
+{
+  "city_id": "birmingham",
+  "source_sha256": "fffc6c33a5f1f0b89682f5df1ecf9d4486eec4156e58eb382d6c901f891fb556",
+  "source_building_ways": 4129,
+  "imported_buildings": 4121,
+  "imported_roads": 2131,
+  "query_bbox_wgs84": [
+    -1.927,
+    52.469,
+    -1.888,
+    52.494
+  ],
+  "actual_data_bbox_wgs84": [
+    -1.9315588,
+    52.4659234,
+    -1.8829938,
+    52.496902
+  ],
+  "height_policy": {
+    "height-tag": 272,
+    "levels-derived": 556,
+    "assumed": 3293
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 29997398,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 37716925,
+      "reason": "OSM min_height '20' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 49023587,
+      "reason": "OSM min_height '6' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 195934961,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 241968336,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 258753004,
+      "reason": "OSM height '0' is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 583279291,
+      "reason": "OSM building:min_level '-1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 883020076,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 8273517,
+  "gugis_sha256": "9e553b4c185e155235faad02b7f5624dfe0180eb6ce95c8175513c2b24eb87f7"
+}

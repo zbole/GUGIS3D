@@ -18,7 +18,7 @@ import zipfile
 DATA_ROOT = Path(__file__).resolve().parents[2] / 'data' / 'cities'
 AUDIT_NAME = 'source-candidates-audit-v1.json'
 # Updating the audit requires code review, including decoded-geometry tests.
-AUDIT_SHA256 = 'fd90ecf968f93d2000f6a61648ca85cd5d30d0b68e532f6a58dc22b1cc6d1de6'
+AUDIT_SHA256 = 'f91daf40f2bc0e161da88c8849d48a70a86a90080a940e1a524e170babecb0e9'
 MAX_AUDIT_BYTES = 64 * 1024
 MAX_DOCUMENT_BYTES = 4 * 1024 * 1024
 MAX_RECEIPT_BYTES = 64 * 1024
@@ -52,7 +52,7 @@ def input_paths(city_id):
     if city_id not in CANDIDATE_CITIES:
         raise CandidateNotFound('No audited source candidate for this city')
     return {
-        'baseline_archive': (f'{city_id}.gugis.json', MAX_DOCUMENT_BYTES),
+        'baseline_archive': (f'baselines/v1/{city_id}.gugis.json', MAX_DOCUMENT_BYTES),
         'baseline_receipt': (f'{city_id}-import.json', MAX_RECEIPT_BYTES),
         'candidate_archive': (f'candidates/v2/{city_id}.gugis.json', MAX_DOCUMENT_BYTES),
         'candidate_receipt': (f'candidates/v2/{city_id}-import.json', MAX_RECEIPT_BYTES),
@@ -221,7 +221,7 @@ def package_notice(city_id):
         "The raw OpenStreetMap extract and original seed archive are NOT bundled.\n"
         "In the originating GUGIS repository they are retained at:\n"
         f"  backend/data/cities/{city_id}-osm.json\n"
-        f"  backend/data/cities/{city_id}.gugis.json\n"
+        f"  backend/data/cities/baselines/v1/{city_id}.gugis.json\n"
         "The source and seed hashes in audit-summary.json identify those exact files.\n"
         "The original README.md describes the repository layout, including sources\n"
         "two directories above; those relative paths do not describe this ZIP.\n\n"

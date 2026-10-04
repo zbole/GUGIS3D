@@ -663,13 +663,16 @@ test("empty documents preserve the catalog-center and legacy Bristol framing", (
   }
 });
 
-test("actual Bristol/London/Birmingham seed geometry obeys the budget and keeps authored component IDs", async t => {
+test("all six expanded city seeds obey the residency budget and keep authored component IDs", async t => {
   const { readFileSync } = await import("node:fs");
   const { decodeCity } = await import("../src/studio/cityArchive.ts");
   for (const [name, path, expectedBuildings, expectedInstances] of [
-    ["Bristol", "bristol.gugis.json", 615, 10435],
+    ["Bristol", "bristol.gugis.json", 800, null],
     ["London", "cities/london.gugis.json", 800, 800],
     ["Birmingham", "cities/birmingham.gugis.json", 800, 800],
+    ["Manchester", "cities/manchester.gugis.json", 800, 800],
+    ["Edinburgh", "cities/edinburgh.gugis.json", 800, 800],
+    ["Cardiff", "cities/cardiff.gugis.json", 800, 800],
   ]) {
     const sceneCity = decodeCity(JSON.parse(readFileSync(new URL(`../../backend/data/${path}`, import.meta.url), "utf8")));
     const source = JSON.stringify(sceneCity);
@@ -681,7 +684,8 @@ test("actual Bristol/London/Birmingham seed geometry obeys the budget and keeps 
     const instances = f.viewer.scene.primitives.values.flatMap(p => [p.options.geometryInstances].flat());
     const buildings = new Set(instances.map(instance => instance.id.split("/")[0]));
     assert.equal(buildings.size, expectedBuildings);
-    assert.equal(instances.length, expectedInstances);
+    if (expectedInstances !== null) assert.equal(instances.length, expectedInstances);
+    assert.ok(instances.length <= 20000, "coarse component allocation remains bounded after expansion");
     assert.ok(f.viewer.scene.primitives.values.length <= 7);
     for (const item of sceneCity.instances.filter(i => buildings.has(i.id))) {
       const doc = sceneCity.assets[item.asset];

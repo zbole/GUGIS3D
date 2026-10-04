@@ -57,7 +57,7 @@ test("delete prunes only unreferenced assets and undo can restore the previous i
   assert.ok(next.assets.georgian);
   assert.ok(placedDocument(city, "georgian0"));
   assert.equal(placedDocument(next, "georgian0"), null);
-  assert.equal(collectAssets(city).instances.length, 615);
+  assert.equal(collectAssets(city).instances.length, city.instances.length);
 });
 test("complete JSON roundtrip retains shared models and editable node graphs", () => {
   const restored = JSON.parse(JSON.stringify(city));

@@ -23,10 +23,10 @@ class CityTests(unittest.TestCase):
         cls.sample=cls.city.model_copy(update={'assets':{first.asset:cls.city.assets[first.asset]},'instances':[first],'roads':cls.city.roads[:1]})
 
     def test_city_retains_real_context_and_reusable_detailed_models(self):
-        self.assertEqual(len(self.city.instances),615)
-        self.assertEqual(len(self.city.assets),605)
+        self.assertEqual(len(self.city.instances),10907)
+        self.assertEqual(len(self.city.assets),10897)
         self.assertEqual(sum(self.city.assets[i.asset].parameters.kind=='urban' for i in self.city.instances),600)
-        self.assertEqual(sum(self.city.assets[i.asset].parameters.kind=='footprint' for i in self.city.instances),0)
+        self.assertEqual(sum(self.city.assets[i.asset].parameters.kind=='footprint' for i in self.city.instances),10292)
         self.assertEqual(sum(i.asset=='victorian' for i in self.city.instances),6)
         self.assertIn('OpenStreetMap',self.city.metadata['轮廓数据'])
         self.assertEqual(CityDocument.model_validate_json(city_bytes(self.city)),self.city)

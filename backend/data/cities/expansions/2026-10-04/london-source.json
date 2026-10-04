@@ -1,0 +1,36 @@
+{
+  "city_id": "london",
+  "coverage_label": "London expanded district",
+  "bbox": [
+    -0.151,
+    51.491,
+    -0.114,
+    51.513
+  ],
+  "centre_lon_lat": [
+    -0.1325,
+    51.501999999999995
+  ],
+  "query_bbox_south_west_north_east": [
+    51.491,
+    -0.151,
+    51.513,
+    -0.114
+  ],
+  "query": "[out:json][timeout:120][maxsize:268435456];(way[\"building\"](51.491,-0.151,51.513,-0.114);way[\"highway\"][\"name\"](51.491,-0.151,51.513,-0.114););out tags geom;",
+  "source_url": "https://overpass-api.de/api/interpreter",
+  "downloaded_at": "2026-10-04T11:56:02.295668+00:00",
+  "osm_timestamp": "2026-10-04T11:54:21Z",
+  "sha256": "99431de66f706bdbb91f7c771cffeca15b3c69c06f18851e7958412b100a11cb",
+  "bytes": 7232134,
+  "elements": 8840,
+  "building_ways": 5407,
+  "road_ways": 3438,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 5.438,
+  "previous_attempts": []
+}

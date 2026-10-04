@@ -11,7 +11,7 @@ export function overviewExport(report: OverviewReport, view: OverviewView, forma
   const target = view.targetCentimetres ?? 1;
   if (!Number.isFinite(target) || target <= 0) throw new Error("高程差目标必须为正的有限厘米值。");
   const scope = {
-    city: "bristol", coverage: "布里斯托起始街区；非全城覆盖",
+    city: "bristol", coverage: "布里斯托扩展样本街区；非全城覆盖",
     terrain: report.demonstration ? "合成演示地形；非实测 DTM" : "已保存地形快照",
     comparison: "GUGIS 原生曲面 vs 本项目导出的 ArcGIS 兼容 MultiPatch 参考读回",
     arcgisRuntime: "not-measured", targetCentimetres: target,

@@ -37,7 +37,7 @@ if (demo.city.buildings !== city.instances.length || !Object.values(demo.inMemor
 }
 const evidence = {
   revision,
-  archive: "布里斯托起始街区（并非整座城市）",
+  archive: "布里斯托扩展样本街区（并非整座城市）",
   city: {
     buildings: city.instances.length,
     modelDefinitions: Object.keys(city.assets).length,
@@ -48,7 +48,7 @@ const evidence = {
     placedComponents: sample.component_instances,
   },
   provenance: {
-    scope: city.metadata?.["范围"] ?? "",
+    scope: city.metadata?.coverage_label ?? city.metadata?.["范围"] ?? "",
     terrainFile: city.environment?.terrain?.source?.["文件"] ?? "",
     terrainAccuracy: city.environment?.terrain?.source?.["误差说明"] ?? "",
   },

@@ -1,4 +1,5 @@
 import { normalizeTileLoadingProfile, type TileLoadingProfile } from "./renderTileClient";
+import workspaceCatalog from "../../../shared/city-workspaces.json";
 
 export interface CityWorkspace {
   id: string;
@@ -27,8 +28,8 @@ export const defaultCityWorkspace: CityWorkspace = {
   center_wgs84: [-2.603, 51.454],
 };
 
-export const knownCities = ["bristol", "london", "birmingham"] as const;
-export type CityId = typeof knownCities[number];
+export type CityId = "bristol" | "london" | "birmingham" | "manchester" | "edinburgh" | "cardiff";
+export const knownCities = workspaceCatalog.map(record => record.id as CityId);
 
 export function cityIdFromSearch(search: string): CityId {
   const id = new URLSearchParams(search).get("city");
@@ -83,14 +84,17 @@ export function citySourceLicense(workspace: CityWorkspace): { url: string; labe
 export function cityCenter(workspace: CityWorkspace): { longitude: number; latitude: number } {
   const bounds = workspace.query_bbox_wgs84;
   const center = workspace.center_wgs84 ?? (bounds ? [(bounds[0] + bounds[2]) / 2, (bounds[1] + bounds[3]) / 2] : undefined);
-  const fallback = workspace.id === "london" ? [-0.1276, 51.5072]
-    : workspace.id === "birmingham" ? [-1.9027, 52.4797] : [-2.603, 51.454];
+  const bundled = workspaceCatalog.find(record => record.id === workspace.id)?.query_bbox_wgs84;
+  const fallback = bundled ? [(bundled[0] + bundled[2]) / 2, (bundled[1] + bundled[3]) / 2] : [-2.603, 51.454];
   return { longitude: center?.[0] ?? fallback[0], latitude: center?.[1] ?? fallback[1] };
 }
 
 export async function loadCityWorkspaces(): Promise<CityWorkspace[]> {
   const base = (import.meta.env.VITE_API_BASE_URL ?? "/api").replace(/\/$/, "");
-  const response = await fetch(`${base}/cities`, { cache: "no-store", signal: AbortSignal.timeout(15000) });
+  // A cold catalogue validates every saved workspace once. Expanded cities
+  // must not appear broken merely because their first validation exceeds 15s.
+  // Subsequent requests reuse bounded backend summaries; no geometry is sent.
+  const response = await fetch(`${base}/cities`, { cache: "no-store", signal: AbortSignal.timeout(45000) });
   if (!response.ok) throw new Error(`城市目录读取失败（${response.status}）`);
   const result = await response.json();
   if (!result || !Array.isArray(result.cities)) throw new Error("城市目录格式无效");

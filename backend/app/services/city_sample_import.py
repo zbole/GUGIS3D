@@ -6,8 +6,8 @@ import re
 from pathlib import Path
 from ..city_models import CityDocument, Road
 from .city_generator import footprint_document
+from .workspace_catalog import CITY_NAMES
 
-CITY_NAMES = {'london': '伦敦', 'birmingham': '伯明翰'}
 MIN_SAMPLE_HEIGHT = 0.1
 MAX_SAMPLE_HEIGHT = 1000.0
 

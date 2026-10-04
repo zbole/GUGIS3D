@@ -1,0 +1,62 @@
+{
+  "city_id": "cardiff",
+  "source_sha256": "edffbc41f4efcfeff194a2db43e2655ba04b0070a1181aab984eea6007c02e5e",
+  "source_building_ways": 4480,
+  "imported_buildings": 4472,
+  "imported_roads": 1040,
+  "query_bbox_wgs84": [
+    -3.19,
+    51.47,
+    -3.166,
+    51.491
+  ],
+  "actual_data_bbox_wgs84": [
+    -3.2001608,
+    51.4646377,
+    -3.1630368,
+    51.4972265
+  ],
+  "height_policy": {
+    "height-tag": 58,
+    "levels-derived": 1032,
+    "assumed": 3382
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 26763799,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 92221262,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 810046771,
+      "reason": "Underground buildings are unsupported by this ground-based importer"
+    },
+    {
+      "osm_way": 923034702,
+      "reason": "OSM building:min_level '3' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 980399534,
+      "reason": "Underground buildings are unsupported by this ground-based importer"
+    },
+    {
+      "osm_way": 980399535,
+      "reason": "Underground buildings are unsupported by this ground-based importer"
+    },
+    {
+      "osm_way": 1417645587,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 1452854467,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 8940081,
+  "gugis_sha256": "ddfaec4d489990702d7bb65311098f28d3313a442028aa8369aa2be4b7470189"
+}

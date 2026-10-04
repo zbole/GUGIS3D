@@ -1,0 +1,36 @@
+{
+  "city_id": "cardiff",
+  "coverage_label": "Cardiff city centre",
+  "bbox": [
+    -3.19,
+    51.47,
+    -3.166,
+    51.491
+  ],
+  "centre_lon_lat": [
+    -3.178,
+    51.4805
+  ],
+  "query_bbox_south_west_north_east": [
+    51.47,
+    -3.19,
+    51.491,
+    -3.166
+  ],
+  "query": "[out:json][timeout:120][maxsize:268435456];(way[\"building\"](51.47,-3.19,51.491,-3.166);way[\"highway\"][\"name\"](51.47,-3.19,51.491,-3.166););out tags geom;",
+  "source_url": "https://overpass-api.de/api/interpreter",
+  "downloaded_at": "2026-10-04T11:45:08.370009+00:00",
+  "osm_timestamp": "2026-10-04T11:44:06Z",
+  "sha256": "edffbc41f4efcfeff194a2db43e2655ba04b0070a1181aab984eea6007c02e5e",
+  "bytes": 4157897,
+  "elements": 5522,
+  "building_ways": 4482,
+  "road_ways": 1040,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 7.344,
+  "previous_attempts": []
+}

@@ -1,0 +1,80 @@
+[
+  {
+    "id": "bristol",
+    "name": "布里斯托",
+    "city_name": "Bristol",
+    "coverage_label": "布里斯托中心样本街区（非全城覆盖）",
+    "query_bbox_wgs84": [
+      -2.621,
+      51.443,
+      -2.587,
+      51.466
+    ],
+    "related_registry_id": "uk-eng-bristol"
+  },
+  {
+    "id": "london",
+    "name": "伦敦",
+    "city_name": "London",
+    "coverage_label": "伦敦 Westminster 中心样本街区（非全城覆盖）",
+    "query_bbox_wgs84": [
+      -0.151,
+      51.491,
+      -0.114,
+      51.513
+    ],
+    "related_registry_id": "uk-eng-westminster"
+  },
+  {
+    "id": "birmingham",
+    "name": "伯明翰",
+    "city_name": "Birmingham",
+    "coverage_label": "伯明翰中心样本街区（非全城覆盖）",
+    "query_bbox_wgs84": [
+      -1.927,
+      52.469,
+      -1.888,
+      52.494
+    ],
+    "related_registry_id": "uk-eng-birmingham"
+  },
+  {
+    "id": "manchester",
+    "name": "曼彻斯特",
+    "city_name": "Manchester",
+    "coverage_label": "曼彻斯特中心样本街区（非全城覆盖）",
+    "query_bbox_wgs84": [
+      -2.263,
+      53.471,
+      -2.228,
+      53.492
+    ],
+    "related_registry_id": "uk-eng-manchester"
+  },
+  {
+    "id": "edinburgh",
+    "name": "爱丁堡",
+    "city_name": "Edinburgh",
+    "coverage_label": "爱丁堡 Old Town / New Town 样本街区（非全城覆盖）",
+    "query_bbox_wgs84": [
+      -3.21,
+      55.938,
+      -3.177,
+      55.96
+    ],
+    "related_registry_id": "uk-sct-edinburgh"
+  },
+  {
+    "id": "cardiff",
+    "name": "卡迪夫",
+    "city_name": "Cardiff",
+    "coverage_label": "卡迪夫中心样本街区（非全城覆盖）",
+    "query_bbox_wgs84": [
+      -3.19,
+      51.47,
+      -3.166,
+      51.491
+    ],
+    "related_registry_id": "uk-wls-cardiff"
+  }
+]

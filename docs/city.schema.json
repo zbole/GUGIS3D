@@ -190,7 +190,7 @@
           "type": "string"
         },
         "assets": {
-          "maxProperties": 3000,
+          "maxProperties": 15000,
           "patternProperties": {
             "^[a-zA-Z0-9_-]{1,64}$": {
               "$ref": "#/$defs/BuildingDocument"
@@ -203,7 +203,7 @@
           "items": {
             "$ref": "#/$defs/Placement"
           },
-          "maxItems": 5000,
+          "maxItems": 15000,
           "title": "Instances",
           "type": "array"
         },
@@ -211,7 +211,7 @@
           "items": {
             "$ref": "#/$defs/Road"
           },
-          "maxItems": 3000,
+          "maxItems": 10000,
           "title": "Roads",
           "type": "array"
         },
@@ -696,7 +696,7 @@
           "type": "object"
         },
         "assets": {
-          "maxProperties": 3000,
+          "maxProperties": 15000,
           "patternProperties": {
             "^[a-zA-Z0-9_-]{1,64}$": {
               "$ref": "#/$defs/PooledBuilding"
@@ -709,7 +709,7 @@
           "items": {
             "$ref": "#/$defs/Placement"
           },
-          "maxItems": 5000,
+          "maxItems": 15000,
           "title": "Instances",
           "type": "array"
         },
@@ -717,7 +717,7 @@
           "items": {
             "$ref": "#/$defs/Road"
           },
-          "maxItems": 3000,
+          "maxItems": 10000,
           "title": "Roads",
           "type": "array"
         },

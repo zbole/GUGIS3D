@@ -286,7 +286,7 @@ test("the rendered comparison exposes recheck/retry, announces honest status, an
   const measured = () => text(f.root.findByProps({ className: "cmp-memory-lead" }));
   const originalMetadata = snapshotMetadata(), originalMeasured = measured();
   assert.equal(f.root.findByType("main").findAllByProps({ "aria-label": "城市实测快照校对" }).length, 1);
-  assert.match(text(status()), /布里斯托起始街区.*地形为合成演示.*ArcGIS 软件运行值待测/);
+  assert.match(text(status()), /布里斯托扩展样本街区.*地形为合成演示.*ArcGIS 软件运行值待测/);
   assert.equal(button().props.type, "button");
   assert.equal(button().props.disabled, true);
   assert.equal(status().props["aria-live"], "polite");

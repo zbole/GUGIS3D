@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import {
   ArrowDown,
   ArrowRight,
@@ -20,6 +20,8 @@ import ComparisonOverview from "./ComparisonOverview";
 import { useProjectFreshness, type ProjectFreshness } from "./useProjectFreshness";
 import { cityWorkspaceHref, defaultCityWorkspace, type CityWorkspace } from "../studio/cityWorkspaces";
 import type { CityApi } from "../studio/cityApi";
+const ImplicitTerrainBenchmark = lazy(() => import('./ImplicitTerrainBenchmark'));
+const researchSection = <Suspense fallback={<p role="status">正在载入真实地形研究基准…</p>}><ImplicitTerrainBenchmark /></Suspense>;
 import "./compare.css";
 
 const sources = {
@@ -38,7 +40,7 @@ const cases = [
     number: "01",
     title: "城市三维场景",
     icon: Layers3,
-    gugis: `${evidence.city.buildings} 栋建筑、${evidence.city.roads} 条道路、${evidence.city.terrainPatches} 个地形面片保存在布里斯托起始街区档案中。`,
+    gugis: `${evidence.city.buildings} 栋建筑、${evidence.city.roads} 条道路、${evidence.city.terrainPatches} 个地形面片保存在布里斯托扩展样本街区档案中。`,
     arcgis: "Scene Viewer 支持三维场景、图层、底图、测量和环境设置。",
     result: "双方具备三维场景；ArcGIS 的现成浏览工具更完整。",
     source: sources.scene,
@@ -171,13 +173,14 @@ function CityIllustration() {
 }
 
 export default function CompareShowcase({ workspace = defaultCityWorkspace, api }: { workspace?: CityWorkspace; api?: CityApi } = {}) {
-  if (workspace.id !== "bristol") return <div className="city-comparison-pending">
+  if (workspace.id !== "bristol") return <div className="compare-page"><div className="city-comparison-pending">
     <span>GUGIS3D × ArcGIS / {workspace.name}</span>
     <h1>{workspace.status === "pending" ? "城市数据待导入，" : "已导入城市数据，"}<br />对比实验待建立。</h1>
     <p>{workspace.coverage_label}。当前未生成此城市的同源基准报告；布里斯托的存储节省、查询精度及剖面结果只对应布里斯托样本。</p>
     <a href={cityWorkspaceHref(workspace.id)}>进入{workspace.name}三维工作区 →</a>
     <a href="/compare">查看布里斯托已核验的对比证据 →</a>
-  </div>;
+    <a href="#implicit-terrain">查看跨城市独立地形研究基准 →</a>
+  </div>{researchSection}</div>;
   return <BristolComparison api={api} />;
 }
 
@@ -186,7 +189,7 @@ function ComparisonSnapshot({ freshness, recheck }: { freshness: ProjectFreshnes
     <span className="cmp-snapshot-icon"><Database size={16} aria-hidden="true" /></span>
     <div className="cmp-snapshot-copy" role="status" aria-live="polite" aria-atomic="true" aria-busy={freshness === "checking"}>
       <strong>{freshness === "current" ? "实测快照与当前项目一致" : freshness === "changed" ? "项目已改变：本页结果属于已保存快照" : freshness === "offline" ? "无法校对当前项目：展示已保存的实测快照" : freshness === "paused" ? "页面已暂停校对：展示已保存的实测快照" : "正在校对当前项目修订号"}</strong>
-      <span className="cmp-snapshot-scope">布里斯托起始街区 · {evidence.terrainBenchmark.demonstration ? "地形为合成演示" : "已保存地形快照"} · ArcGIS 软件运行值待测</span>
+      <span className="cmp-snapshot-scope">布里斯托扩展样本街区 · {evidence.terrainBenchmark.demonstration ? "地形为合成演示" : "已保存地形快照"} · ArcGIS 软件运行值待测</span>
       <details className="cmp-snapshot-metadata"><summary>快照来源与测量环境</summary>
         <small>SHA-256 {evidence.revision} · {evidence.city.buildings} 栋 · Node {evidence.memory.runtime}</small>
         <span className="cmp-snapshot-note">返回页面时自动校对；重新校对只检查修订号，不会重新测量或修改项目。</span>
@@ -222,7 +225,7 @@ function BristolComparison({ api }: { api?: CityApi }) {
     <div className="compare-page">
       <header className="cmp-header">
         <a href="/" className="cmp-logo" aria-label="返回 GUGIS3D 城市工作台"><span className="cmp-logo-mark">G<span>3</span></span><span>GUGIS<em>3D</em></span></a>
-        <nav aria-label="对比展示导航"><a href="#comparison-overview">结果总览</a><a href="#terrain-benchmark">地形结构</a><a href="#terrain-lab">精度与查询</a><a href="#derivative-title">坡度分析</a><a href="#evidence">城市实测</a><a href="#comparison">功能对照</a><a href="#method">实验边界</a></nav>
+        <nav aria-label="对比展示导航"><a href="#comparison-overview">结果总览</a><a href="#implicit-terrain">论文同源实测</a><a href="#terrain-benchmark">地形结构</a><a href="#terrain-lab">精度与查询</a><a href="#derivative-title">坡度分析</a><a href="#evidence">城市实测</a><a href="#comparison">功能对照</a><a href="#method">实验边界</a></nav>
         <a href="/" className="cmp-header-action">进入三维工作台 <ArrowUpRight size={16}/></a>
       </header>
       <main>
@@ -232,7 +235,7 @@ function BristolComparison({ api }: { api?: CityApi }) {
             <div className="cmp-issue"><span className="cmp-issue-dot"/> GUGIS3D / 对比证据 <span>2026</span></div>
             <p className="cmp-hero-overline">GUGIS3D <span>×</span> ArcGIS / 布里斯托试点</p>
             <h1 id="cmp-title">让城市模型<br/><span>看得见，</span><br/>也算得清。</h1>
-            <p className="cmp-hero-description">以布里斯托起始街区为样本，把 GUGIS3D 的结构化建模与 ArcGIS 官方产品能力放在同一张证据板上。功能逐项对照，数值公开边界，结果可以复核。</p>
+            <p className="cmp-hero-description">以布里斯托扩展样本街区为样本，把 GUGIS3D 的结构化建模与 ArcGIS 官方产品能力放在同一张证据板上。功能逐项对照，数值公开边界，结果可以复核。</p>
             <div className="cmp-hero-actions"><a href="#comparison-overview" className="cmp-btn cmp-btn-dark">查看对比结果 <ArrowRight size={18}/></a><a href="#evidence" className="cmp-btn cmp-btn-light">查看城市数据 <ArrowDown size={18}/></a></div>
             <div className="cmp-proofline"><span><Check size={15}/> 已保存项目快照</span><span><Check size={15}/> 官方 ArcGIS 文档</span><span><Check size={15}/> 可复现实验脚本</span></div>
           </div>
@@ -240,13 +243,14 @@ function BristolComparison({ api }: { api?: CityApi }) {
         </section>
 
         <section className="cmp-statstrip" aria-label="已保存城市快照关键数据">
-          <div><strong>{evidence.city.buildings}</strong><span>栋建筑</span><small>布里斯托起始街区</small></div>
+          <div><strong>{evidence.city.buildings}</strong><span>栋建筑</span><small>布里斯托扩展样本街区</small></div>
           <div><strong>{(evidence.city.placedComponents / 1000).toFixed(1)}<i>K</i></strong><span>构件实例</span><small>来自共享模型定义</small></div>
           <div><strong>{evidence.city.terrainPatches.toLocaleString()}</strong><span>地形面片</span><small>原生地形表达</small></div>
           <div className="cmp-stat-feature"><strong>{(terrainSuite.variants[0].gugisTerrainBytes / 1e6).toFixed(3)}<i> MB</i></strong><span>原生地形文件</span><small>四档对照使用同一份 GUGIS 数据</small></div>
         </section>
 
         <ComparisonOverview resolution={resolution} onResolutionChange={setResolution} targetCentimetres={targetCentimetres}/>
+        {researchSection}
 
         <section className="cmp-section cmp-terrain-benchmark" id="terrain-benchmark">
           <div className="cmp-section-heading"><div><p className="cmp-kicker">01 / 结构与固定档位示例</p><h2>同一控制网，<br/>两种地形表达。</h2></div><p>以下固定展示 <strong>2×2 三角带离散示例</strong>，与上方 1 cm 目标的 8×8 档位分开。文件使用 ArcGIS 兼容 MultiPatch Shapefile；所有面片写成 Triangle Strip，并保留面片编号。</p></div>
@@ -312,7 +316,7 @@ function BristolComparison({ api }: { api?: CityApi }) {
 
         <section className="cmp-end"><span>GUGIS3D / 布里斯托试点</span><h2>从可视化，走向<br/>可演算的城市。</h2><a href="/" className="cmp-btn cmp-btn-dark">进入城市工作台 <ArrowUpRight size={18}/></a></section>
       </main>
-      <footer className="cmp-footer"><div><strong>GUGIS3D</strong><span>城市结构表达研究原型 · 布里斯托起始街区</span></div><p>地标与部分建筑为参考／推演模型；当前地形由解析函数生成，非实测 DTM。</p><div className="cmp-footer-links"><a href={sources.scene} target="_blank" rel="noreferrer">Scene Viewer</a><a href={sources.cga} target="_blank" rel="noreferrer">CityEngine</a><a href="/">工作台</a></div></footer>
+      <footer className="cmp-footer"><div><strong>GUGIS3D</strong><span>城市结构表达研究原型 · 布里斯托扩展样本街区</span></div><p>地标与部分建筑为参考／推演模型；当前地形由解析函数生成，非实测 DTM。</p><div className="cmp-footer-links"><a href={sources.scene} target="_blank" rel="noreferrer">Scene Viewer</a><a href={sources.cga} target="_blank" rel="noreferrer">CityEngine</a><a href="/">工作台</a></div></footer>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { act, create } from "react-test-renderer";
 import { Rectangle, ScreenSpaceEventType, Cartesian2, Cartesian3, Ellipsoid, Matrix4 } from "cesium";
 import { componentBundle } from "./helpers/componentBundle.mjs";
 import { viewState } from "./helpers/cesiumMock.mjs";
+import { initialTileViewBounds, tileLoadingProfiles } from "../src/studio/renderTileClient.ts";
 
 // Exercise the real loader and scene with real Cesium geometry, but no WebGL.
 const Preview = await componentBundle("CityTilePreview", [{
@@ -26,6 +27,9 @@ const workspaces = Object.fromEntries([
   ["bristol", "布里斯托", -2.603, 51.454],
   ["london", "伦敦", -0.1276, 51.5072],
   ["birmingham", "伯明翰", -1.9027, 52.4797],
+  ["manchester", "曼彻斯特", -2.2455, 53.4815],
+  ["edinburgh", "爱丁堡", -3.1935, 55.949],
+  ["cardiff", "卡迪夫", -3.178, 51.4805],
 ].map(([id, name, lon, lat]) => [id, { id, name, status: "ready", coverage_kind: "sample-area",
   coverage_label: "目录覆盖说明", center_wgs84: [lon, lat] }]));
 
@@ -135,7 +139,7 @@ function fixture(t, cityId = "bristol", cameraNavigation, tileProfile) {
     unmount() { if (mounted) { act(() => renderer.unmount()); mounted = false; } },
     assertReadOnly() {
       for (const { url, options } of requests) {
-        assert.match(url, /^\/api\/cities\/(bristol|london|birmingham)\/render\/(manifest|[a-f0-9]{64}\/tiles\/x-?\d+_y-?\d+)$/);
+        assert.match(url, /^\/api\/cities\/(bristol|london|birmingham|manchester|edinburgh|cardiff)\/render\/(manifest|[a-f0-9]{64}\/tiles\/x-?\d+_y-?\d+)$/);
         assert.equal(options.method ?? "GET", "GET");
         assert.equal(options.body, undefined);
         assert.ok(options.signal instanceof AbortSignal);
@@ -803,7 +807,7 @@ test("unknown caller profiles use balanced ceilings and never accept custom nume
 
 // These regressions use the actual retained manifests and Cesium's real Camera
 // maths. No hand-written viewport rectangle can conceal off-target framing.
-const retainedPackages = Object.fromEntries(await Promise.all(["bristol", "london", "birmingham"].map(async city => {
+const retainedPackages = Object.fromEntries(await Promise.all(Object.keys(workspaces).map(async city => {
   const bytes = await readFile(new URL(`./fixtures/render-manifests/${city}.json`, import.meta.url));
   return [city, { manifest: JSON.parse(bytes), manifestResponse() {
     return new Response(bytes, { headers: { etag: `"${hash(bytes)}"`, "content-length": String(bytes.length) } });
@@ -815,7 +819,8 @@ function enableRealCamera(t, dimensions) {
   t.after(() => { viewState.realCameraDimensions = previous; });
 }
 function assertSampleTarget(f, pkg, dimensions, profile) {
-  const [width, height] = dimensions, [west, south, east, north] = pkg.manifest.bounds_wgs84;
+  const [longitude, latitude] = workspaces[pkg.manifest.city_id].center_wgs84;
+  const [width, height] = dimensions, [west, south, east, north] = initialTileViewBounds(pkg.manifest, {longitude,latitude}, tileLoadingProfiles[profile]);
   const point = f.viewer.camera.pickEllipsoid(new Cartesian2(width / 2, height / 2), Ellipsoid.WGS84);
   assert.ok(point, "real camera center intersects the ellipsoid");
   assert.ok(Cartesian3.distance(point, Cartesian3.fromDegrees((west + east) / 2, (south + north) / 2)) < .01,
@@ -829,7 +834,7 @@ function assertSampleTarget(f, pkg, dimensions, profile) {
   assert.equal(f.viewer.camera.sets.length, 0, "default uses target framing, never an arbitrary position above it");
   assert.equal(f.viewer.camera.flights.length, 0, "initial fit cannot overwrite target restoration");
 }
-for (const city of ["bristol", "london", "birmingham"]) for (const profile of ["balanced", "economy"]) {
+for (const city of Object.keys(workspaces)) for (const profile of ["balanced", "economy"]) {
   for (const dimensions of [[1040, 500], [800, 500], [1400, 400], [390, 700]]) {
     test(`${city} ${profile} ${dimensions.join("x")} ordinary entry and explicit current default stream the real sample`, async t => {
       enableRealCamera(t, dimensions);
@@ -856,6 +861,27 @@ for (const city of ["bristol", "london", "birmingham"]) for (const profile of ["
     });
   }
 }
+test("an expanded city can show its full verified extent and return to a bounded neighborhood without rebuilding its viewer", async t => {
+  const dimensions=[1040,500]; enableRealCamera(t,dimensions);
+  const f=fixture(t,"cardiff",{sequence:1,result:{kind:"none"}},"economy"),pkg=retainedPackages.cardiff;
+  await f.manifest(pkg);
+  await until(()=>f.requests.length>1,"initial neighborhood viewport accepted");
+  assertSampleTarget(f,pkg,dimensions,"economy");
+  const viewer=f.viewer, initialAltitude=viewer.camera.positionCartographic.height;
+  f.click("查看样本全范围");
+  await until(()=>viewer.camera.frames.length===2,"explicit overview is applied once");
+  const [w,s,e,n]=pkg.manifest.bounds_wgs84;
+  const hit=viewer.camera.pickEllipsoid(new Cartesian2(520,250),Ellipsoid.WGS84);
+  assert.ok(Cartesian3.distance(hit,Cartesian3.fromDegrees((w+e)/2,(s+n)/2))<.01);
+  assert.ok(viewer.camera.positionCartographic.height>initialAltitude*2,"initial neighborhood is visibly closer than the expanded full sample");
+  f.click("返回中心街区");
+  await until(()=>viewer.camera.frames.length===3,"return uses a new guarded viewport");
+  assert.equal(f.viewer,viewer);
+  assert.ok(Math.abs(viewer.camera.positionCartographic.height-initialAltitude)<.01);
+  assert.equal(f.requests.filter(r=>r.url.endsWith('/manifest')).length,1);
+  f.assertReadOnly();
+});
+
 for (const profile of ["balanced", "economy"]) for (const dimensions of [[1040, 500], [390, 700]]) {
   test(`${profile} ${dimensions.join("x")} city switching frames each actual sample and releases prior camera sessions`, async t => {
     enableRealCamera(t, dimensions);

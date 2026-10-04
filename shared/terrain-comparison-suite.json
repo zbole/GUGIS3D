@@ -1,7 +1,7 @@
 {
   "schema": "gugis-terrain-comparison-suite-v1",
-  "bundleId": "f11f44921cbfb1becba1235156e450272726700db1e32d2ac4a3f6753309b1fa",
-  "cityRevision": "111386c0f6a024c5c1139de92dbb564c3a8d98a38b3e9e9b7696024bf4382827",
+  "bundleId": "e995502f92f7412f535cda655122350302838c5f695a996306649211b5b8ebe6",
+  "cityRevision": "bae9c53417005627baca1cf50890d2d5473b0303c2b220830d05d18307c68a1b",
   "terrainName": "布里斯托范围 · 方法演示地形（非实测）",
   "demonstration": true,
   "verticalDatum": "local",
@@ -31,7 +31,7 @@
   "variants": [
     {
       "method": "gugis-terrain-json-vs-esri-multipatch-triangle-strip",
-      "cityRevision": "111386c0f6a024c5c1139de92dbb564c3a8d98a38b3e9e9b7696024bf4382827",
+      "cityRevision": "bae9c53417005627baca1cf50890d2d5473b0303c2b220830d05d18307c68a1b",
       "terrainName": "布里斯托范围 · 方法演示地形（非实测）",
       "demonstration": true,
       "terrainSource": "解析高程函数生成，仅演示两类面带与查询",
@@ -63,7 +63,7 @@
         {
           "path": "n1/terrain.dbf",
           "bytes": 110986,
-          "sha256": "74a08940539a2e174c1bf35e61a974bbc7c58fd6d87f1e4d7d150027b317e9ed"
+          "sha256": "73fab7e474ae4c061301305ca3d6cdf00261a4bc61df3bb7af28638ed04c91fe"
         },
         {
           "path": "n1/terrain.prj",
@@ -81,7 +81,7 @@
           "sha256": "22356e83cc5b47509d85e507f98014ad9a3d5b0ed2dec050b0cb9a682d8acbcf"
         }
       ],
-      "datasetSha256": "f2e4db6b4c99506a25fde5f2dcf1e727dca385240c6bb5fc0c45f19facff4bd2",
+      "datasetSha256": "bfef70735e961b32f22b5fbc03e1210dca5aec1ce4f26957410ccd3d6efe54b1",
       "queries": {
         "queryCount": 1685,
         "matchedCount": 1681,
@@ -5659,7 +5659,7 @@
     },
     {
       "method": "gugis-terrain-json-vs-esri-multipatch-triangle-strip",
-      "cityRevision": "111386c0f6a024c5c1139de92dbb564c3a8d98a38b3e9e9b7696024bf4382827",
+      "cityRevision": "bae9c53417005627baca1cf50890d2d5473b0303c2b220830d05d18307c68a1b",
       "terrainName": "布里斯托范围 · 方法演示地形（非实测）",
       "demonstration": true,
       "terrainSource": "解析高程函数生成，仅演示两类面带与查询",
@@ -5691,7 +5691,7 @@
         {
           "path": "n2/terrain.dbf",
           "bytes": 110986,
-          "sha256": "74a08940539a2e174c1bf35e61a974bbc7c58fd6d87f1e4d7d150027b317e9ed"
+          "sha256": "73fab7e474ae4c061301305ca3d6cdf00261a4bc61df3bb7af28638ed04c91fe"
         },
         {
           "path": "n2/terrain.prj",
@@ -5709,7 +5709,7 @@
           "sha256": "3aaadd29078006f17f3330bceb06a222de4b980bd9004fff505c4d4a6b866f07"
         }
       ],
-      "datasetSha256": "7c66e342632336098afa92c5af0cd12caa0dae101380787018fbf578ad7ef3b2",
+      "datasetSha256": "3657a82c70869470ebcc02678211226dd2ccfc04247e96f25caffb9e97e875be",
       "queries": {
         "queryCount": 1685,
         "matchedCount": 1681,
@@ -11287,7 +11287,7 @@
     },
     {
       "method": "gugis-terrain-json-vs-esri-multipatch-triangle-strip",
-      "cityRevision": "111386c0f6a024c5c1139de92dbb564c3a8d98a38b3e9e9b7696024bf4382827",
+      "cityRevision": "bae9c53417005627baca1cf50890d2d5473b0303c2b220830d05d18307c68a1b",
       "terrainName": "布里斯托范围 · 方法演示地形（非实测）",
       "demonstration": true,
       "terrainSource": "解析高程函数生成，仅演示两类面带与查询",
@@ -11319,7 +11319,7 @@
         {
           "path": "n4/terrain.dbf",
           "bytes": 110986,
-          "sha256": "74a08940539a2e174c1bf35e61a974bbc7c58fd6d87f1e4d7d150027b317e9ed"
+          "sha256": "73fab7e474ae4c061301305ca3d6cdf00261a4bc61df3bb7af28638ed04c91fe"
         },
         {
           "path": "n4/terrain.prj",
@@ -11337,7 +11337,7 @@
           "sha256": "b4a3123dad4a9d88414220803b6261a365640fd54bd8ad56761a03062a815581"
         }
       ],
-      "datasetSha256": "b204c9d4ca7b6d5f7cfcdc4e8c40c425e8b809bc5593bb3bc7e0efa5d1a17342",
+      "datasetSha256": "4f3666763433f00c6f3ce950342a57f8e6ef9d133bb041e165e7f89790246b4c",
       "queries": {
         "queryCount": 1685,
         "matchedCount": 1681,
@@ -16915,7 +16915,7 @@
     },
     {
       "method": "gugis-terrain-json-vs-esri-multipatch-triangle-strip",
-      "cityRevision": "111386c0f6a024c5c1139de92dbb564c3a8d98a38b3e9e9b7696024bf4382827",
+      "cityRevision": "bae9c53417005627baca1cf50890d2d5473b0303c2b220830d05d18307c68a1b",
       "terrainName": "布里斯托范围 · 方法演示地形（非实测）",
       "demonstration": true,
       "terrainSource": "解析高程函数生成，仅演示两类面带与查询",
@@ -16947,7 +16947,7 @@
         {
           "path": "n8/terrain.dbf",
           "bytes": 110986,
-          "sha256": "74a08940539a2e174c1bf35e61a974bbc7c58fd6d87f1e4d7d150027b317e9ed"
+          "sha256": "73fab7e474ae4c061301305ca3d6cdf00261a4bc61df3bb7af28638ed04c91fe"
         },
         {
           "path": "n8/terrain.prj",
@@ -16965,7 +16965,7 @@
           "sha256": "42cf447c95098ceb76940e2e7b2d4f1b3cb1454d1d6ba20999288c77212e3270"
         }
       ],
-      "datasetSha256": "f4ffcd564324cd00aeb1e9655735839f15972c7f6adf51e35c525f4872bd38c5",
+      "datasetSha256": "a8c0168d68c598e01f8b225042d710d62e91b0316a6db3c6175061f146fcaf18",
       "queries": {
         "queryCount": 1685,
         "matchedCount": 1681,
@@ -22570,6 +22570,6 @@
   },
   "arcgisRuntimeStatus": "not-measured",
   "note": "原生高程来自网站内核；三角带高程来自实际 Shapefile 读回的参考插值。误差包含离散与水平投影影响。非 ArcGIS 软件查询耗时；非真实 DTM 精度。",
-  "packageBytes": 6305558,
-  "packageSha256": "b9f90c505185542e3906ed8e35cef8ecc7084e45245f9aba6e3153c5da84b937"
+  "packageBytes": 6305543,
+  "packageSha256": "6c82873ce07be595b2d4af9a372af9c6f9508f73d4b06d014c5b7b8ca9dde20c"
 }

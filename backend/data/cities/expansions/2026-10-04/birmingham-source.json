@@ -1,0 +1,36 @@
+{
+  "city_id": "birmingham",
+  "coverage_label": "Birmingham expanded district",
+  "bbox": [
+    -1.927,
+    52.469,
+    -1.888,
+    52.494
+  ],
+  "centre_lon_lat": [
+    -1.9075,
+    52.4815
+  ],
+  "query_bbox_south_west_north_east": [
+    52.469,
+    -1.927,
+    52.494,
+    -1.888
+  ],
+  "query": "[out:json][timeout:120][maxsize:268435456];(way[\"building\"](52.469,-1.927,52.494,-1.888);way[\"highway\"][\"name\"](52.469,-1.927,52.494,-1.888););out tags geom;",
+  "source_url": "https://overpass-api.de/api/interpreter",
+  "downloaded_at": "2026-10-04T11:56:05.988761+00:00",
+  "osm_timestamp": "2026-10-04T11:54:21Z",
+  "sha256": "fffc6c33a5f1f0b89682f5df1ecf9d4486eec4156e58eb382d6c901f891fb556",
+  "bytes": 5015812,
+  "elements": 6277,
+  "building_ways": 4130,
+  "road_ways": 2148,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 3.668,
+  "previous_attempts": []
+}

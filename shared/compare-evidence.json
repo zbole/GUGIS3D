@@ -1,17 +1,17 @@
 {
-  "revision": "111386c0f6a024c5c1139de92dbb564c3a8d98a38b3e9e9b7696024bf4382827",
-  "archive": "布里斯托起始街区（并非整座城市）",
+  "revision": "bae9c53417005627baca1cf50890d2d5473b0303c2b220830d05d18307c68a1b",
+  "archive": "布里斯托扩展样本街区（并非整座城市）",
   "city": {
-    "buildings": 616,
-    "modelDefinitions": 606,
-    "roads": 544,
-    "geometryLibraryRecords": 10191,
+    "buildings": 10908,
+    "modelDefinitions": 10898,
+    "roads": 1794,
+    "geometryLibraryRecords": 20461,
     "terrainPatches": 1369,
     "functionFeatures": 7,
-    "placedComponents": 140175
+    "placedComponents": 150467
   },
   "provenance": {
-    "scope": "Brandon Hill / Park Street / College Green 周边的起始街区；非全市完整模型",
+    "scope": "Bristol expanded district 中心街区样本（非全城覆盖） · 保留原项目对象的扩展",
     "terrainFile": "",
     "terrainAccuracy": ""
   },
@@ -19,15 +19,15 @@
     "method": "fresh-process-retained-v8-data-heap",
     "runs": 3,
     "runtime": "v24.13.0",
-    "sharedBytes": 121831840,
-    "independentWireBytes": 673040328,
-    "independentMeshBytes": 739079704,
-    "wireSavingPercent": 81.89828529858913,
-    "meshSavingPercent": 83.51573729590605
+    "sharedBytes": 175121576,
+    "independentWireBytes": 720309952,
+    "independentMeshBytes": 790442488,
+    "wireSavingPercent": 75.68802492402604,
+    "meshSavingPercent": 77.8451210988041
   },
   "terrainBenchmark": {
     "method": "gugis-terrain-json-vs-esri-multipatch-triangle-strip",
-    "cityRevision": "111386c0f6a024c5c1139de92dbb564c3a8d98a38b3e9e9b7696024bf4382827",
+    "cityRevision": "bae9c53417005627baca1cf50890d2d5473b0303c2b220830d05d18307c68a1b",
     "terrainName": "布里斯托范围 · 方法演示地形（非实测）",
     "demonstration": true,
     "terrainSource": "解析高程函数生成，仅演示两类面带与查询",
@@ -47,17 +47,17 @@
     "storageSavingPercent": 85.9563968323871,
     "maxRuledHeightErrorMetres": 0.040392500000000275,
     "rmsRuledHeightErrorMetres": 0.00320218308529977,
-    "packageBytes": 332544,
+    "packageBytes": 332543,
     "readBackVerified": true,
     "note": "磁盘格式比较；MultiPatch 在此由同一 GUGIS 控制网导出。未运行 ArcGIS Pro，不能推断其内存或帧率。误差为直纹曲面相对三角带离散的参数域高程误差。",
-    "packageSha256": "c5e9dac91e167d9cb7d8ada59d41f40f1a7ea1b8087d6fc89826a52a1aec51d7"
+    "packageSha256": "76d2a5fa86a7162420fa183b4d8072f422055a1bb0002b780719d25c3846f1e6"
   },
-  "terrainSuiteBundleId": "f11f44921cbfb1becba1235156e450272726700db1e32d2ac4a3f6753309b1fa",
+  "terrainSuiteBundleId": "e995502f92f7412f535cda655122350302838c5f695a996306649211b5b8ebe6",
   "analysis": {
     "routeMetres": 107.7,
     "terrainCoverage": 1,
     "corridorMetres": 30,
-    "selectedObjects": 7,
+    "selectedObjects": 36,
     "modelIntersectionSegments": 43,
     "intersectionUnavailable": null
   },

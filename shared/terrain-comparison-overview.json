@@ -1,16 +1,16 @@
 {
   "schema": "gugis-terrain-comparison-suite-v1",
-  "bundleId": "f11f44921cbfb1becba1235156e450272726700db1e32d2ac4a3f6753309b1fa",
-  "cityRevision": "111386c0f6a024c5c1139de92dbb564c3a8d98a38b3e9e9b7696024bf4382827",
+  "bundleId": "e995502f92f7412f535cda655122350302838c5f695a996306649211b5b8ebe6",
+  "cityRevision": "bae9c53417005627baca1cf50890d2d5473b0303c2b220830d05d18307c68a1b",
   "demonstration": true,
   "verticalDatum": "local",
-  "packageBytes": 6305558,
-  "packageSha256": "b9f90c505185542e3906ed8e35cef8ecc7084e45245f9aba6e3153c5da84b937",
+  "packageBytes": 6305543,
+  "packageSha256": "6c82873ce07be595b2d4af9a372af9c6f9508f73d4b06d014c5b7b8ca9dde20c",
   "derivativeMethod": {
     "frame": "native local ENU",
     "horizontalJacobianStepMetres": 0.5,
     "aspectMinimumSlopeDegrees": 0.1,
-    "boundaryParameterTolerance": 1e-7,
+    "boundaryParameterTolerance": 1e-07,
     "summaryPolicy": "exclude native cell and mesh triangle edges; exclude near-flat directions",
     "aspectConvention": "downslope, clockwise from local north; signed shortest angular difference"
   },
@@ -25,7 +25,7 @@
     "triangles": 5408,
     "indexSaving": 49.79043392504931
   },
-  "reportSha256": "8e414c8ce877037eded70b4090c563e388ed673d0beb02d5b25f177e2c927edc",
+  "reportSha256": "e054f4d5a7d4c9d88dfd71a94e1946cc3391992d58720c2fbf1357581479427a",
   "variants": [
     {
       "ruledSubdivisions": 1,

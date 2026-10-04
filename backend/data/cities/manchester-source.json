@@ -1,0 +1,36 @@
+{
+  "city_id": "manchester",
+  "coverage_label": "Manchester city centre",
+  "bbox": [
+    -2.263,
+    53.471,
+    -2.228,
+    53.492
+  ],
+  "centre_lon_lat": [
+    -2.2455,
+    53.4815
+  ],
+  "query_bbox_south_west_north_east": [
+    53.471,
+    -2.263,
+    53.492,
+    -2.228
+  ],
+  "query": "[out:json][timeout:120][maxsize:268435456];(way[\"building\"](53.471,-2.263,53.492,-2.228);way[\"highway\"][\"name\"](53.471,-2.263,53.492,-2.228););out tags geom;",
+  "source_url": "https://overpass-api.de/api/interpreter",
+  "downloaded_at": "2026-10-04T11:44:50.540472+00:00",
+  "osm_timestamp": "2026-10-04T11:43:06Z",
+  "sha256": "8836a4269af5a5c49f2225a42540babd47e27b2a104641cfff257c918ee8b235",
+  "bytes": 4242986,
+  "elements": 6241,
+  "building_ways": 3472,
+  "road_ways": 2770,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 10.788,
+  "previous_attempts": []
+}

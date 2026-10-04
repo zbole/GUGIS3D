@@ -9,26 +9,10 @@ from contextvars import ContextVar
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
+from .workspace_catalog import CITY_DEFAULTS
 
 
 ACTIVE_CITY: ContextVar[str] = ContextVar('gugis_request_city', default='bristol')
-CITY_DEFAULTS = {
-    'bristol': {
-        'name': '布里斯托', 'city_name': 'Bristol',
-        'coverage_label': '布里斯托中心样本街区（非全城覆盖）',
-        'query_bbox_wgs84': [-2.614, 51.446, -2.592, 51.462],
-    },
-    'london': {
-        'name': '伦敦', 'city_name': 'London',
-        'coverage_label': '伦敦中心样本街区（非全城覆盖）',
-        'query_bbox_wgs84': [-0.138, 51.496, -0.123, 51.508],
-    },
-    'birmingham': {
-        'name': '伯明翰', 'city_name': 'Birmingham',
-        'coverage_label': '伯明翰中心样本街区（非全城覆盖）',
-        'query_bbox_wgs84': [-1.914, 52.476, -1.901, 52.488],
-    },
-}
 router = APIRouter(prefix='/cities', tags=['Independent city workspaces'])
 
 

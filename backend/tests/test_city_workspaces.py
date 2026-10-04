@@ -53,11 +53,12 @@ class IndependentCityWorkspacesTests(unittest.TestCase):
         response = self.client.get('/cities')
         self.assertEqual(response.status_code, 200, response.text)
         catalog = {entry['id']: entry for entry in response.json()['cities']}
-        self.assertEqual(set(catalog), {'bristol', 'london', 'birmingham'})
+        self.assertEqual(set(catalog), set(city_workspaces.CITY_DEFAULTS))
         self.assertEqual(catalog['london']['status'], 'pending')
         self.assertEqual(catalog['london']['building_count'], 0)
         self.assertIn('非全城', catalog['bristol']['coverage_label'])
-        self.assertEqual(catalog['london']['center_wgs84'], [-0.1305, 51.502])
+        for actual, expected in zip(catalog['london']['center_wgs84'], [-0.1325, 51.502]):
+            self.assertAlmostEqual(actual, expected)
         self.assertFalse(self.workspace_path('london').exists())
         self.assertFalse(self.workspace_path('birmingham').exists())
         self.assertEqual((city.CITY_DIR / 'current.gugis.json').read_bytes(), self.bristol_bytes)
@@ -217,7 +218,8 @@ class IndependentCityWorkspacesTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200, response.text)
         kwargs = importer.call_args.kwargs
         self.assertEqual(kwargs['clip_bounds'], city_workspaces.CITY_DEFAULTS['london']['query_bbox_wgs84'])
-        self.assertEqual(kwargs['center'], [-0.1305, 51.502])
+        for actual, expected in zip(kwargs['center'], [-0.1325, 51.502]):
+            self.assertAlmostEqual(actual, expected)
         self.assertIn('伦敦', kwargs['coverage_label'])
 
     def test_catalog_rejects_nonobject_nonfinite_and_schema_invalid_cities_independently(self):

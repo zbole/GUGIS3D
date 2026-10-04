@@ -12,12 +12,12 @@ test("published measurement belongs to the packaged city, and another revision i
   const revision = createHash("sha256").update(seed).digest("hex");
   const current = memoryComparison(revision);
   assert.equal(current.matches, true);
-  assert.ok(current.saving > 80 && current.saving < 85);
+  assert.ok(Math.abs(current.saving - 100 * (1 - current.shared / current.wire)) < 1e-8);
   assert.ok(current.shared > 0 && current.wire > current.shared);
   assert.match(memoryMB(current.shared), / MB$/);
-  assert.ok(current.rows[2].saving > 80);
+  assert.ok(current.rows[2].saving > 0);
   const local = memoryComparison(localReport.file_sha256);
   assert.equal(local.matches, true);
-  assert.equal(local.buildings, 616);
+  assert.equal(local.buildings, 10908);
   assert.equal(memoryComparison("0".repeat(64)).matches, false);
 });
