@@ -10,9 +10,10 @@ const cm=(m:number)=>(m*100).toFixed(3);
 const median=(a:number[])=>[...a].sort((a,b)=>a-b)[Math.floor(a.length/2)];
 const status=(value:string)=>({'target-met':'构建目标达标','source-resolution-limit':'源控制网分辨率限制','point-budget':'控制点预算限制','step-budget':'细分次数限制'}[value]??value);
 const HybridTerrainViewer=lazy(()=>import('./HybridTerrainViewer'));
+const TerrainTradeoff=lazy(()=>import('./TerrainTradeoff'));
 
 export default function HybridTerrainLab(){
-  const [caseId,setCaseId]=useState(()=>typeof window!=='undefined'&&['#raster-terrain-audit','#raster-multipatch-audit'].includes(window.location?.hash)?'swiss-dem-crop':'rotating-direction');
+  const [caseId,setCaseId]=useState(()=>typeof window!=='undefined'&&['#raster-terrain-audit','#raster-multipatch-audit','#terrain-error-cost'].includes(window.location?.hash)?'swiss-dem-crop':'rotating-direction');
   const [target,setTarget]=useState(.1);
   const [live,setLive]=useState(false);
   const data=report.cases.find(c=>c.id===caseId)!;
@@ -24,7 +25,7 @@ export default function HybridTerrainLab(){
   useEffect(()=>{
     if(typeof window==='undefined')return;
     const id=window.location?.hash?.slice(1)??'';
-    if(!['hybrid-terrain-lab','local-triangle-audit','strip-compaction-audit','raster-terrain-audit','raster-multipatch-audit'].includes(id))return;
+    if(!['hybrid-terrain-lab','local-triangle-audit','strip-compaction-audit','raster-terrain-audit','raster-multipatch-audit','terrain-error-cost'].includes(id))return;
     const frame=window.requestAnimationFrame(()=>document.getElementById(id)?.scrollIntoView());
     return()=>window.cancelAnimationFrame(frame);
   },[]);
@@ -41,6 +42,7 @@ export default function HybridTerrainLab(){
     <p className="hybrid-case-intent">{data.expectation}</p>
     {data.demonstration?<><p className="local-triangle-summary"><strong>更强局部三角基线：</strong>{localTriangleOutcome(caseId,target)} <a href="#local-triangle-audit">查看同误差的另一组结果 ↓</a></p>
     <p className="strip-compaction-summary"><strong>相同曲面 · 编码合并后：</strong>{compactOutcome(caseId,target)} <a href="#strip-compaction-audit">查看三种文件及保持情况 ↓</a></p></>:<p className="strip-compaction-summary"><strong>新构建 · 连续参考栅格核验：</strong>{rasterOutcome(target)} <a href="#raster-terrain-audit">查看区域误差界与新模型 ↓</a></p>}
+    <div className="hybrid-downloads"><a href="#terrain-error-cost">按误差要求选择表示 · 查看精度—成本曲线 ↓</a>{!data.demonstration&&<a href="#raster-multipatch-audit">取走同几何 ArcGIS 对照文件 ↓</a>}</div>
     <div className="hybrid-kpis" aria-live="polite">
       <article><small>{data.demonstration?'全局网格 · 同误差比较':'历史档案 · 采样对照'}</small><strong>{pair.comparison_eligible?'可比较':'暂不可比较'}</strong><span>{pair.comparison_eligible?'双方构建与离网格抽查均通过':'至少一方未通过全部核验，排除节省结论'}</span></article>
       <article><small>混合表示控制点</small><strong>{a.points.toLocaleString()}</strong><span>纯三角面 {b.points.toLocaleString()} · 两者计入共享控制点</span></article>
@@ -85,5 +87,6 @@ export default function HybridTerrainLab(){
     <div className="hybrid-downloads"><a href={`/research/hybrid-terrain/${data.id}.zip`} download>下载此地形全部模型与核验数据 ↓</a><a href="/research/hybrid-terrain/results.json" download>完整结果 JSON ↓</a><a href="/research/hybrid-terrain/results.csv" download>56 个模型数值 CSV ↓</a></div>
     <p className="hybrid-attribution">真实 DEM 来源：ImplicitTerrain 作者公开示例 / swissALTI3D · Federal Office of Topography swisstopo。解析样本、图片、构建器与核验脚本由本项目生成；不包含作者权重或代码。</p>
     {data.demonstration?<><LocalTriangleComparison caseId={caseId} target={target}/><StripCompactionComparison caseId={caseId} target={target}/></>:<><RasterTerrainComparison target={target}/><RasterMultipatchComparison target={target}/></>}
+    <Suspense fallback={<p role="status">正在载入精度—成本曲线…</p>}><TerrainTradeoff caseId={caseId} target={target}/></Suspense>
   </section>;
 }

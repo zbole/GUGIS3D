@@ -1,5 +1,7 @@
 # GUGIS3D 本地城市工作台
 
+新增：[精度—成本曲线与约束选择](docs/finite_scale_hybrid_terrain.md#精度成本曲线按要求选择表示)。七类地形、88 个表示成本测点，切换最大参考误差界 / 离网格 RMSE，输入允许误差，选择满足约束的最小已测文件；附 28 份可导出 PNG/SVG 科学图。入口：http://127.0.0.1:5173/compare#terrain-error-cost 。RMSE 与最大误差保证明确分开，不宣称未测模型的全局最优。
+
 新增：[相同三角几何的 ArcGIS 文件格式核验](docs/finite_scale_hybrid_terrain.md#相同三角几何导出-multipatch)。瑞士真实 DEM 四档局部三角模型导出为 EPSG:2056 MultiPatch，GUGIS 原档比五件套小 16.8%–20.7%；全部三角几何与读回高程一致，下载包可逐字节恢复 GUGIS 原档。混合曲面的不同结果与恢复信息额外成本同时公开，未运行 ArcGIS Pro。入口：http://127.0.0.1:5173/compare#raster-multipatch-audit 。
 
 新增：[真实 DEM 的连续参考栅格核验](docs/finite_scale_hybrid_terrain.md#真实-dem-的连续参考栅格对照)，四档 × 三种原生模型全部通过区域误差界。10 cm 档紧凑混合比局部三角文件大 98.0%，同时展示更低 RMSE 与全局网格代价。入口：http://127.0.0.1:5173/compare#raster-terrain-audit 。这里的连续参考不是实测地面误差界。

@@ -1,0 +1,147 @@
+{
+  "schema": "gugis-error-cost-figures-v1",
+  "parent_sha256": "21e2812ede86bd6eadf137ac24ab9b6c6cd276ab4954e351fbaa41e715190d60",
+  "plotter_source_sha256": "b1c3ae49f65d62d2e786a17e0b0b49645dbc822fc5c126b86c307415cba7e2be",
+  "images": [
+    {
+      "filename": "steep-plane-bound_m.png",
+      "bytes": 67575,
+      "sha256": "c72096c801efcedd9a7fe1835329ec7d563751d58bd292bd365156f550b98ff2"
+    },
+    {
+      "filename": "steep-plane-bound_m.svg",
+      "bytes": 27120,
+      "sha256": "9607d1cf9045c08afb4eb9bf75f089e5fe7edfac1514d6843482893baae86a1a"
+    },
+    {
+      "filename": "steep-plane-rmse_m.png",
+      "bytes": 74532,
+      "sha256": "eb833f0401cf397c94dfbbed2f7fc1eeb259e2a043fc326c0163f18d56e13910"
+    },
+    {
+      "filename": "steep-plane-rmse_m.svg",
+      "bytes": 32572,
+      "sha256": "26a4bab43496249533bf881134c63dee691ec47222b66fe61a6596997805871c"
+    },
+    {
+      "filename": "bilinear-saddle-bound_m.png",
+      "bytes": 83474,
+      "sha256": "773a40533304b9613148c4d52cf0070039fc60f0eb7915c5d919ae501a042a06"
+    },
+    {
+      "filename": "bilinear-saddle-bound_m.svg",
+      "bytes": 48321,
+      "sha256": "0054cd11415c1aca3f41c5980e261f4d9a68b51ea03ed9a32a68ed3f2f1ea664"
+    },
+    {
+      "filename": "bilinear-saddle-rmse_m.png",
+      "bytes": 86397,
+      "sha256": "d768019f11f08d83f8b177338130a7fcb3102a35982b8ee06d4e24348aa2f948"
+    },
+    {
+      "filename": "bilinear-saddle-rmse_m.svg",
+      "bytes": 48344,
+      "sha256": "08e9ea8740849c6bf741101a973669e6221edb4f6c1249323b407fbda2bfabc9"
+    },
+    {
+      "filename": "linear-flow-bound_m.png",
+      "bytes": 92119,
+      "sha256": "f9c9e142e354b040ac393cbf7cfc2866eee88d626757b68b6cb77b4e0f54cb58"
+    },
+    {
+      "filename": "linear-flow-bound_m.svg",
+      "bytes": 29958,
+      "sha256": "8f6ea33d0380e0f8cc687386287e1951d7ab44589cd421065e9e989797606b7d"
+    },
+    {
+      "filename": "linear-flow-rmse_m.png",
+      "bytes": 89004,
+      "sha256": "8b9c17d7e86246d21efaef58e3e4ca6d7297479ac9c42cc2e88ea7c583763cc0"
+    },
+    {
+      "filename": "linear-flow-rmse_m.svg",
+      "bytes": 27706,
+      "sha256": "1f0a939e829641179ec8e00a3e9038d800c786f7123a3641d9a6b02231bd9ac8"
+    },
+    {
+      "filename": "convex-bowl-bound_m.png",
+      "bytes": 111548,
+      "sha256": "6487dd87d04f72b6fedaf2ac6e11f00608d6630ac6b53b5217cde6dd03b1bc72"
+    },
+    {
+      "filename": "convex-bowl-bound_m.svg",
+      "bytes": 29220,
+      "sha256": "6225b29e0e4cd1688353214c76b780f35bf9a7d1df47ee1ca0cef17b3b039e11"
+    },
+    {
+      "filename": "convex-bowl-rmse_m.png",
+      "bytes": 117091,
+      "sha256": "d35ed4ceb927955866c72532550179df581f26c9fb928ff45ccb3832d5f38ebe"
+    },
+    {
+      "filename": "convex-bowl-rmse_m.svg",
+      "bytes": 30327,
+      "sha256": "aab4532e3345c3ac54c94bab32915bba81c844530f86e58b30e6e6d6dba93125"
+    },
+    {
+      "filename": "rotating-direction-bound_m.png",
+      "bytes": 120261,
+      "sha256": "7dc4f2e4080f7a88c07c5743d7d365dddfeb48e1cea5a2ab71257d3b6aff6bac"
+    },
+    {
+      "filename": "rotating-direction-bound_m.svg",
+      "bytes": 31179,
+      "sha256": "1cb8eb9e6e3021448f0d9eb16a619a775bdbf63dcce5b9a7e11a11b836e60671"
+    },
+    {
+      "filename": "rotating-direction-rmse_m.png",
+      "bytes": 114123,
+      "sha256": "511592530b35955fcd420e1b4ddaccd8e62cbff95ed49b7cfc967e923c80e630"
+    },
+    {
+      "filename": "rotating-direction-rmse_m.svg",
+      "bytes": 28835,
+      "sha256": "cdb5b74d6fee13a9aaaa22c61c49a4841a3154733a651799c74b09df3b6c76ff"
+    },
+    {
+      "filename": "sharp-ridge-bound_m.png",
+      "bytes": 67226,
+      "sha256": "17b2a439bfd21eb55e14173baa911694982f40f90bfd95e99fb9e44c4c8d9c2e"
+    },
+    {
+      "filename": "sharp-ridge-bound_m.svg",
+      "bytes": 24492,
+      "sha256": "5b6c71934f793196576d0e3883dbe6c60561e3c4a8b63512111ead6cfff2e328"
+    },
+    {
+      "filename": "sharp-ridge-rmse_m.png",
+      "bytes": 74216,
+      "sha256": "f54a62152550b76bab22d5de64001490ff6bcfc86f22af80535167feed27c983"
+    },
+    {
+      "filename": "sharp-ridge-rmse_m.svg",
+      "bytes": 29988,
+      "sha256": "3957a224ad4d4a129c72be8093da1a14f9a0b7e30f5883f9e24e6a16152cb98a"
+    },
+    {
+      "filename": "swiss-dem-crop-bound_m.png",
+      "bytes": 142417,
+      "sha256": "2d038928b51d48467a485ea0f6f6c1d0d1f4e467017a874f169edd55d6313e44"
+    },
+    {
+      "filename": "swiss-dem-crop-bound_m.svg",
+      "bytes": 40128,
+      "sha256": "2c68e8cc3c4175147c120042cb5a8c6dfb22529e752f635db849f377dc7b9501"
+    },
+    {
+      "filename": "swiss-dem-crop-rmse_m.png",
+      "bytes": 128485,
+      "sha256": "d64cec24ac2062d4e9599825eb9d37ffc4717890ade9d04977608bed24df70bc"
+    },
+    {
+      "filename": "swiss-dem-crop-rmse_m.svg",
+      "bytes": 36853,
+      "sha256": "64377047d8fcd8a8fe6c24d513395ee35932f5ac29de82e3299d94b3aebe3550"
+    }
+  ]
+}
