@@ -430,17 +430,38 @@ test("reloaded building preview restores editor and regenerates the same instanc
   assert.equal(writes, 0);
   f.close();
 });
-test("failed draft load still opens formal city and disables draft replacement", async () => {
+test("failed draft load permits reading the city but blocks both draft replacement and formal deletion until reload succeeds", async () => {
   const load = globalThis.workspaceMock.loadDraft;
   globalThis.workspaceMock.loadDraft = async () => { throw new Error("Invalid pending file"); };
   try {
     const f = await mount();
     assert.equal(globalThis.workspaceScene.city.name, "Test city");
     assert.match(text(f.root.findByProps({role:"alert"})), /正式城市已载入/);
+    const remove = button(f.root, "删除");
+    assert.equal(remove.props.disabled, true);
+    assert.equal(button(f.root, "复制").props.disabled, true);
+    assert.equal(button(f.root, "单栋导出").props.disabled, false);
+    assert.equal(button(f.root, "查看实体与楼层").props.disabled, undefined);
+    await act(async () => remove.props.onClick());
+    assert.equal(writes, 0); assert.deepEqual(saved, original);
     await generate(f);
     assert.equal(stages, 0);
+    globalThis.workspaceMock.loadDraft = load;
+    await act(async () => button(f.root, "重新载入已保存项目").props.onClick());
+    await act(async () => button(f.root, "城市项目").props.onClick());
+    assert.equal(button(f.root, "删除").props.disabled, false);
+    await act(async () => button(f.root, "删除").props.onClick());
+    assert.equal(writes, 1); assert.equal(saved.instances.length, 0);
     f.close();
   } finally { globalThis.workspaceMock.loadDraft = load; }
+});
+
+test("a detached formal-delete handler cannot start a city write after leaving the workbench", async () => {
+  const f = await mount();
+  const remove = button(f.root, "删除").props.onClick;
+  f.close();
+  await act(async () => remove());
+  assert.equal(writes, 0); assert.equal(stages, 0); assert.deepEqual(saved, original);
 });
 test("an unconfirmed commit failure retains the preview for retry", async () => {
   const f = await mount();

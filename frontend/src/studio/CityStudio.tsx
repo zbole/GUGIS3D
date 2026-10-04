@@ -513,6 +513,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
       (i) => city.assets[i.asset].parameters.kind !== "footprint",
     ).length ?? 0;
   async function commit(next: CityDocument, message: string, record = true) {
+    if (!mounted.current || preview || draftUnavailable || busy) return false;
     if (locked.current) {
       setNotice("正在保存，请稍后重试");
       return false;
@@ -1250,7 +1251,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
                 显示街区建筑
               </label>
               <button
-                disabled={busy || !!preview || !history.length}
+                disabled={busy || !!preview || draftUnavailable || !history.length}
                 onClick={() => void undo()}
               >
                 <Undo2 size={15} />
@@ -1350,7 +1351,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
                       复制
                     </button>
                     <button
-                      disabled={busy || !!preview}
+                      disabled={busy || !!preview || draftUnavailable}
                       onClick={() => void remove()}
                     >
                       <Trash2 size={14} />
