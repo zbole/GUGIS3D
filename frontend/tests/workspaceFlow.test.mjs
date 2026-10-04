@@ -29,6 +29,7 @@ const doc = {
       category: "wall",
       template: "wall",
       position: [0, 0, 2.5],
+      floor: 1,
     },
   ],
 };

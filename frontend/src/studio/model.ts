@@ -149,6 +149,17 @@ export function presentation(node: SceneNode, view: SceneView) {
     offset: view.mode === "lift" && floor >= view.split ? view.lift : 0,
   };
 }
+/** A declared floor count alone does not supply geometry that can be separated. */
+export function hasFloorComponents(document: BuildingDocument): boolean {
+  return document.parameters.kind !== "footprint" && document.nodes.some(node => !!node.template && !!document.templates[node.template]
+    && Number.isInteger(node.floor) && node.floor! >= 1 && node.floor! <= document.parameters.floors);
+}
+export function componentFloors(document: BuildingDocument): number[] {
+  if (document.parameters.kind === "footprint") return [];
+  return [...new Set(document.nodes.filter(node => !!node.template && !!document.templates[node.template]
+    && Number.isInteger(node.floor) && node.floor! >= 1 && node.floor! <= document.parameters.floors)
+    .map(node => node.floor!))].sort((a, b) => a - b);
+}
 export function serialize(document: BuildingDocument): string {
   return JSON.stringify({
     ...document,

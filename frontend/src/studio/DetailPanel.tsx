@@ -9,9 +9,14 @@ import {
   categoryLabels,
   componentCategories,
   initialView,
+  componentFloors,
   presentation,
 } from "./model";
 import { buildingColor, type BuildingColorMode } from "./buildingAppearance";
+function detailView(document: BuildingDocument): SceneView {
+  const view = initialView(document.parameters.floors), floors = componentFloors(document);
+  return floors.length ? { ...view, from: floors[0], to: floors[floors.length - 1], split: floors[Math.floor(floors.length / 2)] } : view;
+}
 export default function DetailPanel({
   document,
   expanded = false,
@@ -29,20 +34,18 @@ export default function DetailPanel({
 }) {
   const [selected, setSelected] = useState<string | null>(null),
     [view, setView] = useState<SceneView>(() =>
-      initialView(document.parameters.floors),
+      detailView(document),
     ),
     [ready, setReady] = useState(false);
   const select = useCallback((id: string | null) => setSelected(id), []),
     scene = useRef<SceneHandle>(null);
   useEffect(() => {
     setSelected(null);
-    setView(initialView(document.parameters.floors));
+    setView(detailView(document));
   }, [document]);
   const patch = (p: Partial<SceneView>) => setView((v) => ({ ...v, ...p }));
-  const floors = Array.from(
-    { length: document.parameters.floors },
-    (_, i) => i + 1,
-  );
+  const floors = useMemo(() => componentFloors(document), [document]);
+  const hasFloors = floors.length > 0;
   const count = useMemo(
     () =>
       document.nodes.filter((n) => n.template && presentation(n, view).visible)
@@ -118,9 +121,9 @@ export default function DetailPanel({
             拖动旋转 · 滚轮缓速缩放 · 点击查看构件
           </div>
         </div>
-        <section className="floor-controls" aria-label="楼层分析">
+        <section className="floor-controls" aria-label={hasFloors ? "楼层分析" : "模型表达说明"}>
           <div className="floor-control-title">
-            <h2>楼层 / 分段查看</h2>
+            <h2>{hasFloors ? "楼层 / 分段查看" : "轮廓与模型"}</h2>
             {onColorModeChange && <label className="palette-select">建筑配色
               <select aria-label="建筑配色" value={colorMode} onChange={e => onColorModeChange(e.target.value as BuildingColorMode)}>
                 <option value="material">自然材质</option><option value="category">构件分类</option>
@@ -129,14 +132,14 @@ export default function DetailPanel({
             <button
               className="text-button"
               onClick={() => {
-                setView(initialView(document.parameters.floors));
+                setView(detailView(document));
                 select(null);
               }}
             >
               恢复全部
             </button>
           </div>
-          <div className="floor-modes">
+          {hasFloors ? <><div className="floor-modes">
             {(
               [
                 ["all", "完整"],
@@ -225,6 +228,9 @@ export default function DetailPanel({
               </p>
             )}
           </div>
+          </> : <p className="muted">{document.parameters.kind === "footprint"
+            ? "当前档案仅含 LoD1 轮廓体量，未存储内部和楼层构件。补全精细结构会基于轮廓推演，不等于实测内部。"
+            : "当前档案没有可分层查看的构件标记；声明层数不代表已经存储楼层几何。"}</p>}
         </section>
       </main>
       <aside className="studio-right">

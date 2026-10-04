@@ -46,6 +46,7 @@ import type { Environment, Terrain } from "./environment";
 import { emptyEnvironment } from "./environment";
 import type { TerrainHit } from "./terrainMath";
 import type { Parameters } from "./model";
+import { hasFloorComponents } from "./model";
 import {
   CityDocument,
   kinds,
@@ -1338,7 +1339,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
                       className="primary full"
                       onClick={() => setTab("detail")}
                     >
-                      查看实体与楼层
+                      {hasFloorComponents(document) ? "查看实体与楼层" : "查看模型与来源"}
                     </button>
                     <button disabled={busy || !!preview} onClick={edit}>
                       修改建筑
