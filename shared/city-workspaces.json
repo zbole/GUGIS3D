@@ -76,5 +76,13 @@
       51.491
     ],
     "related_registry_id": "uk-wls-cardiff"
+  },
+  {
+    "id": "york",
+    "name": "约克",
+    "city_name": "York",
+    "coverage_label": "约克中心样本街区（非全城覆盖）",
+    "query_bbox_wgs84": [-1.1, 53.947, -1.066, 53.972],
+    "related_registry_id": "uk-eng-york"
   }
 ]

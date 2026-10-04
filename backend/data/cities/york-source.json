@@ -1,0 +1,64 @@
+{
+  "city_id": "york",
+  "coverage_label": "York city centre",
+  "bbox": [
+    -1.1,
+    53.947,
+    -1.066,
+    53.972
+  ],
+  "centre_lon_lat": [
+    -1.0830000000000002,
+    53.959500000000006
+  ],
+  "query_bbox_south_west_north_east": [
+    53.947,
+    -1.1,
+    53.972,
+    -1.066
+  ],
+  "query": "[out:json][timeout:40][maxsize:268435456];(way[\"building\"](53.947,-1.1,53.972,-1.066);way[\"highway\"][\"name\"](53.947,-1.1,53.972,-1.066););out tags geom;",
+  "source_url": "https://gall.openstreetmap.de/api/interpreter",
+  "downloaded_at": "2026-10-04T16:11:13.901276+00:00",
+  "http_method": "GET",
+  "request_timeout_seconds": 45,
+  "osm_timestamp": "2026-10-04T16:09:19Z",
+  "sha256": "b17bfb5fb899acd19d2e2e9687a0e62f3f57d2202d8989afb85f0ee1d68231be",
+  "bytes": 4509364,
+  "elements": 7955,
+  "building_ways": 6100,
+  "road_ways": 1855,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 13.959,
+  "previous_attempts": [],
+  "retained_download_sha256": "d60ca4e924aa4e2a8eac5b62db8c8d0891c705dce331f08f3b63c439d23e9a3a",
+  "retained_download_bytes": 5901633,
+  "publication_filter": {
+    "method": "Only unrelated contact and free-text tags removed; original IDs, geometry, modelling tags and attribution retained.",
+    "removed_tag_counts": {
+      "contact:email": 1,
+      "contact:facebook": 5,
+      "contact:instagram": 6,
+      "contact:linkedin": 1,
+      "contact:twitter": 2,
+      "contact:website": 6,
+      "description": 9,
+      "description:floor:material": 1,
+      "email": 17,
+      "fax": 5,
+      "note": 124,
+      "note:access": 2,
+      "note:cycleway": 3,
+      "note:food": 1,
+      "note:name": 7,
+      "note:opening_hours": 1,
+      "phone": 44,
+      "website": 113
+    }
+  },
+  "preparer_source_sha256": "dfac4a581629103c02fd24319721a928de91b5347812ce76c46ce6da76f8b0aa"
+}

@@ -1,0 +1,54 @@
+{
+  "city_id": "york",
+  "source_sha256": "b17bfb5fb899acd19d2e2e9687a0e62f3f57d2202d8989afb85f0ee1d68231be",
+  "source_building_ways": 6098,
+  "imported_buildings": 6092,
+  "imported_roads": 1853,
+  "query_bbox_wgs84": [
+    -1.1,
+    53.947,
+    -1.066,
+    53.972
+  ],
+  "actual_data_bbox_wgs84": [
+    -1.1051514,
+    53.944665,
+    -1.060182,
+    53.9763925
+  ],
+  "height_policy": {
+    "height-tag": 465,
+    "levels-derived": 2357,
+    "assumed": 3270
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 128011236,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 226035082,
+      "reason": "OSM min_height '2.5' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 226035087,
+      "reason": "OSM min_height '2.5' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 278616099,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 863101347,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 863141071,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 11849348,
+  "gugis_sha256": "143816c82b7d621f4f506970d3a88e986c07258535b5b71e4e8a07ee6d6affb5"
+}

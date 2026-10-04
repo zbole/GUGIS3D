@@ -65,7 +65,7 @@ test("empty package framing stays aimed at its own catalog city", () => {
 });
 
 test("save reproducible no-GPU framing evidence", async () => {
-  assert.equal(evidence.length, 48);
+  assert.equal(evidence.length, catalog.length * dimensions.length * Object.keys(tileLoadingProfiles).length);
   // Test output, not a formal city/cache write. The evidence explicitly excludes GPU QA.
   await writeFile(join(tmpdir(), "gugis-default-camera-after.json"), JSON.stringify({ method: "Real Cesium Camera math; no browser, WebGL or GPU", cases: evidence }, null, 2));
 });

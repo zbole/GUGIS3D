@@ -41,6 +41,20 @@ python data-pipeline/build_render_tiles.py backend/data/cities/london.gugis.json
 python data-pipeline/build_render_tiles.py backend/data/cities/birmingham.gugis.json --city birmingham
 ```
 
+For the expanded public seeds, choose the verified cell size explicitly:
+Bristol 125 m; London / Birmingham / Cardiff 175 m; Manchester / Edinburgh
+250 m; York 125 m. The original 250 m examples above apply to the initial
+samples; dense expanded cells can correctly fail the unchanged 256-building cap.
+
+```sh
+python data-pipeline/build_render_tiles.py backend/data/cities/york.gugis.json --city york --tile-size 125
+```
+
+York's source has 6,092 unique buildings in 435 tiles. The 8,093 tiled references
+include buildings crossing cell boundaries; the client deduplicates those
+references. This is not 8,093 unique buildings. The largest retained tile is
+165,786 bytes. Caches are local build outputs and are not checked into GitHub.
+
 For a saved project, pass its exact `current.gugis.json` path instead. `--output`
 selects a separate cache root; the default is `.local/render-cache`. Input files
 must be outside that root. The builder validates a single complete snapshot with

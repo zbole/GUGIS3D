@@ -28,7 +28,7 @@ export const defaultCityWorkspace: CityWorkspace = {
   center_wgs84: [-2.603, 51.454],
 };
 
-export type CityId = "bristol" | "london" | "birmingham" | "manchester" | "edinburgh" | "cardiff";
+export type CityId = "bristol" | "london" | "birmingham" | "manchester" | "edinburgh" | "cardiff" | "york";
 export const knownCities = workspaceCatalog.map(record => record.id as CityId);
 
 export function cityIdFromSearch(search: string): CityId {

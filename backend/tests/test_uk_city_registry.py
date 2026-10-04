@@ -137,12 +137,13 @@ class UKReadinessAPITests(unittest.TestCase):
         before = self.snapshots()
         payload = self.response()
         self.assertEqual(payload['schema'], 'gugis-uk-readiness-v1')
-        self.assertEqual(payload['summary'], {'registered_cities': 76, 'sample_workspaces': 6,
-                                             'available_sample_workspaces': 6, 'coverage_assessment': 'not-assessed'})
-        self.assertEqual(len(payload['samples']), 6)
+        count=len(city_workspaces.CITY_DEFAULTS)
+        self.assertEqual(payload['summary'], {'registered_cities': 76, 'sample_workspaces': count,
+                                             'available_sample_workspaces': count, 'coverage_assessment': 'not-assessed'})
+        self.assertEqual(len(payload['samples']), count)
         catalogue = self.client.get('/cities').json()['cities']
         self.assertEqual({entry['id'] for entry in catalogue}, set(city_workspaces.CITY_DEFAULTS))
-        self.assertEqual(len(catalogue), 6)
+        self.assertEqual(len(catalogue), count)
         self.assertEqual(self.snapshots(), before)
         self.assertFalse((self.root / '.local').exists())
         self.assertEqual(self.client.get('/cities/uk-eng-bath/city/current').status_code, 404)
@@ -158,7 +159,8 @@ class UKReadinessAPITests(unittest.TestCase):
         self.assertIn('Whitehall', samples['london']['display_name'])
         self.assertIn('does not establish City of London coverage', samples['london']['association_note'])
         self.assertTrue(all(sample['boundary_membership_verified'] is False for sample in payload['samples']))
-        self.assertEqual(sum(record['sample']['state'] == 'none' for record in rows.values()), 70)
+        self.assertEqual(sum(record['sample']['state'] == 'none' for record in rows.values()), 76-len(city_workspaces.CITY_DEFAULTS))
+        self.assertEqual(rows['uk-eng-york']['sample']['workspace_ids'], ['york'])
         for record in rows.values():
             self.assertIs(record['sample']['boundary_membership_verified'], False)
             self.assertEqual(record['boundary'], {'state': 'not-recorded', 'receipt': None})
@@ -181,8 +183,8 @@ class UKReadinessAPITests(unittest.TestCase):
         (self.seed.parent / 'cities' / 'london.gugis.json').write_bytes(b'broken archive')
         before = self.snapshots()
         payload = self.response(); rows = self.records(payload)
-        self.assertEqual(payload['summary']['available_sample_workspaces'], 4)
-        self.assertEqual(payload['summary']['sample_workspaces'], 6)
+        self.assertEqual(payload['summary']['available_sample_workspaces'], len(city_workspaces.CITY_DEFAULTS)-2)
+        self.assertEqual(payload['summary']['sample_workspaces'], len(city_workspaces.CITY_DEFAULTS))
         self.assertEqual(rows['uk-eng-bristol']['sample']['state'], 'missing')
         self.assertEqual(rows['uk-eng-westminster']['sample']['state'], 'invalid')
         self.assertEqual(rows['uk-eng-birmingham']['sample']['state'], 'available')
@@ -200,7 +202,7 @@ class UKReadinessAPITests(unittest.TestCase):
         self.assertIsNone(sample['building_count'])
         self.assertIsNone(sample['road_count'])
         self.assertIsNone(sample['data_revision'])
-        self.assertEqual(payload['summary']['available_sample_workspaces'], 5)
+        self.assertEqual(payload['summary']['available_sample_workspaces'], len(city_workspaces.CITY_DEFAULTS)-1)
         self.assertEqual(self.snapshots(), before)
 
     def test_unexpected_sample_read_failure_is_isolated_and_not_exposed(self):
@@ -212,7 +214,7 @@ class UKReadinessAPITests(unittest.TestCase):
         with patch.object(city_workspaces, 'workspace_entry', side_effect=entry):
             payload = self.response()
         self.assertEqual(self.records(payload)['uk-eng-westminster']['sample']['state'], 'unavailable')
-        self.assertEqual(payload['summary']['available_sample_workspaces'], 5)
+        self.assertEqual(payload['summary']['available_sample_workspaces'], len(city_workspaces.CITY_DEFAULTS)-1)
         self.assertNotIn('private path', json.dumps(payload))
 
     @staticmethod

@@ -663,7 +663,7 @@ test("empty documents preserve the catalog-center and legacy Bristol framing", (
   }
 });
 
-test("all six expanded city seeds obey the residency budget and keep authored component IDs", async t => {
+test("all seven city seeds obey the residency budget and keep authored component IDs", async t => {
   const { readFileSync } = await import("node:fs");
   const { decodeCity } = await import("../src/studio/cityArchive.ts");
   for (const [name, path, expectedBuildings, expectedInstances] of [
@@ -673,6 +673,7 @@ test("all six expanded city seeds obey the residency budget and keep authored co
     ["Manchester", "cities/manchester.gugis.json", 800, 800],
     ["Edinburgh", "cities/edinburgh.gugis.json", 800, 800],
     ["Cardiff", "cities/cardiff.gugis.json", 800, 800],
+    ["York", "cities/york.gugis.json", 800, 800],
   ]) {
     const sceneCity = decodeCity(JSON.parse(readFileSync(new URL(`../../backend/data/${path}`, import.meta.url), "utf8")));
     const source = JSON.stringify(sceneCity);
