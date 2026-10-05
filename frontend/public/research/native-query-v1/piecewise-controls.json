@@ -1,0 +1,138 @@
+{
+  "schema": "gugis-piecewise-ruled-control-v1",
+  "counts": [
+    8,
+    32,
+    128
+  ],
+  "domain_m": [
+    -50,
+    -50,
+    50,
+    50
+  ],
+  "scripts": {
+    "data-pipeline/piecewise_ruled_control.py": "556865b098c6b4bdaae2107aef9d31ef38213e387a92e6668277aec277562a9a",
+    "data-pipeline/terrain_order_control.py": "d1e03cdb5ed77e762251c193a5e2b235a3c89d29b0ba34967c1678cc1370ff65",
+    "data-pipeline/publish_terrain_order_control.py": "3b37af94456d2444d627236f1d63a614ced542dc450630bbf2517a982f222f07",
+    "data-pipeline/curved_ruled_benchmark.py": "0723c77e82ee02478a060664bb4dddda2dc271ab29798e97c527ef7509296e71"
+  },
+  "source_definition": "For j=floor((x+50)/w), w=100/n, L=-50+j*w: f=30+.001*x+.002*y+(.2+.05*cos(2*pi*j/n))/w^2*(x-L)*(x-L-w)*(1+.002*y). j is clamped at the outer boundary.",
+  "scope": "Fixed purpose-built C0 piecewise P2xP1 fields. Gradient has one-sided limits at internal strip boundaries. Both models preserve exactly the same piecewise polynomial. Not real DEM, C2 paper theorem, optimal global encoding or measured RAM.",
+  "structure_fixtures": [
+    {
+      "id": "piecewise-8",
+      "name": "8 条连续直纹面带",
+      "strips": 8,
+      "triangle_degree": 3,
+      "ruled": {
+        "e2_m2": 2.2968685360250405e-13,
+        "area_m2": 10000.0,
+        "controls": 34,
+        "patches": 8,
+        "rms_m": 2.2968685360250404e-15,
+        "filename": "ruled.json",
+        "sha256": "68ef2f43d9cb5de7ac00ec6c29cff95974a9238dbce8a932f546100a94f0b2b0",
+        "bytes": 1563,
+        "binary_filename": "ruled.bin",
+        "binary_sha256": "216644adf878d57709f59c72f3ec97445b67e37e67cfdbf89d2200d64ac7a149",
+        "binary_bytes": 1120
+      },
+      "triangles": {
+        "e2_m2": 1.0100230712964312e-12,
+        "rms_m": 1.0100230712964312e-14,
+        "area_m2": 10000.0,
+        "controls": 100,
+        "triangles": 16,
+        "degree": 3,
+        "filename": "p3-triangles.json",
+        "sha256": "58b0815b451b1576c2b0eac398801402e33a88c622fcffdd0c8b4325b6ccc265",
+        "bytes": 5996,
+        "binary_filename": "p3-triangles.bin",
+        "binary_sha256": "73784ca1be8300741ccbffbdc3fab9149f28d4567fc658cdccd0dfade355a338",
+        "binary_bytes": 3248
+      },
+      "both_numerically_exact": true,
+      "numerical_e2_tolerance_m2": 1e-08,
+      "scope": "Fixed purpose-built C0 piecewise P2xP1 fields. Gradient has one-sided limits at internal strip boundaries. Both models preserve exactly the same piecewise polynomial. Not real DEM, C2 paper theorem, optimal global encoding or measured RAM.",
+      "json_saving_percent": 73.93262174783189,
+      "binary_saving_percent": 65.51724137931035
+    },
+    {
+      "id": "piecewise-32",
+      "name": "32 条连续直纹面带",
+      "strips": 32,
+      "triangle_degree": 3,
+      "ruled": {
+        "e2_m2": 2.3931000738327033e-13,
+        "area_m2": 10000.0,
+        "controls": 130,
+        "patches": 32,
+        "rms_m": 2.3931000738327034e-15,
+        "filename": "ruled.json",
+        "sha256": "e269c9c11f89cac6d7db3075092205020eed98a1c849eb0b4198e2c2cf51c906",
+        "bytes": 6147,
+        "binary_filename": "ruled.bin",
+        "binary_sha256": "8c1696b08e580c31540b3c4addfab3d70c6f43bbe35c4375fc3eae0534a8efe0",
+        "binary_bytes": 4288
+      },
+      "triangles": {
+        "e2_m2": 1.0119637946613428e-12,
+        "rms_m": 1.0119637946613427e-14,
+        "area_m2": 10000.0,
+        "controls": 388,
+        "triangles": 64,
+        "degree": 3,
+        "filename": "p3-triangles.json",
+        "sha256": "60b1aa2aa081c60c694bea43bc8c86745c2eb9e6db1449a88ca9dcd062c2cb9d",
+        "bytes": 23990,
+        "binary_filename": "p3-triangles.bin",
+        "binary_sha256": "b34fb81f8042ef0ac8e6d7d000023ce6965bc2c94d2a741f20a51200d23eff0a",
+        "binary_bytes": 12656
+      },
+      "both_numerically_exact": true,
+      "numerical_e2_tolerance_m2": 1e-08,
+      "scope": "Fixed purpose-built C0 piecewise P2xP1 fields. Gradient has one-sided limits at internal strip boundaries. Both models preserve exactly the same piecewise polynomial. Not real DEM, C2 paper theorem, optimal global encoding or measured RAM.",
+      "json_saving_percent": 74.37682367653188,
+      "binary_saving_percent": 66.1188369152971
+    },
+    {
+      "id": "piecewise-128",
+      "name": "128 条连续直纹面带",
+      "strips": 128,
+      "triangle_degree": 3,
+      "ruled": {
+        "e2_m2": 2.316054923862486e-13,
+        "area_m2": 10000.0,
+        "controls": 514,
+        "patches": 128,
+        "rms_m": 2.316054923862486e-15,
+        "filename": "ruled.json",
+        "sha256": "58e33bf1106ffba2c8302bd784f06017bca98b2f3daf0275ddb63ff86849df1b",
+        "bytes": 25969,
+        "binary_filename": "ruled.bin",
+        "binary_sha256": "e4008eab3b59602204c0f699cf233b3a37cdcdd832e61ccf8391b2fd0c1543d4",
+        "binary_bytes": 16960
+      },
+      "triangles": {
+        "e2_m2": 1.0080539840109231e-12,
+        "rms_m": 1.008053984010923e-14,
+        "area_m2": 10000.0,
+        "controls": 1540,
+        "triangles": 256,
+        "degree": 3,
+        "filename": "p3-triangles.json",
+        "sha256": "809d60be1e4e770060c0c039200266014d9a8b8193d702fbe36b5d0588acdbbd",
+        "bytes": 97958,
+        "binary_filename": "p3-triangles.bin",
+        "binary_sha256": "e1347fd24530a13aaba3a5f8d2bce1354541fa77fd16bfbd759a264b24e00186",
+        "binary_bytes": 50288
+      },
+      "both_numerically_exact": true,
+      "numerical_e2_tolerance_m2": 1e-08,
+      "scope": "Fixed purpose-built C0 piecewise P2xP1 fields. Gradient has one-sided limits at internal strip boundaries. Both models preserve exactly the same piecewise polynomial. Not real DEM, C2 paper theorem, optimal global encoding or measured RAM.",
+      "json_saving_percent": 73.48965883337758,
+      "binary_saving_percent": 66.27426026089724
+    }
+  ]
+}

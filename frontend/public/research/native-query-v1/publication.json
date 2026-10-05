@@ -1,0 +1,512 @@
+{
+  "schema": "gugis-native-query-performance-v1",
+  "generated_utc": "2026-10-05T17:55:48.461Z",
+  "parent_publication_sha256": "aa0ff0edfa871faba019705257c5caeb2ec2ce05022fa65ce4dfd69e53750b98",
+  "piecewise_report_sha256": "6bc880d754f63355952734038aeec2fd5082d2ea470f43554d7669d2e060a065",
+  "fixture": {
+    "filename": "query-fixture.json",
+    "bytes": 163527,
+    "sha256": "2aaf4ee958be2c019c7aea584ecb25dc62bd5464e6433ccd98ef2b6640ca2c9c",
+    "points": 4096
+  },
+  "scripts": {
+    "frontend/scripts/benchmark-order-query.mjs": "fb527900d8793f2203426be0006509877db4d074b16c1f236e3965c13cc35108",
+    "frontend/src/compare/preparedOrderQuery.ts": "1e65054a8db9fa6ac9c64f33fc9d9cf45ba48518917050c2683fa4ddbc92b605",
+    "frontend/src/compare/terrainOrderMath.ts": "927aeb6c12fe87c9866b4b47fc397e742f2b098435ae0038936f96e2b4091407",
+    "frontend/src/compare/curvedRuledMath.ts": "20dbf6c48c4b6d4c76510d0679637220fc8aeb735e2e792e21ca7313d7e3b8c7"
+  },
+  "environment": {
+    "node": "v24.13.0",
+    "v8": "13.6.233.17-node.37",
+    "platform": "win32",
+    "architecture": "x64",
+    "cpu_model": "Intel(R) Core(TM) i7-14650HX",
+    "logical_cores": 24,
+    "total_memory_bytes": 16890322944
+  },
+  "protocol": {
+    "operation": "CPU point location + native height + analytic Cartesian gradient + consumed checksum",
+    "preparation": "Both families validated, polynomial coefficients compiled once. Both scan directly for <=8 patches, otherwise use the same 32x32 bounding-box index; P2 omits known cubic terms. Saved binary files unchanged.",
+    "warmup_batches_per_method": 5,
+    "prepared_trials": 17,
+    "legacy_trials": 5,
+    "calibration_target_fast_ms": 30,
+    "max_batch_loops": 128,
+    "order": "Alternate GUGIS/triangle and triangle/GUGIS each trial. Common loop count per case from faster calibrated median; no file I/O, decoding, preparation or correctness assertions inside timed blocks.",
+    "variation": "p10/p90 are observed trial quantiles, NOT confidence intervals or cross-device guarantees.",
+    "limits": "Node CPU measurements on this machine and five fixed exact analytic structure fixtures, including C0 piecewise surfaces. Not browser/GPU rendering, ArcGIS software, memory consumption, paper-author timing or general optimality."
+  },
+  "trials_csv": {
+    "filename": "trials.csv",
+    "bytes": 21833,
+    "sha256": "b70b376c452f9da47e707de8c620d1aaefa1934b0e39b36d07c010adc5519aa0"
+  },
+  "report_sha256": "df7e009f07fe0267fb939d5141a54b4f2d7cacc6cd027a0b5c44bf5aacd852bf",
+  "publisher_sha256": "f2054fc3c7199008db6eb72174a89f9c8dba0b8b89a72f4816af1e04850864ca",
+  "figures": {
+    "native-query-results.png": "88f1238260bc33b4e80aef434b84291b5c75501f86af35aaa2aba720daea4f53",
+    "native-query-results.svg": "d4f7dbd12242428a092076e9944c1f69619c31add87caed817f0e88fd638d2bd"
+  },
+  "package": {
+    "filename": "native-query-evidence.zip",
+    "bytes": 221852,
+    "sha256": "99e5f2c9dbabd1f8c3a3b71152c7bc3f607b5caa3c2e917f52f4e0125920ebac"
+  },
+  "cases": [
+    {
+      "id": "extruded-quadratic",
+      "name": "二次轮廓沿直线延展",
+      "strips": 1,
+      "triangle_degree": 2,
+      "loops": 128,
+      "legacy_loops": 30,
+      "queries_per_trial": 524288,
+      "calibration_ms_per_4096": [
+        0.08670000000000755,
+        0.12830000000002428
+      ],
+      "legacy_calibration_ms_per_4096": [
+        1.0171000000000276,
+        26.4418
+      ],
+      "methods": [
+        {
+          "family": "ruled",
+          "binary_filename": "ruled.bin",
+          "binary_bytes": 196,
+          "binary_sha256": "796bb40e48883f2c54ac9c59595730a1a1c8ad89964a2072ffeb90fbf6669de2",
+          "controls": 6,
+          "patches": 1,
+          "e2_m2": 3.2756277856887136e-13,
+          "prepare_ms": 0.5263000000000062,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 4.163336342344337e-17,
+            "max_prepared_legacy_difference": 1.4210854715202004e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 23.330879211425785,
+            "p10": 21.946525573730487,
+            "p90": 25.010490417480504,
+            "minimum": 21.65279388427737,
+            "maximum": 25.24871826171883
+          },
+          "legacy_ns_per_query": {
+            "median": 272.177734375,
+            "p10": 164.3977864583331,
+            "p90": 278.4342447916662,
+            "minimum": 164.3977864583331,
+            "maximum": 281.77246093750165
+          }
+        },
+        {
+          "family": "triangles",
+          "binary_filename": "p2-triangles.bin",
+          "binary_bytes": 304,
+          "binary_sha256": "5b8853bfeedc4cc839e169d6aada6b05576ff616260f6e5d6569523e35798162",
+          "controls": 9,
+          "patches": 2,
+          "e2_m2": 5.523329699857391e-13,
+          "prepare_ms": 0.7828000000000088,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 8.326672684688674e-17,
+            "max_prepared_legacy_difference": 1.7763568394002505e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 25.488471984863462,
+            "p10": 23.840141296386715,
+            "p90": 26.39598846435531,
+            "minimum": 23.018836975097603,
+            "maximum": 30.05962371826164
+          },
+          "legacy_ns_per_query": {
+            "median": 7270.341796875002,
+            "p10": 6134.557291666669,
+            "p90": 10804.824218749998,
+            "minimum": 6134.557291666669,
+            "maximum": 10946.712239583338
+          }
+        }
+      ],
+      "paired_speed_ratio": {
+        "median": 1.0926382848796459,
+        "p10": 1.017253882879069,
+        "p90": 1.1585418693437761,
+        "minimum": 0.9128211722171332,
+        "maximum": 1.388256124309606
+      },
+      "ruled_vs_prepared_triangle_median_ratio": 1.092477988244054,
+      "scope": "Purpose-built ruled structure, not one of the strict-convex paper fixtures.",
+      "binary_saving_percent": 35.526315789473685
+    },
+    {
+      "id": "modulated-quadratic",
+      "name": "二次轮廓随母线线性变化",
+      "strips": 1,
+      "triangle_degree": 3,
+      "loops": 128,
+      "legacy_loops": 15,
+      "queries_per_trial": 524288,
+      "calibration_ms_per_4096": [
+        0.17529999999987922,
+        0.19089999999960128
+      ],
+      "legacy_calibration_ms_per_4096": [
+        2.0529999999998836,
+        84.04989999999998
+      ],
+      "methods": [
+        {
+          "family": "ruled",
+          "binary_filename": "ruled.bin",
+          "binary_bytes": 196,
+          "binary_sha256": "697becd31a0702c6cfce385ccca85fac34639b364e65f941744ac5b650d33018",
+          "controls": 6,
+          "patches": 1,
+          "e2_m2": 3.2265563267088906e-13,
+          "prepare_ms": 1.7986999999993714,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 5.551115123125783e-17,
+            "max_prepared_legacy_difference": 1.4210854715202004e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 43.42422485351626,
+            "p10": 40.96488952636673,
+            "p90": 46.23813629150292,
+            "minimum": 38.592338562012245,
+            "maximum": 47.81646728515589
+          },
+          "legacy_ns_per_query": {
+            "median": 343.658854166673,
+            "p10": 332.8369140625102,
+            "p90": 356.77571614582956,
+            "minimum": 332.8369140625102,
+            "maximum": 366.6276041666805
+          }
+        },
+        {
+          "family": "triangles",
+          "binary_filename": "p3-triangles.bin",
+          "binary_bytes": 504,
+          "binary_sha256": "a721820fa7910e6de82c60e00ff90cc4122366f9b0e32aaac775d3e833cf9caa",
+          "controls": 16,
+          "patches": 2,
+          "e2_m2": 1.0601279722947796e-12,
+          "prepare_ms": 1.1548000000002503,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 1.4210854715202004e-14,
+            "max_gradient": 4.0939474033052647e-16,
+            "max_prepared_legacy_difference": 3.907985046680551e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 51.07517242431553,
+            "p10": 45.872879028321236,
+            "p90": 53.509140014649375,
+            "minimum": 42.649841308594475,
+            "maximum": 54.83016967773591
+          },
+          "legacy_ns_per_query": {
+            "median": 20585.667317708336,
+            "p10": 20358.694661458307,
+            "p90": 20664.97721354167,
+            "minimum": 20358.694661458307,
+            "maximum": 20689.296874999978
+          }
+        }
+      ],
+      "paired_speed_ratio": {
+        "median": 1.1466796438715026,
+        "p10": 1.0297498979049207,
+        "p90": 1.2160975870073347,
+        "minimum": 0.9591434931991856,
+        "maximum": 1.288829063912685
+      },
+      "ruled_vs_prepared_triangle_median_ratio": 1.1761907690144926,
+      "scope": "Purpose-built ruled structure, not one of the strict-convex paper fixtures.",
+      "binary_saving_percent": 61.111111111111114
+    },
+    {
+      "id": "piecewise-8",
+      "name": "8 条连续直纹面带",
+      "strips": 8,
+      "triangle_degree": 3,
+      "loops": 127,
+      "legacy_loops": 17,
+      "queries_per_trial": 520192,
+      "calibration_ms_per_4096": [
+        0.23699999999917054,
+        0.38099999999940337
+      ],
+      "legacy_calibration_ms_per_4096": [
+        1.7788999999993393,
+        80.1372999999985
+      ],
+      "methods": [
+        {
+          "family": "ruled",
+          "binary_filename": "ruled.bin",
+          "binary_bytes": 1120,
+          "binary_sha256": "216644adf878d57709f59c72f3ec97445b67e37e67cfdbf89d2200d64ac7a149",
+          "controls": 34,
+          "patches": 8,
+          "e2_m2": 2.2968685360250405e-13,
+          "prepare_ms": 0.3188000000009197,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 1.4085954624931674e-15,
+            "max_prepared_legacy_difference": 1.0658141036401503e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 70.00357560285543,
+            "p10": 68.3807132750969,
+            "p90": 73.1614480807104,
+            "minimum": 67.2909233513768,
+            "maximum": 75.38274329478666
+          },
+          "legacy_ns_per_query": {
+            "median": 433.81491268386605,
+            "p10": 415.4411764705866,
+            "p90": 479.2394301470558,
+            "minimum": 415.4411764705866,
+            "maximum": 499.66394761030386
+          }
+        },
+        {
+          "family": "triangles",
+          "binary_filename": "p3-triangles.bin",
+          "binary_bytes": 3248,
+          "binary_sha256": "73784ca1be8300741ccbffbdc3fab9149f28d4567fc658cdccd0dfade355a338",
+          "controls": 100,
+          "patches": 16,
+          "e2_m2": 1.0100230712964312e-12,
+          "prepare_ms": 4.043099999998958,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 1.0658141036401503e-14,
+            "max_gradient": 1.7659484985443896e-15,
+            "max_prepared_legacy_difference": 3.907985046680551e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 96.00205308809134,
+            "p10": 92.09984005905677,
+            "p90": 99.92002952755936,
+            "minimum": 90.93277097686966,
+            "maximum": 104.73940391240114
+          },
+          "legacy_ns_per_query": {
+            "median": 20350.91768152571,
+            "p10": 20061.042336856637,
+            "p90": 20367.796415441186,
+            "minimum": 20061.042336856637,
+            "maximum": 20570.835248161762
+          }
+        }
+      ],
+      "paired_speed_ratio": {
+        "median": 1.364289269128282,
+        "p10": 1.260563324694439,
+        "p90": 1.4532852467475361,
+        "minimum": 1.2487397289838837,
+        "maximum": 1.4755362089877047
+      },
+      "ruled_vs_prepared_triangle_median_ratio": 1.371387850711092,
+      "scope": "Fixed purpose-built C0 piecewise P2xP1 fields. Gradient has one-sided limits at internal strip boundaries. Both models preserve exactly the same piecewise polynomial. Not real DEM, C2 paper theorem, optimal global encoding or measured RAM.",
+      "binary_saving_percent": 65.51724137931035
+    },
+    {
+      "id": "piecewise-32",
+      "name": "32 条连续直纹面带",
+      "strips": 32,
+      "triangle_degree": 3,
+      "loops": 82,
+      "legacy_loops": 8,
+      "queries_per_trial": 335872,
+      "calibration_ms_per_4096": [
+        0.41010000000096625,
+        0.36969999999928405
+      ],
+      "legacy_calibration_ms_per_4096": [
+        3.9305999999996857,
+        83.40239999999903
+      ],
+      "methods": [
+        {
+          "family": "ruled",
+          "binary_filename": "ruled.bin",
+          "binary_bytes": 4288,
+          "binary_sha256": "8c1696b08e580c31540b3c4addfab3d70c6f43bbe35c4375fc3eae0534a8efe0",
+          "controls": 130,
+          "patches": 32,
+          "e2_m2": 2.3931000738327033e-13,
+          "prepare_ms": 3.3976000000002387,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 4.524158825347513e-15,
+            "max_prepared_legacy_difference": 1.0658141036401503e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 100.34775152438401,
+            "p10": 93.17269674161336,
+            "p90": 102.26217130335834,
+            "minimum": 88.04842320883158,
+            "maximum": 111.19831364328955
+          },
+          "legacy_ns_per_query": {
+            "median": 991.046142578167,
+            "p10": 973.2727050781875,
+            "p90": 1041.586303710984,
+            "minimum": 973.2727050781875,
+            "maximum": 1167.4194335936638
+          }
+        },
+        {
+          "family": "triangles",
+          "binary_filename": "p3-triangles.bin",
+          "binary_bytes": 12656,
+          "binary_sha256": "b34fb81f8042ef0ac8e6d7d000023ce6965bc2c94d2a741f20a51200d23eff0a",
+          "controls": 388,
+          "patches": 64,
+          "e2_m2": 1.0119637946613428e-12,
+          "prepare_ms": 2.4301999999988766,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 1.0658141036401503e-14,
+            "max_gradient": 7.0915495697931874e-15,
+            "max_prepared_legacy_difference": 4.0908249010485065e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 113.47269197789838,
+            "p10": 105.8674137766762,
+            "p90": 118.94233517530886,
+            "minimum": 104.50379906631417,
+            "maximum": 139.8756073742356
+          },
+          "legacy_ns_per_query": {
+            "median": 21191.125488281283,
+            "p10": 20696.417236328092,
+            "p90": 21632.82165527347,
+            "minimum": 20696.417236328092,
+            "maximum": 22227.23083496092
+          }
+        }
+      ],
+      "paired_speed_ratio": {
+        "median": 1.1500774014829358,
+        "p10": 1.0352548985354808,
+        "p90": 1.2578932430840568,
+        "minimum": 0.9994569863278119,
+        "maximum": 1.39457138232343
+      },
+      "ruled_vs_prepared_triangle_median_ratio": 1.13079456444348,
+      "scope": "Fixed purpose-built C0 piecewise P2xP1 fields. Gradient has one-sided limits at internal strip boundaries. Both models preserve exactly the same piecewise polynomial. Not real DEM, C2 paper theorem, optimal global encoding or measured RAM.",
+      "binary_saving_percent": 66.1188369152971
+    },
+    {
+      "id": "piecewise-128",
+      "name": "128 条连续直纹面带",
+      "strips": 128,
+      "triangle_degree": 3,
+      "loops": 63,
+      "legacy_loops": 3,
+      "queries_per_trial": 258048,
+      "calibration_ms_per_4096": [
+        0.47660000000178115,
+        0.527700000002369
+      ],
+      "legacy_calibration_ms_per_4096": [
+        12.064800000000105,
+        87.00960000000123
+      ],
+      "methods": [
+        {
+          "family": "ruled",
+          "binary_filename": "ruled.bin",
+          "binary_bytes": 16960,
+          "binary_sha256": "e4008eab3b59602204c0f699cf233b3a37cdcdd832e61ccf8391b2fd0c1543d4",
+          "controls": 514,
+          "patches": 128,
+          "e2_m2": 2.316054923862486e-13,
+          "prepare_ms": 3.6970000000001164,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 2.0039525594484076e-14,
+            "max_prepared_legacy_difference": 1.0658141036401503e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 112.39304315475566,
+            "p10": 99.18542286706486,
+            "p90": 117.66686817955599,
+            "minimum": 98.55453249008755,
+            "maximum": 119.5308624752041
+          },
+          "legacy_ns_per_query": {
+            "median": 2724.308268229336,
+            "p10": 2581.339518229105,
+            "p90": 2734.676106770806,
+            "minimum": 2581.339518229105,
+            "maximum": 2886.4583333332303
+          }
+        },
+        {
+          "family": "triangles",
+          "binary_filename": "p3-triangles.bin",
+          "binary_bytes": 50288,
+          "binary_sha256": "e1347fd24530a13aaba3a5f8d2bce1354541fa77fd16bfbd759a264b24e00186",
+          "controls": 1540,
+          "patches": 256,
+          "e2_m2": 1.0080539840109231e-12,
+          "prepare_ms": 18.068500000001222,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 2.4369395390522186e-14,
+            "max_prepared_legacy_difference": 1.5040052536718918e-13
+          },
+          "prepared_ns_per_query": {
+            "median": 140.83891369047365,
+            "p10": 128.33542596727085,
+            "p90": 148.41153583830138,
+            "minimum": 126.48770771328708,
+            "maximum": 151.82330419146896
+          },
+          "legacy_ns_per_query": {
+            "median": 19441.463216145927,
+            "p10": 18244.067382812664,
+            "p90": 19791.357421875175,
+            "minimum": 18244.067382812664,
+            "maximum": 19861.31184895849
+          }
+        }
+      ],
+      "paired_speed_ratio": {
+        "median": 1.2650909322184827,
+        "p10": 1.1726260913543016,
+        "p90": 1.3306121175970214,
+        "minimum": 1.168592049475072,
+        "maximum": 1.3508247479554512
+      },
+      "ruled_vs_prepared_triangle_median_ratio": 1.253092804832684,
+      "scope": "Fixed purpose-built C0 piecewise P2xP1 fields. Gradient has one-sided limits at internal strip boundaries. Both models preserve exactly the same piecewise polynomial. Not real DEM, C2 paper theorem, optimal global encoding or measured RAM.",
+      "binary_saving_percent": 66.27426026089724
+    }
+  ]
+}

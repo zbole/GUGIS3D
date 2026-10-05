@@ -1,6 +1,7 @@
-import {useEffect,useState} from 'react';
+import {useEffect,useMemo,useState} from 'react';
 import report from '../../../shared/terrain-order-control-v1.json';
-import {orderQuery,type OrderModel} from './terrainOrderMath';
+import {type OrderModel} from './terrainOrderMath';
+import {prepareOrderQuery} from './preparedOrderQuery';
 import {loadOrderModel} from './loadOrderModel';
 import {useComparisonAnchor} from './useComparisonAnchor';
 import './TerrainOrderControls.css';
@@ -23,13 +24,14 @@ function StructureDemo({fixture}:{fixture:Fixture}){
       .catch(e=>{if(!controller.signal.aborted)setError(e instanceof Error?e.message:'函数模型读取失败');});
     return()=>controller.abort();
   },[fixture.id,retry]);
+  const prepared=useMemo(()=>models?.map(prepareOrderQuery)??null,[models]);
   if(error)return <p role="alert">{error} <button onClick={()=>setRetry(n=>n+1)}>重试结构模型</button></p>;
   if(!models)return <p role="status">正在读取完整二进制文件并核验 SHA-256…</p>;
   const reference=fixture.id==='extruded-quadratic'?30+.002*x*x+.03*y:30+.00002*x*x*(y+60)+.01*y;
   return <div className="oc-demo"><div className="cr-probe-controls"><label>X / m <input type="range" min="-50" max="50" step=".1" aria-label="结构对照查询X" value={x} onChange={e=>setX(Number(e.target.value))}/><output>{x.toFixed(1)}</output></label>
     <label>Y / m <input type="range" min="-50" max="50" step=".1" aria-label="结构对照查询Y" value={y} onChange={e=>setY(Number(e.target.value))}/><output>{y.toFixed(1)}</output></label></div>
     <p className="cr-scope">同点解析参考高程 {reference.toFixed(6)} m · 实际二进制解码后的函数直接求值</p>
-    <div className="oc-demo-grid">{models.map((model,i)=>{const q=orderQuery(model,x,y);return <article key={i}><h4>{i?`P${fixture.triangle_degree} 三角插值 · ${model.points.length} 个节点`:'GUGIS 二次直纹面 · 6 个控制点'}</h4>
+    <div className="oc-demo-grid">{models.map((model,i)=>{const q=prepared![i].query(x,y);return <article key={i}><h4>{i?`P${fixture.triangle_degree} 三角插值 · ${model.points.length} 个节点`:'GUGIS 二次直纹面 · 6 个控制点'}</h4>
       <Nodes model={model} label={i?'通用高阶三角插值节点':'两条二次边界的六个控制点'}/>
       <p>{q?`高程 ${q.height.toFixed(9)} m · 高程差 ${Math.abs(q.height-reference).toExponential(2)} m`:'未覆盖查询点'}</p>
       <p>{q?`∂z/∂x ${q.gradient[0].toFixed(6)} · ∂z/∂y ${q.gradient[1].toFixed(6)}`:''}</p></article>;})}</div>

@@ -21,7 +21,8 @@ import BristolTerrainBenchmark from "./BristolTerrainBenchmark";
 import PaperTerrainResults, {RealTerrainResultSummary} from './PaperTerrainResults';
 import CurvedRuledResults from './CurvedRuledResults';
 const TerrainOrderControls = lazy(() => import('./TerrainOrderControls'));
-const orderControls = <Suspense fallback={<p role="status" className="cr-scope">正在载入同精度结构与高阶控制结果…</p>}><TerrainOrderControls/></Suspense>;
+const NativeQueryResults = lazy(() => import('./NativeQueryResults'));
+const orderControls = <><Suspense fallback={<p role="status" className="cr-scope">正在载入同精度结构与高阶控制结果…</p>}><TerrainOrderControls/></Suspense><Suspense fallback={<p role="status" className="cr-scope">正在载入面带规模与原生查询结果…</p>}><NativeQueryResults/></Suspense></>;
 import {currentTerrainResultLink,rememberTerrainResult} from './terrainResultLink';
 import EvidenceDisclosure from './EvidenceDisclosure';
 import { useProjectFreshness, type ProjectFreshness } from "./useProjectFreshness";
@@ -188,7 +189,7 @@ function BristolComparison({ api }: { api?: CityApi }) {
     <div className="compare-page">
       <header className="cmp-header">
         <a href="/" className="cmp-logo" aria-label="返回 GUGIS3D 城市工作台"><span className="cmp-logo-mark">G<span>3</span></span><span>GUGIS<em>3D</em></span></a>
-        <nav aria-label="对比展示导航"><a href="#gugis-function-results">GUGIS 优势</a><a href="#order-structure-results">结构收益</a><a href="#paper-results">论文复现</a><a href="#real-terrain-results">真实地形结果</a><a href="/datasets">数据集</a><a href="#supplementary-evidence">补充实验</a></nav>
+        <nav aria-label="对比展示导航"><a href="#gugis-function-results">GUGIS 优势</a><a href="#order-structure-results">结构收益</a><a href="#native-query-results">查询效率</a><a href="#paper-results">论文复现</a><a href="#real-terrain-results">真实地形结果</a><a href="/datasets">数据集</a><a href="#supplementary-evidence">补充实验</a></nav>
         <a href="/" className="cmp-header-action">进入三维工作台 <ArrowUpRight size={16}/></a>
       </header>
       <main>
