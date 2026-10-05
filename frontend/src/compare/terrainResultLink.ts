@@ -1,16 +1,17 @@
-export type TerrainResultScope='bristol'|'multicity'|'oxford'|'cambridge'|'liverpool'|'sheffield'|'leeds';
+export type TerrainResultScope='bristol'|'multicity'|'oxford'|'cambridge'|'liverpool'|'sheffield'|'leeds'|'nottingham';
 export type TerrainResultSelection={scope:TerrainResultScope;target:number;site:string|null};
 const sites:Record<TerrainResultScope,string[]>={
   bristol:[],multicity:['manchester-centre','manchester-north-quarter','york-centre','york-north-quarter','bath-centre','bath-north-quarter'],
   oxford:['oxford-centre','oxford-north-quarter'],cambridge:['cambridge-centre','cambridge-north-quarter'],liverpool:['liverpool-centre','liverpool-north-quarter'],
   sheffield:['sheffield-centre','sheffield-north-quarter'],
   leeds:['leeds-centre','leeds-north-quarter'],
+  nottingham:['nottingham-centre','nottingham-north-quarter'],
 };
 const validScope=(value:string|null):value is TerrainResultScope=>value!==null&&Object.prototype.hasOwnProperty.call(sites,value);
 const validTarget=(value:number)=>[.1,.25,.5].includes(value);
 export function readTerrainResultLink(location:{search?:string;hash?:string}):TerrainResultSelection{
   const params=new URLSearchParams(location.search??'');
-  const hash=/^#(bristol|multicity|oxford|cambridge|liverpool|sheffield|leeds)-terrain-results$/.exec(location.hash??'')?.[1]??null;
+  const hash=/^#(bristol|multicity|oxford|cambridge|liverpool|sheffield|leeds|nottingham)-terrain-results$/.exec(location.hash??'')?.[1]??null;
   const query=params.get('terrain_scope');
   const scope=validScope(hash)?hash:validScope(query)?query:'bristol';
   const target=Number(params.get('terrain_target')),site=params.get('terrain_site');

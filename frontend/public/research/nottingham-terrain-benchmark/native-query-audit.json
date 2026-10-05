@@ -1,0 +1,249 @@
+{
+  "schema": "gugis-nottingham-native-query-audit-v1",
+  "parent_report_sha256": "8c964f9696f3f71eb8d373f863161a352ed32f71606b29ac36dc4d0040d3f313",
+  "auditor_sha256": "89a21479aa134d98a4b5beb8e9174387b17ac0230ffa9b1db0ecf4bd0a33042d",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scope": "Native original functions queried at fixed source-relative fixtures and every saved control. Sampled errors separate from full-domain L2 integral and max certificate. No browser, GPU, city write or ArcGIS run.",
+  "rows": [
+    {
+      "case_id": "nottingham-centre",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "c536c51ab8cc21fe6db4ba63f2b552875a75d98d50cc46991380e7dd1eba30fd",
+      "fixture_sha256": "641d88758666c2bb026f85ea0b68f25e10899ff92a7959b3c14261d9c686e507",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 158,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.025128381137364132,
+      "sampled_mae_m": 0.018556402738227985,
+      "sampled_p95_absolute_m": 0.05313540938550432,
+      "sampled_max_absolute_m": 0.09022556846212382,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 392779,
+        "sha256": "737b5156fa98d5f118ead6f1e19efb6bdf1d6c367ec1036f85619d9307a2d216"
+      }
+    },
+    {
+      "case_id": "nottingham-centre",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "2f2f31be52d6d8dab61a0520d3065a9635de72430e5322109bf650fc0e005744",
+      "fixture_sha256": "641d88758666c2bb026f85ea0b68f25e10899ff92a7959b3c14261d9c686e507",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 134,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.027209298018078632,
+      "sampled_mae_m": 0.020407395679148017,
+      "sampled_p95_absolute_m": 0.05768784446016895,
+      "sampled_max_absolute_m": 0.09045494198826987,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 392876,
+        "sha256": "536edf913a7af33eb74d867ca723d79076237ead4882bfa47af70650eab55723"
+      }
+    },
+    {
+      "case_id": "nottingham-centre",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "4a5f2ecb6e38c4b1d0429080a11b02ebef8b1fdcc390f8a2ce231043d42ce8ba",
+      "fixture_sha256": "641d88758666c2bb026f85ea0b68f25e10899ff92a7959b3c14261d9c686e507",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 25,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06829480454881105,
+      "sampled_mae_m": 0.053152772831741614,
+      "sampled_p95_absolute_m": 0.13463540542712593,
+      "sampled_max_absolute_m": 0.24540094759645825,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 390379,
+        "sha256": "210362d622b90a3273acaa0f55cab9314e933fa1f1e335a673b5b48a33bffffe"
+      }
+    },
+    {
+      "case_id": "nottingham-centre",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "1eeaaa82a9bca343f38e3ea73c4e0c3d47063a2869d92a6ee018fbc6f31154af",
+      "fixture_sha256": "641d88758666c2bb026f85ea0b68f25e10899ff92a7959b3c14261d9c686e507",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 28,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06997437176482145,
+      "sampled_mae_m": 0.0536438478095289,
+      "sampled_p95_absolute_m": 0.13649574871329406,
+      "sampled_max_absolute_m": 0.22828620007776124,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 390274,
+        "sha256": "0f560759e21cdde0584715e54a7cf0d3ba018ce597b0ef036f9b6fe07d86f104"
+      }
+    },
+    {
+      "case_id": "nottingham-centre",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "3ed51380993b8c378ced00f6562dca7c8a201832fdf973a21e71234d1aa5aa16",
+      "fixture_sha256": "641d88758666c2bb026f85ea0b68f25e10899ff92a7959b3c14261d9c686e507",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 13,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.169504044568678,
+      "sampled_mae_m": 0.13406769680371267,
+      "sampled_p95_absolute_m": 0.33648578804756824,
+      "sampled_max_absolute_m": 0.45517548895320203,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 388091,
+        "sha256": "cecd648275f402ccae297a2574d8ea0c2490c4c1d2f52dc2b388033959a8dbcf"
+      }
+    },
+    {
+      "case_id": "nottingham-centre",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "abf5ca3a835070fd61f5ca5a727d969b04ae1c0d8ced73c86180fcffef479d1b",
+      "fixture_sha256": "641d88758666c2bb026f85ea0b68f25e10899ff92a7959b3c14261d9c686e507",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 10,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.1490896179986679,
+      "sampled_mae_m": 0.12056024362775979,
+      "sampled_p95_absolute_m": 0.29473610112478354,
+      "sampled_max_absolute_m": 0.44728895914630584,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 388362,
+        "sha256": "2ca14527b766ea20fbc9a030109172c7ae36ecc8e47c7ac1ad24dcd58953e796"
+      }
+    },
+    {
+      "case_id": "nottingham-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "5ec382c654acd4d8f336b01a070a292860d197ec74bd5f68578b6f90f63ef5ec",
+      "fixture_sha256": "673528c9c0f75846b732d2770930dad26e800bfc9277e4ea816fd942866badcf",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 710,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.025092453250138473,
+      "sampled_mae_m": 0.018365888477667798,
+      "sampled_p95_absolute_m": 0.05300072291880298,
+      "sampled_max_absolute_m": 0.08687202359767099,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 392869,
+        "sha256": "dc5f897930ba6cf9b2945edb9886f1ff431e227a38da6c5ebc800b44a7d2ea58"
+      }
+    },
+    {
+      "case_id": "nottingham-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "3faaf1c476322010a5e6e74db5a9aa544360752bfa4aef74bfb66850622a9131",
+      "fixture_sha256": "673528c9c0f75846b732d2770930dad26e800bfc9277e4ea816fd942866badcf",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 594,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.02640979496051736,
+      "sampled_mae_m": 0.019374514900976365,
+      "sampled_p95_absolute_m": 0.055876090019644664,
+      "sampled_max_absolute_m": 0.090737973269853,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 392597,
+        "sha256": "e304af3adff592d8291ab99959d39cd99c5485bcb22c21a87ec6a5126cf358d4"
+      }
+    },
+    {
+      "case_id": "nottingham-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "8b6f45ae7aec010a661f66745f0f46df543dedcd9f0ed854e36f84e93381adcf",
+      "fixture_sha256": "673528c9c0f75846b732d2770930dad26e800bfc9277e4ea816fd942866badcf",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 293,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06271025726041658,
+      "sampled_mae_m": 0.04626307512448358,
+      "sampled_p95_absolute_m": 0.13364783960267346,
+      "sampled_max_absolute_m": 0.22921112097949248,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 391112,
+        "sha256": "f2a7db2eddcea1989ea4e8d5678c3e75376a8fc68159e7119f6e287d56c43fd6"
+      }
+    },
+    {
+      "case_id": "nottingham-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "7c4d9cfb82545cd3316ef9ffe10db87aa2a5d2e9d0706b88b6ba1c14957891f0",
+      "fixture_sha256": "673528c9c0f75846b732d2770930dad26e800bfc9277e4ea816fd942866badcf",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 199,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06132639641682422,
+      "sampled_mae_m": 0.045720116196842034,
+      "sampled_p95_absolute_m": 0.12997714651440617,
+      "sampled_max_absolute_m": 0.2374889530089206,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 390959,
+        "sha256": "347a1382fb963e1521f1d76af5d55e23266439737b4e5dca98fa51127e4cf594"
+      }
+    },
+    {
+      "case_id": "nottingham-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "06ae2be0080a53c096969717723aa400dbfb8b1f5eb4e6e37f9f6490a20a5ccb",
+      "fixture_sha256": "673528c9c0f75846b732d2770930dad26e800bfc9277e4ea816fd942866badcf",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 124,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.13987514413671126,
+      "sampled_mae_m": 0.10455954889916137,
+      "sampled_p95_absolute_m": 0.30166366744059303,
+      "sampled_max_absolute_m": 0.4615871425090745,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 389636,
+        "sha256": "03817c0550a969f0dee545fef5dab144c88bc516dff2f188720a2798e6428753"
+      }
+    },
+    {
+      "case_id": "nottingham-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "b4e57572cf04244edad87c7ba3b19b08b3284a60bb0804795c1f1d24de7c7038",
+      "fixture_sha256": "673528c9c0f75846b732d2770930dad26e800bfc9277e4ea816fd942866badcf",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 105,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.1045489341962703,
+      "sampled_mae_m": 0.07667785944579657,
+      "sampled_p95_absolute_m": 0.22561266212905196,
+      "sampled_max_absolute_m": 0.46734884823074196,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 390200,
+        "sha256": "5ce6f47e2a83d79114857713807832bcf7820194748fdd88a2eb9c760449ca73"
+      }
+    }
+  ]
+}
