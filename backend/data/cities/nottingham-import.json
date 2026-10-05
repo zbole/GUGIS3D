@@ -1,0 +1,58 @@
+{
+  "city_id": "nottingham",
+  "source_sha256": "59654da4e1f2c57ed9b96c4575578fd2ef46f0fe902af8fbb52adae5ad076ad7",
+  "source_building_ways": 17141,
+  "imported_buildings": 17134,
+  "imported_roads": 2941,
+  "query_bbox_wgs84": [
+    -1.172,
+    52.939,
+    -1.123,
+    52.967
+  ],
+  "actual_data_bbox_wgs84": [
+    -1.1770676,
+    52.9345439,
+    -1.1173373,
+    52.9698999
+  ],
+  "height_policy": {
+    "height-tag": 36,
+    "levels-derived": 881,
+    "assumed": 16217
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 85406503,
+      "reason": "OSM min_height '7' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 165120766,
+      "reason": "OSM min_height '5' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 273376471,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 292975280,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 363152364,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 409365982,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 653579100,
+      "reason": "OSM min_height '7' has unsupported vertical semantics; not grounded"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 30922073,
+  "gugis_sha256": "858b1578db64b0845a004b15be0c8cc24119f960b5b5c158a897bd76efb1ef01"
+}

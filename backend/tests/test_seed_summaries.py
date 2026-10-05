@@ -93,7 +93,7 @@ class SeedSummaryTests(unittest.TestCase):
         self.assertEqual(report['runtime'], seed_summaries.validation_runtime())
         self.assertEqual(report['dependencies'], seed_summaries.validation_dependencies())
         self.assertEqual({r['city_id'] for r in report['records']}, set(city_workspaces.CITY_DEFAULTS))
-        self.assertEqual(sum(r['summary']['count'] for r in report['records']), 79025)
+        self.assertEqual(sum(r['summary']['count'] for r in report['records']), 96159)
         for record in report['records']:
             source = seed_summaries.ROOT / record['path']
             self.assertEqual(source.stat().st_size, record['bytes'])

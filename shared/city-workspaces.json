@@ -167,5 +167,18 @@
       53.811
     ],
     "related_registry_id": "uk-eng-leeds"
+  },
+  {
+    "id": "nottingham",
+    "name": "诺丁汉",
+    "city_name": "Nottingham",
+    "coverage_label": "诺丁汉中心样本街区（非全城覆盖）",
+    "query_bbox_wgs84": [
+      -1.172,
+      52.939,
+      -1.123,
+      52.967
+    ],
+    "related_registry_id": "uk-eng-nottingham"
   }
 ]

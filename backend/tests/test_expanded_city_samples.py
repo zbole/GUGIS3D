@@ -51,14 +51,14 @@ class ExpandedCitySamplesTests(unittest.TestCase):
         self.assertEqual(source['preparer_source_sha256'],hashlib.sha256((root.parents[2]/'data-pipeline/prepare_city_source.py').read_bytes().replace(b'\r\n',b'\n')).hexdigest())
 
     def test_workspace_storage_and_seeds_remain_distinct_for_all_published_cities(self):
-        self.assertEqual(len(WORKSPACES), 13)
+        self.assertEqual(len(WORKSPACES), 14)
         root = Path('/synthetic/root')
         self.assertEqual(len({city_workspaces.directory(root / '.local/city', r['id']) for r in WORKSPACES}), len(WORKSPACES))
         self.assertEqual(len({city_workspaces.seed_path(root / 'data/bristol.gugis.json', r['id']) for r in WORKSPACES}), len(WORKSPACES))
 
     def test_large_city_still_rejects_over_budget_instance_lists(self):
         payload = {'format': 'gugis-city', 'version': '1.0', 'coordinate_system': 'ENU_METERS_WGS84',
-                   'name': 'Bounded test', 'assets': {}, 'instances': [{}] * 15001}
+                   'name': 'Bounded test', 'assets': {}, 'instances': [{}] * 20001}
         with self.assertRaises(ValidationError) as caught:
             load_city(payload)
         self.assertTrue(any(e['type'] == 'too_long' and e['loc'][-1] == 'instances' for e in caught.exception.errors()))

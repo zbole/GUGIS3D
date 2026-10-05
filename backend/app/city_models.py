@@ -4,8 +4,8 @@ from .studio_models import StrictModel, BuildingDocument, Identifier, SolidTempl
 from .environment_models import Environment
 
 # Expanded districts keep bounded documents; render residency is limited separately.
-MAX_CITY_ASSETS = 15000
-MAX_CITY_INSTANCES = 15000
+MAX_CITY_ASSETS = 20000
+MAX_CITY_INSTANCES = 20000
 MAX_CITY_ROADS = 10000
 MAX_INSTANCED_SEMANTIC_NODES = 300000
 

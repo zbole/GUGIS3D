@@ -201,6 +201,24 @@ are published as independent terrain candidates. © Environment Agency
 copyright and/or database right 2022; Open Government Licence v3.0.
 The 1 m source resolution is not the accuracy of the 20-pixel preview.
 
+## Nottingham central district sample
+
+The independently acquired Nottingham source contains 17,134 converted
+building outline objects and 2,941 non-area roads, from the bounded query
+[-1.172, 52.939, -1.123, 52.967]. Complete intersecting ways are retained;
+this is not the whole city, administrative boundary, or a surveyed entity count.
+© OpenStreetMap contributors; ODbL 1.0 applies to source and derived data.
+The original response remains locally retained. The public copy only removes
+1,514 unrelated contact/free-text tags; every ID, geometry and kept tag matches.
+
+One building=no way is not a building; seven further unsupported ways and
+actual reasons appear in nottingham-import.json. Seventeen area roads are
+excluded from the linear road model. Retained roads have no conversion failures.
+Height evidence: 36 height tags, 881 floor estimates (3.2 m/floor), and 16,217
+assumed heights (9.6 m), without independent survey validation. These are LoD1
+volumes, not verified facades, domes or interiors. The city seed has no terrain;
+independently acquired EA source is not published before its native audit.
+
 ## Wider data for future work
 
 Geofabrik offers regional OSM PBF downloads for
