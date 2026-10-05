@@ -23,7 +23,7 @@ const Showcase = (await import(pathToFileURL(outfile).href)).default;
 const text = node => typeof node === "string" ? node : (node.children ?? []).map(text).join("");
 const group = (root, label) => root.findByProps({ role: "group", "aria-label": label });
 
-for(const [cityId,cityName,adverse] of [['liverpool','利物浦',/大 16\.5%/],['sheffield','谢菲尔德',/大 17\.5%/]]){
+for(const [cityId,cityName,adverse] of [['liverpool','利物浦',/大 16\.5%/],['sheffield','谢菲尔德',/大 17\.5%/],['leeds','利兹',/大 21\.9%/]]){
 test(`non-Bristol ${cityId} page retains its exact terrain result link and never reads formal city or foreign snapshot`,()=>{
   const beforeWindow=globalThis.window,beforeDocument=globalThis.document,beforeFetch=globalThis.fetch;
   const listeners=new Map();let r;

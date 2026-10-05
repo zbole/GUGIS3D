@@ -44,3 +44,14 @@ test('Sheffield sample links round trip without stale Liverpool selection or unr
   assert.deepEqual(readTerrainResultLink({search:'?terrain_scope=liverpool&terrain_site=liverpool-centre&terrain_target=.5',hash:'#sheffield-terrain-results'}),{scope:'sheffield',target:.5,site:null});
   assert.throws(()=>terrainResultUrl('http://localhost/compare',{scope:'sheffield',target:.1,site:'liverpool-centre'}),/different experiment/);
 });
+
+test('Leeds sample links round trip without stale Liverpool selection or unrelated workspace changes',()=>{
+  for(const site of ['leeds-centre','leeds-north-quarter']){
+    const url=new URL(terrainResultUrl('http://localhost/compare?city=leeds&cities=leeds,liverpool&terrain_site=liverpool-centre',{scope:'leeds',target:.25,site}));
+    assert.deepEqual(readTerrainResultLink(url),{scope:'leeds',target:.25,site});
+    assert.equal(url.searchParams.get('city'),'leeds');assert.equal(url.searchParams.get('cities'),'leeds,liverpool');
+    assert.equal(url.hash,'#leeds-terrain-results');
+  }
+  assert.deepEqual(readTerrainResultLink({search:'?terrain_scope=liverpool&terrain_site=liverpool-centre&terrain_target=.5',hash:'#leeds-terrain-results'}),{scope:'leeds',target:.5,site:null});
+  assert.throws(()=>terrainResultUrl('http://localhost/compare',{scope:'leeds',target:.1,site:'liverpool-centre'}),/different experiment/);
+});

@@ -1,0 +1,249 @@
+{
+  "schema": "gugis-leeds-native-query-audit-v1",
+  "parent_report_sha256": "4ea3539da50fab96aa0a633ee42aff2c025ccc3ea1334b51ad0a18ef737b689c",
+  "auditor_sha256": "86cbbbe113510c44c85395d47c90db15f9661ef90c6c074af771c11384ed1327",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scope": "Native original functions queried at fixed source-relative fixtures and every saved control. Sampled errors separate from full-domain L2 integral and max certificate. No browser, GPU, city write or ArcGIS run.",
+  "rows": [
+    {
+      "case_id": "leeds-centre",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "0a16f9d045d55ed2477b426e2e8d47c9e7eeb6cb9b1eeeac138421c38c9dc40a",
+      "fixture_sha256": "37eb8b1b0bd6536bac5932923ece742f665c0e5986abd07d125cdb1ebca1b27c",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 73,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.025398383747205672,
+      "sampled_mae_m": 0.018668275009706133,
+      "sampled_p95_absolute_m": 0.05301919000846311,
+      "sampled_max_absolute_m": 0.09447284998095995,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 392799,
+        "sha256": "271594e51d53e062bb4271fdde572a533906c0fb5cb89b11d23b784ab13ce268"
+      }
+    },
+    {
+      "case_id": "leeds-centre",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "93001ae28f404a2884cf252b765d8c65ec442cf7e1526572987497aa491532b1",
+      "fixture_sha256": "37eb8b1b0bd6536bac5932923ece742f665c0e5986abd07d125cdb1ebca1b27c",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 108,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.024378861989178616,
+      "sampled_mae_m": 0.017757485059074703,
+      "sampled_p95_absolute_m": 0.05146907799404943,
+      "sampled_max_absolute_m": 0.09116817845755065,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 393126,
+        "sha256": "40a6ddd11a9d15d2e345adad99e188571a5b7d7e50e33ec7121c3751aea58472"
+      }
+    },
+    {
+      "case_id": "leeds-centre",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "7d5d429bf6fc848670d5ca318734741c4a9f638cc4a8b5510709dd61d267e012",
+      "fixture_sha256": "37eb8b1b0bd6536bac5932923ece742f665c0e5986abd07d125cdb1ebca1b27c",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 28,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06736539312184887,
+      "sampled_mae_m": 0.05299444153247485,
+      "sampled_p95_absolute_m": 0.13858433624044864,
+      "sampled_max_absolute_m": 0.2101217649094238,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 391003,
+        "sha256": "722866f6c7a4b148f00e6730ca70f6792dc06bec23098a98342f51c64606e6e5"
+      }
+    },
+    {
+      "case_id": "leeds-centre",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "2cf0d6988709c2e4e87146d1c585b1aaf530f2412e8265f0bb922a9b5138a5d7",
+      "fixture_sha256": "37eb8b1b0bd6536bac5932923ece742f665c0e5986abd07d125cdb1ebca1b27c",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 25,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06646515858830136,
+      "sampled_mae_m": 0.05012983842832684,
+      "sampled_p95_absolute_m": 0.14678989695696743,
+      "sampled_max_absolute_m": 0.2207602365294079,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 391164,
+        "sha256": "dcb23dcf4c524f74c099748cc376315d359ef77cc9ae6669942979443da069a9"
+      }
+    },
+    {
+      "case_id": "leeds-centre",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "a499a8a123a611272d7de5a38bccb26c3f46263da35bbcf666e3604954579027",
+      "fixture_sha256": "37eb8b1b0bd6536bac5932923ece742f665c0e5986abd07d125cdb1ebca1b27c",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 9,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.13722163560266298,
+      "sampled_mae_m": 0.10429621630852995,
+      "sampled_p95_absolute_m": 0.286937717392064,
+      "sampled_max_absolute_m": 0.3892150388364257,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 390324,
+        "sha256": "f979d2ac55aabbcc07dcd274cc4e5a41976d3b86245d187d52b11f1eb5644c7e"
+      }
+    },
+    {
+      "case_id": "leeds-centre",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "44d793d6c20560d7b6b98b7648996e1a8e1ca43d1b3e72f2e639505dbefa94ae",
+      "fixture_sha256": "37eb8b1b0bd6536bac5932923ece742f665c0e5986abd07d125cdb1ebca1b27c",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 6,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.15051174010692145,
+      "sampled_mae_m": 0.11933279895608431,
+      "sampled_p95_absolute_m": 0.28181468933112086,
+      "sampled_max_absolute_m": 0.3860612496353326,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 389759,
+        "sha256": "cc5b4b4c812b8e42f09fa4eb7290058d297ccb742af3d8ba662654bb03a34fcf"
+      }
+    },
+    {
+      "case_id": "leeds-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "f75b05c9bc98c77b0c035290974558a28f0047f8998d713bda4f54f547af8635",
+      "fixture_sha256": "1fa4af8884b40f96597a53d4930e3f2b200598cac5815a86c22c5c7cb8de22df",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 736,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.02533346471126388,
+      "sampled_mae_m": 0.017859236083773936,
+      "sampled_p95_absolute_m": 0.0559648286140515,
+      "sampled_max_absolute_m": 0.0908274926917585,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 392925,
+        "sha256": "5a80b639dcd6218121e06cb210b445e02a80b2d63ae0772145d7603a9097a61c"
+      }
+    },
+    {
+      "case_id": "leeds-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "00bd981a188ea08310d83361a2d859e7cbe711f7c82ecef52df515f00abf7d1a",
+      "fixture_sha256": "1fa4af8884b40f96597a53d4930e3f2b200598cac5815a86c22c5c7cb8de22df",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 634,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.026356475888735173,
+      "sampled_mae_m": 0.018914137949059114,
+      "sampled_p95_absolute_m": 0.057563727608645365,
+      "sampled_max_absolute_m": 0.09455337075376491,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 392724,
+        "sha256": "144e665a4420223cc8ca531f4a2bdf8f82ee1c25f72685371d9d009b29845518"
+      }
+    },
+    {
+      "case_id": "leeds-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "2412bc126313392115da3b67666ff5728ce055e1074839c759428564e5081a0d",
+      "fixture_sha256": "1fa4af8884b40f96597a53d4930e3f2b200598cac5815a86c22c5c7cb8de22df",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 273,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06133995093426721,
+      "sampled_mae_m": 0.04518768238056362,
+      "sampled_p95_absolute_m": 0.12967950499744063,
+      "sampled_max_absolute_m": 0.23766265629203787,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 391340,
+        "sha256": "91b29ccdd265b166299f1c0cb51d0f961c070f4aed765f15b1fef1c48edea920"
+      }
+    },
+    {
+      "case_id": "leeds-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "551631dd583246d948ba3a681ef1bab821946687a774cdd3ec85e378c610e1f4",
+      "fixture_sha256": "1fa4af8884b40f96597a53d4930e3f2b200598cac5815a86c22c5c7cb8de22df",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 233,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.058298850734700314,
+      "sampled_mae_m": 0.04225842449935934,
+      "sampled_p95_absolute_m": 0.1234414347263737,
+      "sampled_max_absolute_m": 0.23985487330508448,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 391175,
+        "sha256": "721382134657fd331e19b84ea16293775fbf1ba94b6695139e3515225fed667c"
+      }
+    },
+    {
+      "case_id": "leeds-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "a0802df53f9d0c698e7c0afc76a7ce6c7949d8855ec068391f8c246c90d1b12b",
+      "fixture_sha256": "1fa4af8884b40f96597a53d4930e3f2b200598cac5815a86c22c5c7cb8de22df",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 94,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.12889882582668047,
+      "sampled_mae_m": 0.09675007147688906,
+      "sampled_p95_absolute_m": 0.27619946140764284,
+      "sampled_max_absolute_m": 0.4756633145648621,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 389862,
+        "sha256": "25a7a3bd06186a3c8ef9bbe87ee61d1bb1dc747ebab2a5de0d4a0fd8d11b9a8d"
+      }
+    },
+    {
+      "case_id": "leeds-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "3b6bed63e804a11db8fe5e387586f86dc567c80ea03d6d2aa80c52e4f94cea99",
+      "fixture_sha256": "1fa4af8884b40f96597a53d4930e3f2b200598cac5815a86c22c5c7cb8de22df",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 78,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.11691245842544148,
+      "sampled_mae_m": 0.08463807067600564,
+      "sampled_p95_absolute_m": 0.2526987420205913,
+      "sampled_max_absolute_m": 0.4755168631414364,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 389997,
+        "sha256": "e4d2605505a9e50709bf49577b26869a6fafa476c2a88ba07d880c300bfeeb6e"
+      }
+    }
+  ]
+}
