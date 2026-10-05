@@ -195,8 +195,11 @@ height tags, 1,139 floor-derived estimates (3.2 m/floor) and 4,873 assumed
 values (9.6 m), without independent survey validation. These are LoD1 volumes,
 not detailed facades or interiors. Original building-type and lifecycle tags
 remain in the retained source; the volume does not certify current ground truth.
-The city seed contains no terrain. Independently acquired EA source data are
-not published until their separate raster and native-model audits pass.
+The city seed contains no terrain. Independently acquired EA 2022
+LIDAR Composite DTM source data and the separately audited native preview
+are published as independent terrain candidates. © Environment Agency
+copyright and/or database right 2022; Open Government Licence v3.0.
+The 1 m source resolution is not the accuracy of the 20-pixel preview.
 
 ## Wider data for future work
 

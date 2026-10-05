@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "f9b4a5a158970325607da3faed3de2d29764dca48b26566fb154866c89c194de",
+  "audit_sha256": "6b650833cb735c8d110634f67ef80ebb0106ba291e8b1d23fab67c33014d5e53",
+  "plotter_sha256": "b92b7cbacb32492c3d996226c6cf209abc31d9199fbff3f8fc5fb430089ab902",
+  "files": {
+    "leeds-source-preview.png": {
+      "bytes": 525891,
+      "sha256": "1a1b16a96c14f1d169112aa4a3a8cf4f56304574bf4770c1f0a35555a74b255e"
+    },
+    "leeds-source-preview.svg": {
+      "bytes": 866973,
+      "sha256": "92d637cdb270f79eceeafcf8a78eeb76263209e767a4f9ab7f630d876f426988"
+    }
+  }
+}

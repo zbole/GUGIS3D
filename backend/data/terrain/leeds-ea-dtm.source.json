@@ -1,0 +1,29 @@
+{
+  "city_id": "leeds",
+  "name": "利兹",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28428412%2C431660%29&subset=N%28431938%2C435075%29&format=image%2Ftiff",
+  "bbox_bng": [
+    428412,
+    431938,
+    431660,
+    435075
+  ],
+  "query_bbox_wgs84": [
+    -1.57,
+    53.783,
+    -1.521,
+    53.811
+  ],
+  "bytes": 51381035,
+  "sha256": "e6cb731568b9eac05f8f999d9767658ff5117f7050b466bf3696cce976973d76",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-05T14:21:12.749041+00:00",
+  "width": 3248,
+  "height": 3137,
+  "valid_pixels": 10188976,
+  "nodata_pixels": 0,
+  "minimum_m": 20.66900062561035,
+  "maximum_m": 93.79000091552734,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent centre-district raw sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}

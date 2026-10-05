@@ -1,5 +1,5 @@
 import {useEffect,useMemo,useRef,useState} from 'react';
-import catalogue from '../../../shared/public-terrain-sources-v5.json';
+import catalogue from '../../../shared/public-terrain-sources-v6.json';
 import CityScene,{type CitySceneHandle} from '../studio/CityScene';
 import type {Terrain} from '../studio/environment';
 import type {TerrainHit} from '../studio/terrainMath';

@@ -1,0 +1,26 @@
+{
+  "schema": "gugis-ea-city-preview-audit-v1",
+  "city_id": "leeds",
+  "model_sha256": "d94864ce01ed623d05ba515c1cfab341f6557d29bbc54fc2b4731608d18bbf81",
+  "raster_sha256": "f9b4a5a158970325607da3faed3de2d29764dca48b26566fb154866c89c194de",
+  "fixture_sha256": "23cad75f04d36af9c555713926cad99d6704f66bacacfc09987e5671bc21c7cf",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "1b49ce860866348b390d0b04b809646fa65f997cf50e7d03a16de9ffad3ad1f6",
+    "python": "491bc4846ad613a605b7aac582b2943c930d66cc1beb64d1332034eff4bfecbf"
+  },
+  "method": "4096 fixed unique valid source 1m pixel centres, seed20261005,40-pixel rim excluded before querying. Misses retained; errors use hits only. Source participates in preview construction, not held-out ground truth.",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.4971773705600092,
+  "mae_m": 0.2624872748921505,
+  "p95_absolute_m": 1.0412240210076433,
+  "max_absolute_m": 6.883349403305651,
+  "controls_checked": 25591,
+  "controls_hits": 25591,
+  "max_control_query_error_m": 4.973799150320701e-14,
+  "limits": "Sampled relative source-raster differences, no continuous bound or true-ground accuracy guarantee; ODN unchanged; no ArcGIS run."
+}
