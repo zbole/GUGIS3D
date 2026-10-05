@@ -15,6 +15,7 @@ export default function PublicTerrainCard({api,disabled,onPreview}:{
     return ()=>{active=false;};
   },[api,retry]);
   const source=info?.status==='available'?info.source:null;
+  const auditBase=source&&['bristol','london','birmingham'].includes(source.city_id)?`/research/${source.city_id}-terrain`:null;
   return <section className="public-terrain-card" aria-label="公开真实地形资料">
     <small>PUBLIC DTM / 真实裸地数据</small>
     {!info&&!error&&<p role="status">正在核对当前城市的公开地形资料…</p>}
@@ -26,6 +27,7 @@ export default function PublicTerrainCard({api,disabled,onPreview}:{
       <dl><dt>{source.sample_audit.requested.toLocaleString()} 原像元抽查 · 相对源 DTM</dt>
         <dd>RMSE {source.sample_audit.rmse_m.toFixed(3)} m · 最大差 {source.sample_audit.max_absolute_m.toFixed(3)} m</dd></dl>
       <p>仅局部覆盖；抽查不是连续误差保证。</p>
+      <p>抽查命中 {source.sample_audit.hits.toLocaleString()} / {source.sample_audit.requested.toLocaleString()}；误差按命中点计算，缺测不补值。</p>
       <button className="primary full" disabled={disabled} onClick={onPreview}>预览环境署真实 DTM</button>
       <p className="muted">仅独立草稿，确认前不替换正式地形。</p>
       <div className="public-terrain-card__links"><a href={api.publicTerrainRasterUrl} download>下载 1 m GeoTIFF · {(source.raster_bytes/1e6).toFixed(2)} MB</a>
@@ -35,8 +37,8 @@ export default function PublicTerrainCard({api,disabled,onPreview}:{
         <a href={source.license_url} target="_blank" rel="noreferrer">{source.license} ↗</a>
         <p>下载时间：{source.retrieved_utc}。2022 复合数据汇集不同年份测量，不代表 2026 年现场。</p>
         <p>{source.unit_metadata_warning}</p><p>栅格仅无损压缩，像元、坐标和缺测标记逐项保持。预览沿用现有城市坡度分类规则，未建立全分辨率误差保证。</p>
-        <div className="public-terrain-card__links"><a href="/research/bristol-terrain/preview-audit.json" download>像元抽查回执 · JSON</a><a href="/research/bristol-terrain/pixel-queries.csv" download>4,096 点差异 · CSV</a>
-          <a href="/research/bristol-terrain/bristol-source-preview.png" download>源地形与误差分布 · PNG</a><a href="/research/bristol-terrain/bristol-source-preview.svg" download>可编辑科学图 · SVG</a></div>
+        {auditBase&&<div className="public-terrain-card__links"><a href={`${auditBase}/preview-audit.json`} download>像元抽查回执 · JSON</a><a href={`${auditBase}/pixel-queries.csv`} download>4,096 点差异 · CSV</a>
+          <a href={`${auditBase}/${source.city_id}-source-preview.png`} download>源地形与误差分布 · PNG</a><a href={`${auditBase}/${source.city_id}-source-preview.svg`} download>可编辑科学图 · SVG</a></div>}
       </details>
     </>}
   </section>;

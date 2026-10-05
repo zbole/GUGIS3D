@@ -1,0 +1,26 @@
+{
+  "schema": "gugis-ea-city-preview-audit-v1",
+  "city_id": "birmingham",
+  "model_sha256": "8e4d8995fd7c190728b12e4520cb2a947684ad07e293e30b52b0c35c0a5945f7",
+  "raster_sha256": "da2e0d704cc8e9391bad9e74ba1805c081af8fb9071663dd324cf3691b6c6b3d",
+  "fixture_sha256": "7126be71a7168a3fd8b7f659f6e7f7afe517a60a2fc17f2d9fa5b29d431e8cd4",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "659b1ddaa712840d412b8ac7570f4c12fe0b2bc96920cad3ee1b17b3d0772261",
+    "python": "c993b928fa91b4ce9933289918126c232964baa926121f1918d9d468f7cfcaf9"
+  },
+  "method": "4096 fixed unique valid source 1m pixel centres, seed20261005,40-pixel rim excluded before querying. Misses retained; errors use hits only. Source participates in preview construction, not held-out ground truth.",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.567842915802569,
+  "mae_m": 0.25935380080364295,
+  "p95_absolute_m": 0.9887502614509458,
+  "max_absolute_m": 14.087225962920812,
+  "controls_checked": 18620,
+  "controls_hits": 18620,
+  "max_control_query_error_m": 5.684341886080802e-14,
+  "limits": "Sampled relative source-raster differences, no continuous bound or true-ground accuracy guarantee; ODN unchanged; no ArcGIS run."
+}

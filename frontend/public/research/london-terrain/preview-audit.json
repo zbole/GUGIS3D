@@ -1,0 +1,26 @@
+{
+  "schema": "gugis-ea-city-preview-audit-v1",
+  "city_id": "london",
+  "model_sha256": "a25ee4ad42a603758bcb03e90262b056875b17e7fa72f206609aba9f71e16995",
+  "raster_sha256": "54800ef72ae014392c400224647bddde41406dc3405907138d82acde1c4bb873",
+  "fixture_sha256": "9eeace8b43e95305787015c31d1ed971b5dd2a6c79f2cef9b6b9b8aec6a772a4",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "659b1ddaa712840d412b8ac7570f4c12fe0b2bc96920cad3ee1b17b3d0772261",
+    "python": "c993b928fa91b4ce9933289918126c232964baa926121f1918d9d468f7cfcaf9"
+  },
+  "method": "4096 fixed unique valid source 1m pixel centres, seed20261005,40-pixel rim excluded before querying. Misses retained; errors use hits only. Source participates in preview construction, not held-out ground truth.",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.4107528841619152,
+  "mae_m": 0.20495480673927713,
+  "p95_absolute_m": 0.843976663191734,
+  "max_absolute_m": 5.546406300616718,
+  "controls_checked": 16632,
+  "controls_hits": 16632,
+  "max_control_query_error_m": 2.708944180085382e-14,
+  "limits": "Sampled relative source-raster differences, no continuous bound or true-ground accuracy guarantee; ODN unchanged; no ArcGIS run."
+}

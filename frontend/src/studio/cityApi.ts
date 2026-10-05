@@ -50,6 +50,7 @@ export interface PublicTerrainSource {
   coverage_label: string; source_pixel_m: number; source_crs: string; vertical_datum: string;
   preview_stride_pixels: number; preview_points: number; raster_bytes: number;
   accuracy_note: string; unit_metadata_warning: string;
+  audit_base_url?: string;
   sample_audit: {requested:number;hits:number;rmse_m:number;max_absolute_m:number};
 }
 /** Immutable API binding: delayed requests can never target a newly selected city. */

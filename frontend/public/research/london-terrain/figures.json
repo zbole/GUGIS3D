@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "54800ef72ae014392c400224647bddde41406dc3405907138d82acde1c4bb873",
+  "audit_sha256": "19c08bd628fd29815089c118d24d8edeb7ca97d9664523fe555061e7bd9cf210",
+  "plotter_sha256": "4df0b0cb89348d05abedf824b4dbbbc57ce3249bdae91a4ca91dbb8686f8c489",
+  "files": {
+    "london-source-preview.png": {
+      "bytes": 508950,
+      "sha256": "074cb46e95754eb11835f9d6ee805b510f88baf5db7d9be597d7b16c067e79da"
+    },
+    "london-source-preview.svg": {
+      "bytes": 870630,
+      "sha256": "51422e0654c268474a13d4b6050fe1a9f88802e3f9134167f68d7fcad4099a96"
+    }
+  }
+}

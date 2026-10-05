@@ -222,9 +222,10 @@ def public_terrain_preview():
 @router.get('/terrain/public-raster.tif')
 def public_terrain_raster():
     from ..services.public_terrain import candidate
-    content = candidate(city_workspaces.ACTIVE_CITY.get(), 'raster')
+    city_id = city_workspaces.ACTIVE_CITY.get()
+    content = candidate(city_id, 'raster')
     return Response(content, media_type='image/tiff', headers={
-        'Content-Disposition': 'attachment; filename="bristol-ea-dtm-1m.tif"',
+        'Content-Disposition': f'attachment; filename="{city_id}-ea-dtm-1m.tif"',
         'X-GUGIS-Source-SHA256': hashlib.sha256(content).hexdigest()})
 
 

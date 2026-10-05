@@ -8,9 +8,13 @@ from ..environment_models import Terrain
 
 ROOT = Path(__file__).resolve().parents[3]
 MANIFEST_PATH = ROOT / 'shared/public-terrain-sources.json'
-MANIFEST_SHA256 = '7b077385e2dd06d269d04fec1788c180b5445e080d3968a1fe93c78db6695608'
+MANIFEST_SHA256 = 'ba26a54bf1cb470477633f30ee609a6bcd69b740eec8f1ceeea4a238e67737fc'
 FILES = {'raster': ('bristol-ea-dtm-1m.tif', 16 * 1024 * 1024),
          'model': ('bristol-ea-dtm-preview.gugis-terrain.json', 8 * 1024 * 1024)}
+CANDIDATES = {city_id: {'raster': (f'{city_id}-ea-dtm-1m.tif', 24 * 1024 * 1024),
+                        'model': (f'{city_id}-ea-dtm-preview.gugis-terrain.json', 8 * 1024 * 1024)}
+              for city_id in ('bristol', 'london', 'birmingham')}
+CANDIDATES['bristol'] = FILES
 
 
 def _read_bounded(path, limit):
@@ -22,16 +26,18 @@ def _read_bounded(path, limit):
 
 
 def source_info(city_id):
-    if city_id != 'bristol':
+    if city_id not in CANDIDATES:
         return {'status': 'pending', 'source': None}
     try:
         content = _read_bounded(MANIFEST_PATH, 65536)
         if hashlib.sha256(content).hexdigest() != MANIFEST_SHA256:
             raise ValueError('Public terrain manifest changed')
         report = json.loads(content)
-        if report['schema'] != 'gugis-public-terrain-sources-v1' or len(report['sources']) != 1:
+        if (report['schema'] != 'gugis-public-terrain-sources-v1'
+                or len(report['sources']) != len(CANDIDATES)
+                or sorted(s['city_id'] for s in report['sources']) != sorted(CANDIDATES)):
             raise ValueError('Invalid public terrain catalogue')
-        info = report['sources'][0]
+        info = next(s for s in report['sources'] if s['city_id'] == city_id)
         if info['city_id'] != city_id:
             raise ValueError('Public terrain city mismatch')
         # No geometry retained. Check exact bytes independently on each request;
@@ -44,7 +50,7 @@ def source_info(city_id):
 
 
 def _candidate_bytes(info, kind):
-    filename, limit = FILES[kind]
+    filename, limit = CANDIDATES[info['city_id']][kind]
     content = _read_bounded(ROOT / 'backend/data/terrain' / filename, limit)
     if len(content) != info[f'{kind}_bytes'] or hashlib.sha256(content).hexdigest() != info[f'{kind}_sha256']:
         raise ValueError('Public terrain candidate bytes changed')

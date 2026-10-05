@@ -1,4 +1,4 @@
-# Environment Agency Bristol DTM candidate
+# Environment Agency city DTM candidates
 
 The GeoTIFF is a bounded Bristol window from the [Environment Agency 2022
 LIDAR Composite DTM, 1 m dataset](https://www.data.gov.uk/dataset/01b3ee39-da3f-47b6-83da-dc98e73a461f/lidar-composite-dtm-2022-1m).
@@ -18,3 +18,15 @@ This is partial centre-district coverage, not a whole-city terrain or an
 engineering accuracy guarantee. It preserves source ODN heights, with no
 ellipsoidal-height conversion. See the source unit-metadata discrepancy
 disclosed in the manifest and original WCS description XML.
+
+London Westminster and Birmingham centre-district windows were acquired from
+the same official EA 2022 WCS product on 2026-10-04 UTC / 2026-10-05 local time.
+They use the same OGL v3.0 licence and attribution above. Retained acquisition
+receipts are `london-ea-dtm.source.json` and `birmingham-ea-dtm.source.json`.
+The published GeoTIFFs preserve every original pixel and all grid, NoData and
+scale metadata; only compression changes. These are centre samples, not full
+city coverage. The derived 20-pixel previews, fixed 4,096-pixel query fixtures,
+CSV residuals, JSON audits and project-generated plots are available under
+`frontend/public/research/london-terrain/` and `birmingham-terrain/`.
+Sampled differences are not continuous error bounds or independent accuracy
+estimates. Formal cities and all prior Bristol research results remain separate.

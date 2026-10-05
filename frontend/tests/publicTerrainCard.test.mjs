@@ -10,6 +10,33 @@ const source=JSON.parse(await readFile(new URL('../../shared/public-terrain-sour
 const text=node=>typeof node==='string'?node:(node?.children??[]).map(text).join('');
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 
+test('every city card links only to its own actual pixel audit and preserves coarse outliers',async()=>{
+  const catalogue=JSON.parse(await readFile(new URL('../../shared/public-terrain-sources.json',import.meta.url)));
+  for(const source of catalogue.sources){
+    let r;const api={publicTerrainSource:async()=>({status:'available',source}),publicTerrainRasterUrl:`/api/cities/${source.city_id}/city/terrain/public-raster.tif`};
+    await act(async()=>r=create(React.createElement(Card,{api,disabled:false,onPreview:()=>{}})));
+    const body=text(r.toJSON());assert.ok(body.includes(source.name));assert.ok(body.includes(source.sample_audit.max_absolute_m.toFixed(3)));
+    assert.match(body,/抽查命中 4,096 \/ 4,096/);
+    const links=r.root.findAllByType('a').filter(a=>a.props.href.startsWith('/research/'));
+    assert.equal(links.length,4);
+    for(const link of links){assert.ok(link.props.href.startsWith(`/research/${source.city_id}-terrain/`));await readFile(new URL('../public'+link.props.href,import.meta.url));}
+    const folder=`../public/research/${source.city_id}-terrain/`,auditBytes=await readFile(new URL(folder+'preview-audit.json',import.meta.url));
+    assert.equal(hash(auditBytes),source.sample_audit_sha256);
+    if(source.city_id!=='bristol'){
+      const audit=JSON.parse(auditBytes);
+      assert.equal(audit.city_id,source.city_id);assert.equal(audit.model_sha256,source.model_sha256);assert.equal(audit.raster_sha256,source.raster_sha256);
+      assert.equal(hash(await readFile(new URL(`../../backend/data/terrain/${source.city_id}-ea-dtm-preview.gugis-terrain.json`,import.meta.url))),source.model_sha256);
+      assert.equal(hash(await readFile(new URL(folder+'pixel-queries.json',import.meta.url))),audit.fixture_sha256);
+      for(const [expected,path] of [[audit.native_kernel_sha256,'../src/studio/terrainMath.ts'],[audit.scripts.node,'../scripts/audit-ea-city-terrain.mjs'],[audit.scripts.python,'../../data-pipeline/prepare_ea_city_terrain.py']])assert.equal(hash((await readFile(new URL(path,import.meta.url),'utf8')).replace(/\r\n/g,'\n')),expected);
+      const figures=JSON.parse(await readFile(new URL(folder+'figures.json',import.meta.url)));
+      assert.equal(figures.audit_sha256,hash(auditBytes));assert.equal(figures.raster_sha256,source.raster_sha256);
+      assert.equal(figures.plotter_sha256,hash((await readFile(new URL('../../data-pipeline/plot_ea_city_terrain.py',import.meta.url),'utf8')).replace(/\r\n/g,'\n')));
+      for(const [name,entry] of Object.entries(figures.files)){const b=await readFile(new URL(folder+name,import.meta.url));assert.equal(b.length,entry.bytes);assert.equal(hash(b),entry.sha256);}
+    }
+    act(()=>r.unmount());
+  }
+});
+
 test('public DTM card distinguishes original resolution, coarse preview errors and unsaved workflow',async()=>{
   let renderer,previews=0;
   const api={publicTerrainSource:async()=>({status:'available',source}),publicTerrainRasterUrl:'/api/cities/bristol/city/terrain/public-raster.tif'};

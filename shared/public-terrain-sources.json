@@ -59,6 +59,126 @@
         "max_absolute_m": 6.8222997353008115
       },
       "sample_audit_sha256": "f6b41f21290bef44f5d01c891dde29bc137cafdd43b7ad59fb1966dbaa56d272"
+    },
+    {
+      "city_id": "london",
+      "name": "伦敦 · 英国环境署裸地 DTM",
+      "product": "EA 2022 LIDAR Composite DTM · 1 m",
+      "dataset_url": "https://www.data.gov.uk/dataset/01b3ee39-da3f-47b6-83da-dc98e73a461f/lidar-composite-dtm-2022-1m",
+      "license": "Open Government Licence v3.0",
+      "attribution": "© Environment Agency copyright and/or database right 2022. All rights reserved.",
+      "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "source_url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28528403%2C531034%29&subset=N%28178515%2C181028%29&format=image%2Ftiff",
+      "retrieved_utc": "2026-10-04T18:21:34.285099+00:00",
+      "query_bbox_wgs84": [
+        -0.151,
+        51.491,
+        -0.114,
+        51.513
+      ],
+      "raster_bbox_bng": [
+        528403,
+        178515,
+        531034,
+        181028
+      ],
+      "source_crs": "EPSG:27700",
+      "vertical_datum": "ODN",
+      "height_unit": "m",
+      "width": 2631,
+      "height": 2513,
+      "source_pixel_m": 1,
+      "valid_pixels": 6611703,
+      "nodata_pixels": 0,
+      "min_height_m": -10.829000473022461,
+      "max_height_m": 26.86400032043457,
+      "raw_bytes": 31457939,
+      "raw_sha256": "86bca5eae90ce46199b3a7f12db49f3c51605cce8ec201ace7fa9be3a789c4a6",
+      "raster_bytes": 13825109,
+      "raster_sha256": "54800ef72ae014392c400224647bddde41406dc3405907138d82acde1c4bb873",
+      "raster_pixel_block_sha256": "c59673b39d4bad84f9b19236a18b00471f37c0ff84b7b31e0900405fea390821",
+      "compression_audit": "Only DEFLATE compression; every pixel, CRS, transform, NoData and scale/offset compared",
+      "preview_stride_pixels": 20,
+      "preview_points": 16632,
+      "preview_patches": {
+        "ruled-strip": 7384,
+        "triangle-strip": 866
+      },
+      "model_bytes": 1200430,
+      "model_sha256": "a25ee4ad42a603758bcb03e90262b056875b17e7fa72f206609aba9f71e16995",
+      "coverage_label": "伦敦 Westminster 中心样本街区（非全城覆盖）；采样像元中心为模型边界",
+      "accuracy_note": "1 m源分辨率不等于20像元预览精度；保留ODN高程，无椭球高转换。抽查不保证连续误差或独立真实地面精度。",
+      "unit_metadata_warning": "WCS Elevation单位字段与官方米制说明冲突；GeoTIFF未写高程单位，米制依据官方数据集正文。",
+      "audit_base_url": "/research/london-terrain",
+      "sample_audit": {
+        "requested": 4096,
+        "hits": 4096,
+        "rmse_m": 0.4107528841619152,
+        "mae_m": 0.20495480673927713,
+        "p95_absolute_m": 0.843976663191734,
+        "max_absolute_m": 5.546406300616718
+      },
+      "sample_audit_sha256": "19c08bd628fd29815089c118d24d8edeb7ca97d9664523fe555061e7bd9cf210"
+    },
+    {
+      "city_id": "birmingham",
+      "name": "伯明翰 · 英国环境署裸地 DTM",
+      "product": "EA 2022 LIDAR Composite DTM · 1 m",
+      "dataset_url": "https://www.data.gov.uk/dataset/01b3ee39-da3f-47b6-83da-dc98e73a461f/lidar-composite-dtm-2022-1m",
+      "license": "Open Government Licence v3.0",
+      "attribution": "© Environment Agency copyright and/or database right 2022. All rights reserved.",
+      "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "source_url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28405053%2C407706%29&subset=N%28285676%2C288461%29&format=image%2Ftiff",
+      "retrieved_utc": "2026-10-04T18:23:09.554446+00:00",
+      "query_bbox_wgs84": [
+        -1.927,
+        52.469,
+        -1.888,
+        52.494
+      ],
+      "raster_bbox_bng": [
+        405053,
+        285676,
+        407706,
+        288461
+      ],
+      "source_crs": "EPSG:27700",
+      "vertical_datum": "ODN",
+      "height_unit": "m",
+      "width": 2653,
+      "height": 2785,
+      "source_pixel_m": 1,
+      "valid_pixels": 7388605,
+      "nodata_pixels": 0,
+      "min_height_m": 26.702999114990234,
+      "max_height_m": 160.1750030517578,
+      "raw_bytes": 37749443,
+      "raw_sha256": "ab85e12665228e6d4e0ae954861e7bb9e6e63fd5c485fdf3d1e48d077b944c6c",
+      "raster_bytes": 13736430,
+      "raster_sha256": "da2e0d704cc8e9391bad9e74ba1805c081af8fb9071663dd324cf3691b6c6b3d",
+      "raster_pixel_block_sha256": "e8f63f2c63a0fc8522cd5d63a0bcb3413be2eda244591250cbb08f76220a5ef6",
+      "compression_audit": "Only DEFLATE compression; every pixel, CRS, transform, NoData and scale/offset compared",
+      "preview_stride_pixels": 20,
+      "preview_points": 18620,
+      "preview_patches": {
+        "ruled-strip": 7272,
+        "triangle-strip": 1902
+      },
+      "model_bytes": 1381952,
+      "model_sha256": "8e4d8995fd7c190728b12e4520cb2a947684ad07e293e30b52b0c35c0a5945f7",
+      "coverage_label": "伯明翰中心样本街区（非全城覆盖）；采样像元中心为模型边界",
+      "accuracy_note": "1 m源分辨率不等于20像元预览精度；保留ODN高程，无椭球高转换。抽查不保证连续误差或独立真实地面精度。",
+      "unit_metadata_warning": "WCS Elevation单位字段与官方米制说明冲突；GeoTIFF未写高程单位，米制依据官方数据集正文。",
+      "audit_base_url": "/research/birmingham-terrain",
+      "sample_audit": {
+        "requested": 4096,
+        "hits": 4096,
+        "rmse_m": 0.567842915802569,
+        "mae_m": 0.25935380080364295,
+        "p95_absolute_m": 0.9887502614509458,
+        "max_absolute_m": 14.087225962920812
+      },
+      "sample_audit_sha256": "19b6c8a3893dceaf237bd69ffcdee6b102ea9b87a71624737df998ccb4f1802e"
     }
   ]
 }

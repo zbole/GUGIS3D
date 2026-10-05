@@ -1,0 +1,29 @@
+{
+  "city_id": "birmingham",
+  "name": "伯明翰",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28405053%2C407706%29&subset=N%28285676%2C288461%29&format=image%2Ftiff",
+  "bbox_bng": [
+    405053,
+    285676,
+    407706,
+    288461
+  ],
+  "query_bbox_wgs84": [
+    -1.927,
+    52.469,
+    -1.888,
+    52.494
+  ],
+  "bytes": 37749443,
+  "sha256": "ab85e12665228e6d4e0ae954861e7bb9e6e63fd5c485fdf3d1e48d077b944c6c",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-04T18:23:09.554446+00:00",
+  "width": 2653,
+  "height": 2785,
+  "valid_pixels": 7388605,
+  "nodata_pixels": 0,
+  "minimum_m": 26.702999114990234,
+  "maximum_m": 160.1750030517578,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent centre-district raw sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}

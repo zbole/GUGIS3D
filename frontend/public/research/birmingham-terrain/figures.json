@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "da2e0d704cc8e9391bad9e74ba1805c081af8fb9071663dd324cf3691b6c6b3d",
+  "audit_sha256": "19b6c8a3893dceaf237bd69ffcdee6b102ea9b87a71624737df998ccb4f1802e",
+  "plotter_sha256": "4df0b0cb89348d05abedf824b4dbbbc57ce3249bdae91a4ca91dbb8686f8c489",
+  "files": {
+    "birmingham-source-preview.png": {
+      "bytes": 473104,
+      "sha256": "13412540fa40781225770d0a470d04cd93a1310f5b76c19649364702618e542c"
+    },
+    "birmingham-source-preview.svg": {
+      "bytes": 817016,
+      "sha256": "f971fd0fcca4549804993f161c0ebe3647765be7ed3f0ae4f2c362232749b711"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "city_id": "london",
+  "name": "伦敦",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28528403%2C531034%29&subset=N%28178515%2C181028%29&format=image%2Ftiff",
+  "bbox_bng": [
+    528403,
+    178515,
+    531034,
+    181028
+  ],
+  "query_bbox_wgs84": [
+    -0.151,
+    51.491,
+    -0.114,
+    51.513
+  ],
+  "bytes": 31457939,
+  "sha256": "86bca5eae90ce46199b3a7f12db49f3c51605cce8ec201ace7fa9be3a789c4a6",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-04T18:21:34.285099+00:00",
+  "width": 2631,
+  "height": 2513,
+  "valid_pixels": 6611703,
+  "nodata_pixels": 0,
+  "minimum_m": -10.829000473022461,
+  "maximum_m": 26.86400032043457,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent centre-district raw sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}
