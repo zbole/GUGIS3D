@@ -1,0 +1,67 @@
+{
+  "city_id": "liverpool",
+  "coverage_label": "Liverpool city centre",
+  "bbox": [
+    -3.006,
+    53.391,
+    -2.969,
+    53.416
+  ],
+  "centre_lon_lat": [
+    -2.9875,
+    53.403499999999994
+  ],
+  "query_bbox_south_west_north_east": [
+    53.391,
+    -3.006,
+    53.416,
+    -2.969
+  ],
+  "query": "[out:json][timeout:50][maxsize:268435456];(way[\"building\"](53.391,-3.006,53.416,-2.969);way[\"highway\"][\"name\"](53.391,-3.006,53.416,-2.969););out tags geom;",
+  "source_url": "https://gall.openstreetmap.de/api/interpreter",
+  "downloaded_at": "2026-10-05T13:17:48.331944+00:00",
+  "http_method": "GET",
+  "request_timeout_seconds": 55,
+  "osm_timestamp": "2026-10-05T13:15:36Z",
+  "sha256": "30c82a16df72ab7bf39083aa0c5449db147f3790a6c8dea3db7b4d515640e9c8",
+  "bytes": 2392360,
+  "elements": 4844,
+  "building_ways": 3427,
+  "road_ways": 1426,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 14.396,
+  "previous_attempts": [],
+  "retained_download_sha256": "6b10839e213a0fd470578fb28ec7a2ff40d0c30a3d93532c4d3693ad143d658a",
+  "retained_download_bytes": 3163286,
+  "publication_filter": {
+    "method": "Only unrelated contact and free-text tags removed; original IDs, geometry, modelling tags and attribution retained.",
+    "removed_tag_counts": {
+      "contact:email": 3,
+      "contact:facebook": 7,
+      "contact:instagram": 4,
+      "contact:linkedin": 1,
+      "contact:phone": 4,
+      "contact:twitter": 2,
+      "contact:website": 22,
+      "description": 34,
+      "email": 7,
+      "fax": 1,
+      "note": 38,
+      "note:addr:postcode": 1,
+      "note:bicycle": 2,
+      "note:building": 7,
+      "note:building:part": 1,
+      "note:height": 3,
+      "note:level": 1,
+      "note:name": 1,
+      "phone": 32,
+      "url": 3,
+      "website": 113
+    }
+  },
+  "preparer_source_sha256": "dfac4a581629103c02fd24319721a928de91b5347812ce76c46ce6da76f8b0aa"
+}

@@ -51,7 +51,7 @@ class ExpandedCitySamplesTests(unittest.TestCase):
         self.assertEqual(source['preparer_source_sha256'],hashlib.sha256((root.parents[2]/'data-pipeline/prepare_city_source.py').read_bytes().replace(b'\r\n',b'\n')).hexdigest())
 
     def test_workspace_storage_and_seeds_remain_distinct_for_all_published_cities(self):
-        self.assertEqual(len(WORKSPACES), 10)
+        self.assertEqual(len(WORKSPACES), 11)
         root = Path('/synthetic/root')
         self.assertEqual(len({city_workspaces.directory(root / '.local/city', r['id']) for r in WORKSPACES}), len(WORKSPACES))
         self.assertEqual(len({city_workspaces.seed_path(root / 'data/bristol.gugis.json', r['id']) for r in WORKSPACES}), len(WORKSPACES))

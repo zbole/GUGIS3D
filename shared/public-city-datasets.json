@@ -366,6 +366,41 @@
       "source_retrieved_at": "2026-10-05T12:42:15.446688+00:00",
       "quality_warnings": [],
       "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "liverpool",
+      "name": "利物浦",
+      "bytes": 6588341,
+      "sha256": "1c627bae18128bd9eff98094f4910d832a04377f8d499321fb535ee1559c79c0",
+      "building_count": 3401,
+      "road_count": 1419,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Liverpool city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -3.006,
+        53.391,
+        -2.969,
+        53.416
+      ],
+      "actual_data_bbox_wgs84": [
+        -3.0251771,
+        53.3869328,
+        -2.961707,
+        53.4216978
+      ],
+      "height_counts": {
+        "height-tag": 46,
+        "levels-derived": 196,
+        "assumed": 3159
+      },
+      "height_policy": "{\"height-tag\":46,\"levels-derived\":196,\"assumed\":3159}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-05T13:17:48.331944+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
     }
   ],
   "builder_sha256": "d3f04a245c027d7000f7f36da37d4c080d80aabf87683cb163c767e5fcaf7d04"

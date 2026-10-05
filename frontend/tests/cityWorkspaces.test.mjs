@@ -32,7 +32,7 @@ test("city centers and empty-workspace placement never fall back to Bristol for 
 });
 
 test("new cities retain independent deep links, selection and geographic fallbacks", () => {
-  for (const [id, longitude, latitude] of [["manchester", -2.2455, 53.4815], ["edinburgh", -3.1935, 55.949], ["cardiff", -3.178, 51.4805], ["york", -1.083, 53.9595], ["bath", -2.362, 51.384], ["oxford", -1.254, 51.7545], ["cambridge", 0.1265, 52.2035]]) {
+  for (const [id, longitude, latitude] of [["manchester", -2.2455, 53.4815], ["edinburgh", -3.1935, 55.949], ["cardiff", -3.178, 51.4805], ["york", -1.083, 53.9595], ["bath", -2.362, 51.384], ["oxford", -1.254, 51.7545], ["cambridge", 0.1265, 52.2035], ["liverpool", -2.9875, 53.4035]]) {
     assert.equal(cityIdFromSearch(`?city=${id}`), id);
     assert.deepEqual(selectedCitiesFromSearch(`?cities=${id},london,${id}`), [id, "london"]);
     assert.equal(cityWorkspaceHref(id, "/compare#implicit-terrain"), `/compare?city=${id}#implicit-terrain`);

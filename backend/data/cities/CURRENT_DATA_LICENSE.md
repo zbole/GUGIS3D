@@ -140,6 +140,24 @@ with unsupported elevated/part semantics are omitted, with IDs and reasons in
 surveyed heights, detailed facades, interiors or terrain. All source and derived
 York databases carry © OpenStreetMap contributors / ODbL 1.0 attribution.
 
+## Liverpool central and waterfront sample
+
+The independently acquired Liverpool OSM sample contains 3,401 converted
+buildings and 1,419 non-area roads. Acquisition window is
+[-3.006, 53.391, -2.969, 53.416]; complete intersecting ways are retained,
+so this is a partial central district, not administrative or full-city coverage.
+The original acquisition remains locally retained; the published extract removes
+287 unrelated contact or free-text tags while keeping identifiers, geometry,
+modelling attributes and © OpenStreetMap contributors / ODbL 1.0 attribution.
+The 26 unsupported buildings are disclosed in liverpool-import.json and not
+silently replaced with assumed ground-based geometry.
+
+Height evidence comprises 46 height tags, 196 floor-derived estimates
+(3.2 m/floor), and 3,159 assumed values (9.6 m). These are LoD1 volumes,
+not surveyed heights, detailed facades, interiors or terrain. The city seed
+contains no terrain. Independently acquired EA source data, if available,
+remain unpublished until their separate native-model and raster audits pass.
+
 ## Wider data for future work
 
 Geofabrik offers regional OSM PBF downloads for
