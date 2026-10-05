@@ -43,7 +43,7 @@
     "backend/app/services/function_geometry.py": "b4683cab8ab6599561ff9e28e99eb88e1ce353c84c4757de832816ec06c60ca4",
     "backend/app/services/gugis_adapter.py": "1d8a82c6e9cda73441a9a9b795c05042346ee5209144b6903d57c71568638515",
     "backend/app/services/hybrid_box.py": "4d0f113455f9df271ba716211992eb71e62e3de63329a747acafd273544649e9",
-    "backend/app/services/public_city_datasets.py": "d5f6b94324a8a4ba746558d99604e4e1a506491994b3c06f2c00b32fa5b11b0d",
+    "backend/app/services/public_city_datasets.py": "b6716440f9d0d7ad55d1191d95eef1a3605fc57c52a824379112819572e1d9a9",
     "backend/app/services/public_terrain.py": "422da60fd42fc117045e94214167e6bb5c07410d69878c88bedf5e896e6ea77f",
     "backend/app/services/render_profiles.py": "98059d6914235cb6a8ef4d263164554997074ca9ecb26eff0c72e414c7125e8c",
     "backend/app/services/render_tiles.py": "98dcfae7d259da0639db3308520781e2a665a084696ac27016285fcd6e7ca5f9",
@@ -62,7 +62,7 @@
     "backend/app/services/workspace_catalog.py": "e1972c0dde3250ba86304dc501cc811b022bc3c45b3297f8e2774e1d6b96358f",
     "backend/app/studio_models.py": "2d73ad18685b87d719dff6cd8c56502b761285e2ab3a14fa75c6bb7475f38bd3",
     "shared/box-topology.json": "558f7cc25e2701068af0d3985e1ad065dea3d19957b75509b8bd15dc1b91f4ac",
-    "shared/city-workspaces.json": "aa5cbbd6f686c3c55eb261891a77edc7df4285566856bc2ee6adcff5238fad62"
+    "shared/city-workspaces.json": "6ff6c4de58bfd1d68cf845b12a29d26ce88cc0f57e77d6200c6030770e3cafcc"
   },
   "builder_sha256": "29d62ad5e674b597575dc992fb1bcfce897f94cbeeb8cf36c0e8a975ca8466a1",
   "records": [
@@ -74,14 +74,14 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "保留 615 栋原项目对象及其高度依据；新增 10292 栋：23 高度标签 / 1279 楼层推算 / 8990 假设9.6m / 0 其他依据；均未整体实测核验",
-          "source_url": "https://www.openstreetmap.org/copyright",
           "coverage_label": "Bristol expanded district 中心街区样本（非全城覆盖） · 保留原项目对象的扩展",
-          "coverage_bbox_wgs84": "[-2.621,51.443,-2.587,51.466]",
-          "coverage_kind": "sample-area",
+          "source": "保留原项目对象 + 新增 © OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://www.openstreetmap.org/copyright",
+          "height_policy": "保留 615 栋原项目对象及其高度依据；新增 10292 栋：23 高度标签 / 1279 楼层推算 / 8990 假设9.6m / 0 其他依据；均未整体实测核验",
           "license": "新增 OSM 数据：ODbL 1.0；保留对象沿用其原来源许可",
           "source_retrieved_at": "2026-10-04T11:55:56.827806+00:00",
-          "source": "保留原项目对象 + 新增 © OpenStreetMap contributors · ODbL 1.0"
+          "coverage_bbox_wgs84": "[-2.621,51.443,-2.587,51.466]",
+          "coverage_kind": "sample-area"
         },
         "count": 10907,
         "extent": [
@@ -102,14 +102,14 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "保留 823 栋原项目对象及其高度依据；新增 4549 栋：28 高度标签 / 1763 楼层推算 / 2758 假设9.6m / 0 其他依据；均未整体实测核验",
-          "source_url": "https://www.openstreetmap.org/copyright",
           "coverage_label": "London expanded district 中心街区样本（非全城覆盖） · 保留原项目对象的扩展",
-          "coverage_bbox_wgs84": "[-0.151,51.491,-0.114,51.513]",
-          "coverage_kind": "sample-area",
+          "source": "保留原项目对象 + 新增 © OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://www.openstreetmap.org/copyright",
+          "height_policy": "保留 823 栋原项目对象及其高度依据；新增 4549 栋：28 高度标签 / 1763 楼层推算 / 2758 假设9.6m / 0 其他依据；均未整体实测核验",
           "license": "新增 OSM 数据：ODbL 1.0；保留对象沿用其原来源许可",
           "source_retrieved_at": "2026-10-04T11:56:02.295668+00:00",
-          "source": "保留原项目对象 + 新增 © OpenStreetMap contributors · ODbL 1.0"
+          "coverage_bbox_wgs84": "[-0.151,51.491,-0.114,51.513]",
+          "coverage_kind": "sample-area"
         },
         "count": 5372,
         "extent": [
@@ -130,14 +130,14 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "保留 809 栋原项目对象及其高度依据；新增 3317 栋：224 高度标签 / 423 楼层推算 / 2670 假设9.6m / 0 其他依据；均未整体实测核验",
-          "source_url": "https://www.openstreetmap.org/copyright",
           "coverage_label": "Birmingham expanded district 中心街区样本（非全城覆盖） · 保留原项目对象的扩展",
-          "coverage_bbox_wgs84": "[-1.927,52.469,-1.888,52.494]",
-          "coverage_kind": "sample-area",
+          "source": "保留原项目对象 + 新增 © OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://www.openstreetmap.org/copyright",
+          "height_policy": "保留 809 栋原项目对象及其高度依据；新增 3317 栋：224 高度标签 / 423 楼层推算 / 2670 假设9.6m / 0 其他依据；均未整体实测核验",
           "license": "新增 OSM 数据：ODbL 1.0；保留对象沿用其原来源许可",
           "source_retrieved_at": "2026-10-04T11:56:05.988761+00:00",
-          "source": "保留原项目对象 + 新增 © OpenStreetMap contributors · ODbL 1.0"
+          "coverage_bbox_wgs84": "[-1.927,52.469,-1.888,52.494]",
+          "coverage_kind": "sample-area"
         },
         "count": 4126,
         "extent": [
@@ -158,15 +158,15 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "{\"height-tag\":68,\"levels-derived\":1226,\"assumed\":2136}",
-          "source_url": "https://overpass-api.de/api/interpreter",
           "coverage_label": "Manchester city centre 中心街区样本（非全城覆盖）",
-          "coverage_bbox_wgs84": "[-2.263,53.471,-2.228,53.492]",
-          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://overpass-api.de/api/interpreter",
+          "height_policy": "{\"height-tag\":68,\"levels-derived\":1226,\"assumed\":2136}",
           "license": "ODbL 1.0",
           "source_retrieved_at": "2026-10-04T11:44:50.540472+00:00",
-          "source": "© OpenStreetMap contributors · ODbL 1.0",
-          "data_bbox_wgs84": "[-2.2675808,53.4688492,-2.2243831,53.4972127]"
+          "data_bbox_wgs84": "[-2.2675808,53.4688492,-2.2243831,53.4972127]",
+          "coverage_bbox_wgs84": "[-2.263,53.471,-2.228,53.492]",
+          "coverage_kind": "sample-area"
         },
         "count": 3430,
         "extent": [
@@ -187,15 +187,15 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "{\"height-tag\":100,\"levels-derived\":2249,\"assumed\":4194}",
-          "source_url": "https://overpass-api.de/api/interpreter",
           "coverage_label": "Edinburgh city centre 中心街区样本（非全城覆盖）",
-          "coverage_bbox_wgs84": "[-3.21,55.938,-3.177,55.96]",
-          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://overpass-api.de/api/interpreter",
+          "height_policy": "{\"height-tag\":100,\"levels-derived\":2249,\"assumed\":4194}",
           "license": "ODbL 1.0",
           "source_retrieved_at": "2026-10-04T11:45:00.978672+00:00",
-          "source": "© OpenStreetMap contributors · ODbL 1.0",
-          "data_bbox_wgs84": "[-3.2120842,55.9314456,-3.1706592,55.9612877]"
+          "data_bbox_wgs84": "[-3.2120842,55.9314456,-3.1706592,55.9612877]",
+          "coverage_bbox_wgs84": "[-3.21,55.938,-3.177,55.96]",
+          "coverage_kind": "sample-area"
         },
         "count": 6543,
         "extent": [
@@ -216,15 +216,15 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "{\"height-tag\":58,\"levels-derived\":1032,\"assumed\":3382}",
-          "source_url": "https://overpass-api.de/api/interpreter",
           "coverage_label": "Cardiff city centre 中心街区样本（非全城覆盖）",
-          "coverage_bbox_wgs84": "[-3.19,51.47,-3.166,51.491]",
-          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://overpass-api.de/api/interpreter",
+          "height_policy": "{\"height-tag\":58,\"levels-derived\":1032,\"assumed\":3382}",
           "license": "ODbL 1.0",
           "source_retrieved_at": "2026-10-04T11:45:08.370009+00:00",
-          "source": "© OpenStreetMap contributors · ODbL 1.0",
-          "data_bbox_wgs84": "[-3.2001608,51.4646377,-3.1630368,51.4972265]"
+          "data_bbox_wgs84": "[-3.2001608,51.4646377,-3.1630368,51.4972265]",
+          "coverage_bbox_wgs84": "[-3.19,51.47,-3.166,51.491]",
+          "coverage_kind": "sample-area"
         },
         "count": 4472,
         "extent": [
@@ -245,15 +245,15 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "{\"height-tag\":465,\"levels-derived\":2357,\"assumed\":3270}",
-          "source_url": "https://gall.openstreetmap.de/api/interpreter",
           "coverage_label": "York city centre 中心街区样本（非全城覆盖）",
-          "coverage_bbox_wgs84": "[-1.1,53.947,-1.066,53.972]",
-          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://gall.openstreetmap.de/api/interpreter",
+          "height_policy": "{\"height-tag\":465,\"levels-derived\":2357,\"assumed\":3270}",
           "license": "ODbL 1.0",
           "source_retrieved_at": "2026-10-04T16:11:13.901276+00:00",
-          "source": "© OpenStreetMap contributors · ODbL 1.0",
-          "data_bbox_wgs84": "[-1.1051514,53.944665,-1.060182,53.9763925]"
+          "data_bbox_wgs84": "[-1.1051514,53.944665,-1.060182,53.9763925]",
+          "coverage_bbox_wgs84": "[-1.1,53.947,-1.066,53.972]",
+          "coverage_kind": "sample-area"
         },
         "count": 6092,
         "extent": [
@@ -274,15 +274,15 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "{\"height-tag\":2,\"levels-derived\":1409,\"assumed\":6466}",
-          "source_url": "https://gall.openstreetmap.de/api/interpreter",
           "coverage_label": "Bath city centre 中心街区样本（非全城覆盖）",
-          "coverage_bbox_wgs84": "[-2.377,51.373,-2.347,51.395]",
-          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://gall.openstreetmap.de/api/interpreter",
+          "height_policy": "{\"height-tag\":2,\"levels-derived\":1409,\"assumed\":6466}",
           "license": "ODbL 1.0",
           "source_retrieved_at": "2026-10-05T11:28:49.659621+00:00",
-          "source": "© OpenStreetMap contributors · ODbL 1.0",
-          "data_bbox_wgs84": "[-2.3829226,51.370903,-2.3416261,51.3998275]"
+          "data_bbox_wgs84": "[-2.3829226,51.370903,-2.3416261,51.3998275]",
+          "coverage_bbox_wgs84": "[-2.377,51.373,-2.347,51.395]",
+          "coverage_kind": "sample-area"
         },
         "count": 7877,
         "extent": [
@@ -303,15 +303,15 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "{\"height-tag\":11,\"levels-derived\":682,\"assumed\":5901}",
-          "source_url": "https://gall.openstreetmap.de/api/interpreter",
           "coverage_label": "Oxford city centre 中心街区样本（非全城覆盖）",
-          "coverage_bbox_wgs84": "[-1.273,51.741,-1.235,51.768]",
-          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://gall.openstreetmap.de/api/interpreter",
+          "height_policy": "{\"height-tag\":11,\"levels-derived\":682,\"assumed\":5901}",
           "license": "ODbL 1.0",
           "source_retrieved_at": "2026-10-05T12:11:38.184979+00:00",
-          "source": "© OpenStreetMap contributors · ODbL 1.0",
-          "data_bbox_wgs84": "[-1.2779238,51.7362408,-1.2284337,51.7721437]"
+          "data_bbox_wgs84": "[-1.2779238,51.7362408,-1.2284337,51.7721437]",
+          "coverage_bbox_wgs84": "[-1.273,51.741,-1.235,51.768]",
+          "coverage_kind": "sample-area"
         },
         "count": 6594,
         "extent": [
@@ -332,15 +332,15 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "{\"height-tag\":4,\"levels-derived\":2541,\"assumed\":7293}",
-          "source_url": "https://gall.openstreetmap.de/api/interpreter",
           "coverage_label": "Cambridge city centre 中心街区样本（非全城覆盖）",
-          "coverage_bbox_wgs84": "[0.106,52.189,0.147,52.218]",
-          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://gall.openstreetmap.de/api/interpreter",
+          "height_policy": "{\"height-tag\":4,\"levels-derived\":2541,\"assumed\":7293}",
           "license": "ODbL 1.0",
           "source_retrieved_at": "2026-10-05T12:42:15.446688+00:00",
-          "source": "© OpenStreetMap contributors · ODbL 1.0",
-          "data_bbox_wgs84": "[0.0956414,52.1839678,0.1543402,52.2209898]"
+          "data_bbox_wgs84": "[0.0956414,52.1839678,0.1543402,52.2209898]",
+          "coverage_bbox_wgs84": "[0.106,52.189,0.147,52.218]",
+          "coverage_kind": "sample-area"
         },
         "count": 9838,
         "extent": [
@@ -361,15 +361,15 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "{\"height-tag\":46,\"levels-derived\":196,\"assumed\":3159}",
-          "source_url": "https://gall.openstreetmap.de/api/interpreter",
           "coverage_label": "Liverpool city centre 中心街区样本（非全城覆盖）",
-          "coverage_bbox_wgs84": "[-3.006,53.391,-2.969,53.416]",
-          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://gall.openstreetmap.de/api/interpreter",
+          "height_policy": "{\"height-tag\":46,\"levels-derived\":196,\"assumed\":3159}",
           "license": "ODbL 1.0",
           "source_retrieved_at": "2026-10-05T13:17:48.331944+00:00",
-          "source": "© OpenStreetMap contributors · ODbL 1.0",
-          "data_bbox_wgs84": "[-3.0251771,53.3869328,-2.961707,53.4216978]"
+          "data_bbox_wgs84": "[-3.0251771,53.3869328,-2.961707,53.4216978]",
+          "coverage_bbox_wgs84": "[-3.006,53.391,-2.969,53.416]",
+          "coverage_kind": "sample-area"
         },
         "count": 3401,
         "extent": [
@@ -390,15 +390,15 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "{\"height-tag\":61,\"levels-derived\":847,\"assumed\":3416}",
-          "source_url": "https://gall.openstreetmap.de/api/interpreter",
           "coverage_label": "Sheffield city centre 中心街区样本（非全城覆盖）",
-          "coverage_bbox_wgs84": "[-1.494,53.369,-1.451,53.391]",
-          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://gall.openstreetmap.de/api/interpreter",
+          "height_policy": "{\"height-tag\":61,\"levels-derived\":847,\"assumed\":3416}",
           "license": "ODbL 1.0",
           "source_retrieved_at": "2026-10-05T13:47:14.280894+00:00",
-          "source": "© OpenStreetMap contributors · ODbL 1.0",
-          "data_bbox_wgs84": "[-1.4978856,53.364912,-1.4411137,53.3929093]"
+          "data_bbox_wgs84": "[-1.4978856,53.364912,-1.4411137,53.3929093]",
+          "coverage_bbox_wgs84": "[-1.494,53.369,-1.451,53.391]",
+          "coverage_kind": "sample-area"
         },
         "count": 4324,
         "extent": [
@@ -419,15 +419,15 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "{\"height-tag\":37,\"levels-derived\":1139,\"assumed\":4873}",
-          "source_url": "https://gall.openstreetmap.de/api/interpreter",
           "coverage_label": "Leeds city centre 中心街区样本（非全城覆盖）",
-          "coverage_bbox_wgs84": "[-1.57,53.783,-1.521,53.811]",
-          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://gall.openstreetmap.de/api/interpreter",
+          "height_policy": "{\"height-tag\":37,\"levels-derived\":1139,\"assumed\":4873}",
           "license": "ODbL 1.0",
           "source_retrieved_at": "2026-10-05T14:13:21.414176+00:00",
-          "source": "© OpenStreetMap contributors · ODbL 1.0",
-          "data_bbox_wgs84": "[-1.5894071,53.7805565,-1.5089375,53.8164085]"
+          "data_bbox_wgs84": "[-1.5894071,53.7805565,-1.5089375,53.8164085]",
+          "coverage_bbox_wgs84": "[-1.57,53.783,-1.521,53.811]",
+          "coverage_kind": "sample-area"
         },
         "count": 6049,
         "extent": [
@@ -448,15 +448,15 @@
       "summary": {
         "corrupt": false,
         "metadata": {
-          "height_policy": "{\"height-tag\":36,\"levels-derived\":881,\"assumed\":16217}",
-          "source_url": "https://gall.openstreetmap.de/api/interpreter",
           "coverage_label": "Nottingham city centre 中心街区样本（非全城覆盖）",
-          "coverage_bbox_wgs84": "[-1.172,52.939,-1.123,52.967]",
-          "coverage_kind": "sample-area",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://gall.openstreetmap.de/api/interpreter",
+          "height_policy": "{\"height-tag\":36,\"levels-derived\":881,\"assumed\":16217}",
           "license": "ODbL 1.0",
           "source_retrieved_at": "2026-10-05T14:46:49.158744+00:00",
-          "source": "© OpenStreetMap contributors · ODbL 1.0",
-          "data_bbox_wgs84": "[-1.1770676,52.9345439,-1.1173373,52.9698999]"
+          "data_bbox_wgs84": "[-1.1770676,52.9345439,-1.1173373,52.9698999]",
+          "coverage_bbox_wgs84": "[-1.172,52.939,-1.123,52.967]",
+          "coverage_kind": "sample-area"
         },
         "count": 17134,
         "extent": [
@@ -467,6 +467,35 @@
         ],
         "road_count": 2941,
         "revision": "858b1578db64b0845a004b15be0c8cc24119f960b5b5c158a897bd76efb1ef01"
+      }
+    },
+    {
+      "city_id": "newcastle",
+      "path": "backend/data/cities/newcastle.gugis.json",
+      "bytes": 7073977,
+      "sha256": "f05d9401a907296333bb1e7c1852d0f0148aaae9d3105f1f950e5aa8830117cf",
+      "summary": {
+        "corrupt": false,
+        "metadata": {
+          "coverage_label": "Newcastle upon Tyne city centre 中心街区样本（非全城覆盖）",
+          "source": "© OpenStreetMap contributors · ODbL 1.0",
+          "source_url": "https://gall.openstreetmap.de/api/interpreter",
+          "height_policy": "{\"height-tag\":9,\"levels-derived\":384,\"assumed\":3167}",
+          "license": "ODbL 1.0",
+          "source_retrieved_at": "2026-10-05T15:15:01.134244+00:00",
+          "data_bbox_wgs84": "[-1.6478735,54.9564571,-1.5721692,54.9913634]",
+          "coverage_bbox_wgs84": "[-1.637,54.962,-1.588,54.987]",
+          "coverage_kind": "sample-area"
+        },
+        "count": 3560,
+        "extent": [
+          -1.63773302,
+          54.961778,
+          -1.5876675222222223,
+          54.98720647619048
+        ],
+        "road_count": 1950,
+        "revision": "f05d9401a907296333bb1e7c1852d0f0148aaae9d3105f1f950e5aa8830117cf"
       }
     }
   ]

@@ -506,6 +506,41 @@
       "source_retrieved_at": "2026-10-05T14:46:49.158744+00:00",
       "quality_warnings": [],
       "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "newcastle",
+      "name": "纽卡斯尔",
+      "bytes": 7073977,
+      "sha256": "f05d9401a907296333bb1e7c1852d0f0148aaae9d3105f1f950e5aa8830117cf",
+      "building_count": 3560,
+      "road_count": 1950,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Newcastle upon Tyne city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.637,
+        54.962,
+        -1.588,
+        54.987
+      ],
+      "actual_data_bbox_wgs84": [
+        -1.6478735,
+        54.9564571,
+        -1.5721692,
+        54.9913634
+      ],
+      "height_counts": {
+        "height-tag": 9,
+        "levels-derived": 384,
+        "assumed": 3167
+      },
+      "height_policy": "{\"height-tag\":9,\"levels-derived\":384,\"assumed\":3167}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-05T15:15:01.134244+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
     }
   ],
   "builder_sha256": "d3f04a245c027d7000f7f36da37d4c080d80aabf87683cb163c767e5fcaf7d04"

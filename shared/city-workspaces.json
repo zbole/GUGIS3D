@@ -180,5 +180,18 @@
       52.967
     ],
     "related_registry_id": "uk-eng-nottingham"
+  },
+  {
+    "id": "newcastle",
+    "name": "纽卡斯尔",
+    "city_name": "Newcastle upon Tyne",
+    "coverage_label": "纽卡斯尔中心及泰恩河沿岸样本（非全城覆盖）",
+    "query_bbox_wgs84": [
+      -1.637,
+      54.962,
+      -1.588,
+      54.987
+    ],
+    "related_registry_id": "uk-eng-newcastle-upon-tyne"
   }
 ]

@@ -1,0 +1,58 @@
+{
+  "city_id": "newcastle",
+  "coverage_label": "Newcastle upon Tyne city centre",
+  "bbox": [
+    -1.637,
+    54.962,
+    -1.588,
+    54.987
+  ],
+  "centre_lon_lat": [
+    -1.6125,
+    54.974500000000006
+  ],
+  "query_bbox_south_west_north_east": [
+    54.962,
+    -1.637,
+    54.987,
+    -1.588
+  ],
+  "query": "[out:json][timeout:50][maxsize:268435456];(way[\"building\"](54.962,-1.637,54.987,-1.588);way[\"highway\"][\"name\"](54.962,-1.637,54.987,-1.588););out tags geom;",
+  "source_url": "https://gall.openstreetmap.de/api/interpreter",
+  "downloaded_at": "2026-10-05T15:15:01.134244+00:00",
+  "http_method": "GET",
+  "request_timeout_seconds": 55,
+  "osm_timestamp": "2026-10-05T15:13:01Z",
+  "sha256": "603f60647d60a9c8413994c2aff4ee7d5f754b0a62bc4fc3161f6a0524eb6353",
+  "bytes": 2933023,
+  "elements": 5527,
+  "building_ways": 3561,
+  "road_ways": 1966,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 16.22,
+  "previous_attempts": [],
+  "retained_download_sha256": "c11adb25e98b797d91f5b9be12c3ba45f0ddbacf34d7d9b25bd616785946521c",
+  "retained_download_bytes": 3858310,
+  "publication_filter": {
+    "method": "Only unrelated contact and free-text tags removed; original IDs, geometry, modelling tags and attribution retained.",
+    "removed_tag_counts": {
+      "contact:email": 1,
+      "contact:facebook": 10,
+      "contact:instagram": 4,
+      "contact:linkedin": 1,
+      "contact:phone": 4,
+      "contact:website": 6,
+      "description": 14,
+      "email": 15,
+      "fax": 1,
+      "note": 82,
+      "phone": 108,
+      "website": 193
+    }
+  },
+  "preparer_source_sha256": "dfac4a581629103c02fd24319721a928de91b5347812ce76c46ce6da76f8b0aa"
+}

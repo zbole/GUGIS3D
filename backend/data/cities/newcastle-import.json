@@ -1,0 +1,34 @@
+{
+  "city_id": "newcastle",
+  "source_sha256": "603f60647d60a9c8413994c2aff4ee7d5f754b0a62bc4fc3161f6a0524eb6353",
+  "source_building_ways": 3561,
+  "imported_buildings": 3560,
+  "imported_roads": 1950,
+  "query_bbox_wgs84": [
+    -1.637,
+    54.962,
+    -1.588,
+    54.987
+  ],
+  "actual_data_bbox_wgs84": [
+    -1.6478735,
+    54.9564571,
+    -1.5721692,
+    54.9913634
+  ],
+  "height_policy": {
+    "height-tag": 9,
+    "levels-derived": 384,
+    "assumed": 3167
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 211661633,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 7073977,
+  "gugis_sha256": "f05d9401a907296333bb1e7c1852d0f0148aaae9d3105f1f950e5aa8830117cf"
+}
