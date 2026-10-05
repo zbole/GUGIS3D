@@ -1,8 +1,9 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import report from '../../../shared/paper-terrain-metrics.json';
 import cityReport from '../../../shared/bristol-global-l2.json';
 import BristolIntegralDecision from './BristolIntegralDecision';
 import BristolArcGISRun from './BristolArcGISRun';
+import MultiCityTerrainResults from './MultiCityTerrainResults';
 import './PaperTerrainResults.css';
 
 type Metric = 'e2_m2'|'linf_m'|'rho_median';
@@ -47,10 +48,15 @@ const realNames={global_compact:'原全局紧凑混合',local_triangles:'局部�
 
 export function RealTerrainResultSummary({target:externalTarget,onTargetChange}:{target?:number;onTargetChange?:(target:number)=>void}={}){
   const [localTarget,setLocalTarget]=useState(.1);
+  const [scope,setScope]=useState<'bristol'|'multicity'>(()=>typeof window!=='undefined'&&window.location?.hash==='#multicity-terrain-results'?'multicity':'bristol');
+  useEffect(()=>{if(typeof window==='undefined')return;const update=()=>{if(window.location?.hash==='#multicity-terrain-results')setScope('multicity');};window.addEventListener?.('hashchange',update);return()=>window.removeEventListener?.('hashchange',update);},[]);
+  useEffect(()=>{if(scope==='multicity'&&typeof document!=='undefined'&&window.location?.hash==='#multicity-terrain-results')document.getElementById('multicity-terrain-results')?.scrollIntoView({block:'start'});},[scope]);
   const target=externalTarget??localTarget,setTarget=onTargetChange??setLocalTarget;
   const rows=cityReport.models.filter(m=>m.target_m===target);
   const cases=rows.filter(m=>m.family==='local_compact').map(mixed=>({mixed,tri:rows.find(m=>m.case_id===mixed.case_id&&m.family==='local_triangles')!}));
-  return <section className="paper-city" id="real-terrain-results" aria-labelledby="real-terrain-results-title">
+  return <section className="paper-city" id="real-terrain-results" aria-label="真实地形对比结果">
+    <div className="multicity-tabs" role="group" aria-label="真实地形对标范围"><button type="button" aria-pressed={scope==='bristol'} onClick={()=>setScope('bristol')}>布里斯托原始样区</button><button type="button" aria-pressed={scope==='multicity'} onClick={()=>setScope('multicity')}>新增跨城 · 6 个样区</button></div>
+    {scope==='multicity'?<MultiCityTerrainResults target={target} onTargetChange={setTarget}/>:<>
     <div className="paper-heading"><div><span className="paper-eyebrow">02 / 真实城市 · 全域积分与表示代价</span><h2 id="real-terrain-results-title">优势随地形而变。</h2><p>布里斯托 1 m 源 DTM，两个预先固定的 64 × 64 m 样区。全域 E₂ 与最大参考界一起核对。</p></div><a href="#bristol-terrain-benchmark">展开完整实测与三维对照 ↓</a></div>
     <div className="paper-controls"><label>同一最大参考误差目标<select aria-label="真实地形结果误差目标" value={target} onChange={e=>setTarget(Number(e.target.value))}>{[.1,.25,.5].map(t=><option key={t} value={t}>{t*100} cm</option>)}</select></label><span className="paper-scope">积分覆盖每个样区的全部 4,096 m²；不以抽查 RMSE 代替。</span></div>
     <div className="paper-city-grid">{cases.map(({mixed,tri})=>{const gain=100*(1-mixed.bytes/tri.bytes);return <article key={mixed.case_id} className={gain<0?'paper-city-negative':''}><span>{mixed.case_name} · 局部紧凑混合 vs 局部三角带</span><strong>{gain>0?`小 ${gain.toFixed(1)}%`:`大 ${(-gain).toFixed(1)}%`}</strong><p>{(mixed.bytes/1000).toFixed(2)} kB / {(tri.bytes/1000).toFixed(2)} kB<br/>全域 E₂ <b>{mixed.e2_m2.toFixed(4)} / {tri.e2_m2.toFixed(4)} m²</b><br/>全域 RMS {(mixed.rms_integral_m*100).toFixed(3)} / {(tri.rms_integral_m*100).toFixed(3)} cm</p><small>{gain>0?'混合面带在此样区减少文件体积。':'局部三角带在此样区更省，应保留为候选。'}</small></article>;})}</div>
@@ -60,5 +66,6 @@ export function RealTerrainResultSummary({target:externalTarget,onTargetChange}:
     <BristolArcGISRun target={target}/>
     <details className="paper-method"><summary>全域 E₂ 的计算依据与精度—体积曲线</summary><p>每个原生三角形或直纹区段与所跨越的源栅格单元求交，比较模型与源双线性参考面。残差平方在每个交域是至多四次多项式；3 × 3 Gauss / Duffy 积分计算全域平方误差（float64）。包括实际保存的高程舍入，未把混合面先离散再测。源 DTM 参考面不是独立真实地面精度。</p><img src="/research/bristol-global-l2/error-cost.png" loading="lazy" alt="两个布里斯托样区的全域E2与未压缩文件体积曲线，包含三种表示和三个误差目标，显示不同样区的收益与代价"/></details>
     <div className="paper-downloads"><a href="/research/bristol-global-l2/results.csv" download>真实地形 18 组全域指标 CSV ↓</a><a href="/research/bristol-global-l2/results.json" download>模型指纹与积分回执 JSON ↓</a><a href="/research/bristol-global-l2/error-cost.svg" download>全域误差—体积科学图 SVG ↓</a></div>
+    </>}
   </section>;
 }

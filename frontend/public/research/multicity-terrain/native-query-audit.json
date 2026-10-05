@@ -1,0 +1,729 @@
+{
+  "schema": "gugis-multicity-native-query-audit-v1",
+  "parent_report_sha256": "aabf46ef11949d3587d375b83340e969d92cd015a6f3fd5091515636d2c5c58a",
+  "auditor_sha256": "2c51573933a5f7ccb4a38df90a6de9bab94f7db3f4e87340100e999dae31740c",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scope": "Native original functions queried at fixed source-relative fixtures and every saved control. Sampled errors separate from full-domain L2 integral and max certificate. No browser, GPU, city write or ArcGIS run.",
+  "rows": [
+    {
+      "case_id": "manchester-centre",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "dddbdbee33dab0e13422ed227ff4830ed8490c667ec1e8f5568ac942ed71a096",
+      "fixture_sha256": "e7cf2145a4dd5f5a1767a192881c79e461ce2748b1e2e9b47b76b745be08c7ac",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 181,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.026243358543160206,
+      "sampled_mae_m": 0.01984937499740309,
+      "sampled_p95_absolute_m": 0.053955429872630134,
+      "sampled_max_absolute_m": 0.0975831691837783,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 392720,
+        "sha256": "843e3040c3f9cef26e7cb8f3cbacf42847fc9eb38bac90dbc3e4dfafdd6bbd69"
+      }
+    },
+    {
+      "case_id": "manchester-centre",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "1afec6a0ca42970ba75df983357bc6cfd03d81fd5e664d94b2d0efe2e9ec369d",
+      "fixture_sha256": "e7cf2145a4dd5f5a1767a192881c79e461ce2748b1e2e9b47b76b745be08c7ac",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 154,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.02766901074249705,
+      "sampled_mae_m": 0.021045240117699197,
+      "sampled_p95_absolute_m": 0.05709807582833548,
+      "sampled_max_absolute_m": 0.09032432016479675,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 392415,
+        "sha256": "a0ea86c950dad304b3ad036f9b8bd2003531420e876279a17c3ee6e6c35ec7fc"
+      }
+    },
+    {
+      "case_id": "manchester-centre",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "9aeb5dcfff729d774990ee11d91aaa7fde06401501e781719fac67ff4b918bcb",
+      "fixture_sha256": "e7cf2145a4dd5f5a1767a192881c79e461ce2748b1e2e9b47b76b745be08c7ac",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 43,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.08371442163327894,
+      "sampled_mae_m": 0.06692466644006556,
+      "sampled_p95_absolute_m": 0.161808888158113,
+      "sampled_max_absolute_m": 0.24003825877743168,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 389747,
+        "sha256": "e9baf9454a4d9b1c150de6a4d2d5984bf08ba0da65a5caf3041a875b6e95de87"
+      }
+    },
+    {
+      "case_id": "manchester-centre",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "04f54321c59c64cb838261342593bc4c843a7b093a675605f54f47aa3aadd0b4",
+      "fixture_sha256": "e7cf2145a4dd5f5a1767a192881c79e461ce2748b1e2e9b47b76b745be08c7ac",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 24,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06376701305281948,
+      "sampled_mae_m": 0.04945606535959437,
+      "sampled_p95_absolute_m": 0.12903723375570308,
+      "sampled_max_absolute_m": 0.24278248935134172,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 390743,
+        "sha256": "c589de98611208cfa7c97613129f1506e7be4c0e400cafa0442e7f01de63a552"
+      }
+    },
+    {
+      "case_id": "manchester-centre",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "b758bbfaa589587b9a4022c3ad3500000aecd93d304a4ce4ff577398a824b51f",
+      "fixture_sha256": "e7cf2145a4dd5f5a1767a192881c79e461ce2748b1e2e9b47b76b745be08c7ac",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 4,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.14621129227334867,
+      "sampled_mae_m": 0.12021782645326488,
+      "sampled_p95_absolute_m": 0.2807760499031602,
+      "sampled_max_absolute_m": 0.3939806702970259,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 388076,
+        "sha256": "3fda212578ce8fc49f9b016c0c4e54a128f7d03cc5c3b9ef41e80297508290f5"
+      }
+    },
+    {
+      "case_id": "manchester-centre",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "3c902751948fe13831e33bd8825e9ddc2991e8fe5ba056d0526ee1a76dce73af",
+      "fixture_sha256": "e7cf2145a4dd5f5a1767a192881c79e461ce2748b1e2e9b47b76b745be08c7ac",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 4,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.12865814599827832,
+      "sampled_mae_m": 0.09489836849136735,
+      "sampled_p95_absolute_m": 0.2970601467464675,
+      "sampled_max_absolute_m": 0.4296942048661663,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 389682,
+        "sha256": "338ff6b2665961b8e890c8822a6efaf8c14405bd8fb3a69e354167b7340b0868"
+      }
+    },
+    {
+      "case_id": "manchester-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "bf02297c34c989dc135acbc4cc736bd9059ffb6624a2a2ba5efb8263ad4b78da",
+      "fixture_sha256": "4ade0e7e450ce67769747a22dcb244602365b0380bdd12776b0a70bac021375f",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 644,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.021456761637335123,
+      "sampled_mae_m": 0.013455915167460869,
+      "sampled_p95_absolute_m": 0.05146529687536372,
+      "sampled_max_absolute_m": 0.093385962408437,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 397208,
+        "sha256": "65f43cdc17910f4b9804fbb925423f91ab30ff3167ce8af39a9b5d9b02a943fa"
+      }
+    },
+    {
+      "case_id": "manchester-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "9b1ead3f63e3d8424423dcfff6d42c9a27a9b583be3cb5146865aad1a4db8179",
+      "fixture_sha256": "4ade0e7e450ce67769747a22dcb244602365b0380bdd12776b0a70bac021375f",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 620,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.021601146282859723,
+      "sampled_mae_m": 0.013546030489054988,
+      "sampled_p95_absolute_m": 0.051925736814158796,
+      "sampled_max_absolute_m": 0.09706017568616687,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 397138,
+        "sha256": "cf98ddc46e6201974ff52efc794f56d176471d3e5e3283057eabf1f6ea9c30f3"
+      }
+    },
+    {
+      "case_id": "manchester-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "2991a956614da21938f13405e543ddbf23c599c01d7b30f2f94e1b66efe805a2",
+      "fixture_sha256": "4ade0e7e450ce67769747a22dcb244602365b0380bdd12776b0a70bac021375f",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 253,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06200314548158353,
+      "sampled_mae_m": 0.03945274965003446,
+      "sampled_p95_absolute_m": 0.1464256222112894,
+      "sampled_max_absolute_m": 0.22974356525834594,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 394990,
+        "sha256": "032236648e1f6e3025251fbae8e43a2af020b794d1384d8e6fa5741bc904ff44"
+      }
+    },
+    {
+      "case_id": "manchester-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "5993388e8686107ecf2490f3c4aef5f6d2be23e4c08c514af43fb5741633f869",
+      "fixture_sha256": "4ade0e7e450ce67769747a22dcb244602365b0380bdd12776b0a70bac021375f",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 234,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06257407073042558,
+      "sampled_mae_m": 0.04119246691712017,
+      "sampled_p95_absolute_m": 0.14479508497352,
+      "sampled_max_absolute_m": 0.24025516254960166,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 394616,
+        "sha256": "12e253e18537f4ac26761acf3e17841047caee766f55703781114d41c8ba9cb7"
+      }
+    },
+    {
+      "case_id": "manchester-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "7765bf28c66e24f5e249c9afa7da35c8d54f1c50ef67f3354a543b359898d4bf",
+      "fixture_sha256": "4ade0e7e450ce67769747a22dcb244602365b0380bdd12776b0a70bac021375f",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 156,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.10521190095590649,
+      "sampled_mae_m": 0.0652100862024103,
+      "sampled_p95_absolute_m": 0.24804623081353938,
+      "sampled_max_absolute_m": 0.4592899602771858,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 394219,
+        "sha256": "ad1693e7cb0d6277d9fca627dd4116636b667f1a619c9458474b6bceae08a7f5"
+      }
+    },
+    {
+      "case_id": "manchester-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "4c318be6f9adfc48b42d6e3e7974ff2adea136194e5556099402203ee4509126",
+      "fixture_sha256": "4ade0e7e450ce67769747a22dcb244602365b0380bdd12776b0a70bac021375f",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 130,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.12084251697265794,
+      "sampled_mae_m": 0.08140153231494776,
+      "sampled_p95_absolute_m": 0.2739817476083459,
+      "sampled_max_absolute_m": 0.46012529116067924,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 393106,
+        "sha256": "2dbfab887be07939061bcd43d5035ca428922517121e9188d9cc0adfe997bfce"
+      }
+    },
+    {
+      "case_id": "york-centre",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "5b69b51e9547ee76cbc378eca06a954ec5d3e3e697dcacc7a80d1c0b9a2c2049",
+      "fixture_sha256": "8074283ac75d3f29ea0242f34204b8352146d5f0269ca0b2240af36aa2de61e1",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 367,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.02497845201588836,
+      "sampled_mae_m": 0.017479990821760008,
+      "sampled_p95_absolute_m": 0.05579024403495936,
+      "sampled_max_absolute_m": 0.09077607503731144,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 397971,
+        "sha256": "7453d3855fd9a2845b7da5375044a4b9104d99bc1b875ca93e7f2f4d1ac80230"
+      }
+    },
+    {
+      "case_id": "york-centre",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "0e4e12ab873a7bd2695c84879faea8b7fb3f09264ffaefd45a5c33d07b7dc117",
+      "fixture_sha256": "8074283ac75d3f29ea0242f34204b8352146d5f0269ca0b2240af36aa2de61e1",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 317,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.026596444109385064,
+      "sampled_mae_m": 0.018732784429348285,
+      "sampled_p95_absolute_m": 0.05841494122723745,
+      "sampled_max_absolute_m": 0.09135582925054919,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 397687,
+        "sha256": "ac13152c75e2e4a2c2342322d2ae19100867fcb3e3e0bc3e1317cf3c86b4f99c"
+      }
+    },
+    {
+      "case_id": "york-centre",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "1125f770fe4668096c78df820ffc45104f17b04db8e743d59ad19f7a5ac0fd5c",
+      "fixture_sha256": "8074283ac75d3f29ea0242f34204b8352146d5f0269ca0b2240af36aa2de61e1",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 142,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.05999322011236975,
+      "sampled_mae_m": 0.04343529314000692,
+      "sampled_p95_absolute_m": 0.12917379630521708,
+      "sampled_max_absolute_m": 0.2343642573850051,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 395848,
+        "sha256": "19ea8cd645c3cb955ce0b8e2e8a4957a03f1a7a571506515653cecf59e21161d"
+      }
+    },
+    {
+      "case_id": "york-centre",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "9854ac71d8637372595ef9b6de3566e9d546c05439d034c45c254a3e2369dd6e",
+      "fixture_sha256": "8074283ac75d3f29ea0242f34204b8352146d5f0269ca0b2240af36aa2de61e1",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 98,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.07342456540781032,
+      "sampled_mae_m": 0.055521290974901986,
+      "sampled_p95_absolute_m": 0.15337956996242497,
+      "sampled_max_absolute_m": 0.23105660344769952,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 394853,
+        "sha256": "76187384ef5db6670263239c2017f40dd6eec2acfc9a2ba5c307297aecf74014"
+      }
+    },
+    {
+      "case_id": "york-centre",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "3c7e2cc08499583e7972ada638cb39b596930e3c02594e32ec78dba6f903b97f",
+      "fixture_sha256": "8074283ac75d3f29ea0242f34204b8352146d5f0269ca0b2240af36aa2de61e1",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 36,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.12533690472589573,
+      "sampled_mae_m": 0.09837418778675044,
+      "sampled_p95_absolute_m": 0.2512047535249877,
+      "sampled_max_absolute_m": 0.4066432297961775,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 394018,
+        "sha256": "cf711aaa1c0e188433de16ba5df067b38b5413981cccfa4e0e7b4fb3f9b6bdac"
+      }
+    },
+    {
+      "case_id": "york-centre",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "ad74e9908725142b67debb0c91188d14e27bcbc9d4536bedf4e38d285f93372e",
+      "fixture_sha256": "8074283ac75d3f29ea0242f34204b8352146d5f0269ca0b2240af36aa2de61e1",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 21,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.14837786994277347,
+      "sampled_mae_m": 0.11319827090804309,
+      "sampled_p95_absolute_m": 0.31011839403034536,
+      "sampled_max_absolute_m": 0.47069632243394466,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 393750,
+        "sha256": "c686f2cb919f5878ec94b3cfb2cf911cd16c6c4f81c3b9386cb2ee6914a96a9b"
+      }
+    },
+    {
+      "case_id": "york-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "0f76247c5aa70e74c25940817c283abccf41ecc96bd39d845bbeacd1f85676ec",
+      "fixture_sha256": "48042a719507278040a861d9148f569f068af291a97c73156097ad767824a623",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 359,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.027110101795977098,
+      "sampled_mae_m": 0.019253424186775524,
+      "sampled_p95_absolute_m": 0.05954134650407816,
+      "sampled_max_absolute_m": 0.0982707507165923,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 397761,
+        "sha256": "afcd0db8747bcbdcf3898c4584a8e57af0ca38c017cb4fc711f41fb310d6a571"
+      }
+    },
+    {
+      "case_id": "york-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "cb245d4fdfafe6cce4e7cacd4e00caf2c7e9604fb757fed976a4b8c41cf32c19",
+      "fixture_sha256": "48042a719507278040a861d9148f569f068af291a97c73156097ad767824a623",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 275,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.02558422374850448,
+      "sampled_mae_m": 0.018875527430059345,
+      "sampled_p95_absolute_m": 0.05358912980858577,
+      "sampled_max_absolute_m": 0.09262903529637789,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 397894,
+        "sha256": "ad06a2ceed2642c48930fbedb04a7a904d8207f35c9ae7bdddbe0606961bc1b6"
+      }
+    },
+    {
+      "case_id": "york-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "36c4fb94691e51e5cb6298e9465a7b1795b96d56afb39bed253b4cf9099a192f",
+      "fixture_sha256": "48042a719507278040a861d9148f569f068af291a97c73156097ad767824a623",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 127,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.05161638333600102,
+      "sampled_mae_m": 0.03552612938160936,
+      "sampled_p95_absolute_m": 0.10877324123636178,
+      "sampled_max_absolute_m": 0.2347360113287671,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 396844,
+        "sha256": "2a5d2bde6a5811a3d3f8c8269e5af204182e84e99372e79fa2cd5b49d3296bad"
+      }
+    },
+    {
+      "case_id": "york-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "d30e72ad6c440ffaf337d17a71e22bb0393c03f23767279b804b8304d484a6ba",
+      "fixture_sha256": "48042a719507278040a861d9148f569f068af291a97c73156097ad767824a623",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 98,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.046317573064003505,
+      "sampled_mae_m": 0.03304215077500442,
+      "sampled_p95_absolute_m": 0.09545862527238747,
+      "sampled_max_absolute_m": 0.2291125590181622,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 396663,
+        "sha256": "b5a22fc58fd42d4a2ef96faf85cfd6eb8009f97d86581596067f28c7d053e803"
+      }
+    },
+    {
+      "case_id": "york-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "e60a31bebeff8b6fcfab2571f3d9fd89ca76ee35e48b9c8c48e6021aa2013375",
+      "fixture_sha256": "48042a719507278040a861d9148f569f068af291a97c73156097ad767824a623",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 6,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.1744881805059654,
+      "sampled_mae_m": 0.14491916848940634,
+      "sampled_p95_absolute_m": 0.3266872902864417,
+      "sampled_max_absolute_m": 0.42777068232254933,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 393199,
+        "sha256": "09ce42f5aecc629be1ea1448463d76ba17bb1b2824363ebe720c8e783cf9b965"
+      }
+    },
+    {
+      "case_id": "york-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "f195940d9c2bfed20023ed1a08a2751c751375dbe2d5e6ec796fdfcb163fd07b",
+      "fixture_sha256": "48042a719507278040a861d9148f569f068af291a97c73156097ad767824a623",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 17,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.14236222215060942,
+      "sampled_mae_m": 0.10763534245797057,
+      "sampled_p95_absolute_m": 0.2965111812704606,
+      "sampled_max_absolute_m": 0.435545810156718,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 394427,
+        "sha256": "d87fe5b8e7136ee1f00951e6d3c106a95ce19bfc5dbe42772dd6d8bbe366d570"
+      }
+    },
+    {
+      "case_id": "bath-centre",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "6cb9d9cad0f1ba5995fd9b6032222de9b450da3287cf370f242fa5e8ee2f2d86",
+      "fixture_sha256": "ef068060ac59048c5e96bed3331fc0f4663ae1dcae39dcadae06d48a5a2e7465",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 331,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.021511381586031744,
+      "sampled_mae_m": 0.013832741652566479,
+      "sampled_p95_absolute_m": 0.050684563437954466,
+      "sampled_max_absolute_m": 0.08697853803529654,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 394753,
+        "sha256": "4416a794af6b771c26014367fbea0f671a4c37561f5178c9b78c53d07cbb28f5"
+      }
+    },
+    {
+      "case_id": "bath-centre",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "57b4ddfb23d87fb217193d0fa308453466cd973bd20a9a85ca866db38858bb81",
+      "fixture_sha256": "ef068060ac59048c5e96bed3331fc0f4663ae1dcae39dcadae06d48a5a2e7465",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 320,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.021108978959175358,
+      "sampled_mae_m": 0.013888984900493768,
+      "sampled_p95_absolute_m": 0.04848816934178046,
+      "sampled_max_absolute_m": 0.09487487380816617,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 394758,
+        "sha256": "b860da1ed2ec1acbbc08ecd586d78bddea5e4bd62e6bfbd3a5ae0557a35a07cb"
+      }
+    },
+    {
+      "case_id": "bath-centre",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "78cd6d290765f7296ec8e7baadf97f98bccccf2462604bf943d59376bf0b6f37",
+      "fixture_sha256": "ef068060ac59048c5e96bed3331fc0f4663ae1dcae39dcadae06d48a5a2e7465",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 99,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.061222072785582816,
+      "sampled_mae_m": 0.03949131388604355,
+      "sampled_p95_absolute_m": 0.1431608315018451,
+      "sampled_max_absolute_m": 0.23066462083007622,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 392925,
+        "sha256": "74d628528d28c85f9e4192190d928ce0d831b5210c54cee6dc54224b874267cd"
+      }
+    },
+    {
+      "case_id": "bath-centre",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "a50265997045cd3711d20bf0f6432f4de03c1354b15fd09ce52480465a60ca95",
+      "fixture_sha256": "ef068060ac59048c5e96bed3331fc0f4663ae1dcae39dcadae06d48a5a2e7465",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 88,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.0686439435712549,
+      "sampled_mae_m": 0.04576153054419285,
+      "sampled_p95_absolute_m": 0.15833165324683307,
+      "sampled_max_absolute_m": 0.24461973540609705,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 392426,
+        "sha256": "af8ce69aae7293c95576ca7b1f218dddba374b4880c0143b31c124d654268641"
+      }
+    },
+    {
+      "case_id": "bath-centre",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "00884de299bec56a2a82c30f6f16d401af2f666d219729431f0744e3ef1bd2f1",
+      "fixture_sha256": "ef068060ac59048c5e96bed3331fc0f4663ae1dcae39dcadae06d48a5a2e7465",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 29,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.10499391609867015,
+      "sampled_mae_m": 0.0696178318335503,
+      "sampled_p95_absolute_m": 0.2290580392777315,
+      "sampled_max_absolute_m": 0.445387117901781,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 391497,
+        "sha256": "bb323bb02039fbe06b1abf06c48a26f8dfab697d7556456e553eda53e0ad3a7c"
+      }
+    },
+    {
+      "case_id": "bath-centre",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "84d80d69e506df795b1ac199851d03eeb2570502fc4db2cb72788031b09f2027",
+      "fixture_sha256": "ef068060ac59048c5e96bed3331fc0f4663ae1dcae39dcadae06d48a5a2e7465",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 29,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.11712844453909957,
+      "sampled_mae_m": 0.0864850852869491,
+      "sampled_p95_absolute_m": 0.2453679077660098,
+      "sampled_max_absolute_m": 0.41592276383936877,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 390909,
+        "sha256": "e1863193ede445af6ae1fb6d0543472fbb399e289a81cf40c21825a6ea1e599a"
+      }
+    },
+    {
+      "case_id": "bath-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "17c65cdea7f846af834a66f808c388d3b132fad3c4b581e7d1f5a6ec6d5638f0",
+      "fixture_sha256": "d4399fd1b85cff148c1624a283721df321ebd06263937220685fc9d0881914c5",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 1474,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.02354139949886017,
+      "sampled_mae_m": 0.016153688507671772,
+      "sampled_p95_absolute_m": 0.05404851621570117,
+      "sampled_max_absolute_m": 0.09581504576944155,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 390340,
+        "sha256": "e0540c36623cac1bd50fc8c6a07ab20a719a6033d32f15f1e9f23190a71492c9"
+      }
+    },
+    {
+      "case_id": "bath-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "f273eead2c23e047dc13485cf508e31916a8536d24e81b2fecb448198147f0c8",
+      "fixture_sha256": "d4399fd1b85cff148c1624a283721df321ebd06263937220685fc9d0881914c5",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 1403,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.023954162034801676,
+      "sampled_mae_m": 0.016799745080843777,
+      "sampled_p95_absolute_m": 0.05371755140693324,
+      "sampled_max_absolute_m": 0.09170655355983115,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 390172,
+        "sha256": "6a2e92f67299fd50636c91ed4563cf3bf61dc9fa4092b3695bfbd036c31bd84c"
+      }
+    },
+    {
+      "case_id": "bath-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "deee8af3aa0052c51283058702f80b354e46b148969f8f039f1ad6858cd8f292",
+      "fixture_sha256": "d4399fd1b85cff148c1624a283721df321ebd06263937220685fc9d0881914c5",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 592,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06209915007714124,
+      "sampled_mae_m": 0.04482995612283687,
+      "sampled_p95_absolute_m": 0.13475493448403597,
+      "sampled_max_absolute_m": 0.23230646692222479,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 388223,
+        "sha256": "7d24ff4de3fdc90757c41ae070b935aa3329aedcc916311300380ed71a832069"
+      }
+    },
+    {
+      "case_id": "bath-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "5c179da6f8b64f0059035d7b07e21d84493ecac091274f1f1b2b749995b3f11b",
+      "fixture_sha256": "d4399fd1b85cff148c1624a283721df321ebd06263937220685fc9d0881914c5",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 562,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.062250511410784706,
+      "sampled_mae_m": 0.044822394736867416,
+      "sampled_p95_absolute_m": 0.13769967717536247,
+      "sampled_max_absolute_m": 0.22814752587623843,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 388232,
+        "sha256": "43f7bba292de2c7377c5a5ab32a7eb7555044505974b45fd4fbbd626afdcba40"
+      }
+    },
+    {
+      "case_id": "bath-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "e83a0663861ed4b6b83e59073ef06e33ead37c8a0bd6b70438f2b4b6d47e4755",
+      "fixture_sha256": "d4399fd1b85cff148c1624a283721df321ebd06263937220685fc9d0881914c5",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 278,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.12569097781096764,
+      "sampled_mae_m": 0.0897854579822838,
+      "sampled_p95_absolute_m": 0.27358759748769046,
+      "sampled_max_absolute_m": 0.4760268939655532,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 386977,
+        "sha256": "458a9c7acb535860642b621039e4e376fa53120081c7d9b81d58d134af16b3a4"
+      }
+    },
+    {
+      "case_id": "bath-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "c17ce67d31a1a4caa67307a7309f05c55477f646f151fefbd23c359412e26fa7",
+      "fixture_sha256": "d4399fd1b85cff148c1624a283721df321ebd06263937220685fc9d0881914c5",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 218,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.12965209619762497,
+      "sampled_mae_m": 0.09446826666226218,
+      "sampled_p95_absolute_m": 0.27869955355058096,
+      "sampled_max_absolute_m": 0.4773215318077888,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 386889,
+        "sha256": "6ecfd326a989e0327ba5be2654b35bf22d5d1eae215a11480229aefe4a8a2978"
+      }
+    }
+  ]
+}

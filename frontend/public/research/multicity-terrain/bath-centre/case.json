@@ -1,0 +1,333 @@
+{
+  "id": "bath-centre",
+  "city_id": "bath",
+  "name": "巴斯 · 英国环境署裸地 DTM · 源栅格中心",
+  "site_id": "centre",
+  "origin_bng": [
+    374904.5,
+    165056.5
+  ],
+  "centre_wgs84": [
+    -2.3620032535402857,
+    51.38399487686334
+  ],
+  "source_window": [
+    1197,
+    1018,
+    65,
+    65
+  ],
+  "source_raster_sha256": "8d9cea5c33e7b6e9412017dcc3512f6bdb3e6feeb570efaf93073fe8eb6a9707",
+  "source_min_m": 30.540000915527344,
+  "source_max_m": 35.4379997253418,
+  "reference_sha256": "3d2d408acd4b3e913272a78b2329b26afde3efa6d44bed1ba04505b23f949e3f",
+  "fixture_sha256": "ef068060ac59048c5e96bed3331fc0f4663ae1dcae39dcadae06d48a5a2e7465",
+  "models": [
+    {
+      "family": "hybrid",
+      "target_m": 0.1,
+      "filename": "hybrid-0.1m.json",
+      "bytes": 16609,
+      "sha256": "6cb9d9cad0f1ba5995fd9b6032222de9b450da3287cf370f242fa5e8ee2f2d86",
+      "points": 331,
+      "patches": 129,
+      "primitive_sha256": "3f857d92532e15582ac0f35de3103000e6a9d9538c173b8f9973cb2a968974d1",
+      "status": "target-met",
+      "target_met": true,
+      "continuous_bound_m": 0.09950004681180462,
+      "build_validate_ms": 1829.8148999456316,
+      "compaction": {
+        "original_patches": 600,
+        "compact_patches": 129,
+        "ruled_quads": 1,
+        "ruled_strips": 1,
+        "triangle_faces": 599,
+        "triangle_strips": 128,
+        "primitive_sha256": "3f857d92532e15582ac0f35de3103000e6a9d9538c173b8f9973cb2a968974d1",
+        "controls_unchanged": true,
+        "patch_ids_preserved": false,
+        "boundary_derivative_tie_order_preserved": false
+      },
+      "e2_m2": 1.3799800912979028,
+      "rms_integral_m": 0.02156218892652973,
+      "integrated_area_m2": 4096.0,
+      "native_triangles": 599,
+      "ruled_quads": 1,
+      "integration_pieces": 9561
+    },
+    {
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "filename": "local_triangles-0.1m.json",
+      "bytes": 15909,
+      "sha256": "57b4ddfb23d87fb217193d0fa308453466cd973bd20a9a85ca866db38858bb81",
+      "points": 320,
+      "patches": 124,
+      "primitive_sha256": "cb83125e5d2ec569f313f4a1083646d19f089d01bb8839c3ede5c5163b83e414",
+      "status": "target-met",
+      "target_met": true,
+      "continuous_bound_m": 0.09974989422391149,
+      "build_validate_ms": 691.7746999533847,
+      "compaction": {
+        "original_patches": 124,
+        "compact_patches": 124,
+        "ruled_quads": 0,
+        "ruled_strips": 0,
+        "triangle_faces": 579,
+        "triangle_strips": 124,
+        "primitive_sha256": "cb83125e5d2ec569f313f4a1083646d19f089d01bb8839c3ede5c5163b83e414",
+        "controls_unchanged": true,
+        "patch_ids_preserved": false,
+        "boundary_derivative_tie_order_preserved": false
+      },
+      "e2_m2": 1.3827396062164963,
+      "rms_integral_m": 0.021605306347132754,
+      "integrated_area_m2": 4096.0,
+      "native_triangles": 579,
+      "ruled_quads": 0,
+      "integration_pieces": 8194,
+      "multipatch": {
+        "files": [
+          {
+            "filename": "local-triangles-10cm.shp",
+            "bytes": 21008,
+            "sha256": "611491b814721d2d61dadee046a22a82dfb9adadb70b82b2860ed97e83ae4e89"
+          },
+          {
+            "filename": "local-triangles-10cm.shx",
+            "bytes": 108,
+            "sha256": "f086f850b68852f431a47f0b977233d7584a5f21365e55e3c5856e911fa70306"
+          },
+          {
+            "filename": "local-triangles-10cm.dbf",
+            "bytes": 328,
+            "sha256": "6a6c49b05823a8610b12959e3284e2c5443eaeb194f06859dba167a6b8baf876"
+          },
+          {
+            "filename": "local-triangles-10cm.prj",
+            "bytes": 417,
+            "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+          },
+          {
+            "filename": "local-triangles-10cm.cpg",
+            "bytes": 5,
+            "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+          }
+        ],
+        "five_component_bytes": 21866,
+        "native_parts": 124,
+        "exact_xyz_and_parts": true,
+        "triangles": 579,
+        "oriented_triangle_multiset_sha256": "e285c3d9695eb06857229c0eaf46fedb77b0940f5762caa4b2290a192700123d",
+        "zero_sign_normalized_for_xyz_digest": true,
+        "crs": "EPSG:27700",
+        "vertical_datum": "ODN",
+        "scope": "Same saved native triangle geometry and selected source attributes; native JSON metadata not fully reproduced. No ArcGIS execution."
+      }
+    },
+    {
+      "family": "hybrid",
+      "target_m": 0.25,
+      "filename": "hybrid-0.25m.json",
+      "bytes": 5102,
+      "sha256": "78cd6d290765f7296ec8e7baadf97f98bccccf2462604bf943d59376bf0b6f37",
+      "points": 99,
+      "patches": 38,
+      "primitive_sha256": "c90cbf214400128f41a0810f6a3104e7e9037021b1deb0594a565dd132bbaa2c",
+      "status": "target-met",
+      "target_met": true,
+      "continuous_bound_m": 0.2480011263711322,
+      "build_validate_ms": 352.87599998991936,
+      "compaction": {
+        "original_patches": 165,
+        "compact_patches": 38,
+        "ruled_quads": 0,
+        "ruled_strips": 0,
+        "triangle_faces": 165,
+        "triangle_strips": 38,
+        "primitive_sha256": "c90cbf214400128f41a0810f6a3104e7e9037021b1deb0594a565dd132bbaa2c",
+        "controls_unchanged": true,
+        "patch_ids_preserved": false,
+        "boundary_derivative_tie_order_preserved": false
+      },
+      "e2_m2": 3.906785676397957,
+      "rms_integral_m": 0.06104352619371808,
+      "integrated_area_m2": 4096.0,
+      "native_triangles": 165,
+      "ruled_quads": 0,
+      "integration_pieces": 9198
+    },
+    {
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "filename": "local_triangles-0.25m.json",
+      "bytes": 4641,
+      "sha256": "a50265997045cd3711d20bf0f6432f4de03c1354b15fd09ce52480465a60ca95",
+      "points": 88,
+      "patches": 35,
+      "primitive_sha256": "b700f939aad0ebfca03d5ba91827e6e03874d7b0db16706b140216992461758d",
+      "status": "target-met",
+      "target_met": true,
+      "continuous_bound_m": 0.24881178768705287,
+      "build_validate_ms": 174.42419996950775,
+      "compaction": {
+        "original_patches": 35,
+        "compact_patches": 35,
+        "ruled_quads": 0,
+        "ruled_strips": 0,
+        "triangle_faces": 148,
+        "triangle_strips": 35,
+        "primitive_sha256": "b700f939aad0ebfca03d5ba91827e6e03874d7b0db16706b140216992461758d",
+        "controls_unchanged": true,
+        "patch_ids_preserved": false,
+        "boundary_derivative_tie_order_preserved": false
+      },
+      "e2_m2": 4.375462984026886,
+      "rms_integral_m": 0.0683666091254201,
+      "integrated_area_m2": 4096.0,
+      "native_triangles": 148,
+      "ruled_quads": 0,
+      "integration_pieces": 8192,
+      "multipatch": {
+        "files": [
+          {
+            "filename": "local-triangles-25cm.shp",
+            "bytes": 5680,
+            "sha256": "889ac99bb24ee47d30a09388af6b6f40d38b0c18b0568f750bf784e953294f42"
+          },
+          {
+            "filename": "local-triangles-25cm.shx",
+            "bytes": 108,
+            "sha256": "96513a801cdb74773853f61345bc4197c181e9b8620a55e544ebe2cc0b826190"
+          },
+          {
+            "filename": "local-triangles-25cm.dbf",
+            "bytes": 328,
+            "sha256": "9eb6c6da45f9a4ea996fde91f434fe606379795170f1ee873446c9d2f819b82f"
+          },
+          {
+            "filename": "local-triangles-25cm.prj",
+            "bytes": 417,
+            "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+          },
+          {
+            "filename": "local-triangles-25cm.cpg",
+            "bytes": 5,
+            "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+          }
+        ],
+        "five_component_bytes": 6538,
+        "native_parts": 35,
+        "exact_xyz_and_parts": true,
+        "triangles": 148,
+        "oriented_triangle_multiset_sha256": "af50d3e3188ff7165cfb41533a9834c6ff4fb1980e29a172dbc1170026a4d89e",
+        "zero_sign_normalized_for_xyz_digest": true,
+        "crs": "EPSG:27700",
+        "vertical_datum": "ODN",
+        "scope": "Same saved native triangle geometry and selected source attributes; native JSON metadata not fully reproduced. No ArcGIS execution."
+      }
+    },
+    {
+      "family": "hybrid",
+      "target_m": 0.5,
+      "filename": "hybrid-0.5m.json",
+      "bytes": 1791,
+      "sha256": "00884de299bec56a2a82c30f6f16d401af2f666d219729431f0744e3ef1bd2f1",
+      "points": 29,
+      "patches": 10,
+      "primitive_sha256": "d9229f708ff99d4c48b0c4960d91d058045ba14be11f59d5e31f2cd8f87c7527",
+      "status": "target-met",
+      "target_met": true,
+      "continuous_bound_m": 0.4806269179208154,
+      "build_validate_ms": 81.47820003796369,
+      "compaction": {
+        "original_patches": 41,
+        "compact_patches": 10,
+        "ruled_quads": 0,
+        "ruled_strips": 0,
+        "triangle_faces": 41,
+        "triangle_strips": 10,
+        "primitive_sha256": "d9229f708ff99d4c48b0c4960d91d058045ba14be11f59d5e31f2cd8f87c7527",
+        "controls_unchanged": true,
+        "patch_ids_preserved": false,
+        "boundary_derivative_tie_order_preserved": false
+      },
+      "e2_m2": 6.7875169198974445,
+      "rms_integral_m": 0.10605495187339757,
+      "integrated_area_m2": 4096.0,
+      "native_triangles": 41,
+      "ruled_quads": 0,
+      "integration_pieces": 8416
+    },
+    {
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "filename": "local_triangles-0.5m.json",
+      "bytes": 1905,
+      "sha256": "84d80d69e506df795b1ac199851d03eeb2570502fc4db2cb72788031b09f2027",
+      "points": 29,
+      "patches": 12,
+      "primitive_sha256": "b78e35b8167335b069d9336920dcd134eeb2860092fb06f8d69a43d636cd4fdc",
+      "status": "target-met",
+      "target_met": true,
+      "continuous_bound_m": 0.4666252070290891,
+      "build_validate_ms": 52.637699991464615,
+      "compaction": {
+        "original_patches": 12,
+        "compact_patches": 12,
+        "ruled_quads": 0,
+        "ruled_strips": 0,
+        "triangle_faces": 43,
+        "triangle_strips": 12,
+        "primitive_sha256": "b78e35b8167335b069d9336920dcd134eeb2860092fb06f8d69a43d636cd4fdc",
+        "controls_unchanged": true,
+        "patch_ids_preserved": false,
+        "boundary_derivative_tie_order_preserved": false
+      },
+      "e2_m2": 7.577925641760032,
+      "rms_integral_m": 0.1184050881525005,
+      "integrated_area_m2": 4096.0,
+      "native_triangles": 43,
+      "ruled_quads": 0,
+      "integration_pieces": 8192,
+      "multipatch": {
+        "files": [
+          {
+            "filename": "local-triangles-50cm.shp",
+            "bytes": 1872,
+            "sha256": "d64db17396c1c7d723222dba0df12559f3144808db6cb86ff8cb6296fbd83a9b"
+          },
+          {
+            "filename": "local-triangles-50cm.shx",
+            "bytes": 108,
+            "sha256": "8f38d1afe675bea96299ef1e19efd4cd9f7c25d38184bba5694ef4f3310420ff"
+          },
+          {
+            "filename": "local-triangles-50cm.dbf",
+            "bytes": 328,
+            "sha256": "1afde94f66a9d50aa0ad2957de14d795f6b0d2ee88d43fe111381fd3d5f6d488"
+          },
+          {
+            "filename": "local-triangles-50cm.prj",
+            "bytes": 417,
+            "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+          },
+          {
+            "filename": "local-triangles-50cm.cpg",
+            "bytes": 5,
+            "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+          }
+        ],
+        "five_component_bytes": 2730,
+        "native_parts": 12,
+        "exact_xyz_and_parts": true,
+        "triangles": 43,
+        "oriented_triangle_multiset_sha256": "51670060bdb2aac87ee829743a172b55ac6be3f0fa7873fee2c92e3ee0e4410c",
+        "zero_sign_normalized_for_xyz_digest": true,
+        "crs": "EPSG:27700",
+        "vertical_datum": "ODN",
+        "scope": "Same saved native triangle geometry and selected source attributes; native JSON metadata not fully reproduced. No ArcGIS execution."
+      }
+    }
+  ]
+}
