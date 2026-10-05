@@ -46,3 +46,6 @@ app.include_router(coverage.router)
 
 from app.routers import source_candidates
 app.include_router(source_candidates.router)
+
+from app.routers import public_city_datasets
+app.include_router(public_city_datasets.router)
