@@ -128,12 +128,13 @@ const terrainPackageUrl = `${(import.meta.env.VITE_API_BASE_URL ?? "/api").repla
 export default function CompareShowcase({ workspace = defaultCityWorkspace, api }: { workspace?: CityWorkspace; api?: CityApi } = {}) {
   if (workspace.id !== "bristol") return <div className="compare-page"><div className="city-comparison-pending">
     <span>GUGIS3D × ArcGIS / {workspace.name}</span>
-    <h1>{workspace.status === "pending" ? "城市数据待导入，" : "已导入城市数据，"}<br />对比实验待建立。</h1>
-    <p>{workspace.coverage_label}。当前未生成此城市的同源基准报告；布里斯托的存储节省、查询精度及剖面结果只对应布里斯托样本。</p>
+    <h1>论文指标与真实地形，<br />分别核验结果。</h1>
+    <p>{workspace.coverage_label}。本城建筑存储、城市剖面与软件计时尚无同源报告。下方地形结果按已核验的固定样区独立选择，不代表本城建筑或全城精度；布里斯托城市快照指标仅对应其原样本。</p>
     <a href={cityWorkspaceHref(workspace.id)}>进入{workspace.name}三维工作区 →</a>
     <a href="/compare">查看布里斯托已核验的对比证据 →</a>
-    <a href="#implicit-terrain">查看跨城市独立地形研究基准 →</a>
-  </div><PaperTerrainResults/><EvidenceDisclosure group="supplementary" title="补充研究实验" note="跨城市公开地形数据与既有方法实验">{researchSection}</EvidenceDisclosure></div>;
+    <a href="#real-terrain-results">查看固定样区真实地形结果 →</a>
+    <a href="/datasets">查看城市与裸地数据集 →</a>
+  </div><PaperTerrainResults/><RealTerrainResultSummary/><EvidenceDisclosure group="supplementary" title="补充研究实验" note="跨城市公开地形数据与既有方法实验">{researchSection}</EvidenceDisclosure></div>;
   return <BristolComparison api={api} />;
 }
 

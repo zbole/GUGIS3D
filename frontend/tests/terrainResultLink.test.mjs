@@ -23,3 +23,13 @@ test('unsupported targets or incompatible sites cannot be published as result li
   assert.throws(()=>terrainResultUrl('http://localhost/compare',{scope:'cambridge',target:.2,site:null}),/Unsupported/);
   assert.throws(()=>terrainResultUrl('http://localhost/compare',{scope:'oxford',target:.1,site:'cambridge-centre'}),/different experiment/);
 });
+
+test('Liverpool sample links round trip and incompatible old samples clear',()=>{
+  for(const site of ['liverpool-centre','liverpool-north-quarter']){
+    const url=new URL(terrainResultUrl('http://localhost/compare?city=liverpool&terrain_site=cambridge-centre',{scope:'liverpool',target:.25,site}));
+    assert.deepEqual(readTerrainResultLink(url),{scope:'liverpool',target:.25,site});
+    assert.equal(url.searchParams.get('city'),'liverpool');
+    assert.equal(url.hash,'#liverpool-terrain-results');
+  }
+  assert.deepEqual(readTerrainResultLink({search:'?terrain_scope=cambridge&terrain_site=cambridge-centre&terrain_target=.5',hash:'#liverpool-terrain-results'}),{scope:'liverpool',target:.5,site:null});
+});

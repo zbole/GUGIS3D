@@ -23,6 +23,30 @@ const Showcase = (await import(pathToFileURL(outfile).href)).default;
 const text = node => typeof node === "string" ? node : (node.children ?? []).map(text).join("");
 const group = (root, label) => root.findByProps({ role: "group", "aria-label": label });
 
+test("non-Bristol page retains its exact terrain result link and never reads formal city or foreign snapshot",()=>{
+  const beforeWindow=globalThis.window,beforeDocument=globalThis.document,beforeFetch=globalThis.fetch;
+  const listeners=new Map();let r;
+  try{
+    globalThis.window={location:new URL('http://localhost/compare?city=liverpool&terrain_scope=liverpool&terrain_target=.25&terrain_site=liverpool-north-quarter#liverpool-terrain-results'),
+      addEventListener:(name,fn)=>{if(!listeners.has(name))listeners.set(name,new Set());listeners.get(name).add(fn);},
+      removeEventListener:(name,fn)=>listeners.get(name)?.delete(fn)};
+    globalThis.document={getElementById:()=>null};
+    globalThis.fetch=()=>assert.fail('Non-Bristol result page must not initialize city or read Bristol revision');
+    act(()=>r=create(React.createElement(Showcase,{workspace:{id:'liverpool',name:'利物浦',status:'available',coverage_label:'中心与滨水区局部样本'}})));
+    assert.equal(r.root.findByProps({'aria-label':'跨城对标样区'}).props.value,'liverpool-north-quarter');
+    assert.equal(r.root.findByProps({'aria-label':'真实地形结果误差目标'}).props.value,.25);
+    assert.match(text(r.toJSON()),/大 16\.5%/);
+    assert.match(text(r.toJSON()),/本城建筑存储、城市剖面与软件计时尚无同源报告/);
+    assert.equal(r.root.findAllByProps({'aria-label':'城市实测快照校对'}).length,0);
+    assert.equal(r.root.findAllByType('canvas').length,0);
+    act(()=>r.unmount());r=null;assert.ok([...listeners.values()].every(s=>s.size===0));
+  }finally{
+    if(r)act(()=>r.unmount());globalThis.fetch=beforeFetch;
+    if(beforeWindow===undefined)delete globalThis.window;else globalThis.window=beforeWindow;
+    if(beforeDocument===undefined)delete globalThis.document;else globalThis.document=beforeDocument;
+  }
+});
+
 test("overview, lazy-loaded lab, target selection and exports use the same resolution without reloading evidence", async () => {
   const keys = ["window", "document", "localStorage", "location"];
   const previous = keys.map(key => [key, Object.getOwnPropertyDescriptor(globalThis, key)]);

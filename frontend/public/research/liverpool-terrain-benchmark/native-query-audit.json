@@ -1,0 +1,249 @@
+{
+  "schema": "gugis-liverpool-native-query-audit-v1",
+  "parent_report_sha256": "30bec633f85a836c44879b347cbf71cfdd74b3f77d233f6bb75cc1be2f2e6686",
+  "auditor_sha256": "d659ed2226df39ebb12fc7f054d721c0a8a0bbaa896004c923a46db86a5dfcfa",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scope": "Native original functions queried at fixed source-relative fixtures and every saved control. Sampled errors separate from full-domain L2 integral and max certificate. No browser, GPU, city write or ArcGIS run.",
+  "rows": [
+    {
+      "case_id": "liverpool-centre",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "8db3c4fabb3d6ee53468acc0a60d594ae35d1befd3d8ada2df7d1cc5ab666701",
+      "fixture_sha256": "b4df79e416d7ea7d303c55b7f9fae842aa4644dd094260b95b5da029901ad7b4",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 987,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.018776648885042976,
+      "sampled_mae_m": 0.012487283812069695,
+      "sampled_p95_absolute_m": 0.04158357690535919,
+      "sampled_max_absolute_m": 0.09132105866514628,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 394716,
+        "sha256": "aae44e39d2f99c6505314c7ce135b3e802be6a1290daf875f2dd6272b5d25b87"
+      }
+    },
+    {
+      "case_id": "liverpool-centre",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "1fb1469ae54914e89eafb065ec378495bfdc3859fe861a4a673ac6934171dc16",
+      "fixture_sha256": "b4df79e416d7ea7d303c55b7f9fae842aa4644dd094260b95b5da029901ad7b4",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 969,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.017470229028889915,
+      "sampled_mae_m": 0.012071941394967483,
+      "sampled_p95_absolute_m": 0.037878973226545654,
+      "sampled_max_absolute_m": 0.09168510839292132,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 394582,
+        "sha256": "06c98a89a55c2cdd4847afc4fe2695f3c18f47bd6d456fcfff68cc0fffdb062a"
+      }
+    },
+    {
+      "case_id": "liverpool-centre",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "365d36bfdeb4867489676971dc600528e5347d666ba85342de92275149993f81",
+      "fixture_sha256": "b4df79e416d7ea7d303c55b7f9fae842aa4644dd094260b95b5da029901ad7b4",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 600,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.0356355163546624,
+      "sampled_mae_m": 0.02104511700295177,
+      "sampled_p95_absolute_m": 0.08050724985693769,
+      "sampled_max_absolute_m": 0.22446303946525958,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 393911,
+        "sha256": "fd58bdcfb05dda68662674cb7affb7de599804847878f118a84da323c494a7d6"
+      }
+    },
+    {
+      "case_id": "liverpool-centre",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "437dda44cafca4ba91d94bf5c660dfd7f0662f5ba58a56ec23dbefd06c2122cd",
+      "fixture_sha256": "b4df79e416d7ea7d303c55b7f9fae842aa4644dd094260b95b5da029901ad7b4",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 509,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.034619836613666084,
+      "sampled_mae_m": 0.020716792336184498,
+      "sampled_p95_absolute_m": 0.07473288793985233,
+      "sampled_max_absolute_m": 0.23730180904763998,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 393710,
+        "sha256": "0d3feda2c8b98c804dc34610032874169206d22829fca037713477a2733df336"
+      }
+    },
+    {
+      "case_id": "liverpool-centre",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "378578c5c2f788d3287ed19a5072be88ee521a56808a1876e42909a87761a84a",
+      "fixture_sha256": "b4df79e416d7ea7d303c55b7f9fae842aa4644dd094260b95b5da029901ad7b4",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 345,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.0820461720772947,
+      "sampled_mae_m": 0.04192682280673987,
+      "sampled_p95_absolute_m": 0.21590550628828087,
+      "sampled_max_absolute_m": 0.43628112228225646,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 393110,
+        "sha256": "fae2e7d891db986e2f0dd8d526e8622771d2f5d23adaf24ce94e62f78abe41f0"
+      }
+    },
+    {
+      "case_id": "liverpool-centre",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "9c38190cadbcbc95d47630e338ff13ad17793fcf207e5098a77834d5f931d853",
+      "fixture_sha256": "b4df79e416d7ea7d303c55b7f9fae842aa4644dd094260b95b5da029901ad7b4",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 309,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.07638486093858353,
+      "sampled_mae_m": 0.038669772362739496,
+      "sampled_p95_absolute_m": 0.20373703997588155,
+      "sampled_max_absolute_m": 0.43581858288204955,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 393170,
+        "sha256": "b73eee13d37b2d73703d2e0bc414ac6c79678cb2d151c0408fc74d845b6f1482"
+      }
+    },
+    {
+      "case_id": "liverpool-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "718d1bf69b8b40c0567f8c85343d7434f8c65de18b576edaaee9dbfc45a59bda",
+      "fixture_sha256": "4d0ed399977ea1ec2662cd705dfb5d04cc019a1d4551486989b3df99710531de",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 976,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.021567589687658095,
+      "sampled_mae_m": 0.013323771385149785,
+      "sampled_p95_absolute_m": 0.0513424038255188,
+      "sampled_max_absolute_m": 0.09413147973659264,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 397877,
+        "sha256": "44273ad6e2faf77a0be3cef326e88b932d0b923921d874063c953e92cd1aa6f0"
+      }
+    },
+    {
+      "case_id": "liverpool-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "8bb95b7edf565d19090749e18fbd19d94da4cb32d50ca7d5a91b0b1c18b545b1",
+      "fixture_sha256": "4d0ed399977ea1ec2662cd705dfb5d04cc019a1d4551486989b3df99710531de",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 968,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.01987396168953353,
+      "sampled_mae_m": 0.012951593185975767,
+      "sampled_p95_absolute_m": 0.04521230567077161,
+      "sampled_max_absolute_m": 0.09502255553317696,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 397872,
+        "sha256": "01a1233e9865955d526609145110891f551c8b613c64c9738832c9e3dbc0f850"
+      }
+    },
+    {
+      "case_id": "liverpool-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "e589847ed50c8a67f810754e0a2d8e0f15074b254c17746f84f00b4d883b1d38",
+      "fixture_sha256": "4d0ed399977ea1ec2662cd705dfb5d04cc019a1d4551486989b3df99710531de",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 574,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.049334096893998994,
+      "sampled_mae_m": 0.031662158688578496,
+      "sampled_p95_absolute_m": 0.11202771185451965,
+      "sampled_max_absolute_m": 0.21697190218371532,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 396242,
+        "sha256": "b363cb8e2885b07c03b6029c7e77c071dcfd2d8359efc3b544bb8a65abbe8bdd"
+      }
+    },
+    {
+      "case_id": "liverpool-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "6013e3d62fe771fe99d5ffafd5b119c384e61035dae3698884d59cc2549f929b",
+      "fixture_sha256": "4d0ed399977ea1ec2662cd705dfb5d04cc019a1d4551486989b3df99710531de",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 506,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.04660343836262885,
+      "sampled_mae_m": 0.02890419607466657,
+      "sampled_p95_absolute_m": 0.10773106100135621,
+      "sampled_max_absolute_m": 0.23542674416961518,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 396384,
+        "sha256": "6657fb7869c0f4135346caea11ddb841f4dc3abe5c377c8b40c453a644342fe2"
+      }
+    },
+    {
+      "case_id": "liverpool-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "d5aa772933fd0b9172358aa2683f3fde0aca8fe45fa9833580929e777504de73",
+      "fixture_sha256": "4d0ed399977ea1ec2662cd705dfb5d04cc019a1d4551486989b3df99710531de",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 283,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.09759744475052622,
+      "sampled_mae_m": 0.05867440254812817,
+      "sampled_p95_absolute_m": 0.23435906647412175,
+      "sampled_max_absolute_m": 0.4561861364820796,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 395052,
+        "sha256": "11d4aeebe63647db31fc1eea6dece87e3c3236fa643de90f8f4e5e1e4f3b4e6d"
+      }
+    },
+    {
+      "case_id": "liverpool-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "76ff75d000877f3cf1e2e6d40772cdd3c9101c83d91032bd7daace5ca22f9b98",
+      "fixture_sha256": "4d0ed399977ea1ec2662cd705dfb5d04cc019a1d4551486989b3df99710531de",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 260,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.08638408655956034,
+      "sampled_mae_m": 0.05209590882647671,
+      "sampled_p95_absolute_m": 0.20688461425162785,
+      "sampled_max_absolute_m": 0.45425365113318605,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 395268,
+        "sha256": "a5f21b8e8b82569473b5438766d086c43fe9ee4852acf0c6e599aae384602e66"
+      }
+    }
+  ]
+}

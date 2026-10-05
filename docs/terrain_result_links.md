@@ -8,6 +8,8 @@
 
 地址只保存所选指标视图，不保存实验数据；模型、源指纹、完整恢复包和全域积分结果仍来自各自已发布档案。ArcGIS 软件实测仍待运行环境，链接功能不改变比较结论。
 
+后续增加[利物浦两个固定样区](liverpool_terrain_benchmark.md)，例如[北侧 / 50 cm](http://127.0.0.1:5173/compare?city=liverpool&terrain_scope=liverpool&terrain_target=0.5&terrain_site=liverpool-north-quarter#liverpool-terrain-results)。非布里斯托城市页也显示独立地形结果，城市建筑与软件指标的待测状态单独说明。下方保留链接功能首发的验收记录。
+
 ## 验收
 
 663 项前端全套检查及生产构建通过。新增回归核验旧链接、范围冲突、非法参数、工作区参数保留、范围 / 样区 / 目标切换、重挂载复原和同范围历史导航。
