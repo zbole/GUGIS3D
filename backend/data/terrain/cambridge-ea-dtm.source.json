@@ -1,0 +1,29 @@
+{
+  "city_id": "cambridge",
+  "name": "剑桥",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28543967%2C546864%29&subset=N%28256618%2C259927%29&format=image%2Ftiff",
+  "bbox_bng": [
+    543967,
+    256618,
+    546864,
+    259927
+  ],
+  "query_bbox_wgs84": [
+    0.106,
+    52.189,
+    0.147,
+    52.218
+  ],
+  "bytes": 44040947,
+  "sha256": "0e04d1d7912db378b251a00d393c3bf5f7da7338aeb15e5c5f2af4824aa6771d",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-05T12:43:50.493454+00:00",
+  "width": 2897,
+  "height": 3309,
+  "valid_pixels": 9586173,
+  "nodata_pixels": 0,
+  "minimum_m": 2.9549999237060547,
+  "maximum_m": 32.49599838256836,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent centre-district raw sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}

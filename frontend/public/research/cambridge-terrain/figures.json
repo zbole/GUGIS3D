@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "a7ce2692fdaf46fbf9f6666bfe4d583a73cfa75e9f38b9df65a97ba0c5c505fb",
+  "audit_sha256": "a14f2a988d6c39e3a6eb26bcd7f6a2b251e038d8094477dc20d35bc92db0990d",
+  "plotter_sha256": "b6377e9ba63dadc9869d1033f65fba5d2baba8fb9fdf27063632507ba8ac6edd",
+  "files": {
+    "cambridge-source-preview.png": {
+      "bytes": 473311,
+      "sha256": "182786d27a4503d0e7a545ff1dd2e04548b4e2d85fdc6029614abb10770ce066"
+    },
+    "cambridge-source-preview.svg": {
+      "bytes": 843363,
+      "sha256": "e186eed6721fb463c7d6b5189df917b0b151144f53534bb238fb912aeac018c5"
+    }
+  }
+}

@@ -7,14 +7,17 @@ from fastapi import HTTPException
 from ..environment_models import Terrain
 
 ROOT = Path(__file__).resolve().parents[3]
-MANIFEST_PATH = ROOT / 'shared/public-terrain-sources-v2.json'
-MANIFEST_SHA256 = '8bd4a9a13e42632f3b6e76065c77710b9c75a58d8663a38be3292d3796c25626'
-PARENT_SHA256 = '7658acdf236f9b434a16f230f69f68fd35f2a9e4eb7855d8db590e378bb64866'
+MANIFEST_PATH = ROOT / 'shared/public-terrain-sources-v3.json'
+MANIFEST_SHA256 = 'd2892396984c564e7a7dbd99e3778fbaf60c3e5299bc27de097f1b1a46848f40'
+HISTORICAL_MANIFESTS = {
+    'public-terrain-sources.json': '7658acdf236f9b434a16f230f69f68fd35f2a9e4eb7855d8db590e378bb64866',
+    'public-terrain-sources-v2.json': '8bd4a9a13e42632f3b6e76065c77710b9c75a58d8663a38be3292d3796c25626',
+}
 FILES = {'raster': ('bristol-ea-dtm-1m.tif', 16 * 1024 * 1024),
          'model': ('bristol-ea-dtm-preview.gugis-terrain.json', 8 * 1024 * 1024)}
 CANDIDATES = {city_id: {'raster': (f'{city_id}-ea-dtm-1m.tif', 24 * 1024 * 1024),
                         'model': (f'{city_id}-ea-dtm-preview.gugis-terrain.json', 8 * 1024 * 1024)}
-              for city_id in ('bristol', 'london', 'birmingham', 'manchester', 'york', 'bath', 'oxford')}
+              for city_id in ('bristol', 'london', 'birmingham', 'manchester', 'york', 'bath', 'oxford', 'cambridge')}
 CANDIDATES['bristol'] = FILES
 
 
@@ -34,13 +37,14 @@ def source_info(city_id):
         if hashlib.sha256(content).hexdigest() != MANIFEST_SHA256:
             raise ValueError('Public terrain manifest changed')
         report = json.loads(content)
-        if (report['schema'] != 'gugis-public-terrain-sources-v2'
-                or report.get('parent_manifest') != {'filename':'public-terrain-sources.json','sha256':PARENT_SHA256}
+        if (report['schema'] != 'gugis-public-terrain-sources-v3'
+                or report.get('parent_manifest') != {'filename':'public-terrain-sources-v2.json','sha256':HISTORICAL_MANIFESTS['public-terrain-sources-v2.json']}
                 or len(report['sources']) != len(CANDIDATES)
                 or sorted(s['city_id'] for s in report['sources']) != sorted(CANDIDATES)):
             raise ValueError('Invalid public terrain catalogue')
-        if hashlib.sha256(_read_bounded(ROOT/'shared/public-terrain-sources.json',65536)).hexdigest()!=PARENT_SHA256:
-            raise ValueError('Historical terrain provenance changed')
+        for filename, expected_sha in HISTORICAL_MANIFESTS.items():
+            if hashlib.sha256(_read_bounded(ROOT/'shared'/filename,65536)).hexdigest()!=expected_sha:
+                raise ValueError('Historical terrain provenance changed')
         info = next(s for s in report['sources'] if s['city_id'] == city_id)
         if info['city_id'] != city_id:
             raise ValueError('Public terrain city mismatch')

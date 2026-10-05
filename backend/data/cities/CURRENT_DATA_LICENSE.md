@@ -15,8 +15,11 @@ Multipolygon relations and relation courtyards were not acquired.
 public extract; 530 unrelated contact/free-text tags were removed, preserving
 IDs, geometry and modelling tags. Source and derived databases retain
 © OpenStreetMap contributors attribution and [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/).
-Independent EA DTM raw data has been acquired but is not published with this
-seed; terrain is absent here. It requires its own source audit and OGL notice.
+Independent EA 2022 1 m DTM is audited and published separately; terrain is
+absent from this OSM seed. The separate raster and native model are under
+OGL v3.0, with © Environment Agency copyright and/or database right 2022.
+All rights reserved. `shared/public-terrain-sources-v3.json` records source,
+lossless pixels and native-query residuals; both earlier catalogues are retained.
 
 ## Oxford source added 2026-10-05
 

@@ -1,0 +1,26 @@
+{
+  "schema": "gugis-ea-city-preview-audit-v1",
+  "city_id": "cambridge",
+  "model_sha256": "7467c00dd16f0a971ca21720dae3fcc60bf6b7018e698e1d35b75bc37dd6be42",
+  "raster_sha256": "a7ce2692fdaf46fbf9f6666bfe4d583a73cfa75e9f38b9df65a97ba0c5c505fb",
+  "fixture_sha256": "944b31978260b0cf3b0fdf31a0e0e2232307c5961dcc4360dff45ca7f88d99a2",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "8bc245e7a6d8301a769822e2cdf7e644218e591727709a40ead2e567438f020b",
+    "python": "70b2c72e8baed04144847e62b4915cb1fc83593f03b397504330ccf3898c3665"
+  },
+  "method": "4096 fixed unique valid source 1m pixel centres, seed20261005,40-pixel rim excluded before querying. Misses retained; errors use hits only. Source participates in preview construction, not held-out ground truth.",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.22627836586743744,
+  "mae_m": 0.12549255496120745,
+  "p95_absolute_m": 0.4428790538122529,
+  "max_absolute_m": 2.567923576293328,
+  "controls_checked": 24070,
+  "controls_hits": 24070,
+  "max_control_query_error_m": 3.907985046680551e-14,
+  "limits": "Sampled relative source-raster differences, no continuous bound or true-ground accuracy guarantee; ODN unchanged; no ArcGIS run."
+}

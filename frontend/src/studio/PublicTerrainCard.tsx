@@ -15,7 +15,7 @@ export default function PublicTerrainCard({api,disabled,onPreview}:{
     return ()=>{active=false;};
   },[api,retry]);
   const source=info?.status==='available'?info.source:null;
-  const auditBase=source&&['bristol','london','birmingham','manchester','york','bath','oxford'].includes(source.city_id)?`/research/${source.city_id}-terrain`:null;
+  const auditBase=source&&['bristol','london','birmingham','manchester','york','bath','oxford','cambridge'].includes(source.city_id)?`/research/${source.city_id}-terrain`:null;
   return <section className="public-terrain-card" aria-label="公开真实地形资料">
     <small>PUBLIC DTM / 真实裸地数据</small>
     {!info&&!error&&<p role="status">正在核对当前城市的公开地形资料…</p>}

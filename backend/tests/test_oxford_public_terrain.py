@@ -18,8 +18,8 @@ from app.services import public_terrain as public
 class OxfordPublicTerrainTests(unittest.TestCase):
     def test_version_retains_exact_six_source_records_and_parent_digest(self):
         before=(public.ROOT/'shared/public-terrain-sources.json').read_bytes()
-        report=json.loads(public.MANIFEST_PATH.read_bytes())
-        self.assertEqual(hashlib.sha256(before).hexdigest(),public.PARENT_SHA256)
+        report=json.loads((public.ROOT/'shared/public-terrain-sources-v2.json').read_bytes())
+        self.assertEqual(hashlib.sha256(before).hexdigest(),report['parent_manifest']['sha256'])
         self.assertEqual(report['schema'],'gugis-public-terrain-sources-v2')
         self.assertEqual(report['sources'][:-1],json.loads(before)['sources'])
         self.assertEqual(report['sources'][-1]['city_id'],'oxford')
