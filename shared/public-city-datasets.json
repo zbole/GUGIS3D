@@ -331,6 +331,41 @@
       "source_retrieved_at": "2026-10-05T12:11:38.184979+00:00",
       "quality_warnings": [],
       "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "cambridge",
+      "name": "剑桥",
+      "bytes": 18417340,
+      "sha256": "f6fba9b06291d5c4b309272d723d9628ee3ee40c16e5f7c7ee6761220e8cd5a8",
+      "building_count": 9838,
+      "road_count": 1501,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Cambridge city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        0.106,
+        52.189,
+        0.147,
+        52.218
+      ],
+      "actual_data_bbox_wgs84": [
+        0.0956414,
+        52.1839678,
+        0.1543402,
+        52.2209898
+      ],
+      "height_counts": {
+        "height-tag": 4,
+        "levels-derived": 2541,
+        "assumed": 7293
+      },
+      "height_policy": "{\"height-tag\":4,\"levels-derived\":2541,\"assumed\":7293}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-05T12:42:15.446688+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
     }
   ],
   "builder_sha256": "d3f04a245c027d7000f7f36da37d4c080d80aabf87683cb163c767e5fcaf7d04"

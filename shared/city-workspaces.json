@@ -100,5 +100,13 @@
     "coverage_label": "牛津中心与北侧学院区样本街区（非全城覆盖）",
     "query_bbox_wgs84": [-1.273, 51.741, -1.235, 51.768],
     "related_registry_id": "uk-eng-oxford"
+  },
+  {
+    "id": "cambridge",
+    "name": "剑桥",
+    "city_name": "Cambridge",
+    "coverage_label": "剑桥中心与学院区样本街区（非全城覆盖）",
+    "query_bbox_wgs84": [0.106, 52.189, 0.147, 52.218],
+    "related_registry_id": "uk-eng-cambridge"
   }
 ]

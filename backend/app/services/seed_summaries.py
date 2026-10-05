@@ -11,7 +11,7 @@ import pydantic_core
 ROOT = Path(__file__).resolve().parents[3]
 RECEIPT_PATH = ROOT / 'backend/data/cities/validated-seed-summaries.json'
 # Updated deliberately only after the offline builder fully validates all seeds.
-RECEIPT_SHA256 = '6550b6885655b374ff393112b7dd8e9c8411c05d1ef6db45ed1a3308540c6030'
+RECEIPT_SHA256 = 'ef1730a7eeaf11ddd4bbbb08bcc99e64e9a35b369827b20f64fea22839b8d916'
 MAX_RECEIPT_BYTES = 65536
 
 

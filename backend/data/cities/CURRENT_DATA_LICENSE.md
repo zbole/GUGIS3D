@@ -1,5 +1,23 @@
 # Local city source samples
 
+## Cambridge source added 2026-10-05
+
+Cambridge is a partial centre/college district sample, not all-city coverage.
+Query bounds `[0.106, 52.189, 0.147, 52.218]`; complete imported ways extend to
+`[0.0956414, 52.1839678, 0.1543402, 52.2209898]`. There are 9,838 building ways
+and 1,501 named non-area highway ways. Eight invalid-floor/elevated objects
+are refused, with IDs and reasons in `cambridge-import.json`. Heights use
+4 tags, 2,541 floor-derived estimates (3.2 m/floor), 7,293 assumptions (9.6 m).
+These are LoD1 volumes, not surveyed heights or reconstructed facades/interiors.
+Multipolygon relations and relation courtyards were not acquired.
+
+`cambridge-source.json` records the original retained download and filtered
+public extract; 530 unrelated contact/free-text tags were removed, preserving
+IDs, geometry and modelling tags. Source and derived databases retain
+© OpenStreetMap contributors attribution and [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/).
+Independent EA DTM raw data has been acquired but is not published with this
+seed; terrain is absent here. It requires its own source audit and OGL notice.
+
 ## Oxford source added 2026-10-05
 
 Oxford is a centre/northern-college sample, not full-city coverage. Query bounds

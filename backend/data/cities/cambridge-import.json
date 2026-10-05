@@ -1,0 +1,62 @@
+{
+  "city_id": "cambridge",
+  "source_sha256": "5c09fd83f2d6b13a8dbcaa58cc134d0473b1af7cc3e9dd5cf6db8927fcce0f23",
+  "source_building_ways": 9846,
+  "imported_buildings": 9838,
+  "imported_roads": 1501,
+  "query_bbox_wgs84": [
+    0.106,
+    52.189,
+    0.147,
+    52.218
+  ],
+  "actual_data_bbox_wgs84": [
+    0.0956414,
+    52.1839678,
+    0.1543402,
+    52.2209898
+  ],
+  "height_policy": {
+    "height-tag": 4,
+    "levels-derived": 2541,
+    "assumed": 7293
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 157588876,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 170216407,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 170216440,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 179755584,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 191206698,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 191206700,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 193313680,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 670071388,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 18417340,
+  "gugis_sha256": "f6fba9b06291d5c4b309272d723d9628ee3ee40c16e5f7c7ee6761220e8cd5a8"
+}
