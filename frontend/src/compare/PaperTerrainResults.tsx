@@ -1,3 +1,4 @@
+import TerrainEvidenceOverview from './TerrainEvidenceOverview';
 import {useState,useEffect} from 'react';
 import report from '../../../shared/paper-terrain-metrics.json';
 import cityReport from '../../../shared/bristol-global-l2.json';
@@ -64,6 +65,7 @@ export function RealTerrainResultSummary({target:externalTarget,onTargetChange}:
   const rows=cityReport.models.filter(m=>m.target_m===target);
   const cases=rows.filter(m=>m.family==='local_compact').map(mixed=>({mixed,tri:rows.find(m=>m.case_id===mixed.case_id&&m.family==='local_triangles')!}));
   return <section className="paper-city" id="real-terrain-results" aria-label="真实地形对比结果">
+    <TerrainEvidenceOverview target={target} onSelect={changeScope}/>
     <div className="multicity-tabs" role="group" aria-label="真实地形对标范围"><button type="button" aria-pressed={scope==='bristol'} onClick={()=>changeScope('bristol')}>布里斯托原始样区</button><button type="button" aria-pressed={scope==='multicity'} onClick={()=>changeScope('multicity')}>新增跨城 · 6 个样区</button><button type="button" aria-pressed={scope==='oxford'} onClick={()=>changeScope('oxford')}>牛津 · 2 个样区</button><button type="button" aria-pressed={scope==='cambridge'} onClick={()=>changeScope('cambridge')}>剑桥 · 2 个样区</button><button type="button" aria-pressed={scope==='liverpool'} onClick={()=>changeScope('liverpool')}>利物浦 · 2 个样区</button><button type="button" aria-pressed={scope==='sheffield'} onClick={()=>changeScope('sheffield')}>谢菲尔德 · 2 个样区</button><button type="button" aria-pressed={scope==='leeds'} onClick={()=>changeScope('leeds')}>利兹 · 2 个样区</button></div>
     {scope!=='bristol'?<MultiCityTerrainResults key={`${scope}-${restoration}`} dataset={scope} target={target} onTargetChange={changeTarget}/>:<div id="bristol-terrain-results">
     <div className="paper-heading"><div><span className="paper-eyebrow">02 / 真实城市 · 全域积分与表示代价</span><h2 id="real-terrain-results-title">优势随地形而变。</h2><p>布里斯托 1 m 源 DTM，两个预先固定的 64 × 64 m 样区。全域 E₂ 与最大参考界一起核对。</p></div><a href="#bristol-terrain-benchmark">展开完整实测与三维对照 ↓</a></div>
