@@ -1,0 +1,29 @@
+{
+  "city_id": "liverpool",
+  "name": "利物浦",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28333194%2C335694%29&subset=N%28388678%2C391494%29&format=image%2Ftiff",
+  "bbox_bng": [
+    333194,
+    388678,
+    335694,
+    391494
+  ],
+  "query_bbox_wgs84": [
+    -3.006,
+    53.391,
+    -2.969,
+    53.416
+  ],
+  "bytes": 31457939,
+  "sha256": "9efea9645dcea950e39255bbcb3d91020cd675e3e0b5a1cf49b4fcee31f50762",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-05T13:23:25.834719+00:00",
+  "width": 2500,
+  "height": 2816,
+  "valid_pixels": 7040000,
+  "nodata_pixels": 0,
+  "minimum_m": -4.070000171661377,
+  "maximum_m": 54.42300033569336,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent centre-district raw sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}

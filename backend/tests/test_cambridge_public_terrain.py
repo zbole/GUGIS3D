@@ -14,9 +14,9 @@ from app.services import public_terrain as public
 
 
 class CambridgePublicTerrainTests(unittest.TestCase):
-    def test_current_catalogue_preserves_seven_source_records_and_both_ancestors(self):
+    def test_historical_catalogue_preserves_seven_source_records_and_current_gate_checks_all_ancestors(self):
         previous=(public.ROOT/'shared/public-terrain-sources-v2.json').read_bytes()
-        report=json.loads(public.MANIFEST_PATH.read_bytes())
+        report=json.loads((public.ROOT/'shared/public-terrain-sources-v3.json').read_bytes())
         self.assertEqual(report['schema'],'gugis-public-terrain-sources-v3')
         self.assertEqual(report['parent_manifest'],{'filename':'public-terrain-sources-v2.json','sha256':hashlib.sha256(previous).hexdigest()})
         self.assertEqual(report['sources'][:-1],json.loads(previous)['sources'])

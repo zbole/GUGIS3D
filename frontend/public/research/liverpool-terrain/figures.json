@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "9234960ce30764e7f6e1c94f235c31b1a4084f27e82ec51eb625aaab91cf605f",
+  "audit_sha256": "ba8bf8031601f844d5d98b8bd1ec40a46c741db7d0bfcfaf50a2d7120bae7f30",
+  "plotter_sha256": "29cacc6e76ea6a733316750053d0e3ada8b97962b75c5d77dd40240b5121ed96",
+  "files": {
+    "liverpool-source-preview.png": {
+      "bytes": 453944,
+      "sha256": "e841927057d07a9c7c3f3194b1e7c13f52db548dd30f70e9b4489e9f6707a975"
+    },
+    "liverpool-source-preview.svg": {
+      "bytes": 810087,
+      "sha256": "c73ecd01c5915abe1c747f5151ef76a79fe1b5c1564f007422bc2bb561fd5dc6"
+    }
+  }
+}

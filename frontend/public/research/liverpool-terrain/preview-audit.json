@@ -1,0 +1,26 @@
+{
+  "schema": "gugis-ea-city-preview-audit-v1",
+  "city_id": "liverpool",
+  "model_sha256": "35de65055734dbd8c0151c4ab4e93d4cf471aebbcacc3e6b9aee26dd05b05093",
+  "raster_sha256": "9234960ce30764e7f6e1c94f235c31b1a4084f27e82ec51eb625aaab91cf605f",
+  "fixture_sha256": "b1e0724c47fd1cadb7ddc6deaff0c1473046a1ff84f35ba1c1a822abf6ffa4e0",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "686c079884d742d8f66c5de7a34fa5adfa81c0b94813b3e4f0e21a587145dee0",
+    "python": "ad4c41ba8fc91c374938e0e354ca9eaf98a0c92110f7f9098b6d0e1698e1fd8f"
+  },
+  "method": "4096 fixed unique valid source 1m pixel centres, seed20261005,40-pixel rim excluded before querying. Misses retained; errors use hits only. Source participates in preview construction, not held-out ground truth.",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.593200938792737,
+  "mae_m": 0.22303271330417,
+  "p95_absolute_m": 0.9037754437164764,
+  "max_absolute_m": 11.3910563090825,
+  "controls_checked": 17625,
+  "controls_hits": 17625,
+  "max_control_query_error_m": 3.552713678800501e-14,
+  "limits": "Sampled relative source-raster differences, no continuous bound or true-ground accuracy guarantee; ODN unchanged; no ArcGIS run."
+}
