@@ -32,7 +32,7 @@ test('explicit cross-city deep link opens the scope and registers only a reversi
   const prior=globalThis.window;const listeners=new Map();let r;
   try{globalThis.window={location:{hash:'#multicity-terrain-results'},addEventListener:(name,fn)=>listeners.set(name,fn),removeEventListener:name=>listeners.delete(name)};
     act(()=>r=create(React.createElement(Card)));assert.equal(r.root.findAllByType('button').find(b=>text(b)==='新增跨城 · 6 个样区').props['aria-pressed'],true);
-    assert.equal(listeners.size,1);act(()=>r.unmount());r=null;assert.equal(listeners.size,0);
+    assert.equal(listeners.size,2);act(()=>r.unmount());r=null;assert.equal(listeners.size,0);
   }finally{if(r)act(()=>r.unmount());if(prior===undefined)delete globalThis.window;else globalThis.window=prior;}
 });
 test('every query model is covered, no target or site is omitted from the public summary',async()=>{
@@ -148,6 +148,34 @@ test('Cambridge deep link and hash changes retain the scope without loading any 
     assert.equal(r.root.findAllByType('button').find(b=>text(b)==='牛津 · 2 个样区').props['aria-pressed'],true);
     globalThis.window.location.hash='#cambridge-terrain-results';act(()=>listeners.get('hashchange')());
     assert.equal(r.root.findByProps({'aria-label':'跨城对标样区'}).props.value,'cambridge-centre');
+    act(()=>r.unmount());r=null;assert.equal(listeners.size,0);
+  }finally{if(r)act(()=>r.unmount());if(prior===undefined)delete globalThis.window;else globalThis.window=prior;}
+});
+
+
+test('recorded result URL survives remount and same-scope browser navigation, preserving workspace options',()=>{
+  const prior=globalThis.window;const listeners=new Map();let r;
+  const initial=new URL('http://127.0.0.1:5173/compare?city=london&cities=london,bristol&tile_profile=economy#paper-results');
+  const marker={preserve:true};const writes=[];
+  try{
+    globalThis.window={location:initial,history:{state:marker,replaceState:(state,unused,href)=>{assert.equal(state,marker);writes.push(href);globalThis.window.location=new URL(href);}},addEventListener:(name,fn)=>listeners.set(name,fn),removeEventListener:name=>listeners.delete(name)};
+    act(()=>r=create(React.createElement(Card)));
+    act(()=>r.root.findAllByType('button').find(b=>text(b)==='剑桥 · 2 个样区').props.onClick());
+    act(()=>r.root.findByProps({'aria-label':'跨城对标样区'}).props.onChange({target:{value:'cambridge-north-quarter'}}));
+    act(()=>r.root.findByProps({'aria-label':'真实地形结果误差目标'}).props.onChange({target:{value:'.25'}}));
+    const saved=new URL(writes.at(-1));
+    assert.equal(saved.hash,'#cambridge-terrain-results');assert.equal(saved.searchParams.get('terrain_site'),'cambridge-north-quarter');
+    assert.equal(saved.searchParams.get('terrain_target'),'0.25');assert.equal(saved.searchParams.get('city'),'london');assert.equal(saved.searchParams.get('tile_profile'),'economy');
+    act(()=>r.unmount());act(()=>r=create(React.createElement(Card)));
+    assert.equal(r.root.findByProps({'aria-label':'跨城对标样区'}).props.value,'cambridge-north-quarter');
+    assert.equal(r.root.findByProps({'aria-label':'真实地形结果误差目标'}).props.value,.25);
+    globalThis.window.location=new URL(saved.href.replace('terrain_target=0.25','terrain_target=0.5').replace('terrain_site=cambridge-north-quarter','terrain_site=cambridge-centre'));
+    act(()=>listeners.get('popstate')());
+    assert.equal(r.root.findByProps({'aria-label':'跨城对标样区'}).props.value,'cambridge-centre');
+    assert.equal(r.root.findByProps({'aria-label':'真实地形结果误差目标'}).props.value,.5);
+    act(()=>r.root.findAllByType('button').find(b=>text(b)==='牛津 · 2 个样区').props.onClick());
+    assert.equal(globalThis.window.location.hash,'#oxford-terrain-results');assert.equal(globalThis.window.location.searchParams.has('terrain_site'),false);
+    assert.equal(r.root.findByProps({'aria-label':'跨城对标样区'}).props.value,'oxford-centre');
     act(()=>r.unmount());r=null;assert.equal(listeners.size,0);
   }finally{if(r)act(()=>r.unmount());if(prior===undefined)delete globalThis.window;else globalThis.window=prior;}
 });

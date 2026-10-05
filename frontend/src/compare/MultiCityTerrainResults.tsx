@@ -3,6 +3,7 @@ import originalReport from '../../../shared/multicity-terrain-benchmark.json';
 import oxfordReport from '../../../shared/oxford-terrain-benchmark.json';
 import cambridgeReport from '../../../shared/cambridge-terrain-benchmark.json';
 import {terrainTradeoff,tradeoffText} from './terrainRepresentationDecision';
+import {currentTerrainResultLink,rememberTerrainResult} from './terrainResultLink';
 const report=originalReport;
 
 
@@ -14,7 +15,7 @@ const difference=(gain:number)=>Math.abs(gain)<.000001?'体积相同':`${gain>0?
 export default function MultiCityTerrainResults({target,onTargetChange,dataset='multicity'}:{target:number;onTargetChange:(target:number)=>void;dataset?:'multicity'|'oxford'|'cambridge'}){
   const report=dataset==='cambridge'?cambridgeReport:dataset==='oxford'?oxfordReport:originalReport;
   const base=dataset==='multicity'?'/research/multicity-terrain/':`/research/${dataset}-terrain-benchmark/`;
-  const [site,setSite]=useState(report.cases[0].id);
+  const [site,setSite]=useState(()=>{const link=currentTerrainResultLink();return link.scope===dataset&&report.cases.some(c=>c.id===link.site)?link.site!:report.cases[0].id;});
   const current=report.cases.find(c=>c.id===site)!;
   const pairs=report.cases.map(c=>({case:c,tri:c.models.find(m=>m.family==='local_triangles'&&m.target_m===target)!,mixed:c.models.find(m=>m.family==='hybrid'&&m.target_m===target)!}));
   const {tri,mixed}=pairs.find(p=>p.case.id===site)!;
@@ -23,7 +24,7 @@ export default function MultiCityTerrainResults({target,onTargetChange,dataset='
   const pack=Object.values(report.packages).find(p=>p.filename===site+'.zip')!;
   return <div id={`${dataset}-terrain-results`} className="multicity-results">
     <div className="paper-heading"><div><span className="paper-eyebrow">02 / 跨城对照 · {report.cases.length} 个固定样区</span><h2>相同几何，表示更紧凑。</h2><p>{dataset==='multicity'?'曼彻斯特、约克、巴斯各两个 64 × 64 m 源样区。':`${dataset==='oxford'?'牛津':'剑桥'}两个预先固定的 64 × 64 m 源样区。`}先比较原生三角带与 MultiPatch，再评估局部分区是否值得采用。</p></div><span className="paper-run-state">ArcGIS 软件运行：待完成</span></div>
-    <div className="paper-controls"><label>固定源样区<select aria-label="跨城对标样区" value={site} onChange={e=>setSite(e.target.value)}>{report.cases.map(c=><option key={c.id} value={c.id}>{title(c)}</option>)}</select></label><label>同一最大参考误差目标<select aria-label="真实地形结果误差目标" value={target} onChange={e=>onTargetChange(Number(e.target.value))}>{report.targets_m.map(t=><option key={t} value={t}>{t*100} cm</option>)}</select></label></div>
+    <div className="paper-controls"><label>固定源样区<select aria-label="跨城对标样区" value={site} onChange={e=>{setSite(e.target.value);rememberTerrainResult({scope:dataset,target,site:e.target.value});}}>{report.cases.map(c=><option key={c.id} value={c.id}>{title(c)}</option>)}</select></label><label>同一最大参考误差目标<select aria-label="真实地形结果误差目标" value={target} onChange={e=>onTargetChange(Number(e.target.value))}>{report.targets_m.map(t=><option key={t} value={t}>{t*100} cm</option>)}</select></label></div>
     <div className="paper-city-grid" aria-live="polite"><article><span>{title(current)} · 原生三角带 vs 同几何 MultiPatch</span><strong>小 {formatGain.toFixed(1)}%</strong><p>{cost(tri.bytes)} / {cost(mp.five_component_bytes)}<br/>两者全域 E₂ <b>{tri.e2_m2.toFixed(5)} m²</b><br/>实际三角形 <b>{tri.native_triangles.toLocaleString()}</b> · XYZ 与有序三角带读回一致</p><small>未压缩 JSON 与 SHP / SHX / DBF / PRJ / CPG 五组件总字节。仅三角几何及所列源属性相同，不代表完整元数据等价、内存节省或软件提速。</small></article>
     <article className={mixGain<0?'paper-city-negative':''}><span>局部分区候选（允许直纹面） vs 原生三角带</span><strong>{difference(mixGain)}</strong><p>{cost(mixed.bytes)} / {cost(tri.bytes)}<br/>全域 E₂ <b>{mixed.e2_m2.toFixed(5)} / {tri.e2_m2.toFixed(5)} m²</b><br/>直纹四边形 <b>{mixed.ruled_quads}</b> · 三角形 <b>{mixed.native_triangles}</b></p><small>{mixed.ruled_quads===0?'此档未使用直纹面；差异来自三角分区与编码，不能归为直纹函数收益。':'此档包含原生直纹区段，积分与查询直接作用于保存的函数。'} 两类几何和 E₂ 不相同，体积收益需结合精度判断。</small></article></div>
     <p className="paper-scope" role="status">{tradeoffText[terrainTradeoff(tri,mixed)]}此建议仅针对当前样区、目标与两项指标，不外推到全城或软件速度。</p>

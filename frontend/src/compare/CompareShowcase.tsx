@@ -19,6 +19,7 @@ import TerrainComparisonLoader from "./TerrainComparisonLoader";
 import ComparisonOverview from "./ComparisonOverview";
 import BristolTerrainBenchmark from "./BristolTerrainBenchmark";
 import PaperTerrainResults, {RealTerrainResultSummary} from './PaperTerrainResults';
+import {currentTerrainResultLink,rememberTerrainResult} from './terrainResultLink';
 import EvidenceDisclosure from './EvidenceDisclosure';
 import { useProjectFreshness, type ProjectFreshness } from "./useProjectFreshness";
 import { cityWorkspaceHref, defaultCityWorkspace, type CityWorkspace } from "../studio/cityWorkspaces";
@@ -163,7 +164,8 @@ function BristolComparison({ api }: { api?: CityApi }) {
   const terrainDownload = api ? `${api.terrainMultipatchUrl}?snapshot=${evidence.revision}` : terrainPackageUrl;
   const [selected, setSelected] = useState<(typeof cases)[number]["id"]>("scene");
   const [targetCentimetres, setTargetCentimetres] = useState(1);
-  const [realTarget,setRealTarget]=useState(.1);
+  const [realTarget,setRealTarget]=useState(()=>currentTerrainResultLink().target);
+  const changeDetailTarget=(next:number)=>{setRealTarget(next);rememberTerrainResult({...currentTerrainResultLink(),target:next});};
   const [resolution, setResolution] = useState(() => [...terrainSuite.variants]
     .filter(v => v.maxRuledHeightErrorMetres * 100 <= 1)
     .sort((a, b) => a.multipatchFilesBytes - b.multipatchFilesBytes)[0]?.ruledSubdivisions
@@ -189,7 +191,7 @@ function BristolComparison({ api }: { api?: CityApi }) {
         <section className="cmp-results-hero" aria-labelledby="cmp-title"><span className="paper-eyebrow">GUGIS3D / TERRAIN RESEARCH RESULTS</span><h1 id="cmp-title">用误差与规模，检验地形表达。</h1><p>以 arXiv:1101.1452 的逼近指标为主线：相同预算看误差，相同精度看代价。先呈现可复核的主要结果，再展开方法、工程对照与实验边界。</p></section>
         <PaperTerrainResults />
         <RealTerrainResultSummary target={realTarget} onTargetChange={setRealTarget}/>
-        <EvidenceDisclosure group="real" title="真实地形完整证据与三维演示" note="六组精度目标、负面结果、模型下载与 MultiPatch 格式核验"><BristolTerrainBenchmark target={realTarget} onTargetChange={setRealTarget}/></EvidenceDisclosure>
+        <EvidenceDisclosure group="real" title="真实地形完整证据与三维演示" note="六组精度目标、负面结果、模型下载与 MultiPatch 格式核验"><BristolTerrainBenchmark target={realTarget} onTargetChange={changeDetailTarget}/></EvidenceDisclosure>
         <EvidenceDisclosure group="supplementary" title="补充实验、城市数据与 ArcGIS 能力对照" note="既有实验保留；ArcGIS 软件性能待同机测量">
         <HistoricalSnapshot api={api}/>
         <ComparisonOverview resolution={resolution} onResolutionChange={setResolution} targetCentimetres={targetCentimetres}/>
