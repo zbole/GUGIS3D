@@ -1,0 +1,26 @@
+{
+  "schema": "gugis-ea-city-preview-audit-v1",
+  "city_id": "newcastle",
+  "model_sha256": "f874f3ec08795a51465aa9edf46680e0bd1bb477aae2c97f1367853e419d930c",
+  "raster_sha256": "10bc07588b0b7d491b6894a2e17004b5c52c88de9c77c1ac66566d8498dafee7",
+  "fixture_sha256": "62173752ffe7854e0f518fa861c0edb6f6ac54f79a164982ef67302d1babdbfb",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "cad1c2acf500de7bfe4324bcc4cbb562fdc8880f7acbc56eec346c466c3fc290",
+    "python": "ea1726e00900b2727b2decd8f02c8f39d1ea8ca91980be0311bb701766a53871"
+  },
+  "method": "4096 fixed unique valid source 1m pixel centres, seed20261005,40-pixel rim excluded before querying. Misses retained; errors use hits only. Source participates in preview construction, not held-out ground truth.",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.495785353806376,
+  "mae_m": 0.2579692009762638,
+  "p95_absolute_m": 1.0427364888768125,
+  "max_absolute_m": 5.543664069796655,
+  "controls_checked": 22120,
+  "controls_hits": 22120,
+  "max_control_query_error_m": 4.263256414560601e-14,
+  "limits": "Sampled relative source-raster differences, no continuous bound or true-ground accuracy guarantee; ODN unchanged; no ArcGIS run."
+}

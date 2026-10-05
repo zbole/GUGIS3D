@@ -7,9 +7,10 @@ from fastapi import HTTPException
 from ..environment_models import Terrain
 
 ROOT = Path(__file__).resolve().parents[3]
-MANIFEST_PATH = ROOT / 'shared/public-terrain-sources-v7.json'
-MANIFEST_SHA256 = '63a819417fbf328101d240a0b41e4a3f204fd7668b2e5b882e2b0ba57c0f5489'
+MANIFEST_PATH = ROOT / 'shared/public-terrain-sources-v8.json'
+MANIFEST_SHA256 = '8fd9b6d0e062dbf1a7977ada1e6a31b37a957a2722f6126e91dd683a4c327d94'
 HISTORICAL_MANIFESTS = {
+    'public-terrain-sources-v7.json': '63a819417fbf328101d240a0b41e4a3f204fd7668b2e5b882e2b0ba57c0f5489',
     'public-terrain-sources-v6.json': '8fbd256f47d90e206284d1ded5ce9ba0163369bc49679fb3f7f0b9302b7166a1',
     'public-terrain-sources-v5.json': 'd7d8c93d90a1bf5a7c6814ca8646fda6dae08ade048ac7da705af226c9bf21ec',
     'public-terrain-sources-v4.json': 'ba3da5fe8865c3a52a93cce15064e2de63a181831deb6d19537e806057ea430e',
@@ -21,7 +22,7 @@ FILES = {'raster': ('bristol-ea-dtm-1m.tif', 16 * 1024 * 1024),
          'model': ('bristol-ea-dtm-preview.gugis-terrain.json', 8 * 1024 * 1024)}
 CANDIDATES = {city_id: {'raster': (f'{city_id}-ea-dtm-1m.tif', 24 * 1024 * 1024),
                         'model': (f'{city_id}-ea-dtm-preview.gugis-terrain.json', 8 * 1024 * 1024)}
-              for city_id in ('bristol', 'london', 'birmingham', 'manchester', 'york', 'bath', 'oxford', 'cambridge', 'liverpool', 'sheffield', 'leeds', 'nottingham')}
+              for city_id in ('bristol', 'london', 'birmingham', 'manchester', 'york', 'bath', 'oxford', 'cambridge', 'liverpool', 'sheffield', 'leeds', 'nottingham', 'newcastle')}
 CANDIDATES['bristol'] = FILES
 
 
@@ -41,8 +42,8 @@ def source_info(city_id):
         if hashlib.sha256(content).hexdigest() != MANIFEST_SHA256:
             raise ValueError('Public terrain manifest changed')
         report = json.loads(content)
-        if (report['schema'] != 'gugis-public-terrain-sources-v7'
-                or report.get('parent_manifest') != {'filename':'public-terrain-sources-v6.json','sha256':HISTORICAL_MANIFESTS['public-terrain-sources-v6.json']}
+        if (report['schema'] != 'gugis-public-terrain-sources-v8'
+                or report.get('parent_manifest') != {'filename':'public-terrain-sources-v7.json','sha256':HISTORICAL_MANIFESTS['public-terrain-sources-v7.json']}
                 or len(report['sources']) != len(CANDIDATES)
                 or sorted(s['city_id'] for s in report['sources']) != sorted(CANDIDATES)):
             raise ValueError('Invalid public terrain catalogue')

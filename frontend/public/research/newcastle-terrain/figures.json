@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "10bc07588b0b7d491b6894a2e17004b5c52c88de9c77c1ac66566d8498dafee7",
+  "audit_sha256": "46b7575b0688d741617b4a8e0f9341155d6fb3f324bc6065f3d5fdf15f5eec16",
+  "plotter_sha256": "d53b38d02bcfa7279de46087fe44cdbdff6d0e9a5f09454a0fb89b020f2f432d",
+  "files": {
+    "newcastle-source-preview.png": {
+      "bytes": 519743,
+      "sha256": "b14ac69f256ce4cf15860c95b0ff2ba3365541ab83be918feabfef2c22c5e072"
+    },
+    "newcastle-source-preview.svg": {
+      "bytes": 871157,
+      "sha256": "14a8fc86d66331c9cc940c108fe2d138305390b5c75c139c8f9d3620a0235395"
+    }
+  }
+}

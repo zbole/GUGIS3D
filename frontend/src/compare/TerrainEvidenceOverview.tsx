@@ -5,9 +5,10 @@ import liverpool from '../../../shared/liverpool-terrain-benchmark.json';
 import sheffield from '../../../shared/sheffield-terrain-benchmark.json';
 import leeds from '../../../shared/leeds-terrain-benchmark.json';
 import nottingham from '../../../shared/nottingham-terrain-benchmark.json';
+import newcastle from '../../../shared/newcastle-terrain-display-v1.json';
 import {terrainEvidenceTotals} from './terrainEvidenceTotals';
 import type {TerrainResultScope} from './terrainResultLink';
-const groups=[{scope:'multicity',name:'曼彻斯特 / 约克 / 巴斯',report:multicity},{scope:'oxford',name:'牛津',report:oxford},{scope:'cambridge',name:'剑桥',report:cambridge},{scope:'liverpool',name:'利物浦',report:liverpool},{scope:'sheffield',name:'谢菲尔德',report:sheffield},{scope:'leeds',name:'利兹',report:leeds},{scope:'nottingham',name:'诺丁汉',report:nottingham}] as const;
+const groups=[{scope:'multicity',name:'曼彻斯特 / 约克 / 巴斯',report:multicity},{scope:'oxford',name:'牛津',report:oxford},{scope:'cambridge',name:'剑桥',report:cambridge},{scope:'liverpool',name:'利物浦',report:liverpool},{scope:'sheffield',name:'谢菲尔德',report:sheffield},{scope:'leeds',name:'利兹',report:leeds},{scope:'nottingham',name:'诺丁汉',report:nottingham},{scope:'newcastle',name:'纽卡斯尔',report:newcastle}] as const;
 export default function TerrainEvidenceOverview({target,onSelect}:{target:number;onSelect:(scope:TerrainResultScope)=>void}){
   const totals=terrainEvidenceTotals(groups.map(g=>g.report),target);
   return <section className="terrain-evidence-overview" aria-label="跨城证据汇总">

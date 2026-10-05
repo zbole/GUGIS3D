@@ -28,13 +28,13 @@ test('incomplete, duplicated or unverified evidence cannot enter a headline tota
 });
 test('all saved cross-city reports contribute every fixed site exactly once at all targets',async()=>{
  const reports=[];
- for(const name of ['multicity','oxford','cambridge','liverpool','sheffield','leeds','nottingham'])reports.push(JSON.parse(await readFile(new URL(`../../shared/${name}-terrain-benchmark.json`,import.meta.url))));
+ for(const name of ['multicity','oxford','cambridge','liverpool','sheffield','leeds','nottingham','newcastle'])reports.push(JSON.parse(await readFile(new URL(`../../shared/${name}-terrain-benchmark.json`,import.meta.url))));
  for(const target of [.1,.25,.5]){
-  const t=terrainEvidenceTotals(reports,target);assert.equal(t.siteCount,18);assert.equal(t.cityCount,9);
+  const t=terrainEvidenceTotals(reports,target);assert.equal(t.siteCount,20);assert.equal(t.cityCount,10);
   const models=reports.flatMap(r=>r.cases.flatMap(c=>c.models.filter(m=>m.target_m===target)));
   const native=models.filter(m=>m.family==='local_triangles'),mp=native.flatMap(m=>m.multipatch.files);
   assert.equal(t.triangleBytes,native.reduce((n,m)=>n+m.bytes,0));assert.equal(t.multipatchBytes,mp.reduce((n,f)=>n+f.bytes,0));
-  assert.equal(t.mixedDominates+t.trianglesDominate+t.tradeoffs+t.equal,18);
+  assert.equal(t.mixedDominates+t.trianglesDominate+t.tradeoffs+t.equal,20);
   assert.equal(t.ruledQuads,models.filter(m=>m.family==='hybrid').reduce((n,m)=>n+m.ruled_quads,0));
  }
 });

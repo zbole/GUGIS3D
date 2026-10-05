@@ -1,0 +1,29 @@
+{
+  "city_id": "newcastle",
+  "name": "纽卡斯尔",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28423326%2C426479%29&subset=N%28563101%2C565901%29&format=image%2Ftiff",
+  "bbox_bng": [
+    423326,
+    563101,
+    426479,
+    565901
+  ],
+  "query_bbox_wgs84": [
+    -1.637,
+    54.962,
+    -1.588,
+    54.987
+  ],
+  "bytes": 44040947,
+  "sha256": "94b070c3ccb2fde4b87fec228ebce9c1406ee9fc188d5d22f8309cf2c5cffc6a",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-05T17:30:44.709344+00:00",
+  "width": 3153,
+  "height": 2800,
+  "valid_pixels": 8828400,
+  "nodata_pixels": 0,
+  "minimum_m": -1.3706810474395752,
+  "maximum_m": 103.05000305175781,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent centre-district raw sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}

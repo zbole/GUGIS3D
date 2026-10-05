@@ -36,3 +36,7 @@ frontend/public/research/curved-ruled-v1/*.svg whitespace=-blank-at-eol
 
 frontend/public/research/order-controls-v1/** -text whitespace=cr-at-eol
 frontend/public/research/order-controls-v1/*.svg whitespace=-blank-at-eol
+
+frontend/public/research/newcastle-terrain/** -text whitespace=cr-at-eol
+frontend/public/research/newcastle-terrain-benchmark/** -text whitespace=cr-at-eol
+frontend/public/research/newcastle-terrain-benchmark/*.svg whitespace=-blank-at-eol
