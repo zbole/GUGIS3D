@@ -1,0 +1,249 @@
+{
+  "schema": "gugis-oxford-native-query-audit-v1",
+  "parent_report_sha256": "d5d34e1e3a7df0214d5abcb8f8de3409cda8480021d78c84f2b89c23971e1d95",
+  "auditor_sha256": "c9295c05b598ab18974e4cff18cf5f25ed5249612044460be2668384fe40639c",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scope": "Native original functions queried at fixed source-relative fixtures and every saved control. Sampled errors separate from full-domain L2 integral and max certificate. No browser, GPU, city write or ArcGIS run.",
+  "rows": [
+    {
+      "case_id": "oxford-centre",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "7d92545c24ab4e91be2fbe7f6fd6a80443e5702dd96856f24cb9c2f6a1517d33",
+      "fixture_sha256": "56c19e99e75cc522559c4fad783807296f8cc11f2076bda024021f506e145ce2",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 867,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.024566537576458457,
+      "sampled_mae_m": 0.017320220622486664,
+      "sampled_p95_absolute_m": 0.054542530811964696,
+      "sampled_max_absolute_m": 0.08966576355857114,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 392532,
+        "sha256": "0f9dc8a96de2ee2886fa1f15d5d5b811a42880afedd3ad8114d794fccfd504c6"
+      }
+    },
+    {
+      "case_id": "oxford-centre",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "309bc982b9a8e4d28d96b4372ece403ccf5913fa441046fa3657c3969a701658",
+      "fixture_sha256": "56c19e99e75cc522559c4fad783807296f8cc11f2076bda024021f506e145ce2",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 923,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.023156609202266785,
+      "sampled_mae_m": 0.01664407701598506,
+      "sampled_p95_absolute_m": 0.05070230999687908,
+      "sampled_max_absolute_m": 0.09082409808502945,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 392602,
+        "sha256": "9753ad04b0b31c166b1c845b16e43dee865e2e153c65ec0386215dccf274d527"
+      }
+    },
+    {
+      "case_id": "oxford-centre",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "e534466dcffdcedce1f67e10ee85f8c4abceb4ddd24f01b70c8cdb51e0cd76f3",
+      "fixture_sha256": "56c19e99e75cc522559c4fad783807296f8cc11f2076bda024021f506e145ce2",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 394,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.059073788782370046,
+      "sampled_mae_m": 0.04274782964095313,
+      "sampled_p95_absolute_m": 0.1272340129493017,
+      "sampled_max_absolute_m": 0.22240799800449906,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 390781,
+        "sha256": "87a6da6d42ae680effb11ff4939a47b373978f2314ee7415bda722fc41b057b2"
+      }
+    },
+    {
+      "case_id": "oxford-centre",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "43799a6601fbfb5616ef853af4756f0c15e7e1dee4e983b420254ea9a8b13f80",
+      "fixture_sha256": "56c19e99e75cc522559c4fad783807296f8cc11f2076bda024021f506e145ce2",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 360,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06069563389678197,
+      "sampled_mae_m": 0.04404366085044787,
+      "sampled_p95_absolute_m": 0.13123148583024857,
+      "sampled_max_absolute_m": 0.23165252969021566,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 390892,
+        "sha256": "a4db6d8e647c1fe4f3f60ce5c099744ee2883c12c1ce3dec95c54bbf8b8dbf90"
+      }
+    },
+    {
+      "case_id": "oxford-centre",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "f9ce898635d21b16c9944c4c93f531996a155631233a222021156dce63d09b5a",
+      "fixture_sha256": "56c19e99e75cc522559c4fad783807296f8cc11f2076bda024021f506e145ce2",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 191,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.11518473777473631,
+      "sampled_mae_m": 0.08062093529014132,
+      "sampled_p95_absolute_m": 0.25489699061842686,
+      "sampled_max_absolute_m": 0.48531390465865343,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 389917,
+        "sha256": "6262a194d9e1d8a5dd1710a7dccf7b134b9889262d65bebef5a87cd76806f4f7"
+      }
+    },
+    {
+      "case_id": "oxford-centre",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "4e0aff36484eeb1b2ea434cd95db3524cdcafb03deb7a44337a5eb92a4651253",
+      "fixture_sha256": "56c19e99e75cc522559c4fad783807296f8cc11f2076bda024021f506e145ce2",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 168,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.1115416603180438,
+      "sampled_mae_m": 0.07698752697876474,
+      "sampled_p95_absolute_m": 0.24790279338758126,
+      "sampled_max_absolute_m": 0.4670448598181949,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 389887,
+        "sha256": "ff8b77c9cb75ed19613fef49fb1b799f7803dae4f0c8b1d486fcc02e08066dc3"
+      }
+    },
+    {
+      "case_id": "oxford-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "d496a489e078602329e16fb1e8571d0f8c020fe76352b3a9d5d0ff8643893918",
+      "fixture_sha256": "b15de35a307d1a3fafb3e1f5f1f395302301f4b234a11448a4b3052b942269e8",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 399,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.02733882902985777,
+      "sampled_mae_m": 0.020532604412335606,
+      "sampled_p95_absolute_m": 0.05739666637312979,
+      "sampled_max_absolute_m": 0.09670495485536179,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 392478,
+        "sha256": "ca29d5fa85b8310e642711218a6448442f0ac244e67ac6fe4bd98b88a949af79"
+      }
+    },
+    {
+      "case_id": "oxford-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "f14ffe01b795199299c1d7c1f6a434f3150227c6d5af546757f0c9be074a43de",
+      "fixture_sha256": "b15de35a307d1a3fafb3e1f5f1f395302301f4b234a11448a4b3052b942269e8",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 272,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.02742337348768361,
+      "sampled_mae_m": 0.020922994699499965,
+      "sampled_p95_absolute_m": 0.05640250244359635,
+      "sampled_max_absolute_m": 0.08818808099405828,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 392341,
+        "sha256": "6c3cf1e9086cad82a6ba4924700ad31c7fdf475f8aae6f74a0740972453ddae1"
+      }
+    },
+    {
+      "case_id": "oxford-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "3b24ca7ac4ecc8b8521e5a5eaea43f37be9557915f45775b4455b4ad7d9b7f2b",
+      "fixture_sha256": "b15de35a307d1a3fafb3e1f5f1f395302301f4b234a11448a4b3052b942269e8",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 164,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.07027757329798635,
+      "sampled_mae_m": 0.051896255410484704,
+      "sampled_p95_absolute_m": 0.15014898451359926,
+      "sampled_max_absolute_m": 0.23919199398851987,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 390763,
+        "sha256": "6c6f23bbaa42df8a37bee48644b496b5a9fc95faeef57ad013bbe1b2ece216c0"
+      }
+    },
+    {
+      "case_id": "oxford-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "ad9e871e248bdc7c75113dc3b946a661a42be8853171680f591df4d34f3d7e1f",
+      "fixture_sha256": "b15de35a307d1a3fafb3e1f5f1f395302301f4b234a11448a4b3052b942269e8",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 75,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.05992495068967315,
+      "sampled_mae_m": 0.044562330533237174,
+      "sampled_p95_absolute_m": 0.12278358640457299,
+      "sampled_max_absolute_m": 0.23078108140806108,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 390914,
+        "sha256": "12c31a8d1297023780c40023f44f8c2f8b0f3faeff53481a672755debd252cea"
+      }
+    },
+    {
+      "case_id": "oxford-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "fd5c038f7237662a6a11479af23ef4a3a30d14c459d0cedc9c92669e3855e0c2",
+      "fixture_sha256": "b15de35a307d1a3fafb3e1f5f1f395302301f4b234a11448a4b3052b942269e8",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 17,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.12433051793795946,
+      "sampled_mae_m": 0.09404237670597024,
+      "sampled_p95_absolute_m": 0.2610528937132415,
+      "sampled_max_absolute_m": 0.4438065999707419,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 389312,
+        "sha256": "7789241cfc6e7f98ac83aecfe37b63cfe2073cd47721d71e763e8a32268a34ac"
+      }
+    },
+    {
+      "case_id": "oxford-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "35bb9500c94a21aeb6d724bfca2c63d6b765ef11917bf1a005184b38f22e7c19",
+      "fixture_sha256": "b15de35a307d1a3fafb3e1f5f1f395302301f4b234a11448a4b3052b942269e8",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 29,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.0973560510785907,
+      "sampled_mae_m": 0.07149544867891378,
+      "sampled_p95_absolute_m": 0.21007432258656422,
+      "sampled_max_absolute_m": 0.3913172295523708,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 390038,
+        "sha256": "decac56bcd16d028ee8c9833a8b251d3426cc0b70a98e67feb65f7ec24d39a78"
+      }
+    }
+  ]
+}

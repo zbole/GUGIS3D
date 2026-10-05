@@ -5,6 +5,7 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {build} from 'esbuild';
 import React from 'react';
 import {create,act} from 'react-test-renderer';
+import {terrainIndex} from '../src/studio/terrainMath.ts';
 const url=p=>new URL(p,import.meta.url);
 const output=fileURLToPath(url('../node_modules/.cache/gugis-tests/multicity-results.mjs'));
 await build({entryPoints:[fileURLToPath(url('../src/compare/PaperTerrainResults.tsx'))],outfile:output,bundle:true,platform:'node',format:'esm',packages:'external',loader:{'.css':'empty'}});
@@ -39,4 +40,56 @@ test('every query model is covered, no target or site is omitted from the public
   const audit=JSON.parse(await readFile(url('../public/research/multicity-terrain/native-query-audit.json')));
   assert.equal(audit.rows.length,36);
   for(const c of summary.cases)for(const m of c.models){const a=audit.rows.find(a=>a.case_id===c.id&&a.family===m.family&&a.target_m===m.target_m);assert.equal(a.model_sha256,m.sha256);assert.equal(a.requested,a.hits);assert.ok(a.sampled_max_absolute_m<=m.continuous_bound_m+1e-8);assert.ok(a.max_control_error_m<1e-9);}
+});
+
+test('Oxford scope preserves opposing outcomes and actual ruled counts, with isolated downloads and shared target',()=>{
+  let r;act(()=>r=create(React.createElement(Card)));
+  const button=name=>r.root.findAllByType('button').find(b=>text(b)===name);
+  const change=(name,value)=>act(()=>r.root.findByProps({'aria-label':name}).props.onChange({target:{value}}));
+  act(()=>button('牛津 · 2 个样区').props.onClick());
+  assert.equal(r.root.findAllByType('tbody')[0].findAllByType('tr').length,2);
+  assert.match(text(r.toJSON()),/小 4\.6%/);assert.match(text(r.toJSON()),/1\.58927 \/ 1\.51509/);
+  assert.match(text(r.toJSON()),/直纹四边形 17/);assert.match(text(r.toJSON()),/共 49,152/);
+  change('跨城对标样区','oxford-north-quarter');change('真实地形结果误差目标','.25');
+  assert.match(text(r.toJSON()),/大 108\.9%/);assert.match(text(r.toJSON()),/4\.42181 \/ 3\.77474/);
+  assert.match(text(r.toJSON()),/此档未使用直纹面/);
+  assert.equal(r.root.findAllByType('img')[0].props.src,'/research/oxford-terrain-benchmark/oxford-north-quarter-error-cost.png');
+  for(const link of r.root.findAllByType('a'))assert.ok(link.props.href.startsWith('/research/oxford-terrain-benchmark/'));
+  act(()=>button('新增跨城 · 6 个样区').props.onClick());
+  assert.equal(r.root.findByProps({'aria-label':'跨城对标样区'}).props.value,'manchester-centre');
+  assert.equal(r.root.findByProps({'aria-label':'真实地形结果误差目标'}).props.value,.25);
+  act(()=>button('牛津 · 2 个样区').props.onClick());
+  assert.equal(r.root.findByProps({'aria-label':'跨城对标样区'}).props.value,'oxford-centre');
+  act(()=>r.unmount());
+});
+
+test('Oxford deep link and reversible hash listener activate independently of the historical six sites',()=>{
+  const prior=globalThis.window;const listeners=new Map();let r;
+  try{globalThis.window={location:{hash:'#oxford-terrain-results'},addEventListener:(name,fn)=>listeners.set(name,fn),removeEventListener:name=>listeners.delete(name)};
+    act(()=>r=create(React.createElement(Card)));
+    assert.equal(r.root.findAllByType('button').find(b=>text(b)==='牛津 · 2 个样区').props['aria-pressed'],true);
+    globalThis.window.location.hash='#multicity-terrain-results';act(()=>listeners.get('hashchange')());
+    assert.equal(r.root.findAllByType('tbody')[0].findAllByType('tr').length,6);
+    act(()=>r.unmount());r=null;assert.equal(listeners.size,0);
+  }finally{if(r)act(()=>r.unmount());if(prior===undefined)delete globalThis.window;else globalThis.window=prior;}
+});
+
+test('all twelve Oxford saved functions reproduce the fixed native query audit and retain every control',async()=>{
+  const report=JSON.parse(await readFile(url('../../shared/oxford-terrain-benchmark.json')));
+  const audit=JSON.parse(await readFile(url('../public/research/oxford-terrain-benchmark/native-query-audit.json')));
+  assert.equal(audit.rows.length,12);
+  for(const c of report.cases){
+    const folder=`../public/research/oxford-terrain-benchmark/${c.id}/`;
+    const fixture=JSON.parse(await readFile(url(folder+'query-fixture.json')));
+    for(const m of c.models){
+      const model=JSON.parse(await readFile(url(folder+m.filename))),index=terrainIndex(model);
+      const row=audit.rows.find(a=>a.case_id===c.id&&a.family===m.family&&a.target_m===m.target_m);
+      assert.equal(row.model_sha256,m.sha256);assert.equal(row.fixture_sha256,c.fixture_sha256);
+      const errors=fixture.xy.map(([x,y],i)=>{const q=index.query(x,y);assert.ok(q);return q.height-fixture.reference[i];});
+      assert.equal(errors.length,4096);
+      assert.ok(Math.abs(Math.sqrt(errors.reduce((s,e)=>s+e*e,0)/4096)-row.sampled_rmse_m)<1e-12);
+      assert.ok(Math.max(...errors.map(Math.abs))<=m.continuous_bound_m+1e-8);
+      for(const [x,y,z] of model.points){const q=index.query(x,y);assert.ok(q);assert.ok(Math.abs(q.height-z)<1e-9);}
+    }
+  }
 });

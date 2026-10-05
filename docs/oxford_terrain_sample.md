@@ -38,4 +38,4 @@
 
 九份既有城市种子、六份既有 DTM 对、父清单和历史跨城对标原件逐字节 / 指纹保留；43 份原始本地档案与三个正式城市核验未变，牛津正式工作区未创建。上述浏览器核验在实际桌面内置浏览器完成，不是 Edge 或手机实测。
 
-[城市来源与高度依据](oxford_city_sample.md) · [六样区论文指标与文件对标](multicity_terrain_benchmark.md)。牛津粗预览不继承这六样区的指标或 ArcGIS 结果；ArcGIS 软件耗时仍需授权环境实测。
+[城市来源与高度依据](oxford_city_sample.md) · [六样区论文指标与文件对标](multicity_terrain_benchmark.md) · [牛津固定样区对标](oxford_terrain_benchmark.md)。牛津粗预览与后续 64 × 64 m 原像元样区是不同档案，不借用彼此误差；ArcGIS 软件耗时仍需授权环境实测。
