@@ -30,3 +30,6 @@ frontend/public/research/leeds-terrain-benchmark/*.svg whitespace=-blank-at-eol
 frontend/public/research/nottingham-terrain/** -text whitespace=cr-at-eol
 frontend/public/research/nottingham-terrain-benchmark/** -text whitespace=cr-at-eol
 frontend/public/research/nottingham-terrain-benchmark/*.svg whitespace=-blank-at-eol
+
+frontend/public/research/curved-ruled-v1/** -text whitespace=cr-at-eol
+frontend/public/research/curved-ruled-v1/*.svg whitespace=-blank-at-eol
