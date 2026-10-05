@@ -1,0 +1,18 @@
+{
+  "report_sha256": "e9783d81d4f0222d57bd4671932cad73a9cc394a61b0bf1188d623ade2cb9b94",
+  "plot_script_sha256": "789c3642b9e237b6b3f7cbcd2a7259c3af69873f0ce11d92664c9b318fe72a9b",
+  "files": {
+    "isotropic-curves.png": "104fa1a6ecf2d831a5ef035677d6f957938c521701baa5559090cdf06c3d6df9",
+    "isotropic-curves.svg": "f24556f1f717fe8ba6da5a928ac0e382d13a6b6c23c16233d8720a3cc74b5d16",
+    "isotropic-meshes.png": "d73834f675e8262631859b992c8d6eba7e8f8a4b253c13ef2861a59fbf4a7276",
+    "isotropic-meshes.svg": "16047f59c6a41a2d3d6d9945f64554fa64d7a89aaf22ab3209fe4ee29ee3a93d",
+    "anisotropic-curves.png": "966b24cb40daad20a739bff5f1f907451b0cafec27f82cda9be1f4afb690faa0",
+    "anisotropic-curves.svg": "749b0ee2ff1c54c402d6523f277610cc0593eeddd2cfb02ccb6dcb9a461124a6",
+    "anisotropic-meshes.png": "179c20a274477d62b7e59a23ee6542027480c9fc7449c6176bc8c4878433c403",
+    "anisotropic-meshes.svg": "4d55892577fb3d2d619954bf585ff57a294df56a70e6eeef15f3e15d6b95ee7b",
+    "variable_curvature-curves.png": "f8be5acdb03d4cac5b98cb97174438af5724913d9e4df23e772dec204f6647f0",
+    "variable_curvature-curves.svg": "7685607a9a8256eddb58a14f5cf456edec9fef34391c6ba97c46899a6aac858d",
+    "variable_curvature-meshes.png": "9e63bd95e39604f7b7d2b640c10f3568fd896a96cca63264f4f1b629fb518fdd",
+    "variable_curvature-meshes.svg": "b1f0f05c487252ba8c57d8d6b49ee6462038ef288dec956fb2b84cefa49febf8"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "report_sha256": "eb2afc23fe2434e5448b97e03c8751256ef691c9ff698fbd98348cdae852469d",
+  "plot_script_sha256": "363f498d3f726b13fea30363d317465828a9cf8c5e0cce56882996d4a178a55a",
+  "files": {
+    "error-cost.png": "bd020e15726baf6b6273763c570da74d0dbd02ad4fb920a2320ee7c98863897d",
+    "error-cost.svg": "7a83b583eb8b75a4977bda537065daef7eb848d4324a388d7c34a53d46a4bd2e"
+  }
+}

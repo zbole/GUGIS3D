@@ -280,6 +280,7 @@ test("changing the expected snapshot or API cancels the old check and installs j
 
 test("the rendered comparison exposes recheck/retry, announces honest status, and preserves saved numbers", async t => {
   const f = fixture(t, { component: CompareShowcase });
+  act(()=>f.root.findByProps({id:"supplementary-evidence"}).props.onToggle({currentTarget:{open:true}}));
   const status = () => f.root.findByProps({ className: "cmp-snapshot-copy" });
   const button = () => f.root.findByProps({ className: "cmp-snapshot-recheck" });
   const snapshotMetadata = () => text(status().findByType("small"));
@@ -315,7 +316,7 @@ test("the rendered comparison exposes recheck/retry, announces honest status, an
   assert.ok(originalMetadata.includes(evidence.revision.slice(0, 16)));
   assert.ok(originalMeasured.includes(evidence.memory.wireSavingPercent.toFixed(2)));
   assert.match(text(status()), /不会重新测量或修改项目/);
-  assert.match(text(f.root.findByProps({ className: "cmp-proofline" })), /已保存项目快照/);
-  assert.equal(f.root.findByProps({ className: "cmp-statstrip" }).props["aria-label"], "已保存城市快照关键数据");
+  assert.match(text(f.root.findByProps({id:"paper-results"})),/N 是实际三角形数/);
+  assert.match(text(f.root.findByProps({id:"real-terrain-results"})),/真实城市/);
   assert.ok(f.requests.every(request => request.url === "/api/city/revision" && request.options.method === "GET"));
 });

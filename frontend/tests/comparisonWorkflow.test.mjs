@@ -39,6 +39,16 @@ test("overview, lazy-loaded lab, target selection and exports use the same resol
     URL.createObjectURL = blob => { blobs.push(blob); return urlBefore(blob); };
     await act(async () => { renderer = create(React.createElement(Showcase)); });
     const root = renderer.root;
+    act(()=>root.findByProps({'aria-label':'真实地形结果误差目标'}).props.onChange({target:{value:'.25'}}));
+    await act(async()=>root.findByProps({id:'real-evidence'}).props.onToggle({currentTarget:{open:true}}));
+    assert.equal(root.findByProps({'aria-label':'真实 Bristol 最大误差目标'}).props.value,.25);
+    act(()=>root.findByProps({'aria-label':'真实 Bristol 最大误差目标'}).props.onChange({target:{value:'.5'}}));
+    assert.equal(root.findByProps({'aria-label':'真实地形结果误差目标'}).props.value,.5);
+    act(()=>root.findByProps({id:'real-evidence'}).props.onToggle({currentTarget:{open:false}}));
+    // The page now leads with paper metrics. The historical engineering workflow
+    // is mounted only when its disclosure is opened.
+    assert.equal(root.findAllByProps({role:"group","aria-label":"查看离散档位"}).length,0);
+    await act(async()=>root.findByProps({id:"supplementary-evidence"}).props.onToggle({currentTarget:{open:true}}));
     const chooseOverview = n => act(() => group(root, "查看离散档位").findAllByType("button").find(b => text(b).startsWith(`${n}×${n}`)).props.onClick());
     const chooseLab = n => act(() => group(root, "三角带离散精度").findAllByType("button").find(b => text(b).startsWith(`${n} × ${n}`)).props.onClick());
     chooseOverview(4);

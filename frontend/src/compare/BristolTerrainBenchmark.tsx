@@ -7,8 +7,9 @@ import './BristolTerrainBenchmark.css';
 const names={hybrid:'原始全局混合面带',compact_hybrid:'紧凑全局混合面带',local_triangles:'局部三角带'};
 const families=['hybrid','compact_hybrid','local_triangles'] as const;
 const kb=(bytes:number)=>(bytes/1000).toFixed(2);
-export default function BristolTerrainBenchmark(){
-  const [target,setTarget]=useState(.1);
+export default function BristolTerrainBenchmark({target:externalTarget,onTargetChange}:{target?:number;onTargetChange?:(target:number)=>void}={}){
+  const [localTarget,setLocalTarget]=useState(.1);
+  const target=externalTarget??localTarget,setTarget=onTargetChange??setLocalTarget;
   useEffect(()=>{
     if(typeof window==='undefined'||window.location?.hash!=='#bristol-terrain-benchmark')return;
     const frame=window.requestAnimationFrame(()=>document.getElementById('bristol-terrain-benchmark')?.scrollIntoView());

@@ -18,6 +18,8 @@ import { workspaceHref } from "../studio/workspaceNavigation";
 import TerrainComparisonLoader from "./TerrainComparisonLoader";
 import ComparisonOverview from "./ComparisonOverview";
 import BristolTerrainBenchmark from "./BristolTerrainBenchmark";
+import PaperTerrainResults, {RealTerrainResultSummary} from './PaperTerrainResults';
+import EvidenceDisclosure from './EvidenceDisclosure';
 import { useProjectFreshness, type ProjectFreshness } from "./useProjectFreshness";
 import { cityWorkspaceHref, defaultCityWorkspace, type CityWorkspace } from "../studio/cityWorkspaces";
 import type { CityApi } from "../studio/cityApi";
@@ -122,58 +124,6 @@ const mb = (bytes: number) => (bytes / 1e6).toFixed(2);
 const kb = (bytes: number) => (bytes / 1000).toFixed(1);
 const terrainPackageUrl = `${(import.meta.env.VITE_API_BASE_URL ?? "/api").replace(/\/$/, "")}/city/terrain/benchmark.zip?snapshot=${evidence.revision}`;
 
-function CityIllustration() {
-  return (
-    <div className="cmp-visual" aria-label="布里斯托城市结构概念示意图">
-      <div className="cmp-visual-head"><span className="cmp-live" /> 布里斯托 / 城市结构模型 <span>北纬 51.45°</span></div>
-      <svg viewBox="0 0 670 480" role="img" aria-label="建筑、地形、道路和数据连接组成的三维结构示意图">
-        <defs>
-          <linearGradient id="cmp-ground" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#153b5d"/><stop offset="1" stopColor="#09283e"/></linearGradient>
-          <linearGradient id="cmp-roof" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#d8eef0"/><stop offset="1" stopColor="#87c5ce"/></linearGradient>
-          <linearGradient id="cmp-face" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#739bab"/><stop offset="1" stopColor="#1e506a"/></linearGradient>
-          <pattern id="cmp-grid" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="matrix(1 .5 -1 .5 0 0)"><path d="M 24 0 L 0 0 0 24" fill="none" stroke="#76c9d1" strokeOpacity=".13" strokeWidth="1"/></pattern>
-          <filter id="cmp-glow"><feGaussianBlur stdDeviation="4"/></filter>
-        </defs>
-        <ellipse cx="350" cy="428" rx="258" ry="34" fill="#020f1b" opacity=".45" filter="url(#cmp-glow)" />
-        <path d="M 60 262 L 318 96 L 638 261 L 377 429 Z" fill="url(#cmp-ground)" stroke="#76bdd0" strokeWidth="1.2" />
-        <path d="M 60 262 L 318 96 L 638 261 L 377 429 Z" fill="url(#cmp-grid)" />
-        <path d="M 60 262 L 377 429 L 377 446 L 60 279 Z" fill="#10273b" stroke="#325e73" />
-        <path d="M 377 429 L 638 261 L 638 277 L 377 446 Z" fill="#0b2638" stroke="#325e73" />
-        <path d="M 90 260 C 171 234 207 192 278 188 C 370 176 414 238 487 243 C 541 244 577 231 611 249" fill="none" stroke="#62d9dd" strokeWidth="18" strokeOpacity=".10" />
-        <path d="M 90 260 C 171 234 207 192 278 188 C 370 176 414 238 487 243 C 541 244 577 231 611 249" fill="none" stroke="#9ce9e8" strokeWidth="2.2" strokeDasharray="9 6" />
-        <path d="M 144 320 C 198 277 252 281 298 297 C 374 333 473 300 529 264" fill="none" stroke="#56a9bb" strokeWidth="2" strokeDasharray="5 6" />
-        <path d="M 194 197 Q 239 162 300 170 M 175 210 Q 235 166 314 180 M 152 224 Q 222 179 332 193" fill="none" stroke="#76bfbd" strokeOpacity=".5" strokeWidth="2" />
-        <g className="cmp-svg-building">
-          <path d="M 210 268 L 270 232 L 316 253 L 256 289 Z" fill="url(#cmp-roof)" stroke="#e5f6f2"/>
-          <path d="M 210 268 L 256 289 L 256 349 L 210 327 Z" fill="url(#cmp-face)" stroke="#8fc7cd"/>
-          <path d="M 256 289 L 316 253 L 316 310 L 256 349 Z" fill="#32677d" stroke="#8fc7cd"/>
-          <path d="M 225 288 L 246 298 M 225 307 L 246 317 M 271 299 L 303 279 M 271 318 L 303 298" stroke="#b8e2df" strokeWidth="3" strokeLinecap="round"/>
-        </g>
-        <g className="cmp-svg-building">
-          <path d="M 388 274 L 458 232 L 514 262 L 444 305 Z" fill="url(#cmp-roof)" stroke="#e5f6f2"/>
-          <path d="M 388 274 L 444 305 L 444 360 L 388 329 Z" fill="url(#cmp-face)" stroke="#8fc7cd"/>
-          <path d="M 444 305 L 514 262 L 514 316 L 444 360 Z" fill="#32677d" stroke="#8fc7cd"/>
-          <path d="M 403 292 L 431 307 M 403 312 L 431 327 M 456 315 L 498 290 M 456 335 L 498 310" stroke="#b8e2df" strokeWidth="3" strokeLinecap="round"/>
-        </g>
-        <g className="cmp-svg-tower">
-          <path d="M 300 202 L 341 177 L 384 199 L 342 225 Z" fill="#eaf1e1" stroke="#e6f7ef" strokeWidth="1.5"/>
-          <path d="M 300 202 L 342 225 L 342 354 L 300 331 Z" fill="#a6b9ad" stroke="#e0ece4" strokeWidth="1.5"/>
-          <path d="M 342 225 L 384 199 L 384 329 L 342 354 Z" fill="#647f80" stroke="#d2e5df" strokeWidth="1.5"/>
-          <path d="M 309 205 L 309 150 L 341 130 L 374 148 L 374 205 M 341 130 L 341 89" fill="none" stroke="#b3d1c3" strokeWidth="6" strokeLinejoin="round"/>
-          <path d="M 311 151 L 341 134 L 371 150 M 311 177 L 341 158 L 371 175 M 309 230 L 334 245 M 309 253 L 334 268 M 309 278 L 334 292 M 351 240 L 376 225 M 351 264 L 376 249 M 351 288 L 376 273" fill="none" stroke="#e3f4e8" strokeWidth="3.5" strokeLinecap="round"/>
-          <path d="M 316 185 L 328 192 M 352 191 L 365 184" stroke="#d0e4de" strokeWidth="5"/>
-        </g>
-        <path d="M 108 330 L 547 117 M 138 360 L 577 147" fill="none" stroke="#56d7d5" strokeOpacity=".32" strokeDasharray="3 8" />
-        <g fill="#a3f0e9"><circle cx="90" cy="260" r="4"/><circle cx="278" cy="188" r="4"/><circle cx="487" cy="243" r="4"/><circle cx="611" cy="249" r="4"/><circle cx="342" cy="225" r="5"/></g>
-        <g fill="none" stroke="#99e3df" strokeOpacity=".7"><circle cx="342" cy="225" r="13"/><circle cx="342" cy="225" r="24" strokeOpacity=".25"/></g>
-      </svg>
-      <div className="cmp-callout cmp-callout-top"><small>构件图谱</small><strong>{evidence.city.placedComponents.toLocaleString()}</strong><span>语义构件实例</span></div>
-      <div className="cmp-callout cmp-callout-bottom"><small>地形系统</small><strong>{evidence.city.terrainPatches.toLocaleString()}</strong><span>原生地形面片</span></div>
-      <p className="cmp-visual-caption">结构概念图 · 实际三维模型请进入城市工作台</p>
-    </div>
-  );
-}
-
 export default function CompareShowcase({ workspace = defaultCityWorkspace, api }: { workspace?: CityWorkspace; api?: CityApi } = {}) {
   if (workspace.id !== "bristol") return <div className="compare-page"><div className="city-comparison-pending">
     <span>GUGIS3D × ArcGIS / {workspace.name}</span>
@@ -182,7 +132,7 @@ export default function CompareShowcase({ workspace = defaultCityWorkspace, api 
     <a href={cityWorkspaceHref(workspace.id)}>进入{workspace.name}三维工作区 →</a>
     <a href="/compare">查看布里斯托已核验的对比证据 →</a>
     <a href="#implicit-terrain">查看跨城市独立地形研究基准 →</a>
-  </div>{researchSection}</div>;
+  </div><PaperTerrainResults/><EvidenceDisclosure group="supplementary" title="补充研究实验" note="跨城市公开地形数据与既有方法实验">{researchSection}</EvidenceDisclosure></div>;
   return <BristolComparison api={api} />;
 }
 
@@ -204,17 +154,22 @@ function ComparisonSnapshot({ freshness, recheck }: { freshness: ProjectFreshnes
   </section>;
 }
 
+function HistoricalSnapshot({api}:{api?:CityApi}){
+  const {freshness,recheck}=useProjectFreshness(evidence.revision,import.meta.env.VITE_API_BASE_URL??'/api',api?'/cities/bristol/city':'/city');
+  return <ComparisonSnapshot freshness={freshness} recheck={recheck}/>;
+}
+
 function BristolComparison({ api }: { api?: CityApi }) {
   const terrainDownload = api ? `${api.terrainMultipatchUrl}?snapshot=${evidence.revision}` : terrainPackageUrl;
   const [selected, setSelected] = useState<(typeof cases)[number]["id"]>("scene");
   const [targetCentimetres, setTargetCentimetres] = useState(1);
+  const [realTarget,setRealTarget]=useState(.1);
   const [resolution, setResolution] = useState(() => [...terrainSuite.variants]
     .filter(v => v.maxRuledHeightErrorMetres * 100 <= 1)
     .sort((a, b) => a.multipatchFilesBytes - b.multipatchFilesBytes)[0]?.ruledSubdivisions
     ?? terrainSuite.variants[0].ruledSubdivisions);
-  const { freshness, recheck } = useProjectFreshness(evidence.revision, import.meta.env.VITE_API_BASE_URL ?? "/api", api ? "/cities/bristol/city" : "/city");
   useEffect(() => {
-    document.title = "GUGIS3D × ArcGIS · 证据对比";
+    document.title = "GUGIS3D · 地形对比结果与论文指标";
   }, []);
   const active = cases.find(item => item.id === selected) ?? cases[0];
   const ActiveIcon = active.icon;
@@ -227,32 +182,17 @@ function BristolComparison({ api }: { api?: CityApi }) {
     <div className="compare-page">
       <header className="cmp-header">
         <a href="/" className="cmp-logo" aria-label="返回 GUGIS3D 城市工作台"><span className="cmp-logo-mark">G<span>3</span></span><span>GUGIS<em>3D</em></span></a>
-        <nav aria-label="对比展示导航"><a href="#comparison-overview">结果总览</a><a href="#bristol-terrain-benchmark">真实布里斯托</a><a href="#implicit-terrain">论文同源实测</a><a href="#hybrid-terrain-lab">混合逼近</a><a href="#terrain-benchmark">地形结构</a><a href="#terrain-lab">精度与查询</a><a href="#derivative-title">坡度分析</a><a href="#evidence">城市实测</a><a href="#comparison">功能对照</a><a href="#method">实验边界</a></nav>
+        <nav aria-label="对比展示导航"><a href="#paper-results">论文指标结果</a><a href="#real-terrain-results">真实地形结果</a><a href="#supplementary-evidence">补充实验</a></nav>
         <a href="/" className="cmp-header-action">进入三维工作台 <ArrowUpRight size={16}/></a>
       </header>
       <main>
-        <ComparisonSnapshot freshness={freshness} recheck={recheck} />
-        <section className="cmp-hero" aria-labelledby="cmp-title">
-          <div className="cmp-hero-copy">
-            <div className="cmp-issue"><span className="cmp-issue-dot"/> GUGIS3D / 对比证据 <span>2026</span></div>
-            <p className="cmp-hero-overline">GUGIS3D <span>×</span> ArcGIS / 布里斯托试点</p>
-            <h1 id="cmp-title">让城市模型<br/><span>看得见，</span><br/>也算得清。</h1>
-            <p className="cmp-hero-description">以布里斯托扩展样本街区为样本，把 GUGIS3D 的结构化建模与 ArcGIS 官方产品能力放在同一张证据板上。功能逐项对照，数值公开边界，结果可以复核。</p>
-            <div className="cmp-hero-actions"><a href="#comparison-overview" className="cmp-btn cmp-btn-dark">查看对比结果 <ArrowRight size={18}/></a><a href="#evidence" className="cmp-btn cmp-btn-light">查看城市数据 <ArrowDown size={18}/></a></div>
-            <div className="cmp-proofline"><span><Check size={15}/> 已保存项目快照</span><span><Check size={15}/> 官方 ArcGIS 文档</span><span><Check size={15}/> 可复现实验脚本</span></div>
-          </div>
-          <CityIllustration/>
-        </section>
-
-        <section className="cmp-statstrip" aria-label="已保存城市快照关键数据">
-          <div><strong>{evidence.city.buildings}</strong><span>栋建筑</span><small>布里斯托扩展样本街区</small></div>
-          <div><strong>{(evidence.city.placedComponents / 1000).toFixed(1)}<i>K</i></strong><span>构件实例</span><small>来自共享模型定义</small></div>
-          <div><strong>{evidence.city.terrainPatches.toLocaleString()}</strong><span>地形面片</span><small>原生地形表达</small></div>
-          <div className="cmp-stat-feature"><strong>{(terrainSuite.variants[0].gugisTerrainBytes / 1e6).toFixed(3)}<i> MB</i></strong><span>原生地形文件</span><small>四档对照使用同一份 GUGIS 数据</small></div>
-        </section>
-
+        <section className="cmp-results-hero" aria-labelledby="cmp-title"><span className="paper-eyebrow">GUGIS3D / TERRAIN RESEARCH RESULTS</span><h1 id="cmp-title">用误差与规模，检验地形表达。</h1><p>以 arXiv:1101.1452 的逼近指标为主线：相同预算看误差，相同精度看代价。先呈现可复核的主要结果，再展开方法、工程对照与实验边界。</p></section>
+        <PaperTerrainResults />
+        <RealTerrainResultSummary target={realTarget} onTargetChange={setRealTarget}/>
+        <EvidenceDisclosure group="real" title="真实地形完整证据与三维演示" note="六组精度目标、负面结果、模型下载与 MultiPatch 格式核验"><BristolTerrainBenchmark target={realTarget} onTargetChange={setRealTarget}/></EvidenceDisclosure>
+        <EvidenceDisclosure group="supplementary" title="补充实验、城市数据与 ArcGIS 能力对照" note="既有实验保留；ArcGIS 软件性能待同机测量">
+        <HistoricalSnapshot api={api}/>
         <ComparisonOverview resolution={resolution} onResolutionChange={setResolution} targetCentimetres={targetCentimetres}/>
-        <BristolTerrainBenchmark />
         {researchSection}
 
         <section className="cmp-section cmp-terrain-benchmark" id="terrain-benchmark">
@@ -317,9 +257,10 @@ function BristolComparison({ api }: { api?: CityApi }) {
           <div className="cmp-rigor-card"><div className="cmp-rigor-head"><span>ArcGIS 同机对标</span><strong>待同机复测</strong></div><div className="cmp-rigor-row"><span>01 / 数据</span><p>同一布里斯托街区、同一建筑细节与地形分辨率</p></div><div className="cmp-rigor-row"><span>02 / 环境</span><p>同一计算机、浏览器／显卡设置与冷启动条件</p></div><div className="cmp-rigor-row"><span>03 / 指标</span><p>加载时间、交互帧率、内存／显存、查询与剖切耗时</p></div><div className="cmp-rigor-result"><span>ArcGIS 实测值</span><strong>— 待测</strong></div></div>
         </section>
 
+        </EvidenceDisclosure>
         <section className="cmp-end"><span>GUGIS3D / 布里斯托试点</span><h2>从可视化，走向<br/>可演算的城市。</h2><a href="/" className="cmp-btn cmp-btn-dark">进入城市工作台 <ArrowUpRight size={18}/></a></section>
       </main>
-      <footer className="cmp-footer"><div><strong>GUGIS3D</strong><span>城市结构表达研究原型 · 布里斯托扩展样本街区</span></div><p>地标与部分建筑为参考／推演模型；当前地形由解析函数生成，非实测 DTM。</p><div className="cmp-footer-links"><a href={sources.scene} target="_blank" rel="noreferrer">Scene Viewer</a><a href={sources.cga} target="_blank" rel="noreferrer">CityEngine</a><a href="/">工作台</a></div></footer>
+      <footer className="cmp-footer"><div><strong>GUGIS3D</strong><span>城市结构表达研究原型 · 布里斯托扩展样本街区</span></div><p>解析方法实验、环境署真实样区与历史合成演示各自标注来源；覆盖范围均有限。</p><div className="cmp-footer-links"><a href={sources.scene} target="_blank" rel="noreferrer">Scene Viewer</a><a href={sources.cga} target="_blank" rel="noreferrer">CityEngine</a><a href="/">工作台</a></div></footer>
     </div>
   );
 }

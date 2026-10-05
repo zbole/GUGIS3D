@@ -1,0 +1,32 @@
+import {useEffect,useState,type ReactNode} from 'react';
+
+export function evidenceGroupForHash(hash:string):'real'|'supplementary'|null{
+  const anchor=hash.replace(/^#/,'');
+  if(anchor==='real-evidence'||anchor.startsWith('bristol-'))return 'real';
+  if(!anchor||anchor==='paper-results'||anchor==='real-terrain-results')return null;
+  if(['supplementary-evidence','comparison-overview','comparison','evidence','method','derivative-title','arcgis-run-title'].includes(anchor)
+    ||/^(terrain-|implicit-|hybrid-|native-index-|offgrid-|research-|local-triangle-|raster-|strip-)/.test(anchor))return 'supplementary';
+  return null;
+}
+
+export default function EvidenceDisclosure({group,title,note,children}:{group:'real'|'supplementary';title:string;note:string;children:ReactNode}){
+  const [open,setOpen]=useState(()=>typeof window!=='undefined'&&evidenceGroupForHash(window.location?.hash??'')===group);
+  useEffect(()=>{
+    if(typeof window==='undefined')return;
+    const follow=()=>{if(evidenceGroupForHash(window.location?.hash??'')===group)setOpen(true);};
+    const followClick=(event:MouseEvent)=>{
+      const hash=(event.target as Element|null)?.closest?.('a[href^="#"]')?.getAttribute('href');
+      if(hash&&evidenceGroupForHash(hash)===group)setOpen(true);
+    };
+    window.addEventListener('hashchange',follow);window.addEventListener('click',followClick);
+    return()=>{window.removeEventListener('hashchange',follow);window.removeEventListener('click',followClick);};
+  },[group]);
+  useEffect(()=>{
+    if(!open||typeof window==='undefined')return;
+    const anchor=window.location?.hash?.slice(1);
+    if(!anchor||evidenceGroupForHash(`#${anchor}`)!==group)return;
+    const timer=window.setTimeout(()=>document.getElementById?.(anchor)?.scrollIntoView(),60);
+    return()=>window.clearTimeout(timer);
+  },[open,group]);
+  return <details id={group==='real'?'real-evidence':'supplementary-evidence'} className="cmp-evidence-disclosure" open={open} onToggle={e=>setOpen(e.currentTarget.open)}><summary>{title}<small>{note}</small></summary>{open?children:null}</details>;
+}
