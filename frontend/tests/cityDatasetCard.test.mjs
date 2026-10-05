@@ -12,7 +12,7 @@ const catalogue=JSON.parse(await readFile(new URL('../../shared/public-city-data
 const text=n=>typeof n==='string'?n:(n?.children??[]).map(text).join('');
 const good=source=>({ok:true,json:async()=>({status:'available',source})});
 
-test('all eight city cards verify metadata only, keep source scope and expose the exact public download',async()=>{
+test('all published city cards verify metadata only, keep source scope and expose the exact public download',async()=>{
   const before=globalThis.fetch;let r;
   try{
     for(const source of catalogue.sources){let calls=0;globalThis.fetch=async(url,options)=>{calls++;assert.equal(url,`/api/cities/${source.city_id}/public-dataset`);assert.equal(options.cache,'no-store');assert.ok(options.signal instanceof AbortSignal);return good(source);};

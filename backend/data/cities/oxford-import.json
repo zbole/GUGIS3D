@@ -1,0 +1,70 @@
+{
+  "city_id": "oxford",
+  "source_sha256": "13bcfe1823fbe87436c3bdbd73e6c27b035016d8318cdf8996ef4a8e9941f18e",
+  "source_building_ways": 6604,
+  "imported_buildings": 6594,
+  "imported_roads": 1123,
+  "query_bbox_wgs84": [
+    -1.273,
+    51.741,
+    -1.235,
+    51.768
+  ],
+  "actual_data_bbox_wgs84": [
+    -1.2779238,
+    51.7362408,
+    -1.2284337,
+    51.7721437
+  ],
+  "height_policy": {
+    "height-tag": 11,
+    "levels-derived": 682,
+    "assumed": 5901
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 62333303,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 114597554,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 243977516,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 243977518,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 297913656,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 301468868,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 350675242,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 413440728,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 1262007394,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 1422144063,
+      "reason": "Underground buildings are unsupported by this ground-based importer"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 13046989,
+  "gugis_sha256": "69b079c6c0dd7cb147b2da34e61eddc7ba5761bad2d1d702f7f6624126619594"
+}

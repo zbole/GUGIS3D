@@ -1,5 +1,23 @@
 # Local city source samples
 
+## Oxford source added 2026-10-05
+
+Oxford is a centre/northern-college sample, not full-city coverage. Query bounds
+are `[-1.273, 51.741, -1.235, 51.768]`; complete imported ways extend to
+`[-1.2779238, 51.7362408, -1.2284337, 51.7721437]`. The retained LoD1 dataset
+contains 6,594 building ways and 1,123 non-area named highway ways. Ten objects
+with unsupported part, elevated, underground or invalid-height semantics were
+refused; `oxford-import.json` records each ID and reason. Heights are 11 source
+height tags, 682 floor-derived estimates at 3.2 m/floor and 5,901 assumed 9.6 m.
+Multipolygon relations, courtyards represented by relation holes, detailed
+facades, interiors and terrain are not acquired by this whole-way workflow.
+`oxford-source.json` binds the retained original and public filtered extract;
+482 unrelated contact/free-text tags were removed without changing geometry or
+IDs. Both the source extract and derived city database are distributed under
+[ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/), with
+© OpenStreetMap contributors attribution. Independent EA terrain requires its
+own audit and OGL attribution before it becomes available in the website.
+
 ## Bath source added 2026-10-05
 
 Bath is a partial centre/northern-slope sample, not whole-city coverage. The

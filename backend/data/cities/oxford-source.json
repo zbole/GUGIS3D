@@ -1,0 +1,70 @@
+{
+  "city_id": "oxford",
+  "coverage_label": "Oxford city centre",
+  "bbox": [
+    -1.273,
+    51.741,
+    -1.235,
+    51.768
+  ],
+  "centre_lon_lat": [
+    -1.254,
+    51.7545
+  ],
+  "query_bbox_south_west_north_east": [
+    51.741,
+    -1.273,
+    51.768,
+    -1.235
+  ],
+  "query": "[out:json][timeout:115][maxsize:268435456];(way[\"building\"](51.741,-1.273,51.768,-1.235);way[\"highway\"][\"name\"](51.741,-1.273,51.768,-1.235););out tags geom;",
+  "source_url": "https://gall.openstreetmap.de/api/interpreter",
+  "downloaded_at": "2026-10-05T12:11:38.184979+00:00",
+  "http_method": "GET",
+  "request_timeout_seconds": 120,
+  "osm_timestamp": "2026-10-05T12:09:50Z",
+  "sha256": "13bcfe1823fbe87436c3bdbd73e6c27b035016d8318cdf8996ef4a8e9941f18e",
+  "bytes": 4746341,
+  "elements": 7764,
+  "building_ways": 6604,
+  "road_ways": 1161,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 6.094,
+  "previous_attempts": [],
+  "retained_download_sha256": "90f08997cbab1bf8f944e873074548c2f33ebc0728e2ef33d76fc774ca496398",
+  "retained_download_bytes": 6191917,
+  "publication_filter": {
+    "method": "Only unrelated contact and free-text tags removed; original IDs, geometry, modelling tags and attribution retained.",
+    "removed_tag_counts": {
+      "contact:email": 1,
+      "contact:facebook": 16,
+      "contact:fax": 1,
+      "contact:instagram": 14,
+      "contact:linkedin": 1,
+      "contact:phone": 3,
+      "contact:tiktok": 1,
+      "contact:tripadvisor": 3,
+      "contact:twitter": 5,
+      "contact:website": 4,
+      "contact:yelp": 1,
+      "contact:youtube": 1,
+      "description": 30,
+      "email": 21,
+      "note": 130,
+      "note:2": 2,
+      "note:bicycle": 1,
+      "note:building:levels": 1,
+      "note:crossing": 1,
+      "note:cycleway": 5,
+      "note:name": 1,
+      "phone": 73,
+      "url": 6,
+      "website": 160
+    }
+  },
+  "preparer_source_sha256": "dfac4a581629103c02fd24319721a928de91b5347812ce76c46ce6da76f8b0aa"
+}

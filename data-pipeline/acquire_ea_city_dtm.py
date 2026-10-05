@@ -13,7 +13,7 @@ from acquire_city_samples import atomic_new,ROOT
 
 ENDPOINT='https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs'
 COVERAGE='13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m'
-ENGLAND={'bristol','london','birmingham','manchester','york','bath'}
+ENGLAND={'bristol','london','birmingham','manchester','york','bath','oxford'}
 MAX_BYTES=96*1024*1024
 
 def projected_bounds(bbox):

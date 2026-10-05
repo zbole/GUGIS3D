@@ -75,6 +75,7 @@ test('dataset catalogue opens viewers only explicitly, clears them on city switc
     await act(async()=>r.root.findByProps({className:'dataset-primary'}).props.onClick());assert.equal(r.root.findByProps({'data-test-city':'manchester'}).props.children,'test-only viewer');
     act(()=>r.root.findAllByType('button').find(b=>text(b).includes('约克')).props.onClick());assert.match(text(r.toJSON()),/4\.683 m/);assert.equal(r.root.findAllByProps({'data-test-city':'manchester'}).length,0);assert.match(window.location.search,/dataset=york/);
     act(()=>r.root.findAllByType('button').find(b=>text(b).includes('爱丁堡')).props.onClick());assert.match(text(r.toJSON()),/尚无已核验/);assert.equal(r.root.findAllByProps({className:'dataset-primary'}).length,0);
+    act(()=>r.root.findAllByType('button').find(b=>text(b).includes('牛津')).props.onClick());assert.match(text(r.toJSON()),/6,594/);assert.match(text(r.toJSON()),/DTM 未发布/);assert.equal(r.root.findAllByProps({className:'dataset-primary'}).length,0);
     window.location.search='?dataset=manchester';act(()=>listeners.get('popstate')());assert.match(text(r.toJSON()),/5\.511 m/);assert.equal(r.root.findAllByProps({'data-test-city':'manchester'}).length,0);
     act(()=>r.unmount());r=null;assert.equal(listeners.size,0);
   }finally{if(r)act(()=>r.unmount());if(previousWindow===undefined)delete globalThis.window;else globalThis.window=previousWindow;if(previousDocument===undefined)delete globalThis.document;else globalThis.document=previousDocument;}
