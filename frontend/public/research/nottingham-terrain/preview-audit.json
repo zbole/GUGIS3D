@@ -1,0 +1,26 @@
+{
+  "schema": "gugis-ea-city-preview-audit-v1",
+  "city_id": "nottingham",
+  "model_sha256": "2d43755aa7e5a8753eab41d624720ca2b7bb07217ab6a0b2de0d8f9b466fa3dc",
+  "raster_sha256": "aa220d584298f36644185269a95c7156ed1a1edee3fd31d89ccb04b9613df70e",
+  "fixture_sha256": "4c3ecd69750325be4159b0f395149da4715c797a1ee515bd864d8fbf93eeabd0",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "8e3c476034cbe243586b5404a6d2d0126ee98102e97354dd0e63e45cbddf4aa9",
+    "python": "e903786b8d7f655af58dc2220a148eee09445c29e32f8c659f881bec71235cab"
+  },
+  "method": "4096 fixed unique valid source 1m pixel centres, seed20261005,40-pixel rim excluded before querying. Misses retained; errors use hits only. Source participates in preview construction, not held-out ground truth.",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.5415156246550757,
+  "mae_m": 0.2602965592285961,
+  "p95_absolute_m": 0.9723952981340531,
+  "max_absolute_m": 7.506091523270285,
+  "controls_checked": 26386,
+  "controls_hits": 26386,
+  "max_control_query_error_m": 3.552713678800501e-14,
+  "limits": "Sampled relative source-raster differences, no continuous bound or true-ground accuracy guarantee; ODN unchanged; no ArcGIS run."
+}

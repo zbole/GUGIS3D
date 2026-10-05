@@ -217,7 +217,10 @@ excluded from the linear road model. Retained roads have no conversion failures.
 Height evidence: 36 height tags, 881 floor estimates (3.2 m/floor), and 16,217
 assumed heights (9.6 m), without independent survey validation. These are LoD1
 volumes, not verified facades, domes or interiors. The city seed has no terrain;
-independently acquired EA source is not published before its native audit.
+independently acquired EA 2022 LIDAR Composite DTM source and separately
+audited native preview are published as independent terrain candidates.
+© Environment Agency copyright and/or database right 2022; OGL v3.0.
+The 1 m source resolution is not the 20-pixel preview accuracy.
 
 ## Wider data for future work
 

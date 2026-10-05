@@ -1,5 +1,5 @@
 import {lazy,Suspense,useEffect,useState} from 'react';
-import catalogue from '../../../shared/public-terrain-sources-v6.json';
+import catalogue from '../../../shared/public-terrain-sources-v7.json';
 import workspaces from '../../../shared/city-workspaces.json';
 import './DatasetExplorer.css';
 import CityDatasetCard from './CityDatasetCard';

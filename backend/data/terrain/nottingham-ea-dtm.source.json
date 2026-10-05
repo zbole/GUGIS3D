@@ -1,0 +1,29 @@
+{
+  "city_id": "nottingham",
+  "name": "诺丁汉",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28455708%2C459038%29&subset=N%28338276%2C341431%29&format=image%2Ftiff",
+  "bbox_bng": [
+    455708,
+    338276,
+    459038,
+    341431
+  ],
+  "query_bbox_wgs84": [
+    -1.172,
+    52.939,
+    -1.123,
+    52.967
+  ],
+  "bytes": 51381035,
+  "sha256": "804f738f155361163628a8b56308d6cf1d19adf86c192599eb1c1885e354f731",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-05T14:51:22.608058+00:00",
+  "width": 3330,
+  "height": 3155,
+  "valid_pixels": 10506150,
+  "nodata_pixels": 0,
+  "minimum_m": 17.809999465942383,
+  "maximum_m": 103.54000091552734,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent centre-district raw sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}
