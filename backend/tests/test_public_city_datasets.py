@@ -29,7 +29,7 @@ class PublicCityDatasetTests(unittest.TestCase):
     def test_all_cities_serve_exact_public_seeds_and_no_private_formal_files(self):
         report = json.loads(datasets.MANIFEST.read_bytes())
         self.assertEqual({s['city_id'] for s in report['sources']}, set(CITY_DEFAULTS))
-        self.assertEqual(sum(s['building_count'] for s in report['sources']), 68652)
+        self.assertEqual(sum(s['building_count'] for s in report['sources']), 72976)
         for source in report['sources']:
             city_id = source['city_id']
             metadata = self.client.get(f'/cities/{city_id}/public-dataset')

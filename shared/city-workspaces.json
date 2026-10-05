@@ -141,5 +141,18 @@
       53.416
     ],
     "related_registry_id": "uk-eng-liverpool"
+  },
+  {
+    "id": "sheffield",
+    "name": "谢菲尔德",
+    "city_name": "Sheffield",
+    "coverage_label": "谢菲尔德中心样本街区（非全城覆盖）",
+    "query_bbox_wgs84": [
+      -1.494,
+      53.369,
+      -1.451,
+      53.391
+    ],
+    "related_registry_id": "uk-eng-sheffield"
   }
 ]

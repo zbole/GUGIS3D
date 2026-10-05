@@ -401,6 +401,41 @@
       "source_retrieved_at": "2026-10-05T13:17:48.331944+00:00",
       "quality_warnings": [],
       "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "sheffield",
+      "name": "谢菲尔德",
+      "bytes": 9103469,
+      "sha256": "855f2377ec4cc4506c4bb319cbf81ea6da25256e08b0d2a0f47eb8d3844b3845",
+      "building_count": 4324,
+      "road_count": 2407,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Sheffield city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.494,
+        53.369,
+        -1.451,
+        53.391
+      ],
+      "actual_data_bbox_wgs84": [
+        -1.4978856,
+        53.364912,
+        -1.4411137,
+        53.3929093
+      ],
+      "height_counts": {
+        "height-tag": 61,
+        "levels-derived": 847,
+        "assumed": 3416
+      },
+      "height_policy": "{\"height-tag\":61,\"levels-derived\":847,\"assumed\":3416}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-05T13:47:14.280894+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
     }
   ],
   "builder_sha256": "d3f04a245c027d7000f7f36da37d4c080d80aabf87683cb163c767e5fcaf7d04"

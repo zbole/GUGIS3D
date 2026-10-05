@@ -1,0 +1,71 @@
+{
+  "city_id": "sheffield",
+  "coverage_label": "Sheffield city centre",
+  "bbox": [
+    -1.494,
+    53.369,
+    -1.451,
+    53.391
+  ],
+  "centre_lon_lat": [
+    -1.4725000000000001,
+    53.379999999999995
+  ],
+  "query_bbox_south_west_north_east": [
+    53.369,
+    -1.494,
+    53.391,
+    -1.451
+  ],
+  "query": "[out:json][timeout:50][maxsize:268435456];(way[\"building\"](53.369,-1.494,53.391,-1.451);way[\"highway\"][\"name\"](53.369,-1.494,53.391,-1.451););out tags geom;",
+  "source_url": "https://gall.openstreetmap.de/api/interpreter",
+  "downloaded_at": "2026-10-05T13:47:14.280894+00:00",
+  "http_method": "GET",
+  "request_timeout_seconds": 55,
+  "osm_timestamp": "2026-10-05T13:45:20Z",
+  "sha256": "f1eb1e699f2a3232b458788f2aa282cc38d70dd71a74aecda1b9969b8af8c1f7",
+  "bytes": 3833751,
+  "elements": 6756,
+  "building_ways": 4328,
+  "road_ways": 2428,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 15.8,
+  "previous_attempts": [],
+  "retained_download_sha256": "c32c158a07193170afc4b2896c21525f7529bec6c8fa85a991bb728668db756f",
+  "retained_download_bytes": 5040385,
+  "publication_filter": {
+    "method": "Only unrelated contact and free-text tags removed; original IDs, geometry, modelling tags and attribution retained.",
+    "removed_tag_counts": {
+      "contact:email": 1,
+      "contact:facebook": 19,
+      "contact:fax": 1,
+      "contact:foursquare": 1,
+      "contact:instagram": 10,
+      "contact:linkedin": 1,
+      "contact:phone": 46,
+      "contact:postcode": 1,
+      "contact:snapchat": 1,
+      "contact:tiktok": 2,
+      "contact:twitter": 3,
+      "contact:website": 19,
+      "contact:youtube": 1,
+      "description": 6,
+      "description:floor": 1,
+      "email": 18,
+      "fax": 1,
+      "note": 47,
+      "note:access": 5,
+      "note:access:backward": 1,
+      "note:oneway": 1,
+      "note:taxi": 2,
+      "phone": 53,
+      "url": 1,
+      "website": 159
+    }
+  },
+  "preparer_source_sha256": "dfac4a581629103c02fd24319721a928de91b5347812ce76c46ce6da76f8b0aa"
+}

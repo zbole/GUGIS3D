@@ -21,3 +21,4 @@ frontend/public/research/cambridge-terrain-benchmark/*.svg whitespace=-blank-at-
 frontend/public/research/liverpool-terrain/** -text whitespace=cr-at-eol
 frontend/public/research/liverpool-terrain-benchmark/** -text whitespace=cr-at-eol
 frontend/public/research/liverpool-terrain-benchmark/*.svg whitespace=-blank-at-eol
+frontend/public/research/sheffield-terrain/** -text whitespace=cr-at-eol

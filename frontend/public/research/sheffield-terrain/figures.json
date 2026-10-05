@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "15c607998ddb1378d7f5c4578f75e1fd665bda30441d4ab9562841addc8adfa9",
+  "audit_sha256": "48d0a51fa5fd2f8b22db5945187c5f2bbe604e681aabe4b8ac0800f3d21310f9",
+  "plotter_sha256": "bbc86b07a2e3a746cd368dce45c8798cda9a4eed95ce1e47a69c8609f0a19620",
+  "files": {
+    "sheffield-source-preview.png": {
+      "bytes": 535913,
+      "sha256": "5bddec296b9b5ad2a173782c72e11b3a8b16210076b13cfda8dbda6356fb9a95"
+    },
+    "sheffield-source-preview.svg": {
+      "bytes": 877550,
+      "sha256": "c8a6ccca9511770c2ee08ecaca4aecc26304b67b0915822d419cc3b70ff88718"
+    }
+  }
+}

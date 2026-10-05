@@ -1,0 +1,26 @@
+{
+  "schema": "gugis-ea-city-preview-audit-v1",
+  "city_id": "sheffield",
+  "model_sha256": "df7830e99918d8ff8dffea77b56b12b98a674ca3c1e85b7620b4158a1c10f517",
+  "raster_sha256": "15c607998ddb1378d7f5c4578f75e1fd665bda30441d4ab9562841addc8adfa9",
+  "fixture_sha256": "2d8d9fb095c93c973099ddf90a60a787e3a1c5b35ab74e30ce98857465b85a0d",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "51bfb6763d08f8d612212e3ff2065eef9b1bcb6f0d8dd9ed283bc756c708a15e",
+    "python": "e3ff3487073706b4b714ace370b3633772856795cf8a05c916167d95471caed8"
+  },
+  "method": "4096 fixed unique valid source 1m pixel centres, seed20261005,40-pixel rim excluded before querying. Misses retained; errors use hits only. Source participates in preview construction, not held-out ground truth.",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.5856047328558766,
+  "mae_m": 0.30016409928422644,
+  "p95_absolute_m": 1.0842634287673008,
+  "max_absolute_m": 10.192633008165387,
+  "controls_checked": 17856,
+  "controls_hits": 17856,
+  "max_control_query_error_m": 2.842170943040401e-14,
+  "limits": "Sampled relative source-raster differences, no continuous bound or true-ground accuracy guarantee; ODN unchanged; no ArcGIS run."
+}

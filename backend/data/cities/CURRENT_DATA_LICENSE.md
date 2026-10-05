@@ -158,6 +158,25 @@ not surveyed heights, detailed facades, interiors or terrain. The city seed
 contains no terrain. Independently acquired EA source data, if available,
 remain unpublished until their separate native-model and raster audits pass.
 
+## Sheffield central district sample
+
+The independently acquired Sheffield OSM sample contains 4,324 converted
+buildings and 2,407 non-area roads. The acquisition window is
+[-1.494, 53.369, -1.451, 53.391]; complete intersecting ways are retained,
+so coverage is a partial central district, not the administrative or whole city.
+The original download remains locally retained. The public extract removes
+401 unrelated contact or free-text tags, preserving object identifiers,
+geometry, modelling tags and © OpenStreetMap contributors / ODbL 1.0 attribution.
+Four unsupported buildings and their actual reasons are disclosed in
+sheffield-import.json; unsupported heights or base levels are not grounded.
+
+Height evidence comprises 61 height tags, 847 floor-derived estimates
+(3.2 m/floor), and 3,416 assumed values (9.6 m). These LoD1 volumes are
+not surveyed facades, interiors or verified building heights. The city seed
+contains no terrain. Independent EA 2022 bare-earth rasters and native
+previews are a separate dataset, attributed to the Environment Agency
+and distributed under Open Government Licence v3.0.
+
 ## Wider data for future work
 
 Geofabrik offers regional OSM PBF downloads for

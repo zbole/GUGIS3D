@@ -8,7 +8,7 @@ from .workspace_catalog import CITY_DEFAULTS
 
 ROOT = Path(__file__).resolve().parents[3]
 MANIFEST = ROOT / 'shared/public-city-datasets.json'
-MANIFEST_SHA256 = '1261903e676c73fb30e5d98a09c265ee3e34d08dbacf96db8f9a54c0827b14d9'
+MANIFEST_SHA256 = '7eca74eb8eb520f0fe4b1e08ae6855fba70825f65e797ece19849be245f58ca2'
 MAX_BYTES = 128 * 1024 * 1024
 
 

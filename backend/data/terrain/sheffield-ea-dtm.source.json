@@ -1,0 +1,29 @@
+{
+  "city_id": "sheffield",
+  "name": "谢菲尔德",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28433748%2C436628%29&subset=N%28385911%2C388381%29&format=image%2Ftiff",
+  "bbox_bng": [
+    433748,
+    385911,
+    436628,
+    388381
+  ],
+  "query_bbox_wgs84": [
+    -1.494,
+    53.369,
+    -1.451,
+    53.391
+  ],
+  "bytes": 31457939,
+  "sha256": "5db8704714fcbd8178e05221d3be0e0dd1da0c57738534685ff0716405934a47",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-05T13:47:55.141275+00:00",
+  "width": 2880,
+  "height": 2470,
+  "valid_pixels": 7113600,
+  "nodata_pixels": 0,
+  "minimum_m": 41.18000030517578,
+  "maximum_m": 144.02000427246094,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent centre-district raw sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}

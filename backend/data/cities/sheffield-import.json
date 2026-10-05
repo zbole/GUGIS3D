@@ -1,0 +1,46 @@
+{
+  "city_id": "sheffield",
+  "source_sha256": "f1eb1e699f2a3232b458788f2aa282cc38d70dd71a74aecda1b9969b8af8c1f7",
+  "source_building_ways": 4328,
+  "imported_buildings": 4324,
+  "imported_roads": 2407,
+  "query_bbox_wgs84": [
+    -1.494,
+    53.369,
+    -1.451,
+    53.391
+  ],
+  "actual_data_bbox_wgs84": [
+    -1.4978856,
+    53.364912,
+    -1.4411137,
+    53.3929093
+  ],
+  "height_policy": {
+    "height-tag": 61,
+    "levels-derived": 847,
+    "assumed": 3416
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 23032889,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 103906516,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 1206695602,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 1509803189,
+      "reason": "OSM building:min_level '0.5' has unsupported vertical semantics; not grounded"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 9103469,
+  "gugis_sha256": "855f2377ec4cc4506c4bb319cbf81ea6da25256e08b0d2a0f47eb8d3844b3845"
+}
