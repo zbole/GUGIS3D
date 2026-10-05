@@ -15,7 +15,7 @@ const catalogue=JSON.parse(await readFile(file('../../shared/public-terrain-sour
 function response(bytes){return new Response(new ReadableStream({start(controller){for(let n=0;n<bytes.length;n+=8191)controller.enqueue(bytes.subarray(n,n+8191));controller.close();}}),{status:200});}
 const controller=()=>new AbortController();
 
-test('bounded public loader preserves all five raw models and only reads their preview endpoints',async()=>{
+test('bounded public loader preserves all published raw models and only reads their preview endpoints',async()=>{
   const previous=globalThis.fetch;
   try{
     for(const source of catalogue.sources){const bytes=await readFile(file(`../../backend/data/terrain/${source.city_id}-ea-dtm-preview.gugis-terrain.json`));let calls=0;

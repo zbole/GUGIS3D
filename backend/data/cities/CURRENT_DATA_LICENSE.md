@@ -1,5 +1,18 @@
 # Local city source samples
 
+## Bath source added 2026-10-05
+
+Bath is a partial centre/northern-slope sample, not whole-city coverage. The
+query box is `[-2.377, 51.373, -2.347, 51.395]`; whole-way imported bounds are
+`[-2.3829226, 51.370903, -2.3416261, 51.3998275]`. It contains 7,877 buildings
+and 967 named non-area road ways. Three unclosed building ways were refused.
+Heights: 2 height tags, 1,409 level-derived estimates, 6,466 defaults of 9.6 m.
+`bath-source.json` binds the original download and public filtered extract;
+970 unrelated tags were removed without changing object IDs or geometry.
+The source extract and derived GUGIS database retain the ODbL 1.0 licence
+and © OpenStreetMap contributors attribution described below. EA terrain is
+separate and retains its own OGL v3.0 attribution, never an OSM height claim.
+
 Current coverage notes are separate from the immutable `DATA_LICENSE.md`
 included in the audited historical candidate bundles. Do not edit that historical
 licence file or weaken its hash checks to add new cities.

@@ -1,0 +1,29 @@
+{
+  "city_id": "bath",
+  "name": "巴斯",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28373854%2C375955%29&subset=N%28163828%2C166286%29&format=image%2Ftiff",
+  "bbox_bng": [
+    373854,
+    163828,
+    375955,
+    166286
+  ],
+  "query_bbox_wgs84": [
+    -2.377,
+    51.373,
+    -2.347,
+    51.395
+  ],
+  "bytes": 26215019,
+  "sha256": "7fd8a1b0bc047a44e8106db88a31f808c27bd6cf57fc1a947ae95fd5eddf665f",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-05T11:28:57.369093+00:00",
+  "width": 2101,
+  "height": 2458,
+  "valid_pixels": 5164258,
+  "nodata_pixels": 0,
+  "minimum_m": 15.479000091552734,
+  "maximum_m": 161.1490020751953,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent centre-district raw sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}

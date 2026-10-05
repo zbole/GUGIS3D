@@ -3,7 +3,7 @@ import type {Terrain} from '../studio/environment';
 
 export async function loadPublicTerrain(cityId:string,signal:AbortSignal,apiBase='/api'):Promise<Terrain>{
   const source=catalogue.sources.find(s=>s.city_id===cityId);
-  if(!source||!['bristol','london','birmingham','manchester','york'].includes(cityId)||source.model_bytes>8*1024*1024)throw new Error('当前城市无已核验的公开地形。');
+  if(!source||!['bristol','london','birmingham','manchester','york','bath'].includes(cityId)||source.model_bytes>8*1024*1024)throw new Error('当前城市无已核验的公开地形。');
   const expected=source.model_bytes+12;
   const response=await fetch(`${apiBase.replace(/\/$/,'')}/cities/${cityId}/city/terrain/public-preview`,{signal});
   if(!response.ok||!response.body)throw new Error('公开地形读取失败；没有修改城市。');

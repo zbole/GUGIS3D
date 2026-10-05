@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "8d9cea5c33e7b6e9412017dcc3512f6bdb3e6feeb570efaf93073fe8eb6a9707",
+  "audit_sha256": "0543f79a9ae6726bf98413306da4e882d848e5528eed1c361ea203d0087242c1",
+  "plotter_sha256": "e35c5f652d52616cac7f8f43df8f5b8833e3d7bf0265be02ab4717040e4fd02f",
+  "files": {
+    "bath-source-preview.png": {
+      "bytes": 460052,
+      "sha256": "75dafb6ee6d21250d119adb58dd542deb1d5f995387aa0a5921dd3fb6b5b87be"
+    },
+    "bath-source-preview.svg": {
+      "bytes": 783580,
+      "sha256": "b7158d6f5c0d82d9ee98299fdb6fd8e47582d678788194cc13b7ade1d87a79f9"
+    }
+  }
+}

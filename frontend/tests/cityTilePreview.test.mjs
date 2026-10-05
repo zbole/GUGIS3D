@@ -31,6 +31,7 @@ const workspaces = Object.fromEntries([
   ["edinburgh", "爱丁堡", -3.1935, 55.949],
   ["cardiff", "卡迪夫", -3.178, 51.4805],
   ["york", "约克", -1.083, 53.9595],
+  ["bath", "巴斯", -2.362, 51.384],
 ].map(([id, name, lon, lat]) => [id, { id, name, status: "ready", coverage_kind: "sample-area",
   coverage_label: "目录覆盖说明", center_wgs84: [lon, lat] }]));
 
@@ -141,7 +142,7 @@ function fixture(t, cityId = "bristol", cameraNavigation, tileProfile) {
     unmount() { if (mounted) { act(() => renderer.unmount()); mounted = false; } },
     assertReadOnly() {
       for (const { url, options } of requests) {
-        assert.match(url, /^\/api\/cities\/(bristol|london|birmingham|manchester|edinburgh|cardiff|york)\/render\/(manifest|[a-f0-9]{64}\/tiles\/x-?\d+_y-?\d+)$/);
+        assert.match(url, /^\/api\/cities\/(bristol|london|birmingham|manchester|edinburgh|cardiff|york|bath)\/render\/(manifest|[a-f0-9]{64}\/tiles\/x-?\d+_y-?\d+)$/);
         assert.equal(options.method ?? "GET", "GET");
         assert.equal(options.body, undefined);
         assert.ok(options.signal instanceof AbortSignal);

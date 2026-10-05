@@ -1,0 +1,42 @@
+{
+  "city_id": "bath",
+  "source_sha256": "ef8f013600451a6b6797187c84567422ff4dce710978420ab796d26079aa7528",
+  "source_building_ways": 7880,
+  "imported_buildings": 7877,
+  "imported_roads": 967,
+  "query_bbox_wgs84": [
+    -2.377,
+    51.373,
+    -2.347,
+    51.395
+  ],
+  "actual_data_bbox_wgs84": [
+    -2.3829226,
+    51.370903,
+    -2.3416261,
+    51.3998275
+  ],
+  "height_policy": {
+    "height-tag": 2,
+    "levels-derived": 1409,
+    "assumed": 6466
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 673403592,
+      "reason": "Only closed building ways are supported"
+    },
+    {
+      "osm_way": 1528553495,
+      "reason": "Only closed building ways are supported"
+    },
+    {
+      "osm_way": 1546382841,
+      "reason": "Only closed building ways are supported"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 13385613,
+  "gugis_sha256": "6db3eebf5a651261fb1b53a71b3ca05847c92f824fe76d7196c7016e81b86196"
+}

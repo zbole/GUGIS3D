@@ -54,7 +54,7 @@ class PublicTerrainTests(unittest.TestCase):
         self.assertFalse((self.root / '.local').exists(), 'Read-only data candidates never initialize formal workspaces')
 
     def test_new_city_candidates_use_their_own_source_model_and_download_name(self):
-        for city_id, points in [('london', 16632), ('birmingham', 18620), ('manchester', 13806), ('york', 16074)]:
+        for city_id, points in [('london', 16632), ('birmingham', 18620), ('manchester', 13806), ('york', 16074), ('bath', 12915)]:
             source = self.client.get(f'/cities/{city_id}/city/terrain/public-source').json()['source']
             self.assertEqual(source['city_id'], city_id)
             self.assertEqual(source['nodata_pixels'], 0)
@@ -75,7 +75,7 @@ class PublicTerrainTests(unittest.TestCase):
 
     @unittest.skipIf(rasterio is None, 'rasterio required for full new-city source audit')
     def test_new_city_pixels_fixtures_and_coarse_outliers_are_exactly_disclosed(self):
-        for city_id in ['london', 'birmingham', 'manchester', 'york']:
+        for city_id in ['london', 'birmingham', 'manchester', 'york', 'bath']:
             info = public_terrain.source_info(city_id)['source']
             folder = public_terrain.ROOT / f'frontend/public/research/{city_id}-terrain'
             audit_bytes = (folder / 'preview-audit.json').read_bytes()
@@ -85,7 +85,7 @@ class PublicTerrainTests(unittest.TestCase):
             self.assertEqual(audit['controls_checked'], info['preview_points'])
             self.assertEqual(audit['controls_hits'], info['preview_points'])
             self.assertLess(audit['max_control_query_error_m'], 1e-10)
-            self.assertGreater(audit['max_absolute_m'], {'london': 5, 'birmingham': 14, 'manchester': 5, 'york': 4}[city_id])
+            self.assertGreater(audit['max_absolute_m'], {'london': 5, 'birmingham': 14, 'manchester': 5, 'york': 4, 'bath': 4}[city_id])
             digest = hashlib.sha256()
             with rasterio.open(public_terrain.ROOT / f'backend/data/terrain/{city_id}-ea-dtm-1m.tif') as ds:
                 self.assertEqual(ds.crs.to_epsg(), 27700)

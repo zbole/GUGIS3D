@@ -84,5 +84,13 @@
     "coverage_label": "约克中心样本街区（非全城覆盖）",
     "query_bbox_wgs84": [-1.1, 53.947, -1.066, 53.972],
     "related_registry_id": "uk-eng-york"
+  },
+  {
+    "id": "bath",
+    "name": "巴斯",
+    "city_name": "Bath",
+    "coverage_label": "巴斯中心与北侧坡地样本街区（非全城覆盖）",
+    "query_bbox_wgs84": [-2.377, 51.373, -2.347, 51.395],
+    "related_registry_id": "uk-eng-bath"
   }
 ]

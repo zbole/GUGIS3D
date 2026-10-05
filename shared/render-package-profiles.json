@@ -1,4 +1,4 @@
 {
   "schema": "gugis-render-package-profiles-v1",
-  "tile_size_m": { "bristol": 125, "london": 175, "birmingham": 175, "manchester": 250, "edinburgh": 250, "cardiff": 175, "york": 125 }
+  "tile_size_m": { "bristol": 125, "london": 175, "birmingham": 175, "manchester": 250, "edinburgh": 250, "cardiff": 175, "york": 125, "bath": 125 }
 }

@@ -84,7 +84,7 @@ class SeedSummaryTests(unittest.TestCase):
             self.receipt.write_bytes(b'x' * (seed_summaries.MAX_RECEIPT_BYTES + 1))
             self.assertIsNone(seed_summaries._trusted_records())
 
-    def test_public_receipt_binds_seven_seeds_current_validation_sources_and_runtime(self):
+    def test_public_receipt_binds_published_seeds_current_validation_sources_and_runtime(self):
         # Read the real release file outside the temporary receipt override.
         path = seed_summaries.ROOT / 'backend/data/cities/validated-seed-summaries.json'
         content = path.read_bytes()
@@ -93,7 +93,7 @@ class SeedSummaryTests(unittest.TestCase):
         self.assertEqual(report['runtime'], seed_summaries.validation_runtime())
         self.assertEqual(report['dependencies'], seed_summaries.validation_dependencies())
         self.assertEqual({r['city_id'] for r in report['records']}, set(city_workspaces.CITY_DEFAULTS))
-        self.assertEqual(sum(r['summary']['count'] for r in report['records']), 40942)
+        self.assertEqual(sum(r['summary']['count'] for r in report['records']), 48819)
         for record in report['records']:
             source = seed_summaries.ROOT / record['path']
             self.assertEqual(source.stat().st_size, record['bytes'])

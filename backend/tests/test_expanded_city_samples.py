@@ -12,7 +12,7 @@ from pydantic import ValidationError
 class ExpandedCitySamplesTests(unittest.TestCase):
     def test_retained_new_samples_are_hash_checked_complete_reports_with_no_fabricated_terrain(self):
         root = Path(__file__).resolve().parents[1] / 'data/cities'
-        for city_id in ('manchester', 'edinburgh', 'cardiff', 'york'):
+        for city_id in ('manchester', 'edinburgh', 'cardiff', 'york', 'bath'):
             with self.subTest(city_id=city_id):
                 source = json.loads((root / f'{city_id}-source.json').read_bytes())
                 report = json.loads((root / f'{city_id}-import.json').read_bytes())
@@ -50,8 +50,8 @@ class ExpandedCitySamplesTests(unittest.TestCase):
             self.assertFalse(any(key.startswith(('contact:','note:','description:')) for key in tags))
         self.assertEqual(source['preparer_source_sha256'],hashlib.sha256((root.parents[2]/'data-pipeline/prepare_city_source.py').read_bytes().replace(b'\r\n',b'\n')).hexdigest())
 
-    def test_workspace_storage_and_seeds_remain_distinct_for_all_seven_cities(self):
-        self.assertEqual(len(WORKSPACES), 7)
+    def test_workspace_storage_and_seeds_remain_distinct_for_all_published_cities(self):
+        self.assertEqual(len(WORKSPACES), 8)
         root = Path('/synthetic/root')
         self.assertEqual(len({city_workspaces.directory(root / '.local/city', r['id']) for r in WORKSPACES}), len(WORKSPACES))
         self.assertEqual(len({city_workspaces.seed_path(root / 'data/bristol.gugis.json', r['id']) for r in WORKSPACES}), len(WORKSPACES))

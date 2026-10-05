@@ -1,0 +1,58 @@
+{
+  "city_id": "bath",
+  "coverage_label": "Bath city centre",
+  "bbox": [
+    -2.377,
+    51.373,
+    -2.347,
+    51.395
+  ],
+  "centre_lon_lat": [
+    -2.362,
+    51.384
+  ],
+  "query_bbox_south_west_north_east": [
+    51.373,
+    -2.377,
+    51.395,
+    -2.347
+  ],
+  "query": "[out:json][timeout:115][maxsize:268435456];(way[\"building\"](51.373,-2.377,51.395,-2.347);way[\"highway\"][\"name\"](51.373,-2.377,51.395,-2.347););out tags geom;",
+  "source_url": "https://gall.openstreetmap.de/api/interpreter",
+  "downloaded_at": "2026-10-05T11:28:49.659621+00:00",
+  "http_method": "GET",
+  "request_timeout_seconds": 120,
+  "osm_timestamp": "2026-10-05T11:27:36Z",
+  "sha256": "ef8f013600451a6b6797187c84567422ff4dce710978420ab796d26079aa7528",
+  "bytes": 4178048,
+  "elements": 8862,
+  "building_ways": 7880,
+  "road_ways": 982,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 3.67,
+  "previous_attempts": [],
+  "retained_download_sha256": "2d834d31b9fd3498e5837a13b1cbb56baf63c3df1e9eecad37c683abd258937b",
+  "retained_download_bytes": 5519720,
+  "publication_filter": {
+    "method": "Only unrelated contact and free-text tags removed; original IDs, geometry, modelling tags and attribution retained.",
+    "removed_tag_counts": {
+      "contact:email": 2,
+      "contact:facebook": 2,
+      "contact:instagram": 3,
+      "contact:phone": 1,
+      "contact:pinterest": 1,
+      "contact:website": 2,
+      "description": 15,
+      "email": 16,
+      "fax": 1,
+      "note": 55,
+      "phone": 86,
+      "website": 786
+    }
+  },
+  "preparer_source_sha256": "dfac4a581629103c02fd24319721a928de91b5347812ce76c46ce6da76f8b0aa"
+}

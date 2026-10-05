@@ -299,6 +299,66 @@
         "max_absolute_m": 4.6827309080252455
       },
       "sample_audit_sha256": "3b300d180c4b055d3e2500ae6d2aa67a9fc011a3c5f0923f75429426732944bf"
+    },
+    {
+      "city_id": "bath",
+      "name": "巴斯 · 英国环境署裸地 DTM",
+      "product": "EA 2022 LIDAR Composite DTM · 1 m",
+      "dataset_url": "https://www.data.gov.uk/dataset/01b3ee39-da3f-47b6-83da-dc98e73a461f/lidar-composite-dtm-2022-1m",
+      "license": "Open Government Licence v3.0",
+      "attribution": "© Environment Agency copyright and/or database right 2022. All rights reserved.",
+      "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "source_url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28373854%2C375955%29&subset=N%28163828%2C166286%29&format=image%2Ftiff",
+      "retrieved_utc": "2026-10-05T11:28:57.369093+00:00",
+      "query_bbox_wgs84": [
+        -2.377,
+        51.373,
+        -2.347,
+        51.395
+      ],
+      "raster_bbox_bng": [
+        373854,
+        163828,
+        375955,
+        166286
+      ],
+      "source_crs": "EPSG:27700",
+      "vertical_datum": "ODN",
+      "height_unit": "m",
+      "width": 2101,
+      "height": 2458,
+      "source_pixel_m": 1,
+      "valid_pixels": 5164258,
+      "nodata_pixels": 0,
+      "min_height_m": 15.479000091552734,
+      "max_height_m": 161.1490020751953,
+      "raw_bytes": 26215019,
+      "raw_sha256": "7fd8a1b0bc047a44e8106db88a31f808c27bd6cf57fc1a947ae95fd5eddf665f",
+      "raster_bytes": 11267722,
+      "raster_sha256": "8d9cea5c33e7b6e9412017dcc3512f6bdb3e6feeb570efaf93073fe8eb6a9707",
+      "raster_pixel_block_sha256": "d86ab3903fdb28b5c9a525961a011c526a2efeb27026ef68c182b9e7f4126a4b",
+      "compression_audit": "Only DEFLATE compression; every pixel, CRS, transform, NoData and scale/offset compared",
+      "preview_stride_pixels": 20,
+      "preview_points": 12915,
+      "preview_patches": {
+        "triangle-strip": 3114,
+        "ruled-strip": 3230
+      },
+      "model_bytes": 921246,
+      "model_sha256": "7b713e0db8679a4ca1ef1dd9d98b700d30a8b066a043494ab9212647e20fb07d",
+      "coverage_label": "巴斯中心与北侧坡地样本街区（非全城覆盖）；采样像元中心为模型边界",
+      "accuracy_note": "1 m源分辨率不等于20像元预览精度；保留ODN高程，无椭球高转换。抽查不保证连续误差或独立真实地面精度。",
+      "unit_metadata_warning": "WCS Elevation单位字段与官方米制说明冲突；GeoTIFF未写高程单位，米制依据官方数据集正文。",
+      "audit_base_url": "/research/bath-terrain",
+      "sample_audit": {
+        "requested": 4096,
+        "hits": 4096,
+        "rmse_m": 0.6155230183462795,
+        "mae_m": 0.3700175087436395,
+        "p95_absolute_m": 1.3527792702988926,
+        "max_absolute_m": 4.728169406614327
+      },
+      "sample_audit_sha256": "0543f79a9ae6726bf98413306da4e882d848e5528eed1c361ea203d0087242c1"
     }
   ]
 }

@@ -1,0 +1,26 @@
+{
+  "schema": "gugis-ea-city-preview-audit-v1",
+  "city_id": "bath",
+  "model_sha256": "7b713e0db8679a4ca1ef1dd9d98b700d30a8b066a043494ab9212647e20fb07d",
+  "raster_sha256": "8d9cea5c33e7b6e9412017dcc3512f6bdb3e6feeb570efaf93073fe8eb6a9707",
+  "fixture_sha256": "9fd8c2a652297ee7f5208b3eb24f40009885f2bff3bdb0704fd7ba2626321ba9",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "c140898137c61642c88957d0152ed4b684a63dc269e3b63df67c2685baf7aca2",
+    "python": "794418f962109a5a605555bddaf271a6a578d867268ee1c41f1db0d891241a5f"
+  },
+  "method": "4096 fixed unique valid source 1m pixel centres, seed20261005,40-pixel rim excluded before querying. Misses retained; errors use hits only. Source participates in preview construction, not held-out ground truth.",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.6155230183462795,
+  "mae_m": 0.3700175087436395,
+  "p95_absolute_m": 1.3527792702988926,
+  "max_absolute_m": 4.728169406614327,
+  "controls_checked": 12915,
+  "controls_hits": 12915,
+  "max_control_query_error_m": 5.684341886080802e-14,
+  "limits": "Sampled relative source-raster differences, no continuous bound or true-ground accuracy guarantee; ODN unchanged; no ArcGIS run."
+}
