@@ -7,6 +7,7 @@ import BristolArcGISRun from './BristolArcGISRun';
 import MultiCityTerrainResults from './MultiCityTerrainResults';
 import {currentTerrainResultLink,rememberTerrainResult,type TerrainResultScope} from './terrainResultLink';
 import './PaperTerrainResults.css';
+import {useComparisonAnchor} from './useComparisonAnchor';
 
 type Metric = 'e2_m2'|'linf_m'|'rho_median';
 const formats = {e2_m2:{name:'全局 E₂',unit:'m²'},linf_m:{name:'连续最大误差 E∞',unit:'m'},rho_median:{name:'形状 ρQ 中位数',unit:'无量纲'}};
@@ -28,6 +29,7 @@ function ErrorChart({caseData,metric,budget}:{caseData:typeof report.cases[numbe
 }
 
 export default function PaperTerrainResults(){
+  useComparisonAnchor('paper-results');
   const [caseId,setCaseId]=useState('anisotropic'),[budget,setBudget]=useState(2048),[metric,setMetric]=useState<Metric>('e2_m2');
   const caseData=report.cases.find(c=>c.id===caseId)!;
   const selected=caseData.methods.map(m=>({method:m,row:m.rows.find(r=>r.triangles===budget)!}));

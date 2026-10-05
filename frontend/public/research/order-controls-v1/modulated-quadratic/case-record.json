@@ -1,0 +1,41 @@
+{
+  "schema": "gugis-terrain-order-case-v1",
+  "parent_report_sha256": "72d76256d01380e5a571bac785d26a60bb860851d85e9d58512127167876a370",
+  "case": {
+    "id": "modulated-quadratic",
+    "name": "二次轮廓随母线线性变化",
+    "triangle_degree": 3,
+    "scope": "Purpose-built ruled structure, not one of the strict-convex paper fixtures.",
+    "ruled": {
+      "e2_m2": 3.2265563267088906e-13,
+      "rms_m": 3.2265563267088904e-15,
+      "controls": 6,
+      "patches": 1,
+      "area_m2": 10000,
+      "filename": "ruled.json",
+      "sha256": "c3050c3b601a7f6ad1b9c5019b56da34f45dca073cc15a211af1185c1ac9cfe7",
+      "bytes": 268,
+      "binary_filename": "ruled.bin",
+      "binary_sha256": "697becd31a0702c6cfce385ccca85fac34639b364e65f941744ac5b650d33018",
+      "binary_bytes": 196
+    },
+    "triangles": {
+      "e2_m2": 1.0601279722947796e-12,
+      "rms_m": 1.0601279722947797e-14,
+      "area_m2": 10000.0,
+      "controls": 16,
+      "triangles": 2,
+      "degree": 3,
+      "filename": "p3-triangles.json",
+      "sha256": "6c84995f11fa9945371fc8965111c3b83fc392ed48f88ad7d951d014aa000fe2",
+      "bytes": 901,
+      "binary_filename": "p3-triangles.bin",
+      "binary_sha256": "a721820fa7910e6de82c60e00ff90cc4122366f9b0e32aaac775d3e833cf9caa",
+      "binary_bytes": 504
+    },
+    "numerical_e2_tolerance_m2": 1e-08,
+    "both_numerically_exact": true,
+    "json_saving_percent": 70.25527192008879,
+    "binary_saving_percent": 61.111111111111114
+  }
+}

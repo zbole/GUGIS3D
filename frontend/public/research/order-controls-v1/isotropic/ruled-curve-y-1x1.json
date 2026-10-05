@@ -1,0 +1,1 @@
+{"format":"gugis-research-surface","version":2,"coordinate_system":"LOCAL_METERS","points":[[-50.0,-50.0,40.0],[-50.0,0.0,30.0],[-50.0,50.0,40.0],[50.0,-50.0,40.0],[50.0,0.0,30.0],[50.0,50.0,40.0]],"patches":[{"kind":"quadratic-ruled","left":[0,1,2],"right":[3,4,5]}]}

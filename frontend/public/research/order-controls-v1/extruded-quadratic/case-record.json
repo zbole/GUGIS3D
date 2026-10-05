@@ -1,0 +1,41 @@
+{
+  "schema": "gugis-terrain-order-case-v1",
+  "parent_report_sha256": "72d76256d01380e5a571bac785d26a60bb860851d85e9d58512127167876a370",
+  "case": {
+    "id": "extruded-quadratic",
+    "name": "二次轮廓沿直线延展",
+    "triangle_degree": 2,
+    "scope": "Purpose-built ruled structure, not one of the strict-convex paper fixtures.",
+    "ruled": {
+      "e2_m2": 3.2756277856887136e-13,
+      "rms_m": 3.2756277856887138e-15,
+      "controls": 6,
+      "patches": 1,
+      "area_m2": 10000,
+      "filename": "ruled.json",
+      "sha256": "40671a5488960fbbc97ea950067ae15e8cff4eadb104a68c858e3c5b2ad3176a",
+      "bytes": 268,
+      "binary_filename": "ruled.bin",
+      "binary_sha256": "796bb40e48883f2c54ac9c59595730a1a1c8ad89964a2072ffeb90fbf6669de2",
+      "binary_bytes": 196
+    },
+    "triangles": {
+      "e2_m2": 5.523329699857391e-13,
+      "rms_m": 5.523329699857391e-15,
+      "area_m2": 10000.0,
+      "controls": 9,
+      "triangles": 2,
+      "degree": 2,
+      "filename": "p2-triangles.json",
+      "sha256": "d0e9697a2c68008bcf679d5cb2926d2989b2e560327e04c9d79d826f066cdd4d",
+      "bytes": 382,
+      "binary_filename": "p2-triangles.bin",
+      "binary_sha256": "5b8853bfeedc4cc839e169d6aada6b05576ff616260f6e5d6569523e35798162",
+      "binary_bytes": 304
+    },
+    "numerical_e2_tolerance_m2": 1e-08,
+    "both_numerically_exact": true,
+    "json_saving_percent": 29.84293193717278,
+    "binary_saving_percent": 35.526315789473685
+  }
+}

@@ -30,7 +30,7 @@ GUGIS 搜索两个边界方向，按单位新增文件字节的平方误差收�
 
 源曲面和基线来自既有冻结实验；论文式三角网保留非相容二分，不额外补齐悬挂节点。边界处首个命中三角面的高程可能与别的相邻面不同，原生核验记录显式保存这一差值。GUGIS 使用 C⁰ 连续矩形网格，导数可在边界跳变。全域积分不以边界的有限查询值替代。
 
-研究基础：[Mirebeau & Cohen, Greedy bisection generates optimally adapted triangulations](https://arxiv.org/abs/1101.1452)。本轮改变了近似函数阶数，结果不构成对该论文渐近最优定理的反证。更高阶三角基线、独立真实地形精度、ArcGIS 软件计时都应另测。新模型是研究协议，尚未替换正式城市生产档案。
+研究基础：[Mirebeau & Cohen, Greedy bisection generates optimally adapted triangulations](https://arxiv.org/abs/1101.1452)。本轮改变了近似函数阶数，结果不构成对该论文渐近最优定理的反证。更高阶三角控制已在[独立补充实验](terrain_order_control.md)中发布；独立真实地形精度和 ArcGIS 软件计时仍应另测。新模型是研究协议，尚未替换正式城市生产档案。
 
 ## 数值、实现与演示
 

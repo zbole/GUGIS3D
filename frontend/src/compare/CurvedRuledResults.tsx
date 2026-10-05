@@ -2,6 +2,7 @@ import {useEffect,useMemo,useState} from 'react';
 import report from '../../../shared/curved-ruled-comparison-v1.json';
 import {bezierPoint,curveQuery,curvedRuledPoint,triangleFaces,type CurveModel,type CurvePoint} from './curvedRuledMath';
 import {loadCurvedRuledModel} from './loadCurvedRuledModel';
+import {useComparisonAnchor} from './useComparisonAnchor';
 import './CurvedRuledResults.css';
 
 type Case=typeof report.cases[number];
@@ -36,7 +37,7 @@ function ModelPreview({c,baseline,candidate}:{c:Case;baseline:Entry;candidate:En
   useEffect(()=>{
     const controller=new AbortController();setModels(null);setError('');
     Promise.all([baseline,candidate].map(e=>loadCurvedRuledModel(`${root}${c.id}/${e.filename}`,e.bytes,e.sha256,controller.signal)))
-      .then(setModels).catch(e=>{if(!controller.signal.aborted)setError(e instanceof Error?e.message:'模型载入失败');});
+      .then(models=>{if(!controller.signal.aborted)setModels(models);}).catch(e=>{if(!controller.signal.aborted)setError(e instanceof Error?e.message:'模型载入失败');});
     return ()=>controller.abort();
   },[c.id,baseline.filename,candidate.filename,retry]);
   if(error)return <div role="alert">{error} <button onClick={()=>setRetry(n=>n+1)}>重试模型</button></div>;
@@ -58,6 +59,7 @@ function ModelPreview({c,baseline,candidate}:{c:Case;baseline:Entry;candidate:En
   </div>;
 }
 export default function CurvedRuledResults(){
+  useComparisonAnchor('gugis-function-results');
   const [caseId,setCaseId]=useState('anisotropic'),[method,setMethod]=useState('paper_l2_l1'),[n,setN]=useState(2048),[preview,setPreview]=useState(false);
   const c=report.cases.find(c=>c.id===caseId)!;
   const {pair,baseline,candidate}=functionPair(c,method,n);
@@ -96,7 +98,7 @@ export default function CurvedRuledResults(){
       <p>R(u,v) = (1 − v)B₀(u) + vB₁(u)，B₀、B₁ 为二次 Bézier 边界。每条边界从端点与中点高程插值求三个控制点，中间控制点本身不一定在源曲面上。采用连续矩形网格，相邻面片高程 C⁰ 连续，导数可跳变。</p>
       <p>论文式基线采用逐片线性插值，保持已有 L₂ 选区 / L₁ 选边实现与原误差，不补齐悬挂节点；边界处首个命中面的值可能不同。对照使用解析严格凸曲面，不是论文作者原始数值，也不是真实 DEM 的独立精度验证。</p>
       <p>固定规则搜索两个边界方向，再按单位新增文件字节的平方误差收益加密。当前曲面评估 {c.search.candidate_evaluations} 个候选，搜索记录 {c.search.elapsed_seconds.toFixed(3)} s；保留 {c.candidates.length} 个文件。所选模型需要 {candidate.fit_samples} 个不同拟合点；这不包含候选搜索和积分评估点，不能据此宣称拟合速度或采样总成本更低。基线本档生成记录 {baseline.fit_seconds.toFixed(3)} s，成本口径不同，不作速度胜负结论。</p>
-      <p>全域积分针对已保存的模型，采用足阶 Gauss 求积；二次直纹面还给出 Bernstein 系数参考界（Float64，含舍入余量，非区间算术严格认证）。有限搜索不保证全局最优。更高阶三角近似与真实地形对照仍需另测。</p>
+      <p>全域积分针对已保存的模型，采用足阶 Gauss 求积；二次直纹面还给出 Bernstein 系数参考界（Float64，含舍入余量，非区间算术严格认证）。有限搜索不保证全局最优。下方单列高阶三角控制和同精度结构结果；本组曲面仍不是真实地形精度验证。</p>
       <div className="cr-actions"><a download href={`${root}${c.id}.zip`}>当前曲面完整模型 ZIP ↓</a><a download href={`${root}results.json`}>完整研究记录 ↓</a><a download href={`${root}native-audit.json`}>原生查询核验记录 ↓</a><a download href={`${root}${c.id}-cost-error.svg`}>可出版曲线 SVG ↓</a></div>
       <p className="cr-hash">所选 GUGIS 文件 SHA-256：{candidate.sha256}<br/>研究记录 SHA-256：{report.parent_report_sha256}<br/>查询核验 SHA-256：{report.native_audit_sha256}</p>
     </details>
