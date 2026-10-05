@@ -33,3 +33,14 @@ test('Liverpool sample links round trip and incompatible old samples clear',()=>
   }
   assert.deepEqual(readTerrainResultLink({search:'?terrain_scope=cambridge&terrain_site=cambridge-centre&terrain_target=.5',hash:'#liverpool-terrain-results'}),{scope:'liverpool',target:.5,site:null});
 });
+
+test('Sheffield sample links round trip without stale Liverpool selection or unrelated workspace changes',()=>{
+  for(const site of ['sheffield-centre','sheffield-north-quarter']){
+    const url=new URL(terrainResultUrl('http://localhost/compare?city=sheffield&cities=sheffield,liverpool&terrain_site=liverpool-centre',{scope:'sheffield',target:.25,site}));
+    assert.deepEqual(readTerrainResultLink(url),{scope:'sheffield',target:.25,site});
+    assert.equal(url.searchParams.get('city'),'sheffield');assert.equal(url.searchParams.get('cities'),'sheffield,liverpool');
+    assert.equal(url.hash,'#sheffield-terrain-results');
+  }
+  assert.deepEqual(readTerrainResultLink({search:'?terrain_scope=liverpool&terrain_site=liverpool-centre&terrain_target=.5',hash:'#sheffield-terrain-results'}),{scope:'sheffield',target:.5,site:null});
+  assert.throws(()=>terrainResultUrl('http://localhost/compare',{scope:'sheffield',target:.1,site:'liverpool-centre'}),/different experiment/);
+});

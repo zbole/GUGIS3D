@@ -1,0 +1,249 @@
+{
+  "schema": "gugis-sheffield-native-query-audit-v1",
+  "parent_report_sha256": "a5832b2244ccd4ae02cab5dfa0a633845ffc5a6d59b4bf76072f7dd85d4761c2",
+  "auditor_sha256": "5c4f5f6d3d402d3abd8c348f2fcc5e09b7c92eeff51aa9b0306e0bd72a79393a",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scope": "Native original functions queried at fixed source-relative fixtures and every saved control. Sampled errors separate from full-domain L2 integral and max certificate. No browser, GPU, city write or ArcGIS run.",
+  "rows": [
+    {
+      "case_id": "sheffield-centre",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "620f35d91a84c3a17be2454519e396bf66ab630fd6830949a081714c7ea77aa3",
+      "fixture_sha256": "df693d585cc5901016705ae831596215db06ddbc9cf8b4a9d71f3e2a3a1ec052",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 383,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.024368008086617026,
+      "sampled_mae_m": 0.017493260294576884,
+      "sampled_p95_absolute_m": 0.052976343764441935,
+      "sampled_max_absolute_m": 0.09111591304551325,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 389834,
+        "sha256": "1b0002b039de1fc8d73e548e5c92f818d3a3e807aa43e9d9197d511e4b613103"
+      }
+    },
+    {
+      "case_id": "sheffield-centre",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "a5b9f1e3e093601dd5a900a33338e688ddc0075c0ebf1638dd1954aa48f82321",
+      "fixture_sha256": "df693d585cc5901016705ae831596215db06ddbc9cf8b4a9d71f3e2a3a1ec052",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 307,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.02379377013843666,
+      "sampled_mae_m": 0.017577577770148244,
+      "sampled_p95_absolute_m": 0.0494607066138002,
+      "sampled_max_absolute_m": 0.09149222481293862,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 389785,
+        "sha256": "6a11a4722caf0dfce4c5caed4f12c595ca6c679fc7b7335b24b5a8c0bc544f84"
+      }
+    },
+    {
+      "case_id": "sheffield-centre",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "de26d8fc48c7bd4424fc17f8bc041a97aa0321f47c0fe15495f8e825f1314485",
+      "fixture_sha256": "df693d585cc5901016705ae831596215db06ddbc9cf8b4a9d71f3e2a3a1ec052",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 98,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06711268539857447,
+      "sampled_mae_m": 0.04967031014491129,
+      "sampled_p95_absolute_m": 0.14204413127750115,
+      "sampled_max_absolute_m": 0.23281533982333258,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 388356,
+        "sha256": "273087a5ba0a622b70be0c96d55b1be9b1a2dcd841af1b53797f8922db4884f0"
+      }
+    },
+    {
+      "case_id": "sheffield-centre",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "3de87f3dd55cff133ba13f37be13dadebce65109fc94a66d99a3be0b73dbfe11",
+      "fixture_sha256": "df693d585cc5901016705ae831596215db06ddbc9cf8b4a9d71f3e2a3a1ec052",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 96,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06838149877081322,
+      "sampled_mae_m": 0.05119810338112806,
+      "sampled_p95_absolute_m": 0.1421868921663787,
+      "sampled_max_absolute_m": 0.2348608974030384,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 388053,
+        "sha256": "31c4742989a857d615ba8905e2c38d0f4dce1a4aa34a50ad75a0321f33f11c12"
+      }
+    },
+    {
+      "case_id": "sheffield-centre",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "8c55ef4b66b0df473c05c090c5baa83f7be7e2bde1bd68209c92e109d9b79ca2",
+      "fixture_sha256": "df693d585cc5901016705ae831596215db06ddbc9cf8b4a9d71f3e2a3a1ec052",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 30,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.1775692459848902,
+      "sampled_mae_m": 0.13829834750516976,
+      "sampled_p95_absolute_m": 0.3723406807638554,
+      "sampled_max_absolute_m": 0.4433164481311991,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 386766,
+        "sha256": "b855d3dfab9db1c348ac0175ac44362d893de2367b677f519ec62e8a9fdbd9e0"
+      }
+    },
+    {
+      "case_id": "sheffield-centre",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "d1b1e8eebb4074dd4f9d0fa13f48afb912334969efeaab72a7793c33659dc47a",
+      "fixture_sha256": "df693d585cc5901016705ae831596215db06ddbc9cf8b4a9d71f3e2a3a1ec052",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 47,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.12493064951356603,
+      "sampled_mae_m": 0.09048959188912492,
+      "sampled_p95_absolute_m": 0.28693714700456496,
+      "sampled_max_absolute_m": 0.4341939658569487,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 387100,
+        "sha256": "4c53ad163556d4f99efe10cdce091a52827cb34956a8c10c735db8babddaf650"
+      }
+    },
+    {
+      "case_id": "sheffield-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "dc9ee72e57da4202144628d17a60acafabea231939b94d4e018fb5488f320fe1",
+      "fixture_sha256": "ef9c1f3c3df46e9769989d647f482b78b77a747fdbe43d1ac03a79caf1830b18",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 563,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.02403228007373798,
+      "sampled_mae_m": 0.017443845230994057,
+      "sampled_p95_absolute_m": 0.05220807878540512,
+      "sampled_max_absolute_m": 0.09162738284008043,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 392664,
+        "sha256": "f9d1d436cff5b4817575899192c278a90ef73d2a92ce6c4c14fc5c724b9afdb6"
+      }
+    },
+    {
+      "case_id": "sheffield-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "8f9e2efa3709c08474d9bcea92709541a1aa632f5538d8cf698bb503f5d3cdb1",
+      "fixture_sha256": "ef9c1f3c3df46e9769989d647f482b78b77a747fdbe43d1ac03a79caf1830b18",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 584,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.0243851006037742,
+      "sampled_mae_m": 0.01782499021262418,
+      "sampled_p95_absolute_m": 0.05254047716782395,
+      "sampled_max_absolute_m": 0.09386579631006953,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 392662,
+        "sha256": "050aa58b252710a71610a59e730d47027c37aa6781fddc3b1bde7013f010f013"
+      }
+    },
+    {
+      "case_id": "sheffield-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "1ee4971bcfc180fb75fb3dca970415bb9a37fca7fe123dcb8f117d3ac43a944f",
+      "fixture_sha256": "ef9c1f3c3df46e9769989d647f482b78b77a747fdbe43d1ac03a79caf1830b18",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 184,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.0595056759905639,
+      "sampled_mae_m": 0.04352402492075984,
+      "sampled_p95_absolute_m": 0.1285704842480655,
+      "sampled_max_absolute_m": 0.24680413877985075,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 390681,
+        "sha256": "b325ecad9481939a4a5f8f204261d169b3e7eafae188cbc92127db599345636d"
+      }
+    },
+    {
+      "case_id": "sheffield-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "b60335706fac6ef2c2de45c9eaa9aafaa676b5422b2383e56bbae08b25e96af3",
+      "fixture_sha256": "ef9c1f3c3df46e9769989d647f482b78b77a747fdbe43d1ac03a79caf1830b18",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 164,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06261532236597606,
+      "sampled_mae_m": 0.04662069031009303,
+      "sampled_p95_absolute_m": 0.13288419954670871,
+      "sampled_max_absolute_m": 0.23517126858852322,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 390369,
+        "sha256": "af4e37c0317afe913e123258e19e8d541e82c1f4aad17a00e5e20a55dc0ca3cd"
+      }
+    },
+    {
+      "case_id": "sheffield-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "979b0b046bdd683962766adffb69904111dbfe532ca0e5ef62c0cf7d328dac8f",
+      "fixture_sha256": "ef9c1f3c3df46e9769989d647f482b78b77a747fdbe43d1ac03a79caf1830b18",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 82,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.12592036853113137,
+      "sampled_mae_m": 0.0913700927577081,
+      "sampled_p95_absolute_m": 0.2793184297715925,
+      "sampled_max_absolute_m": 0.45308050518355714,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 389401,
+        "sha256": "aa2de477cc61fa873efcf6f9d058af539e887296860c3584c8bcdae66665523f"
+      }
+    },
+    {
+      "case_id": "sheffield-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "71294578904e5c5d4e8b35fb07f8d95a637226b15cf82a0bc1142032771d6c0d",
+      "fixture_sha256": "ef9c1f3c3df46e9769989d647f482b78b77a747fdbe43d1ac03a79caf1830b18",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 60,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.12828931441596514,
+      "sampled_mae_m": 0.0951686072604537,
+      "sampled_p95_absolute_m": 0.2704893007739031,
+      "sampled_max_absolute_m": 0.4592881406479421,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 389254,
+        "sha256": "5fc3fa48903cfde7c318897cbcb9b2741850a702bfe72364a561a81306b4a970"
+      }
+    }
+  ]
+}
