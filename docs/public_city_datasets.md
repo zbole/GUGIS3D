@@ -1,6 +1,6 @@
 # 从数据目录下载完整 GUGIS 公开样本
 
-当前已扩展至十二城公开种子、72,976 栋建筑及十城独立 DTM、68,943,816 个有效源像元。新增城市的取得与核验见[牛津](oxford_city_sample.md)、[剑桥](cambridge_city_sample.md)、[利物浦](liverpool_city_sample.md)和[谢菲尔德](sheffield_city_terrain.md)。下文保留八城初次发布时的验收与截图，不能作为当前目录总数。
+当前已扩展至十三城公开种子、79,025 个建筑对象及十城独立 DTM、68,943,816 个有效源像元。新增城市的取得与核验见[牛津](oxford_city_sample.md)、[剑桥](cambridge_city_sample.md)、[利物浦](liverpool_city_sample.md)、[谢菲尔德](sheffield_city_terrain.md)和[利兹](leeds_city_sample.md)。轮廓对象数量不等于独立普查实体数量。下文保留八城初次发布时的验收与截图，不能作为当前目录总数。
 
 2026-10-05，`/datasets?dataset=bath` 等八城入口增加城市样本卡片。页面把 **城市文件** 与 **独立裸地 DTM** 分组：前者保留局部样本的全部建筑和道路，后者保留实测源栅格及原生粗预览。爱丁堡与卡迪夫的建筑样本可取回，但 DTM 仍显示待取得。
 

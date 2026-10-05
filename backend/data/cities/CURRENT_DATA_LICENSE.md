@@ -177,6 +177,27 @@ contains no terrain. Independent EA 2022 bare-earth rasters and native
 previews are a separate dataset, attributed to the Environment Agency
 and distributed under Open Government Licence v3.0.
 
+## Leeds central district sample
+
+The independently acquired Leeds OSM sample contains 6,049 converted
+buildings and 2,924 non-area roads, from [-1.570, 53.783, -1.521, 53.811].
+Complete intersecting ways are retained, so coverage is a partial sample,
+not the administrative boundary or whole city. The original download remains
+locally retained. The public extract removes 591 unrelated contact/free-text
+tags without changing identifiers, geometry or kept modelling tags.
+© OpenStreetMap contributors; ODbL 1.0 applies to the source and derived data.
+
+Of 6,077 tagged ways, 14 explicitly marked building=no are not buildings;
+14 further unsupported objects and actual reasons appear in leeds-import.json.
+Twenty-six area roads are excluded from the linear road model; no conversion
+failures occurred among the retained roads. Height evidence comprises 37
+height tags, 1,139 floor-derived estimates (3.2 m/floor) and 4,873 assumed
+values (9.6 m), without independent survey validation. These are LoD1 volumes,
+not detailed facades or interiors. Original building-type and lifecycle tags
+remain in the retained source; the volume does not certify current ground truth.
+The city seed contains no terrain. Independently acquired EA source data are
+not published until their separate raster and native-model audits pass.
+
 ## Wider data for future work
 
 Geofabrik offers regional OSM PBF downloads for

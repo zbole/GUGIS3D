@@ -1,0 +1,63 @@
+{
+  "city_id": "leeds",
+  "coverage_label": "Leeds city centre",
+  "bbox": [
+    -1.57,
+    53.783,
+    -1.521,
+    53.811
+  ],
+  "centre_lon_lat": [
+    -1.5455,
+    53.797
+  ],
+  "query_bbox_south_west_north_east": [
+    53.783,
+    -1.57,
+    53.811,
+    -1.521
+  ],
+  "query": "[out:json][timeout:50][maxsize:268435456];(way[\"building\"](53.783,-1.57,53.811,-1.521);way[\"highway\"][\"name\"](53.783,-1.57,53.811,-1.521););out tags geom;",
+  "source_url": "https://gall.openstreetmap.de/api/interpreter",
+  "downloaded_at": "2026-10-05T14:13:21.414176+00:00",
+  "http_method": "GET",
+  "request_timeout_seconds": 55,
+  "osm_timestamp": "2026-10-05T14:11:53Z",
+  "sha256": "b342c80f227deacc3dddb9848d696fd24e8047d19d01d4a8f15c865c3a5eee69",
+  "bytes": 4598984,
+  "elements": 9027,
+  "building_ways": 6077,
+  "road_ways": 2950,
+  "scope": "Bounded district sample, not administrative or city-wide coverage; complete intersecting ways retained. Multipolygon relations, real terrain and building interiors are not acquired.",
+  "licence": "ODbL 1.0",
+  "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "elapsed_seconds": 13.852,
+  "previous_attempts": [],
+  "retained_download_sha256": "42150080e5f0aec30d6ec3b99acd062b8538345223c4495b57a0f0b7c43c8dd4",
+  "retained_download_bytes": 6060401,
+  "publication_filter": {
+    "method": "Only unrelated contact and free-text tags removed; original IDs, geometry, modelling tags and attribution retained.",
+    "removed_tag_counts": {
+      "contact:email": 2,
+      "contact:facebook": 11,
+      "contact:instagram": 11,
+      "contact:linkedin": 2,
+      "contact:mastodon": 1,
+      "contact:phone": 6,
+      "contact:twitter": 7,
+      "contact:website": 30,
+      "contact:youtube": 1,
+      "description": 13,
+      "email": 24,
+      "fax": 3,
+      "note": 156,
+      "note:real_ale": 1,
+      "phone": 85,
+      "url": 1,
+      "website": 237
+    }
+  },
+  "preparer_source_sha256": "dfac4a581629103c02fd24319721a928de91b5347812ce76c46ce6da76f8b0aa"
+}

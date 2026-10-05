@@ -154,5 +154,18 @@
       53.391
     ],
     "related_registry_id": "uk-eng-sheffield"
+  },
+  {
+    "id": "leeds",
+    "name": "利兹",
+    "city_name": "Leeds",
+    "coverage_label": "利兹中心样本街区（非全城覆盖）",
+    "query_bbox_wgs84": [
+      -1.57,
+      53.783,
+      -1.521,
+      53.811
+    ],
+    "related_registry_id": "uk-eng-leeds"
   }
 ]

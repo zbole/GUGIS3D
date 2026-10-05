@@ -1,0 +1,86 @@
+{
+  "city_id": "leeds",
+  "source_sha256": "b342c80f227deacc3dddb9848d696fd24e8047d19d01d4a8f15c865c3a5eee69",
+  "source_building_ways": 6063,
+  "imported_buildings": 6049,
+  "imported_roads": 2924,
+  "query_bbox_wgs84": [
+    -1.57,
+    53.783,
+    -1.521,
+    53.811
+  ],
+  "actual_data_bbox_wgs84": [
+    -1.5894071,
+    53.7805565,
+    -1.5089375,
+    53.8164085
+  ],
+  "height_policy": {
+    "height-tag": 37,
+    "levels-derived": 1139,
+    "assumed": 4873
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 23157687,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 161595471,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 178952494,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    },
+    {
+      "osm_way": 433027794,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 446092830,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 452321733,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 452477099,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 573276661,
+      "reason": "OSM building:min_level '2' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 860006318,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 1018389533,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 1018389534,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 1018389535,
+      "reason": "OSM building:part is unsupported by this whole-building importer; not grounded or merged"
+    },
+    {
+      "osm_way": 1337751136,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    },
+    {
+      "osm_way": 1414663938,
+      "reason": "OSM building:levels × 3.2 m is outside the supported 0.1–1000 m range; not replaced by an assumption"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 11446925,
+  "gugis_sha256": "ed6d14d0af02be6d35b18d16a97674d56a27563cf80b9cb49bcf111bb4710dc1"
+}

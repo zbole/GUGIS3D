@@ -23,7 +23,7 @@ test('bounded public loader preserves all published raw models and only reads th
       const result=await loadPublicTerrain(source.city_id,controller().signal);assert.equal(result.points.length,source.preview_points);assert.deepEqual(result,JSON.parse(bytes));assert.equal(calls,1);
     }
     globalThis.fetch=()=>assert.fail('pending city must not fetch another source');
-    for(const id of ['edinburgh','cardiff','../london','unknown'])await assert.rejects(loadPublicTerrain(id,controller().signal),/无已核验/);
+    for(const id of ['edinburgh','cardiff','leeds','../london','unknown'])await assert.rejects(loadPublicTerrain(id,controller().signal),/无已核验/);
   }finally{globalThis.fetch=previous;}
 });
 
@@ -80,6 +80,7 @@ test('dataset catalogue opens viewers only explicitly, clears them on city switc
     act(()=>r.root.findAllByType('button').find(b=>text(b).includes('剑桥')).props.onClick());assert.match(text(r.toJSON()),/9,838/);assert.match(text(r.toJSON()),/0\.226 m/);assert.match(text(r.toJSON()),/2\.568 m/);assert.equal(r.root.findAllByProps({'data-test-city':'cambridge'}).length,0);assert.equal(r.root.findAllByProps({'data-test-city':'oxford'}).length,0);
     act(()=>r.root.findAllByType('button').find(b=>text(b).includes('利物浦')).props.onClick());assert.match(text(r.toJSON()),/3,401/);assert.match(text(r.toJSON()),/0\.593 m/);assert.match(text(r.toJSON()),/11\.391 m/);assert.equal(r.root.findAllByProps({className:'dataset-primary'}).length,1);assert.equal(r.root.findAllByProps({'data-test-city':'liverpool'}).length,0);assert.equal(r.root.findAllByProps({'data-test-city':'cambridge'}).length,0);
     act(()=>r.root.findAllByType('button').find(b=>text(b).includes('谢菲尔德')).props.onClick());assert.match(text(r.toJSON()),/4,324/);assert.match(text(r.toJSON()),/0\.586 m/);assert.match(text(r.toJSON()),/10\.193 m/);assert.equal(r.root.findAllByProps({className:'dataset-primary'}).length,1);assert.equal(r.root.findAllByProps({'data-test-city':'sheffield'}).length,0);
+    act(()=>r.root.findAllByType('button').find(b=>text(b).includes('利兹')).props.onClick());assert.match(text(r.toJSON()),/6,049/);assert.match(text(r.toJSON()),/2,924/);assert.match(text(r.toJSON()),/尚无已核验/);assert.equal(r.root.findAllByProps({className:'dataset-primary'}).length,0);assert.equal(r.root.findAllByProps({'data-test-city':'leeds'}).length,0);
     window.location.search='?dataset=manchester';act(()=>listeners.get('popstate')());assert.match(text(r.toJSON()),/5\.511 m/);assert.equal(r.root.findAllByProps({'data-test-city':'manchester'}).length,0);
     act(()=>r.unmount());r=null;assert.equal(listeners.size,0);
   }finally{if(r)act(()=>r.unmount());if(previousWindow===undefined)delete globalThis.window;else globalThis.window=previousWindow;if(previousDocument===undefined)delete globalThis.document;else globalThis.document=previousDocument;}
