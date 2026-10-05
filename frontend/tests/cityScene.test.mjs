@@ -491,6 +491,19 @@ test("terrain querying at any opacity uses native rays without the failing trans
   f.close();
 });
 
+test('patch topology filtering retains the full query surface and focuses only on explicit request',t=>{
+  const model={...terrain,patches:[{...terrain.patches[0],id:'drawn'}, {id:'hidden-wire',kind:'triangle-strip',indices:[0,1,3]}]};
+  const sceneCity={...city,environment:{...city.environment,terrain:model}},before=JSON.stringify(sceneCity),ref=React.createRef();let hit;
+  const f=fixture({city:sceneCity,ref,scenePurpose:'research',terrainWire:true,terrainTopologyPatch:'drawn',queryTerrain:true,onTerrainQuery:value=>{hit=value;}});t.after(()=>f.close());
+  const topology=()=>f.viewer.scene.primitives.values.filter(p=>p.options.geometryInstances?.some?.(g=>String(g.id).startsWith('native-topology/')));
+  assert.equal(topology().length,1);const old=topology()[0],flights=f.viewer.camera.flights.length;
+  f.update({terrainTopologyPatch:'hidden-wire'});assert.equal(topology().length,1);assert.notEqual(topology()[0],old);assert.equal(f.viewer.camera.flights.length,flights);
+  act(()=>viewState.handlers.at(-1).actions.get(ScreenSpaceEventType.LEFT_CLICK)({position:{}}));assert.ok(hit);assert.ok(Math.abs(hit.height-20)<1e-6);
+  let focused;act(()=>{focused=ref.current.focusTerrainPatch('hidden-wire');});assert.equal(focused,true);assert.equal(f.viewer.camera.flights.length,flights+1);
+  assert.equal(ref.current.focusTerrainPatch('missing'),false);assert.equal(f.viewer.camera.flights.length,flights+1);
+  f.update({terrainWire:false});assert.equal(topology().length,0);assert.equal(JSON.stringify(sceneCity),before);
+});
+
 test("light overview removes fine geometry, restores silhouettes and can return to full detail", async t => {
   const f = fixture({ city: detailedCity });
   t.after(() => f.close());

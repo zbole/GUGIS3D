@@ -11,7 +11,10 @@ await build({ entryPoints: [fileURLToPath(new URL("../src/App.tsx", import.meta.
     build.onResolve({ filter: /^react$/ }, () => ({ path: "react", external: true }));
     build.onResolve({ filter: /^\.\/studio\/(CityStudio|CityTilePreview|cityApi)$/ }, args => ({ path: args.path, namespace: "test" }));
     build.onResolve({ filter: /^\.\/compare\/CompareShowcase$/ }, args => ({ path: args.path, namespace: "test" }));
-    build.onLoad({ filter: /.*/, namespace: "test" }, ({ path }) => path.endsWith("cityApi") ? {
+    build.onResolve({ filter: /^\.\/datasets\/DatasetExplorer$/ }, args => ({ path: args.path, namespace: "test" }));
+    build.onLoad({ filter: /.*/, namespace: "test" }, ({ path }) => path.endsWith("DatasetExplorer") ? {
+      contents:"import React from 'react';export default function DatasetView(){return React.createElement('div',{'aria-label':'dataset view'},'dataset');}",
+    } : path.endsWith("cityApi") ? {
       contents: "export const createCityApi = cityId => ({cityId});",
     } : { contents: `import React from 'react';export default function View(props){
       globalThis.cityShellProps=props;React.useEffect(()=>{globalThis.cityShellEvents.push('${path.endsWith("CityTilePreview") ? "tile-" : ""}mount:'+props.workspace.id);globalThis.cityShellProps=props;
@@ -61,6 +64,14 @@ test("direct city links mount only that city and switching releases the previous
   assert.equal(window.location.searchParams.get("city"), "birmingham");
   assert.equal(window.location.searchParams.get("workspace"), "environment");
   assert.deepEqual(f.requests, ["/api/cities"], "the selector loads only a small catalog, never other city models");
+});
+
+test('dataset route never loads the city directory or mounts an editor, even with city query fields',async t=>{
+  const f=await fixture(t,'http://localhost/datasets?dataset=york&city=york&cities=york');
+  assert.equal(f.root.findAllByProps({'aria-label':'dataset view'}).length,1);
+  assert.deepEqual(f.requests,[]);assert.deepEqual(globalThis.cityShellEvents,[]);
+  assert.equal(f.root.findAllByProps({'aria-label':'city view'}).length,0);
+  assert.equal(window.location.searchParams.get('dataset'),'york');
 });
 
 test("city switches preserve saved drafts, ignore obsolete callbacks, and block writes in progress", async t => {

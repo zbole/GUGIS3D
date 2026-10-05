@@ -11,9 +11,11 @@ import { type TileLoadingProfile } from "./studio/renderTileClient";
 const BuildingStudio = lazy(() => import("./studio/CityStudio"));
 const CityTilePreview = lazy(() => import("./studio/CityTilePreview"));
 const CompareShowcase = lazy(() => import("./compare/CompareShowcase"));
+const DatasetExplorer = lazy(() => import("./datasets/DatasetExplorer"));
 
 export default function App() {
   const comparison = window.location.pathname.replace(/\/$/, "") === "/compare";
+  const datasets = window.location.pathname.replace(/\/$/, "") === "/datasets";
   const initialSelection = selectedCitiesFromSearch(window.location.search);
   const [selectedCities, setSelectedCities] = useState<CityId[]>(() => comparison ? [...knownCities] : initialSelection);
   const [entered, setEntered] = useState(comparison || initialSelection.length > 0);
@@ -57,7 +59,7 @@ export default function App() {
       if (directoryRequest.current === request) setDirectoryError(String(error));
     }
   }, []);
-  useEffect(() => { void refresh(); return () => { ++directoryRequest.current; }; }, [refresh]);
+  useEffect(() => { if(!datasets)void refresh(); return () => { ++directoryRequest.current; }; }, [refresh,datasets]);
   const switchCity = useCallback((next: CityId, restore = false) => {
     if (next === selection.current || !chosen.current.includes(next)) return;
     if (state.current.busy) {
@@ -174,6 +176,7 @@ export default function App() {
     window.history.pushState(window.history.state, "", citySessionUrl(window.location.href, available, available[0], previewMode, false, profile.current));
     acceptCamera(window.location.href, available[0], previewMode);
   };
+  if(datasets)return <AppErrorBoundary><Suspense fallback={<div className="app-loading">正在载入真实数据集…</div>}><DatasetExplorer/></Suspense></AppErrorBoundary>;
   if (!entered && !comparison) return <AppErrorBoundary>
     {cameraNavigation.result.kind === "invalid" && <p role="alert">视角链接城市或浏览模式无效，请重新选择城市。</p>}
     <CitySelection cities={cities} selected={selectedCities}

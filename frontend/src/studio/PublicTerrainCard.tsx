@@ -31,6 +31,7 @@ export default function PublicTerrainCard({api,disabled,onPreview}:{
       <button className="primary full" disabled={disabled} onClick={onPreview}>预览环境署真实 DTM</button>
       <p className="muted">仅独立草稿，确认前不替换正式地形。</p>
       <div className="public-terrain-card__links"><a href={api.publicTerrainRasterUrl} download>下载 1 m GeoTIFF · {(source.raster_bytes/1e6).toFixed(2)} MB</a>
+        <a href={`/datasets?dataset=${source.city_id}`}>仅浏览源地形与三维面带 ↗</a>
         <a href={source.dataset_url} target="_blank" rel="noreferrer">官方数据集说明 ↗</a></div>
       <details><summary>来源、许可与精度边界</summary><p>{source.attribution}</p>
         <p>{source.coverage_label}</p><p>{source.accuracy_note}</p><p>坐标系：{source.source_crs}。需要更细地形时，可下载源 GeoTIFF，再选择较小采样步长导入。</p>

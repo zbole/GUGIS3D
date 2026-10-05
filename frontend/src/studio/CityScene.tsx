@@ -68,6 +68,7 @@ export interface CitySceneHandle extends SceneHandle {
   setCameraPose: (pose: CameraPose) => boolean;
   focusFeature: (id: string) => void;
   focusBuilding: (id: string) => void;
+  focusTerrainPatch: (id: string) => boolean;
 }
 export type CameraViewRequest = { sequence: string } & ({ pose: CameraPose } | { target: CameraTarget });
 interface Props {
@@ -84,6 +85,8 @@ interface Props {
   onPlace?: (position: GeographicPosition | null) => void;
   terrainOpacity?: number;
   terrainWire?: boolean;
+  /** Limit topology lines to one native patch without filtering the query surface. */
+  terrainTopologyPatch?: string;
   terrainMeshes?: Partial<Record<TerrainPatch['kind'],SurfaceMesh>>;
   scenePurpose?: 'city' | 'research';
   queryTerrain?: boolean;
@@ -136,6 +139,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     onPlace,
     terrainOpacity = 1,
     terrainWire = false,
+    terrainTopologyPatch,
     terrainMeshes,
     scenePurpose = 'city',
     queryTerrain = false,
@@ -309,6 +313,17 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     reset: () => fit(),
     focus: () => fit(false, true),
     top: () => fit(true),
+    focusTerrainPatch: (id: string) => {
+      const v=viewer.current,patch=terrain?.patches.find(p=>p.id===id);
+      if(!v||v.isDestroyed()||!terrain||!sampler||!patch)return false;
+      const indices=patch.kind==='ruled-strip'?[...patch.left!,...patch.right!]:patch.kind==='triangle-strip'?patch.indices!:[patch.hub!,...patch.ring!];
+      const controls=[...new Set(indices)].map(index=>terrain.points[index]);
+      if(!controls.length||controls.some(p=>!p||!p.every(Number.isFinite)))return false;
+      const positions=controls.map(p=>Matrix4.multiplyByPoint(sampler.frame,new Cartesian3(p[0],p[1],p[2]-terrain.reference_height),new Cartesian3()));
+      const sphere=BoundingSphere.fromPoints(positions);
+      v.camera.flyToBoundingSphere(sphere,{duration:.6,offset:new HeadingPitchRange(CM.toRadians(18),CM.toRadians(-45),Math.max(30,sphere.radius*3.3))});
+      return true;
+    },
     focusFeature: (id: string) => {
       const v = viewer.current,
         s = featureSpheres.current.get(id);
@@ -1082,7 +1097,8 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     const v = viewer.current;
     setTopologyNotice("");
     if (!v || !terrain || !sampler || !terrainWire) return;
-    const { lines, limited } = terrainTopologyPreview(terrain);
+    const topologyTerrain=terrainTopologyPatch?{...terrain,patches:terrain.patches.filter(p=>p.id===terrainTopologyPatch)}:terrain;
+    const { lines, limited } = terrainTopologyPreview(topologyTerrain);
     if (limited) {
       setTopologyNotice("原生拓扑线超过 20,000 条，本次未绘制线框。地形面与查询保留；可使用更大 DEM 采样步长。");
       return;
@@ -1117,7 +1133,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
     return () => {
       if (!v.isDestroyed()) { v.scene.primitives.remove(batch); v.scene.requestRender(); }
     };
-  }, [terrainWire, terrain, sampler]);
+  }, [terrainWire, terrainTopologyPatch, terrain, sampler]);
   useEffect(() => {
     const v = viewer.current;
     if (!v) return;
@@ -1368,7 +1384,7 @@ export default forwardRef<CitySceneHandle, Props>(function CityScene(
       <div className="camera-distance" role="status">
         视距 {distance.toLocaleString()} m · 缓速缩放
       </div>
-      {scenePurpose==='research'?<div className="lod-note" role="status">研究地形 · 原生查询与显示三角网分别计算</div>:<div className="lod-note" role="status" title="构件模型与 LoD1 轮廓分开统计；数量依据模型类型，不代表实测精度或内部已核验。">
+      {scenePurpose==='research'?<div className="lod-note" role="status">研究地形 · 原生查询与显示三角网分别计算{topologyNotice&&<div className="terrain-topology-notice">{topologyNotice}</div>}</div>:<div className="lod-note" role="status" title="构件模型与 LoD1 轮廓分开统计；数量依据模型类型，不代表实测精度或内部已核验。">
         {renderOnly ? "渲染包原始构件 · 不含编辑语义" : <>
           {fullDetails ? detailProgress.ready < detailProgress.total
             ? `构件加载中 · ${detailProgress.ready} / ${detailProgress.total} 栋`

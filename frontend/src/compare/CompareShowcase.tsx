@@ -182,7 +182,7 @@ function BristolComparison({ api }: { api?: CityApi }) {
     <div className="compare-page">
       <header className="cmp-header">
         <a href="/" className="cmp-logo" aria-label="返回 GUGIS3D 城市工作台"><span className="cmp-logo-mark">G<span>3</span></span><span>GUGIS<em>3D</em></span></a>
-        <nav aria-label="对比展示导航"><a href="#paper-results">论文指标结果</a><a href="#real-terrain-results">真实地形结果</a><a href="#supplementary-evidence">补充实验</a></nav>
+        <nav aria-label="对比展示导航"><a href="#paper-results">论文指标结果</a><a href="#real-terrain-results">真实地形结果</a><a href="/datasets">数据集</a><a href="#supplementary-evidence">补充实验</a></nav>
         <a href="/" className="cmp-header-action">进入三维工作台 <ArrowUpRight size={16}/></a>
       </header>
       <main>
