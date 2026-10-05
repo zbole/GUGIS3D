@@ -15,8 +15,13 @@ facades, interiors and terrain are not acquired by this whole-way workflow.
 482 unrelated contact/free-text tags were removed without changing geometry or
 IDs. Both the source extract and derived city database are distributed under
 [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/), with
-© OpenStreetMap contributors attribution. Independent EA terrain requires its
-own audit and OGL attribution before it becomes available in the website.
+© OpenStreetMap contributors attribution. Independent EA 2022 1 m DTM is
+now audited and published separately, outside this OSM city seed. It is under
+OGL v3.0 and carries: © Environment Agency copyright and/or database right
+2022. All rights reserved. Its source, retained pixels and native-preview
+residuals are recorded in `shared/public-terrain-sources-v2.json`; the historical
+six-source catalogue remains unchanged. This is partial coverage, not a claim
+of surveyed building heights or an independent ground-accuracy certificate.
 
 ## Bath source added 2026-10-05
 

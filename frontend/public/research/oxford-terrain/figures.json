@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "1eedef8ec17cde26931abffcd37f0e90086cdef0c8b1e83345d17f8ac97593c7",
+  "audit_sha256": "e1ff6226c61b18181b0501e478904293ed104147fccb77b27c251fecfe58dc0d",
+  "plotter_sha256": "3dbd082b2beeeba44d67780d061e44d6f6f6e6cecf9171b9df4b973c1ed25a24",
+  "files": {
+    "oxford-source-preview.png": {
+      "bytes": 490730,
+      "sha256": "7047ff195539d589c4331ab962ffe687ef6621de5e849c5afe78194cd961d580"
+    },
+    "oxford-source-preview.svg": {
+      "bytes": 855972,
+      "sha256": "564fb78c789f0afc4318a248ed3f329998ef26652fd2325975e62996c9bf6ea8"
+    }
+  }
+}

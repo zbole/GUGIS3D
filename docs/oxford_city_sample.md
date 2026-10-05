@@ -35,13 +35,13 @@
 
 ![牛津公开下载、楼高依据与地形未发布状态](screenshots/oxford-dataset-2026-10-05.png)
 
-## 已下载但未发布的真实地形
+## 独立发布的真实地形
 
 本轮已取得 [EA 2022 官方 1 m 裸地 DTM](https://www.data.gov.uk/dataset/01b3ee39-da3f-47b6-83da-dc98e73a461f/lidar-composite-dtm-2022-1m) 原始裁片，保存在忽略的本地来源目录。BNG 范围 `[450264, 204949, 452919, 207980]`，EPSG:27700，一带 Float32、scale 1 / offset 0；2,655 × 3,031，**8,047,305** 有效像元，0 缺测，源 ODN 高程 53.168–76.355 m。
 
-原始下载 37,749,443 B，SHA-256 `3224070af7138c6b8e35b24a8775cf5da64cbbdd0dd345f801d0177c03ac2d2d`。这只是采集与栅格审查；无损发布、原生预览查询、残差图和网站接入仍待独立核验。因此当前城市种子**不含地形**，网站不会把这份待核验源文件冒充可用预览，也未把它写进正式城市。
+原始下载 37,749,443 B，SHA-256 `3224070af7138c6b8e35b24a8775cf5da64cbbdd0dd345f801d0177c03ac2d2d`。后续已完成无损发布、原生预览查询、残差图和网站接入核验，见[牛津真实地形说明](oxford_terrain_sample.md)。原生预览含 20,216 个控制点，4,096 点相对源 RMSE 0.264 m、最大差 3.550 m，误差不是独立地面精度。城市种子仍**不含地形**，独立地形未写进正式城市。
 
-下一阶段采用独立版本的公开地形清单，保留目前六城清单及已发布跨城对标指纹。添加牛津不能改写旧研究结果，或令已发布 ZIP 的核验失效。EA 数据发布还需 OGL v3.0 与 © Environment Agency copyright and/or database right 2022. All rights reserved. 署名。
+新增第二版公开地形清单，保留原六城清单及已发布跨城对标指纹，旧研究结果与 ZIP 的核验继续有效。EA 地形按 OGL v3.0 分发，署名 © Environment Agency copyright and/or database right 2022. All rights reserved.
 
 ## 验收
 

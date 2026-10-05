@@ -61,7 +61,7 @@ test('late Bristol source cannot replace a newly selected pending city; failed m
   await act(async()=>{renderer=create(React.createElement(Card,{api:slow,disabled:false,onPreview:()=>{}}));});
   await act(async()=>renderer.update(React.createElement(Card,{api:london,disabled:false,onPreview:()=>{}})));
   await act(async()=>resolveBristol({status:'available',source}));
-  assert.match(text(renderer.toJSON()),/尚无已取得的公开 DTM/);
+  assert.match(text(renderer.toJSON()),/尚无已核验的公开 DTM/);
   assert.doesNotMatch(text(renderer.toJSON()),/6\.822/);
   const flaky={publicTerrainSource:async()=>{if(!calls++)throw new Error('503 来源指纹异常');return {status:'available',source};},publicTerrainRasterUrl:'/bristol.tif'};
   await act(async()=>renderer.update(React.createElement(Card,{api:flaky,disabled:false,onPreview:()=>{}})));

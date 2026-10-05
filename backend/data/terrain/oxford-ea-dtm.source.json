@@ -1,0 +1,29 @@
+{
+  "city_id": "oxford",
+  "name": "牛津",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28450264%2C452919%29&subset=N%28204949%2C207980%29&format=image%2Ftiff",
+  "bbox_bng": [
+    450264,
+    204949,
+    452919,
+    207980
+  ],
+  "query_bbox_wgs84": [
+    -1.273,
+    51.741,
+    -1.235,
+    51.768
+  ],
+  "bytes": 37749443,
+  "sha256": "3224070af7138c6b8e35b24a8775cf5da64cbbdd0dd345f801d0177c03ac2d2d",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-05T12:14:33.781651+00:00",
+  "width": 2655,
+  "height": 3031,
+  "valid_pixels": 8047305,
+  "nodata_pixels": 0,
+  "minimum_m": 53.167999267578125,
+  "maximum_m": 76.3550033569336,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent centre-district raw sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}

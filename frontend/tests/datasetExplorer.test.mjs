@@ -11,7 +11,7 @@ const {loadPublicTerrain}=await bundle('load-public-terrain','../src/datasets/lo
 const {boundedTerrainDisplay}=await bundle('bounded-terrain-display','../src/datasets/boundedTerrainDisplay.ts');
 const {patchFaces,ruledPoint}=await import('../src/studio/terrainMath.ts');
 const {default:Explorer}=await bundle('dataset-explorer','../src/datasets/DatasetExplorer.tsx',[{name:'test-only-viewer',setup(b){b.onResolve({filter:/^react$/,namespace:'test'},()=>({path:'react',external:true}));b.onResolve({filter:/\.\/PublicTerrainViewer$/},()=>({path:'test-only-viewer',namespace:'test'}));b.onLoad({filter:/.*/,namespace:'test'},()=>({contents:"import React from 'react'; export default function Viewer({cityId}){return React.createElement('div',{'data-test-city':cityId},'test-only viewer');}",loader:'js'}));}}]);
-const catalogue=JSON.parse(await readFile(file('../../shared/public-terrain-sources.json')));
+const catalogue=JSON.parse(await readFile(file('../../shared/public-terrain-sources-v2.json')));
 function response(bytes){return new Response(new ReadableStream({start(controller){for(let n=0;n<bytes.length;n+=8191)controller.enqueue(bytes.subarray(n,n+8191));controller.close();}}),{status:200});}
 const controller=()=>new AbortController();
 
@@ -75,7 +75,8 @@ test('dataset catalogue opens viewers only explicitly, clears them on city switc
     await act(async()=>r.root.findByProps({className:'dataset-primary'}).props.onClick());assert.equal(r.root.findByProps({'data-test-city':'manchester'}).props.children,'test-only viewer');
     act(()=>r.root.findAllByType('button').find(b=>text(b).includes('约克')).props.onClick());assert.match(text(r.toJSON()),/4\.683 m/);assert.equal(r.root.findAllByProps({'data-test-city':'manchester'}).length,0);assert.match(window.location.search,/dataset=york/);
     act(()=>r.root.findAllByType('button').find(b=>text(b).includes('爱丁堡')).props.onClick());assert.match(text(r.toJSON()),/尚无已核验/);assert.equal(r.root.findAllByProps({className:'dataset-primary'}).length,0);
-    act(()=>r.root.findAllByType('button').find(b=>text(b).includes('牛津')).props.onClick());assert.match(text(r.toJSON()),/6,594/);assert.match(text(r.toJSON()),/DTM 未发布/);assert.equal(r.root.findAllByProps({className:'dataset-primary'}).length,0);
+    act(()=>r.root.findAllByType('button').find(b=>text(b).includes('牛津')).props.onClick());assert.match(text(r.toJSON()),/6,594/);assert.match(text(r.toJSON()),/0\.264 m/);assert.match(text(r.toJSON()),/3\.550 m/);assert.equal(r.root.findAllByProps({'data-test-city':'oxford'}).length,0);
+    await act(async()=>r.root.findByProps({className:'dataset-primary'}).props.onClick());assert.equal(r.root.findByProps({'data-test-city':'oxford'}).props.children,'test-only viewer');
     window.location.search='?dataset=manchester';act(()=>listeners.get('popstate')());assert.match(text(r.toJSON()),/5\.511 m/);assert.equal(r.root.findAllByProps({'data-test-city':'manchester'}).length,0);
     act(()=>r.unmount());r=null;assert.equal(listeners.size,0);
   }finally{if(r)act(()=>r.unmount());if(previousWindow===undefined)delete globalThis.window;else globalThis.window=previousWindow;if(previousDocument===undefined)delete globalThis.document;else globalThis.document=previousDocument;}

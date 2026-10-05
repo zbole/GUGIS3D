@@ -1,0 +1,26 @@
+{
+  "schema": "gugis-ea-city-preview-audit-v1",
+  "city_id": "oxford",
+  "model_sha256": "ee93537795473ec330dd143cb0f5f696998eaf6e630fcc0348dfe143a4f7390f",
+  "raster_sha256": "1eedef8ec17cde26931abffcd37f0e90086cdef0c8b1e83345d17f8ac97593c7",
+  "fixture_sha256": "7440ba7380044c01a879b55fd91348518fcf4162068ef5ccfe21e60cf6437bdd",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "b92a35dd0e9d6347c6174fb235d0b3c47b75cf360e3e0130af258667bdc3b96e",
+    "python": "416d90d220bfa8de3fe51f59a3c3f79cddd322cda07f3a42516a41f3e3362303"
+  },
+  "method": "4096 fixed unique valid source 1m pixel centres, seed20261005,40-pixel rim excluded before querying. Misses retained; errors use hits only. Source participates in preview construction, not held-out ground truth.",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.26448950058855986,
+  "mae_m": 0.14380742604322333,
+  "p95_absolute_m": 0.5421723101541147,
+  "max_absolute_m": 3.5499552974762807,
+  "controls_checked": 20216,
+  "controls_hits": 20216,
+  "max_control_query_error_m": 6.394884621840902e-14,
+  "limits": "Sampled relative source-raster differences, no continuous bound or true-ground accuracy guarantee; ODN unchanged; no ArcGIS run."
+}

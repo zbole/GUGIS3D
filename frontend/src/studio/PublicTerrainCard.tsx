@@ -15,12 +15,12 @@ export default function PublicTerrainCard({api,disabled,onPreview}:{
     return ()=>{active=false;};
   },[api,retry]);
   const source=info?.status==='available'?info.source:null;
-  const auditBase=source&&['bristol','london','birmingham','manchester','york','bath'].includes(source.city_id)?`/research/${source.city_id}-terrain`:null;
+  const auditBase=source&&['bristol','london','birmingham','manchester','york','bath','oxford'].includes(source.city_id)?`/research/${source.city_id}-terrain`:null;
   return <section className="public-terrain-card" aria-label="公开真实地形资料">
     <small>PUBLIC DTM / 真实裸地数据</small>
     {!info&&!error&&<p role="status">正在核对当前城市的公开地形资料…</p>}
     {error&&<><p role="alert">{error}</p><button disabled={disabled} onClick={()=>setRetry(n=>n+1)}>重新核对公开地形</button></>}
-    {info?.status==='pending'&&<p>当前城市尚无已取得的公开 DTM。可导入自己的 DEM；不会借用其他城市地形。</p>}
+    {info?.status==='pending'&&<p>当前城市尚无已核验的公开 DTM。可导入自己的 DEM；不会借用其他城市地形。</p>}
     {source&&<>
       <h3>{source.name}</h3><p>{source.product} · {source.vertical_datum}</p>
       <p>{source.preview_stride_pixels} 像元采样 · {source.preview_points.toLocaleString()} 控制点；源分辨率不等于预览精度。</p>

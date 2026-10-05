@@ -12,3 +12,4 @@
 frontend/public/research/multicity-terrain/** -text whitespace=cr-at-eol
 # Matplotlib SVG path data intentionally contains spaces at line ends.
 frontend/public/research/multicity-terrain/*.svg whitespace=-blank-at-eol
+frontend/public/research/oxford-terrain/** -text whitespace=cr-at-eol

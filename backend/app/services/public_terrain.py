@@ -7,13 +7,14 @@ from fastapi import HTTPException
 from ..environment_models import Terrain
 
 ROOT = Path(__file__).resolve().parents[3]
-MANIFEST_PATH = ROOT / 'shared/public-terrain-sources.json'
-MANIFEST_SHA256 = '7658acdf236f9b434a16f230f69f68fd35f2a9e4eb7855d8db590e378bb64866'
+MANIFEST_PATH = ROOT / 'shared/public-terrain-sources-v2.json'
+MANIFEST_SHA256 = '8bd4a9a13e42632f3b6e76065c77710b9c75a58d8663a38be3292d3796c25626'
+PARENT_SHA256 = '7658acdf236f9b434a16f230f69f68fd35f2a9e4eb7855d8db590e378bb64866'
 FILES = {'raster': ('bristol-ea-dtm-1m.tif', 16 * 1024 * 1024),
          'model': ('bristol-ea-dtm-preview.gugis-terrain.json', 8 * 1024 * 1024)}
 CANDIDATES = {city_id: {'raster': (f'{city_id}-ea-dtm-1m.tif', 24 * 1024 * 1024),
                         'model': (f'{city_id}-ea-dtm-preview.gugis-terrain.json', 8 * 1024 * 1024)}
-              for city_id in ('bristol', 'london', 'birmingham', 'manchester', 'york', 'bath')}
+              for city_id in ('bristol', 'london', 'birmingham', 'manchester', 'york', 'bath', 'oxford')}
 CANDIDATES['bristol'] = FILES
 
 
@@ -33,10 +34,13 @@ def source_info(city_id):
         if hashlib.sha256(content).hexdigest() != MANIFEST_SHA256:
             raise ValueError('Public terrain manifest changed')
         report = json.loads(content)
-        if (report['schema'] != 'gugis-public-terrain-sources-v1'
+        if (report['schema'] != 'gugis-public-terrain-sources-v2'
+                or report.get('parent_manifest') != {'filename':'public-terrain-sources.json','sha256':PARENT_SHA256}
                 or len(report['sources']) != len(CANDIDATES)
                 or sorted(s['city_id'] for s in report['sources']) != sorted(CANDIDATES)):
             raise ValueError('Invalid public terrain catalogue')
+        if hashlib.sha256(_read_bounded(ROOT/'shared/public-terrain-sources.json',65536)).hexdigest()!=PARENT_SHA256:
+            raise ValueError('Historical terrain provenance changed')
         info = next(s for s in report['sources'] if s['city_id'] == city_id)
         if info['city_id'] != city_id:
             raise ValueError('Public terrain city mismatch')
@@ -60,7 +64,7 @@ def _candidate_bytes(info, kind):
 def candidate(city_id, kind):
     result = source_info(city_id)
     if result['status'] != 'available':
-        raise HTTPException(404, '当前城市尚无已取得的公开 DTM，不借用其他城市地形。')
+        raise HTTPException(404, '当前城市尚无已核验的公开 DTM，不借用其他城市地形。')
     try:
         content = _candidate_bytes(result['source'], kind)
         if kind == 'model':
