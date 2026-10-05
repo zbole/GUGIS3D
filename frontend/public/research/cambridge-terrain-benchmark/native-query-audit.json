@@ -1,0 +1,249 @@
+{
+  "schema": "gugis-cambridge-native-query-audit-v1",
+  "parent_report_sha256": "2d722806dfa37e41ed3d84be22c313f537f4d21a22c788f2294f2f7079ae5f03",
+  "auditor_sha256": "cd3e7b6bf1ca9731e3ab605a5eb8a5672b7d177cdb5c0309fbf69d9a235bf1d2",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scope": "Native original functions queried at fixed source-relative fixtures and every saved control. Sampled errors separate from full-domain L2 integral and max certificate. No browser, GPU, city write or ArcGIS run.",
+  "rows": [
+    {
+      "case_id": "cambridge-centre",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "898830101094a2aac2f494370fcea38a1ed10edf9f173d2f558445264f608fcb",
+      "fixture_sha256": "4231ceac8523e2b1a54b35c0a6f96e48dba13d64a012a82d53d2af2568c70d41",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 753,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.026604730674023202,
+      "sampled_mae_m": 0.01942874728740258,
+      "sampled_p95_absolute_m": 0.057637528069303556,
+      "sampled_max_absolute_m": 0.0911323896341969,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 397462,
+        "sha256": "a44e93b1f7fd6c3faba242d943cbd2e33ea401c51d03678ef0a0e66c50cd4ba2"
+      }
+    },
+    {
+      "case_id": "cambridge-centre",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "a5a6ebc005b1a0df548dfdcc500bccf44aeeba967dff84fec6c0f521bfce4cce",
+      "fixture_sha256": "4231ceac8523e2b1a54b35c0a6f96e48dba13d64a012a82d53d2af2568c70d41",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 552,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.02749775292242959,
+      "sampled_mae_m": 0.020704470180050085,
+      "sampled_p95_absolute_m": 0.057079134642105345,
+      "sampled_max_absolute_m": 0.0897269482127605,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 397195,
+        "sha256": "7fe931feb3e29cac8d830c12fc62a8e5554e0aff7293b65eab8c5d2ab4c67a96"
+      }
+    },
+    {
+      "case_id": "cambridge-centre",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "746f5a6fad937ef5dc497a0912f6c4f6b9b5d91d217e899d64499779ea8a37d0",
+      "fixture_sha256": "4231ceac8523e2b1a54b35c0a6f96e48dba13d64a012a82d53d2af2568c70d41",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 262,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.07636739680563477,
+      "sampled_mae_m": 0.05730070962917951,
+      "sampled_p95_absolute_m": 0.16200459389662392,
+      "sampled_max_absolute_m": 0.24536998889189476,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 395217,
+        "sha256": "4d8bb451a6fd6e65543fc4d984bccc5f19688edbce7920063365f704399dadb1"
+      }
+    },
+    {
+      "case_id": "cambridge-centre",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "949e3b303fae9bafacb6d2170b6a4a8846a0c6cf8bbd24d2b0e14fedd61b3377",
+      "fixture_sha256": "4231ceac8523e2b1a54b35c0a6f96e48dba13d64a012a82d53d2af2568c70d41",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 145,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.07369700868701028,
+      "sampled_mae_m": 0.05696965501831148,
+      "sampled_p95_absolute_m": 0.1547085597162905,
+      "sampled_max_absolute_m": 0.23033534585045068,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 395217,
+        "sha256": "2a86b5f0a3dd835f9ab43321325d68495ed3b2275f870a931da22628f207edc8"
+      }
+    },
+    {
+      "case_id": "cambridge-centre",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "686d46277da474e9a825bc78e978277fe48034b91515b9930fe9405ad62ea33a",
+      "fixture_sha256": "4231ceac8523e2b1a54b35c0a6f96e48dba13d64a012a82d53d2af2568c70d41",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 96,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.16090622476084596,
+      "sampled_mae_m": 0.12789798424536014,
+      "sampled_p95_absolute_m": 0.30244997667835527,
+      "sampled_max_absolute_m": 0.4616944869149755,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 393595,
+        "sha256": "fc57d9feefe65236468aa51e065405424104ff73805f443d625e0228c3ba80c7"
+      }
+    },
+    {
+      "case_id": "cambridge-centre",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "3bdcd5200b456a1017a1985e84b927aac95d3423644f2d5d18fd620824900da9",
+      "fixture_sha256": "4231ceac8523e2b1a54b35c0a6f96e48dba13d64a012a82d53d2af2568c70d41",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 44,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.12343615728361619,
+      "sampled_mae_m": 0.0965657530374203,
+      "sampled_p95_absolute_m": 0.2468852256060572,
+      "sampled_max_absolute_m": 0.4281505713696845,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 394163,
+        "sha256": "cac5f3743edd365a972f084a239c5bad5389b89540b7a16a9c86436d61d2521a"
+      }
+    },
+    {
+      "case_id": "cambridge-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.1,
+      "model_sha256": "ff86c656ed85dec6f4980d50b75d5aa6e9c8e38ba7fb06bf009a726f0a242262",
+      "fixture_sha256": "c6208b724bbe04a1603f622ebc29ceb3cd9138dc997401f9dd39fac728127a74",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 545,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.02702423030693754,
+      "sampled_mae_m": 0.020852773739853194,
+      "sampled_p95_absolute_m": 0.05557467741520039,
+      "sampled_max_absolute_m": 0.09473470305868581,
+      "queries_csv": {
+        "filename": "hybrid-0.1m.queries.csv",
+        "bytes": 390570,
+        "sha256": "d167c64436bf055db45a0ed34a1232ab13546e8a08cbc52c1470bac6664e0a49"
+      }
+    },
+    {
+      "case_id": "cambridge-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.1,
+      "model_sha256": "73ce01ad24a457f52f678477d642aaedaab284b884cf87b17e1a7a859d8830bd",
+      "fixture_sha256": "c6208b724bbe04a1603f622ebc29ceb3cd9138dc997401f9dd39fac728127a74",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 428,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.028676603303322307,
+      "sampled_mae_m": 0.022446122869395072,
+      "sampled_p95_absolute_m": 0.05794849088609055,
+      "sampled_max_absolute_m": 0.09427521155785357,
+      "queries_csv": {
+        "filename": "local_triangles-0.1m.queries.csv",
+        "bytes": 390550,
+        "sha256": "fba400f35edddc87c8b8bb2d1e6561942cac68b947c7fc292578d21400e24bcd"
+      }
+    },
+    {
+      "case_id": "cambridge-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.25,
+      "model_sha256": "e220cb6b19865f586203044de96e466c56fb5bcd24653a26577700447797207f",
+      "fixture_sha256": "c6208b724bbe04a1603f622ebc29ceb3cd9138dc997401f9dd39fac728127a74",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 202,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.06781770683610133,
+      "sampled_mae_m": 0.050893256111624055,
+      "sampled_p95_absolute_m": 0.14379005493201902,
+      "sampled_max_absolute_m": 0.23056403332289488,
+      "queries_csv": {
+        "filename": "hybrid-0.25m.queries.csv",
+        "bytes": 388820,
+        "sha256": "2fea8a3e4f35643ae5ed0cbbb9c9db555eed91c5326d51e07ec5e50451d35523"
+      }
+    },
+    {
+      "case_id": "cambridge-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.25,
+      "model_sha256": "73470d8f98b703f4ab142cd94855b4f6cb86a2764a113230c0437685c0961d32",
+      "fixture_sha256": "c6208b724bbe04a1603f622ebc29ceb3cd9138dc997401f9dd39fac728127a74",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 150,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.07218299740186836,
+      "sampled_mae_m": 0.054699223238349734,
+      "sampled_p95_absolute_m": 0.14951181666062308,
+      "sampled_max_absolute_m": 0.23517831557175484,
+      "queries_csv": {
+        "filename": "local_triangles-0.25m.queries.csv",
+        "bytes": 388665,
+        "sha256": "cb3265a003126e0b92e43a17a789cefce0d4257fc2cdf10c3efe6484d7629eb6"
+      }
+    },
+    {
+      "case_id": "cambridge-north-quarter",
+      "family": "hybrid",
+      "target_m": 0.5,
+      "model_sha256": "dabfa133755139013426fbe30826f5118540c059d29598e505ee2e5b9ef74410",
+      "fixture_sha256": "c6208b724bbe04a1603f622ebc29ceb3cd9138dc997401f9dd39fac728127a74",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 112,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.1240584145712732,
+      "sampled_mae_m": 0.08849660704918544,
+      "sampled_p95_absolute_m": 0.28029388788735776,
+      "sampled_max_absolute_m": 0.4478939327374656,
+      "queries_csv": {
+        "filename": "hybrid-0.5m.queries.csv",
+        "bytes": 388173,
+        "sha256": "27629dfd44aeef62ec4e57eff276e755f18069f3ee7caebe3c5204fd469055f2"
+      }
+    },
+    {
+      "case_id": "cambridge-north-quarter",
+      "family": "local_triangles",
+      "target_m": 0.5,
+      "model_sha256": "e5a9c1bf6d966dddc327281c9be12432431a3d07409c7e570be939b8adddb3c2",
+      "fixture_sha256": "c6208b724bbe04a1603f622ebc29ceb3cd9138dc997401f9dd39fac728127a74",
+      "requested": 4096,
+      "hits": 4096,
+      "controls_checked": 62,
+      "max_control_error_m": 0,
+      "sampled_rmse_m": 0.11927006902934337,
+      "sampled_mae_m": 0.08629006708029954,
+      "sampled_p95_absolute_m": 0.2613967833058819,
+      "sampled_max_absolute_m": 0.46006726103759465,
+      "queries_csv": {
+        "filename": "local_triangles-0.5m.queries.csv",
+        "bytes": 388161,
+        "sha256": "6cc9ac6d6caedd42a2ce219a2aae022d3b974155fb26270e6ef7f64c2f1a7eda"
+      }
+    }
+  ]
+}

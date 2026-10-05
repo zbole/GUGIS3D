@@ -16,3 +16,5 @@ frontend/public/research/oxford-terrain/** -text whitespace=cr-at-eol
 frontend/public/research/oxford-terrain-benchmark/** -text whitespace=cr-at-eol
 frontend/public/research/oxford-terrain-benchmark/*.svg whitespace=-blank-at-eol
 frontend/public/research/cambridge-terrain/** -text whitespace=cr-at-eol
+frontend/public/research/cambridge-terrain-benchmark/** -text whitespace=cr-at-eol
+frontend/public/research/cambridge-terrain-benchmark/*.svg whitespace=-blank-at-eol

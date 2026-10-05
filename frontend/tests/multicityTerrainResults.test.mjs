@@ -93,3 +93,61 @@ test('all twelve Oxford saved functions reproduce the fixed native query audit a
     }
   }
 });
+
+test('all twelve Cambridge saved functions reproduce the fixed native query audit and retain every control',async()=>{
+  const report=JSON.parse(await readFile(url('../../shared/cambridge-terrain-benchmark.json')));
+  const audit=JSON.parse(await readFile(url('../public/research/cambridge-terrain-benchmark/native-query-audit.json')));
+  assert.equal(audit.rows.length,12);
+  for(const c of report.cases){
+    const folder=`../public/research/cambridge-terrain-benchmark/${c.id}/`;
+    const fixture=JSON.parse(await readFile(url(folder+'query-fixture.json')));
+    for(const m of c.models){
+      const model=JSON.parse(await readFile(url(folder+m.filename))),index=terrainIndex(model);
+      const row=audit.rows.find(a=>a.case_id===c.id&&a.family===m.family&&a.target_m===m.target_m);
+      assert.equal(row.model_sha256,m.sha256);assert.equal(row.fixture_sha256,c.fixture_sha256);
+      const errors=fixture.xy.map(([x,y],i)=>{const q=index.query(x,y);assert.ok(q);return q.height-fixture.reference[i];});
+      assert.equal(errors.length,4096);
+      assert.ok(Math.abs(Math.sqrt(errors.reduce((s,e)=>s+e*e,0)/4096)-row.sampled_rmse_m)<1e-12);
+      assert.ok(Math.max(...errors.map(Math.abs))<=m.continuous_bound_m+1e-8);
+      for(const [x,y,z] of model.points){const q=index.query(x,y);assert.ok(q);assert.ok(Math.abs(q.height-z)<1e-9);}
+    }
+  }
+});
+
+
+test('Cambridge uses the current source, exposes tradeoffs and inferior results, and isolates site state',()=>{
+  let r;act(()=>r=create(React.createElement(Card)));
+  const button=name=>r.root.findAllByType('button').find(b=>text(b)===name);
+  const change=(name,value)=>act(()=>r.root.findByProps({'aria-label':name}).props.onChange({target:{value}}));
+  act(()=>button('剑桥 · 2 个样区').props.onClick());
+  assert.equal(r.root.findAllByType('tbody')[0].findAllByType('tr').length,2);
+  assert.match(text(r.toJSON()),/大 35\.3%/);assert.match(text(r.toJSON()),/1\.71306 \/ 1\.78431/);
+  assert.match(text(r.toJSON()),/直纹四边形 1/);assert.match(text(r.toJSON()),/本档存在精度与体积取舍/);
+  change('真实地形结果误差目标','.5');
+  assert.match(text(r.toJSON()),/大 95\.9%/);assert.match(text(r.toJSON()),/10\.46800 \/ 7\.89349/);
+  assert.match(text(r.toJSON()),/本档原生三角带在文件体积与全域 E₂ 上同时不劣/);
+  assert.match(text(r.toJSON()),/此档未使用直纹面/);
+  change('跨城对标样区','cambridge-north-quarter');change('真实地形结果误差目标','.25');
+  assert.match(text(r.toJSON()),/4\.24548 \/ 4\.52666/);assert.match(text(r.toJSON()),/大 34\.2%/);
+  assert.equal(r.root.findAllByType('img')[0].props.src,'/research/cambridge-terrain-benchmark/cambridge-north-quarter-error-cost.png');
+  for(const link of r.root.findAllByType('a'))assert.ok(link.props.href.startsWith('/research/cambridge-terrain-benchmark/'));
+  act(()=>button('牛津 · 2 个样区').props.onClick());
+  assert.equal(r.root.findByProps({'aria-label':'跨城对标样区'}).props.value,'oxford-centre');
+  act(()=>button('剑桥 · 2 个样区').props.onClick());
+  assert.equal(r.root.findByProps({'aria-label':'跨城对标样区'}).props.value,'cambridge-centre');
+  assert.equal(r.root.findByProps({'aria-label':'真实地形结果误差目标'}).props.value,.25);
+  act(()=>r.unmount());
+});
+
+test('Cambridge deep link and hash changes retain the scope without loading any 3D view',()=>{
+  const prior=globalThis.window;const listeners=new Map();let r;
+  try{globalThis.window={location:{hash:'#cambridge-terrain-results'},addEventListener:(name,fn)=>listeners.set(name,fn),removeEventListener:name=>listeners.delete(name)};
+    act(()=>r=create(React.createElement(Card)));
+    assert.equal(r.root.findAllByType('button').find(b=>text(b)==='剑桥 · 2 个样区').props['aria-pressed'],true);
+    globalThis.window.location.hash='#oxford-terrain-results';act(()=>listeners.get('hashchange')());
+    assert.equal(r.root.findAllByType('button').find(b=>text(b)==='牛津 · 2 个样区').props['aria-pressed'],true);
+    globalThis.window.location.hash='#cambridge-terrain-results';act(()=>listeners.get('hashchange')());
+    assert.equal(r.root.findByProps({'aria-label':'跨城对标样区'}).props.value,'cambridge-centre');
+    act(()=>r.unmount());r=null;assert.equal(listeners.size,0);
+  }finally{if(r)act(()=>r.unmount());if(prior===undefined)delete globalThis.window;else globalThis.window=prior;}
+});
