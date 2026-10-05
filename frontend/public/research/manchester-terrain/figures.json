@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "685917e8d3e908ba18dd0f94698994f88c9c3744d3b62963142d1814c244bf4d",
+  "audit_sha256": "c4cc08852ed23046562da6c9dfc1fc30a254e710823a5374d31e6e6950737863",
+  "plotter_sha256": "068c69950d77bfdb374a9666aacd6839e56d014ca9db7d17d5cefebb7b2415c6",
+  "files": {
+    "manchester-source-preview.png": {
+      "bytes": 520519,
+      "sha256": "e1b289384974ca47cd26aa73ea0416da45ef10b78dc0529d8448ee26294742cd"
+    },
+    "manchester-source-preview.svg": {
+      "bytes": 891783,
+      "sha256": "2df13665b3e3858ea7064ec0f7e0ff84415e0a684641d9ae99135ce5384afb9c"
+    }
+  }
+}

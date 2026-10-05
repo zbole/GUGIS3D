@@ -1,0 +1,26 @@
+{
+  "schema": "gugis-ea-city-preview-audit-v1",
+  "city_id": "manchester",
+  "model_sha256": "1f8fc1a7a89fd5df9a69adb7568a035c6ad127efee0f71906903ad04ef2c25a8",
+  "raster_sha256": "685917e8d3e908ba18dd0f94698994f88c9c3744d3b62963142d1814c244bf4d",
+  "fixture_sha256": "32fd383411223415292892c429eb76495223beb2053bedbeb7fa74d0eacd3500",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "659b1ddaa712840d412b8ac7570f4c12fe0b2bc96920cad3ee1b17b3d0772261",
+    "python": "c993b928fa91b4ce9933289918126c232964baa926121f1918d9d468f7cfcaf9"
+  },
+  "method": "4096 fixed unique valid source 1m pixel centres, seed20261005,40-pixel rim excluded before querying. Misses retained; errors use hits only. Source participates in preview construction, not held-out ground truth.",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.45872088070232075,
+  "mae_m": 0.21136967412539712,
+  "p95_absolute_m": 0.9341739280115426,
+  "max_absolute_m": 5.510842200763896,
+  "controls_checked": 13806,
+  "controls_hits": 13806,
+  "max_control_query_error_m": 2.842170943040401e-14,
+  "limits": "Sampled relative source-raster differences, no continuous bound or true-ground accuracy guarantee; ODN unchanged; no ArcGIS run."
+}

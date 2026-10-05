@@ -1,0 +1,29 @@
+{
+  "city_id": "manchester",
+  "name": "曼彻斯特",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28382639%2C384971%29&subset=N%28397164%2C399510%29&format=image%2Ftiff",
+  "bbox_bng": [
+    382639,
+    397164,
+    384971,
+    399510
+  ],
+  "query_bbox_wgs84": [
+    -2.263,
+    53.471,
+    -2.228,
+    53.492
+  ],
+  "bytes": 26215019,
+  "sha256": "5f719cf7e00daea1e42dde0efb628f601e66161a94f6a50e6f4ed61dd6ae93ab",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-05T10:57:32.172055+00:00",
+  "width": 2332,
+  "height": 2346,
+  "valid_pixels": 5470872,
+  "nodata_pixels": 0,
+  "minimum_m": 19.85700035095215,
+  "maximum_m": 53.84400177001953,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent centre-district raw sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}

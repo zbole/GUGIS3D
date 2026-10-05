@@ -8,12 +8,12 @@ from ..environment_models import Terrain
 
 ROOT = Path(__file__).resolve().parents[3]
 MANIFEST_PATH = ROOT / 'shared/public-terrain-sources.json'
-MANIFEST_SHA256 = 'ba26a54bf1cb470477633f30ee609a6bcd69b740eec8f1ceeea4a238e67737fc'
+MANIFEST_SHA256 = '90d2a1881c24109e88e74c1cd12f279111f0da684c3895732f4498ea8592da45'
 FILES = {'raster': ('bristol-ea-dtm-1m.tif', 16 * 1024 * 1024),
          'model': ('bristol-ea-dtm-preview.gugis-terrain.json', 8 * 1024 * 1024)}
 CANDIDATES = {city_id: {'raster': (f'{city_id}-ea-dtm-1m.tif', 24 * 1024 * 1024),
                         'model': (f'{city_id}-ea-dtm-preview.gugis-terrain.json', 8 * 1024 * 1024)}
-              for city_id in ('bristol', 'london', 'birmingham')}
+              for city_id in ('bristol', 'london', 'birmingham', 'manchester', 'york')}
 CANDIDATES['bristol'] = FILES
 
 

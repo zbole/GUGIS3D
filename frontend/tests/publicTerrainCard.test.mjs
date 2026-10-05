@@ -30,7 +30,8 @@ test('every city card links only to its own actual pixel audit and preserves coa
       for(const [expected,path] of [[audit.native_kernel_sha256,'../src/studio/terrainMath.ts'],[audit.scripts.node,'../scripts/audit-ea-city-terrain.mjs'],[audit.scripts.python,'../../data-pipeline/prepare_ea_city_terrain.py']])assert.equal(hash((await readFile(new URL(path,import.meta.url),'utf8')).replace(/\r\n/g,'\n')),expected);
       const figures=JSON.parse(await readFile(new URL(folder+'figures.json',import.meta.url)));
       assert.equal(figures.audit_sha256,hash(auditBytes));assert.equal(figures.raster_sha256,source.raster_sha256);
-      assert.equal(figures.plotter_sha256,hash((await readFile(new URL('../../data-pipeline/plot_ea_city_terrain.py',import.meta.url),'utf8')).replace(/\r\n/g,'\n')));
+      const plotter=['manchester','york'].includes(source.city_id)?'plot_ea_extended_terrain.py':'plot_ea_city_terrain.py';
+      assert.equal(figures.plotter_sha256,hash((await readFile(new URL('../../data-pipeline/'+plotter,import.meta.url),'utf8')).replace(/\r\n/g,'\n')));
       for(const [name,entry] of Object.entries(figures.files)){const b=await readFile(new URL(folder+name,import.meta.url));assert.equal(b.length,entry.bytes);assert.equal(hash(b),entry.sha256);}
     }
     act(()=>r.unmount());

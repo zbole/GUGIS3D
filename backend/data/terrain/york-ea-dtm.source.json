@@ -1,0 +1,29 @@
+{
+  "city_id": "york",
+  "name": "约克",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28459132%2C461400%29&subset=N%28450474%2C453285%29&format=image%2Ftiff",
+  "bbox_bng": [
+    459132,
+    450474,
+    461400,
+    453285
+  ],
+  "query_bbox_wgs84": [
+    -1.1,
+    53.947,
+    -1.066,
+    53.972
+  ],
+  "bytes": 31457939,
+  "sha256": "f74eba3aa7e7e7bc9da4692e030bccbb06ccee09d7c5756f1763c7c0d05ce0b2",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-05T10:59:02.295636+00:00",
+  "width": 2268,
+  "height": 2811,
+  "valid_pixels": 6375348,
+  "nodata_pixels": 0,
+  "minimum_m": 4.824999809265137,
+  "maximum_m": 30.219999313354492,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent centre-district raw sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}

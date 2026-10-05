@@ -179,6 +179,126 @@
         "max_absolute_m": 14.087225962920812
       },
       "sample_audit_sha256": "19b6c8a3893dceaf237bd69ffcdee6b102ea9b87a71624737df998ccb4f1802e"
+    },
+    {
+      "city_id": "manchester",
+      "name": "曼彻斯特 · 英国环境署裸地 DTM",
+      "product": "EA 2022 LIDAR Composite DTM · 1 m",
+      "dataset_url": "https://www.data.gov.uk/dataset/01b3ee39-da3f-47b6-83da-dc98e73a461f/lidar-composite-dtm-2022-1m",
+      "license": "Open Government Licence v3.0",
+      "attribution": "© Environment Agency copyright and/or database right 2022. All rights reserved.",
+      "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "source_url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28382639%2C384971%29&subset=N%28397164%2C399510%29&format=image%2Ftiff",
+      "retrieved_utc": "2026-10-05T10:57:32.172055+00:00",
+      "query_bbox_wgs84": [
+        -2.263,
+        53.471,
+        -2.228,
+        53.492
+      ],
+      "raster_bbox_bng": [
+        382639,
+        397164,
+        384971,
+        399510
+      ],
+      "source_crs": "EPSG:27700",
+      "vertical_datum": "ODN",
+      "height_unit": "m",
+      "width": 2332,
+      "height": 2346,
+      "source_pixel_m": 1,
+      "valid_pixels": 5470872,
+      "nodata_pixels": 0,
+      "min_height_m": 19.85700035095215,
+      "max_height_m": 53.84400177001953,
+      "raw_bytes": 26215019,
+      "raw_sha256": "5f719cf7e00daea1e42dde0efb628f601e66161a94f6a50e6f4ed61dd6ae93ab",
+      "raster_bytes": 10930640,
+      "raster_sha256": "685917e8d3e908ba18dd0f94698994f88c9c3744d3b62963142d1814c244bf4d",
+      "raster_pixel_block_sha256": "6bb9493f713b9051e764f30fa617ebe55edc8221334ae19a1ebf247ce116ad7f",
+      "compression_audit": "Only DEFLATE compression; every pixel, CRS, transform, NoData and scale/offset compared",
+      "preview_stride_pixels": 20,
+      "preview_points": 13806,
+      "preview_patches": {
+        "ruled-strip": 5516,
+        "triangle-strip": 1270
+      },
+      "model_bytes": 994177,
+      "model_sha256": "1f8fc1a7a89fd5df9a69adb7568a035c6ad127efee0f71906903ad04ef2c25a8",
+      "coverage_label": "曼彻斯特中心样本街区（非全城覆盖）；采样像元中心为模型边界",
+      "accuracy_note": "1 m源分辨率不等于20像元预览精度；保留ODN高程，无椭球高转换。抽查不保证连续误差或独立真实地面精度。",
+      "unit_metadata_warning": "WCS Elevation单位字段与官方米制说明冲突；GeoTIFF未写高程单位，米制依据官方数据集正文。",
+      "audit_base_url": "/research/manchester-terrain",
+      "sample_audit": {
+        "requested": 4096,
+        "hits": 4096,
+        "rmse_m": 0.45872088070232075,
+        "mae_m": 0.21136967412539712,
+        "p95_absolute_m": 0.9341739280115426,
+        "max_absolute_m": 5.510842200763896
+      },
+      "sample_audit_sha256": "c4cc08852ed23046562da6c9dfc1fc30a254e710823a5374d31e6e6950737863"
+    },
+    {
+      "city_id": "york",
+      "name": "约克 · 英国环境署裸地 DTM",
+      "product": "EA 2022 LIDAR Composite DTM · 1 m",
+      "dataset_url": "https://www.data.gov.uk/dataset/01b3ee39-da3f-47b6-83da-dc98e73a461f/lidar-composite-dtm-2022-1m",
+      "license": "Open Government Licence v3.0",
+      "attribution": "© Environment Agency copyright and/or database right 2022. All rights reserved.",
+      "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "source_url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28459132%2C461400%29&subset=N%28450474%2C453285%29&format=image%2Ftiff",
+      "retrieved_utc": "2026-10-05T10:59:02.295636+00:00",
+      "query_bbox_wgs84": [
+        -1.1,
+        53.947,
+        -1.066,
+        53.972
+      ],
+      "raster_bbox_bng": [
+        459132,
+        450474,
+        461400,
+        453285
+      ],
+      "source_crs": "EPSG:27700",
+      "vertical_datum": "ODN",
+      "height_unit": "m",
+      "width": 2268,
+      "height": 2811,
+      "source_pixel_m": 1,
+      "valid_pixels": 6375348,
+      "nodata_pixels": 0,
+      "min_height_m": 4.824999809265137,
+      "max_height_m": 30.219999313354492,
+      "raw_bytes": 31457939,
+      "raw_sha256": "f74eba3aa7e7e7bc9da4692e030bccbb06ccee09d7c5756f1763c7c0d05ce0b2",
+      "raster_bytes": 14294544,
+      "raster_sha256": "377507670e35bc667361768f8176b5db64be5e18b28998e997452b106e7e4ec5",
+      "raster_pixel_block_sha256": "1f0372f95d727dd25db6490cd4167e522a51cd2795a07f03ecc5be91f453658d",
+      "compression_audit": "Only DEFLATE compression; every pixel, CRS, transform, NoData and scale/offset compared",
+      "preview_stride_pixels": 20,
+      "preview_points": 16074,
+      "preview_patches": {
+        "ruled-strip": 7080,
+        "triangle-strip": 900
+      },
+      "model_bytes": 1167252,
+      "model_sha256": "37bd1bf72b6e80870415fc8674c0acd71ad1b37ef12254acc6d11f403a6cad5f",
+      "coverage_label": "约克中心样本街区（非全城覆盖）；采样像元中心为模型边界",
+      "accuracy_note": "1 m源分辨率不等于20像元预览精度；保留ODN高程，无椭球高转换。抽查不保证连续误差或独立真实地面精度。",
+      "unit_metadata_warning": "WCS Elevation单位字段与官方米制说明冲突；GeoTIFF未写高程单位，米制依据官方数据集正文。",
+      "audit_base_url": "/research/york-terrain",
+      "sample_audit": {
+        "requested": 4096,
+        "hits": 4096,
+        "rmse_m": 0.3817743085418209,
+        "mae_m": 0.19768589452360422,
+        "p95_absolute_m": 0.7758628417565898,
+        "max_absolute_m": 4.6827309080252455
+      },
+      "sample_audit_sha256": "3b300d180c4b055d3e2500ae6d2aa67a9fc011a3c5f0923f75429426732944bf"
     }
   ]
 }

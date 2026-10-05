@@ -1,0 +1,26 @@
+{
+  "schema": "gugis-ea-city-preview-audit-v1",
+  "city_id": "york",
+  "model_sha256": "37bd1bf72b6e80870415fc8674c0acd71ad1b37ef12254acc6d11f403a6cad5f",
+  "raster_sha256": "377507670e35bc667361768f8176b5db64be5e18b28998e997452b106e7e4ec5",
+  "fixture_sha256": "c449e3294ce329675d7364477f6569055334e63858bf8a1e9a0f60535ac8fd07",
+  "native_kernel_sha256": "d3bf484867fdd3e0ff03e431f31af79d69ba5caa981e30364e26e592c620017d",
+  "scripts": {
+    "node": "659b1ddaa712840d412b8ac7570f4c12fe0b2bc96920cad3ee1b17b3d0772261",
+    "python": "c993b928fa91b4ce9933289918126c232964baa926121f1918d9d468f7cfcaf9"
+  },
+  "method": "4096 fixed unique valid source 1m pixel centres, seed20261005,40-pixel rim excluded before querying. Misses retained; errors use hits only. Source participates in preview construction, not held-out ground truth.",
+  "preview_stride_pixels": 20,
+  "source_pixel_m": 1,
+  "requested": 4096,
+  "hits": 4096,
+  "misses": 0,
+  "rmse_m": 0.3817743085418209,
+  "mae_m": 0.19768589452360422,
+  "p95_absolute_m": 0.7758628417565898,
+  "max_absolute_m": 4.6827309080252455,
+  "controls_checked": 16074,
+  "controls_hits": 16074,
+  "max_control_query_error_m": 4.085620730620576e-14,
+  "limits": "Sampled relative source-raster differences, no continuous bound or true-ground accuracy guarantee; ODN unchanged; no ArcGIS run."
+}

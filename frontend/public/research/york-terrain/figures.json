@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "377507670e35bc667361768f8176b5db64be5e18b28998e997452b106e7e4ec5",
+  "audit_sha256": "3b300d180c4b055d3e2500ae6d2aa67a9fc011a3c5f0923f75429426732944bf",
+  "plotter_sha256": "068c69950d77bfdb374a9666aacd6839e56d014ca9db7d17d5cefebb7b2415c6",
+  "files": {
+    "york-source-preview.png": {
+      "bytes": 485504,
+      "sha256": "a1a26216fe030b8af5c23e4b1119664e2a4918014489a9d7568211078a172a35"
+    },
+    "york-source-preview.svg": {
+      "bytes": 848648,
+      "sha256": "5df4ceae91d9f86f803225c55dbd68e62bf54c0c4165bdee6a0268413d9bfad5"
+    }
+  }
+}
