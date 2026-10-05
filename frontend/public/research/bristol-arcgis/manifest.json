@@ -1,0 +1,312 @@
+{
+  "schema": "gugis-bristol-arcgis-package-v1",
+  "parent_report_sha256": "967c65a8ef119f230c0c45bf3335484895f4b0279e091731bcea095a320b1f63",
+  "integral_report_sha256": "eb2afc23fe2434e5448b97e03c8751256ef691c9ff698fbd98348cdae852469d",
+  "runner_sha256": "297a668199bbf049b7253e550196ab94ff5b020d9250b2cead0a77889987e09e",
+  "packager_sha256": "2e0627983bb9dc18f1b6f509ba10fea835f9abd2211a40a0baea92feb80ed8fa",
+  "source": "EA 2022 DTM; 1m; EPSG:27700; ODN metres; fixed two 64x64m sites",
+  "status": "awaiting-licensed-ArcGIS-Pro-run",
+  "scope": "Six existing identical-geometry GUGIS local-triangle / MultiPatch pairs. File costs measured, ArcGIS software times not measured. Native recovery sidecars remain in parent experiment packages.",
+  "models": [
+    {
+      "id": "bristol-harbour-0.1m",
+      "case_id": "bristol-harbour",
+      "case_name": "布里斯托港区",
+      "target_m": 0.1,
+      "native_bytes": 49793,
+      "native_sha256": "380c1eeb09a775657f4b3d603902fe20c55fb6849f3d327ac5875628e262481b",
+      "native_points": 980,
+      "multipatch_core_bytes": 69549,
+      "native_recoverable_bytes": 108368,
+      "multipatch_vertices": 2730,
+      "multipatch_parts": 404,
+      "triangles": 1922,
+      "geometry_sha256": "a8fbfed76f69c32a5e974ce74641af521692e839dfd9c47a5124ccf2ba221701",
+      "coordinate_sha256": "97dbfa743b8bbefdaf9def812bd0ed29e2fa37cbfe513c3f01663b2ba90baf89",
+      "e2_m2": 1.0156246432917866,
+      "continuous_bound_m": 0.09819935354055753,
+      "files": [
+        {
+          "path": "bristol-harbour-0.1m/terrain.shp",
+          "bytes": 68920,
+          "sha256": "9443442c3aada9921420738118e38101da0967be1f852d2fbc69eb32db133730"
+        },
+        {
+          "path": "bristol-harbour-0.1m/terrain.shx",
+          "bytes": 108,
+          "sha256": "e63f4bb7b41b9a45d15eb5bd06dd5904b587cb05635729498021a97dfcaab053"
+        },
+        {
+          "path": "bristol-harbour-0.1m/terrain.dbf",
+          "bytes": 98,
+          "sha256": "29f98c8636281e3da84194870ec8a26a50988343861991e56ffc5ed7b7c67ba8"
+        },
+        {
+          "path": "bristol-harbour-0.1m/terrain.prj",
+          "bytes": 417,
+          "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+        },
+        {
+          "path": "bristol-harbour-0.1m/terrain.cpg",
+          "bytes": 6,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "path": "bristol-harbour-0.1m/native.json",
+          "bytes": 49793,
+          "sha256": "380c1eeb09a775657f4b3d603902fe20c55fb6849f3d327ac5875628e262481b"
+        }
+      ]
+    },
+    {
+      "id": "bristol-harbour-0.25m",
+      "case_id": "bristol-harbour",
+      "case_name": "布里斯托港区",
+      "target_m": 0.25,
+      "native_bytes": 21723,
+      "native_sha256": "4013c870f77f4ff35952c15e3793e3dd9670ee52fe36848fb88e41bf2941dee1",
+      "native_points": 444,
+      "multipatch_core_bytes": 30997,
+      "native_recoverable_bytes": 47905,
+      "multipatch_vertices": 1201,
+      "multipatch_parts": 172,
+      "triangles": 857,
+      "geometry_sha256": "01e84dfdb825ba79a25454a034b1e6551138e5bd7771afedc3f7ad4d822f6fcf",
+      "coordinate_sha256": "71247da743a6c5a835e05be4f565253ce687af50366c868a8cf30dea33bde454",
+      "e2_m2": 1.9506199202319077,
+      "continuous_bound_m": 0.24187567567648272,
+      "files": [
+        {
+          "path": "bristol-harbour-0.25m/terrain.shp",
+          "bytes": 30368,
+          "sha256": "0c0af247d2455053e447c7df383d13c7107d31c48d9e2a81a71a94cf3669ccf7"
+        },
+        {
+          "path": "bristol-harbour-0.25m/terrain.shx",
+          "bytes": 108,
+          "sha256": "2f0a914317f235e9bcea4ead55e2a7055b8966b0eea04b3aa06bbebbc1bc4503"
+        },
+        {
+          "path": "bristol-harbour-0.25m/terrain.dbf",
+          "bytes": 98,
+          "sha256": "ddbb9cedd9a39730435356781b1189c6bd76118e06272fd4463e81f33ca5c2cc"
+        },
+        {
+          "path": "bristol-harbour-0.25m/terrain.prj",
+          "bytes": 417,
+          "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+        },
+        {
+          "path": "bristol-harbour-0.25m/terrain.cpg",
+          "bytes": 6,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "path": "bristol-harbour-0.25m/native.json",
+          "bytes": 21723,
+          "sha256": "4013c870f77f4ff35952c15e3793e3dd9670ee52fe36848fb88e41bf2941dee1"
+        }
+      ]
+    },
+    {
+      "id": "bristol-harbour-0.5m",
+      "case_id": "bristol-harbour",
+      "case_name": "布里斯托港区",
+      "target_m": 0.5,
+      "native_bytes": 21902,
+      "native_sha256": "68c20f8f654333c715daee223a144698a35c1033b06376f8a3392dce722dca70",
+      "native_points": 438,
+      "multipatch_core_bytes": 31101,
+      "native_recoverable_bytes": 48308,
+      "multipatch_vertices": 1203,
+      "multipatch_parts": 179,
+      "triangles": 845,
+      "geometry_sha256": "035a84d47a50f8fa1e97358c8e23f809f0e6768592ff6a65565d71e9dc9bea00",
+      "coordinate_sha256": "4eeca7ce3ac55fc0c9330585b36856078b0e45d66ea005458091600f6ba397c9",
+      "e2_m2": 1.989250128578103,
+      "continuous_bound_m": 0.4665010767537533,
+      "files": [
+        {
+          "path": "bristol-harbour-0.5m/terrain.shp",
+          "bytes": 30472,
+          "sha256": "16f6665f891636f98b3bad6311b3532db916d6c4be0155863f229d0dc6926272"
+        },
+        {
+          "path": "bristol-harbour-0.5m/terrain.shx",
+          "bytes": 108,
+          "sha256": "f46aa743cbdc84b780fb15fa193abe85980f070745f1c7688ddad24fa45c3fb2"
+        },
+        {
+          "path": "bristol-harbour-0.5m/terrain.dbf",
+          "bytes": 98,
+          "sha256": "cd43c6ad79c25731c537881a00b501034806b19a7e6b9a829209397d6b371f92"
+        },
+        {
+          "path": "bristol-harbour-0.5m/terrain.prj",
+          "bytes": 417,
+          "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+        },
+        {
+          "path": "bristol-harbour-0.5m/terrain.cpg",
+          "bytes": 6,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "path": "bristol-harbour-0.5m/native.json",
+          "bytes": 21902,
+          "sha256": "68c20f8f654333c715daee223a144698a35c1033b06376f8a3392dce722dca70"
+        }
+      ]
+    },
+    {
+      "id": "bristol-brandon-hill-0.1m",
+      "case_id": "bristol-brandon-hill",
+      "case_name": "布兰登山坡",
+      "target_m": 0.1,
+      "native_bytes": 36764,
+      "native_sha256": "7f87d7e9f1b7e4a1338f13f7646d792de1a913b36a4ea883810a4dd898ffee3b",
+      "native_points": 714,
+      "multipatch_core_bytes": 49517,
+      "native_recoverable_bytes": 77539,
+      "multipatch_vertices": 1932,
+      "multipatch_parts": 294,
+      "triangles": 1344,
+      "geometry_sha256": "7a0b82a2168230dc6ee4299831cb63d1ce20ea1aca981675b25c481313782706",
+      "coordinate_sha256": "3cb3b6e1977b91656392a18167d17c36af080c5edf9b9ef3e23bf6bc31c00af5",
+      "e2_m2": 1.8845460275078565,
+      "continuous_bound_m": 0.09975222883123613,
+      "files": [
+        {
+          "path": "bristol-brandon-hill-0.1m/terrain.shp",
+          "bytes": 48888,
+          "sha256": "71b88648e0404d5c5c523d0d7b36f181d630acf3b666549a4c552f6a023bfff5"
+        },
+        {
+          "path": "bristol-brandon-hill-0.1m/terrain.shx",
+          "bytes": 108,
+          "sha256": "696b117fe6b1c686db588dc0aca0c58b6575308914827d1e730dbb86607eb9c5"
+        },
+        {
+          "path": "bristol-brandon-hill-0.1m/terrain.dbf",
+          "bytes": 98,
+          "sha256": "36a4692d44e7124d1d382758894591c4b9bb456efd4d54068ab515129d5a2d93"
+        },
+        {
+          "path": "bristol-brandon-hill-0.1m/terrain.prj",
+          "bytes": 417,
+          "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+        },
+        {
+          "path": "bristol-brandon-hill-0.1m/terrain.cpg",
+          "bytes": 6,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "path": "bristol-brandon-hill-0.1m/native.json",
+          "bytes": 36764,
+          "sha256": "7f87d7e9f1b7e4a1338f13f7646d792de1a913b36a4ea883810a4dd898ffee3b"
+        }
+      ]
+    },
+    {
+      "id": "bristol-brandon-hill-0.25m",
+      "case_id": "bristol-brandon-hill",
+      "case_name": "布兰登山坡",
+      "target_m": 0.25,
+      "native_bytes": 10882,
+      "native_sha256": "c6e4d2b08b11291e768779b2c8c09a658495a97fe9b634a8eed0094a037fc784",
+      "native_points": 206,
+      "multipatch_core_bytes": 14557,
+      "native_recoverable_bytes": 22853,
+      "multipatch_vertices": 544,
+      "multipatch_parts": 88,
+      "triangles": 368,
+      "geometry_sha256": "8572c04a4ecfadb3411e493bc46477d3a8895cfd2cf0e6b8c52d9c712f1d2dd7",
+      "coordinate_sha256": "9229259b66359a53b9aa1c44dfbc76398c674e00cf5f6f727f1cd100e7981616",
+      "e2_m2": 4.918740579583085,
+      "continuous_bound_m": 0.24725220594304964,
+      "files": [
+        {
+          "path": "bristol-brandon-hill-0.25m/terrain.shp",
+          "bytes": 13928,
+          "sha256": "3f71ebaa935a78c1fb751f57578bcf8dfb9b40155537feef3c53e9a62fe71e39"
+        },
+        {
+          "path": "bristol-brandon-hill-0.25m/terrain.shx",
+          "bytes": 108,
+          "sha256": "d5c5b14598c6e182003c1ae6dc7de819048ec98bb9c807f7dafb3a7c16c8839b"
+        },
+        {
+          "path": "bristol-brandon-hill-0.25m/terrain.dbf",
+          "bytes": 98,
+          "sha256": "7370451e8a4ea1a404e51b1b5be606fb2c9c4714e482626d28aab520a6fc2b6f"
+        },
+        {
+          "path": "bristol-brandon-hill-0.25m/terrain.prj",
+          "bytes": 417,
+          "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+        },
+        {
+          "path": "bristol-brandon-hill-0.25m/terrain.cpg",
+          "bytes": 6,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "path": "bristol-brandon-hill-0.25m/native.json",
+          "bytes": 10882,
+          "sha256": "c6e4d2b08b11291e768779b2c8c09a658495a97fe9b634a8eed0094a037fc784"
+        }
+      ]
+    },
+    {
+      "id": "bristol-brandon-hill-0.5m",
+      "case_id": "bristol-brandon-hill",
+      "case_name": "布兰登山坡",
+      "target_m": 0.5,
+      "native_bytes": 4261,
+      "native_sha256": "23fbcce56474bbd94ab8cebe384926b0101491316deb8b75e861b87fd3f39815",
+      "native_points": 74,
+      "multipatch_core_bytes": 5613,
+      "native_recoverable_bytes": 8966,
+      "multipatch_vertices": 190,
+      "multipatch_parts": 32,
+      "triangles": 126,
+      "geometry_sha256": "b2f6f7dcacab00ed5b125cf0563dc6b00dbffe8edabd3214ffdc2bd9bd11bafb",
+      "coordinate_sha256": "31834099dafccc99b72c0587bd9603e057d4c4a65534ba39daa2614a5164fa75",
+      "e2_m2": 8.735370795684448,
+      "continuous_bound_m": 0.47399900922673843,
+      "files": [
+        {
+          "path": "bristol-brandon-hill-0.5m/terrain.shp",
+          "bytes": 4984,
+          "sha256": "05db127269bf86cbb91bea2e0bd35ad80d566d90acad4f90710353340ca59fdb"
+        },
+        {
+          "path": "bristol-brandon-hill-0.5m/terrain.shx",
+          "bytes": 108,
+          "sha256": "8c716cb5714dff68a125acf32531d79b6196cb29276e62a274bfcf885ca42ca9"
+        },
+        {
+          "path": "bristol-brandon-hill-0.5m/terrain.dbf",
+          "bytes": 98,
+          "sha256": "3ceab2de70dd10c656e756bfd8fc0fbc6648f07bab86f5ee5555ceb845bd6c37"
+        },
+        {
+          "path": "bristol-brandon-hill-0.5m/terrain.prj",
+          "bytes": 417,
+          "sha256": "d97d276680377a05a19a8b8030ae04c4a87e883a9e5c07d0c646e5402e773a89"
+        },
+        {
+          "path": "bristol-brandon-hill-0.5m/terrain.cpg",
+          "bytes": 6,
+          "sha256": "146d6789ffe033a5297c1ad046e6a62ee35319b86b021444f05b6ea2aa8a1f4a"
+        },
+        {
+          "path": "bristol-brandon-hill-0.5m/native.json",
+          "bytes": 4261,
+          "sha256": "23fbcce56474bbd94ab8cebe384926b0101491316deb8b75e861b87fd3f39815"
+        }
+      ]
+    }
+  ]
+}

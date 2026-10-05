@@ -2,6 +2,7 @@ import {useEffect,useState,type ReactNode} from 'react';
 
 export function evidenceGroupForHash(hash:string):'real'|'supplementary'|null{
   const anchor=hash.replace(/^#/,'');
+  if(anchor==='bristol-arcgis-run')return null;
   if(anchor==='real-evidence'||anchor.startsWith('bristol-'))return 'real';
   if(!anchor||anchor==='paper-results'||anchor==='real-terrain-results')return null;
   if(['supplementary-evidence','comparison-overview','comparison','evidence','method','derivative-title','arcgis-run-title'].includes(anchor)

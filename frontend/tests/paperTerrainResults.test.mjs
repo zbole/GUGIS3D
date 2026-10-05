@@ -56,6 +56,7 @@ test('supplementary experiments are not mounted until requested; historical deep
     act(()=>listeners.get('click')({target:{closest:()=>({getAttribute:()=> '#terrain-lab'})}}));assert.equal(r.root.findByType('details').props.open,true);
     assert.equal(evidenceGroupForHash('#bristol-terrain-decision'),'real');assert.equal(evidenceGroupForHash('#paper-results'),null);
     assert.equal(evidenceGroupForHash('#unrelated'),null);
+    assert.equal(evidenceGroupForHash('#bristol-arcgis-run'),null);
     act(()=>r.unmount());r=null;assert.equal(listeners.size,0);
   }finally{if(r)act(()=>r.unmount());if(prior===undefined)delete globalThis.window;else globalThis.window=prior;}
 });

@@ -2,6 +2,7 @@ import {useState} from 'react';
 import report from '../../../shared/paper-terrain-metrics.json';
 import cityReport from '../../../shared/bristol-global-l2.json';
 import BristolIntegralDecision from './BristolIntegralDecision';
+import BristolArcGISRun from './BristolArcGISRun';
 import './PaperTerrainResults.css';
 
 type Metric = 'e2_m2'|'linf_m'|'rho_median';
@@ -56,6 +57,7 @@ export function RealTerrainResultSummary({target:externalTarget,onTargetChange}:
     <div className="paper-table-scroll"><table><caption>同一目标 {target*100} cm · 三类实际档案与完整域积分</caption><thead><tr><th>样区 / 表示</th><th>文件 / kB</th><th>实际三角形</th><th>直纹四边形</th><th>全域 E₂ / m²</th><th>最大参考界 / cm</th></tr></thead><tbody>{rows.map(m=><tr key={`${m.case_id}/${m.family}`}><th scope="row">{m.case_name} / {realNames[m.family as keyof typeof realNames]}</th><td>{(m.bytes/1000).toFixed(2)}</td><td>{m.native_triangles.toLocaleString()}</td><td>{m.ruled_quads.toLocaleString()}</td><td>{m.e2_m2.toFixed(5)}</td><td>{(m.continuous_bound_m*100).toFixed(3)}</td></tr>)}</tbody></table></div>
     <p className="paper-scope">两类模型均达同一最大参考界目标，但几何与 RMSE 不完全相同；这是工程表示选择结果。混合模型含直纹四边形，不能把面片总数冒充论文的三角形 N。ArcGIS 兼容 MultiPatch 的同几何格式结果在下方展开，ArcGIS 软件实测仍待完成。</p>
     <BristolIntegralDecision/>
+    <BristolArcGISRun target={target}/>
     <details className="paper-method"><summary>全域 E₂ 的计算依据与精度—体积曲线</summary><p>每个原生三角形或直纹区段与所跨越的源栅格单元求交，比较模型与源双线性参考面。残差平方在每个交域是至多四次多项式；3 × 3 Gauss / Duffy 积分计算全域平方误差（float64）。包括实际保存的高程舍入，未把混合面先离散再测。源 DTM 参考面不是独立真实地面精度。</p><img src="/research/bristol-global-l2/error-cost.png" loading="lazy" alt="两个布里斯托样区的全域E2与未压缩文件体积曲线，包含三种表示和三个误差目标，显示不同样区的收益与代价"/></details>
     <div className="paper-downloads"><a href="/research/bristol-global-l2/results.csv" download>真实地形 18 组全域指标 CSV ↓</a><a href="/research/bristol-global-l2/results.json" download>模型指纹与积分回执 JSON ↓</a><a href="/research/bristol-global-l2/error-cost.svg" download>全域误差—体积科学图 SVG ↓</a></div>
   </section>;
