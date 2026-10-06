@@ -24,6 +24,8 @@ const TerrainOrderControls = lazy(() => import('./TerrainOrderControls'));
 const NativeQueryResults = lazy(() => import('./NativeQueryResults'));
 const PrincipalDirectionResults = lazy(() => import('./PrincipalDirectionResults'));
 const SourceFunctionResults = lazy(() => import('./SourceFunctionResults'));
+const ValidatedAdvantageSummary = lazy(() => import('./ValidatedAdvantageSummary'));
+const advantageSummary = <Suspense fallback={<p role="status" className="cr-scope">正在载入四项已核验结果…</p>}><ValidatedAdvantageSummary/></Suspense>;
 const principalResults = <Suspense fallback={<p role="status" className="cr-scope">正在载入完整方向适配结果…</p>}><PrincipalDirectionResults/></Suspense>;
 const sourceResults = <Suspense fallback={<p role="status" className="cr-scope">正在载入真实 DTM 同函数结果…</p>}><SourceFunctionResults/></Suspense>;
 const nativeResults = <Suspense fallback={<p role="status" className="cr-scope">正在载入面带规模与原生查询结果…</p>}><NativeQueryResults/></Suspense>;
@@ -144,7 +146,7 @@ export default function CompareShowcase({ workspace = defaultCityWorkspace, api 
     <a href="/compare">查看布里斯托已核验的对比证据 →</a>
     <a href="#real-terrain-results">查看固定样区真实地形结果 →</a>
     <a href="/datasets">查看城市与裸地数据集 →</a>
-  </div>{principalResults}{sourceResults}{nativeResults}<PaperTerrainResults/>{functionControls}<RealTerrainResultSummary/><EvidenceDisclosure group="supplementary" title="补充研究实验" note="跨城市公开地形数据与既有方法实验">{researchSection}</EvidenceDisclosure></div>;
+  </div>{advantageSummary}{principalResults}{sourceResults}{nativeResults}<PaperTerrainResults/>{functionControls}<RealTerrainResultSummary/><EvidenceDisclosure group="supplementary" title="补充研究实验" note="跨城市公开地形数据与既有方法实验">{researchSection}</EvidenceDisclosure></div>;
   return <BristolComparison api={api} />;
 }
 
@@ -195,11 +197,12 @@ function BristolComparison({ api }: { api?: CityApi }) {
     <div className="compare-page">
       <header className="cmp-header">
         <a href="/" className="cmp-logo" aria-label="返回 GUGIS3D 城市工作台"><span className="cmp-logo-mark">G<span>3</span></span><span>GUGIS<em>3D</em></span></a>
-        <nav aria-label="对比展示导航"><a href="#principal-direction-results">方向优势</a><a href="#source-function-results">真实函数收益</a><a href="#native-query-results">查询效率</a><a href="#paper-results">论文复现</a><a href="/datasets">数据集</a><a href="#supplementary-evidence">完整证据</a></nav>
+        <nav aria-label="对比展示导航"><a href="#validated-advantages">核心结果</a><a href="#source-function-results">真实函数收益</a><a href="#native-query-results">查询效率</a><a href="#paper-results">论文复现</a><a href="/datasets">数据集</a><a href="#supplementary-evidence">完整证据</a></nav>
         <a href="/" className="cmp-header-action">进入三维工作台 <ArrowUpRight size={16}/></a>
       </header>
       <main>
         <section className="cmp-results-hero" aria-labelledby="cmp-title"><span className="paper-eyebrow">GUGIS3D / TERRAIN RESEARCH RESULTS</span><h1 id="cmp-title">顺着地形表达，<br/>用结果证明收益。</h1><p>三条已核验主线：主曲率方向适配降低论文式 P1 误差；真实 DTM 在保留同一源函数时减少矢量文件；同函数面带可直接执行原生查询。每条结论都对应完整模型、数值核验和适用范围。</p></section>
+        {advantageSummary}
         {principalResults}
         {sourceResults}
         {nativeResults}

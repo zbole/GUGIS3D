@@ -64,6 +64,8 @@ test("overview, lazy-loaded lab, target selection and exports use the same resol
     URL.createObjectURL = blob => { blobs.push(blob); return urlBefore(blob); };
     await act(async () => { renderer = create(React.createElement(Showcase)); });
     const root = renderer.root;
+    assert.equal(root.findAllByProps({id:'validated-advantages'}).length,1);
+    assert.equal(root.findAllByProps({id:'source-format-results'}).length,1);
     assert.equal(root.findAllByProps({id:'principal-direction-results'}).length,1);
     assert.equal(root.findAllByProps({id:'source-function-results'}).length,1);
     assert.equal(root.findAllByProps({id:'native-query-results'}).length,1);

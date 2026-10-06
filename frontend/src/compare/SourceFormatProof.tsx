@@ -1,11 +1,13 @@
 import report from '../../../shared/source-multipatch-v1.json';
+import {useComparisonAnchor} from './useComparisonAnchor';
 const base='/research/source-multipatch-v1/';
 const size=(n:number)=>(n/1000).toFixed(2)+' kB';
 export default function SourceFormatProof({siteId}:{siteId:string}){
+  useComparisonAnchor('source-format-results');
   const site=report.cases.find(s=>s.id===siteId);
   if(!site)return null;
   const saving=100*(1-site.native_p1_bytes/site.bytes);
-  return <div className="sf-format-proof" aria-label="同几何 ArcGIS 兼容文件对比">
+  return <div id="source-format-results" className="sf-format-proof" aria-label="同几何 ArcGIS 兼容文件对比">
     <div><span>ArcGIS 兼容格式 / 同一三角几何</span><h3>同样 8,192 个三角面，原生文件小 {saving.toFixed(1)}%。</h3>
       <p>GUGIS P1 {size(site.native_p1_bytes)} / 实际 MultiPatch 五文件 {size(site.bytes)}。对照省略可选 M 数组、采用 1 个要素和 64 条向上的三角带，全部源三角面、高程、面积和索引已逐一读回核验。</p>
       <p>这里比较相同 P1 表面的完整磁盘文件；未运行 ArcGIS 软件。同体积的 GUGIS 面带还可保留源双线性函数，原始 P1 三角面则存在内部差。</p>

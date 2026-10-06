@@ -1,0 +1,111 @@
+{
+  "schema": "gugis-validated-advantages-v1",
+  "inputs": [
+    {
+      "path": "shared/principal-ruled-display-v1.json",
+      "sha256": "d061cabf0f401867e0149e66dc0e630a3d6ffdd56a7fb61862adcead924bde7c"
+    },
+    {
+      "path": "frontend/public/research/principal-ruled-v1/results.json",
+      "sha256": "62ea95e97f6120dcc2109d7bf0478b0aa7ec24266e60b3d38de6291e85cb3797"
+    },
+    {
+      "path": "shared/source-native-bands-v1.json",
+      "sha256": "2d99182356a62e1bdaaa72b801d6c8d8330eb92a425ae6098c340c5658425977"
+    },
+    {
+      "path": "frontend/public/research/source-native-bands-v1/results.json",
+      "sha256": "71b46d1f7eafcd3e13fd4de9eaa0d1790d19e0dd072f8c290b4fae9101460857"
+    },
+    {
+      "path": "shared/source-multipatch-v1.json",
+      "sha256": "7e5238e190b1ee16179447eb00ad0dda4fecff3582356ddf6652d26f72a61d2d"
+    },
+    {
+      "path": "frontend/public/research/source-multipatch-v1/results.json",
+      "sha256": "11f4ae81f3d4a1b392800e09b8b3a2fb29db3706b821bf8a98fc4283cc4c1241"
+    },
+    {
+      "path": "shared/native-query-performance-v1.json",
+      "sha256": "2fab6fee7ed36f38c0efe6f22119a2ae098bf417ef627053daab8c38a643687c"
+    },
+    {
+      "path": "frontend/public/research/native-query-v1/results.json",
+      "sha256": "df7e009f07fe0267fb939d5141a54b4f2d7cacc6cd027a0b5c44bf5aacd852bf"
+    }
+  ],
+  "claims": [
+    {
+      "id": "paper-direction",
+      "kind": "error-percent",
+      "value": 99.87654133292878,
+      "label": "相对论文式 P1 的全域误差降低",
+      "baseline": "顶点 P1 插值 · 论文式 L₂ 贪心 / L₁ 选边",
+      "context": "100:1 严格凸二次曲面 · 30° · N=2,048",
+      "evidence": "七个方向在 N=2,048 下全部降低 99.88%–99.94%",
+      "metric_unit": "E₂ / m²",
+      "gugis_metric": 0.00020793991852905054,
+      "baseline_metric": 0.1684287733392559,
+      "detail_href": "#principal-direction-results",
+      "scope": "方向与表达阶次收益；336 B 的精确 P2 控制也已公开。",
+      "report_sha256": "62ea95e97f6120dcc2109d7bf0478b0aa7ec24266e60b3d38de6291e85cb3797",
+      "package_url": "/research/principal-ruled-v1/principal-ruled-evidence.zip",
+      "package_sha256": "7b0b2a152aea3a1ccef946b756f28e2d06d186b77a09def27c334ada9a56c142",
+      "package_bytes": 1251828
+    },
+    {
+      "id": "source-function",
+      "kind": "file-percent",
+      "value": 80.48204431028722,
+      "label": "保留同一源函数的矢量文件减少",
+      "baseline": "逐格共享 XYZ 的 P2 三角函数",
+      "context": "真实 1 m DTM · 十城二十固定样区",
+      "evidence": "20/20 同函数全域积分核验通过",
+      "metric_unit": "完整文件 / B",
+      "gugis_metric": 135528,
+      "baseline_metric": 694376,
+      "detail_href": "#source-function-results",
+      "scope": "原始 Float32 源函数；规则栅格与 GeoTIFF 更小的控制同样公开。",
+      "report_sha256": "71b46d1f7eafcd3e13fd4de9eaa0d1790d19e0dd072f8c290b4fae9101460857",
+      "package_url": "/research/source-native-bands-v1/source-native-bands-evidence.zip",
+      "package_sha256": "4831e19bd1b77a8ea8ca4c9ca81c905c517a2d3096d1d87a19752e5d9f946e37",
+      "package_bytes": 11006037
+    },
+    {
+      "id": "multipatch-format",
+      "kind": "file-percent",
+      "value": 32.58587928650305,
+      "label": "ArcGIS 兼容同几何文件减少",
+      "baseline": "实际 MultiPatch SHP/SHX/DBF/PRJ/CPG",
+      "context": "20 个真实源样区 · 相同 P1 三角表面",
+      "evidence": "163,840 个源三角面独立读回一致",
+      "metric_unit": "完整文件 / B",
+      "gugis_metric": 135528,
+      "baseline_metric": 201038,
+      "detail_href": "#source-format-results",
+      "scope": "省略可选 M 的真实五文件；这是格式比较，未运行 ArcGIS 软件。",
+      "report_sha256": "11f4ae81f3d4a1b392800e09b8b3a2fb29db3706b821bf8a98fc4283cc4c1241",
+      "package_url": "/research/source-multipatch-v1/source-multipatch-evidence.zip",
+      "package_sha256": "781e84242f7f41ee8a66349e6724457931602e3aa2ce39d61816abfb3d0d1c7b",
+      "package_bytes": 4367605
+    },
+    {
+      "id": "native-query",
+      "kind": "cpu-ratio",
+      "value": 1.371387850711092,
+      "label": "同函数原生查询的 CPU 中位数比",
+      "baseline": "准备完成的高阶三角函数查询",
+      "context": "8 条连续直纹面带 · i7-14650HX · Node v24.13.0",
+      "evidence": "1.09–1.37×，全部五个固定结构样例",
+      "metric_unit": "CPU 查询中位数 / ns",
+      "gugis_metric": 70.00357560285543,
+      "baseline_metric": 96.00205308809134,
+      "detail_href": "#native-query-results",
+      "scope": "17 轮交替同点试验；比值为两种方法的耗时中位数之比，非 GPU/ArcGIS 测速。",
+      "report_sha256": "df7e009f07fe0267fb939d5141a54b4f2d7cacc6cd027a0b5c44bf5aacd852bf",
+      "package_url": "/research/native-query-v1/native-query-evidence.zip",
+      "package_sha256": "99e5f2c9dbabd1f8c3a3b71152c7bc3f607b5caa3c2e917f52f4e0125920ebac",
+      "package_bytes": 221852
+    }
+  ]
+}
