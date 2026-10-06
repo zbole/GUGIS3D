@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1050" height="410" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1050 410" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1050" height="410"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-410)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="24" y="374" style="font-family: Helvetica; font-size: 19px;fill: rgb(25%,39%,34%); stroke:none;" transform="translate(0,748) scale(1,-1)">Same source P1 surface, smaller complete native files</text>
+			<text x="24" y="344" style="font-family: Helvetica; font-size: 11px;fill: rgb(25%,39%,34%); stroke:none;" transform="translate(0,688) scale(1,-1)">All 20 fixed real-DTM sites: exact same 8,192 triangles, 4,096 m2 domain and Float64 Z.</text>
+			<text x="24" y="285" style="font-family: Helvetica; font-size: 12px;fill: rgb(25%,39%,34%); stroke:none;" transform="translate(0,570) scale(1,-1)">Compact MultiPatch / five files</text>
+			<rect x="300" y="268" width="610.0" height="18" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(43%,53%,62%); fill-rule: evenodd;"/>
+			<text x="920" y="272" style="font-family: Helvetica; font-size: 11px;fill: rgb(25%,39%,34%); stroke:none;" transform="translate(0,544) scale(1,-1)">201,038 B</text>
+			<text x="24" y="219" style="font-family: Helvetica; font-size: 12px;fill: rgb(25%,39%,34%); stroke:none;" transform="translate(0,438) scale(1,-1)">GUGIS shared XYZ / GPR4</text>
+			<rect x="300" y="202" width="411.2261363523314" height="18" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(15%,54%,47%); fill-rule: evenodd;"/>
+			<text x="920" y="206" style="font-family: Helvetica; font-size: 11px;fill: rgb(25%,39%,34%); stroke:none;" transform="translate(0,412) scale(1,-1)">135,528 B</text>
+			<text x="24" y="149" style="font-family: Helvetica; font-size: 15px;fill: rgb(15%,54%,47%); stroke:none;" transform="translate(0,298) scale(1,-1)">32.6% smaller actual files; MultiPatch omits the optional M array.</text>
+			<text x="24" y="114" style="font-family: Helvetica; font-size: 11px;fill: rgb(25%,39%,34%); stroke:none;" transform="translate(0,228) scale(1,-1)">The baseline uses one feature and 64 upward column strips; no degenerate or repeated faces.</text>
+			<text x="24" y="88" style="font-family: Helvetica; font-size: 11px;fill: rgb(25%,39%,34%); stroke:none;" transform="translate(0,176) scale(1,-1)">Independent PyShp readback checks every source face, Z, area, .shx record and .dbf identity.</text>
+			<text x="24" y="62" style="font-family: Helvetica; font-size: 11px;fill: rgb(25%,39%,34%); stroke:none;" transform="translate(0,124) scale(1,-1)">Ruled bands have the same native bytes, but retain the source bilinear function between nodes.</text>
+			<text x="24" y="33" style="font-family: Helvetica; font-size: 11px;fill: rgb(25%,39%,34%); stroke:none;" transform="translate(0,66) scale(1,-1)">Disk-format result only. No ArcGIS software run, CPU/GPU/heap claim or optimal-code proof.</text>
+		</g>
+	</g>
+</svg>

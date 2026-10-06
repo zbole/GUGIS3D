@@ -3,6 +3,7 @@ import report from '../../../shared/source-native-bands-v1.json';
 import {loadSourceModel,type LoadedSourceModel} from './loadSourceModel';
 import {prepareSourceBandQuery,prepareRegularGridQuery} from './sourceRuledBandMath';
 import {useComparisonAnchor} from './useComparisonAnchor';
+import SourceFormatProof from './SourceFormatProof';
 import './SourceFunctionResults.css';
 const base='/research/source-native-bands-v1/';
 type Site=typeof report.cases[number];
@@ -51,6 +52,7 @@ export default function SourceFunctionResults(){
       {name:'实际无损 GeoTIFF 输入',bytes:site.source_geotiff.bytes,tone:'tiff',note:'源像素完全不变；可下载 GIS 输入'},
     ].map(v=><div className={`sf-file-row ${v.tone}`} key={v.tone}><div><strong>{v.name}</strong><span>{size(v.bytes)}</span></div><div className="sf-file-track"><i style={{width:`${100*v.bytes/p2.binary_bytes}%`}}/></div><p>{v.note}</p></div>)}</div>
     <p className="sf-control">规则高程格与无损 GeoTIFF 在这些规则样区中更小。本节验证面带相对通用共享 XYZ 的逐格 P2 矢量表示的优势，不是优于所有栅格或最优三角编码。完整文件字节数也不等于运行内存。</p>
+    <SourceFormatProof siteId={siteId}/>
     <div className="cr-actions"><button aria-label="展开真实源函数同点查询" aria-expanded={demo} onClick={()=>setDemo(v=>!v)}>{demo?'收起真实源函数同点查询':'验证实际高程与精细函数结构'}</button><a download href={`${base}${site.id}/${site.source_geotiff.filename}`}>当前原始像素 GeoTIFF ↓</a><a download href={`${base}${site.id}/${r.binary_filename}`}>当前 GUGIS 原生面带 ↓</a><a download href={`${base}${report.package.filename}`}>20 样区完整证据 ZIP ↓</a></div>
     {demo&&<SourceQueryDemo key={site.id} site={site}/>}
     <details className="cr-details"><summary>20 个固定样区的全部对比结果</summary><div className="cr-table"><table><caption>相同 65 × 65 源高程节点 · 每样区比较像素中心之间的 64 × 64 m</caption><thead><tr><th>样区</th><th>面带 / P2 完整文件 kB</th><th>减少</th><th>P1 源函数 RMS 差 mm</th><th>实际源 GeoTIFF kB</th></tr></thead><tbody>{report.cases.map(s=><tr key={s.id}><th>{s.name.replace(' · 英国环境署裸地 DTM','')}</th><td>{(model(s,'ruled').binary_bytes/1000).toFixed(2)} / {(model(s,'source_p2').binary_bytes/1000).toFixed(2)}</td><td>{saving(model(s,'ruled').binary_bytes,model(s,'source_p2').binary_bytes).toFixed(1)}%</td><td>{(model(s,'source_p1').rms_integral_m*1000).toFixed(3)}</td><td>{(s.source_geotiff.bytes/1000).toFixed(2)}</td></tr>)}</tbody></table></div><img src={`${base}source-function-results.svg`} loading="lazy" width="1100" height="870" alt="四种同源完整文件代价与全部20个真实样区P1源函数RMS差，注明规则栅格更小和源函数一致性范围"/></details>

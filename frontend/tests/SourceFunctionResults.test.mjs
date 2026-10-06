@@ -11,9 +11,11 @@ const {default:Card}=await import(pathToFileURL(out).href),text=n=>typeof n==='s
 const settle=async(r,predicate)=>{for(let i=0;i<40&&!predicate(r);i++)await act(async()=>{await new Promise(resolve=>setTimeout(resolve,25));});assert.ok(predicate(r),'Native query demo should become ready');};
 test('source results expose the supported vector advantage, all fixed sites and smaller raster controls without fetching models',()=>{
   const previous=globalThis.fetch;globalThis.fetch=()=>assert.fail('Closed source result must not load models');let r;
-  try{act(()=>r=create(React.createElement(Card)));assert.match(text(r.toJSON()),/80\.5/);assert.match(text(r.toJSON()),/20\/ 20/);assert.match(text(r.toJSON()),/不等于运行内存/);assert.match(text(r.toJSON()),/不是独立实测地面精度/);assert.match(text(r.toJSON()),/没有获胜的结果/);assert.equal(r.root.findByType('tbody').findAllByType('tr').length,20);assert.equal(r.root.findAllByType('canvas').length,0);
+  try{act(()=>r=create(React.createElement(Card)));assert.match(text(r.toJSON()),/80\.5/);assert.match(text(r.toJSON()),/20\/ 20/);assert.match(text(r.toJSON()),/不等于运行内存/);assert.match(text(r.toJSON()),/不是独立实测地面精度/);assert.match(text(r.toJSON()),/没有获胜的结果/);assert.equal(r.root.findAllByType('tbody').length,2);for(const table of r.root.findAllByType('tbody'))assert.equal(table.findAllByType('tr').length,20);assert.equal(r.root.findAllByType('canvas').length,0);
+    const proof=r.root.findByProps({'aria-label':'同几何 ArcGIS 兼容文件对比'});assert.match(text(proof),/32\.6%/);assert.match(text(proof),/201\.04 kB/);assert.match(text(proof),/省略可选 M/);assert.match(text(proof),/未运行 ArcGIS 软件/);
     assert.match(text(r.root.findByProps({className:'sf-file-chart'})),/实际无损 GeoTIFF 输入/);assert.match(text(r.root.findByProps({className:'sf-file-chart'})),/16\.98 kB/);
     act(()=>r.root.findByProps({'aria-label':'源函数对比样区'}).props.onChange({target:{value:'newcastle-north-quarter'}}));assert.match(text(r.toJSON()),/11\.25/);
+    assert.ok(r.root.findAllByType('a').some(a=>a.props.href==='/research/source-multipatch-v1/newcastle-north-quarter/source-multipatch.zip'));
   }finally{if(r)act(()=>r.unmount());globalThis.fetch=previous;}
 });
 test('actual native files show interior P1 disagreement and near-zero source-function differences, and changing site aborts old requests',async()=>{
