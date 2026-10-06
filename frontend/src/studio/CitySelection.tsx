@@ -2,6 +2,8 @@ import { lazy, Suspense } from "react";
 import { citySourceLicense, type CityId, type CityWorkspace } from "./cityWorkspaces";
 import { type TileLoadingProfile } from "./renderTileClient";
 import "./citySelection.css";
+import CityPicker from "./CityPicker";
+import terrainCatalogue from "../../../shared/public-terrain-sources-v9.json";
 
 const UkCoverageProgress = lazy(() => import("./UkCoverageProgress"));
 const SourceCandidateReview = lazy(() => import("./SourceCandidateReview"));
@@ -21,7 +23,7 @@ export default function CitySelection({ cities, selected, multiple, error, previ
   onRetry: () => void;
 }) {
   return <main className="city-selection">
-    <header className="city-selection-brand">GUGIS<strong>3D</strong><small>英国城市工作台</small></header>
+    <header className="city-selection-brand"><div>GUGIS<strong>3D</strong><small>英国城市工作台</small></div><nav aria-label="城市选择页面导航"><a href="/compare#validated-advantages">对比结果 ↗</a><a href="/datasets">公开数据 ↗</a></nav></header>
     <section className="city-selection-intro"><span>CITY WORKSPACES</span><h1>先选择你要探索的城市</h1>
       <p>每座城市独立保存。按需载入真实轮廓，保留来源、范围与精度说明。</p></section>
     <section className="city-selection-main" aria-label="选择起始城市">
@@ -32,19 +34,8 @@ export default function CitySelection({ cities, selected, multiple, error, previ
       </div><span>{cities.length} 个已登记城市 · 局部街区样本</span></div>
       {!cities.length && !error && <p role="status">正在读取城市目录；尚未载入任何城市模型…</p>}
       {error && <div className="city-selection-error" role="alert"><p>{error}</p><button onClick={onRetry}>重试城市目录</button></div>}
-      <div className="city-selection-grid">{cities.map(city => {
-        const id = city.id as CityId, source = citySourceLicense(city);
-        return <label key={city.id} className={`city-selection-card${selected.includes(id) ? " is-selected" : ""}${city.status === "invalid" ? " is-invalid" : ""}`}>
-          <input type={multiple ? "checkbox" : "radio"} name="starting-city" aria-label={`选择${city.name}`}
-            checked={selected.includes(id)} disabled={city.status === "invalid"} onChange={() => onSelect(id)} />
-          <small className="city-selection-country">UNITED KINGDOM</small>
-          <strong>{city.name}</strong><span className="city-selection-english">{city.city_name ?? city.id}</span>
-          <p>{city.coverage_label}</p>
-          <span className="city-selection-counts">{city.status === "invalid" ? "数据异常，请先恢复文件" : city.status === "pending" ? "待导入数据" : `${city.building_count ?? 0} 栋建筑 · ${city.road_count ?? 0} 条道路`}</span>
-          {!!city.quality_warnings?.length && <small className="city-selection-warning">此版本有已知高度 / 竖向模型问题，进入后可查看说明</small>}
-          <small className="city-selection-source">{source?.label ?? city.source ?? "当前项目数据"}</small>
-        </label>;
-      })}</div>
+      <CityPicker cities={cities} selected={selected} multiple={multiple} terrainCities={terrainCatalogue.sources.map(s=>s.city_id)} onSelect={id=>onSelect(id as CityId)}/>
+      {selected.length>0&&<details className="city-selection-chosen-detail"><summary>已选城市的范围、建筑数量与来源</summary>{cities.filter(city=>selected.includes(city.id as CityId)).map(city=>{const source=citySourceLicense(city);return <div key={city.id}><strong>{city.name} · {city.building_count??0} 栋建筑 · {city.road_count??0} 条道路</strong><p>{city.coverage_label}</p>{!!city.quality_warnings?.length&&<small className="city-selection-warning">此版本有已知高度 / 竖向模型问题，进入后可查看说明</small>}{source?<a href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a>:<small>{city.source??'当前项目数据'}</small>}</div>;})}</details>}
       <h2 className="city-selection-step city-selection-step--mode"><span>02</span>选择浏览方式</h2>
       <label className={`city-selection-mode${previewMode ? " is-selected" : ""}`}><input type="checkbox" checked={previewMode}
         aria-label="轻量分块浏览（只读）" onChange={event => onPreviewModeChange(event.target.checked)} />

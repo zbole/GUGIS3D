@@ -3,6 +3,7 @@ import catalogue from '../../../shared/public-terrain-sources-v9.json';
 import workspaces from '../../../shared/city-workspaces.json';
 import './DatasetExplorer.css';
 import CityDatasetCard from './CityDatasetCard';
+import CityPicker from '../studio/CityPicker';
 
 const TerrainViewer=lazy(()=>import('./PublicTerrainViewer'));
 const RuledTileExplorer=lazy(()=>import('./RuledTileExplorer'));
@@ -16,7 +17,7 @@ export default function DatasetExplorer(){
   return <main className="dataset-page">
     <header className="dataset-header"><a href="/" className="dataset-logo">GUGIS<span>3D</span></a><nav aria-label="数据集页面导航"><a href="/compare#paper-results">对比结果</a><a href="/">城市工作台 ↗</a></nav></header>
     <section className="dataset-intro"><span className="dataset-eyebrow">PUBLIC DATA / 城市数据集</span><h1>先看数据，再进入城市。</h1><p>城市轮廓、楼高依据、裸地源与可复核的原生面带资料。这里只读浏览，不初始化、修改或保存正式城市。</p><div className="dataset-summary"><span><strong>{workspaces.length}</strong> 座城市有公开样本</span><span><strong>{catalogue.sources.length}</strong> 座城市已核验 DTM</span><span><strong>{(catalogue.sources.reduce((n,s)=>n+s.valid_pixels,0)/1e6).toFixed(2)}</strong> 百万个有效源像元</span><span><strong>1 m</strong> 源分辨率 · 非预览精度</span></div></section>
-    <div className="dataset-layout"><aside aria-label="选择城市资料"><h2>城市中心样本</h2>{workspaces.map(city=><button key={city.id} type="button" aria-pressed={city.id===cityId} onClick={()=>select(city.id)}><span>{city.name}<small>{city.city_name}</small></span><i>{catalogue.sources.some(s=>s.city_id===city.id)?'DTM 已核验':'DTM 未发布'}</i></button>)}<p>各地均为局部样本。原始资料取得后仍需独立核验；英国环境署不覆盖苏格兰和威尔士，本页不会用英格兰数据代替。</p></aside>
+    <div className="dataset-layout"><aside className="city-dataset-picker" aria-label="选择城市资料"><h2>城市中心样本</h2><CityPicker compact cities={workspaces} selected={[cityId]} terrainCities={catalogue.sources.map(s=>s.city_id)} onSelect={select}/><p>各地均为局部样本。英国环境署不覆盖苏格兰和威尔士，不用其他城市的数据代替。</p></aside>
       <section className="dataset-detail" aria-label={`${workspace.name}城市与地形资料`}><div className="dataset-heading"><div><span className="dataset-eyebrow">{workspace.city_name.toUpperCase()} / 城市资料</span><h2>{workspace.name}</h2><p>{workspace.coverage_label}</p></div></div>
         <CityDatasetCard key={cityId} cityId={cityId}/>
         {!source?<div className="dataset-pending"><strong>尚无已核验的公开 DTM</strong><p>本城建筑样本工作区已有独立入口。地形完成独立核验并公开前，不显示替代数据或虚构精度。</p><a href={`/?city=${cityId}&cities=${cityId}&view_mode=tiles&tile_profile=economy`}>浏览本城建筑样本 ↗</a></div>:<>

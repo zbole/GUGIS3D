@@ -105,7 +105,7 @@ test("back navigation restores the city; an in-progress write retains its bound 
 
 const button = (root, label) => root.findAllByType("button").find(node => text(node) === label);
 async function click(root, label) { await act(async () => button(root, label).props.onClick()); }
-async function select(root, name) { await act(async () => root.findByProps({ "aria-label": `选择${name}` }).props.onChange()); }
+async function select(root, name) { await act(async () => root.findByProps({ "aria-label": `选择${name}` }).props.onClick()); }
 
 test("fresh entry loads only the directory and requires an explicit city choice", async t => {
   const f = await fixture(t, "http://localhost/");

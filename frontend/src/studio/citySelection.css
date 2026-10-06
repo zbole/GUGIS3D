@@ -15,6 +15,7 @@
 .city-selection-secondary{margin:0 0 28px;padding:20px;border:1px solid #e0e8ed;border-radius:12px;background:#fff}.city-selection-secondary>strong{font-size:13px}.city-selection-secondary>p{color:#6a838f;font-size:12px;line-height:1.8;margin:6px 0 18px}
 .city-selection-actions{position:sticky;bottom:0;z-index:4;background:#f7f9fb;padding:16px 0;box-shadow:0 -10px 25px #f7f9fb}
 .city-selection-current-mode{display:inline-block;margin-left:12px;padding:3px 8px;border-radius:5px;background:#e7f0f3;color:#377785;font-size:11px}
+.city-selection-brand{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:15px}.city-selection-brand nav{display:flex;gap:20px;font-size:12px;font-weight:400;letter-spacing:0}.city-selection-brand nav a{color:#56786c;text-decoration:none}.city-selection-brand nav a:focus-visible{outline:2px solid #468d72;outline-offset:4px}@media(max-width:620px){.city-selection-brand nav{gap:14px;font-size:11px}.city-selection-brand small{font-size:11px;margin-left:10px;padding-left:10px}.city-selection-intro{padding-top:36px}}
 @media(min-width:860px){.city-selection-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.city-selection-card{padding:22px}.city-selection-card.is-selected{padding:21px}.city-selection-country{margin-bottom:22px}}
 @media(max-width:620px){.city-selection-actions p{display:none}.city-selection-actions{padding:12px 0}.city-selection-actions button.primary{min-height:44px}}
 
