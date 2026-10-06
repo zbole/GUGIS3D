@@ -1,0 +1,20 @@
+{
+  "schema": "gugis-diagonal-hybrid-protocol-v1",
+  "source_report": "frontend/public/research/source-native-bands-v1/results.json",
+  "prior_hybrid_report": "frontend/public/research/hybrid-source-v1/results.json",
+  "source_report_sha256": "71b46d1f7eafcd3e13fd4de9eaa0d1790d19e0dd072f8c290b4fae9101460857",
+  "prior_hybrid_report_sha256": "b21a22efdbaddf5aabe56a264a3681966fc6ffb09d1cdfb60d25b5d008901b62",
+  "source_windows": "All twenty original 65x65 Float32 source windows, unchanged source pixels, BNG origins, metre/ODN metadata conventions and warnings. No favourable site selection.",
+  "axis_cells": [1, 2, 4, 8, 16, 32, 64],
+  "methods": ["p1-local", "hybrid-local"],
+  "cell_families": ["ruled", "minus", "plus"],
+  "unit_cell_identity": "For an original 1x1 source cell, both P1 diagonals have squared L2 error mixed_coefficient^2/90 and maximum error abs(mixed_coefficient)/4 at its centre. Use this verified analytic identity for both orientations to avoid floating quadrature noise inventing fine-cell orientation switches.",
+  "p1_selection": "Choose the lower integrated local L2-squared error of the two possible P1 rectangle diagonals. A fixed numerical tie guard of 64*Float64 epsilon*max(1, local squared errors) prefers the existing minus diagonal when values differ only within that guard; this prevents theoretically identical fine-cell errors creating spurious orientation records. Costs include each change of contiguous triangle-strip orientation.",
+  "hybrid_selection": "Choose the lower integrated local L2-squared error of bilinear ruled, minus-diagonal P1, plus-diagonal P1. The same fixed numerical tie guard prefers ruled, then minus, then plus. Local selections are within the stated floating guard of the numerical minimum, not an exact-arithmetic optimality proof. Every orientation/type run, shared Float64 XYZ, header and index byte counts.",
+  "byte_ceilings": [256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 135528],
+  "height_targets_m": [0.01, 0.025, 0.05, 0.1, 0.25, 0.5],
+  "selection": "For each family/byte ceiling, choose minimum whole-domain E2 among all 49 feasible grids, then complete bytes, nx, ny. For each maximum-error target, choose minimum complete bytes among feasible grids, then E2, nx, ny. Missing target models and all losing outcomes remain explicit.",
+  "metrics": "Whole-domain E2 of the saved native function against the original piecewise-bilinear Float32 reference. Exact degree-appropriate source-cell integration; check original source-cell corners and interior quadratic extrema on both possible triangle diagonals. Guard 1e-9 + max source absolute z * 1e-12 m. Not surveyed ground truth or interval proof.",
+  "continuity": "One integer tensor grid, identical shared corner heights and linear rectangle-boundary functions; both diagonal orientations and ruled cells join C0 without T-junctions. Gradients may jump.",
+  "reporting": "Retain all 1960 new saved models, all 200 byte-ceiling comparisons and 120 target comparisons, including pure-triangle choices, missing models, ties, extra orientation overhead and unfavourable results. Prior fixed-diagonal P1, ruled and two-way mixture reports remain immutable and separately identified. This strengthens the fixed-grid triangle control, not the paper's adaptive greedy algorithm or ArcGIS software. No runtime or globally optimal-mesh claim."
+}
