@@ -26,6 +26,8 @@ import CityScene, {
   type CitySceneHandle,
   type GeographicPosition,
 } from "./CityScene";
+import CityLoadingPanel from './CityLoadingPanel';
+import type {ReadProgress} from './apiResponse';
 import DetailPanel from "./DetailPanel";
 import AuthorForm from "./AuthorForm";
 import ComponentLegend from "./ComponentLegend";
@@ -180,10 +182,12 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
     locked = useRef(false);
   const mounted = useRef(true);
   const loadSequence = useRef(0);
+  const loadController = useRef<AbortController|null>(null);
+  const [loadProgress,setLoadProgress] = useState<ReadProgress|null>(null);
   const previousRevision = useRef("");
   useEffect(() => {
     mounted.current = true;
-    return () => { mounted.current = false; ++loadSequence.current; };
+    return () => { mounted.current = false; ++loadSequence.current; loadController.current?.abort(); };
   }, []);
   useEffect(() => { onWorkspaceState?.(workspace.id, busy || environmentWorking, !!preview); }, [workspace.id, busy, environmentWorking, !!preview, onWorkspaceState]);
   useEffect(() => {
@@ -307,11 +311,14 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
   }
   async function reload() {
     const requestId = ++loadSequence.current;
+    loadController.current?.abort();
+    const controller=new AbortController();loadController.current=controller;setLoadProgress(null);
     setBusy(true);
     setError("");
     try {
-      const [formal, pendingResult] = await Promise.allSettled([loadCity(), loadDraft()]);
+      const [formal, pendingResult] = await Promise.allSettled([loadCity({signal:controller.signal,onProgress:p=>{if(mounted.current&&requestId===loadSequence.current)setLoadProgress(p);}}), loadDraft({signal:controller.signal})]);
       if (!mounted.current || requestId !== loadSequence.current) return;
+      if(controller.signal.aborted)throw new DOMException('取消读取','AbortError');
       if (formal.status === "rejected") throw formal.reason;
       const r = formal.value;
       const pending = pendingResult.status === "fulfilled" ? pendingResult.value : null;
@@ -345,9 +352,12 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
           : "已恢复本地项目 · 所有数据均可继续编辑",
       );
     } catch (e) {
-      if (mounted.current && requestId === loadSequence.current) setError(String(e));
+      if (mounted.current && requestId === loadSequence.current) {
+        if(controller.signal.aborted)setNotice('载入已停止，可重新读取或切换城市。');
+        else setError(String(e));
+      }
     } finally {
-      if (mounted.current && requestId === loadSequence.current) setBusy(false);
+      if (mounted.current && requestId === loadSequence.current) {setBusy(false);setLoadProgress(null);if(loadController.current===controller)loadController.current=null;}
     }
   }
   useEffect(() => {
@@ -801,7 +811,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
       <div className="studio-titlebar">
         <div>
           <span className="eyebrow">{workspace.city_name?.toUpperCase() ?? workspace.id.toUpperCase()} <span>/</span> CITY WORKSPACE</span>
-          <h1>{displayCity?.name ?? "正在载入城市项目"}</h1>
+          <h1>{displayCity?.name ?? (busy?"正在载入城市项目":error?"城市项目载入失败":"城市项目尚未打开")}</h1>
           <p aria-label="当前场景数据统计" aria-live="polite">
             {preview ? "草稿场景 · " : "正式场景 · "}
             {displayCity?.instances.length ?? 0} 栋建筑 <span>／</span> {detailed}{" "}
@@ -949,9 +959,7 @@ export default function CityStudio({ workspace = defaultCityWorkspace, api = leg
         </div>
       )}
       {!city ? (
-        <div className="city-loading">
-          {busy ? "正在读取本地数据…" : "请确认本地服务已启动，然后重新载入。"}
-        </div>
+        <CityLoadingPanel busy={busy} progress={loadProgress} error={!!error} onStop={()=>loadController.current?.abort()} onRetry={()=>void reload()}/>
       ) : tab === "detail" && document ? (
         <DetailPanel document={document} appearanceKey={selected?.asset} colorMode={colorMode} onColorModeChange={setColorMode} expanded={expandedScene} onToggleExpanded={() => setExpandedScene((value) => !value)} />
       ) : (

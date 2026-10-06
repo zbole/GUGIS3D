@@ -1,7 +1,8 @@
 import type { BuildingDocument, Parameters } from "./model";
 import type { CityDocument } from "./cityModel";
 import type { Terrain } from "./environment";
-import { fetchApiJson } from "./apiResponse";
+import { fetchApiJson, type ReadProgress } from "./apiResponse";
+import { createSharedCityRead, type CityReadOptions } from './sharedCityRead';
 import {
   encodeCity,
   decodeCity,
@@ -9,14 +10,14 @@ import {
   type StorageStatistics,
 } from "./cityArchive";
 const base = (import.meta.env.VITE_API_BASE_URL ?? "/api").replace(/\/$/, "");
-async function request<T>(prefix: string, path: string, body?: unknown): Promise<T> {
+async function request<T>(prefix: string, path: string, body?: unknown, read?:CityReadOptions): Promise<T> {
   return fetchApiJson<T>(`${base}${prefix}${path}`, {
     method: body === undefined ? "GET" : "POST",
     headers: { "Content-Type": "application/json" },
     body: body === undefined ? undefined : JSON.stringify(body),
-    signal: AbortSignal.timeout(120000),
+    signal: read?.signal?AbortSignal.any([read.signal,AbortSignal.timeout(120000)]):AbortSignal.timeout(120000),
   }, { writes: body !== undefined && ["/current", "/draft", "/draft/commit", "/draft/discard"].includes(path),
-    conflictMessage: "另一窗口已修改项目，请先重新载入。当前草稿仍保留，未覆盖已保存的数据。" });
+    conflictMessage: "另一窗口已修改项目，请先重新载入。当前草稿仍保留，未覆盖已保存的数据。",onProgress:read?.onProgress });
 }
 
 export interface CityReceipt {
@@ -57,15 +58,19 @@ export interface PublicTerrainSource {
 export function createCityApi(cityId?: string) {
   if (cityId && !/^[a-z][a-z0-9-]*$/.test(cityId)) throw new Error("城市标识无效");
   const prefix = cityId ? `/cities/${encodeURIComponent(cityId)}/city` : "/city";
-  const cityRequest = <T>(path: string, body?: unknown) => request<T>(prefix, path, body);
-const loadCity = async () => {
+  const cityRequest = <T>(path: string, body?: unknown,read?:CityReadOptions) => request<T>(prefix, path, body,read);
+const sharedFormal=createSharedCityRead(async(signal,report)=>{
+  let last:ReadProgress={phase:'connecting',received:0,total:null};
   const result = await cityRequest<{
     revision: string;
     document: CityArchive | CityDocument;
     storage: StorageStatistics;
-  }>("/current");
+  }>("/current",undefined,{signal,onProgress:p=>{last=p;report(p);}});
+  report({...last,phase:'decoding'});
+  await new Promise(resolve=>setTimeout(resolve,0));if(signal.aborted)throw new DOMException('取消读取','AbortError');
   return { ...result, document: decodeCity(result.document) };
-};
+});
+const loadCity=(options?:CityReadOptions)=>sharedFormal(options);
 
 const persistCity = (city: CityDocument, revision: string) =>
   cityRequest<CityReceipt>("/current", { base_revision: revision, document: encodeCity(city) });
@@ -91,14 +96,15 @@ const generateBlock = (
   });
 
 
-const loadDraft = async () => {
+const sharedDraft=createSharedCityRead(async(signal,report)=>{
   const r = await cityRequest<{
     draft: (Omit<CityDraft, "document"> & { document: CityArchive }) | null;
-  }>("/draft");
+  }>("/draft",undefined,{signal,onProgress:report});
   return r.draft
     ? { ...r.draft, document: decodeCity(r.draft.document) }
     : null;
-};
+});
+const loadDraft=(options?:CityReadOptions)=>sharedDraft(options);
 const persistDraft = (
   document: CityDocument,
   base_revision: string,

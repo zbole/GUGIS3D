@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+const f=p=>new URL(p,import.meta.url),out=fileURLToPath(f('../node_modules/.cache/gugis-tests/city-api-reads.mjs'));await build({entryPoints:[fileURLToPath(f('../src/studio/cityApi.ts'))],bundle:true,platform:'node',format:'esm',packages:'external',outfile:out,define:{'import.meta.env.VITE_API_BASE_URL':'"/api"'}});const {createCityApi}=await import(pathToFileURL(out).href);
+const city={format:'gugis-city',version:'1.0',coordinate_system:'ENU_METERS_WGS84',name:'QA',assets:{},instances:[],roads:[],metadata:{}};
+test('formal/draft reads share only their unfinished city-bound requests and expose bytes/decode progress',async()=>{
+  const old=globalThis.fetch,calls=[];let revision='a'.repeat(64);try{globalThis.fetch=async(url,options)=>{calls.push({url,options});const raw=JSON.stringify(url.endsWith('/draft')?{draft:null}:{document:city,revision,storage:{}});return new Response(raw,{headers:{'Content-Length':String(Buffer.byteLength(raw))}});};const api=createCityApi('bristol'),progress=[];const [a,b,d,e]=await Promise.all([api.loadCity({onProgress:p=>progress.push(p)}),api.loadCity(),api.loadDraft(),api.loadDraft()]);assert.equal(calls.length,2);assert.deepEqual(calls.map(c=>c.url),['/api/cities/bristol/city/current','/api/cities/bristol/city/draft']);assert.equal(a,b);assert.equal(d,null);assert.equal(e,null);assert.ok(progress.some(p=>p.phase==='parsing'&&p.received>0));assert.equal(progress.at(-1).phase,'decoding');revision='b'.repeat(64);assert.equal((await api.loadCity()).revision,revision);assert.equal(calls.length,3);assert.equal((await createCityApi('london').loadCity()).revision,revision);assert.equal(calls.at(-1).url,'/api/cities/london/city/current');
+  }finally{globalThis.fetch=old;}
+});
+test('an abandoned workspace read aborts network activity without affecting a different city or replaying writes',async()=>{
+  const old=globalThis.fetch,calls=[];try{globalThis.fetch=(url,options)=>{calls.push({url,options});return new Promise((resolve,reject)=>{options.signal.addEventListener('abort',()=>reject(new DOMException('Cancelled','AbortError')),{once:true});if(url.includes('/london/'))resolve(new Response(JSON.stringify({document:city,revision:'london',storage:{}})));});};const bristol=createCityApi('bristol'),london=createCityApi('london'),controller=new AbortController(),a=bristol.loadCity({signal:controller.signal}),b=london.loadCity();await new Promise(resolve=>setTimeout(resolve,0));controller.abort();await assert.rejects(a,{name:'AbortError'});assert.equal((await b).document.name,'QA');assert.equal(calls[0].options.signal.aborted,true);assert.equal(calls[1].options.signal.aborted,false);assert.ok(calls.every(c=>c.options.method==='GET'));
+  }finally{globalThis.fetch=old;}
+});
