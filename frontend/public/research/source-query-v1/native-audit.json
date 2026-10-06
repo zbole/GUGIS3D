@@ -1,0 +1,318 @@
+{
+  "schema": "gugis-source-query-native-audit-v1",
+  "receipt_sha256": "dc8b438fa36e6bd061beead2b40462e2b096b5cc9d3dea91622a6429281de175",
+  "protocol_sha256": "80aa74a1205c684a0a91614e272f8aba60691d0dbf8b9029c0d80f2fc3bd5365",
+  "source_publication_sha256": "2d99182356a62e1bdaaa72b801d6c8d8330eb92a425ae6098c340c5658425977",
+  "compiled_sha256": {
+    "compact.mjs": "de605b504ee2b4889d65d8fd40ae18d4313556e0fad02ccf70d010ea313be5e1",
+    "frozen.mjs": "977739d4a5bc1dc444014156c86c14298c012793eeb10be8ad470c2b3eae9144"
+  },
+  "scripts": {
+    "frontend/scripts/audit-source-query.mjs": "19ca6b8da2e15acce522ac6abfdc1f84760dfc0943747166015d43ee8311605c"
+  },
+  "source_proof_locations": 82000,
+  "frozen_equivalence_locations": 184060,
+  "query_calls": 696120,
+  "cases": [
+    {
+      "id": "manchester-centre",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 1.4210854715202004e-14,
+      "max_gradient": 2.7755575615628914e-17,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "manchester-north-quarter",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 1.1102230246251565e-16,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "york-centre",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 5.551115123125783e-17,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "york-north-quarter",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 3.552713678800501e-15,
+      "max_gradient": 5.551115123125783e-17,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "bath-centre",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 1.4210854715202004e-14,
+      "max_gradient": 5.551115123125783e-17,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "bath-north-quarter",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 2.842170943040401e-14,
+      "max_gradient": 2.220446049250313e-16,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "oxford-centre",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 2.842170943040401e-14,
+      "max_gradient": 1.1102230246251565e-16,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "oxford-north-quarter",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 1.4210854715202004e-14,
+      "max_gradient": 2.7755575615628914e-17,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "cambridge-centre",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 3.552713678800501e-15,
+      "max_gradient": 1.1102230246251565e-16,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "cambridge-north-quarter",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 2.6645352591003757e-15,
+      "max_gradient": 1.1102230246251565e-16,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "liverpool-centre",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 2.220446049250313e-16,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "liverpool-north-quarter",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 2.220446049250313e-16,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "sheffield-centre",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 2.842170943040401e-14,
+      "max_gradient": 5.551115123125783e-17,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "sheffield-north-quarter",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 2.842170943040401e-14,
+      "max_gradient": 5.551115123125783e-17,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "leeds-centre",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 1.4210854715202004e-14,
+      "max_gradient": 1.3877787807814457e-17,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "leeds-north-quarter",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 2.1316282072803006e-14,
+      "max_gradient": 5.551115123125783e-17,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "nottingham-centre",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 1.4210854715202004e-14,
+      "max_gradient": 2.7755575615628914e-17,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "nottingham-north-quarter",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 1.4210854715202004e-14,
+      "max_gradient": 1.1102230246251565e-16,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "newcastle-centre",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 1.4210854715202004e-14,
+      "max_gradient": 1.3877787807814457e-17,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    },
+    {
+      "id": "newcastle-north-quarter",
+      "source_proof_locations": 4100,
+      "frozen_equivalence_locations": 9203,
+      "max_height_m": 2.1316282072803006e-14,
+      "max_gradient": 2.220446049250313e-16,
+      "max_frozen_difference": 0,
+      "outside_rejected": true,
+      "byte_roundtrip": true,
+      "execution_points": [
+        4225,
+        8385,
+        16641
+      ]
+    }
+  ]
+}

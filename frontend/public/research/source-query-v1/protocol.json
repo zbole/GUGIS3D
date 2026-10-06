@@ -1,0 +1,20 @@
+{
+  "schema": "gugis-source-query-protocol-v1",
+  "source_publication_sha256": "2d99182356a62e1bdaaa72b801d6c8d8330eb92a425ae6098c340c5658425977",
+  "selection": "All twenty original 65 x 65 Float32 DTM source windows in their published order. No source or site selection after timing.",
+  "repetitions": 3,
+  "families": ["compact_ruled", "generic_ruled", "exact_p2", "regular_grid"],
+  "queries_per_lattice": 4096,
+  "trials_per_method_per_site": 24,
+  "order": "Every lexicographically ordered permutation of the four family indices exactly once; each method occurs six times in each position. Same order in every site and repetition.",
+  "warmup_batches_per_method": 5,
+  "calibration_batches_per_method": 3,
+  "calibration_target_fast_ms": 30,
+  "maximum_batch_loops": 128,
+  "calibration": "Common loops for all four methods and all trials at each site, using the faster median of the frozen generic ruled and exact P2 controls. Raster and compact queries use the same loops. Decode/validation/preparation, I/O and correctness assertions stay outside the clocked loop.",
+  "operation": "Native CPU point location, source-relative height, analytic Cartesian gradient and consumed checksum height + 17*dx + 23*dy. Full native query APIs retained; the implicit grid has fewer metadata fields, which is an API/implementation confound.",
+  "analysis": "All three fresh sequential Node processes, all twenty sites, all four families and all 5760 raw timing records retained. Ratios of within-process latency medians; every process/site shown. Observed min/max is not a confidence interval. No fastest-run selection or pooled independent-trial claims.",
+  "failure": "Stop on any process failure, retain completed and failed runs. No silent restart or unfavourable-result rerun.",
+  "prior_observation": "The compact implementation was verified against frozen outputs, including near-seam ownership, before freezing this CPU protocol. Its speed has not been measured. Earlier five-fixture synthetic query measurements are already observed and are separate publications.",
+  "scope": "Same-device Windows Node CPU timings on twenty saved source-relative continuous bilinear DTM windows, not independently surveyed truth, paper-author timing, ArcGIS software, GPU/browser rendering, cross-device guarantees or process/heap memory. Implicit Float32 raster storage and speed are explicit controls. No task-owned build or audit runs concurrently with clocked producer runs; background OS load is uncontrolled."
+}

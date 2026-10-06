@@ -1,0 +1,46 @@
+{
+  "schema": "gugis-source-query-receipt-v1",
+  "started_utc": "2026-10-06T08:54:35.327Z",
+  "protocol_sha256": "80aa74a1205c684a0a91614e272f8aba60691d0dbf8b9029c0d80f2fc3bd5365",
+  "source_publication_sha256": "2d99182356a62e1bdaaa72b801d6c8d8330eb92a425ae6098c340c5658425977",
+  "scripts": {
+    "frontend/scripts/repeat-source-query.mjs": "278214e3075e364a11e2e82dffc0312f589f2394a763a8a77742d17da72dc1a6",
+    "frontend/scripts/benchmark-source-query.mjs": "2629ba46ed54bf5c9f3f2c238a9a3f2725310a23172b338bc4d6bdeba66cba93",
+    "frontend/tests/bundleWorkspaceModule.mjs": "3b47c503aebc59f32f5a96b68ea3ea06809899196077abd630a71cb374285b13",
+    "frontend/src/compare/compactSourceBandQuery.ts": "9c872dc3d624735cdbd95b4d1e78e8a8028344a77db9a5a3ab413d8fbeddae27",
+    "frontend/src/compare/sourceRuledBandMath.ts": "b7638874da0835ab928a937aab2cac02145f27416dc62ed546f4e9183196d46c",
+    "frontend/src/compare/principalRuledMath.ts": "4bd434697148e8e9ac5fc387e3f93c3f980c4af0ca604acc750f4c96555ea466"
+  },
+  "runs": [
+    {
+      "repetition": 1,
+      "folder": "run-1",
+      "started_utc": "2026-10-06T08:54:35.329Z",
+      "finished_utc": "2026-10-06T08:55:22.460Z",
+      "exit_code": 0,
+      "signal": null,
+      "report_sha256": "93b5c511c854e201078a27024ff8539f67a4d56261643afbf932098fc6e995b6",
+      "trials_sha256": "1d2f261668eea826745904ebb1e7fe0f1c01733f05515d9b16103c8b4e36c078"
+    },
+    {
+      "repetition": 2,
+      "folder": "run-2",
+      "started_utc": "2026-10-06T08:55:22.464Z",
+      "finished_utc": "2026-10-06T08:56:09.934Z",
+      "exit_code": 0,
+      "signal": null,
+      "report_sha256": "dc2811b188392bb4a8d610533d34c552048613e6bdf93c6240ad7d8b66038531",
+      "trials_sha256": "a7aba51e96982315e76613c38ed6bc80abee8a7367076a31fb92e4384c54059c"
+    },
+    {
+      "repetition": 3,
+      "folder": "run-3",
+      "started_utc": "2026-10-06T08:56:09.939Z",
+      "finished_utc": "2026-10-06T08:56:58.129Z",
+      "exit_code": 0,
+      "signal": null,
+      "report_sha256": "206a5315ee5d3948c335b0cf6aab102c8a3abde03d11062cde854be6db623541",
+      "trials_sha256": "f69fb271876085d4c28aef7aea98da55ee34b18b8613b66eae83e8aabd26d0dd"
+    }
+  ]
+}

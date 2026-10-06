@@ -3,7 +3,7 @@ import {useEffect,useState,type ReactNode} from 'react';
 type EvidenceGroup='real'|'supplementary'|'functions';
 export function evidenceGroupForHash(hash:string):EvidenceGroup|null{
   const anchor=hash.replace(/^#/,'');
-  if(['validated-advantages','principal-direction-results','variable-curvature-results','variable-curvature-evidence','paper-projection-results','paper-projection-evidence','paper-adaptive-results','paper-adaptive-evidence','source-function-results','source-format-results','hybrid-source-results','hybrid-source-evidence','diagonal-hybrid-results','diagonal-hybrid-evidence','native-query-results','native-query-statistics','native-query-statistics-evidence','native-query-repeat','native-query-repeat-evidence'].includes(anchor))return null;
+  if(['validated-advantages','principal-direction-results','variable-curvature-results','variable-curvature-evidence','paper-projection-results','paper-projection-evidence','paper-adaptive-results','paper-adaptive-evidence','source-function-results','source-query-results','source-query-evidence','source-format-results','hybrid-source-results','hybrid-source-evidence','diagonal-hybrid-results','diagonal-hybrid-evidence','native-query-results','native-query-statistics','native-query-statistics-evidence','native-query-repeat','native-query-repeat-evidence'].includes(anchor))return null;
   if(['function-controls','gugis-function-results','order-structure-results'].includes(anchor))return 'functions';
   if(anchor==='bristol-arcgis-run')return null;
   if(anchor==='real-evidence'||anchor.startsWith('bristol-'))return 'real';

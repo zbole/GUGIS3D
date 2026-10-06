@@ -1,0 +1,12 @@
+{
+  "schema": "gugis-source-query-release-audit-v1",
+  "records": 5760,
+  "source_sites": 20,
+  "fresh_processes": 3,
+  "site_processes": 60,
+  "native_query_calls": 696120,
+  "complete_balanced_orders": true,
+  "all_files_sha_checked": true,
+  "frozen_source_preserved": true,
+  "retained_pre_timing_failure": true
+}

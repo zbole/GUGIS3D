@@ -1,7 +1,9 @@
 import {useEffect,useMemo,useState} from 'react';
 import report from '../../../shared/source-native-bands-v1.json';
 import {loadSourceModel,type LoadedSourceModel} from './loadSourceModel';
-import {prepareSourceBandQuery,prepareRegularGridQuery} from './sourceRuledBandMath';
+import {prepareRegularGridQuery} from './sourceRuledBandMath';
+import {prepareCompactSourceBandQuery} from './compactSourceBandQuery';
+import SourceQueryDisclosure from './SourceQueryDisclosure';
 import {useComparisonAnchor} from './useComparisonAnchor';
 import SourceFormatProof from './SourceFormatProof';
 import HybridSourceDisclosure from './HybridSourceDisclosure';
@@ -18,7 +20,7 @@ function SourceQueryDemo({site}:{site:Site}){
     const files=site.models.map(m=>({filename:m.binary_filename,bytes:m.binary_bytes,sha256:m.binary_sha256}));files.push(site.regular_grid);
     Promise.all(files.map(m=>loadSourceModel(`${base}${site.id}/${m.filename}`,m.bytes,m.sha256,site.origin_bng,abort.signal))).then(v=>{if(!abort.signal.aborted)setLoaded(v);}).catch(e=>{if(!abort.signal.aborted)setError(e instanceof Error?e.message:'模型读取失败');});return()=>abort.abort();
   },[site.id,retry]);
-  const queries=useMemo(()=>loaded?.map(m=>m.kind==='surface'?prepareSourceBandQuery(m.model):prepareRegularGridQuery(m.model))??null,[loaded]);
+  const queries=useMemo(()=>loaded?.map(m=>m.kind==='surface'?prepareCompactSourceBandQuery(m.model):prepareRegularGridQuery(m.model))??null,[loaded]);
   if(error)return <p role="alert">{error} <button onClick={()=>setRetry(v=>v+1)}>重试源地形模型</button></p>;
   if(!loaded||!queries)return <p role="status">正在校验三个完整矢量文件与原始 Float32 源高程格…</p>;
   const reference=queries[3].query(x,y)!,west=Math.min(31,Math.max(-32,Math.floor(x))),south=Math.min(31,Math.max(-32,Math.floor(y))),centre=queries[3].query(west+.5,south+.5)!.height;
@@ -53,6 +55,7 @@ export default function SourceFunctionResults(){
       {name:'实际无损 GeoTIFF 输入',bytes:site.source_geotiff.bytes,tone:'tiff',note:'源像素完全不变；可下载 GIS 输入'},
     ].map(v=><div className={`sf-file-row ${v.tone}`} key={v.tone}><div><strong>{v.name}</strong><span>{size(v.bytes)}</span></div><div className="sf-file-track"><i style={{width:`${100*v.bytes/p2.binary_bytes}%`}}/></div><p>{v.note}</p></div>)}</div>
     <p className="sf-control">规则高程格与无损 GeoTIFF 在这些规则样区中更小。本节验证面带相对通用共享 XYZ 的逐格 P2 矢量表示的优势，不是优于所有栅格或最优三角编码。完整文件字节数也不等于运行内存。</p>
+    <SourceQueryDisclosure/>
     <SourceFormatProof siteId={siteId}/>
     <HybridSourceDisclosure/>
     <div className="cr-actions"><button aria-label="展开真实源函数同点查询" aria-expanded={demo} onClick={()=>setDemo(v=>!v)}>{demo?'收起真实源函数同点查询':'验证实际高程与精细函数结构'}</button><a download href={`${base}${site.id}/${site.source_geotiff.filename}`}>当前原始像素 GeoTIFF ↓</a><a download href={`${base}${site.id}/${r.binary_filename}`}>当前 GUGIS 原生面带 ↓</a><a download href={`${base}${report.package.filename}`}>20 样区完整证据 ZIP ↓</a></div>

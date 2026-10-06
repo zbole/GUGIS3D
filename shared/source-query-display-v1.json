@@ -1,0 +1,2336 @@
+{
+  "schema": "gugis-source-query-display-v1",
+  "protocol_sha256": "80aa74a1205c684a0a91614e272f8aba60691d0dbf8b9029c0d80f2fc3bd5365",
+  "receipt_sha256": "dc8b438fa36e6bd061beead2b40462e2b096b5cc9d3dea91622a6429281de175",
+  "native_audit_sha256": "97fd02d4f4da0a9d41eebd3f03ad3bff4f442b7376a411b3bb95c69c33fabbf9",
+  "source_publication_sha256": "2d99182356a62e1bdaaa72b801d6c8d8330eb92a425ae6098c340c5658425977",
+  "failure_receipt_sha256": "b4a58ab58df5e873e907d14577188c5df5c9db846d635f796c9a1625992a366b",
+  "scope": "Same-device Windows Node CPU timings on twenty saved source-relative continuous bilinear DTM windows, not independently surveyed truth, paper-author timing, ArcGIS software, GPU/browser rendering, cross-device guarantees or process/heap memory. Implicit Float32 raster storage and speed are explicit controls. No task-owned build or audit runs concurrently with clocked producer runs; background OS load is uncontrolled.",
+  "protocol": {
+    "schema": "gugis-source-query-protocol-v1",
+    "source_publication_sha256": "2d99182356a62e1bdaaa72b801d6c8d8330eb92a425ae6098c340c5658425977",
+    "selection": "All twenty original 65 x 65 Float32 DTM source windows in their published order. No source or site selection after timing.",
+    "repetitions": 3,
+    "families": [
+      "compact_ruled",
+      "generic_ruled",
+      "exact_p2",
+      "regular_grid"
+    ],
+    "queries_per_lattice": 4096,
+    "trials_per_method_per_site": 24,
+    "order": "Every lexicographically ordered permutation of the four family indices exactly once; each method occurs six times in each position. Same order in every site and repetition.",
+    "warmup_batches_per_method": 5,
+    "calibration_batches_per_method": 3,
+    "calibration_target_fast_ms": 30,
+    "maximum_batch_loops": 128,
+    "calibration": "Common loops for all four methods and all trials at each site, using the faster median of the frozen generic ruled and exact P2 controls. Raster and compact queries use the same loops. Decode/validation/preparation, I/O and correctness assertions stay outside the clocked loop.",
+    "operation": "Native CPU point location, source-relative height, analytic Cartesian gradient and consumed checksum height + 17*dx + 23*dy. Full native query APIs retained; the implicit grid has fewer metadata fields, which is an API/implementation confound.",
+    "analysis": "All three fresh sequential Node processes, all twenty sites, all four families and all 5760 raw timing records retained. Ratios of within-process latency medians; every process/site shown. Observed min/max is not a confidence interval. No fastest-run selection or pooled independent-trial claims.",
+    "failure": "Stop on any process failure, retain completed and failed runs. No silent restart or unfavourable-result rerun.",
+    "prior_observation": "The compact implementation was verified against frozen outputs, including near-seam ownership, before freezing this CPU protocol. Its speed has not been measured. Earlier five-fixture synthetic query measurements are already observed and are separate publications.",
+    "scope": "Same-device Windows Node CPU timings on twenty saved source-relative continuous bilinear DTM windows, not independently surveyed truth, paper-author timing, ArcGIS software, GPU/browser rendering, cross-device guarantees or process/heap memory. Implicit Float32 raster storage and speed are explicit controls. No task-owned build or audit runs concurrently with clocked producer runs; background OS load is uncontrolled."
+  },
+  "environment": {
+    "node": "v24.13.0",
+    "v8": "13.6.233.17-node.37",
+    "platform": "win32",
+    "architecture": "x64",
+    "cpu_model": "Intel(R) Core(TM) i7-14650HX",
+    "logical_cores": 24,
+    "total_memory_bytes": 16890322944
+  },
+  "scripts": {
+    "frontend/scripts/repeat-source-query.mjs": "278214e3075e364a11e2e82dffc0312f589f2394a763a8a77742d17da72dc1a6",
+    "frontend/scripts/benchmark-source-query.mjs": "2629ba46ed54bf5c9f3f2c238a9a3f2725310a23172b338bc4d6bdeba66cba93",
+    "frontend/tests/bundleWorkspaceModule.mjs": "3b47c503aebc59f32f5a96b68ea3ea06809899196077abd630a71cb374285b13",
+    "frontend/src/compare/compactSourceBandQuery.ts": "9c872dc3d624735cdbd95b4d1e78e8a8028344a77db9a5a3ab413d8fbeddae27",
+    "frontend/src/compare/sourceRuledBandMath.ts": "b7638874da0835ab928a937aab2cac02145f27416dc62ed546f4e9183196d46c",
+    "frontend/src/compare/principalRuledMath.ts": "4bd434697148e8e9ac5fc387e3f93c3f980c4af0ca604acc750f4c96555ea466",
+    "frontend/scripts/audit-source-query.mjs": "19ca6b8da2e15acce522ac6abfdc1f84760dfc0943747166015d43ee8311605c"
+  },
+  "release_scripts": {
+    "data-pipeline/publish_source_query.py": "f022f6bda253d2664424e58462b472fcb534b383d33645b9d6636dc711604d90"
+  },
+  "cases": [
+    {
+      "id": "manchester-centre",
+      "city_id": "manchester",
+      "name": "曼彻斯特 · 英国环境署裸地 DTM · 源栅格中心",
+      "reference_sha256": "4286098d174155c474aa425703368142497fee55d33d203ca6ad79dc3ba89f93",
+      "source_raster_sha256": "685917e8d3e908ba18dd0f94698994f88c9c3744d3b62963142d1814c244bf4d",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "ecf4d83535baa590091d8cf08421d4fc9a7e8ade8e4d0c441558bd915101bee3",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "ecf4d83535baa590091d8cf08421d4fc9a7e8ade8e4d0c441558bd915101bee3",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "96499af46de5156e0dd7653c760c39109f9827c1e9b8a0c98231abc17afd9ca7",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "0f804c50c1bc481c798b4be2d131bf849898c45350d820bb587682a15196f36e",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 56,
+          "queries_per_trial": 229376,
+          "latency_median_ns": {
+            "compact_ruled": 44.641113281249986,
+            "generic_ruled": 137.98174176897493,
+            "exact_p2": 190.3233119419645,
+            "regular_grid": 28.995622907365977
+          },
+          "ratios": {
+            "p2_over_compact": 4.263408726903401,
+            "generic_over_compact": 3.090911754365444,
+            "grid_over_compact": 0.6495273252861421
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 54,
+          "queries_per_trial": 221184,
+          "latency_median_ns": {
+            "compact_ruled": 43.87794777199029,
+            "generic_ruled": 130.9100115740735,
+            "exact_p2": 183.95589192708368,
+            "regular_grid": 27.12673611111111
+          },
+          "ratios": {
+            "p2_over_compact": 4.192445209219946,
+            "generic_over_compact": 2.9835035187685,
+            "grid_over_compact": 0.6182316513997858
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 50,
+          "queries_per_trial": 204800,
+          "latency_median_ns": {
+            "compact_ruled": 46.65869140625001,
+            "generic_ruled": 132.4150390624998,
+            "exact_p2": 183.02636718749986,
+            "regular_grid": 27.78369140624959
+          },
+          "ratios": {
+            "p2_over_compact": 3.9226639597308375,
+            "generic_over_compact": 2.8379501240097484,
+            "grid_over_compact": 0.5954665801563376
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 3.9226639597308375,
+          "maximum": 4.263408726903401,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 2.8379501240097484,
+          "maximum": 3.090911754365444,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5954665801563376,
+          "maximum": 0.6495273252861421,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "manchester-north-quarter",
+      "city_id": "manchester",
+      "name": "曼彻斯特 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+      "reference_sha256": "96ace0c000d43c58c6db5b449bb9e9c1ace354969fcbe7d0187d899051fe9511",
+      "source_raster_sha256": "685917e8d3e908ba18dd0f94698994f88c9c3744d3b62963142d1814c244bf4d",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "9f8a33ef6dcca3f46658265b253141ec59a891cf1e5c45895fd21a5380a05040",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "9f8a33ef6dcca3f46658265b253141ec59a891cf1e5c45895fd21a5380a05040",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "1738cf13622dc178238adbf87be81f66fa4a80e3e176be30f3fe8a5581fe9eeb",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "93dadada84ad702696b9f2efd6af851917127b81cf418eac400cdfcf8348dd55",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 50,
+          "queries_per_trial": 204800,
+          "latency_median_ns": {
+            "compact_ruled": 79.40624999999812,
+            "generic_ruled": 267.7290039062541,
+            "exact_p2": 354.2900390625015,
+            "regular_grid": 40.76904296875128
+          },
+          "ratios": {
+            "p2_over_compact": 4.461739964580998,
+            "generic_over_compact": 3.371636412829726,
+            "grid_over_compact": 0.5134236029122675
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 37,
+          "queries_per_trial": 151552,
+          "latency_median_ns": {
+            "compact_ruled": 77.86568306587692,
+            "generic_ruled": 243.08092271959356,
+            "exact_p2": 322.58366765202317,
+            "regular_grid": 40.72991448479781
+          },
+          "ratios": {
+            "p2_over_compact": 4.142822035980944,
+            "generic_over_compact": 3.1217978594490607,
+            "grid_over_compact": 0.5230791393731044
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 55,
+          "queries_per_trial": 225280,
+          "latency_median_ns": {
+            "compact_ruled": 75.63432173295257,
+            "generic_ruled": 230.19353693181895,
+            "exact_p2": 323.91645951704345,
+            "regular_grid": 39.37500000000311
+          },
+          "ratios": {
+            "p2_over_compact": 4.282664960766332,
+            "generic_over_compact": 3.0435063296340448,
+            "grid_over_compact": 0.5205969868947486
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.142822035980944,
+          "maximum": 4.461739964580998,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.0435063296340448,
+          "maximum": 3.371636412829726,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5134236029122675,
+          "maximum": 0.5230791393731044,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "york-centre",
+      "city_id": "york",
+      "name": "约克 · 英国环境署裸地 DTM · 源栅格中心",
+      "reference_sha256": "5fb64187126c1142453e4f6892df0c2dcc4768107ef6c6d21b207aa576b11ec2",
+      "source_raster_sha256": "377507670e35bc667361768f8176b5db64be5e18b28998e997452b106e7e4ec5",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "b72ceb3316771fd8b3ef7237fdd18b68db416910184dc514b5b95c46f94f5e20",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "b72ceb3316771fd8b3ef7237fdd18b68db416910184dc514b5b95c46f94f5e20",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "bb423f9afc40f6c50b90161f6bb1e8d1346aae70d0d10dbc6f7f043ad5e5c339",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "12620e1f5433843f1ab1142394dd314de5f63ac629382328011598a3ea93dd1d",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 28,
+          "queries_per_trial": 114688,
+          "latency_median_ns": {
+            "compact_ruled": 77.77273995535073,
+            "generic_ruled": 253.86090959821678,
+            "exact_p2": 346.66660853794565,
+            "regular_grid": 40.738351004464064
+          },
+          "ratios": {
+            "p2_over_compact": 4.457430826494819,
+            "generic_over_compact": 3.264137405265111,
+            "grid_over_compact": 0.5238127270281582
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 29,
+          "queries_per_trial": 118784,
+          "latency_median_ns": {
+            "compact_ruled": 78.86247306034899,
+            "generic_ruled": 257.4479727909443,
+            "exact_p2": 335.0308122306032,
+            "regular_grid": 41.675646551729415
+          },
+          "ratios": {
+            "p2_over_compact": 4.248291985140043,
+            "generic_over_compact": 3.264518126307476,
+            "grid_over_compact": 0.5284597976002782
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 33,
+          "queries_per_trial": 135168,
+          "latency_median_ns": {
+            "compact_ruled": 79.40932765151197,
+            "generic_ruled": 264.48197798295377,
+            "exact_p2": 340.51920572916475,
+            "regular_grid": 43.03533380681824
+          },
+          "ratios": {
+            "p2_over_compact": 4.288151226056643,
+            "generic_over_compact": 3.3306160095402593,
+            "grid_over_compact": 0.5419430573153686
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.248291985140043,
+          "maximum": 4.457430826494819,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.264137405265111,
+          "maximum": 3.3306160095402593,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5238127270281582,
+          "maximum": 0.5419430573153686,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "york-north-quarter",
+      "city_id": "york",
+      "name": "约克 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+      "reference_sha256": "087fe51edc4e6e8b4b6698b57e5c119df9e6a86b2d0810b52dc6f64df9be2fb4",
+      "source_raster_sha256": "377507670e35bc667361768f8176b5db64be5e18b28998e997452b106e7e4ec5",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "1c2647b039e861db00de0959d4f66c14d0235bc9ec97735c346ea05494f2e164",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "1c2647b039e861db00de0959d4f66c14d0235bc9ec97735c346ea05494f2e164",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "d4854ea910da6f4f01abe89bc6f34a4cbb4e806dad5aa5cc474ebaca5b25ee0d",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "25b62b5f908c98e5e9ca69a6ee56fd1458c59eaf4d9d90eaf0a4d530c9e0684d",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 28,
+          "queries_per_trial": 114688,
+          "latency_median_ns": {
+            "compact_ruled": 79.9525669642793,
+            "generic_ruled": 252.23824637277127,
+            "exact_p2": 338.433837890625,
+            "regular_grid": 40.627615792408555
+          },
+          "ratios": {
+            "p2_over_compact": 4.2329327342526515,
+            "generic_over_compact": 3.1548486302567955,
+            "grid_over_compact": 0.5081464840342137
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 28,
+          "queries_per_trial": 114688,
+          "latency_median_ns": {
+            "compact_ruled": 79.31169782366648,
+            "generic_ruled": 258.4516252790198,
+            "exact_p2": 336.3699776785681,
+            "regular_grid": 41.821289062501535
+          },
+          "ratios": {
+            "p2_over_compact": 4.241114323720805,
+            "generic_over_compact": 3.258682292410821,
+            "grid_over_compact": 0.5273029100383492
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 31,
+          "queries_per_trial": 126976,
+          "latency_median_ns": {
+            "compact_ruled": 80.20019531249358,
+            "generic_ruled": 264.70592867942497,
+            "exact_p2": 344.6714339717696,
+            "regular_grid": 40.344632056445214
+          },
+          "ratios": {
+            "p2_over_compact": 4.297638336525058,
+            "generic_over_compact": 3.3005646388767476,
+            "grid_over_compact": 0.5030490499336768
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.2329327342526515,
+          "maximum": 4.297638336525058,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.1548486302567955,
+          "maximum": 3.3005646388767476,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5030490499336768,
+          "maximum": 0.5273029100383492,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "bath-centre",
+      "city_id": "bath",
+      "name": "巴斯 · 英国环境署裸地 DTM · 源栅格中心",
+      "reference_sha256": "3d2d408acd4b3e913272a78b2329b26afde3efa6d44bed1ba04505b23f949e3f",
+      "source_raster_sha256": "8d9cea5c33e7b6e9412017dcc3512f6bdb3e6feeb570efaf93073fe8eb6a9707",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "39f7f4a2d98bf5d3219cf27d985884a22d33f56fb95620b75073af5e4eace44b",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "39f7f4a2d98bf5d3219cf27d985884a22d33f56fb95620b75073af5e4eace44b",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "af3ac66c5731baac9ec2640f08d0caada1b22ee6d07e2f8828e7ab54c01628c1",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "78ff2609ae83f777d96ba6a282ce20457c9c6d2a9411db90da2a0ea2ae27ce89",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 33,
+          "queries_per_trial": 135168,
+          "latency_median_ns": {
+            "compact_ruled": 78.5030480587127,
+            "generic_ruled": 264.04622395833263,
+            "exact_p2": 360.02382220644654,
+            "regular_grid": 42.12535511363271
+          },
+          "ratios": {
+            "p2_over_compact": 4.586112655615404,
+            "generic_over_compact": 3.3635155638906094,
+            "grid_over_compact": 0.5366078917359618
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 33,
+          "queries_per_trial": 135168,
+          "latency_median_ns": {
+            "compact_ruled": 82.18809185605295,
+            "generic_ruled": 256.19155421401297,
+            "exact_p2": 349.39704663826103,
+            "regular_grid": 43.88834635415614
+          },
+          "ratios": {
+            "p2_over_compact": 4.25118820437159,
+            "generic_over_compact": 3.117137147589649,
+            "grid_over_compact": 0.5339988478017436
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 34,
+          "queries_per_trial": 139264,
+          "latency_median_ns": {
+            "compact_ruled": 78.88829848345935,
+            "generic_ruled": 254.56686580883166,
+            "exact_p2": 346.66245404412666,
+            "regular_grid": 42.36055261947905
+          },
+          "ratios": {
+            "p2_over_compact": 4.39434568508043,
+            "generic_over_compact": 3.2269280831580764,
+            "grid_over_compact": 0.5369687701955045
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.25118820437159,
+          "maximum": 4.586112655615404,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.117137147589649,
+          "maximum": 3.3635155638906094,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5339988478017436,
+          "maximum": 0.5369687701955045,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "bath-north-quarter",
+      "city_id": "bath",
+      "name": "巴斯 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+      "reference_sha256": "557186c84b6b9242d1745095162a8098ed04f6e38dc8f0f50382d7f577e30388",
+      "source_raster_sha256": "8d9cea5c33e7b6e9412017dcc3512f6bdb3e6feeb570efaf93073fe8eb6a9707",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "0f8bdf787f2a7426073b544d687b9441c5dafd22bdcb57578fee918d3d5ad3c3",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "0f8bdf787f2a7426073b544d687b9441c5dafd22bdcb57578fee918d3d5ad3c3",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "bd30eed4306422226b18a923b80fd478cb26e0a122139d96b7af1cd3e0793f68",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "b94c55b17157d2513baa36523ebad71c4b8d0c4a19fa87852f26f6acfa6e4bc8",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 33,
+          "queries_per_trial": 135168,
+          "latency_median_ns": {
+            "compact_ruled": 78.55483546401283,
+            "generic_ruled": 263.39962121211795,
+            "exact_p2": 354.8539595170383,
+            "regular_grid": 41.56161221590901
+          },
+          "ratios": {
+            "p2_over_compact": 4.5172771023064815,
+            "generic_over_compact": 3.3530669328788214,
+            "grid_over_compact": 0.5290777069344003
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 20,
+          "queries_per_trial": 81920,
+          "latency_median_ns": {
+            "compact_ruled": 79.19311523436612,
+            "generic_ruled": 279.6997070312557,
+            "exact_p2": 351.3891601562458,
+            "regular_grid": 40.566406250008846
+          },
+          "ratios": {
+            "p2_over_compact": 4.437117533719134,
+            "generic_over_compact": 3.531868978805863,
+            "grid_over_compact": 0.5122466281311904
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 32,
+          "queries_per_trial": 131072,
+          "latency_median_ns": {
+            "compact_ruled": 80.25588989257758,
+            "generic_ruled": 267.244720458984,
+            "exact_p2": 351.57699584960346,
+            "regular_grid": 41.42608642579426
+          },
+          "ratios": {
+            "p2_over_compact": 4.380700236707722,
+            "generic_over_compact": 3.32990788360444,
+            "grid_over_compact": 0.5161750306580991
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.380700236707722,
+          "maximum": 4.5172771023064815,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.32990788360444,
+          "maximum": 3.531868978805863,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5122466281311904,
+          "maximum": 0.5290777069344003,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "oxford-centre",
+      "city_id": "oxford",
+      "name": "牛津 · 英国环境署裸地 DTM · 源栅格中心",
+      "reference_sha256": "954a036d0471326118c50741a22fa1f2835fff1ecefd053e891770326fce5c6a",
+      "source_raster_sha256": "1eedef8ec17cde26931abffcd37f0e90086cdef0c8b1e83345d17f8ac97593c7",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "be6f32b841e916ff0f2a114e55652a0214244aa3634006b743c0a00dd4bfe2b8",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "be6f32b841e916ff0f2a114e55652a0214244aa3634006b743c0a00dd4bfe2b8",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "2c84b03a30a3bc8469add82e2ac231f1a7b0ee7c2b3e5ce0003d285d2c264a1c",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "dc230974782fb92f7cc0eb3865c4a9c92009dea13f5cd0fa5c085e765b054376",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 33,
+          "queries_per_trial": 135168,
+          "latency_median_ns": {
+            "compact_ruled": 80.90450402460773,
+            "generic_ruled": 251.05424360795,
+            "exact_p2": 346.1159446022806,
+            "regular_grid": 40.60576467803465
+          },
+          "ratios": {
+            "p2_over_compact": 4.27808004974614,
+            "generic_over_compact": 3.103093537679805,
+            "grid_over_compact": 0.5018974551241807
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 33,
+          "queries_per_trial": 135168,
+          "latency_median_ns": {
+            "compact_ruled": 82.04974550189577,
+            "generic_ruled": 257.3671283143944,
+            "exact_p2": 352.71735913824847,
+            "regular_grid": 41.57049005680914
+          },
+          "ratios": {
+            "p2_over_compact": 4.298823317253298,
+            "generic_over_compact": 3.136720616743996,
+            "grid_over_compact": 0.5066498354446285
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 30,
+          "queries_per_trial": 122880,
+          "latency_median_ns": {
+            "compact_ruled": 81.15397135416794,
+            "generic_ruled": 259.54508463542265,
+            "exact_p2": 338.38216145832456,
+            "regular_grid": 42.078450520829
+          },
+          "ratios": {
+            "p2_over_compact": 4.169631575780497,
+            "generic_over_compact": 3.1981809430216237,
+            "grid_over_compact": 0.5185014339864209
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.169631575780497,
+          "maximum": 4.298823317253298,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.103093537679805,
+          "maximum": 3.1981809430216237,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5018974551241807,
+          "maximum": 0.5185014339864209,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "oxford-north-quarter",
+      "city_id": "oxford",
+      "name": "牛津 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+      "reference_sha256": "d974f652bfcd44996f1fa6852d758d3ea6d1f4ad7a867163011e131525b13111",
+      "source_raster_sha256": "1eedef8ec17cde26931abffcd37f0e90086cdef0c8b1e83345d17f8ac97593c7",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "0bae78e58051795aad0d0763570960e767497646c90bfd311af2f6ec65770e18",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "0bae78e58051795aad0d0763570960e767497646c90bfd311af2f6ec65770e18",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "6830cef07dba367ff377471bb0e190330bdf6d21616ca6997c3e1564532583c2",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "5f79ed8e7364ccaf35e15d17cd6e7973811dc6a0c293fff957eaf255c8fe7dc2",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 30,
+          "queries_per_trial": 122880,
+          "latency_median_ns": {
+            "compact_ruled": 78.91601562501904,
+            "generic_ruled": 251.12792968749648,
+            "exact_p2": 346.0961914062644,
+            "regular_grid": 42.71891276041254
+          },
+          "ratios": {
+            "p2_over_compact": 4.385626778863126,
+            "generic_over_compact": 3.182217547332438,
+            "grid_over_compact": 0.5413212061211717
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 28,
+          "queries_per_trial": 114688,
+          "latency_median_ns": {
+            "compact_ruled": 79.98570033481859,
+            "generic_ruled": 270.08579799108514,
+            "exact_p2": 342.37845284598325,
+            "regular_grid": 42.140415736627695
+          },
+          "ratios": {
+            "p2_over_compact": 4.280495781280825,
+            "generic_over_compact": 3.3766760415988264,
+            "grid_over_compact": 0.5268493688275371
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 32,
+          "queries_per_trial": 131072,
+          "latency_median_ns": {
+            "compact_ruled": 79.62036132810879,
+            "generic_ruled": 256.71615600586506,
+            "exact_p2": 353.8986206054473,
+            "regular_grid": 42.55142211914698
+          },
+          "ratios": {
+            "p2_over_compact": 4.444825603680207,
+            "generic_over_compact": 3.224252587198888,
+            "grid_over_compact": 0.5344288999618597
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.280495781280825,
+          "maximum": 4.444825603680207,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.182217547332438,
+          "maximum": 3.3766760415988264,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5268493688275371,
+          "maximum": 0.5413212061211717,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "cambridge-centre",
+      "city_id": "cambridge",
+      "name": "剑桥 · 英国环境署裸地 DTM · 源栅格中心",
+      "reference_sha256": "93e028d8ec13d9564dd2e3e954d07ccba482f824caffccf12575d24fa0604359",
+      "source_raster_sha256": "a7ce2692fdaf46fbf9f6666bfe4d583a73cfa75e9f38b9df65a97ba0c5c505fb",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "1c3e4d609c6325fe04cdd9245b42900dcf8e509e5cddbd7fb8a7d9d886633aaf",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "1c3e4d609c6325fe04cdd9245b42900dcf8e509e5cddbd7fb8a7d9d886633aaf",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "de48b4ed33632e0fdb135a98ad375a52ddbee98b42da522cf697d210111bc781",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "624181e6d879f7aa997f3e7c9ea0725efe0ba7a14a337ec38d17fbccee09fdda",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 29,
+          "queries_per_trial": 118784,
+          "latency_median_ns": {
+            "compact_ruled": 81.31482354527695,
+            "generic_ruled": 254.42399649784187,
+            "exact_p2": 343.2339372306114,
+            "regular_grid": 39.699791217677905
+          },
+          "ratios": {
+            "p2_over_compact": 4.221050016046522,
+            "generic_over_compact": 3.128875958959388,
+            "grid_over_compact": 0.48822329664864417
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 31,
+          "queries_per_trial": 126976,
+          "latency_median_ns": {
+            "compact_ruled": 80.70107736895555,
+            "generic_ruled": 260.25784400199046,
+            "exact_p2": 352.3823399697572,
+            "regular_grid": 41.111706149191576
+          },
+          "ratios": {
+            "p2_over_compact": 4.366513452586362,
+            "generic_over_compact": 3.224961208536574,
+            "grid_over_compact": 0.5094319368406178
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 32,
+          "queries_per_trial": 131072,
+          "latency_median_ns": {
+            "compact_ruled": 83.15505981446036,
+            "generic_ruled": 253.30276489257676,
+            "exact_p2": 366.3398742675683,
+            "regular_grid": 43.23501586914191
+          },
+          "ratios": {
+            "p2_over_compact": 4.405503105703534,
+            "generic_over_compact": 3.0461497527361328,
+            "grid_over_compact": 0.5199324727275766
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.221050016046522,
+          "maximum": 4.405503105703534,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.0461497527361328,
+          "maximum": 3.224961208536574,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.48822329664864417,
+          "maximum": 0.5199324727275766,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "cambridge-north-quarter",
+      "city_id": "cambridge",
+      "name": "剑桥 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+      "reference_sha256": "e02394cf878d6e01783583412a871907735dfccbb2809ca9ddf9c50ff476c07d",
+      "source_raster_sha256": "a7ce2692fdaf46fbf9f6666bfe4d583a73cfa75e9f38b9df65a97ba0c5c505fb",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "4cdfc27a82791849d01d7f1568b890cc8626ba838beac4efa7a3b87e7ba2eb88",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "4cdfc27a82791849d01d7f1568b890cc8626ba838beac4efa7a3b87e7ba2eb88",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "1e7a713fad514d7ea2a15536311bded3a03bfdfc1bd29027cd75cdf1c0af2b88",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "2d8ac34d957bd6e98d36aa9f25fdced58c728e22dc4f5d790355ee972db67660",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 30,
+          "queries_per_trial": 122880,
+          "latency_median_ns": {
+            "compact_ruled": 77.29736328127383,
+            "generic_ruled": 241.4542643228934,
+            "exact_p2": 323.48063151041254,
+            "regular_grid": 38.579915364600474
+          },
+          "ratios": {
+            "p2_over_compact": 4.184885716390011,
+            "generic_over_compact": 3.1237063474503852,
+            "grid_over_compact": 0.4991103671183943
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 35,
+          "queries_per_trial": 143360,
+          "latency_median_ns": {
+            "compact_ruled": 81.00655691965895,
+            "generic_ruled": 253.30147879462876,
+            "exact_p2": 376.70131138395186,
+            "regular_grid": 42.49651227676208
+          },
+          "ratios": {
+            "p2_over_compact": 4.650257037310676,
+            "generic_over_compact": 3.1269256270927457,
+            "grid_over_compact": 0.5246058330674327
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 21,
+          "queries_per_trial": 86016,
+          "latency_median_ns": {
+            "compact_ruled": 79.35500372026537,
+            "generic_ruled": 255.63034784227224,
+            "exact_p2": 369.6661086309627,
+            "regular_grid": 41.34812127980291
+          },
+          "ratios": {
+            "p2_over_compact": 4.658384365201142,
+            "generic_over_compact": 3.221351343431295,
+            "grid_over_compact": 0.5210524773656281
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.184885716390011,
+          "maximum": 4.658384365201142,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.1237063474503852,
+          "maximum": 3.221351343431295,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.4991103671183943,
+          "maximum": 0.5246058330674327,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "liverpool-centre",
+      "city_id": "liverpool",
+      "name": "利物浦 · 英国环境署裸地 DTM · 源栅格中心",
+      "reference_sha256": "1fd80ebe2684fe4853ace87369595521839041ce2a1a528eb264782eaa5e59a6",
+      "source_raster_sha256": "9234960ce30764e7f6e1c94f235c31b1a4084f27e82ec51eb625aaab91cf605f",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "227cfbe6d0d00905b3e1d10311e3f849b919fc3deaba902a9062f144fa6bc278",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "227cfbe6d0d00905b3e1d10311e3f849b919fc3deaba902a9062f144fa6bc278",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "ee6467bbb304209bab5ab4feb54e09b70b10022ff47d06d4f65e6fb0d039f1ef",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "5367400616861aa01b9a2c6faa3270651581826e465a9036e675068fb94c9624",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 33,
+          "queries_per_trial": 135168,
+          "latency_median_ns": {
+            "compact_ruled": 77.71144057766577,
+            "generic_ruled": 258.13506155302304,
+            "exact_p2": 354.27911931818943,
+            "regular_grid": 42.294034090923645
+          },
+          "ratios": {
+            "p2_over_compact": 4.558905570205181,
+            "generic_over_compact": 3.321712474176047,
+            "grid_over_compact": 0.5442446282880893
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 33,
+          "queries_per_trial": 135168,
+          "latency_median_ns": {
+            "compact_ruled": 77.48135653407712,
+            "generic_ruled": 249.69815340908198,
+            "exact_p2": 349.32676373107665,
+            "regular_grid": 40.12414180871794
+          },
+          "ratios": {
+            "p2_over_compact": 4.508526687674073,
+            "generic_over_compact": 3.2226869091955312,
+            "grid_over_compact": 0.5178554377925858
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 34,
+          "queries_per_trial": 139264,
+          "latency_median_ns": {
+            "compact_ruled": 78.35047104780035,
+            "generic_ruled": 236.51697495402962,
+            "exact_p2": 339.9751551010845,
+            "regular_grid": 40.30977136947138
+          },
+          "ratios": {
+            "p2_over_compact": 4.339159044668298,
+            "generic_over_compact": 3.018705207397342,
+            "grid_over_compact": 0.5144802683429821
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.339159044668298,
+          "maximum": 4.558905570205181,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.018705207397342,
+          "maximum": 3.321712474176047,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5144802683429821,
+          "maximum": 0.5442446282880893,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "liverpool-north-quarter",
+      "city_id": "liverpool",
+      "name": "利物浦 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+      "reference_sha256": "f56661749d2825ed9877bb449c82dee6f69a026f5ff6f4ad11fe77f1526db72f",
+      "source_raster_sha256": "9234960ce30764e7f6e1c94f235c31b1a4084f27e82ec51eb625aaab91cf605f",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "4ef7b61d456a4d652a2dcb9b069477753a315af21a6efb148981d8ac3345db0a",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "4ef7b61d456a4d652a2dcb9b069477753a315af21a6efb148981d8ac3345db0a",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "ac67e8e18956cebf176cfc6b14681924592d66980e32659f4b5c23d3d9f7c6e7",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "087a3e4159e10a8b1ad0aac883cd6a00bdb4851b743b9806c5d0d34c27336557",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 34,
+          "queries_per_trial": 139264,
+          "latency_median_ns": {
+            "compact_ruled": 78.96656709557368,
+            "generic_ruled": 251.17905560660438,
+            "exact_p2": 348.0131261489018,
+            "regular_grid": 42.39860983454465
+          },
+          "ratios": {
+            "p2_over_compact": 4.4070945331547655,
+            "generic_over_compact": 3.180827847088768,
+            "grid_over_compact": 0.5369184883424066
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 32,
+          "queries_per_trial": 131072,
+          "latency_median_ns": {
+            "compact_ruled": 77.19345092774277,
+            "generic_ruled": 254.89501953124272,
+            "exact_p2": 331.4468383789071,
+            "regular_grid": 42.82302856445375
+          },
+          "ratios": {
+            "p2_over_compact": 4.2937170756773035,
+            "generic_over_compact": 3.302029077179594,
+            "grid_over_compact": 0.5547495033553871
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 32,
+          "queries_per_trial": 131072,
+          "latency_median_ns": {
+            "compact_ruled": 87.1582031249929,
+            "generic_ruled": 293.37081909178164,
+            "exact_p2": 412.224578857423,
+            "regular_grid": 47.90725708006538
+          },
+          "ratios": {
+            "p2_over_compact": 4.729613095238494,
+            "generic_over_compact": 3.3659576330533207,
+            "grid_over_compact": 0.5496586134452767
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.2937170756773035,
+          "maximum": 4.729613095238494,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.180827847088768,
+          "maximum": 3.3659576330533207,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5369184883424066,
+          "maximum": 0.5547495033553871,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "sheffield-centre",
+      "city_id": "sheffield",
+      "name": "谢菲尔德 · 英国环境署裸地 DTM · 源栅格中心",
+      "reference_sha256": "41d122a46c02c18d5569f7188e56c6bdb8ebbc36194c8bd70271f6659efba944",
+      "source_raster_sha256": "15c607998ddb1378d7f5c4578f75e1fd665bda30441d4ab9562841addc8adfa9",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "3bf1c1cad8495ca9b871ad52f76aee3b23930da7c6c280f45653ec404150f33f",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "3bf1c1cad8495ca9b871ad52f76aee3b23930da7c6c280f45653ec404150f33f",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "f784f5218a49d89565f44b3b40bb769f805db150f289e861546ba2764ce68a28",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "7acc9b6c7486b4163514ba9536ab333254e0bb4bd6ff653edc781676eaf6bdf3",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 31,
+          "queries_per_trial": 126976,
+          "latency_median_ns": {
+            "compact_ruled": 79.38350554437973,
+            "generic_ruled": 252.80446698591302,
+            "exact_p2": 348.2768397177384,
+            "regular_grid": 42.4088016632851
+          },
+          "ratios": {
+            "p2_over_compact": 4.387269588680895,
+            "generic_over_compact": 3.184596916604816,
+            "grid_over_compact": 0.5342268695803091
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 35,
+          "queries_per_trial": 143360,
+          "latency_median_ns": {
+            "compact_ruled": 77.84667968750675,
+            "generic_ruled": 250.68568638393984,
+            "exact_p2": 354.1322544642915,
+            "regular_grid": 42.4616350446375
+          },
+          "ratios": {
+            "p2_over_compact": 4.549099022409874,
+            "generic_over_compact": 3.22024892250056,
+            "grid_over_compact": 0.5454521016835605
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 21,
+          "queries_per_trial": 86016,
+          "latency_median_ns": {
+            "compact_ruled": 86.46995907737744,
+            "generic_ruled": 292.9245721726016,
+            "exact_p2": 369.0522693452333,
+            "regular_grid": 44.92768787202009
+          },
+          "ratios": {
+            "p2_over_compact": 4.267982467934185,
+            "generic_over_compact": 3.3875877275537825,
+            "grid_over_compact": 0.5195756809809133
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.267982467934185,
+          "maximum": 4.549099022409874,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.184596916604816,
+          "maximum": 3.3875877275537825,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5195756809809133,
+          "maximum": 0.5454521016835605,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "sheffield-north-quarter",
+      "city_id": "sheffield",
+      "name": "谢菲尔德 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+      "reference_sha256": "e8f3818dcd5c1b87901812a9a0a372c09ff5389d45aaeef72b53a765172f7882",
+      "source_raster_sha256": "15c607998ddb1378d7f5c4578f75e1fd665bda30441d4ab9562841addc8adfa9",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "7b0b5095170749e82cb7723dafb331fd2d3797a7e7abbf77462d6caed08c501c",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "7b0b5095170749e82cb7723dafb331fd2d3797a7e7abbf77462d6caed08c501c",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "a7959067ccaf35b661d30e9c0d65265b32e15a0bf32dabfe3ff44a25645a418e",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "03f5c2b41c82af4cb8de3eaf8fd6589462d9326fae778cc64efea05860fe8879",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 23,
+          "queries_per_trial": 94208,
+          "latency_median_ns": {
+            "compact_ruled": 79.32659646739513,
+            "generic_ruled": 244.40917968751222,
+            "exact_p2": 329.741635529872,
+            "regular_grid": 39.625084918402884
+          },
+          "ratios": {
+            "p2_over_compact": 4.156760156291372,
+            "generic_over_compact": 3.081049617299154,
+            "grid_over_compact": 0.4995182786480649
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 31,
+          "queries_per_trial": 126976,
+          "latency_median_ns": {
+            "compact_ruled": 79.41343245966257,
+            "generic_ruled": 249.24710181455941,
+            "exact_p2": 341.1463583669348,
+            "regular_grid": 40.53206905241964
+          },
+          "ratios": {
+            "p2_over_compact": 4.295826887223612,
+            "generic_over_compact": 3.138601293190072,
+            "grid_over_compact": 0.5103931135706492
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 27,
+          "queries_per_trial": 110592,
+          "latency_median_ns": {
+            "compact_ruled": 84.1616030092601,
+            "generic_ruled": 250.7857711226475,
+            "exact_p2": 371.6824001736172,
+            "regular_grid": 43.37836371526294
+          },
+          "ratios": {
+            "p2_over_compact": 4.416294211182288,
+            "generic_over_compact": 2.9798121964841155,
+            "grid_over_compact": 0.5154175082726279
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.156760156291372,
+          "maximum": 4.416294211182288,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 2.9798121964841155,
+          "maximum": 3.138601293190072,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.4995182786480649,
+          "maximum": 0.5154175082726279,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "leeds-centre",
+      "city_id": "leeds",
+      "name": "利兹 · 英国环境署裸地 DTM · 源栅格中心",
+      "reference_sha256": "c83b1b98c0d241260d7d980dd24342a2f3c4a7f2ef647541a977e35502fb8da0",
+      "source_raster_sha256": "f9b4a5a158970325607da3faed3de2d29764dca48b26566fb154866c89c194de",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "ef2f742a1e408ccbcf9c4e15a3f4e6f3aaca34b4680aa8fed17398d9d1d52f71",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "ef2f742a1e408ccbcf9c4e15a3f4e6f3aaca34b4680aa8fed17398d9d1d52f71",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "5c551d2e0444ea7e6ac7d3bf1373e3f1f757813912ed9d63911097336da8d1b1",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "2fa4974f4a0c3c9a1d023310d31248fe158b0d1bb33e4a826a92d10499b86940",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 24,
+          "queries_per_trial": 98304,
+          "latency_median_ns": {
+            "compact_ruled": 79.79532877603704,
+            "generic_ruled": 270.5240885416682,
+            "exact_p2": 349.91048177079875,
+            "regular_grid": 41.94844563798483
+          },
+          "ratios": {
+            "p2_over_compact": 4.38509981897435,
+            "generic_over_compact": 3.390224624563588,
+            "grid_over_compact": 0.5257005175794472
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 33,
+          "queries_per_trial": 135168,
+          "latency_median_ns": {
+            "compact_ruled": 81.91065932765461,
+            "generic_ruled": 246.4814157197217,
+            "exact_p2": 344.2908084753889,
+            "regular_grid": 41.43140388258144
+          },
+          "ratios": {
+            "p2_over_compact": 4.20324792037353,
+            "generic_over_compact": 3.00914945311037,
+            "grid_over_compact": 0.5058121155739911
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 32,
+          "queries_per_trial": 131072,
+          "latency_median_ns": {
+            "compact_ruled": 81.03790283203737,
+            "generic_ruled": 237.78533935547853,
+            "exact_p2": 338.1515502929311,
+            "regular_grid": 41.902923584025146
+          },
+          "ratios": {
+            "p2_over_compact": 4.172757912970656,
+            "generic_over_compact": 2.934248432468972,
+            "grid_over_compact": 0.5170780846942071
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.172757912970656,
+          "maximum": 4.38509981897435,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 2.934248432468972,
+          "maximum": 3.390224624563588,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5058121155739911,
+          "maximum": 0.5257005175794472,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "leeds-north-quarter",
+      "city_id": "leeds",
+      "name": "利兹 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+      "reference_sha256": "0cfd6d17065e2088c8543a24335cd8cd69d1e3f551ab254ae8a1d83aba8ca040",
+      "source_raster_sha256": "f9b4a5a158970325607da3faed3de2d29764dca48b26566fb154866c89c194de",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "c13e71d1369fbb6b7fd70ae4f891567e3affd7755209cd6f1883a30c2b041c5d",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "c13e71d1369fbb6b7fd70ae4f891567e3affd7755209cd6f1883a30c2b041c5d",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "b6991fa2b43501d77a6cf695118b0c5f52caed8fce069f5139a526d2aa086c54",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "5b805e65ed5381d6e04510e873f1c0255305becee5d5757607eea7d5f61a4ec3",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 23,
+          "queries_per_trial": 94208,
+          "latency_median_ns": {
+            "compact_ruled": 78.0305281929333,
+            "generic_ruled": 259.1223675271445,
+            "exact_p2": 360.7825237772187,
+            "regular_grid": 42.994225543479125
+          },
+          "ratios": {
+            "p2_over_compact": 4.623607351281422,
+            "generic_over_compact": 3.3207819237934038,
+            "grid_over_compact": 0.5509923684890912
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 25,
+          "queries_per_trial": 102400,
+          "latency_median_ns": {
+            "compact_ruled": 79.77636718749181,
+            "generic_ruled": 260.975585937544,
+            "exact_p2": 337.9853515624376,
+            "regular_grid": 41.84960937500647
+          },
+          "ratios": {
+            "p2_over_compact": 4.236660097195182,
+            "generic_over_compact": 3.271339560050342,
+            "grid_over_compact": 0.524586551762263
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 24,
+          "queries_per_trial": 98304,
+          "latency_median_ns": {
+            "compact_ruled": 77.38545735673046,
+            "generic_ruled": 246.63391113281344,
+            "exact_p2": 348.30220540360557,
+            "regular_grid": 40.898640950507804
+          },
+          "ratios": {
+            "p2_over_compact": 4.500874160347812,
+            "generic_over_compact": 3.1870834593104966,
+            "grid_over_compact": 0.5285055144401847
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.236660097195182,
+          "maximum": 4.623607351281422,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.1870834593104966,
+          "maximum": 3.3207819237934038,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.524586551762263,
+          "maximum": 0.5509923684890912,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "nottingham-centre",
+      "city_id": "nottingham",
+      "name": "诺丁汉 · 英国环境署裸地 DTM · 源栅格中心",
+      "reference_sha256": "ae7b61f2728f0d9802f91d95e8a3a3c62365d5f472e119a62ce54531c922ad2e",
+      "source_raster_sha256": "aa220d584298f36644185269a95c7156ed1a1edee3fd31d89ccb04b9613df70e",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "26628495cf6ca1990d5777fa275f875db4e338db9e9d3ae24058181fd089576b",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "26628495cf6ca1990d5777fa275f875db4e338db9e9d3ae24058181fd089576b",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "bee52d3a58fbca5ae4b2b9ca8cca78ce4142a50cd3af458dbe3e1c7258a89a47",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "3dfd6385ae53eeb35b752d8410f32dc58599c0c6053d29ef40106060d6b13065",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 31,
+          "queries_per_trial": 126976,
+          "latency_median_ns": {
+            "compact_ruled": 79.63158392134612,
+            "generic_ruled": 262.6378213205825,
+            "exact_p2": 350.59932585688614,
+            "regular_grid": 42.4190398185549
+          },
+          "ratios": {
+            "p2_over_compact": 4.402767201054055,
+            "generic_over_compact": 3.2981614629189804,
+            "grid_over_compact": 0.5326911475282612
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 29,
+          "queries_per_trial": 118784,
+          "latency_median_ns": {
+            "compact_ruled": 77.80509159487511,
+            "generic_ruled": 253.7757610452155,
+            "exact_p2": 331.3249259159863,
+            "regular_grid": 40.93733162713714
+          },
+          "ratios": {
+            "p2_over_compact": 4.258396450982523,
+            "generic_over_compact": 3.2616857822956575,
+            "grid_over_compact": 0.5261523479760754
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 30,
+          "queries_per_trial": 122880,
+          "latency_median_ns": {
+            "compact_ruled": 78.02490234372073,
+            "generic_ruled": 250.17171223963666,
+            "exact_p2": 345.27506510417066,
+            "regular_grid": 39.808756510417716
+          },
+          "ratios": {
+            "p2_over_compact": 4.425190608802571,
+            "generic_over_compact": 3.2063059962262157,
+            "grid_over_compact": 0.510205784494922
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.258396450982523,
+          "maximum": 4.425190608802571,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.2063059962262157,
+          "maximum": 3.2981614629189804,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.510205784494922,
+          "maximum": 0.5326911475282612,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "nottingham-north-quarter",
+      "city_id": "nottingham",
+      "name": "诺丁汉 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+      "reference_sha256": "84c783448b5c5c640ea28b460b45b86b80fc5bdf43d41318cb1ebc18a36e4837",
+      "source_raster_sha256": "aa220d584298f36644185269a95c7156ed1a1edee3fd31d89ccb04b9613df70e",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "9eea738aa221638521315827fa66edb6cf36f6cf631a19e1a0deacca24632c38",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "9eea738aa221638521315827fa66edb6cf36f6cf631a19e1a0deacca24632c38",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "7a772d3f1aebc8acbb1db2086a380c6a70cf2210475696390c36729209e638ec",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "7b4a1eeea37c1e3a9e921eaf69b841907ce3e8d872349d67127598058d495b3e",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 23,
+          "queries_per_trial": 94208,
+          "latency_median_ns": {
+            "compact_ruled": 79.86370584241959,
+            "generic_ruled": 259.1924252717935,
+            "exact_p2": 348.2602326765918,
+            "regular_grid": 39.97431216031027
+          },
+          "ratios": {
+            "p2_over_compact": 4.360682102127215,
+            "generic_over_compact": 3.245434487891288,
+            "grid_over_compact": 0.5005316462422148
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 32,
+          "queries_per_trial": 131072,
+          "latency_median_ns": {
+            "compact_ruled": 78.73077392578365,
+            "generic_ruled": 247.62802124023153,
+            "exact_p2": 332.76901245116176,
+            "regular_grid": 41.26968383788565
+          },
+          "ratios": {
+            "p2_over_compact": 4.226670155241326,
+            "generic_over_compact": 3.1452506928696082,
+            "grid_over_compact": 0.5241874527588022
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 35,
+          "queries_per_trial": 143360,
+          "latency_median_ns": {
+            "compact_ruled": 78.57979910710355,
+            "generic_ruled": 243.35867745536785,
+            "exact_p2": 336.36369977675224,
+            "regular_grid": 41.23604910713904
+          },
+          "ratios": {
+            "p2_over_compact": 4.2805365195486385,
+            "generic_over_compact": 3.096962326458384,
+            "grid_over_compact": 0.5247665376560033
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.226670155241326,
+          "maximum": 4.360682102127215,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.096962326458384,
+          "maximum": 3.245434487891288,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5005316462422148,
+          "maximum": 0.5247665376560033,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "newcastle-centre",
+      "city_id": "newcastle",
+      "name": "纽卡斯尔 · 英国环境署裸地 DTM · 源栅格中心",
+      "reference_sha256": "11f7a7522fb57e3055a83aa00b36dc974006200b639e9e63a8c02fec08c582e6",
+      "source_raster_sha256": "10bc07588b0b7d491b6894a2e17004b5c52c88de9c77c1ac66566d8498dafee7",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "48352a03accb7486739437101b32fc6e537fdabc0636917079f047d240a02fde",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "48352a03accb7486739437101b32fc6e537fdabc0636917079f047d240a02fde",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "7838bfbdc4a0fcddc849ebbdf97b82ea475722458ff7707a745a0eb396a9420e",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "114ef2d29c677e163d6829de1d54d38bf9dd4fdb8a67aeaef36e8654ffe83b43",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 32,
+          "queries_per_trial": 131072,
+          "latency_median_ns": {
+            "compact_ruled": 80.34057617184453,
+            "generic_ruled": 262.3558044433927,
+            "exact_p2": 345.7977294922254,
+            "regular_grid": 41.92123413082616
+          },
+          "ratios": {
+            "p2_over_compact": 4.304147990581759,
+            "generic_over_compact": 3.26554546835993,
+            "grid_over_compact": 0.521794043910747
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 31,
+          "queries_per_trial": 126976,
+          "latency_median_ns": {
+            "compact_ruled": 78.84560861895574,
+            "generic_ruled": 259.09541960685596,
+            "exact_p2": 333.58036164311864,
+            "regular_grid": 42.179624495948396
+          },
+          "ratios": {
+            "p2_over_compact": 4.230804574738492,
+            "generic_over_compact": 3.286110972381603,
+            "grid_over_compact": 0.534964790490662
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 29,
+          "queries_per_trial": 118784,
+          "latency_median_ns": {
+            "compact_ruled": 77.79246363146454,
+            "generic_ruled": 251.71150996764976,
+            "exact_p2": 326.11547009698853,
+            "regular_grid": 39.71578663796122
+          },
+          "ratios": {
+            "p2_over_compact": 4.192121638439605,
+            "generic_over_compact": 3.235679887451727,
+            "grid_over_compact": 0.510535144202548
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.192121638439605,
+          "maximum": 4.304147990581759,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.235679887451727,
+          "maximum": 3.286110972381603,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.510535144202548,
+          "maximum": 0.534964790490662,
+          "wins": 0
+        }
+      }
+    },
+    {
+      "id": "newcastle-north-quarter",
+      "city_id": "newcastle",
+      "name": "纽卡斯尔 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+      "reference_sha256": "06f357f757c6e9a92ef1c29ab17d794389c6fe1964aae74b0f78acb2e0dccf15",
+      "source_raster_sha256": "10bc07588b0b7d491b6894a2e17004b5c52c88de9c77c1ac66566d8498dafee7",
+      "methods": [
+        {
+          "family": "compact_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "adf3f4da714ad7f93e2612ffe85b1e1ccae0405d5cea3953a1fed4993ef0b5fd",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        },
+        {
+          "family": "generic_ruled",
+          "filename": "ruled.bin",
+          "binary_bytes": 135528,
+          "binary_sha256": "adf3f4da714ad7f93e2612ffe85b1e1ccae0405d5cea3953a1fed4993ef0b5fd",
+          "stored_points": 4225,
+          "execution_points": 8385,
+          "primitives": 4096
+        },
+        {
+          "family": "exact_p2",
+          "filename": "source_p2.bin",
+          "binary_bytes": 694376,
+          "binary_sha256": "c5c3498cb477ce63add9406671273b929ebfc7d9b1ebf2e8a445fdedb416533d",
+          "stored_points": 16641,
+          "execution_points": 16641,
+          "primitives": 8192
+        },
+        {
+          "family": "regular_grid",
+          "filename": "regular-grid.bin",
+          "binary_bytes": 16980,
+          "binary_sha256": "cc093554026bfaf2b021cbde259b1610d094ca1ad27ae46a8ebcbcd05e974c07",
+          "stored_points": 4225,
+          "execution_points": 4225,
+          "primitives": 4096
+        }
+      ],
+      "repetitions": [
+        {
+          "repetition": 1,
+          "loops": 28,
+          "queries_per_trial": 114688,
+          "latency_median_ns": {
+            "compact_ruled": 80.48531668526847,
+            "generic_ruled": 258.9041573660847,
+            "exact_p2": 345.824323381689,
+            "regular_grid": 40.93017578123335
+          },
+          "ratios": {
+            "p2_over_compact": 4.29673805886865,
+            "generic_over_compact": 3.2167874592394177,
+            "grid_over_compact": 0.5085421473992281
+          }
+        },
+        {
+          "repetition": 2,
+          "loops": 33,
+          "queries_per_trial": 135168,
+          "latency_median_ns": {
+            "compact_ruled": 80.12843276512258,
+            "generic_ruled": 247.57191051134677,
+            "exact_p2": 326.2998638731275,
+            "regular_grid": 42.32584635418501
+          },
+          "ratios": {
+            "p2_over_compact": 4.072210732357612,
+            "generic_over_compact": 3.089688665658105,
+            "grid_over_compact": 0.5282250618610393
+          }
+        },
+        {
+          "repetition": 3,
+          "loops": 28,
+          "queries_per_trial": 114688,
+          "latency_median_ns": {
+            "compact_ruled": 79.1957310268186,
+            "generic_ruled": 246.2881905691867,
+            "exact_p2": 327.56434849330014,
+            "regular_grid": 42.8702218191468
+          },
+          "ratios": {
+            "p2_over_compact": 4.136136433697098,
+            "generic_over_compact": 3.1098670013638032,
+            "grid_over_compact": 0.5413198573118715
+          }
+        }
+      ],
+      "ranges": {
+        "p2_over_compact": {
+          "minimum": 4.072210732357612,
+          "maximum": 4.29673805886865,
+          "wins": 3
+        },
+        "generic_over_compact": {
+          "minimum": 3.089688665658105,
+          "maximum": 3.2167874592394177,
+          "wins": 3
+        },
+        "grid_over_compact": {
+          "minimum": 0.5085421473992281,
+          "maximum": 0.5413198573118715,
+          "wins": 0
+        }
+      }
+    }
+  ],
+  "aggregate": {
+    "p2_over_compact": {
+      "minimum": 3.9226639597308375,
+      "maximum": 4.729613095238494,
+      "wins": 60,
+      "total": 60
+    },
+    "generic_over_compact": {
+      "minimum": 2.8379501240097484,
+      "maximum": 3.531868978805863,
+      "wins": 60,
+      "total": 60
+    },
+    "grid_over_compact": {
+      "minimum": 0.48822329664864417,
+      "maximum": 0.6495273252861421,
+      "wins": 0,
+      "total": 60
+    }
+  },
+  "raw_records": 5760,
+  "repetitions": 3,
+  "site_processes": 60,
+  "native_query_calls": 696120,
+  "prior_failure": {
+    "stage": "pre-timing output directory creation",
+    "cause": "relative path resolved under the child frontend cwd",
+    "timing_records": 0,
+    "recovery": "New complete attempt using an absolute output path; frozen scripts and protocol unchanged."
+  },
+  "trials_sha256": "09d0cf5db9e51d1170192a887d331872d7b98ec5df956822925b685502d493ca",
+  "figure_sha256": "1cab7fc003692e2d22063cf4d6673b211ba21b7afd1406bb5bfdfb91984cb524",
+  "release_audit_sha256": "d01fa6b537018644d245ca6b9844042f2ff874c7458a91d7c6aa81874c49c17a",
+  "report_sha256": "04831cb2f089577d81ec295612689bbcd936e894c8adc857a2c8c170c12dbcf5",
+  "package": {
+    "filename": "source-query-evidence.zip",
+    "bytes": 4750520,
+    "sha256": "1b716208e8257c0732e1117eb199407b43b33a906c69e617477f7031dbb6183f"
+  }
+}

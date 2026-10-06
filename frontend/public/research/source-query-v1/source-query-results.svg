@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="900" viewBox="0 0 1120 900"><rect width="1120" height="900" fill="white"/><g font-family="Arial,sans-serif" fill="#294d42">
+<text x="24" y="34" font-size="21">Actual DTM native CPU query: 20 windows / 3 fresh processes</text>
+<text x="24" y="62" font-size="13">Exact P2 latency median / compact ruled median. All 60 process/site measurements retained.</text>
+<path d="M230.00 85 V756" stroke="#e2e8e3"/><text x="230.00" y="778" font-size="12" text-anchor="middle">0</text>
+<path d="M360.00 85 V756" stroke="#e2e8e3"/><text x="360.00" y="778" font-size="12" text-anchor="middle">1</text>
+<path d="M490.00 85 V756" stroke="#e2e8e3"/><text x="490.00" y="778" font-size="12" text-anchor="middle">2</text>
+<path d="M620.00 85 V756" stroke="#e2e8e3"/><text x="620.00" y="778" font-size="12" text-anchor="middle">3</text>
+<path d="M750.00 85 V756" stroke="#e2e8e3"/><text x="750.00" y="778" font-size="12" text-anchor="middle">4</text>
+<path d="M880.00 85 V756" stroke="#e2e8e3"/><text x="880.00" y="778" font-size="12" text-anchor="middle">5</text>
+<text x="24" y="104" font-size="11">manchester-centre</text><path d="M739.95 100 H784.24" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="784.24" cy="97" r="3.3" fill="#267e6a"/>
+<circle cx="775.02" cy="100" r="3.3" fill="#577890"/>
+<circle cx="739.95" cy="103" r="3.3" fill="#b68b47"/>
+<text x="905" y="104" font-size="12">3.923 to 4.263 x</text>
+<text x="24" y="136" font-size="11">manchester-north-quarter</text><path d="M768.57 132 H810.03" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="810.03" cy="129" r="3.3" fill="#267e6a"/>
+<circle cx="768.57" cy="132" r="3.3" fill="#577890"/>
+<circle cx="786.75" cy="135" r="3.3" fill="#b68b47"/>
+<text x="905" y="136" font-size="12">4.143 to 4.462 x</text>
+<text x="24" y="168" font-size="11">york-centre</text><path d="M782.28 164 H809.47" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="809.47" cy="161" r="3.3" fill="#267e6a"/>
+<circle cx="782.28" cy="164" r="3.3" fill="#577890"/>
+<circle cx="787.46" cy="167" r="3.3" fill="#b68b47"/>
+<text x="905" y="168" font-size="12">4.248 to 4.457 x</text>
+<text x="24" y="200" font-size="11">york-north-quarter</text><path d="M780.28 196 H788.69" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="780.28" cy="193" r="3.3" fill="#267e6a"/>
+<circle cx="781.34" cy="196" r="3.3" fill="#577890"/>
+<circle cx="788.69" cy="199" r="3.3" fill="#b68b47"/>
+<text x="905" y="200" font-size="12">4.233 to 4.298 x</text>
+<text x="24" y="232" font-size="11">bath-centre</text><path d="M782.65 228 H826.19" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="826.19" cy="225" r="3.3" fill="#267e6a"/>
+<circle cx="782.65" cy="228" r="3.3" fill="#577890"/>
+<circle cx="801.26" cy="231" r="3.3" fill="#b68b47"/>
+<text x="905" y="232" font-size="12">4.251 to 4.586 x</text>
+<text x="24" y="264" font-size="11">bath-north-quarter</text><path d="M799.49 260 H817.25" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="817.25" cy="257" r="3.3" fill="#267e6a"/>
+<circle cx="806.83" cy="260" r="3.3" fill="#577890"/>
+<circle cx="799.49" cy="263" r="3.3" fill="#b68b47"/>
+<text x="905" y="264" font-size="12">4.381 to 4.517 x</text>
+<text x="24" y="296" font-size="11">oxford-centre</text><path d="M772.05 292 H788.85" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="786.15" cy="289" r="3.3" fill="#267e6a"/>
+<circle cx="788.85" cy="292" r="3.3" fill="#577890"/>
+<circle cx="772.05" cy="295" r="3.3" fill="#b68b47"/>
+<text x="905" y="296" font-size="12">4.170 to 4.299 x</text>
+<text x="24" y="328" font-size="11">oxford-north-quarter</text><path d="M786.46 324 H807.83" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="800.13" cy="321" r="3.3" fill="#267e6a"/>
+<circle cx="786.46" cy="324" r="3.3" fill="#577890"/>
+<circle cx="807.83" cy="327" r="3.3" fill="#b68b47"/>
+<text x="905" y="328" font-size="12">4.280 to 4.445 x</text>
+<text x="24" y="360" font-size="11">cambridge-centre</text><path d="M778.74 356 H802.72" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="778.74" cy="353" r="3.3" fill="#267e6a"/>
+<circle cx="797.65" cy="356" r="3.3" fill="#577890"/>
+<circle cx="802.72" cy="359" r="3.3" fill="#b68b47"/>
+<text x="905" y="360" font-size="12">4.221 to 4.406 x</text>
+<text x="24" y="392" font-size="11">cambridge-north-quarter</text><path d="M774.04 388 H835.59" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="774.04" cy="385" r="3.3" fill="#267e6a"/>
+<circle cx="834.53" cy="388" r="3.3" fill="#577890"/>
+<circle cx="835.59" cy="391" r="3.3" fill="#b68b47"/>
+<text x="905" y="392" font-size="12">4.185 to 4.658 x</text>
+<text x="24" y="424" font-size="11">liverpool-centre</text><path d="M794.09 420 H822.66" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="822.66" cy="417" r="3.3" fill="#267e6a"/>
+<circle cx="816.11" cy="420" r="3.3" fill="#577890"/>
+<circle cx="794.09" cy="423" r="3.3" fill="#b68b47"/>
+<text x="905" y="424" font-size="12">4.339 to 4.559 x</text>
+<text x="24" y="456" font-size="11">liverpool-north-quarter</text><path d="M788.18 452 H844.85" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="802.92" cy="449" r="3.3" fill="#267e6a"/>
+<circle cx="788.18" cy="452" r="3.3" fill="#577890"/>
+<circle cx="844.85" cy="455" r="3.3" fill="#b68b47"/>
+<text x="905" y="456" font-size="12">4.294 to 4.730 x</text>
+<text x="24" y="488" font-size="11">sheffield-centre</text><path d="M784.84 484 H821.38" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="800.35" cy="481" r="3.3" fill="#267e6a"/>
+<circle cx="821.38" cy="484" r="3.3" fill="#577890"/>
+<circle cx="784.84" cy="487" r="3.3" fill="#b68b47"/>
+<text x="905" y="488" font-size="12">4.268 to 4.549 x</text>
+<text x="24" y="520" font-size="11">sheffield-north-quarter</text><path d="M770.38 516 H804.12" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="770.38" cy="513" r="3.3" fill="#267e6a"/>
+<circle cx="788.46" cy="516" r="3.3" fill="#577890"/>
+<circle cx="804.12" cy="519" r="3.3" fill="#b68b47"/>
+<text x="905" y="520" font-size="12">4.157 to 4.416 x</text>
+<text x="24" y="552" font-size="11">leeds-centre</text><path d="M772.46 548 H800.06" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="800.06" cy="545" r="3.3" fill="#267e6a"/>
+<circle cx="776.42" cy="548" r="3.3" fill="#577890"/>
+<circle cx="772.46" cy="551" r="3.3" fill="#b68b47"/>
+<text x="905" y="552" font-size="12">4.173 to 4.385 x</text>
+<text x="24" y="584" font-size="11">leeds-north-quarter</text><path d="M780.77 580 H831.07" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="831.07" cy="577" r="3.3" fill="#267e6a"/>
+<circle cx="780.77" cy="580" r="3.3" fill="#577890"/>
+<circle cx="815.11" cy="583" r="3.3" fill="#b68b47"/>
+<text x="905" y="584" font-size="12">4.237 to 4.624 x</text>
+<text x="24" y="616" font-size="11">nottingham-centre</text><path d="M783.59 612 H805.27" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="802.36" cy="609" r="3.3" fill="#267e6a"/>
+<circle cx="783.59" cy="612" r="3.3" fill="#577890"/>
+<circle cx="805.27" cy="615" r="3.3" fill="#b68b47"/>
+<text x="905" y="616" font-size="12">4.258 to 4.425 x</text>
+<text x="24" y="648" font-size="11">nottingham-north-quarter</text><path d="M779.47 644 H796.89" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="796.89" cy="641" r="3.3" fill="#267e6a"/>
+<circle cx="779.47" cy="644" r="3.3" fill="#577890"/>
+<circle cx="786.47" cy="647" r="3.3" fill="#b68b47"/>
+<text x="905" y="648" font-size="12">4.227 to 4.361 x</text>
+<text x="24" y="680" font-size="11">newcastle-centre</text><path d="M774.98 676 H789.54" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="789.54" cy="673" r="3.3" fill="#267e6a"/>
+<circle cx="780.00" cy="676" r="3.3" fill="#577890"/>
+<circle cx="774.98" cy="679" r="3.3" fill="#b68b47"/>
+<text x="905" y="680" font-size="12">4.192 to 4.304 x</text>
+<text x="24" y="712" font-size="11">newcastle-north-quarter</text><path d="M759.39 708 H788.58" stroke="#acd0c3" stroke-width="4"/>
+<circle cx="788.58" cy="705" r="3.3" fill="#267e6a"/>
+<circle cx="759.39" cy="708" r="3.3" fill="#577890"/>
+<circle cx="767.70" cy="711" r="3.3" fill="#b68b47"/>
+<text x="905" y="712" font-size="12">4.072 to 4.297 x</text>
+<text x="24" y="812" font-size="13">Implicit Float32 grid / compact ratio: 0.488 to 0.650; &lt;1 means grid is faster.</text>
+<text x="24" y="840" font-size="12">Same source-relative bilinear height and gradient. Balanced 24 orders / 5760 raw records. Observed ranges, not CIs.</text>
+<text x="24" y="867" font-size="12">Same-device Node CPU only. API metadata differs for raster. Not ArcGIS software, GPU, heap RAM or surveyed accuracy.</text>
+</g></svg>
