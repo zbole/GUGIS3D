@@ -1,0 +1,12 @@
+{
+  "schema": "gugis-native-query-repeat-release-audit-v1",
+  "verified_records": 660,
+  "verified_runs": 3,
+  "verified_cases": 15,
+  "native_models": 30,
+  "native_queries": 123000,
+  "timed_body_unchanged": true,
+  "same_device_identity": true,
+  "baseline_unchanged": true,
+  "full_csv_consistent": true
+}

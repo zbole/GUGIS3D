@@ -1,0 +1,316 @@
+{
+  "schema": "gugis-native-repeat-audit-v1",
+  "receipt_sha256": "0d5dfb3176a611eb254ac65b5e365140de0ff35e0e4c8a75e5f891a5e2c7525f",
+  "baseline_report_sha256": "df7e009f07fe0267fb939d5141a54b4f2d7cacc6cd027a0b5c44bf5aacd852bf",
+  "compiled_sha256": {
+    "prepared.mjs": "6efe50bcd34aeee9a880c04fcabbc40a9af5e09ca3694659b10c7a23d84bf499",
+    "frozen.mjs": "ac9a81818d66f16720b9a72f06a48e2f22476ace46acf38a52bf7290d88079cd"
+  },
+  "scripts": {
+    "frontend/scripts/audit-native-repeat.mjs": "3e43c7d19d505d6df24e196ad10e8db471a3c486f208c39d8c8288ce2186c09d",
+    "frontend/tests/bundleWorkspaceModule.mjs": "3b47c503aebc59f32f5a96b68ea3ea06809899196077abd630a71cb374285b13"
+  },
+  "queries": 123000,
+  "models": [
+    {
+      "repetition": 1,
+      "case_id": "extruded-quadratic",
+      "family": "ruled",
+      "binary_sha256": "796bb40e48883f2c54ac9c59595730a1a1c8ad89964a2072ffeb90fbf6669de2",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 4.163336342344337e-17,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 1,
+      "case_id": "extruded-quadratic",
+      "family": "triangles",
+      "binary_sha256": "5b8853bfeedc4cc839e169d6aada6b05576ff616260f6e5d6569523e35798162",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 8.326672684688674e-17,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 1,
+      "case_id": "modulated-quadratic",
+      "family": "ruled",
+      "binary_sha256": "697becd31a0702c6cfce385ccca85fac34639b364e65f941744ac5b650d33018",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 1,
+      "case_id": "modulated-quadratic",
+      "family": "triangles",
+      "binary_sha256": "a721820fa7910e6de82c60e00ff90cc4122366f9b0e32aaac775d3e833cf9caa",
+      "hits": 4100,
+      "max_height_m": 1.4210854715202004e-14,
+      "max_gradient": 4.0939474033052647e-16,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 1,
+      "case_id": "piecewise-8",
+      "family": "ruled",
+      "binary_sha256": "216644adf878d57709f59c72f3ec97445b67e37e67cfdbf89d2200d64ac7a149",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 1.4085954624931674e-15,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 1,
+      "case_id": "piecewise-8",
+      "family": "triangles",
+      "binary_sha256": "73784ca1be8300741ccbffbdc3fab9149f28d4567fc658cdccd0dfade355a338",
+      "hits": 4100,
+      "max_height_m": 1.0658141036401503e-14,
+      "max_gradient": 1.7659484985443896e-15,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 1,
+      "case_id": "piecewise-32",
+      "family": "ruled",
+      "binary_sha256": "8c1696b08e580c31540b3c4addfab3d70c6f43bbe35c4375fc3eae0534a8efe0",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 4.524158825347513e-15,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 1,
+      "case_id": "piecewise-32",
+      "family": "triangles",
+      "binary_sha256": "b34fb81f8042ef0ac8e6d7d000023ce6965bc2c94d2a741f20a51200d23eff0a",
+      "hits": 4100,
+      "max_height_m": 1.0658141036401503e-14,
+      "max_gradient": 7.0915495697931874e-15,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 1,
+      "case_id": "piecewise-128",
+      "family": "ruled",
+      "binary_sha256": "e4008eab3b59602204c0f699cf233b3a37cdcdd832e61ccf8391b2fd0c1543d4",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 2.0039525594484076e-14,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 1,
+      "case_id": "piecewise-128",
+      "family": "triangles",
+      "binary_sha256": "e1347fd24530a13aaba3a5f8d2bce1354541fa77fd16bfbd759a264b24e00186",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 2.4369395390522186e-14,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 2,
+      "case_id": "extruded-quadratic",
+      "family": "ruled",
+      "binary_sha256": "796bb40e48883f2c54ac9c59595730a1a1c8ad89964a2072ffeb90fbf6669de2",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 4.163336342344337e-17,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 2,
+      "case_id": "extruded-quadratic",
+      "family": "triangles",
+      "binary_sha256": "5b8853bfeedc4cc839e169d6aada6b05576ff616260f6e5d6569523e35798162",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 8.326672684688674e-17,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 2,
+      "case_id": "modulated-quadratic",
+      "family": "ruled",
+      "binary_sha256": "697becd31a0702c6cfce385ccca85fac34639b364e65f941744ac5b650d33018",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 2,
+      "case_id": "modulated-quadratic",
+      "family": "triangles",
+      "binary_sha256": "a721820fa7910e6de82c60e00ff90cc4122366f9b0e32aaac775d3e833cf9caa",
+      "hits": 4100,
+      "max_height_m": 1.4210854715202004e-14,
+      "max_gradient": 4.0939474033052647e-16,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 2,
+      "case_id": "piecewise-8",
+      "family": "ruled",
+      "binary_sha256": "216644adf878d57709f59c72f3ec97445b67e37e67cfdbf89d2200d64ac7a149",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 1.4085954624931674e-15,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 2,
+      "case_id": "piecewise-8",
+      "family": "triangles",
+      "binary_sha256": "73784ca1be8300741ccbffbdc3fab9149f28d4567fc658cdccd0dfade355a338",
+      "hits": 4100,
+      "max_height_m": 1.0658141036401503e-14,
+      "max_gradient": 1.7659484985443896e-15,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 2,
+      "case_id": "piecewise-32",
+      "family": "ruled",
+      "binary_sha256": "8c1696b08e580c31540b3c4addfab3d70c6f43bbe35c4375fc3eae0534a8efe0",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 4.524158825347513e-15,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 2,
+      "case_id": "piecewise-32",
+      "family": "triangles",
+      "binary_sha256": "b34fb81f8042ef0ac8e6d7d000023ce6965bc2c94d2a741f20a51200d23eff0a",
+      "hits": 4100,
+      "max_height_m": 1.0658141036401503e-14,
+      "max_gradient": 7.0915495697931874e-15,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 2,
+      "case_id": "piecewise-128",
+      "family": "ruled",
+      "binary_sha256": "e4008eab3b59602204c0f699cf233b3a37cdcdd832e61ccf8391b2fd0c1543d4",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 2.0039525594484076e-14,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 2,
+      "case_id": "piecewise-128",
+      "family": "triangles",
+      "binary_sha256": "e1347fd24530a13aaba3a5f8d2bce1354541fa77fd16bfbd759a264b24e00186",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 2.4369395390522186e-14,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 3,
+      "case_id": "extruded-quadratic",
+      "family": "ruled",
+      "binary_sha256": "796bb40e48883f2c54ac9c59595730a1a1c8ad89964a2072ffeb90fbf6669de2",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 4.163336342344337e-17,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 3,
+      "case_id": "extruded-quadratic",
+      "family": "triangles",
+      "binary_sha256": "5b8853bfeedc4cc839e169d6aada6b05576ff616260f6e5d6569523e35798162",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 8.326672684688674e-17,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 3,
+      "case_id": "modulated-quadratic",
+      "family": "ruled",
+      "binary_sha256": "697becd31a0702c6cfce385ccca85fac34639b364e65f941744ac5b650d33018",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 3,
+      "case_id": "modulated-quadratic",
+      "family": "triangles",
+      "binary_sha256": "a721820fa7910e6de82c60e00ff90cc4122366f9b0e32aaac775d3e833cf9caa",
+      "hits": 4100,
+      "max_height_m": 1.4210854715202004e-14,
+      "max_gradient": 4.0939474033052647e-16,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 3,
+      "case_id": "piecewise-8",
+      "family": "ruled",
+      "binary_sha256": "216644adf878d57709f59c72f3ec97445b67e37e67cfdbf89d2200d64ac7a149",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 1.4085954624931674e-15,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 3,
+      "case_id": "piecewise-8",
+      "family": "triangles",
+      "binary_sha256": "73784ca1be8300741ccbffbdc3fab9149f28d4567fc658cdccd0dfade355a338",
+      "hits": 4100,
+      "max_height_m": 1.0658141036401503e-14,
+      "max_gradient": 1.7659484985443896e-15,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 3,
+      "case_id": "piecewise-32",
+      "family": "ruled",
+      "binary_sha256": "8c1696b08e580c31540b3c4addfab3d70c6f43bbe35c4375fc3eae0534a8efe0",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 4.524158825347513e-15,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 3,
+      "case_id": "piecewise-32",
+      "family": "triangles",
+      "binary_sha256": "b34fb81f8042ef0ac8e6d7d000023ce6965bc2c94d2a741f20a51200d23eff0a",
+      "hits": 4100,
+      "max_height_m": 1.0658141036401503e-14,
+      "max_gradient": 7.0915495697931874e-15,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 3,
+      "case_id": "piecewise-128",
+      "family": "ruled",
+      "binary_sha256": "e4008eab3b59602204c0f699cf233b3a37cdcdd832e61ccf8391b2fd0c1543d4",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 2.0039525594484076e-14,
+      "outside_rejected": true
+    },
+    {
+      "repetition": 3,
+      "case_id": "piecewise-128",
+      "family": "triangles",
+      "binary_sha256": "e1347fd24530a13aaba3a5f8d2bce1354541fa77fd16bfbd759a264b24e00186",
+      "hits": 4100,
+      "max_height_m": 7.105427357601002e-15,
+      "max_gradient": 2.4369395390522186e-14,
+      "outside_rejected": true
+    }
+  ]
+}

@@ -58,3 +58,5 @@ frontend/public/research/hybrid-source-v1/** -text whitespace=cr-at-eol
 frontend/public/research/hybrid-source-v1/*.svg whitespace=-blank-at-eol
 frontend/public/research/query-statistics-v1/** -text whitespace=cr-at-eol
 frontend/public/research/query-statistics-v1/*.svg whitespace=-blank-at-eol
+frontend/public/research/native-query-repeat-v1/** -text whitespace=cr-at-eol
+frontend/public/research/native-query-repeat-v1/*.svg whitespace=-blank-at-eol

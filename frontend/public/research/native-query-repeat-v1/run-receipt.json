@@ -1,0 +1,39 @@
+{
+  "schema": "gugis-native-query-repeat-v1",
+  "generated_utc": "2026-10-06T06:40:45.443Z",
+  "protocol_sha256": "6cf8952781f1f59c4f05a5f047cfa2618a88a22eb9a46bad216ce8c0232e42be",
+  "baseline_report_sha256": "df7e009f07fe0267fb939d5141a54b4f2d7cacc6cd027a0b5c44bf5aacd852bf",
+  "adapted_runner_sha256": "aca77e8460bc6ea9a8683cfcac4d200653d4dc58d14db34d5be899da2641a20b",
+  "scripts": {
+    "frontend/scripts/repeat-native-query.mjs": "176848ddb7ae2b342502a8615a4ef71d2bddb6a83df2e25b87eb91f531b3fb68",
+    "frontend/scripts/nativeRepeatAdapter.mjs": "ec1d35c618093e3bc385f14579a0e6b3400aa6fad935f192c748746b20cd672f",
+    "frontend/tests/bundleWorkspaceModule.mjs": "3b47c503aebc59f32f5a96b68ea3ea06809899196077abd630a71cb374285b13"
+  },
+  "runs": [
+    {
+      "repetition": 1,
+      "folder": "run-1",
+      "exit_code": 0,
+      "signal": null,
+      "report_sha256": "0cd88b3d0f435f72fbd5937c8481916db77f3c440e26f8815acaf6e8fc92a518",
+      "trials_sha256": "2d744a0964dee2e834ffb986fc0e14f24c3bea6c38fe054a27ab6a5438774a88"
+    },
+    {
+      "repetition": 2,
+      "folder": "run-2",
+      "exit_code": 0,
+      "signal": null,
+      "report_sha256": "c342a9abef337215ae283df9f493bbd5f730683d219b9c03bfea3d94848d642c",
+      "trials_sha256": "0cf9f32d60f0cf6b471a6ae0092c9df1c95b85313e9075c34e5b0b523f0aa658"
+    },
+    {
+      "repetition": 3,
+      "folder": "run-3",
+      "exit_code": 0,
+      "signal": null,
+      "report_sha256": "58e4b8d1528c2f5dfa3c9b67044a557bfb6c02fcaa4a9caf6657f2bd2080b544",
+      "trials_sha256": "105e2fde46a0adc10021956c9ffef73e5a2514632385f146f2b91642f0c7375a"
+    }
+  ],
+  "scope": "Same-device native CPU query repetitions on five exact analytic function fixtures. Not ArcGIS software, paper-author timing, browser/GPU rendering, surveyed terrain accuracy or cross-device performance. Do not run this producer concurrently with other task-owned builds or numeric audits. Background OS load remains uncontrolled."
+}

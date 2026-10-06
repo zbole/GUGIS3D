@@ -1,0 +1,241 @@
+{
+  "schema": "gugis-native-query-repeat-display-v1",
+  "protocol_sha256": "6cf8952781f1f59c4f05a5f047cfa2618a88a22eb9a46bad216ce8c0232e42be",
+  "receipt_sha256": "0d5dfb3176a611eb254ac65b5e365140de0ff35e0e4c8a75e5f891a5e2c7525f",
+  "baseline_report_sha256": "df7e009f07fe0267fb939d5141a54b4f2d7cacc6cd027a0b5c44bf5aacd852bf",
+  "native_audit_sha256": "f0f51c43a4fd7623ef1cb6f2f7a1fa0d201fb92288531225f493719da59ba5eb",
+  "scripts": {
+    "frontend/scripts/repeat-native-query.mjs": "176848ddb7ae2b342502a8615a4ef71d2bddb6a83df2e25b87eb91f531b3fb68",
+    "frontend/scripts/nativeRepeatAdapter.mjs": "ec1d35c618093e3bc385f14579a0e6b3400aa6fad935f192c748746b20cd672f",
+    "frontend/tests/bundleWorkspaceModule.mjs": "3b47c503aebc59f32f5a96b68ea3ea06809899196077abd630a71cb374285b13",
+    "frontend/scripts/audit-native-repeat.mjs": "3e43c7d19d505d6df24e196ad10e8db471a3c486f208c39d8c8288ce2186c09d"
+  },
+  "release_scripts": {
+    "data-pipeline/publish_native_repeat.py": "2254817012f9133e61c6bfe95ec744fcf27f41d350de26fc1433c066354e5db5"
+  },
+  "scope": "Same-device native CPU query repetitions on five exact analytic function fixtures. Not ArcGIS software, paper-author timing, browser/GPU rendering, surveyed terrain accuracy or cross-device performance. Do not run this producer concurrently with other task-owned builds or numeric audits. Background OS load remains uncontrolled.",
+  "environment": {
+    "node": "v24.13.0",
+    "v8": "13.6.233.17-node.37",
+    "platform": "win32",
+    "architecture": "x64",
+    "cpu_model": "Intel(R) Core(TM) i7-14650HX",
+    "logical_cores": 24,
+    "total_memory_bytes": 16890322944
+  },
+  "repetitions": 3,
+  "cases": [
+    {
+      "id": "extruded-quadratic",
+      "name": "二次轮廓沿直线延展",
+      "baseline_ratio": 1.092477988244054,
+      "repetitions": [
+        {
+          "repetition": 1,
+          "ratio": 1.0781588361554915,
+          "ruled_median_ns": 19.993782043457063,
+          "triangles_median_ns": 21.55647277832023,
+          "paired_wins": 16,
+          "paired_losses": 1,
+          "loops": 128,
+          "queries_per_trial": 524288
+        },
+        {
+          "repetition": 2,
+          "ratio": 1.0242234093671367,
+          "ruled_median_ns": 20.24402618408202,
+          "triangles_median_ns": 20.734405517578075,
+          "paired_wins": 14,
+          "paired_losses": 3,
+          "loops": 128,
+          "queries_per_trial": 524288
+        },
+        {
+          "repetition": 3,
+          "ratio": 1.0822457770501983,
+          "ruled_median_ns": 20.855522155761733,
+          "triangles_median_ns": 22.570800781249982,
+          "paired_wins": 13,
+          "paired_losses": 4,
+          "loops": 128,
+          "queries_per_trial": 524288
+        }
+      ],
+      "minimum_ratio": 1.0242234093671367,
+      "maximum_ratio": 1.0822457770501983,
+      "favourable_repetitions": 3
+    },
+    {
+      "id": "modulated-quadratic",
+      "name": "二次轮廓随母线线性变化",
+      "baseline_ratio": 1.1761907690144926,
+      "repetitions": [
+        {
+          "repetition": 1,
+          "ratio": 1.2258354860362428,
+          "ruled_median_ns": 37.50839233398508,
+          "triangles_median_ns": 45.97911834716868,
+          "paired_wins": 17,
+          "paired_losses": 0,
+          "loops": 128,
+          "queries_per_trial": 524288
+        },
+        {
+          "repetition": 2,
+          "ratio": 1.1930693528059537,
+          "ruled_median_ns": 41.16516113281295,
+          "triangles_median_ns": 49.11289215087794,
+          "paired_wins": 17,
+          "paired_losses": 0,
+          "loops": 128,
+          "queries_per_trial": 524288
+        },
+        {
+          "repetition": 3,
+          "ratio": 1.2099906521967654,
+          "ruled_median_ns": 38.15593719482327,
+          "triangles_median_ns": 46.168327331543026,
+          "paired_wins": 17,
+          "paired_losses": 0,
+          "loops": 128,
+          "queries_per_trial": 524288
+        }
+      ],
+      "minimum_ratio": 1.1930693528059537,
+      "maximum_ratio": 1.2258354860362428,
+      "favourable_repetitions": 3
+    },
+    {
+      "id": "piecewise-8",
+      "name": "8 条连续直纹面带",
+      "baseline_ratio": 1.371387850711092,
+      "repetitions": [
+        {
+          "repetition": 1,
+          "ratio": 1.3673663471511543,
+          "ruled_median_ns": 63.57946663259135,
+          "triangles_median_ns": 86.93642304322513,
+          "paired_wins": 17,
+          "paired_losses": 0,
+          "loops": 107,
+          "queries_per_trial": 438272
+        },
+        {
+          "repetition": 2,
+          "ratio": 1.408176426242325,
+          "ruled_median_ns": 62.99800872802685,
+          "triangles_median_ns": 88.71231079101565,
+          "paired_wins": 17,
+          "paired_losses": 0,
+          "loops": 128,
+          "queries_per_trial": 524288
+        },
+        {
+          "repetition": 3,
+          "ratio": 1.3937207752952732,
+          "ruled_median_ns": 63.322656249994225,
+          "triangles_median_ns": 88.25410156249802,
+          "paired_wins": 17,
+          "paired_losses": 0,
+          "loops": 125,
+          "queries_per_trial": 512000
+        }
+      ],
+      "minimum_ratio": 1.3673663471511543,
+      "maximum_ratio": 1.408176426242325,
+      "favourable_repetitions": 3
+    },
+    {
+      "id": "piecewise-32",
+      "name": "32 条连续直纹面带",
+      "baseline_ratio": 1.13079456444348,
+      "repetitions": [
+        {
+          "repetition": 1,
+          "ratio": 1.1679300806634363,
+          "ruled_median_ns": 92.12392171224307,
+          "triangles_median_ns": 107.59429931641215,
+          "paired_wins": 15,
+          "paired_losses": 2,
+          "loops": 96,
+          "queries_per_trial": 393216
+        },
+        {
+          "repetition": 2,
+          "ratio": 1.2346511176605646,
+          "ruled_median_ns": 84.75431743420732,
+          "triangles_median_ns": 104.64201274670235,
+          "paired_wins": 17,
+          "paired_losses": 0,
+          "loops": 95,
+          "queries_per_trial": 389120
+        },
+        {
+          "repetition": 3,
+          "ratio": 1.1962234780323309,
+          "ruled_median_ns": 85.34900753996807,
+          "triangles_median_ns": 102.09648664606824,
+          "paired_wins": 17,
+          "paired_losses": 0,
+          "loops": 86,
+          "queries_per_trial": 352256
+        }
+      ],
+      "minimum_ratio": 1.1679300806634363,
+      "maximum_ratio": 1.2346511176605646,
+      "favourable_repetitions": 3
+    },
+    {
+      "id": "piecewise-128",
+      "name": "128 条连续直纹面带",
+      "baseline_ratio": 1.253092804832684,
+      "repetitions": [
+        {
+          "repetition": 1,
+          "ratio": 1.1901244233566415,
+          "ruled_median_ns": 100.47980414497184,
+          "triangles_median_ns": 119.58346896702288,
+          "paired_wins": 17,
+          "paired_losses": 0,
+          "loops": 72,
+          "queries_per_trial": 294912
+        },
+        {
+          "repetition": 2,
+          "ratio": 1.2185604827972578,
+          "ruled_median_ns": 103.15856933594547,
+          "triangles_median_ns": 125.70495605468412,
+          "paired_wins": 16,
+          "paired_losses": 1,
+          "loops": 64,
+          "queries_per_trial": 262144
+        },
+        {
+          "repetition": 3,
+          "ratio": 1.2029010155986308,
+          "ruled_median_ns": 99.06813930456737,
+          "triangles_median_ns": 119.16916538293071,
+          "paired_wins": 17,
+          "paired_losses": 0,
+          "loops": 71,
+          "queries_per_trial": 290816
+        }
+      ],
+      "minimum_ratio": 1.1901244233566415,
+      "maximum_ratio": 1.2185604827972578,
+      "favourable_repetitions": 3
+    }
+  ],
+  "raw_records": 660,
+  "prepared_pairs": 255,
+  "native_queries": 123000,
+  "trials_sha256": "d9eda341cf03b7090619eee8d13300e68066c14b370e8d983c255933569531b0",
+  "figure_sha256": "228b0bbad032357be899dfc7fc2d72478c60a4744f9cf02eb99d78125ea06017",
+  "release_audit_sha256": "59670ad2998c17f6ad29cad5752bc5181449a778206774fd0b9fd73ad6820912",
+  "report_sha256": "a3d61be59737f528335c4ab1b610dabfdd2e281c355fa95e12fcededb3ce8735",
+  "package": {
+    "filename": "native-repeat-evidence.zip",
+    "bytes": 376360,
+    "sha256": "37f2f36b205e6359421b37ff6d3335505375cf5769955208250a28ebec761e5a"
+  }
+}

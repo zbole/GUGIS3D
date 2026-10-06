@@ -1,0 +1,18 @@
+{
+  "schema": "gugis-native-query-repeat-protocol-v1",
+  "repetitions": 3,
+  "cases": ["extruded-quadratic", "modulated-quadratic", "piecewise-8", "piecewise-32", "piecewise-128"],
+  "baseline_report_sha256": "df7e009f07fe0267fb939d5141a54b4f2d7cacc6cd027a0b5c44bf5aacd852bf",
+  "frozen_runner_sha256_lf": "fb527900d8793f2203426be0006509877db4d074b16c1f236e3965c13cc35108",
+  "piecewise_report_sha256": "6bc880d754f63355952734038aeec2fd5082d2ea470f43554d7669d2e060a065",
+  "queries_per_lattice": 4096,
+  "prepared_pairs_per_case_per_repetition": 17,
+  "legacy_pairs_per_case_per_repetition": 5,
+  "warmup_batches_per_method": 5,
+  "calibration_target_fast_ms": 30,
+  "maximum_batch_loops": 128,
+  "execution": "Three sequential fresh Node processes. Same original timed loops, query lattice, warmups, alternating order, calibration and source/kernel files. Only module bundling adapter and repository-root resolution differ from the frozen runner.",
+  "analysis": "Report every repetition and every case, ratio of family latency medians per repetition, full min/max range across the three repetitions. Do not select fastest runs, pool correlated rows as independent replications or label the observed range a confidence interval.",
+  "failure": "Keep every completed and failed run; stop after a process failure. Do not silently rerun failed or unfavourable measurements. A new attempt requires a fresh directory and separate report.",
+  "scope": "Same-device native CPU query repetitions on five exact analytic function fixtures. Not ArcGIS software, paper-author timing, browser/GPU rendering, surveyed terrain accuracy or cross-device performance. Do not run this producer concurrently with other task-owned builds or numeric audits. Background OS load remains uncontrolled."
+}

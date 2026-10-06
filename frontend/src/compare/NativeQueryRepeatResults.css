@@ -1,0 +1,7 @@
+.nqr-selected{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(200px,1fr);gap:24px;align-items:center;margin:20px 0;padding:20px;border:1px solid #e1e9e3;border-radius:16px;background:#fbfcfa}
+.nqr-selected svg{width:100%;height:auto;font-size:13px;fill:#294d42;overflow:visible}
+.nqr-selected p{margin:0;color:#617369;font-size:13px;line-height:1.8}
+.nqr-disclosure{margin-top:24px;border-top:1px solid #e0e8e2;padding-top:18px}
+.nqr-disclosure>summary{cursor:pointer;font-weight:650;color:#294d42}
+.nqr-disclosure>summary small{display:block;font-size:12px;font-weight:400;color:#667a70;margin:7px 0 0 19px;line-height:1.7}
+@media(max-width:720px){.nqr-selected{grid-template-columns:1fr;padding:14px}.nqr-selected svg{min-height:130px}}
