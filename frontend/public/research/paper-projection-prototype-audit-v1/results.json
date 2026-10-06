@@ -1,0 +1,3399 @@
+{
+  "schema": "gugis-projection-prototype-native-audit-v1",
+  "parent_report_sha256": "4477be89825c6ab77f00ef3226248f05dc90c6339b71f85b843db3071faab7e5",
+  "prototype_report_sha256": "fcd8e7401c3bc1ce2cf77e2e6c323fcd60359b2394947ed424a2f83446681505",
+  "parent_package": {
+    "filename": "paper-projection-evidence.zip",
+    "bytes": 26307338,
+    "sha256": "24cb8f53dec7f7f75a3c20ad71ce1ffd4438b5b4147158193eb3259cb49272ff"
+  },
+  "scripts": {
+    "frontend/scripts/audit-projection-prototype.mjs": "399baac8473140f3a4ddc68c29f11da94712a285a45a2067b74b90df3b03d8dc",
+    "frontend/tests/bundleWorkspaceModule.mjs": "3b47c503aebc59f32f5a96b68ea3ea06809899196077abd630a71cb374285b13",
+    "frontend/src/compare/principalRuledMath.ts": "4bd434697148e8e9ac5fc387e3f93c3f980c4af0ca604acc750f4c96555ea466",
+    "frontend/src/compare/curvedRuledMath.ts": "20dbf6c48c4b6d4c76510d0679637220fc8aeb735e2e792e21ca7313d7e3b8c7",
+    "frontend/src/compare/terrainOrderMath.ts": "927aeb6c12fe87c9866b4b47fc397e742f2b098435ae0038936f96e2b4091407",
+    "frontend/src/compare/preparedOrderQuery.ts": "1e65054a8db9fa6ac9c64f33fc9d9cf45ba48518917050c2683fa4ddbc92b605"
+  },
+  "native_models": 249,
+  "valid_models": 238,
+  "rejected_models": 11,
+  "pairs": [
+    {
+      "case_id": "published-quartic-00",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-00",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-00",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-00",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-00",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-00",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-00",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-00",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-00",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-15",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-15",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-15",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-15",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-15",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-15",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-15",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-15",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-15",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-30",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-30",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-30",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-30",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-30",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-30",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-30",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-30",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-30",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-45",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-45",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-45",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-45",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": false,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-45",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": false,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-45",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": false,
+      "prototype_error_worsened": true
+    },
+    {
+      "case_id": "published-quartic-45",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": false,
+      "prototype_error_worsened": true
+    },
+    {
+      "case_id": "published-quartic-45",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": false,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-45",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": false,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-60",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-60",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-60",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-60",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-60",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-60",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-60",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-60",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-60",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-75",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-75",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-75",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-75",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-75",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-75",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-75",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-75",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-75",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-90",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-90",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-90",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-90",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-90",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-90",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-90",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-90",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "published-quartic-90",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": false,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": false,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": false,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": false,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": false,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "budget": 8,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "budget": 16,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "budget": 32,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "budget": 64,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "budget": 128,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "budget": 256,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "budget": 512,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "budget": 1024,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "budget": 2048,
+      "pt": true,
+      "c0-l2": true,
+      "prototype_error_worsened": false
+    }
+  ],
+  "rejected_pairs": 11,
+  "source_error_worsened_pairs": 2,
+  "models": [
+    {
+      "case_id": "published-quartic-00",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "d3881f9903afc2de5bca6c0ae17f155c36b3757ab6a021b1686276b319d13c39",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "c0-l2-mean-hessian-1x2.json",
+      "binary_filename": "c0-l2-mean-hessian-1x2.bin",
+      "binary_sha256": "104c0849f3f8cfaaecae8c124b745e82c8baf8725633dfa5625f7f405a437813",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "2cec4bfcafdaa93e8de6dfbd53ea8a91c445a62f35ae32916e25d01926e7f7e4",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "c0-l2-mean-hessian-2x1.json",
+      "binary_filename": "c0-l2-mean-hessian-2x1.bin",
+      "binary_sha256": "48cc3a313b6fb0d26217c98ca09060a28db069345c4bfa26e314f93453bdf556",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "7d868b26aec628b57becafffc189bad3b9567fe638ebb7a5db3f38cda7007415",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "c0-l2-mean-hessian-2x2.json",
+      "binary_filename": "c0-l2-mean-hessian-2x2.bin",
+      "binary_sha256": "5f30b70cf3252dda39f475abb55fcc2e140d0aad2652875f3e69c1af8e8376a1",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "012dd9f8c2cbd3e222a6f5d385aebdaf6010e8c6d5c7d36674302a44474bedbb",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "c0-l2-mean-hessian-4x4.json",
+      "binary_filename": "c0-l2-mean-hessian-4x4.bin",
+      "binary_sha256": "ebeb49f5823c6373b7f93e69961d6796c322fa7d19f6b336d6e76c5d9e1ff555",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "f6dd595e44cf83d0043cf40e4d0ff0fe0330501cfec59a45ab9ea960af98333c",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "c0-l2-mean-hessian-4x8.json",
+      "binary_filename": "c0-l2-mean-hessian-4x8.bin",
+      "binary_sha256": "34cf52550f72e3da69b643d7a12d9278fa82d6cb8025f4ad51b89ab84cda0fdc",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "691c55c1b596bc1546e15e2cd365f5b99dadc04c99c2120db7215007cb424ef4",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "751550cb8f4b20a5cf88350640362cdb7cb1b59b6e1a40950c015affe1ec0de4",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "c7acbdabbe38c7fe52a80681894326914e3f299ac48dfdd20768778c45889b8e",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "c0-l2-mean-hessian-8x16.json",
+      "binary_filename": "c0-l2-mean-hessian-8x16.bin",
+      "binary_sha256": "ebf5e8ca0dec6e36c8064855ed4030b5b83bea83685c9854e6cf97f671b27d35",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "56aabb898fe769ae50115babb767ffd1b1bd6f928e66e967c5b585e6256be86d",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "c0-l2-mean-hessian-8x32.json",
+      "binary_filename": "c0-l2-mean-hessian-8x32.bin",
+      "binary_sha256": "4c331d417600af969c38a584daaa1430b7b801ccf61f39ba130e08498a004570",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "1e47d53f6e4e1c174065d4ebfd354537a3c6154218ba0a7b165de848eaa92770",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "c0-l2-mean-hessian-16x32.json",
+      "binary_filename": "c0-l2-mean-hessian-16x32.bin",
+      "binary_sha256": "9071e8e2101ce4819792d1a25f9601cdd2cfa5ca543faa6d4c134cbc37f0820d",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "83afcef8d01231e199f2e24cfca7811e823b6eaa67d6eb4b1e671c7f6363859d",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "c0-l2-mean-hessian-1x2.json",
+      "binary_filename": "c0-l2-mean-hessian-1x2.bin",
+      "binary_sha256": "e173739c2c9306651159952324afed84ab88e08bb4affb8f75872412e5d7475d",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "1ca35d7d7124fbb4aaebbcdf4c19cfdbe356895e2e0653417b5d80f3e42eb7c4",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "c0-l2-mean-hessian-2x2.json",
+      "binary_filename": "c0-l2-mean-hessian-2x2.bin",
+      "binary_sha256": "38625ddd46b2c9708688503dcdebb4e34a5afae152c8fc1c5d96f0ea1b1e7479",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "f6351d884e76b721a88e2ee728ad8b1d97699fa1778a9df7dc3998f9e29a0f60",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "c0-l2-mean-hessian-2x4.json",
+      "binary_filename": "c0-l2-mean-hessian-2x4.bin",
+      "binary_sha256": "7d660a0ef84ef53c862e07c89c73b55a8b87c6322aa362840ae614eb58d43bb2",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "971b88fe2f55946a1915e78df11968e2f47cc50b8db18c475470506ac1e12206",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "c0-l2-mean-hessian-4x4.json",
+      "binary_filename": "c0-l2-mean-hessian-4x4.bin",
+      "binary_sha256": "c929051cfb743a1500070327b034e646b0e7701bdfa8fd1339f9a634be6ebf26",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "c8e1a291e7c1b2b452ccc834cb112dc3f365ff56e39e40031337c43ffefbc9fa",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "c0-l2-mean-hessian-4x8.json",
+      "binary_filename": "c0-l2-mean-hessian-4x8.bin",
+      "binary_sha256": "03e8a3dc4308b2a0f3be725af150024c9eaa5c36adc66c5c05abe0c447d834f8",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "af95e398996e2700590f9182ccf23791b6929622f6f400f523299dcab97a2399",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "2462908aba2c43ee3f0b4ea847da6df6a669f43fbda658504b0611208a111796",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "596640220cf7826f544842a42fcb7d56f1b2d39e8aad4cb459c9de77b6e48897",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "c0-l2-mean-hessian-8x16.json",
+      "binary_filename": "c0-l2-mean-hessian-8x16.bin",
+      "binary_sha256": "f57aab66d4e21554b732ce331ca36c3812fed0f5bd66fda98a77799a1a10467c",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "35fb7a2551be246982e698eee18bf61d6aecd064da00f0997b85edc4edc7bdf8",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "c0-l2-mean-hessian-16x16.json",
+      "binary_filename": "c0-l2-mean-hessian-16x16.bin",
+      "binary_sha256": "2526fb104e05dcdedc7735229481f470ef4b3d4203d7748569f2c263d20d498c",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 319.28145605234494
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "7ce687f52c84e6e6c419e2e04bb97fe1e9705bd69cb1d06c9023db5cb52c89de",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "c0-l2-mean-hessian-16x32.json",
+      "binary_filename": "c0-l2-mean-hessian-16x32.bin",
+      "binary_sha256": "7abb909178c1bcd420c991f945f2fbb6388a34c596d0ae982a42325caf57626e",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 247.8173136365814
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "5eb2ccb8acba0128b92c5532c2a46532958520d2a86c7bd6b160772952227876",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "c0-l2-mean-hessian-1x2.json",
+      "binary_filename": "c0-l2-mean-hessian-1x2.bin",
+      "binary_sha256": "3cfa50a933e5234685e5a30644eb10546ef590644d43149f7161a8046f4ba353",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922192
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "d38a5b5374689bbe0d093b65baa396dc249d81398148c91f9dd7906d39bd6cf8",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "c0-l2-mean-hessian-2x2.json",
+      "binary_filename": "c0-l2-mean-hessian-2x2.bin",
+      "binary_sha256": "59134138675504bd23df8794655990d70b78b62dc48d8d61f0687a5dcaefc751",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922192
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "ed9d5a6335315a58ef63245fd3648c0c337ac42b1c314720bc685c227da4b7ed",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "c0-l2-mean-hessian-4x2.json",
+      "binary_filename": "c0-l2-mean-hessian-4x2.bin",
+      "binary_sha256": "e4aa873f0a90ccfda652fe9228ef80d47cbfae4ff94deedcb803d03322068427",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922192
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "f80974a96d38948a804f8213d08295589556f25d67974fc518e0472e10514adc",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "c0-l2-mean-hessian-4x4.json",
+      "binary_filename": "c0-l2-mean-hessian-4x4.bin",
+      "binary_sha256": "06d9b8214c69a78a77d29a26263cacf0d8265aa1d46ef283d3cdbad943e90b96",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 406.71621021269675
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "6fa96926542747eab28b4c1f1c0578957cf3ca7c906342c66111060b4cffd98e",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "c0-l2-mean-hessian-4x8.json",
+      "binary_filename": "c0-l2-mean-hessian-4x8.bin",
+      "binary_sha256": "e778b06ded6bbd9cf526e2676373c18917ec849627ab8169c03802e5aadb2795",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 156.1490738147154
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "e42a7a6675ec925aba9ced2638f63b45b3ef4b29f05079ec8dd665e1ed5b4686",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "861f3c4c671c8f58dd77913a0ffdbdbcf35b69a1f8c6b317e377c7b6417c4fb4",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922192
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "151d130219f9999109b1a19ffdf01756c88d4226e3e7c093974fcfacb16200c4",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "c0-l2-mean-hessian-8x16.json",
+      "binary_filename": "c0-l2-mean-hessian-8x16.bin",
+      "binary_sha256": "c46dbfe02bc1f5066f2807cc0712dde86381e2660e137c6d935af3d887f4c19c",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 123.43143818286882
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "e7f5e2843ce51b334175fe82c041248adae15bacc76158db6adf5c1af1e6b5af",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "c0-l2-mean-hessian-16x16.json",
+      "binary_filename": "c0-l2-mean-hessian-16x16.bin",
+      "binary_sha256": "675916650b5aa36de68c46d4ea1b7bfaed3a73783b47637cc938b4fbf37fbef4",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 832.2379214891496
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "a5559e8bba1d17175365fcf099afc9210a3f432104a0004041df4c57e6c4ff96",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "c0-l2-mean-hessian-16x32.json",
+      "binary_filename": "c0-l2-mean-hessian-16x32.bin",
+      "binary_sha256": "d32b1f90f2f4726985066817faf11c5925e36d51f4bb9bd1b6499111702effde",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 9659.098492155279
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "6f112b35fe73bc4437fcd3edf5562431da9ffd99e718e808e7a751c7a0c7a688",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "c0-l2-mean-hessian-1x2.json",
+      "binary_filename": "c0-l2-mean-hessian-1x2.bin",
+      "binary_sha256": "c9d028417e07b8a3528e9189e876029c72198186d5b2feb6b534e6bcb769243b",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 99.99999999999997
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "66b99aba7ecb93f7d6fb403ec1ed839cd76067dc62bb1c6c4fe18e515b346216",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "c0-l2-mean-hessian-2x2.json",
+      "binary_filename": "c0-l2-mean-hessian-2x2.bin",
+      "binary_sha256": "e7940a2126fea1c20ab780cc7618fcd976b0fbc5acf3f8ffff5f868d8ac35017",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 99.99999999999997
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "f1093e5b9a38a71d88566c110a2fb84df227947f21e5239c244538c52287043c",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "c0-l2-mean-hessian-4x2.json",
+      "binary_filename": "c0-l2-mean-hessian-4x2.bin",
+      "binary_sha256": "13a46cabf499b0f098b0c71ef47944e7a1b6af64e6a9ba9c0b47b925ab89879f",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 99.99999999999997
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "216e9ec9fd92924391b749bd78fc8857aedf4af0a40003455baed6047f896e2e",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "c0-l2-mean-hessian-4x4.json",
+      "binary_filename": "c0-l2-mean-hessian-4x4.bin",
+      "binary_sha256": "0273f8307f6c3e84cf1670d20ce89436654f5610fd0868d5dffab52f8f606dc8",
+      "method": "c0-l2",
+      "native_valid": false,
+      "native_rejection": "Invalid principal-surface protocol or capacity",
+      "maximum_abs_stored_coordinate_or_coefficient_m": 1.8898723429434922e+48
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "3481316b874b9ea75c95ac75b01c86387d18fae9ddf33f91e8cd3765d69bba4a",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "c0-l2-mean-hessian-4x8.json",
+      "binary_filename": "c0-l2-mean-hessian-4x8.bin",
+      "binary_sha256": "7800ca95bde1081ef8ceacb41bb0787eaf4c7eb4d232ca8cf5e81e0755903bb7",
+      "method": "c0-l2",
+      "native_valid": false,
+      "native_rejection": "Invalid principal-surface protocol or capacity",
+      "maximum_abs_stored_coordinate_or_coefficient_m": 5.128406900135146e+46
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "d36dc8f8c46c39a79dc9182f81d7cd402f91c923a8071f4a19d1406a637ce228",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "820318315bdd08682d242284424a178a6549af42efcad6e490903c7b2637c61c",
+      "method": "c0-l2",
+      "native_valid": false,
+      "native_rejection": "Invalid principal-surface protocol or capacity",
+      "maximum_abs_stored_coordinate_or_coefficient_m": 8.591961468526188e+46
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "73750420a394af5a7c8ef23456557fd395012da655791516c844a7401c1a6f13",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "c0-l2-mean-hessian-8x16.json",
+      "binary_filename": "c0-l2-mean-hessian-8x16.bin",
+      "binary_sha256": "d7be2f7be64814f4ddb8a0d5a053d75b9b982310324fca46193a7d5bcb6d724c",
+      "method": "c0-l2",
+      "native_valid": false,
+      "native_rejection": "Invalid principal-surface protocol or capacity",
+      "maximum_abs_stored_coordinate_or_coefficient_m": 2.29288953311221e+45
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "7f811e223b5bd4c5c4e2465d4a416d9a424d75b23ff379a4ad7880d8ba06115d",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "c0-l2-mean-hessian-16x16.json",
+      "binary_filename": "c0-l2-mean-hessian-16x16.bin",
+      "binary_sha256": "b34aedcd965fe066de3333ef4aafeb466855b5af46aaed65237fd6e753567ac3",
+      "method": "c0-l2",
+      "native_valid": false,
+      "native_rejection": "Invalid principal-surface protocol or capacity",
+      "maximum_abs_stored_coordinate_or_coefficient_m": 6.573333045840298e+43
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "64a0c8d1ecd49627f5d4bbadb01dc3911ba54ff5a10ff81ebacb682bcc80a86c",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "c0-l2-mean-hessian-16x32.json",
+      "binary_filename": "c0-l2-mean-hessian-16x32.bin",
+      "binary_sha256": "417888f354a50ecc000498fd3be831fe7698ca8cda6a02486a0f116c3ff89818",
+      "method": "c0-l2",
+      "native_valid": false,
+      "native_rejection": "Invalid principal-surface protocol or capacity",
+      "maximum_abs_stored_coordinate_or_coefficient_m": 3.169077675405585e+42
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "b80c172f9272edb4b96600e326eefd28683288101b1bdebf79cf0bd65afc551f",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "c0-l2-mean-hessian-2x1.json",
+      "binary_filename": "c0-l2-mean-hessian-2x1.bin",
+      "binary_sha256": "8fb97e10e551dac7743d13e33562afdf6c4af1ed47ce576a91f066b56c85f92b",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922194
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "7a1875a5d61526644887b6b0c8232393e8c8bdee37ad00d57052ca0ef630602b",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "c0-l2-mean-hessian-2x2.json",
+      "binary_filename": "c0-l2-mean-hessian-2x2.bin",
+      "binary_sha256": "2e3cc11ced25ab1880b0c32071875c5f5c94bfd0d7a78b56cc389fdff5393f13",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922194
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "bed7ad0272c5dd136272185c0acfe8ff2d0e5accd1c55320093c9f6c678995a2",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "c0-l2-mean-hessian-4x2.json",
+      "binary_filename": "c0-l2-mean-hessian-4x2.bin",
+      "binary_sha256": "3e6ee51c38c12f5af540228af7073686ece13939bce65e1093a8cc0e0df8788d",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922194
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "833582b9e1706d841539a30ab30085b06e3b57f4fa97c7c50b7b50b7c39cc660",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "c0-l2-mean-hessian-4x4.json",
+      "binary_filename": "c0-l2-mean-hessian-4x4.bin",
+      "binary_sha256": "3e114c31aca9947c7925945bc5166244de06e034d7c654ff00af21602b02f1c2",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 406.71621021172143
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "0fe0cc9badc3cad562fbaad9893c3c8771c964b74eae626aeb7d66fec74fba89",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "c0-l2-mean-hessian-4x8.json",
+      "binary_filename": "c0-l2-mean-hessian-4x8.bin",
+      "binary_sha256": "83fb8ddc8613aa5159acd4a038585ff9d8587026bb9f6d7d4c3e51bab2ee39f0",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 156.1490738146183
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "ffb56d5f4ca0761b9623b79828e6fc31fa68c2a22718f8e59cb4ba797a895863",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "6ee21abcb9b04aa6dff9eff253e488271923626ca8e379796f05126a102b93a9",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922194
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "b5c174cc2e92cbdded6232b818c10ac4657021b978669d36cd6fdb5c7d12a248",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "c0-l2-mean-hessian-8x16.json",
+      "binary_filename": "c0-l2-mean-hessian-8x16.bin",
+      "binary_sha256": "e4ad43c8ffabe66a27f3b6c76ceec8677fd238d1367f09257b997e39bd589db4",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 123.43143818284258
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "33582dc1d824c1b2c670f009a059790ce59c0730d48d475f77ab9f91b7ae8c1c",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "c0-l2-mean-hessian-16x16.json",
+      "binary_filename": "c0-l2-mean-hessian-16x16.bin",
+      "binary_sha256": "f072d2c2268b00de28e6ba28a0742084fd7066b3c953cc8daf0923e9e3170be1",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 832.23792148179
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "049ffea0c2a607fe5e41fdac8ce6cfca31c676a661065296c6826284224e2f83",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "c0-l2-mean-hessian-16x32.json",
+      "binary_filename": "c0-l2-mean-hessian-16x32.bin",
+      "binary_sha256": "0c1b6dc88f10f1ae13118d7def22b6ff3a624a313a6d5f235b71f6c661fe6560",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 9659.09849210922
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "faa002a914f89c731be76e68ded2fd03eae93aab00ff9469fe059d0dcecc3c6a",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "c0-l2-mean-hessian-2x1.json",
+      "binary_filename": "c0-l2-mean-hessian-2x1.bin",
+      "binary_sha256": "62ac9acf53ef228480ba8a250cdfc7e954d03231a8c30ab27730a0227955671b",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "a0aabeaef0d914e25459bd3dc33288e79b7e07260e1624936003a2ad314a1815",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "c0-l2-mean-hessian-2x2.json",
+      "binary_filename": "c0-l2-mean-hessian-2x2.bin",
+      "binary_sha256": "03e0aca574a73fd08a726b4135d61632b385abf4ea30e6f81660863d180e7ced",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "aa19fc832f13e18c74b3f26d0d9f8b9947d742a367bcc0accb5f620d05401c06",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "c0-l2-mean-hessian-2x4.json",
+      "binary_filename": "c0-l2-mean-hessian-2x4.bin",
+      "binary_sha256": "9b6733acf60b8686c626d204bcac68e0e949a2bbac1a76396c6f2e259d430876",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "80d04db990505f6f61116ad19c8f845bece4403f776c9659d9681e2831699a55",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "c0-l2-mean-hessian-4x4.json",
+      "binary_filename": "c0-l2-mean-hessian-4x4.bin",
+      "binary_sha256": "8817d9ce0f291a0b5b3f867b8d0f5aa50619eab7d6b92136a795cb0e741959ba",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "e30bfaa6fcff5174505aeeff99080a3bc59af6a3fd80f67a09c6bf281b14b491",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "c0-l2-mean-hessian-4x8.json",
+      "binary_filename": "c0-l2-mean-hessian-4x8.bin",
+      "binary_sha256": "0be49bbd0c4c1e6739de82eebaba10b267c392ffe457aea43aaac3edd5ab8fda",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "3e3ac45e2aefdd15ae0e8e7f1cf4daf265fc4fe41d1617963bf47df15f617763",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "15fb1410c224f7383c73c4a7ed62dff43ef1bc41527d4ddb7b6a11ba97a0f6f4",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "9e075a076a154ad544e1a415949cf204c8f8da3c07a4551ac87950ba67e72d50",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "c0-l2-mean-hessian-8x16.json",
+      "binary_filename": "c0-l2-mean-hessian-8x16.bin",
+      "binary_sha256": "488b030ec0d4080257125a26a007e53be6073a327dbd4f74685e888259b1f0df",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "88443e0d51deea6a50bd555a132eb5bf258fb386518de657fb1499f98e104cab",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "c0-l2-mean-hessian-16x16.json",
+      "binary_filename": "c0-l2-mean-hessian-16x16.bin",
+      "binary_sha256": "1bb3cf76ae9977a35b08dfcf6c53c0619c835fccd3d54e09322d5bddc657c293",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 319.2814560611256
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "6a1fc782ca5d31e91103974ae9871f9b0497577b6d658e782af5ad274d06f16c",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "c0-l2-mean-hessian-16x32.json",
+      "binary_filename": "c0-l2-mean-hessian-16x32.bin",
+      "binary_sha256": "7ad59ec12f8f3d969b5bc2ebb20219d027def7a8ca21ff7849db7f212eae5836",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 247.81731363543412
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "0398c563c17d68cacf87b50445a9d594c52004715222ea955b42364eb693751c",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "c0-l2-mean-hessian-1x2.json",
+      "binary_filename": "c0-l2-mean-hessian-1x2.bin",
+      "binary_sha256": "420e954eb4d6f4a7fd4393014c6645d1d46f3cd6e6501623e302b9931b641169",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "840cfc2e2df20717ed0d3de5e746b435db18632098a6a196a88cb82eee4f3c72",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "c0-l2-mean-hessian-2x1.json",
+      "binary_filename": "c0-l2-mean-hessian-2x1.bin",
+      "binary_sha256": "f95b14bd5e42ea5b2541de598219c8337202e5e7421feef0ad70ff9b06a64bcc",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "705eef9a689b3745ce6c1d320e7ea373749a6431c4d46c2e021347988829465b",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "c0-l2-mean-hessian-2x2.json",
+      "binary_filename": "c0-l2-mean-hessian-2x2.bin",
+      "binary_sha256": "7cd6e818b7101dc469697641b5a82655f936a0f9de5f5d698883a97b6f21ca46",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "8518a00e4f715f5614a20510301fccc4680b2a834cd589e22209e5ff9c32df44",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "c0-l2-mean-hessian-4x4.json",
+      "binary_filename": "c0-l2-mean-hessian-4x4.bin",
+      "binary_sha256": "136df48cb01a6cb1a5ad2127cc3059f7a268347915f1e5fc37f7f4a48c6f6582",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "ddd911d78d11a3feaa64a4bed063ac6963c4153715140bad71f6862b93d52036",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "c0-l2-mean-hessian-4x8.json",
+      "binary_filename": "c0-l2-mean-hessian-4x8.bin",
+      "binary_sha256": "1f05d9ecb7a4109a0e4e8cd5b8fb270de6d38779f0bea622eb51e94bbd0cd72c",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "5eb987b30fcccdd41a605f4918e3c5595a8140a012dc54f12d44526fa1b260fb",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "1dd9e00150314f4b68e4fdfc50c4630b139b3693f81cd77d4924020e91ff00e4",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "9e51e6f214e9cded9e29af0bb958141788da46de212ae15f3581a67451ade10b",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "c0-l2-mean-hessian-8x16.json",
+      "binary_filename": "c0-l2-mean-hessian-8x16.bin",
+      "binary_sha256": "40fb4e9a4353e6319fbf4f6da3adc0f3f0b845157eff73e65145cedb56ba10de",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "2683cf21372ae6320ed2f5eb1faf0a463a45bfef69eef4c526a292a25ea12152",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "c0-l2-mean-hessian-8x32.json",
+      "binary_filename": "c0-l2-mean-hessian-8x32.bin",
+      "binary_sha256": "8aefcbe54753ba9db972bed6145ce31381340307b0b3f63043e8b0ba4ab4896d",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "10eb6ca08cb82132f8c817f4b21a7556ee664f87146620e0eeb654a4965a482f",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "c0-l2-mean-hessian-16x32.json",
+      "binary_filename": "c0-l2-mean-hessian-16x32.bin",
+      "binary_sha256": "f82c2de6b6a7c5476a5d7ebccb5cf26c1f6ca96e9bd478bb6340586c40ef1730",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "6ae80b834735ec1b5470cfc912f206e5eb1c96bcbadf4e771fe0ce4ba4b46d5e",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "c0-l2-mean-hessian-1x2.json",
+      "binary_filename": "c0-l2-mean-hessian-1x2.bin",
+      "binary_sha256": "87db656cca714626a4eaa8bb8cbca16212379ffcd149df9ee27726d9bf780442",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "9898530a48b03db8f5aa1cb351c476b2b531a990b9e8e78f8cc9024b4a83c4b8",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "c0-l2-mean-hessian-2x1.json",
+      "binary_filename": "c0-l2-mean-hessian-2x1.bin",
+      "binary_sha256": "e48d8918c8bff42e9e6d737c02b9c5edce3750ff1e16c5e954e7123e59a070e8",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "2200c3fa4efd77c5b50032b91d221b66fa137e4b611d616345b6e16a16eecb9c",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "c0-l2-mean-hessian-4x2.json",
+      "binary_filename": "c0-l2-mean-hessian-4x2.bin",
+      "binary_sha256": "774ced3bb7677f3359b98c320404547302dc7c1eb55e4dfe638f4e6fef868228",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "c8ae57e3b8ca3e9c29643aecbb8f2ebcfbc63504316bf4d42d29abf0ff5c3805",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "c0-l2-mean-hessian-4x4.json",
+      "binary_filename": "c0-l2-mean-hessian-4x4.bin",
+      "binary_sha256": "09663db0949a5c9c2cf8c486d8749130de7662ffce432f79b3d45ea4a2ef67dd",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "91df107ded5b8eb7036b2eab99edb69956c9ee4348391e2eeb3f18c64c489789",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "c0-l2-mean-hessian-8x4.json",
+      "binary_filename": "c0-l2-mean-hessian-8x4.bin",
+      "binary_sha256": "f5c454ccaf0d6979ef891fabb0ddcbb16094908a01558be9c54c15e455db8fde",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "67a9e805e76f0a5cb7e1610e16b83942f1715e2ca6c1271799585a17a3d76adb",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "f67dae7030f90c10526cd83d2909f19f06b6257dcf15ed1dcff656f69d6fe8d1",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "0a5d41d241acbe9c14e3a51c756c593d861305790ef171999128ac5073c84d86",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "c0-l2-mean-hessian-16x8.json",
+      "binary_filename": "c0-l2-mean-hessian-16x8.bin",
+      "binary_sha256": "cca410cb9cc24da33cb7271839079f03ddfc5253aac2a38278793bbaed7a9399",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "9f35c005c2617901d29353bfc30b2f037f692900470c5a62914fec59908de4b8",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "c0-l2-mean-hessian-16x16.json",
+      "binary_filename": "c0-l2-mean-hessian-16x16.bin",
+      "binary_sha256": "525578bd8502bccca259021c317b188baf5b9e1e9c304375e6b9c9b87c67ab88",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "9d8e7284a9064a83538d6438bd505a1653e50c0c63dedb3c258187a8b67c8848",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "c0-l2-mean-hessian-32x16.json",
+      "binary_filename": "c0-l2-mean-hessian-32x16.bin",
+      "binary_sha256": "9a0284305940cacdeb492037fd3498a27d69aaee1b5a123fa2bc47decd55d3e7",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "71d3283c2819f3dfe5705bc639fd2217f189547caca0c0110ce18ad1c6c66aaf",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "c0-l2-mean-hessian-1x2.json",
+      "binary_filename": "c0-l2-mean-hessian-1x2.bin",
+      "binary_sha256": "8eb7c912219ae869ecc9a0ac917c5784f0ceee2a65aa1ba2367cd9e7a0182db4",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "bce36e7cd5423d0bbddcd1ea67123cb46ed364d57b0cb93be72b7fdbf4740c0c",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50.467883237150645
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "c0-l2-mean-hessian-4x1.json",
+      "binary_filename": "c0-l2-mean-hessian-4x1.bin",
+      "binary_sha256": "57b3e7fe7bda82fbfaeae205bb17ac5c249ed5015abeff07da0e1fd080071e05",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "831d4ea3ddf77f91c7f79df08266dfe9e952ef89ccba274979701112cf26b9a5",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 51.34675484041295
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "c0-l2-mean-hessian-4x2.json",
+      "binary_filename": "c0-l2-mean-hessian-4x2.bin",
+      "binary_sha256": "84249cb67d464140437a404176da19cbc9410ba6549799768446111f48267b98",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "d2c800543ddf5d4949a89fdf856474241a576328c3371638b8e50c55bb02dfa3",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 51.8727077181434
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "c0-l2-mean-hessian-8x2.json",
+      "binary_filename": "c0-l2-mean-hessian-8x2.bin",
+      "binary_sha256": "984769ee13ad6506236bdddc402dab1458c1120c400881b9d95c24e89c6d5c76",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "a5109d47a3e8704cdb88f6ad3f738fb60fcb5144ac345b60e9de393d1970c397",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 51.96803241030525
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "c0-l2-mean-hessian-8x4.json",
+      "binary_filename": "c0-l2-mean-hessian-8x4.bin",
+      "binary_sha256": "93367bc5d0616faa55bf377d3fccb27211e45588108a2d4a2f928bffe127c785",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "e30f6d7e3e3f298f7f364ad1fe0de8ef051491e7375775341dd6287d82d69137",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 52.032784013760164
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "db91588a5ebf1eff11765fc0e50781b18f7cae39e58c9d03d08fc3ca91d113b7",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "588a752114939bb62cd62223eea409f0d1ad507fbc94e3fdcce326cda000873e",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 52.05783906780455
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "c0-l2-mean-hessian-16x8.json",
+      "binary_filename": "c0-l2-mean-hessian-16x8.bin",
+      "binary_sha256": "e94f18c666db924f21274e4795a4e707b7619c0abf518574caab38f6205f5b12",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "de2b26d96e52c949d9bcac24d8a7f061c6ab96ba6ca0754712a1f212beb562be",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 52.0747107289998
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "c0-l2-mean-hessian-16x16.json",
+      "binary_filename": "c0-l2-mean-hessian-16x16.bin",
+      "binary_sha256": "2cce780745d0cceef100229c6591a1d4dab15f648f89fecaa1a2a598e6a0a24f",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 323.30789147494505
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "8e17e5c3ed00331383fe548a19c39b6682f0a5fc0d788246645366d91a3730e8",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 52.08113202438061
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "c0-l2-mean-hessian-32x16.json",
+      "binary_filename": "c0-l2-mean-hessian-32x16.bin",
+      "binary_sha256": "eb855147fb3e5181366c5298ffcd3602cb1f92344986da540a07cd6a9995c1df",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "8f9070b6077de1af38995a374e8ad4330a71ebeb225752baed9f8545ca57ff8c",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 53.33811118101121
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "c0-l2-mean-hessian-1x2.json",
+      "binary_filename": "c0-l2-mean-hessian-1x2.bin",
+      "binary_sha256": "59774dbc26da0d0821e78079836d6b635ff4bbb5a6eea63063f48bde49b5abec",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922195
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "5b19d058a163beec58b74ffe3911e1df89b9cb5b6f25c6c1a1415dfd841b003f",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 57.61105833673289
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "c0-l2-mean-hessian-4x1.json",
+      "binary_filename": "c0-l2-mean-hessian-4x1.bin",
+      "binary_sha256": "a1f0ad7eebb5ba374832572bd98e29cad79213115d33d3b2904be423e6c559a0",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922195
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "1ab6de5a700eb87de057abef79f1372ffbcc2c752a2bcb3b648006782b10882a",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 58.634119867484934
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "c0-l2-mean-hessian-4x2.json",
+      "binary_filename": "c0-l2-mean-hessian-4x2.bin",
+      "binary_sha256": "698a81a941b4c17c16ab22a2b8f74c0bcf0afe6f49513d0d99073b3d59ac23ec",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922195
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "b4d36e47e0860dbaeb4df1fa7fdcbb4015b140c561a6db69c3677486b6a8f6cc",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.095437723036106
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "c0-l2-mean-hessian-4x4.json",
+      "binary_filename": "c0-l2-mean-hessian-4x4.bin",
+      "binary_sha256": "9c1cbcfcf0922e1901df476911ab2dfb27e2166b6cd56e7f2b7199f650ae0b1a",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 509.1215031233763
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "a9f49106dc9c2f89cc9f3c8318bbcc6c05163ee053999d866468453f50737394",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.41196951718721
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "c0-l2-mean-hessian-8x4.json",
+      "binary_filename": "c0-l2-mean-hessian-8x4.bin",
+      "binary_sha256": "1cca9de1d778419e77ffa35dd2add5f116ce5f37b4dfc0797c4cd70b923af362",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922195
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "638094e912b91fbcd2ea57638f0cea22ebf0b841f5874f8291301b657b1a96b1",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.48385720049837
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "8aa5f80f5f907659e6b253d0f87432e35f3146abec544130e7d211f5667be6b2",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922195
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "599f138921f161158585f9f2b03a257f2962f51ec164b1ac0f3342caaabb33cc",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.518707026692965
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "c0-l2-mean-hessian-16x8.json",
+      "binary_filename": "c0-l2-mean-hessian-16x8.bin",
+      "binary_sha256": "e7696e9774b057063ea03213df8ca8282b8b61036d3ed8ca3de5cc09eef804fe",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922195
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "f4d1c0d43f18e84a552196a19e8edb3e23a0344f86f1769619f0f0ee6b138e6b",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.53733386135292
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "c0-l2-mean-hessian-16x16.json",
+      "binary_filename": "c0-l2-mean-hessian-16x16.bin",
+      "binary_sha256": "591a141a54101311c233064040c45ff68179cdf3b5fee2735ccc1507d81c2761",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 746.1933950570124
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "32a1270bd98b33c762ed337c3bad7b0ad4fb55b82fa626f9f9f2643f3294750a",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.547773303370406
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "c0-l2-mean-hessian-32x16.json",
+      "binary_filename": "c0-l2-mean-hessian-32x16.bin",
+      "binary_sha256": "84bb744efd230e54a39ea93ef4593877ecf9498ed0338172f25a850421f49fe7",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 446.95643862635944
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "6a1453e09e3cc9ce389617334b42a90db31794f385f496239e854c7ace62c96b",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 53.16843750000001
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "c0-l2-mean-hessian-2x1.json",
+      "binary_filename": "c0-l2-mean-hessian-2x1.bin",
+      "binary_sha256": "8c832ce449bd27ec88347f43f8fbdc58b2ee73b049b6381cacb4348191e88022",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 99.99999999999997
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "8eab6c95d0dff01f1cf701335230950810b1e1b15609de4b8efd1c7663daffcc",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.384589843750014
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "642a6eb557734ad2c2e530cd8ef741b22d761740ce815bff34323fa02451889b",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 61.00903180803572
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "c0-l2-mean-hessian-4x2.json",
+      "binary_filename": "c0-l2-mean-hessian-4x2.bin",
+      "binary_sha256": "4439373d158f897d838096c6a5b2b758df65169c3bfa88ea2de8a64419ef9d63",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 99.99999999999997
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "f61f656cdff3511926b403aef1c23c24fec14a5ce2de5aba604e49ea7a25a534",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 62.09212698800224
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "c0-l2-mean-hessian-8x2.json",
+      "binary_filename": "c0-l2-mean-hessian-8x2.bin",
+      "binary_sha256": "dd230abfebadc8ea2d83ecd213ee07ad42e1a6734f4781282e0cabb1ace37c5f",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 99.99999999999997
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "b059b2143414f8f7f6b053dcd03d42e9ed1fc1d0c5eadc35afd6d23ec3fdaef6",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 62.2579598236084
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "c0-l2-mean-hessian-8x4.json",
+      "binary_filename": "c0-l2-mean-hessian-8x4.bin",
+      "binary_sha256": "98d54b80ca2254eda0f9ee57b3fd1d5a9f76681fb96078513eefa648860c2166",
+      "method": "c0-l2",
+      "native_valid": false,
+      "native_rejection": "Invalid principal-surface protocol or capacity",
+      "maximum_abs_stored_coordinate_or_coefficient_m": 2.2762611440836372e+45
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "724e0da902ccf72f49e4fd206217082da319422e510782c9d7fa260b9001c31a",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 62.393394655500146
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "d70f0c477ffe24faed161c3eb93c1f27183262fb7a62fdd9e84dd18bce1d94bc",
+      "method": "c0-l2",
+      "native_valid": false,
+      "native_rejection": "Invalid principal-surface protocol or capacity",
+      "maximum_abs_stored_coordinate_or_coefficient_m": 2.1568911562799857e+44
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "6a5c767237f655d71a433a5e1ca6cae1b7849efc03f996828853b97b26718beb",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 62.43729619503022
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "c0-l2-mean-hessian-16x8.json",
+      "binary_filename": "c0-l2-mean-hessian-16x8.bin",
+      "binary_sha256": "7d4f061359824a4df19ba77431a22aa675469ab86e9a36eea37dc806d2e98bdc",
+      "method": "c0-l2",
+      "native_valid": false,
+      "native_rejection": "Invalid principal-surface protocol or capacity",
+      "maximum_abs_stored_coordinate_or_coefficient_m": 6.799843768407824e+42
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "eaa37ea4f5c9699eab72c410f5e9c8b21669a5581760f8599d6c6b7cd6425951",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 62.47275366987501
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "c0-l2-mean-hessian-16x16.json",
+      "binary_filename": "c0-l2-mean-hessian-16x16.bin",
+      "binary_sha256": "7e685323bd16d38197b5e4568c3f50c4fafeba63e3403c97c4c03cce9ec3165b",
+      "method": "c0-l2",
+      "native_valid": false,
+      "native_rejection": "Invalid principal-surface protocol or capacity",
+      "maximum_abs_stored_coordinate_or_coefficient_m": 1.4932625096308225e+43
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "9642b04efab33536a4c607bdec2852126a82072e3f0ec00374dc021d76d9ee6f",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 62.484043887555615
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "c0-l2-mean-hessian-32x16.json",
+      "binary_filename": "c0-l2-mean-hessian-32x16.bin",
+      "binary_sha256": "fd7372632d7b230aee913fea0d3d20e9d40fb90b2a8caff4619dab896f492327",
+      "method": "c0-l2",
+      "native_valid": false,
+      "native_rejection": "Invalid principal-surface protocol or capacity",
+      "maximum_abs_stored_coordinate_or_coefficient_m": 3.66595886745628e+41
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "314429db0482306d08a2a2ff25900b88779dd61387c30158ccb1076f2f8b0d34",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 53.3381111810112
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "c0-l2-mean-hessian-2x1.json",
+      "binary_filename": "c0-l2-mean-hessian-2x1.bin",
+      "binary_sha256": "cd8bbffee63d7389f07442b8809e04a84a66e22d9929c356cd5abea44d859013",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922191
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "862006d5e96a4a7dfa89263eae4ecacedcb2170abf968a0e9e1e026dd9f312e7",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 57.61105833673289
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "372f3292738a0b1eebef6d5fff8ea59f77799e8323947aa2fe58ea845c4e6b3d",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 58.634119867484934
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "c0-l2-mean-hessian-4x2.json",
+      "binary_filename": "c0-l2-mean-hessian-4x2.bin",
+      "binary_sha256": "f281d27d28c2eb61421e11cd4b75ddb9e12eb572b9667632ffb5d15c6b22081f",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922191
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "8acc98e23cb8cb820f817a2b2970a036e0f788b00b18ec12376e36a9bbf9b731",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.09543772303611
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "c0-l2-mean-hessian-8x2.json",
+      "binary_filename": "c0-l2-mean-hessian-8x2.bin",
+      "binary_sha256": "4d0ce9d1707e0e2b73ea8e408fae4c394103b8f5ca8d3dca4f5c6c3df756ce50",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922191
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "4116d48757ef3b239ca135643f98f2aebd41afa78068356b8bc42d59f66cefd4",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.41196951718721
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "c0-l2-mean-hessian-8x4.json",
+      "binary_filename": "c0-l2-mean-hessian-8x4.bin",
+      "binary_sha256": "a06643852c67b16addc38e58689ea792c0a0ee981a71c025512d02057ee53261",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922191
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "7bac788686dee1e225250e1f1fffa187d1e5cbd91ca909f0550189da4a0b60e1",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.48385720049836
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "93cdc92c5b66001b844a025eaf08d39b4af016b13a8f20f73668098be58feb55",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922191
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "2e9b6f4c42dc8ae1d43a32eb87b21863552fcf9ae1a3f7f6f0b538b6c9cb866c",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.51870702669298
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "c0-l2-mean-hessian-16x8.json",
+      "binary_filename": "c0-l2-mean-hessian-16x8.bin",
+      "binary_sha256": "beb391b2432706bfd082be0777ba7876b429258ca424a46c46413c574893d916",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 93.30127018922191
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "178bc9d7ce48478a6a56c576b9008f431ee1f181d7334281d490830d8122bb30",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.537333861352934
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "c0-l2-mean-hessian-16x16.json",
+      "binary_filename": "c0-l2-mean-hessian-16x16.bin",
+      "binary_sha256": "bd70d4b281a9bef2c7e362ee7810b52cf2ef82971ebdd1d2f19fd691ed7340f8",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 746.193395057265
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "9c42cf13849dd143f5fce2d6a470398a28b6cb4a02934be62b38eaa0ec8b46bd",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 59.547773303370406
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "c0-l2-mean-hessian-32x16.json",
+      "binary_filename": "c0-l2-mean-hessian-32x16.bin",
+      "binary_sha256": "4329fc4e01e7b9d55e3e93c5b768d03ba417a3300229f6a202555cd49fec751e",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 446.956438625369
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "a15c7119d1a1fc742e9d09995117ee195be2a1d2e4ed1b129e611f1470b0042b",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "c0-l2-mean-hessian-2x1.json",
+      "binary_filename": "c0-l2-mean-hessian-2x1.bin",
+      "binary_sha256": "aa2509f09693008a207c6ecd0495cddb8124bc8e4ab5ed3e6c2d37c98d9267d0",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "3a3b38e1afa3ecccb518f441e4d21a2926e787c570daa01b3b8f0917c685d3bb",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50.46788323715065
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "c0-l2-mean-hessian-4x1.json",
+      "binary_filename": "c0-l2-mean-hessian-4x1.bin",
+      "binary_sha256": "13ecc63a0323ef8b2820a3e55b401408071b2204fe82eaa84f60d84cdd0c840b",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "7f446b7fb8b102f5d98d02446db9899a51efdbba5319de1a744c08c21b868801",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 51.34675484041295
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "d7f4830b54f5056a55f6962bc5a2e4b864796f65e60a0f1a66fae6b231a83027",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 51.8727077181434
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "c0-l2-mean-hessian-4x4.json",
+      "binary_filename": "c0-l2-mean-hessian-4x4.bin",
+      "binary_sha256": "e5b13b034d96ead3f855693af90d559bd149ac55fd1f2efa19d308beccdef52f",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "4ac2b27b06a156e22b56bdc8bcbd7eeb8ffbb19f0279c2a8a21da1f5dd85c90d",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 51.968032410305256
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "c0-l2-mean-hessian-8x4.json",
+      "binary_filename": "c0-l2-mean-hessian-8x4.bin",
+      "binary_sha256": "54f5c5fa2faf1783a1c3e9b1486e4820db3873cff5aee9890e35606a9d6dbcfd",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "ce7a99ede09fb775b129aa3270da3ac52a3709069f6860165af550faf2b30b1f",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 52.032784013760164
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "eee2b9410884f47bb8873b7a3738441458cfa2e896d01c5cc67bf312db308142",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "9919d491558f1a5cfa1973caa46e450c694c386453dfa4d287e1478372c236c5",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 52.05783906780456
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "c0-l2-mean-hessian-16x8.json",
+      "binary_filename": "c0-l2-mean-hessian-16x8.bin",
+      "binary_sha256": "560119e58fba0181088861bea7e9a3c0ab10ea56110303fc0a6d35e76471f0c7",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "c3102b03ad2a96474547026272709797e110263f2bbad63bdcee9e0e96a534b8",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 52.0747107289998
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "c0-l2-mean-hessian-16x16.json",
+      "binary_filename": "c0-l2-mean-hessian-16x16.bin",
+      "binary_sha256": "94bb1261a8c16ed9a0e04424d4b707e53cfe56565c532d6d0961a4c669961a5e",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 323.30789147562297
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "c15e7a073b7f656b052b672ff9926b873d2ca4aab5a274ed3abb4d82ffafdd2d",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 52.081132024380615
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "c0-l2-mean-hessian-32x16.json",
+      "binary_filename": "c0-l2-mean-hessian-32x16.bin",
+      "binary_sha256": "6d8e470315e8b9e94f16c9c3d680a9ac263f3555e154d10e709f2516be8da704",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 75.00000000000001
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "pt-paper-p1-8.json",
+      "binary_filename": "pt-paper-p1-8.bin",
+      "binary_sha256": "9f2314d5fd76e7c75248d45af65041c75e95fb7534787b6069800a07d0acb0cd",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "c0-l2-mean-hessian-1x2.json",
+      "binary_filename": "c0-l2-mean-hessian-1x2.bin",
+      "binary_sha256": "2140ca1824a2d8eb68a0a76d55e406ba119e841d0310731c61db7d224f3ab39c",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "pt-paper-p1-16.json",
+      "binary_filename": "pt-paper-p1-16.bin",
+      "binary_sha256": "a8962dd0b7ccb13290532f32b400bab7fd9c1ea38fc2b02db21cc0c5ac57bc93",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "c0-l2-mean-hessian-2x1.json",
+      "binary_filename": "c0-l2-mean-hessian-2x1.bin",
+      "binary_sha256": "e776ef0c0e39eda679d7e752e387a42a7f9f4c88a7a410fe1fcec9862f7c8e7b",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "pt-paper-p1-32.json",
+      "binary_filename": "pt-paper-p1-32.bin",
+      "binary_sha256": "2f5f95996393a2c09cfbf43fb3e83df62da382e8d168fb9d76101a5be3c3dd8e",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "c0-l2-mean-hessian-4x2.json",
+      "binary_filename": "c0-l2-mean-hessian-4x2.bin",
+      "binary_sha256": "e01d76e89a99ab4281f66665963a0fc49cdb014e10bd3c67520a476810c234ad",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "pt-paper-p1-64.json",
+      "binary_filename": "pt-paper-p1-64.bin",
+      "binary_sha256": "6a3008febe030097b25c818c79b5681c9f3af697b12feb47f81a8b17c17ace80",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "c0-l2-mean-hessian-4x4.json",
+      "binary_filename": "c0-l2-mean-hessian-4x4.bin",
+      "binary_sha256": "1ee6d3085075dd76df3895d1f469fe405fb908a43f3297e7988f8d7052da7f58",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "pt-paper-p1-128.json",
+      "binary_filename": "pt-paper-p1-128.bin",
+      "binary_sha256": "ba6e160c93ffaa7d847632d9f5b19589610226e3082971c722112cff296c0b07",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "c0-l2-mean-hessian-8x4.json",
+      "binary_filename": "c0-l2-mean-hessian-8x4.bin",
+      "binary_sha256": "c3cd0429669564716c4c48691960d477047b53e617b57d60a359d6f4a36f696c",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "pt-paper-p1-256.json",
+      "binary_filename": "pt-paper-p1-256.bin",
+      "binary_sha256": "0321907ff1a976bbdee9302affdc44d2db4b25a24c158a5dd1f36a51c9217b86",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "c0-l2-mean-hessian-8x8.json",
+      "binary_filename": "c0-l2-mean-hessian-8x8.bin",
+      "binary_sha256": "5a2170c5c9446e7a5b5aeecf853e153d40421d396ee5f3aed4b39825879d5476",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "pt-paper-p1-512.json",
+      "binary_filename": "pt-paper-p1-512.bin",
+      "binary_sha256": "e4aa17ddc4c57237f10f40ee0d92ac8bcaf24df54a8b3762eea30753b0ef931f",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "c0-l2-mean-hessian-16x8.json",
+      "binary_filename": "c0-l2-mean-hessian-16x8.bin",
+      "binary_sha256": "e09bf35b2ebdabf5bbf9fccaaa7d4e828cea53511011e2a04e6f4d379ea352c8",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "pt-paper-p1-1024.json",
+      "binary_filename": "pt-paper-p1-1024.bin",
+      "binary_sha256": "7ef983924cc59e14e706d062ef48766523d4620814fd1b77a0272c8ef6acf0fe",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "c0-l2-mean-hessian-16x16.json",
+      "binary_filename": "c0-l2-mean-hessian-16x16.bin",
+      "binary_sha256": "c43d78a51d56a598503929c9c9cc5ee38c0190aa1caed77135e8c80eb4ac05a7",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "pt-paper-p1-2048.json",
+      "binary_filename": "pt-paper-p1-2048.bin",
+      "binary_sha256": "094ca06c7ffb685f82e0b2b2483097ef3983f888fff84fcc8b060e435606ce6e",
+      "method": "pt",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "c0-l2-mean-hessian-32x16.json",
+      "binary_filename": "c0-l2-mean-hessian-32x16.bin",
+      "binary_sha256": "9f5985d46f2579889ed886df79159400642eb4b56e95b352c63d291fd0e9db10",
+      "method": "c0-l2",
+      "native_valid": true,
+      "native_rejection": null,
+      "maximum_abs_stored_coordinate_or_coefficient_m": 50
+    }
+  ]
+}

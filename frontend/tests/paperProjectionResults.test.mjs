@@ -1,0 +1,31 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import React from 'react';
+import {create,act} from 'react-test-renderer';
+import {bundleWorkspaceModule} from './bundleWorkspaceModule.mjs';
+import {decodePrincipalBinary,preparePrincipalQuery} from '../src/compare/principalRuledMath.ts';
+const f=p=>new URL(p,import.meta.url),text=n=>typeof n==='string'?n:(n?.children??[]).map(text).join(''),out=fileURLToPath(f('../node_modules/.cache/gugis-tests/paper-projection-results.mjs'));
+await bundleWorkspaceModule(fileURLToPath(f('../src/compare/PaperProjectionResults.tsx')),out);const Card=(await import(pathToFileURL(out).href)).default,report=JSON.parse(await readFile(f('../../shared/paper-projection-ui-v1.json')));
+const wait=async fn=>{for(let i=0;i<60&&!fn();i++)await act(async()=>{await new Promise(r=>setTimeout(r,10));});assert.ok(fn(),'Expected audited fixed-space fitting state');};
+test('fitting results retain original byte counts, stronger fixed-mesh PT, the losing budget and the better P2 control',()=>{
+  const previous=globalThis.fetch;let r;try{globalThis.fetch=()=>assert.fail('Closed native example must not fetch');act(()=>r=create(React.createElement(Card)));const s=text(r.toJSON());assert.match(s,/126 \/ 126/);assert.match(s,/62 \/ 63/);assert.match(s,/46\.60%/);assert.match(s,/58\.85%/);assert.match(s,/45,000 → 45,000 B/);assert.match(s,/没有按 Pₜ 误差重新生成自适应网格/);assert.match(s,/11 个原生模型/);assert.match(s,/2 组全域误差也恶化/);assert.equal(r.root.findAllByType('tbody')[0].findAllByType('tr').length,5);assert.equal(r.root.findAllByType('tbody')[1].findAllByType('tr').length,63);assert.match(text(r.root.findByProps({className:'pf-control'})),/更高/);
+    act(()=>r.root.findByProps({'aria-label':'共享拟合论文预算'}).props.onChange({target:{value:'64'}}));assert.match(text(r.root.findAllByProps({className:'hs-metrics'})[0]),/1\.16%更高/);act(()=>r.root.findByProps({'aria-label':'共享拟合曲面'}).props.onChange({target:{value:'published-quartic'}}));assert.match(text(r.toJSON()),/10 \/ 63/);assert.equal(r.root.findAllByType('svg').length,0);
+  }finally{if(r)act(()=>r.unmount());globalThis.fetch=previous;}
+});
+test('saved native before/PT/after functions drive every shared interior heat sample, point query and common colour scale',async()=>{
+  const previous=globalThis.fetch,calls=[];let r;try{globalThis.fetch=async(url,{signal})=>{calls.push({url,signal});return new Response(await readFile(f('../public'+url)));};act(()=>r=create(React.createElement(Card)));await act(async()=>r.root.findByProps({'aria-label':'展开共享拟合原生查询'}).props.onClick());await wait(()=>r.root.findAllByProps({className:'pf-error-map'}).length===3);assert.equal(calls.length,3);const site=report.cases.find(c=>c.id==='anisotropic-quartic-30'),pair=site.pairs.find(p=>p.budget===2048);assert.equal(new Set(r.root.findAllByProps({className:'pf-heat-scale'}).map(text)).size,1);
+    for(const [i,key] of ['before','pt','fitted'].entries()){const e=site.models[pair[key]],fn=preparePrincipalQuery(decodePrincipalBinary(await readFile(f(`../public/research/${e.previous?'variable-curvature-v1':'paper-projection-stable-v1'}/${site.id}/${e.binary_filename}`))));const cells=r.root.findAllByProps({className:'pf-error-map'})[i].findAllByType('rect');assert.equal(cells.length,289);for(const cell of cells){const x=cell.props['data-x'],y=cell.props['data-y'],frame=site.source_frame,u=x*frame[0][0]+y*frame[1][0],v=x*frame[0][1]+y*frame[1][1],z=30+site.field.quadratic[0]*u*u+site.field.quadratic[1]*v*v+site.field.quartic[0]*u**4+site.field.quartic[1]*v**4;assert.ok(Math.abs(cell.props['data-delta']-(fn.query(x,y).height-z))<1e-12);}}
+    const selected=r.root.findAllByProps({className:'pf-error-map'})[2].findAllByType('rect')[39];act(()=>selected.props.onClick());assert.equal(r.root.findByProps({'aria-label':'拟合原生同步查询X'}).props.value,selected.props['data-x']);assert.equal(r.root.findByProps({'aria-label':'拟合原生同步查询Y'}).props.value,selected.props['data-y']);assert.equal(calls.length,3);assert.ok(r.root.findAllByType('title').every(t=>t.children.length===1));act(()=>r.root.findByProps({'aria-label':'展开共享拟合原生查询'}).props.onClick());assert.ok(calls.every(c=>c.signal.aborted));
+  }finally{if(r)act(()=>r.unmount());globalThis.fetch=previous;}
+});
+test('corrupt fitted bytes block examples and retry never loads failed prototype files',async()=>{
+  const previous=globalThis.fetch,urls=[];let r,corrupt=true;try{globalThis.fetch=async url=>{urls.push(url);const b=await readFile(f('../public'+url));if(corrupt&&url.includes('/c0-stable-'))b[b.length-1]^=1;return new Response(b);};act(()=>r=create(React.createElement(Card)));await act(async()=>r.root.findByProps({'aria-label':'展开共享拟合原生查询'}).props.onClick());await wait(()=>r.root.findAllByProps({role:'alert'}).length===1);assert.match(text(r.root.findByProps({role:'alert'})),/SHA-256/);assert.equal(r.root.findAllByProps({className:'pf-error-map'}).length,0);corrupt=false;await act(async()=>r.root.findByProps({role:'alert'}).findByType('button').props.onClick());await wait(()=>r.root.findAllByProps({className:'pf-error-map'}).length===3);assert.ok(urls.every(url=>!url.includes('/prototype/')));
+  }finally{if(r)act(()=>r.unmount());globalThis.fetch=previous;}
+});
+test('every normalized selected file and entire repair/prototype audit summary binds immutable public evidence',async()=>{
+  const sha=b=>createHash('sha256').update(b).digest('hex'),source=await readFile(f('../../shared/paper-projection-display-v1.json'));assert.equal(sha(source),report.source_summary_sha256);assert.equal(sha(await readFile(f('../../shared/paper-projection-prototype-audit-v1.json'))),report.prototype_audit_summary_sha256);assert.ok((await readFile(f('../../shared/paper-projection-ui-v1.json'))).length<250000);
+  for(const c of report.cases)for(const e of Object.values(c.models)){const b=await readFile(f(`../public/research/${e.previous?'variable-curvature-v1':'paper-projection-stable-v1'}/${c.id}/${e.binary_filename}`));assert.equal(b.length,e.binary_bytes);assert.equal(sha(b),e.binary_sha256);decodePrincipalBinary(b);}
+});

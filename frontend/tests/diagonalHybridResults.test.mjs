@@ -1,0 +1,37 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import React from 'react';
+import {act,create} from 'react-test-renderer';
+import {bundleWorkspaceModule} from './bundleWorkspaceModule.mjs';
+import {decodeSourceBandBinary,prepareSourceBandQuery,decodeRegularGridBinary,prepareRegularGridQuery} from '../src/compare/sourceRuledBandMath.ts';
+const f=p=>new URL(p,import.meta.url),text=n=>typeof n==='string'?n:(n?.children??[]).map(text).join(''),out=fileURLToPath(f('../node_modules/.cache/gugis-tests/diagonal-hybrid-results.mjs'));
+await bundleWorkspaceModule(fileURLToPath(f('../src/compare/DiagonalHybridResults.tsx')),out);
+const Card=(await import(pathToFileURL(out).href)).default,report=JSON.parse(await readFile(f('../../shared/diagonal-hybrid-ui-v1.json')));
+const wait=async predicate=>{for(let i=0;i<60&&!predicate();i++)await act(async()=>{await new Promise(r=>setTimeout(r,10));});assert.ok(predicate(),'Expected audited opposite-diagonal UI state');};
+test('stronger controls retain five methods, all twenty sites, complete curves and missing target models without native requests',()=>{
+  const original=globalThis.fetch;let r;try{globalThis.fetch=()=>assert.fail('Closed native examples must not fetch');act(()=>r=create(React.createElement(Card)));assert.equal(r.root.findAllByType('tbody')[0].findAllByType('tr').length,5);assert.equal(r.root.findAllByType('tbody')[1].findAllByType('tr').length,20);assert.match(text(r.toJSON()),/两种对角线/);assert.match(text(r.toJSON()),/没有声称.*全局最优/);assert.equal(r.root.findByProps({'aria-label':'双对角线真实样区'}).findAllByType('option').length,20);assert.equal(r.root.findByProps({'aria-label':'当前真实样区的十档完整字节预算与全域误差对比曲线'}).findAllByType('circle').length,50);
+    const c=report.cases.find(c=>c.target_pairs.some(p=>!p['p1-local']));assert.ok(c);const p=c.target_pairs.find(p=>!p['p1-local']);act(()=>r.root.findByProps({'aria-label':'双对角线比较条件'}).props.onChange({target:{value:'target'}}));act(()=>r.root.findByProps({'aria-label':'双对角线真实样区'}).props.onChange({target:{value:c.id}}));act(()=>r.root.findByProps({'aria-label':'双对角线误差目标'}).props.onChange({target:{value:String(p.height_target_m)}}));assert.match(text(r.root.findByProps({'data-method':'p1-local'})),/未找到达到目标/);assert.match(text(r.toJSON()),/无可比模型/);
+  }finally{if(r)act(()=>r.unmount());globalThis.fetch=original;}
+});
+test('all same-scale interior heatmap values and actual directional counts come from saved bytes, then synchronize without new fetches',async()=>{
+  const original=globalThis.fetch,calls=[];let r;try{globalThis.fetch=async(url,{signal})=>{calls.push({url,signal});return new Response(await readFile(f('../public'+url)));};act(()=>r=create(React.createElement(Card)));await act(async()=>r.root.findByProps({'aria-label':'展开双对角线原生查询'}).props.onClick());await wait(()=>r.root.findAllByProps({className:'ds-error-map'}).length===3);assert.equal(calls.length,4);const c=report.cases[0],p=c.byte_pairs.find(p=>p.byte_ceiling===8192),ids=[p['p1-local'],p.prior.hybrid,p['hybrid-local']],source=prepareRegularGridQuery(decodeRegularGridBinary(await readFile(f('../public'+c.regular_grid.url))));
+    const scales=r.root.findAllByProps({className:'ds-heat-scale'}).map(text);assert.equal(new Set(scales).size,1);
+    for(const [i,id] of ids.entries()){const e=c.models[id],fn=prepareSourceBandQuery(decodeSourceBandBinary(await readFile(f(`../public/research/${e.previous?'hybrid-source-v1':'diagonal-hybrid-v1'}/${c.id}/${e.binary_filename}`)))),cells=r.root.findAllByProps({className:'ds-error-map'})[i].findAllByType('rect');assert.equal(cells.length,289);for(const cell of cells){const x=cell.props['data-x'],y=cell.props['data-y'];assert.equal(cell.props['data-delta'],fn.query(x,y).height-source.query(x,y).height);}const article=r.root.findAllByProps({className:'ds-native-models'})[0].findAllByType('article')[i];assert.match(text(article),new RegExp(`${e.minus_cells} 负向 /? ?\\+? ?${e.plus_cells} 正向|${e.minus_cells} 负向 / ${e.plus_cells} 正向`));}
+    const cell=r.root.findAllByProps({className:'ds-error-map'})[2].findAllByType('rect')[119];act(()=>cell.props.onClick());assert.equal(r.root.findByProps({'aria-label':'双对角线同步查询X'}).props.value,cell.props['data-x']);assert.equal(r.root.findByProps({'aria-label':'双对角线同步查询Y'}).props.value,cell.props['data-y']);assert.equal(calls.length,4);assert.ok(r.root.findAllByType('title').every(t=>t.children.length===1));act(()=>r.root.findByProps({'aria-label':'展开双对角线原生查询'}).props.onClick());assert.ok(calls.every(c=>c.signal.aborted));assert.equal(r.root.findAllByProps({className:'ds-error-map'}).length,0);
+  }finally{if(r)act(()=>r.unmount());globalThis.fetch=original;}
+});
+test('receipt corruption stops the native demonstration and retry revalidates the complete model set',async()=>{
+  const original=globalThis.fetch;let corrupt=true,r;try{globalThis.fetch=async url=>{const b=await readFile(f('../public'+url));if(corrupt&&url.includes('/hybrid-local-'))b[b.length-1]^=1;return new Response(b);};act(()=>r=create(React.createElement(Card)));await act(async()=>r.root.findByProps({'aria-label':'展开双对角线原生查询'}).props.onClick());await wait(()=>r.root.findAllByProps({role:'alert'}).length===1);assert.match(text(r.root.findByProps({role:'alert'})),/SHA-256/);assert.equal(r.root.findAllByProps({className:'ds-error-map'}).length,0);corrupt=false;await act(async()=>r.root.findByProps({role:'alert'}).findByType('button').props.onClick());await wait(()=>r.root.findAllByProps({className:'ds-error-map'}).length===3);
+  }finally{if(r)act(()=>r.unmount());globalThis.fetch=original;}
+});
+test('a delayed site change cannot display the prior site under new receipts and cancels every old request',async()=>{
+  const original=globalThis.fetch,calls=[];let r,hold=false,releases=[];try{globalThis.fetch=async(url,{signal})=>{calls.push({url,signal});if(hold)await new Promise(resolve=>releases.push(resolve));return new Response(await readFile(f('../public'+url)));};act(()=>r=create(React.createElement(Card)));await act(async()=>r.root.findByProps({'aria-label':'展开双对角线原生查询'}).props.onClick());await wait(()=>r.root.findAllByProps({className:'ds-error-map'}).length===3);hold=true;act(()=>r.root.findByProps({'aria-label':'双对角线真实样区'}).props.onChange({target:{value:report.cases[1].id}}));assert.equal(r.root.findAllByProps({className:'ds-error-map'}).length,0);assert.ok(calls.slice(0,4).every(c=>c.signal.aborted));hold=false;await act(async()=>releases.forEach(f=>f()));await wait(()=>r.root.findAllByProps({className:'ds-error-map'}).length===3);
+  }finally{releases.forEach(f=>f());if(r)act(()=>r.unmount());globalThis.fetch=original;}
+});
+test('deduplicated summary binds every new and prior selected file to immutable public bytes',async()=>{
+  const source=await readFile(f('../../shared/diagonal-hybrid-display-v1.json')),sha=b=>createHash('sha256').update(b).digest('hex');assert.equal(sha(source),report.source_summary_sha256);assert.ok((await readFile(f('../../shared/diagonal-hybrid-ui-v1.json'))).length<500000);
+  for(const c of report.cases)for(const e of Object.values(c.models)){const b=await readFile(f(`../public/research/${e.previous?'hybrid-source-v1':'diagonal-hybrid-v1'}/${c.id}/${e.binary_filename}`));assert.equal(sha(b),e.binary_sha256);assert.equal(b.length,e.binary_bytes);}
+});

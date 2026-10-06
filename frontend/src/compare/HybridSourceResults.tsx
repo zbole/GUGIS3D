@@ -4,6 +4,7 @@ import {loadHybridSourceModel} from './loadHybridSourceModel';
 import {loadSourceModel} from './loadSourceModel';
 import {prepareSourceBandQuery,prepareRegularGridQuery,type SourceBandModel,type RegularHeightGrid} from './sourceRuledBandMath';
 import {useComparisonAnchor} from './useComparisonAnchor';
+import DiagonalHybridDisclosure from './DiagonalHybridDisclosure';
 import './HybridSourceResults.css';
 const base='/research/hybrid-source-v1/',labels:Record<string,string>={p1:'P1 三角带',ruled:'纯直纹面带',hybrid:'局部混合表达'};
 type Site=typeof report.cases[number];
@@ -42,5 +43,6 @@ export default function HybridSourceResults(){
     {demo&&<ModelDemo key={site.id+mode+budget+target} site={site} entries={entries}/>}
     <details className="cr-details"><summary>全部二十样区在当前比较条件下的结果</summary><div className="cr-table"><table><caption>{mode==='budget'?`文件上限 ${budget.toLocaleString()} B`:`源函数最大差目标 ${100*target} cm`} · 全部样区保留</caption><thead><tr><th>固定样区</th><th>混合文件</th><th>混合 E₂ m²</th><th>连续最大差界</th><th>P1 文件 / E₂</th><th>真正混合</th></tr></thead><tbody>{report.cases.map(c=>{const p=mode==='budget'?c.byte_pairs.find(p=>p.byte_ceiling===budget)!:c.target_pairs.find(p=>p.height_target_m===target)!,e=p.hybrid;return <tr key={c.id}><th>{c.name.replace(' · 英国环境署裸地 DTM','')}</th><td>{size(e.binary_bytes)}</td><td>{e.e2_m2.toExponential(3)}</td><td>{(100*e.continuous_bound_m).toFixed(3)} cm</td><td>{p.p1?`${size(p.p1.binary_bytes)} / ${p.p1.e2_m2.toExponential(3)}`:'无合格候选'}</td><td>{e.ruled_cells>0&&e.p1_triangles>0?'面带 + 三角带':e.ruled_cells>0?'仅面带':'仅三角带'}</td></tr>;})}</tbody></table></div><img src={`${base}hybrid-source-results.svg`} loading="lazy" width="1100" height="915" alt="全部二十真实源地形的固定字节预算误差与10厘米连续误差目标文件对比，保留失利和缺失候选"/></details>
     <details className="cr-details"><summary>来源、连接规则与完整误差核验</summary><p>每个输入均为原先冻结的 65 × 65 Float32 源节点，比较范围是节点之间的 64 × 64 m。节点值不做舍入；BNG、米制/ODN 约定和原始源单位元数据警告均保留。这是源函数差，不是实测地面精度。完整一米源函数的精确保留与这里的误差受控简化分别展示。</p><p>所有单元在同一整数张量网格内共用角点。双线性面带与 P1 三角面沿矩形边界都是相同的线性函数，因此可以 C⁰ 连接，不增加 T 形接点；梯度仍可能跳变。发布独立检查每个相邻单元的两侧边界函数。</p><p>全域 E₂ 逐一积分全部一米源单元。面带残差的最大值在源单元角点；三角面还检查源单元内每段对角线的二次残差极值，避免只看顶点漏掉峰值。独立五节点求积重新计算全部 {report.native_models.toLocaleString()} 个保存模型、每个局部混合选择与最大值；原生内核执行 {report.native_queries.toLocaleString()} 次高程/梯度及源节点查询，另检查 {report.seam_height_pairs.toLocaleString()} 对边界高程。Float64 数值余量不是区间证明。</p><div className="cr-actions">{[['selections.csv','全部预算与误差目标 CSV'],['protocol.json','预先固定协议'],['results.json','所有候选与未通过目标'],['native-audit.json','原生查询与边界审计'],['integral-audit.json','独立全域积分审计']].map(([file,label])=><a download key={file} href={`${base}${file}`}>{label} ↗</a>)}</div><p className="cr-hash">结果 SHA-256：{report.report_sha256}<br/>完整证据 ZIP SHA-256：{report.package.sha256}</p></details>
+    <DiagonalHybridDisclosure/>
   </section>;
 }

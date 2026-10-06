@@ -1,7 +1,7 @@
 import {lazy,Suspense,useEffect,useState} from 'react';
 import './HybridSourceResults.css';
 const Results=lazy(()=>import('./HybridSourceResults'));
-const matches=(hash:string)=>['#hybrid-source-results','#hybrid-source-evidence'].includes(hash);
+const matches=(hash:string)=>['#hybrid-source-results','#hybrid-source-evidence','#diagonal-hybrid-results','#diagonal-hybrid-evidence'].includes(hash);
 export default function HybridSourceDisclosure(){
   const [open,setOpen]=useState(()=>typeof window!=='undefined'&&matches(window.location?.hash??''));
   useEffect(()=>{if(typeof window==='undefined')return;

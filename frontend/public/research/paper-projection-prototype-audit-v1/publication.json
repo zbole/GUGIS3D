@@ -1,0 +1,31 @@
+{
+  "native_models": 249,
+  "package": {
+    "bytes": 30206,
+    "filename": "prototype-audit-evidence.zip",
+    "sha256": "899e0cc2c02f5af3a7721fbf6c6f4fce5f2d4ed6c195385a44435194b0331023"
+  },
+  "pairs_csv_sha256": "c9c95dd1455585fb2df52a37b4c01347a1b84cfdcbf0860fe4664d6630e841ff",
+  "parent_package": {
+    "bytes": 26307338,
+    "filename": "paper-projection-evidence.zip",
+    "sha256": "24cb8f53dec7f7f75a3c20ad71ce1ffd4438b5b4147158193eb3259cb49272ff"
+  },
+  "parent_report_sha256": "4477be89825c6ab77f00ef3226248f05dc90c6339b71f85b843db3071faab7e5",
+  "prototype_report_sha256": "fcd8e7401c3bc1ce2cf77e2e6c323fcd60359b2394947ed424a2f83446681505",
+  "rejected_models": 11,
+  "rejected_pairs": 11,
+  "report_sha256": "707bde2bd65e3394052f067909393f181c5461320e7fc033aec029981a86d130",
+  "schema": "gugis-projection-prototype-native-audit-v1",
+  "scripts": {
+    "data-pipeline/publish_projection_prototype_audit.py": "bb5f50206faf8adabeca351a1027d5569aeedfb7d639a710e50d9924241b887a",
+    "frontend/scripts/audit-projection-prototype.mjs": "399baac8473140f3a4ddc68c29f11da94712a285a45a2067b74b90df3b03d8dc",
+    "frontend/src/compare/curvedRuledMath.ts": "20dbf6c48c4b6d4c76510d0679637220fc8aeb735e2e792e21ca7313d7e3b8c7",
+    "frontend/src/compare/preparedOrderQuery.ts": "1e65054a8db9fa6ac9c64f33fc9d9cf45ba48518917050c2683fa4ddbc92b605",
+    "frontend/src/compare/principalRuledMath.ts": "4bd434697148e8e9ac5fc387e3f93c3f980c4af0ca604acc750f4c96555ea466",
+    "frontend/src/compare/terrainOrderMath.ts": "927aeb6c12fe87c9866b4b47fc397e742f2b098435ae0038936f96e2b4091407",
+    "frontend/tests/bundleWorkspaceModule.mjs": "3b47c503aebc59f32f5a96b68ea3ea06809899196077abd630a71cb374285b13"
+  },
+  "source_error_worsened_pairs": 2,
+  "valid_models": 238
+}

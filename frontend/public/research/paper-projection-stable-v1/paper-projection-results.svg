@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620"><rect width="1100" height="620" fill="white"/><g font-family="Arial,sans-serif" fill="#294d42"><text x="26" y="32" font-size="19">Shared-space L2 fitting: stronger paper-permitted P_T control on a fixed mesh</text><text x="26" y="58" font-size="12">Every original field/rotation/budget stays. Main improvement changes only shared Bezier Z, preserving C0 and native bytes.</text>
+<text x="70" y="97" font-size="14">anisotropic-quartic: 62/63 below the P_T control</text>
+<path d="M70.00 113 V400" stroke="#e1e8e3"/><text x="70.00" y="421" text-anchor="middle" font-size="11">-20%</text>
+<path d="M148.33 113 V400" stroke="#e1e8e3"/><text x="148.33" y="421" text-anchor="middle" font-size="11">0%</text>
+<path d="M226.67 113 V400" stroke="#e1e8e3"/><text x="226.67" y="421" text-anchor="middle" font-size="11">20%</text>
+<path d="M305.00 113 V400" stroke="#e1e8e3"/><text x="305.00" y="421" text-anchor="middle" font-size="11">40%</text>
+<path d="M383.33 113 V400" stroke="#e1e8e3"/><text x="383.33" y="421" text-anchor="middle" font-size="11">60%</text>
+<path d="M461.67 113 V400" stroke="#e1e8e3"/><text x="461.67" y="421" text-anchor="middle" font-size="11">80%</text>
+<path d="M540.00 113 V400" stroke="#e1e8e3"/><text x="540.00" y="421" text-anchor="middle" font-size="11">100%</text>
+<circle cx="403.93" cy="123.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-00 N=8: E2 reduction vs fixed-mesh PT 65.259012%</title></circle>
+<circle cx="391.06" cy="127.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-00 N=16: E2 reduction vs fixed-mesh PT 61.973336%</title></circle>
+<circle cx="469.42" cy="131.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-00 N=32: E2 reduction vs fixed-mesh PT 81.980446%</title></circle>
+<circle cx="367.21" cy="135.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-00 N=64: E2 reduction vs fixed-mesh PT 55.884493%</title></circle>
+<circle cx="462.11" cy="140.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-00 N=128: E2 reduction vs fixed-mesh PT 80.113901%</title></circle>
+<circle cx="404.92" cy="144.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-00 N=256: E2 reduction vs fixed-mesh PT 65.510932%</title></circle>
+<circle cx="453.97" cy="148.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-00 N=512: E2 reduction vs fixed-mesh PT 78.036067%</title></circle>
+<circle cx="443.76" cy="152.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-00 N=1024: E2 reduction vs fixed-mesh PT 75.429251%</title></circle>
+<circle cx="445.04" cy="157.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-00 N=2048: E2 reduction vs fixed-mesh PT 75.755353%</title></circle>
+<circle cx="355.36" cy="161.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-15 N=8: E2 reduction vs fixed-mesh PT 52.858803%</title></circle>
+<circle cx="473.82" cy="165.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-15 N=16: E2 reduction vs fixed-mesh PT 83.102624%</title></circle>
+<circle cx="417.71" cy="169.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-15 N=32: E2 reduction vs fixed-mesh PT 68.776301%</title></circle>
+<circle cx="397.91" cy="174.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-15 N=64: E2 reduction vs fixed-mesh PT 63.722771%</title></circle>
+<circle cx="383.61" cy="178.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-15 N=128: E2 reduction vs fixed-mesh PT 60.071472%</title></circle>
+<circle cx="250.93" cy="182.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-15 N=256: E2 reduction vs fixed-mesh PT 26.196071%</title></circle>
+<circle cx="380.27" cy="186.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-15 N=512: E2 reduction vs fixed-mesh PT 59.218305%</title></circle>
+<circle cx="328.73" cy="191.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-15 N=1024: E2 reduction vs fixed-mesh PT 46.059343%</title></circle>
+<circle cx="376.13" cy="195.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-15 N=2048: E2 reduction vs fixed-mesh PT 58.162106%</title></circle>
+<circle cx="350.90" cy="199.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-30 N=8: E2 reduction vs fixed-mesh PT 51.719147%</title></circle>
+<circle cx="462.15" cy="203.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-30 N=16: E2 reduction vs fixed-mesh PT 80.122993%</title></circle>
+<circle cx="377.88" cy="208.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-30 N=32: E2 reduction vs fixed-mesh PT 58.607375%</title></circle>
+<circle cx="143.80" cy="212.25" r="2.7" fill="#bd8853"><title>anisotropic-quartic-30 N=64: E2 reduction vs fixed-mesh PT -1.158111%</title></circle>
+<circle cx="355.07" cy="216.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-30 N=128: E2 reduction vs fixed-mesh PT 52.784462%</title></circle>
+<circle cx="172.07" cy="220.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-30 N=256: E2 reduction vs fixed-mesh PT 6.059363%</title></circle>
+<circle cx="344.71" cy="225.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-30 N=512: E2 reduction vs fixed-mesh PT 50.139883%</title></circle>
+<circle cx="263.03" cy="229.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-30 N=1024: E2 reduction vs fixed-mesh PT 29.284793%</title></circle>
+<circle cx="330.84" cy="233.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-30 N=2048: E2 reduction vs fixed-mesh PT 46.597522%</title></circle>
+<circle cx="441.86" cy="237.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-45 N=8: E2 reduction vs fixed-mesh PT 74.941962%</title></circle>
+<circle cx="223.68" cy="242.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-45 N=16: E2 reduction vs fixed-mesh PT 19.236971%</title></circle>
+<circle cx="433.33" cy="246.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-45 N=32: E2 reduction vs fixed-mesh PT 72.765244%</title></circle>
+<circle cx="447.88" cy="250.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-45 N=64: E2 reduction vs fixed-mesh PT 76.480092%</title></circle>
+<circle cx="412.64" cy="254.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-45 N=128: E2 reduction vs fixed-mesh PT 67.482803%</title></circle>
+<circle cx="302.12" cy="259.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-45 N=256: E2 reduction vs fixed-mesh PT 39.263741%</title></circle>
+<circle cx="408.66" cy="263.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-45 N=512: E2 reduction vs fixed-mesh PT 66.466735%</title></circle>
+<circle cx="336.58" cy="267.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-45 N=1024: E2 reduction vs fixed-mesh PT 48.062400%</title></circle>
+<circle cx="392.55" cy="271.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-45 N=2048: E2 reduction vs fixed-mesh PT 62.354350%</title></circle>
+<circle cx="436.70" cy="276.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-60 N=8: E2 reduction vs fixed-mesh PT 73.625752%</title></circle>
+<circle cx="203.54" cy="280.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-60 N=16: E2 reduction vs fixed-mesh PT 14.096409%</title></circle>
+<circle cx="377.88" cy="284.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-60 N=32: E2 reduction vs fixed-mesh PT 58.607375%</title></circle>
+<circle cx="376.61" cy="288.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-60 N=64: E2 reduction vs fixed-mesh PT 58.284618%</title></circle>
+<circle cx="355.07" cy="293.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-60 N=128: E2 reduction vs fixed-mesh PT 52.784462%</title></circle>
+<circle cx="172.07" cy="297.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-60 N=256: E2 reduction vs fixed-mesh PT 6.059363%</title></circle>
+<circle cx="344.71" cy="301.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-60 N=512: E2 reduction vs fixed-mesh PT 50.139883%</title></circle>
+<circle cx="263.03" cy="305.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-60 N=1024: E2 reduction vs fixed-mesh PT 29.284793%</title></circle>
+<circle cx="330.84" cy="310.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-60 N=2048: E2 reduction vs fixed-mesh PT 46.597522%</title></circle>
+<circle cx="449.36" cy="314.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-75 N=8: E2 reduction vs fixed-mesh PT 76.856861%</title></circle>
+<circle cx="473.82" cy="318.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-75 N=16: E2 reduction vs fixed-mesh PT 83.102624%</title></circle>
+<circle cx="350.92" cy="322.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-75 N=32: E2 reduction vs fixed-mesh PT 51.725350%</title></circle>
+<circle cx="270.93" cy="327.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-75 N=64: E2 reduction vs fixed-mesh PT 31.301168%</title></circle>
+<circle cx="383.61" cy="331.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-75 N=128: E2 reduction vs fixed-mesh PT 60.071472%</title></circle>
+<circle cx="250.93" cy="335.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-75 N=256: E2 reduction vs fixed-mesh PT 26.196071%</title></circle>
+<circle cx="380.27" cy="339.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-75 N=512: E2 reduction vs fixed-mesh PT 59.218305%</title></circle>
+<circle cx="328.73" cy="344.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-75 N=1024: E2 reduction vs fixed-mesh PT 46.059343%</title></circle>
+<circle cx="376.13" cy="348.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-75 N=2048: E2 reduction vs fixed-mesh PT 58.162106%</title></circle>
+<circle cx="403.93" cy="352.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-90 N=8: E2 reduction vs fixed-mesh PT 65.259012%</title></circle>
+<circle cx="391.06" cy="356.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-90 N=16: E2 reduction vs fixed-mesh PT 61.973336%</title></circle>
+<circle cx="469.42" cy="361.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-90 N=32: E2 reduction vs fixed-mesh PT 81.980446%</title></circle>
+<circle cx="367.21" cy="365.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-90 N=64: E2 reduction vs fixed-mesh PT 55.884493%</title></circle>
+<circle cx="462.11" cy="369.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-90 N=128: E2 reduction vs fixed-mesh PT 80.113901%</title></circle>
+<circle cx="404.92" cy="373.75" r="2.7" fill="#288c76"><title>anisotropic-quartic-90 N=256: E2 reduction vs fixed-mesh PT 65.510932%</title></circle>
+<circle cx="453.97" cy="378.00" r="2.7" fill="#288c76"><title>anisotropic-quartic-90 N=512: E2 reduction vs fixed-mesh PT 78.036067%</title></circle>
+<circle cx="443.76" cy="382.25" r="2.7" fill="#288c76"><title>anisotropic-quartic-90 N=1024: E2 reduction vs fixed-mesh PT 75.429251%</title></circle>
+<circle cx="445.04" cy="386.50" r="2.7" fill="#288c76"><title>anisotropic-quartic-90 N=2048: E2 reduction vs fixed-mesh PT 75.755353%</title></circle>
+<text x="605" y="97" font-size="14">published-quartic: 10/63 below the P_T control</text>
+<path d="M605.00 113 V400" stroke="#e1e8e3"/><text x="605.00" y="421" text-anchor="middle" font-size="11">-160%</text>
+<path d="M641.15 113 V400" stroke="#e1e8e3"/><text x="641.15" y="421" text-anchor="middle" font-size="11">-140%</text>
+<path d="M677.31 113 V400" stroke="#e1e8e3"/><text x="677.31" y="421" text-anchor="middle" font-size="11">-120%</text>
+<path d="M713.46 113 V400" stroke="#e1e8e3"/><text x="713.46" y="421" text-anchor="middle" font-size="11">-100%</text>
+<path d="M749.62 113 V400" stroke="#e1e8e3"/><text x="749.62" y="421" text-anchor="middle" font-size="11">-80%</text>
+<path d="M785.77 113 V400" stroke="#e1e8e3"/><text x="785.77" y="421" text-anchor="middle" font-size="11">-60%</text>
+<path d="M821.92 113 V400" stroke="#e1e8e3"/><text x="821.92" y="421" text-anchor="middle" font-size="11">-40%</text>
+<path d="M858.08 113 V400" stroke="#e1e8e3"/><text x="858.08" y="421" text-anchor="middle" font-size="11">-20%</text>
+<path d="M894.23 113 V400" stroke="#e1e8e3"/><text x="894.23" y="421" text-anchor="middle" font-size="11">0%</text>
+<path d="M930.38 113 V400" stroke="#e1e8e3"/><text x="930.38" y="421" text-anchor="middle" font-size="11">20%</text>
+<path d="M966.54 113 V400" stroke="#e1e8e3"/><text x="966.54" y="421" text-anchor="middle" font-size="11">40%</text>
+<path d="M1002.69 113 V400" stroke="#e1e8e3"/><text x="1002.69" y="421" text-anchor="middle" font-size="11">60%</text>
+<path d="M1038.85 113 V400" stroke="#e1e8e3"/><text x="1038.85" y="421" text-anchor="middle" font-size="11">80%</text>
+<path d="M1075.00 113 V400" stroke="#e1e8e3"/><text x="1075.00" y="421" text-anchor="middle" font-size="11">100%</text>
+<circle cx="910.64" cy="123.00" r="2.7" fill="#288c76"><title>published-quartic-00 N=8: E2 reduction vs fixed-mesh PT 9.078650%</title></circle>
+<circle cx="812.03" cy="127.25" r="2.7" fill="#bd8853"><title>published-quartic-00 N=16: E2 reduction vs fixed-mesh PT -45.474492%</title></circle>
+<circle cx="669.37" cy="131.50" r="2.7" fill="#bd8853"><title>published-quartic-00 N=32: E2 reduction vs fixed-mesh PT -124.393053%</title></circle>
+<circle cx="860.53" cy="135.75" r="2.7" fill="#bd8853"><title>published-quartic-00 N=64: E2 reduction vs fixed-mesh PT -18.645365%</title></circle>
+<circle cx="831.20" cy="140.00" r="2.7" fill="#bd8853"><title>published-quartic-00 N=128: E2 reduction vs fixed-mesh PT -34.868576%</title></circle>
+<circle cx="889.04" cy="144.25" r="2.7" fill="#bd8853"><title>published-quartic-00 N=256: E2 reduction vs fixed-mesh PT -2.873052%</title></circle>
+<circle cx="900.81" cy="148.50" r="2.7" fill="#288c76"><title>published-quartic-00 N=512: E2 reduction vs fixed-mesh PT 3.641953%</title></circle>
+<circle cx="769.16" cy="152.75" r="2.7" fill="#bd8853"><title>published-quartic-00 N=1024: E2 reduction vs fixed-mesh PT -69.185630%</title></circle>
+<circle cx="955.15" cy="157.00" r="2.7" fill="#288c76"><title>published-quartic-00 N=2048: E2 reduction vs fixed-mesh PT 33.698675%</title></circle>
+<circle cx="889.13" cy="161.25" r="2.7" fill="#bd8853"><title>published-quartic-15 N=8: E2 reduction vs fixed-mesh PT -2.823721%</title></circle>
+<circle cx="860.99" cy="165.50" r="2.7" fill="#bd8853"><title>published-quartic-15 N=16: E2 reduction vs fixed-mesh PT -18.391024%</title></circle>
+<circle cx="640.01" cy="169.75" r="2.7" fill="#bd8853"><title>published-quartic-15 N=32: E2 reduction vs fixed-mesh PT -140.633189%</title></circle>
+<circle cx="847.13" cy="174.00" r="2.7" fill="#bd8853"><title>published-quartic-15 N=64: E2 reduction vs fixed-mesh PT -26.057278%</title></circle>
+<circle cx="747.81" cy="178.25" r="2.7" fill="#bd8853"><title>published-quartic-15 N=128: E2 reduction vs fixed-mesh PT -80.999285%</title></circle>
+<circle cx="815.04" cy="182.50" r="2.7" fill="#bd8853"><title>published-quartic-15 N=256: E2 reduction vs fixed-mesh PT -43.804915%</title></circle>
+<circle cx="797.24" cy="186.75" r="2.7" fill="#bd8853"><title>published-quartic-15 N=512: E2 reduction vs fixed-mesh PT -53.655801%</title></circle>
+<circle cx="803.42" cy="191.00" r="2.7" fill="#bd8853"><title>published-quartic-15 N=1024: E2 reduction vs fixed-mesh PT -50.234804%</title></circle>
+<circle cx="871.27" cy="195.25" r="2.7" fill="#bd8853"><title>published-quartic-15 N=2048: E2 reduction vs fixed-mesh PT -12.699007%</title></circle>
+<circle cx="916.87" cy="199.50" r="2.7" fill="#288c76"><title>published-quartic-30 N=8: E2 reduction vs fixed-mesh PT 12.521247%</title></circle>
+<circle cx="824.79" cy="203.75" r="2.7" fill="#bd8853"><title>published-quartic-30 N=16: E2 reduction vs fixed-mesh PT -38.412446%</title></circle>
+<circle cx="742.10" cy="208.00" r="2.7" fill="#bd8853"><title>published-quartic-30 N=32: E2 reduction vs fixed-mesh PT -84.158639%</title></circle>
+<circle cx="764.03" cy="212.25" r="2.7" fill="#bd8853"><title>published-quartic-30 N=64: E2 reduction vs fixed-mesh PT -72.025696%</title></circle>
+<circle cx="644.74" cy="216.50" r="2.7" fill="#bd8853"><title>published-quartic-30 N=128: E2 reduction vs fixed-mesh PT -138.017645%</title></circle>
+<circle cx="720.95" cy="220.75" r="2.7" fill="#bd8853"><title>published-quartic-30 N=256: E2 reduction vs fixed-mesh PT -95.855292%</title></circle>
+<circle cx="680.88" cy="225.00" r="2.7" fill="#bd8853"><title>published-quartic-30 N=512: E2 reduction vs fixed-mesh PT -118.024627%</title></circle>
+<circle cx="693.04" cy="229.25" r="2.7" fill="#bd8853"><title>published-quartic-30 N=1024: E2 reduction vs fixed-mesh PT -111.298465%</title></circle>
+<circle cx="777.19" cy="233.50" r="2.7" fill="#bd8853"><title>published-quartic-30 N=2048: E2 reduction vs fixed-mesh PT -64.746380%</title></circle>
+<circle cx="962.91" cy="237.75" r="2.7" fill="#288c76"><title>published-quartic-45 N=8: E2 reduction vs fixed-mesh PT 37.991945%</title></circle>
+<circle cx="858.14" cy="242.00" r="2.7" fill="#bd8853"><title>published-quartic-45 N=16: E2 reduction vs fixed-mesh PT -19.965848%</title></circle>
+<circle cx="790.17" cy="246.25" r="2.7" fill="#bd8853"><title>published-quartic-45 N=32: E2 reduction vs fixed-mesh PT -57.564739%</title></circle>
+<circle cx="837.80" cy="250.50" r="2.7" fill="#bd8853"><title>published-quartic-45 N=64: E2 reduction vs fixed-mesh PT -31.218358%</title></circle>
+<circle cx="704.53" cy="254.75" r="2.7" fill="#bd8853"><title>published-quartic-45 N=128: E2 reduction vs fixed-mesh PT -104.942367%</title></circle>
+<circle cx="729.67" cy="259.00" r="2.7" fill="#bd8853"><title>published-quartic-45 N=256: E2 reduction vs fixed-mesh PT -91.034847%</title></circle>
+<circle cx="710.99" cy="263.25" r="2.7" fill="#bd8853"><title>published-quartic-45 N=512: E2 reduction vs fixed-mesh PT -101.365325%</title></circle>
+<circle cx="698.48" cy="267.50" r="2.7" fill="#bd8853"><title>published-quartic-45 N=1024: E2 reduction vs fixed-mesh PT -108.289475%</title></circle>
+<circle cx="777.04" cy="271.75" r="2.7" fill="#bd8853"><title>published-quartic-45 N=2048: E2 reduction vs fixed-mesh PT -64.828869%</title></circle>
+<circle cx="957.39" cy="276.00" r="2.7" fill="#288c76"><title>published-quartic-60 N=8: E2 reduction vs fixed-mesh PT 34.940745%</title></circle>
+<circle cx="824.79" cy="280.25" r="2.7" fill="#bd8853"><title>published-quartic-60 N=16: E2 reduction vs fixed-mesh PT -38.412446%</title></circle>
+<circle cx="742.10" cy="284.50" r="2.7" fill="#bd8853"><title>published-quartic-60 N=32: E2 reduction vs fixed-mesh PT -84.158639%</title></circle>
+<circle cx="764.03" cy="288.75" r="2.7" fill="#bd8853"><title>published-quartic-60 N=64: E2 reduction vs fixed-mesh PT -72.025696%</title></circle>
+<circle cx="644.74" cy="293.00" r="2.7" fill="#bd8853"><title>published-quartic-60 N=128: E2 reduction vs fixed-mesh PT -138.017645%</title></circle>
+<circle cx="720.95" cy="297.25" r="2.7" fill="#bd8853"><title>published-quartic-60 N=256: E2 reduction vs fixed-mesh PT -95.855292%</title></circle>
+<circle cx="680.88" cy="301.50" r="2.7" fill="#bd8853"><title>published-quartic-60 N=512: E2 reduction vs fixed-mesh PT -118.024627%</title></circle>
+<circle cx="693.04" cy="305.75" r="2.7" fill="#bd8853"><title>published-quartic-60 N=1024: E2 reduction vs fixed-mesh PT -111.298465%</title></circle>
+<circle cx="777.19" cy="310.00" r="2.7" fill="#bd8853"><title>published-quartic-60 N=2048: E2 reduction vs fixed-mesh PT -64.746380%</title></circle>
+<circle cx="934.68" cy="314.25" r="2.7" fill="#288c76"><title>published-quartic-75 N=8: E2 reduction vs fixed-mesh PT 22.377762%</title></circle>
+<circle cx="860.99" cy="318.50" r="2.7" fill="#bd8853"><title>published-quartic-75 N=16: E2 reduction vs fixed-mesh PT -18.391024%</title></circle>
+<circle cx="640.01" cy="322.75" r="2.7" fill="#bd8853"><title>published-quartic-75 N=32: E2 reduction vs fixed-mesh PT -140.633189%</title></circle>
+<circle cx="847.13" cy="327.00" r="2.7" fill="#bd8853"><title>published-quartic-75 N=64: E2 reduction vs fixed-mesh PT -26.057278%</title></circle>
+<circle cx="747.81" cy="331.25" r="2.7" fill="#bd8853"><title>published-quartic-75 N=128: E2 reduction vs fixed-mesh PT -80.999285%</title></circle>
+<circle cx="815.04" cy="335.50" r="2.7" fill="#bd8853"><title>published-quartic-75 N=256: E2 reduction vs fixed-mesh PT -43.804915%</title></circle>
+<circle cx="797.24" cy="339.75" r="2.7" fill="#bd8853"><title>published-quartic-75 N=512: E2 reduction vs fixed-mesh PT -53.655801%</title></circle>
+<circle cx="803.42" cy="344.00" r="2.7" fill="#bd8853"><title>published-quartic-75 N=1024: E2 reduction vs fixed-mesh PT -50.234804%</title></circle>
+<circle cx="871.27" cy="348.25" r="2.7" fill="#bd8853"><title>published-quartic-75 N=2048: E2 reduction vs fixed-mesh PT -12.699007%</title></circle>
+<circle cx="910.64" cy="352.50" r="2.7" fill="#288c76"><title>published-quartic-90 N=8: E2 reduction vs fixed-mesh PT 9.078650%</title></circle>
+<circle cx="812.03" cy="356.75" r="2.7" fill="#bd8853"><title>published-quartic-90 N=16: E2 reduction vs fixed-mesh PT -45.474492%</title></circle>
+<circle cx="669.37" cy="361.00" r="2.7" fill="#bd8853"><title>published-quartic-90 N=32: E2 reduction vs fixed-mesh PT -124.393053%</title></circle>
+<circle cx="860.53" cy="365.25" r="2.7" fill="#bd8853"><title>published-quartic-90 N=64: E2 reduction vs fixed-mesh PT -18.645365%</title></circle>
+<circle cx="831.20" cy="369.50" r="2.7" fill="#bd8853"><title>published-quartic-90 N=128: E2 reduction vs fixed-mesh PT -34.868576%</title></circle>
+<circle cx="889.04" cy="373.75" r="2.7" fill="#bd8853"><title>published-quartic-90 N=256: E2 reduction vs fixed-mesh PT -2.873052%</title></circle>
+<circle cx="900.81" cy="378.00" r="2.7" fill="#288c76"><title>published-quartic-90 N=512: E2 reduction vs fixed-mesh PT 3.641953%</title></circle>
+<circle cx="769.16" cy="382.25" r="2.7" fill="#bd8853"><title>published-quartic-90 N=1024: E2 reduction vs fixed-mesh PT -69.185630%</title></circle>
+<circle cx="955.15" cy="386.50" r="2.7" fill="#288c76"><title>published-quartic-90 N=2048: E2 reduction vs fixed-mesh PT 33.698675%</title></circle>
+<text x="26" y="466" font-size="12">P_T uses each original interpolation-greedy triangle; it is not a newly projection-driven greedy adaptive mesh.</text><text x="26" y="492" font-size="12">Higher-order P2 controls remain; identical-space fitting gains are separate from degree/encoding differences.</text><text x="26" y="518" font-size="12">The complete unstable prototype is retained; weak-support controls stay at original Z under a fixed numerical rule.</text><text x="26" y="544" font-size="12">All 126 outcomes retained. Finite source-function results, not a new P1 theorem or ground-truth/ArcGIS/CPU/GPU claims.</text></g></svg>
