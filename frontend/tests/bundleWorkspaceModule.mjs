@@ -4,9 +4,9 @@ import {readFile,stat} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=fileURLToPath(new URL('../../',import.meta.url));
-export async function bundleWorkspaceModule(entry,outfile){
+export async function bundleWorkspaceModule(entry,outfile,{define,plugins=[]}={}){
   const within=p=>{const rel=path.relative(root,p);if(rel.startsWith('..')||path.isAbsolute(rel))throw new Error('Test import leaves repository');return p;};
-  return build({entryPoints:['workspace-entry'],outfile,bundle:true,format:'esm',platform:'node',jsx:'automatic',tsconfigRaw:{compilerOptions:{}},plugins:[{
+  return build({entryPoints:['workspace-entry'],outfile,bundle:true,format:'esm',platform:'node',jsx:'automatic',tsconfigRaw:{compilerOptions:{}},define,plugins:[...plugins,{
     name:'explicit-workspace-files',setup(builder){
       builder.onResolve({filter:/^workspace-entry$/},()=>({path:within(entry),namespace:'workspace-source'}));
       builder.onResolve({filter:/.*/,namespace:'workspace-source'},async args=>{

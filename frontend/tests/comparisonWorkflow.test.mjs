@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile, mkdir } from "node:fs/promises";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { build } from "esbuild";
+import {bundleWorkspaceModule} from './bundleWorkspaceModule.mjs';
 import React from "react";
 import { create, act } from "react-test-renderer";
 
@@ -11,9 +11,8 @@ const suite = JSON.parse(suiteBytes);
 const cache = new URL("../node_modules/.cache/gugis-tests/", import.meta.url);
 await mkdir(cache, { recursive: true });
 const outfile = fileURLToPath(new URL("CompareShowcase.workflow.mjs", cache));
-await build({ entryPoints: [fileURLToPath(new URL("../src/compare/CompareShowcase.tsx", import.meta.url))],
-  bundle: true, platform: "node", format: "esm", packages: "external", outfile,
-  loader: { ".css": "empty" }, define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' },
+await bundleWorkspaceModule(fileURLToPath(new URL("../src/compare/CompareShowcase.tsx", import.meta.url)),outfile,{
+  define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' },
   plugins: [{ name: "local-suite-asset", setup(build) {
     build.onResolve({ filter: /terrain-comparison-suite\.json\?url$/ }, () => ({ path: "suite-asset", namespace: "fixture" }));
     build.onLoad({ filter: /.*/, namespace: "fixture" }, () => ({ contents: 'export default "/qa/suite.json"', loader: "js" }));
@@ -65,6 +64,16 @@ test("overview, lazy-loaded lab, target selection and exports use the same resol
     URL.createObjectURL = blob => { blobs.push(blob); return urlBefore(blob); };
     await act(async () => { renderer = create(React.createElement(Showcase)); });
     const root = renderer.root;
+    assert.equal(root.findAllByProps({id:'principal-direction-results'}).length,1);
+    assert.equal(root.findAllByProps({id:'source-function-results'}).length,1);
+    assert.equal(root.findAllByProps({id:'native-query-results'}).length,1);
+    assert.equal(root.findAllByProps({id:'gugis-function-results'}).length,0);
+    assert.equal(root.findAllByProps({id:'order-structure-results'}).length,0);
+    assert.equal(root.findByProps({'aria-label':'对比展示导航'}).findAllByType('a').length,6);
+    await act(async()=>root.findByProps({id:'function-controls'}).props.onToggle({currentTarget:{open:true}}));
+    assert.equal(root.findAllByProps({id:'gugis-function-results'}).length,1);
+    assert.equal(root.findAllByProps({id:'order-structure-results'}).length,1);
+    act(()=>root.findByProps({id:'function-controls'}).props.onToggle({currentTarget:{open:false}}));
     act(()=>root.findByProps({'aria-label':'真实地形结果误差目标'}).props.onChange({target:{value:'.25'}}));
     await act(async()=>root.findByProps({id:'real-evidence'}).props.onToggle({currentTarget:{open:true}}));
     assert.equal(root.findByProps({'aria-label':'真实 Bristol 最大误差目标'}).props.value,.25);

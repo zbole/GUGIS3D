@@ -2,12 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
-import {build} from 'esbuild';
+import {bundleWorkspaceModule} from './bundleWorkspaceModule.mjs';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import React from 'react';
 import {create,act} from 'react-test-renderer';
 const file=p=>new URL(p,import.meta.url),sha=b=>createHash('sha256').update(b).digest('hex');
-async function bundle(name,entry){const outfile=fileURLToPath(file(`../node_modules/.cache/gugis-tests/${name}.mjs`));await build({entryPoints:[fileURLToPath(file(entry))],outfile,bundle:true,platform:'node',format:'esm',packages:'external',loader:{'.css':'empty'}});return import(pathToFileURL(outfile).href);}
+async function bundle(name,entry){const outfile=fileURLToPath(file(`../node_modules/.cache/gugis-tests/${name}.mjs`));await bundleWorkspaceModule(fileURLToPath(file(entry)),outfile);return import(pathToFileURL(outfile).href);}
 const {default:Card,RealTerrainResultSummary}=await bundle('paper-terrain-results','../src/compare/PaperTerrainResults.tsx');
 const {default:Disclosure,evidenceGroupForHash}=await bundle('paper-evidence-disclosure','../src/compare/EvidenceDisclosure.tsx');
 const {default:IntegralDecision}=await bundle('bristol-integral-decision','../src/compare/BristolIntegralDecision.tsx');
@@ -57,8 +57,17 @@ test('supplementary experiments are not mounted until requested; historical deep
     assert.equal(evidenceGroupForHash('#bristol-terrain-decision'),'real');assert.equal(evidenceGroupForHash('#paper-results'),null);
     assert.equal(evidenceGroupForHash('#unrelated'),null);
     assert.equal(evidenceGroupForHash('#bristol-arcgis-run'),null);
+    for(const hash of ['#function-controls','#gugis-function-results','#order-structure-results'])assert.equal(evidenceGroupForHash(hash),'functions');
+    assert.equal(evidenceGroupForHash('#source-function-results'),null);
     act(()=>r.unmount());r=null;assert.equal(listeners.size,0);
   }finally{if(r)act(()=>r.unmount());if(prior===undefined)delete globalThis.window;else globalThis.window=prior;}
+});
+
+test('historical function anchors automatically mount their exact control group',()=>{
+  const previousWindow=globalThis.window,previousDocument=globalThis.document;let r,scrolled=0;
+  try{globalThis.window={location:{hash:'#order-structure-results'},addEventListener(){},removeEventListener(){},setTimeout:f=>{f();return 1;},clearTimeout(){}};globalThis.document={getElementById:id=>id==='order-structure-results'?{scrollIntoView:()=>scrolled++}:null};
+    act(()=>r=create(React.createElement(Disclosure,{group:'functions',title:'函数',note:'完整'},React.createElement('p',null,'控制内容'))));assert.equal(r.root.findByType('details').props.open,true);assert.match(text(r.toJSON()),/控制内容/);assert.equal(scrolled,1);
+  }finally{if(r)act(()=>r.unmount());globalThis.window=previousWindow;globalThis.document=previousDocument;}
 });
 
 test('published reports, source, all terminal meshes and scientific figures are hash bound',async()=>{

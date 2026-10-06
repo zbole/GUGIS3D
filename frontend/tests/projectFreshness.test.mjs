@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { build } from "esbuild";
+import {bundleWorkspaceModule} from './bundleWorkspaceModule.mjs';
 import React from "react";
 import { act, create } from "react-test-renderer";
 import { useProjectFreshness } from "../src/compare/useProjectFreshness.ts";
@@ -10,10 +10,8 @@ import { useProjectFreshness } from "../src/compare/useProjectFreshness.ts";
 const snapshot = "a".repeat(64), changed = "b".repeat(64);
 const evidence = JSON.parse(await readFile(new URL("../../shared/compare-evidence.json", import.meta.url), "utf8"));
 const outfile = fileURLToPath(new URL("../node_modules/.cache/gugis-tests/CompareShowcase.freshness.mjs", import.meta.url));
-await build({
-  entryPoints: [fileURLToPath(new URL("../src/compare/CompareShowcase.tsx", import.meta.url))],
-  bundle: true, platform: "node", format: "esm", packages: "external", outfile,
-  loader: { ".css": "empty" }, define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' },
+await bundleWorkspaceModule(fileURLToPath(new URL("../src/compare/CompareShowcase.tsx", import.meta.url)),outfile,{
+  define: { "import.meta.env.VITE_API_BASE_URL": '"/api"' },
   plugins: [{ name: "omit-unrelated-terrain-loader", setup(build) {
     build.onResolve({ filter: /\/TerrainComparisonLoader$/ }, () => ({ path: "terrain", namespace: "fixture" }));
     build.onLoad({ filter: /.*/, namespace: "fixture" }, () => ({ contents: "export default () => null", loader: "js" }));

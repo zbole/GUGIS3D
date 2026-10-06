@@ -1,7 +1,9 @@
 import {useEffect,useState,type ReactNode} from 'react';
 
-export function evidenceGroupForHash(hash:string):'real'|'supplementary'|null{
+type EvidenceGroup='real'|'supplementary'|'functions';
+export function evidenceGroupForHash(hash:string):EvidenceGroup|null{
   const anchor=hash.replace(/^#/,'');
+  if(['function-controls','gugis-function-results','order-structure-results'].includes(anchor))return 'functions';
   if(anchor==='bristol-arcgis-run')return null;
   if(anchor==='real-evidence'||anchor.startsWith('bristol-'))return 'real';
   if(!anchor||anchor==='paper-results'||anchor==='real-terrain-results')return null;
@@ -10,7 +12,7 @@ export function evidenceGroupForHash(hash:string):'real'|'supplementary'|null{
   return null;
 }
 
-export default function EvidenceDisclosure({group,title,note,children}:{group:'real'|'supplementary';title:string;note:string;children:ReactNode}){
+export default function EvidenceDisclosure({group,title,note,children}:{group:EvidenceGroup;title:string;note:string;children:ReactNode}){
   const [open,setOpen]=useState(()=>typeof window!=='undefined'&&evidenceGroupForHash(window.location?.hash??'')===group);
   useEffect(()=>{
     if(typeof window==='undefined')return;
@@ -29,5 +31,5 @@ export default function EvidenceDisclosure({group,title,note,children}:{group:'r
     const timer=window.setTimeout(()=>document.getElementById?.(anchor)?.scrollIntoView(),60);
     return()=>window.clearTimeout(timer);
   },[open,group]);
-  return <details id={group==='real'?'real-evidence':'supplementary-evidence'} className="cmp-evidence-disclosure" open={open} onToggle={e=>setOpen(e.currentTarget.open)}><summary>{title}<small>{note}</small></summary>{open?children:null}</details>;
+  return <details id={group==='real'?'real-evidence':group==='functions'?'function-controls':'supplementary-evidence'} className="cmp-evidence-disclosure" open={open} onToggle={e=>setOpen(e.currentTarget.open)}><summary>{title}<small>{note}</small></summary>{open?children:null}</details>;
 }
