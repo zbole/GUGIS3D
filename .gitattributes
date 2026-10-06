@@ -79,3 +79,13 @@ frontend/tests/fixtures/render-manifests/exeter.json -text
 frontend/public/research/exeter-terrain/** -text
 
 frontend/public/research/paper-coordinate-sharing-v1/** -text
+
+frontend/public/research/exeter-source-fit-v1/** -text
+frontend/public/research/exeter-source-fit-v1/*.svg whitespace=-blank-at-eol
+
+frontend/public/research/exeter-source-fit-presentation-v2/** -text
+frontend/public/research/exeter-source-fit-presentation-v2/*.svg whitespace=-blank-at-eol
+
+frontend/public/research/exeter-source-fit-v1/** whitespace=cr-at-eol
+frontend/public/research/exeter-source-fit-v1/*.svg whitespace=cr-at-eol,-blank-at-eol
+deploy/** text eol=lf

@@ -1,0 +1,70 @@
+{
+  "schema": "gugis-exeter-source-controls-audit-v1",
+  "report_sha256": "10f005ad21a9b7580a688c77d4abb247fd57675284ba514cc32df7b5806af960",
+  "script_sha256": "088c61fa12c29b0f75d6bd8f6c98d4ff4f5dc457f7ac841877f31b5c42583aae",
+  "source_grids": 2,
+  "native_models": 6,
+  "queries": 49926,
+  "models": [
+    {
+      "case_id": "exeter-centre",
+      "family": "ruled",
+      "binary_sha256": "11b7e80f277102cd8a21ef825dde92fc4c2eb55640488e2430fd6231dbb8fc07",
+      "queries": 8321,
+      "independent_height_difference_m": 7.105427357601002e-15,
+      "independent_gradient_difference": 3.1086244689504383e-15,
+      "source_nodes_verified": 4225,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "exeter-centre",
+      "family": "source_p1",
+      "binary_sha256": "56bee9bb3ac439f3c9c00a32ab4a9f41b0f6dba4d1a656abe38447bf24f35347",
+      "queries": 8321,
+      "independent_height_difference_m": 7.105427357601002e-15,
+      "independent_gradient_difference": 0,
+      "source_nodes_verified": 4225,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "exeter-centre",
+      "family": "source_p2",
+      "binary_sha256": "40584d18ca48da960a084698b00a3e4a9c553acfe8ef0f98fc77cfd800250922",
+      "queries": 8321,
+      "independent_height_difference_m": 1.4210854715202004e-14,
+      "independent_gradient_difference": 3.1086244689504383e-15,
+      "source_nodes_verified": 4225,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "family": "ruled",
+      "binary_sha256": "3e323677ef5cc64fb71c5871696a44f77eefb8298421f9bf0d7339c5cfda59e4",
+      "queries": 8321,
+      "independent_height_difference_m": 7.105427357601002e-15,
+      "independent_gradient_difference": 1.7763568394002505e-15,
+      "source_nodes_verified": 4225,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "family": "source_p1",
+      "binary_sha256": "4b3a288ed93592fa59cb85b48ef3c9061029411e4c9221c65b3babae4341c963",
+      "queries": 8321,
+      "independent_height_difference_m": 7.105427357601002e-15,
+      "independent_gradient_difference": 0,
+      "source_nodes_verified": 4225,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "family": "source_p2",
+      "binary_sha256": "0c7943900603ec71ba66f17572fc84089589a00ef127f66959d5bcc1bb01d2a8",
+      "queries": 8321,
+      "independent_height_difference_m": 7.105427357601002e-15,
+      "independent_gradient_difference": 1.7763568394002505e-15,
+      "source_nodes_verified": 4225,
+      "outside_rejected": true
+    }
+  ]
+}

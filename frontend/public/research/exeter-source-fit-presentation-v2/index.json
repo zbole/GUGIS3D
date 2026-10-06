@@ -1,0 +1,19 @@
+{
+  "schema": "gugis-exeter-source-fit-presentation-v2",
+  "source_report_sha256": "10f005ad21a9b7580a688c77d4abb247fd57675284ba514cc32df7b5806af960",
+  "scope": "Presentation only, complete source outcomes retained. Upper zoom excludes source identities only for readability; lower panels retain all models. No experiment or selection changes.",
+  "files": {
+    "exeter-source-fit-results.png": {
+      "bytes": 257624,
+      "sha256": "7830685bd9fa8e99841bb7efb4294e33decf42e9f84561c237b69ffc52cd8801"
+    },
+    "exeter-source-fit-results.svg": {
+      "bytes": 350949,
+      "sha256": "4e44cc6f5ed388076714e7c0ac8b8f5d4eaa0e6e6f33cbdcbe1490b9a9e72516"
+    },
+    "plot_exeter_source_fit_v2.py": {
+      "bytes": 3451,
+      "sha256": "894578c7bc84241cfb6ceec391ff2ad8c437a986fc5a712bd642a08fd3ed4241"
+    }
+  }
+}

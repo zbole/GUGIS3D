@@ -5,3 +5,5 @@
 .dataset-city-card p.dataset-city-warning{border-left:3px solid #bf9b70;background:#faf6ef;color:#8a6441;padding:10px 14px;border-radius:0 5px 5px 0}
 
 .dataset-terrain-heading{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}.dataset-terrain-heading h3{font-size:18px;font-weight:550;margin:0}
+
+.dataset-research-link{margin:20px 0;padding:16px 18px;border:1px solid #d5e4db;background:#f6faf7;border-radius:8px;font-size:12px;color:#6d8979;line-height:1.8}.dataset-research-link strong{display:block;color:#3e735b;font-weight:550}.dataset-research-link p{margin:6px 0 10px}.dataset-research-link a{color:#25775d;text-decoration:none}

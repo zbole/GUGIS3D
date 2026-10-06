@@ -1,0 +1,12 @@
+{
+  "schema": "gugis-exeter-source-brief-v1",
+  "city_id": "exeter",
+  "source_view_sha256": "16a8bbdc828c8cfb0805237a43cb42c7eb58111bde55168907025601fc69ea30",
+  "report_sha256": "10f005ad21a9b7580a688c77d4abb247fd57675284ba514cc32df7b5806af960",
+  "windows": 2,
+  "fitted_models": 294,
+  "default_budget_bytes": 8192,
+  "hybrid_wins": 2,
+  "all_budget_losses": 1,
+  "href": "/compare?city=exeter#exeter-source-results"
+}

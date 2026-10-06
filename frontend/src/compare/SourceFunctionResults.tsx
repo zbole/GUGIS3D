@@ -8,6 +8,7 @@ import {useComparisonAnchor} from './useComparisonAnchor';
 import SourceFormatProof from './SourceFormatProof';
 import HybridSourceDisclosure from './HybridSourceDisclosure';
 import SourceFitDisclosure from './SourceFitDisclosure';
+import ExeterSourceDisclosure from './ExeterSourceDisclosure';
 import './SourceFunctionResults.css';
 const base='/research/source-native-bands-v1/';
 type Site=typeof report.cases[number];
@@ -59,6 +60,7 @@ export default function SourceFunctionResults(){
     <SourceQueryDisclosure/>
     <SourceFormatProof siteId={siteId}/>
     <SourceFitDisclosure/>
+    <ExeterSourceDisclosure/>
     <HybridSourceDisclosure/>
     <div className="cr-actions"><button aria-label="展开真实源函数同点查询" aria-expanded={demo} onClick={()=>setDemo(v=>!v)}>{demo?'收起真实源函数同点查询':'验证实际高程与精细函数结构'}</button><a download href={`${base}${site.id}/${site.source_geotiff.filename}`}>当前原始像素 GeoTIFF ↓</a><a download href={`${base}${site.id}/${r.binary_filename}`}>当前 GUGIS 原生面带 ↓</a><a download href={`${base}${report.package.filename}`}>20 样区完整证据 ZIP ↓</a></div>
     {demo&&<SourceQueryDemo key={site.id} site={site}/>}

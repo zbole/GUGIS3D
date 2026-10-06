@@ -1,0 +1,4127 @@
+{
+  "schema": "gugis-exeter-source-fit-independent-audit-v1",
+  "report_sha256": "10f005ad21a9b7580a688c77d4abb247fd57675284ba514cc32df7b5806af960",
+  "protocol_sha256": "4397a05fea520a16b9259a351f02f431e78f2e5a20109d224778d194f2d3b688",
+  "models": [
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-1x1",
+      "binary_sha256": "6986059ca16e1ae88ce65bd376df46e6da6bb87357b97bf72d7ab6dfb6b12fa3",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.6080680218280051e-09,
+        "initial_correction_norm": 660.0035475387165,
+        "source_load_norm": 69800.5598052229,
+        "declared_roundoff_bound": 6.980055980522291e-06,
+        "relative_to_initial": 2.4364536036583563e-12
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-1x1",
+      "binary_sha256": "3af1b2b77fa5334d697d203feefbd726a49f73a50a46cd864d8e277c06c4dde3",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.226750557361713e-09,
+        "initial_correction_norm": 753.7253099286427,
+        "source_load_norm": 66237.42609439506,
+        "declared_roundoff_bound": 6.6237426094395064e-06,
+        "relative_to_initial": 2.9543263680139992e-12
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-1x1",
+      "binary_sha256": "6986059ca16e1ae88ce65bd376df46e6da6bb87357b97bf72d7ab6dfb6b12fa3",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.6080680218280051e-09,
+        "initial_correction_norm": 660.0035475387165,
+        "source_load_norm": 69800.5598052229,
+        "declared_roundoff_bound": 6.980055980522291e-06,
+        "relative_to_initial": 2.4364536036583563e-12
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-1x2",
+      "binary_sha256": "f5b505d35c63b0b58d4830cd581de63767d1698a9038933d3c5b1a71bfe1a2b5",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.803007142740206e-10,
+        "initial_correction_norm": 646.4524901646151,
+        "source_load_norm": 60388.80110580021,
+        "declared_roundoff_bound": 6.038880110580021e-06,
+        "relative_to_initial": 8.976695474191006e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-1x2",
+      "binary_sha256": "eedb3fd0bf04cf99d2305e043ba0f088a0e10c22c56bfd3a02eaf5cfef9a54c8",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.164749156773383e-10,
+        "initial_correction_norm": 754.0933977861945,
+        "source_load_norm": 57324.47830422291,
+        "declared_roundoff_bound": 5.732447830422291e-06,
+        "relative_to_initial": 1.2153334300072778e-12
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-1x2",
+      "binary_sha256": "f5b505d35c63b0b58d4830cd581de63767d1698a9038933d3c5b1a71bfe1a2b5",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.803007142740206e-10,
+        "initial_correction_norm": 646.4524901646151,
+        "source_load_norm": 60388.80110580021,
+        "declared_roundoff_bound": 6.038880110580021e-06,
+        "relative_to_initial": 8.976695474191006e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-1x4",
+      "binary_sha256": "17158edc5fcb724ec5c09f6e6292f8d9493aca0097013ac4e76fe8f725256183",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.499229335731324e-10,
+        "initial_correction_norm": 990.7975973799852,
+        "source_load_norm": 46165.70858498278,
+        "declared_roundoff_bound": 4.616570858498278e-06,
+        "relative_to_initial": 2.5224418613248146e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-1x4",
+      "binary_sha256": "55f21f5ce6def00b95a69ff922a2dfb149cfb1e702b170a9f2564f497f6975de",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.5582558411958275e-10,
+        "initial_correction_norm": 1141.7696711991578,
+        "source_load_norm": 43794.49689837468,
+        "declared_roundoff_bound": 4.379449689837468e-06,
+        "relative_to_initial": 3.116439270504291e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-1x4",
+      "binary_sha256": "17158edc5fcb724ec5c09f6e6292f8d9493aca0097013ac4e76fe8f725256183",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.499229335731324e-10,
+        "initial_correction_norm": 990.7975973799852,
+        "source_load_norm": 46165.70858498278,
+        "declared_roundoff_bound": 4.616570858498278e-06,
+        "relative_to_initial": 2.5224418613248146e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-1x8",
+      "binary_sha256": "7e75ffad2985229b59e3b4469dabfb8c60248a34c610e2abd55e609f963c37c5",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.3920345272391254e-10,
+        "initial_correction_norm": 1036.6201761050083,
+        "source_load_norm": 32921.423751420116,
+        "declared_roundoff_bound": 3.2921423751420117e-06,
+        "relative_to_initial": 4.236879262510339e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-1x8",
+      "binary_sha256": "3fe9edee6405c799f30644f14544bcbbe6658e250ccc4c26cba3ca612ea22c85",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.1987995125167447e-10,
+        "initial_correction_norm": 1075.1561086072838,
+        "source_load_norm": 32071.5311691962,
+        "declared_roundoff_bound": 3.2071531169196204e-06,
+        "relative_to_initial": 1.1150004198642593e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-1x8",
+      "binary_sha256": "7e75ffad2985229b59e3b4469dabfb8c60248a34c610e2abd55e609f963c37c5",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.3920345272391254e-10,
+        "initial_correction_norm": 1036.6201761050083,
+        "source_load_norm": 32921.423751420116,
+        "declared_roundoff_bound": 3.2921423751420117e-06,
+        "relative_to_initial": 4.236879262510339e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-1x16",
+      "binary_sha256": "b5ff51ae1c88f7bd925550465149d65819918ec7c5a517949d0b376e8fc7d4ee",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.39486949121398e-10,
+        "initial_correction_norm": 771.151295666961,
+        "source_load_norm": 23358.3828358921,
+        "declared_roundoff_bound": 2.33583828358921e-06,
+        "relative_to_initial": 5.699101481004324e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-1x16",
+      "binary_sha256": "af1760ae860d0a16103c6de6dc1c85c558064dcda0b261f69934662a1253e937",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.1867440765241244e-10,
+        "initial_correction_norm": 787.8441226580198,
+        "source_load_norm": 23062.578620353404,
+        "declared_roundoff_bound": 2.3062578620353404e-06,
+        "relative_to_initial": 2.7756049878832774e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-1x16",
+      "binary_sha256": "2b3cef4ed445ae7401c946ef180fc3e14c695427442d76838244343bfb1d68fa",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.6982562918437073e-10,
+        "initial_correction_norm": 771.0675300539115,
+        "source_load_norm": 23399.784825080296,
+        "declared_roundoff_bound": 2.3399784825080297e-06,
+        "relative_to_initial": 2.2024741357283825e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-1x32",
+      "binary_sha256": "b03e6af059d5b284d7ddf7d61262774a2197e792caaa36b641656b3c0e604a21",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.767180754420787e-10,
+        "initial_correction_norm": 568.5772386019762,
+        "source_load_norm": 16654.196516586886,
+        "declared_roundoff_bound": 1.6654196516586886e-06,
+        "relative_to_initial": 4.86685109172636e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-1x32",
+      "binary_sha256": "a5959eda9306cb6f133ba3777909ee0a16878e8b9e49595c64755a2b752bbdc5",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.8463942553539894e-10,
+        "initial_correction_norm": 569.4208118383042,
+        "source_load_norm": 16443.10809149159,
+        "declared_roundoff_bound": 1.6443108091491591e-06,
+        "relative_to_initial": 4.998753463479426e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-1x32",
+      "binary_sha256": "b03e6af059d5b284d7ddf7d61262774a2197e792caaa36b641656b3c0e604a21",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.767180754420787e-10,
+        "initial_correction_norm": 568.5772386019762,
+        "source_load_norm": 16654.196516586886,
+        "declared_roundoff_bound": 1.6654196516586886e-06,
+        "relative_to_initial": 4.86685109172636e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-1x64",
+      "binary_sha256": "a4029982256e2761208c85b6462ff0c905e1524039e2678967b25c5039fbd463",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.9163434822696693e-10,
+        "initial_correction_norm": 405.00251450288874,
+        "source_load_norm": 11761.676465318647,
+        "declared_roundoff_bound": 1.1761676465318647e-06,
+        "relative_to_initial": 4.731682924541449e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-1x64",
+      "binary_sha256": "f19029dee422173fcf5ec810fd0ad7bd2b301917f3fb3aedcc91bde025e42390",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.374403735206907e-10,
+        "initial_correction_norm": 405.26470707750974,
+        "source_load_norm": 11674.70379592065,
+        "declared_roundoff_bound": 1.167470379592065e-06,
+        "relative_to_initial": 5.858895911093451e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-1x64",
+      "binary_sha256": "a4029982256e2761208c85b6462ff0c905e1524039e2678967b25c5039fbd463",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.9163434822696693e-10,
+        "initial_correction_norm": 405.00251450288874,
+        "source_load_norm": 11761.676465318647,
+        "declared_roundoff_bound": 1.1761676465318647e-06,
+        "relative_to_initial": 4.731682924541449e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-2x1",
+      "binary_sha256": "03aaa9911630f25221cf41b61c0f230505c0a13bc05391a8e2ef342bb145455e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.379641375510706e-10,
+        "initial_correction_norm": 333.68397311783554,
+        "source_load_norm": 60138.153911317975,
+        "declared_roundoff_bound": 6.013815391131798e-06,
+        "relative_to_initial": 2.2115660235514805e-12
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-2x1",
+      "binary_sha256": "e5d262c60ca88ccb7c0e98c4acb83d526dd74fbbd19a0ef533a4462f1e33e770",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.400665880182375e-10,
+        "initial_correction_norm": 454.8490996925005,
+        "source_load_norm": 57360.37039207662,
+        "declared_roundoff_bound": 5.736037039207662e-06,
+        "relative_to_initial": 2.0667658541124234e-12
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-2x1",
+      "binary_sha256": "03aaa9911630f25221cf41b61c0f230505c0a13bc05391a8e2ef342bb145455e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.379641375510706e-10,
+        "initial_correction_norm": 333.68397311783554,
+        "source_load_norm": 60138.153911317975,
+        "declared_roundoff_bound": 6.013815391131798e-06,
+        "relative_to_initial": 2.2115660235514805e-12
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-2x2",
+      "binary_sha256": "2e43491739e3da6b1cbe2981ffdabc671e9e1e3955b85606c607cbed268de225",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.798999426338453e-10,
+        "initial_correction_norm": 373.49760738693686,
+        "source_load_norm": 50463.22903027263,
+        "declared_roundoff_bound": 5.0463229030272635e-06,
+        "relative_to_initial": 7.494022373853495e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-2x2",
+      "binary_sha256": "6d3abf1ec23807fda221e769c9479a7f68878a56a2f6306bb42e4200df7045e7",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.7273942244908125e-10,
+        "initial_correction_norm": 398.1583028105101,
+        "source_load_norm": 49638.4706953803,
+        "declared_roundoff_bound": 4.9638470695380304e-06,
+        "relative_to_initial": 9.361588589714124e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-2x2",
+      "binary_sha256": "45fb0866c0690a01ad1370e3a350176250cfbe4844daa1a065c557ebcc3cc077",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.1579498181683024e-10,
+        "initial_correction_norm": 357.4203861697466,
+        "source_load_norm": 49826.243673527664,
+        "declared_roundoff_bound": 4.982624367352767e-06,
+        "relative_to_initial": 6.037567809977816e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-2x4",
+      "binary_sha256": "b70748562e2ff115c03b50cdce88aa54db172ca300ca284100fb4ee9f1f8dded",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.315993022908765e-11,
+        "initial_correction_norm": 262.3726799989906,
+        "source_load_norm": 38558.1729031153,
+        "declared_roundoff_bound": 3.8558172903115305e-06,
+        "relative_to_initial": 3.550671900345953e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-2x4",
+      "binary_sha256": "c1152882bda063ebaab9acb7a498693138c89cd60ad35ba03a81d57b9f4fec1a",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.5362817824585567e-10,
+        "initial_correction_norm": 354.31814386030345,
+        "source_load_norm": 37925.388819983564,
+        "declared_roundoff_bound": 3.7925388819983567e-06,
+        "relative_to_initial": 4.3358823393031334e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-2x4",
+      "binary_sha256": "ea097d6147cc82c18e837f908cdd356383525ab3870ffdad3a80acdaf3eb8e9b",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.497893515887032e-11,
+        "initial_correction_norm": 256.3116252370736,
+        "source_load_norm": 38353.511101626464,
+        "declared_roundoff_bound": 3.835351110162647e-06,
+        "relative_to_initial": 2.9253037231346447e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-2x8",
+      "binary_sha256": "69c9a13b5981886ea75380a7f937af314c52e4d4017bb6b9cbee49c371dd5bdf",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.7159735667497594e-10,
+        "initial_correction_norm": 281.5026783355974,
+        "source_load_norm": 28410.605957491203,
+        "declared_roundoff_bound": 2.8410605957491203e-06,
+        "relative_to_initial": 9.648126912355246e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-2x8",
+      "binary_sha256": "1e05181dc02e83789d48bce15b61e0de6c9d82373942362d7a54c9ab03218e24",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.3241499962131216e-10,
+        "initial_correction_norm": 301.34212915261946,
+        "source_load_norm": 27775.927601716834,
+        "declared_roundoff_bound": 2.7775927601716833e-06,
+        "relative_to_initial": 7.712662025547776e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-2x8",
+      "binary_sha256": "1d5d6e79858d44dd7738c6a91451297f922ef435fbfe354b871cb47ea513da37",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.56971065961227e-11,
+        "initial_correction_norm": 275.07552931397805,
+        "source_load_norm": 28476.420837640908,
+        "declared_roundoff_bound": 2.847642083764091e-06,
+        "relative_to_initial": 3.115402769917272e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-2x16",
+      "binary_sha256": "5a1a08616718df3dc70160a05d9eb639318d5f889c5a6d2aca4e5ebba021e98e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.404890385651346e-11,
+        "initial_correction_norm": 211.7958646357957,
+        "source_load_norm": 20242.55014498245,
+        "declared_roundoff_bound": 2.024255014498245e-06,
+        "relative_to_initial": 3.496239361606422e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-2x16",
+      "binary_sha256": "6cde67094ddabd0e80965e1caefec2d26e26b587c695e7de789989e3a60368d0",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.492111844912588e-10,
+        "initial_correction_norm": 222.62102415288416,
+        "source_load_norm": 19974.135979084702,
+        "declared_roundoff_bound": 1.99741359790847e-06,
+        "relative_to_initial": 6.702474982272499e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-2x16",
+      "binary_sha256": "0a4df1d120c80677d9f96b0278ff268009f6b2b645ac3593efbabdb2f3157554",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.692641829642255e-11,
+        "initial_correction_norm": 211.42629020334573,
+        "source_load_norm": 20242.301202784904,
+        "declared_roundoff_bound": 2.0242301202784905e-06,
+        "relative_to_initial": 2.6924947811207307e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-2x32",
+      "binary_sha256": "591d0660ee1ab1f5854ced57eaa435903134215a6fc911f9cee4793d13cd2164",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.5934535162501347e-10,
+        "initial_correction_norm": 164.8081668591427,
+        "source_load_norm": 14380.401731899774,
+        "declared_roundoff_bound": 1.4380401731899774e-06,
+        "relative_to_initial": 9.668534919219255e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-2x32",
+      "binary_sha256": "460af13c4bd605eb35b9e336cbc8b631dd05927e91a24bb19dc8754031519f56",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.3830025882727583e-10,
+        "initial_correction_norm": 167.13342958377407,
+        "source_load_norm": 14241.206986345436,
+        "declared_roundoff_bound": 1.4241206986345437e-06,
+        "relative_to_initial": 8.274841195546347e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-2x32",
+      "binary_sha256": "94f94402c842a5cfb94570df8dde3df2e2486cbd28dfcb529bd1e9ca0587054c",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.724997051627508e-11,
+        "initial_correction_norm": 164.4534923947975,
+        "source_load_norm": 14365.685203249146,
+        "declared_roundoff_bound": 1.4365685203249147e-06,
+        "relative_to_initial": 4.089300235402148e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-2x64",
+      "binary_sha256": "54ffb4aa63d55f9a818ad62a831069f83b9a42c228a4175baee85c32f368bd86",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.5638178255215384e-11,
+        "initial_correction_norm": 120.98147906552968,
+        "source_load_norm": 10167.946114267826,
+        "declared_roundoff_bound": 1.0167946114267826e-06,
+        "relative_to_initial": 3.7723276825286156e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-2x64",
+      "binary_sha256": "b0b3579bf4684e2fdc72fab54e20e83cd2f42b4c0d1e2c02c68c30400cc33bef",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.688394864612117e-11,
+        "initial_correction_norm": 122.06750626785498,
+        "source_load_norm": 10111.374385555087,
+        "declared_roundoff_bound": 1.0111374385555088e-06,
+        "relative_to_initial": 6.298477866616961e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-2x64",
+      "binary_sha256": "34e5e4d17616abec80033ff12342fdaea10a67a2c935d1b08de0a5d4883dfa39",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.84361367195022e-11,
+        "initial_correction_norm": 121.06279262745295,
+        "source_load_norm": 10164.993465769312,
+        "declared_roundoff_bound": 1.0164993465769312e-06,
+        "relative_to_initial": 7.304980729434113e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-4x1",
+      "binary_sha256": "ae051c16e3f7611fb27c53508229cad626ee2d2d9264cc3cf96aee6525f409f6",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.542528049928389e-10,
+        "initial_correction_norm": 607.4742210184535,
+        "source_load_norm": 45506.40935941273,
+        "declared_roundoff_bound": 4.550640935941274e-06,
+        "relative_to_initial": 4.1854089638005455e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-4x1",
+      "binary_sha256": "ed81b52e6f0728fc83a260e6e1ae12f49180813b88832e9cdfcc0223454b3a30",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.7549358254506904e-10,
+        "initial_correction_norm": 836.6025273767985,
+        "source_load_norm": 43805.08260302405,
+        "declared_roundoff_bound": 4.380508260302405e-06,
+        "relative_to_initial": 4.488315182628536e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-4x1",
+      "binary_sha256": "ae051c16e3f7611fb27c53508229cad626ee2d2d9264cc3cf96aee6525f409f6",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.542528049928389e-10,
+        "initial_correction_norm": 607.4742210184535,
+        "source_load_norm": 45506.40935941273,
+        "declared_roundoff_bound": 4.550640935941274e-06,
+        "relative_to_initial": 4.1854089638005455e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-4x2",
+      "binary_sha256": "cef7f7de8dcb850c6ae061d3c0c125b557dece338df3887ea7c9de68f1bdcec6",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.340965670758583e-11,
+        "initial_correction_norm": 242.54300151782064,
+        "source_load_norm": 38989.29743913133,
+        "declared_roundoff_bound": 3.898929743913134e-06,
+        "relative_to_initial": 3.851261678260489e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-4x2",
+      "binary_sha256": "90e16b66ebb12bc17f90ddb59443cc4db99e31c49b943de074eb670278f0a0ac",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.5921963108831228e-10,
+        "initial_correction_norm": 301.26489084627354,
+        "source_load_norm": 37907.245130412855,
+        "declared_roundoff_bound": 3.7907245130412855e-06,
+        "relative_to_initial": 5.285037716842925e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-4x2",
+      "binary_sha256": "cef7f7de8dcb850c6ae061d3c0c125b557dece338df3887ea7c9de68f1bdcec6",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.340965670758583e-11,
+        "initial_correction_norm": 242.54300151782064,
+        "source_load_norm": 38989.29743913133,
+        "declared_roundoff_bound": 3.898929743913134e-06,
+        "relative_to_initial": 3.851261678260489e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-4x4",
+      "binary_sha256": "7b5a51001721b9b2d69280f1298059e9e5eb69741f55ab8950d1ebb3680ce353",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.0796821842923213e-10,
+        "initial_correction_norm": 110.42581718720201,
+        "source_load_norm": 29271.34286849392,
+        "declared_roundoff_bound": 2.9271342868493923e-06,
+        "relative_to_initial": 9.777443461993714e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-4x4",
+      "binary_sha256": "66a9f23cd46ff7c0c21c610611efd264b508ad2900a71729ce10f00eec9460e7",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.09037606705287e-11,
+        "initial_correction_norm": 112.97105469001998,
+        "source_load_norm": 28962.265781537135,
+        "declared_roundoff_bound": 2.8962265781537136e-06,
+        "relative_to_initial": 5.391094279649053e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-4x4",
+      "binary_sha256": "34c0f0c1b919773a7f8cfc0fc7457e613f757f0f5b4c2d8b7a570c98816592b4",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.971564043930403e-11,
+        "initial_correction_norm": 83.87250016986326,
+        "source_load_norm": 29144.733492730255,
+        "declared_roundoff_bound": 2.9144733492730254e-06,
+        "relative_to_initial": 4.73523984129121e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-4x8",
+      "binary_sha256": "5535504179ae94582766b6538e6c0c266217594ed4eb399fd252b58188815d2e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.177980567369185e-11,
+        "initial_correction_norm": 83.72534664459607,
+        "source_load_norm": 21516.915909887768,
+        "declared_roundoff_bound": 2.151691590988777e-06,
+        "relative_to_initial": 9.767628197568078e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-4x8",
+      "binary_sha256": "c0f700ffc2ac7a7cbccdd4b6bfae04cd8d2559816ff7c6eba762b53f96bdac7e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.0726564865351741e-10,
+        "initial_correction_norm": 110.37392886717842,
+        "source_load_norm": 21211.64688444181,
+        "declared_roundoff_bound": 2.121164688444181e-06,
+        "relative_to_initial": 9.718386375699152e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-4x8",
+      "binary_sha256": "5f9f87d0bc7ccb5ed03f900465116239f5e2ca5b7b2ab049802fbe3c4be2742c",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.7465721310841044e-11,
+        "initial_correction_norm": 83.86780921815587,
+        "source_load_norm": 21516.52306676751,
+        "declared_roundoff_bound": 2.151652306676751e-06,
+        "relative_to_initial": 3.27488240922063e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-4x16",
+      "binary_sha256": "579ac63a2029b025582e5b27cbff404c21ac2854c6629bdef988798d77af248f",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.648205041381927e-11,
+        "initial_correction_norm": 64.81666158349826,
+        "source_load_norm": 15395.720152121647,
+        "declared_roundoff_bound": 1.5395720152121647e-06,
+        "relative_to_initial": 4.0856856503947687e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-4x16",
+      "binary_sha256": "0c1b677d44da1524e6bdfb05a44658092b9a9ecaea2ab80c288275474ebaf51c",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.199541723820016e-11,
+        "initial_correction_norm": 76.54863792775629,
+        "source_load_norm": 15254.034599585628,
+        "declared_roundoff_bound": 1.5254034599585628e-06,
+        "relative_to_initial": 5.486109011872144e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-4x16",
+      "binary_sha256": "03ae6854ef752e8e3733f0d9158d759e129c934e8c8819821ce2509baf8f3bd5",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.903068173810696e-11,
+        "initial_correction_norm": 64.46866372376394,
+        "source_load_norm": 15379.344935505484,
+        "declared_roundoff_bound": 1.5379344935505483e-06,
+        "relative_to_initial": 6.054209825931257e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-4x32",
+      "binary_sha256": "0c0ee8eb213258cc6416c3ebf1cbc3c3ecc71129115aade5bf3be99af5629a95",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.7072218203732046e-11,
+        "initial_correction_norm": 51.38682348976811,
+        "source_load_norm": 10988.493988965933,
+        "declared_roundoff_bound": 1.0988493988965933e-06,
+        "relative_to_initial": 5.268319068043295e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-4x32",
+      "binary_sha256": "c1e2375c04cab9064d144c20830b95e9b6fd799b28bbeecb69e8bdfb1b19c035",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.5907539179149535e-11,
+        "initial_correction_norm": 56.229295346880434,
+        "source_load_norm": 10876.033061645661,
+        "declared_roundoff_bound": 1.0876033061645661e-06,
+        "relative_to_initial": 9.942777841026467e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-4x32",
+      "binary_sha256": "a1bd402472451e3181d2db52246f4af102ed548bf2856acc6c94544d7a03a0aa",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.591721173604997e-11,
+        "initial_correction_norm": 51.22715968725888,
+        "source_load_norm": 10981.701637981341,
+        "declared_roundoff_bound": 1.0981701637981342e-06,
+        "relative_to_initial": 8.963450641490554e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-4x64",
+      "binary_sha256": "c3545d4b565a10631e40da5feab85b448bcc3cb409efbbe26edca3374bc611e0",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.3727275524281557e-11,
+        "initial_correction_norm": 40.443145344364865,
+        "source_load_norm": 7789.643360247862,
+        "declared_roundoff_bound": 7.789643360247862e-07,
+        "relative_to_initial": 5.866822504097741e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-4x64",
+      "binary_sha256": "f10947f7eda6925dd4aa69f8b178dea3ad1808197bfa257d4cf083571fa9fccd",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.6819799839939094e-11,
+        "initial_correction_norm": 41.75758100520262,
+        "source_load_norm": 7722.134747026257,
+        "declared_roundoff_bound": 7.722134747026257e-07,
+        "relative_to_initial": 8.817512641680963e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-4x64",
+      "binary_sha256": "d6a0055bd81d1014e9e6682b56e304b7acb5be38345bb8b85291dd234f62ca10",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.789800035529067e-11,
+        "initial_correction_norm": 40.487217518636264,
+        "source_load_norm": 7782.523534571918,
+        "declared_roundoff_bound": 7.782523534571918e-07,
+        "relative_to_initial": 9.36048527855643e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-8x1",
+      "binary_sha256": "ebac1f279978255e5561f4bc677137368d17ec7a7b5d36ac6c4d466932111a1b",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.620775833518998e-11,
+        "initial_correction_norm": 660.4583083708195,
+        "source_load_norm": 32639.30725432932,
+        "declared_roundoff_bound": 3.2639307254329323e-06,
+        "relative_to_initial": 1.0024517444334596e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-8x1",
+      "binary_sha256": "60c78850a517aa06f89e4555fb5f0cf7a4da7f0f570838aa767478847ef938db",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2629793874161731e-10,
+        "initial_correction_norm": 726.9744069595481,
+        "source_load_norm": 32064.05884049111,
+        "declared_roundoff_bound": 3.206405884049111e-06,
+        "relative_to_initial": 1.7373092853411146e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-8x1",
+      "binary_sha256": "ebac1f279978255e5561f4bc677137368d17ec7a7b5d36ac6c4d466932111a1b",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.620775833518998e-11,
+        "initial_correction_norm": 660.4583083708195,
+        "source_load_norm": 32639.30725432932,
+        "declared_roundoff_bound": 3.2639307254329323e-06,
+        "relative_to_initial": 1.0024517444334596e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-8x2",
+      "binary_sha256": "034afbab2366c224d2431b5ecf5a440d88f2d12933f7ed6be41fd13b2f71c454",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.269038882920528e-11,
+        "initial_correction_norm": 269.7819059662936,
+        "source_load_norm": 28184.80488321727,
+        "declared_roundoff_bound": 2.8184804883217274e-06,
+        "relative_to_initial": 1.5824037077764213e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-8x2",
+      "binary_sha256": "bf9feb5e2d4c3a6b2c28462faeae77d0adfc6370bad930bb42d51c541b9b1d23",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.2910661314905226e-10,
+        "initial_correction_norm": 291.901590391935,
+        "source_load_norm": 27747.85315765738,
+        "declared_roundoff_bound": 2.774785315765738e-06,
+        "relative_to_initial": 7.848762072225499e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-8x2",
+      "binary_sha256": "034afbab2366c224d2431b5ecf5a440d88f2d12933f7ed6be41fd13b2f71c454",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.269038882920528e-11,
+        "initial_correction_norm": 269.7819059662936,
+        "source_load_norm": 28184.80488321727,
+        "declared_roundoff_bound": 2.8184804883217274e-06,
+        "relative_to_initial": 1.5824037077764213e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-8x4",
+      "binary_sha256": "b135da9e873d6feed253bfb540e7919c1fc72101363739a8646dca465de5363a",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.555600926526023e-11,
+        "initial_correction_norm": 87.9531524942345,
+        "source_load_norm": 21566.503809374437,
+        "declared_roundoff_bound": 2.1566503809374436e-06,
+        "relative_to_initial": 6.3165455347268e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-8x4",
+      "binary_sha256": "895ae9d3231a46650925d37b420851cf400716f77f0e2fe03f484dbeb2999b82",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.452228875021226e-11,
+        "initial_correction_norm": 99.37537288922053,
+        "source_load_norm": 21200.25302955954,
+        "declared_roundoff_bound": 2.120025302955954e-06,
+        "relative_to_initial": 5.486499035429171e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-8x4",
+      "binary_sha256": "0eded20bdbc018fc7309fa00ed60d66f2707faabadd81c929bd0f38881ad9d79",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.3694051245950315e-11,
+        "initial_correction_norm": 87.664554368221,
+        "source_load_norm": 21454.845866798885,
+        "declared_roundoff_bound": 2.1454845866798886e-06,
+        "relative_to_initial": 4.984232402804491e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-8x8",
+      "binary_sha256": "6bf73bec49712d7034ce90a81ddecf020b495b07cd726eac473651821dca31da",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.8599491339355408e-11,
+        "initial_correction_norm": 45.077950459174936,
+        "source_load_norm": 15770.423658741594,
+        "declared_roundoff_bound": 1.5770423658741595e-06,
+        "relative_to_initial": 4.126072980225693e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-8x8",
+      "binary_sha256": "db1136040c3b6c6331de68a861ab1bb5d5b0d334ca105889258ee29aa9c1b1e3",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.056572542784342e-11,
+        "initial_correction_norm": 53.28114376363931,
+        "source_load_norm": 15526.536968719096,
+        "declared_roundoff_bound": 1.5526536968719096e-06,
+        "relative_to_initial": 5.736687178382686e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-8x8",
+      "binary_sha256": "448512b28e7f6e3ac53f328890103382679c1fb07eff8f7acdedcb0fa0bea9ed",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.707990119335464e-11,
+        "initial_correction_norm": 45.18089036772,
+        "source_load_norm": 15744.826115621481,
+        "declared_roundoff_bound": 1.574482611562148e-06,
+        "relative_to_initial": 3.7803374511533687e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-8x16",
+      "binary_sha256": "1590d3a570af1089c776521902eb8b3752e9d430dce89e1640efe9703997ab32",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2591241793308999e-11,
+        "initial_correction_norm": 28.58498202465717,
+        "source_load_norm": 11311.050519982457,
+        "declared_roundoff_bound": 1.1311050519982458e-06,
+        "relative_to_initial": 4.4048450974878687e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-8x16",
+      "binary_sha256": "830995037455d90b60947314781a94e559d8b3f89f9a3bbaf98566d642a49efd",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.8917847780030935e-11,
+        "initial_correction_norm": 32.970747941751874,
+        "source_load_norm": 11165.613816090266,
+        "declared_roundoff_bound": 1.1165613816090267e-06,
+        "relative_to_initial": 5.737767251580812e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-8x16",
+      "binary_sha256": "9305c79145c1d7552475672316c22cc0ad121b2c1e4f1a5acca96fadc4ed4d70",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2136848305818427e-11,
+        "initial_correction_norm": 28.758487230552863,
+        "source_load_norm": 11295.406652107871,
+        "declared_roundoff_bound": 1.129540665210787e-06,
+        "relative_to_initial": 4.2202665976547975e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-8x32",
+      "binary_sha256": "ba0b9fa8672ebb7d34821d53b6ebd6b449ce8b45080c8b43b2fbf412dc1ca0ea",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.1807354522689988e-11,
+        "initial_correction_norm": 22.51401453501475,
+        "source_load_norm": 8051.299163460083,
+        "declared_roundoff_bound": 8.051299163460083e-07,
+        "relative_to_initial": 5.244446522110346e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-8x32",
+      "binary_sha256": "01a86311a4f3731e4a474aa385049f84d07ae31f2cd1035a76f87319f8d0f1ec",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.8922987837035565e-11,
+        "initial_correction_norm": 23.68836918205172,
+        "source_load_norm": 7961.006812235508,
+        "declared_roundoff_bound": 7.961006812235508e-07,
+        "relative_to_initial": 7.988303327935802e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-8x32",
+      "binary_sha256": "b347a6245872622e07a9cecbfb0d8265642f68def35b6b0b6f3a820b2b24d041",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2416173563094266e-11,
+        "initial_correction_norm": 22.545347335743255,
+        "source_load_norm": 8040.089542345306,
+        "declared_roundoff_bound": 8.040089542345306e-07,
+        "relative_to_initial": 5.507199946043742e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-8x64",
+      "binary_sha256": "7f90aff4ff232f163474c77bbb69a1497c8aa27a3d453ece648fa932714a5591",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.982819425250551e-12,
+        "initial_correction_norm": 17.723871254034055,
+        "source_load_norm": 5705.842772571683,
+        "declared_roundoff_bound": 5.705842772571683e-07,
+        "relative_to_initial": 4.5039931236431293e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-8x64",
+      "binary_sha256": "3685e51528bf898adf342c462abcc84ab2c99587a0604c6d0906143b41044446",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.595312312863132e-11,
+        "initial_correction_norm": 18.319760754076412,
+        "source_load_norm": 5652.42162263574,
+        "declared_roundoff_bound": 5.652421622635741e-07,
+        "relative_to_initial": 8.70815036439901e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-8x64",
+      "binary_sha256": "d407d21176cf49d4df331cd3fe5a601ef955a40f59dffad5342a91ac810edc58",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.160550998800957e-12,
+        "initial_correction_norm": 17.708656937851064,
+        "source_load_norm": 5703.6330736710825,
+        "declared_roundoff_bound": 5.703633073671083e-07,
+        "relative_to_initial": 5.172922503920043e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-16x1",
+      "binary_sha256": "324a415f33fbdf8a19be69f38318ad7fccea3cda1b3d43cc7b4e8176ab214fce",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.72363813433929e-10,
+        "initial_correction_norm": 548.8295121477116,
+        "source_load_norm": 23412.8941033549,
+        "declared_roundoff_bound": 2.34128941033549e-06,
+        "relative_to_initial": 6.784690057514824e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-16x1",
+      "binary_sha256": "7a83a20c5f3c8006b0b5aab1b3238f9cc7abddbf3c7cb920db77a1e128863f6b",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.9732077399707185e-10,
+        "initial_correction_norm": 571.1316793194391,
+        "source_load_norm": 23048.364001594768,
+        "declared_roundoff_bound": 2.3048364001594767e-06,
+        "relative_to_initial": 3.4549085813660245e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-16x1",
+      "binary_sha256": "4a77e163d7d7f4122beecb965d27df5bce10547663376638571c4a2688359c59",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.070454011312608e-10,
+        "initial_correction_norm": 548.7505526832081,
+        "source_load_norm": 23372.975266302597,
+        "declared_roundoff_bound": 2.33729752663026e-06,
+        "relative_to_initial": 7.417676376651356e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-16x2",
+      "binary_sha256": "a0fd827ef65fb611af8bf46a2ab8470bd48fcfd04d6184f1405ca1623fda3098",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.1398661909662443e-10,
+        "initial_correction_norm": 228.12266425465876,
+        "source_load_norm": 20202.434686541284,
+        "declared_roundoff_bound": 2.0202434686541287e-06,
+        "relative_to_initial": 4.996724874709444e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-16x2",
+      "binary_sha256": "02fa2976019125aae945d628133924a3cf7ef2f1ad945ca8888a04d95b822808",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.3565084537136453e-10,
+        "initial_correction_norm": 223.81428903707237,
+        "source_load_norm": 19946.542185519986,
+        "declared_roundoff_bound": 1.9946542185519985e-06,
+        "relative_to_initial": 6.060866174138482e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-16x2",
+      "binary_sha256": "a0fd827ef65fb611af8bf46a2ab8470bd48fcfd04d6184f1405ca1623fda3098",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.1398661909662443e-10,
+        "initial_correction_norm": 228.12266425465876,
+        "source_load_norm": 20202.434686541284,
+        "declared_roundoff_bound": 2.0202434686541287e-06,
+        "relative_to_initial": 4.996724874709444e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-16x4",
+      "binary_sha256": "3f2c58792827aa15306ba6906da57310fab47106dd4b43b65c3a7fce6d766ae5",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.637155942273545e-11,
+        "initial_correction_norm": 83.41926063485889,
+        "source_load_norm": 15475.04113389688,
+        "declared_roundoff_bound": 1.547504113389688e-06,
+        "relative_to_initial": 4.3600913201497085e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-16x4",
+      "binary_sha256": "ec93d62aa25466230804407299949e10b86546ed0f4144dd91fefaa7b3e3e0dd",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.639123542351861e-11,
+        "initial_correction_norm": 88.4676065304604,
+        "source_load_norm": 15239.775756600571,
+        "declared_roundoff_bound": 1.5239775756600572e-06,
+        "relative_to_initial": 5.243866907097298e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-16x4",
+      "binary_sha256": "1337210d61886049957c1ad927731047541e282ae7c418b91f25da4d7efb2805",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.898812592446259e-11,
+        "initial_correction_norm": 82.98439924338855,
+        "source_load_norm": 15427.778609574189,
+        "declared_roundoff_bound": 1.542777860957419e-06,
+        "relative_to_initial": 8.313384992054268e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-16x8",
+      "binary_sha256": "e4ef3b2f24a0c2af4123dba502edebf84eae4ed34d6f259acf882e9860580695",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.572702943197783e-11,
+        "initial_correction_norm": 26.042483048845476,
+        "source_load_norm": 11284.3336597484,
+        "declared_roundoff_bound": 1.12843336597484e-06,
+        "relative_to_initial": 6.038989985125495e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-16x8",
+      "binary_sha256": "be2578e1840dee0efd36542480b67de2a03f74aa17fdb7760ea0e8cbbe8e53c1",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.1649421371973912e-11,
+        "initial_correction_norm": 30.069422964298713,
+        "source_load_norm": 11161.046083402556,
+        "declared_roundoff_bound": 1.1161046083402557e-06,
+        "relative_to_initial": 7.199812712627764e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-16x8",
+      "binary_sha256": "78be9f212721fbf2b020510e43ae54127a2d734a74f7eb3dc7bf222f858a8b99",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.6099581640700998e-11,
+        "initial_correction_norm": 26.160070209771003,
+        "source_load_norm": 11264.643484502412,
+        "declared_roundoff_bound": 1.1264643484502412e-06,
+        "relative_to_initial": 6.154257810320276e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-16x16",
+      "binary_sha256": "5dc0e5f960e719f3129b8ba21e35442a8a79ebafb54af42a5bbad01e495c116b",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.867357444202413e-12,
+        "initial_correction_norm": 10.13918008262542,
+        "source_load_norm": 8124.401742634183,
+        "declared_roundoff_bound": 8.124401742634183e-07,
+        "relative_to_initial": 5.786816484556541e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-16x16",
+      "binary_sha256": "bcced2d00134b84ccbcf9b695dd16b9ff088e270a6644a2b960a668050b88885",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.1870956376055846e-11,
+        "initial_correction_norm": 13.123523229944823,
+        "source_load_norm": 8026.178825005217,
+        "declared_roundoff_bound": 8.026178825005217e-07,
+        "relative_to_initial": 9.045555959370034e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-16x16",
+      "binary_sha256": "826fa4836c5bcb55b40dc2a8190e04793341ce32cb2f54d9b6dfda006d0037d7",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.458700731596411e-12,
+        "initial_correction_norm": 10.084356309014197,
+        "source_load_norm": 8110.435286151504,
+        "declared_roundoff_bound": 8.110435286151505e-07,
+        "relative_to_initial": 7.396308205541323e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-16x32",
+      "binary_sha256": "a223c0c5d27e2179fcecd7ff4cc62400caa9fd1ecf3524de7487baff0200f482",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.1552873369221906e-12,
+        "initial_correction_norm": 5.433269883543592,
+        "source_load_norm": 5783.570067101743,
+        "declared_roundoff_bound": 5.783570067101743e-07,
+        "relative_to_initial": 5.807345124671599e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-16x32",
+      "binary_sha256": "e1fb5a430ad55ee7b5ae468dcadb4f9f4e346c480accfe66e6d81ead509b0dd6",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.77831111641051e-12,
+        "initial_correction_norm": 6.672886903659961,
+        "source_load_norm": 5722.58619049079,
+        "declared_roundoff_bound": 5.72258619049079e-07,
+        "relative_to_initial": 7.160785407272062e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-16x32",
+      "binary_sha256": "8007e56134bcfdee16ff5c1fea9619928d3fb0cfe6e162b789cea6b4a492e167",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.951492488942536e-12,
+        "initial_correction_norm": 5.280299235825851,
+        "source_load_norm": 5773.537941850799,
+        "declared_roundoff_bound": 5.773537941850799e-07,
+        "relative_to_initial": 9.377295239912878e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-16x64",
+      "binary_sha256": "4548ad7f2a92d55953760932153f9fa2840f97ed86d39dc3b81af8be3b4939c9",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.2971532103593915e-12,
+        "initial_correction_norm": 4.017152768863391,
+        "source_load_norm": 4103.314292727045,
+        "declared_roundoff_bound": 4.1033142927270447e-07,
+        "relative_to_initial": 5.71836159223127e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-16x64",
+      "binary_sha256": "a09e2e343cd7e8c3d769434fbaad13c7ffeecef54b78d69486bb6e2bf1d11e92",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.373002806648757e-12,
+        "initial_correction_norm": 4.535318861572373,
+        "source_load_norm": 4063.10095965286,
+        "declared_roundoff_bound": 4.06310095965286e-07,
+        "relative_to_initial": 9.6421066304755e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-16x64",
+      "binary_sha256": "bdb466845c8c454685166c70ca1e1ae25f89de7282bda237d50ef5cd67cd3543",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.5886096791077232e-12,
+        "initial_correction_norm": 4.002065043711567,
+        "source_load_norm": 4097.738244303338,
+        "declared_roundoff_bound": 4.0977382443033387e-07,
+        "relative_to_initial": 6.468184926617317e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-32x1",
+      "binary_sha256": "e9de2b305bc4a82a99bdaa20020231db61d356dd9c90fff3a0c655ad263b1113",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.510684854506143e-10,
+        "initial_correction_norm": 397.40921304084765,
+        "source_load_norm": 16614.09063230168,
+        "declared_roundoff_bound": 1.661409063230168e-06,
+        "relative_to_initial": 8.833929207739072e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-32x1",
+      "binary_sha256": "0a8605a2ce355df27d3ba4fa0331ef4c30f17a02bad8c1554c511259d46f77ce",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.5800260395006426e-10,
+        "initial_correction_norm": 405.25106171271085,
+        "source_load_norm": 16429.17173005192,
+        "declared_roundoff_bound": 1.642917173005192e-06,
+        "relative_to_initial": 6.366488044711566e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-32x1",
+      "binary_sha256": "8eb1e50563d17b932745499e6eaf90c0068110d812f28019f3bd4e0f1e8d99b0",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.0624779970590873e-10,
+        "initial_correction_norm": 397.4046649292342,
+        "source_load_norm": 16571.30184168204,
+        "declared_roundoff_bound": 1.6571301841682042e-06,
+        "relative_to_initial": 7.706195390545862e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-32x2",
+      "binary_sha256": "51c38cec9d3f8acc907aadf30d62ba556a9ef8385d5913e1a5b2f9b6ed14c208",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.241647905405964e-11,
+        "initial_correction_norm": 165.4594876149325,
+        "source_load_norm": 14405.89042776934,
+        "declared_roundoff_bound": 1.440589042776934e-06,
+        "relative_to_initial": 5.585444533053128e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-32x2",
+      "binary_sha256": "0f25312b5d5e063b52cb918946f1d3f616785d155812fd5b3db6b4f6febdd786",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.448324195303393e-10,
+        "initial_correction_norm": 164.09100310614673,
+        "source_load_norm": 14218.44526152862,
+        "declared_roundoff_bound": 1.4218445261528622e-06,
+        "relative_to_initial": 8.826347379731142e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-32x2",
+      "binary_sha256": "51c38cec9d3f8acc907aadf30d62ba556a9ef8385d5913e1a5b2f9b6ed14c208",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.241647905405964e-11,
+        "initial_correction_norm": 165.4594876149325,
+        "source_load_norm": 14405.89042776934,
+        "declared_roundoff_bound": 1.440589042776934e-06,
+        "relative_to_initial": 5.585444533053128e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-32x4",
+      "binary_sha256": "b8e0d453fbf9f7d61b5c113a5799310743adafa433d6c6e3a9910443ee07d1db",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.719431614426235e-11,
+        "initial_correction_norm": 69.52125837215077,
+        "source_load_norm": 11021.77755314833,
+        "declared_roundoff_bound": 1.102177755314833e-06,
+        "relative_to_initial": 5.350063709313102e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-32x4",
+      "binary_sha256": "7a381e2b90ec2d8b099fcf7eae46c871ee4ea7904a9a1fb31215857f47ab60c6",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.659550196391452e-11,
+        "initial_correction_norm": 72.13631760095952,
+        "source_load_norm": 10863.297597716719,
+        "declared_roundoff_bound": 1.086329759771672e-06,
+        "relative_to_initial": 6.459367973517785e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-32x4",
+      "binary_sha256": "81fd3c8c17be9c5c747832122cb6cb0f15256320e875db40c5228c2a6858d875",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.678673581005151e-11,
+        "initial_correction_norm": 69.58480791347456,
+        "source_load_norm": 10995.167763430502,
+        "declared_roundoff_bound": 1.0995167763430501e-06,
+        "relative_to_initial": 8.160795080538722e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-32x8",
+      "binary_sha256": "1692b97aaf9b83445db254831a783cc213b7cc619168a5673318905a707b4d8b",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.4119129005569149e-11,
+        "initial_correction_norm": 22.462689864964208,
+        "source_load_norm": 8030.381128293931,
+        "declared_roundoff_bound": 8.030381128293931e-07,
+        "relative_to_initial": 6.285591391969141e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-32x8",
+      "binary_sha256": "50aa790e9ddd7d377ab4cece5726e5caac426bc61bba4e3f2443ae7b80e083d2",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.519281012202346e-11,
+        "initial_correction_norm": 24.111055181937797,
+        "source_load_norm": 7955.788230945082,
+        "declared_roundoff_bound": 7.955788230945082e-07,
+        "relative_to_initial": 6.301180104885986e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-32x8",
+      "binary_sha256": "a72dd58854e453b5b11bf2300059b4efbb2dc4aa4a0ba8dd42c95145d3642e39",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.666262504803224e-11,
+        "initial_correction_norm": 22.46379754154569,
+        "source_load_norm": 8023.597931195745,
+        "declared_roundoff_bound": 8.023597931195746e-07,
+        "relative_to_initial": 7.417545950196324e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-32x16",
+      "binary_sha256": "5b5f0dc257a28109b1bd52965bed83817531a41e1f266c1b8e7d12a74d4ef4e5",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.7446810796905815e-12,
+        "initial_correction_norm": 7.204098609962919,
+        "source_load_norm": 5777.550935238819,
+        "declared_roundoff_bound": 5.777550935238819e-07,
+        "relative_to_initial": 6.586085694508564e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-32x16",
+      "binary_sha256": "a8efc13396a42b9bd73445113c887fb6003efe193efcd47c652b9eb8500cc12e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.072942298796556e-12,
+        "initial_correction_norm": 8.24726429542028,
+        "source_load_norm": 5721.167918649454,
+        "declared_roundoff_bound": 5.721167918649454e-07,
+        "relative_to_initial": 4.938537377853003e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-32x16",
+      "binary_sha256": "9bf10b2e79ccbe47258c85759e85b47d3d923f1bd25333c47e72d50f39fd1f08",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.717463161139838e-12,
+        "initial_correction_norm": 7.22494095754938,
+        "source_load_norm": 5771.021139339573,
+        "declared_roundoff_bound": 5.771021139339574e-07,
+        "relative_to_initial": 7.913508490565075e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-32x32",
+      "binary_sha256": "8340e6ea157b600d98e7b7f92d1997c39df633e03f8b289c743c8d508fb624c7",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.6574019668277422e-12,
+        "initial_correction_norm": 2.3454729075866507,
+        "source_load_norm": 4120.8083281258305,
+        "declared_roundoff_bound": 4.120808328125831e-07,
+        "relative_to_initial": 7.06638717278175e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-32x32",
+      "binary_sha256": "deb9279ef744aca31cb0901eae8362afd043293670890c6e2aab5db6192e4e92",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.7036964698559583e-12,
+        "initial_correction_norm": 2.971607831958993,
+        "source_load_norm": 4079.1274288044015,
+        "declared_roundoff_bound": 4.0791274288044014e-07,
+        "relative_to_initial": 5.733248013190284e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-32x32",
+      "binary_sha256": "be348c393eb5f5cd9619dbaade4257f83f940be87cb361755e899871c4a7fc2e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.9069626412395306e-12,
+        "initial_correction_norm": 2.3732155272033864,
+        "source_load_norm": 4115.19708006127,
+        "declared_roundoff_bound": 4.11519708006127e-07,
+        "relative_to_initial": 8.035353803228772e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-32x64",
+      "binary_sha256": "8893279ac0c1a59e0b462689f194d31025ccb54de21ae53282b9ac926aeea5b0",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.1509015882347113e-12,
+        "initial_correction_norm": 1.0508399703886526,
+        "source_load_norm": 2928.5905350314915,
+        "declared_roundoff_bound": 2.9285905350314916e-07,
+        "relative_to_initial": 1.0952206051022697e-12
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-32x64",
+      "binary_sha256": "28a0c5cff00f6b594c2579fceca35e2020b3a5c29257dee307931b69d59184a9",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.1683590047641895e-12,
+        "initial_correction_norm": 1.3276771970794798,
+        "source_load_norm": 2896.2229123825464,
+        "declared_roundoff_bound": 2.8962229123825467e-07,
+        "relative_to_initial": 8.800023133139998e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-32x64",
+      "binary_sha256": "9747d0fcb55595848628d732e7bc18394c0b5400246365f1d43dcbdb77caa3b1",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.015028833529201e-12,
+        "initial_correction_norm": 1.036541521646517,
+        "source_load_norm": 2921.3694007921194,
+        "declared_roundoff_bound": 2.9213694007921196e-07,
+        "relative_to_initial": 9.792457053884886e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-64x1",
+      "binary_sha256": "3ec2add403a38b100e201ae624d8e589c2beb9ad0a61e58316cfb90c9223205c",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.726200353637112e-10,
+        "initial_correction_norm": 290.95488670212984,
+        "source_load_norm": 11809.746825952418,
+        "declared_roundoff_bound": 1.1809746825952419e-06,
+        "relative_to_initial": 9.369838687150517e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-64x1",
+      "binary_sha256": "3434d3d8c327766829d9ddc48136a5655fc960f9818a4c4b68c9e67e9c7169d9",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.2964044584709257e-10,
+        "initial_correction_norm": 289.27342297878084,
+        "source_load_norm": 11663.545240472633,
+        "declared_roundoff_bound": 1.1663545240472633e-06,
+        "relative_to_initial": 7.938525547296388e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-64x1",
+      "binary_sha256": "a96e1d17714564ed8a05cce32933cba1290a8b161132a0ca853913061273bd14",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.608924364051508e-11,
+        "initial_correction_norm": 290.9478849873328,
+        "source_load_norm": 11804.756402588358,
+        "declared_roundoff_bound": 1.1804756402588358e-06,
+        "relative_to_initial": 3.3026273294510654e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-64x2",
+      "binary_sha256": "7e1a4eb78a15fec0dbffad8661e361e5d620246932c2353e14d00960f87a4588",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.0016565547157486e-11,
+        "initial_correction_norm": 118.8332741183141,
+        "source_load_norm": 10176.208548938495,
+        "declared_roundoff_bound": 1.0176208548938496e-06,
+        "relative_to_initial": 4.2089697450698397e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-64x2",
+      "binary_sha256": "8952d58fd2dcce93ffb6feeef7749e665b9c4e69e3d694d04cc66bc58afcfa34",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.157615348675739e-11,
+        "initial_correction_norm": 118.68241745529714,
+        "source_load_norm": 10094.175144606528,
+        "declared_roundoff_bound": 1.0094175144606528e-06,
+        "relative_to_initial": 6.030897838234314e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-64x2",
+      "binary_sha256": "31c2bd7d981d41b2ed1353f73d4085931fe5695d6d08001e6922b4654fabe406",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.0555959469026727e-10,
+        "initial_correction_norm": 118.81932326834966,
+        "source_load_norm": 10177.853604878943,
+        "declared_roundoff_bound": 1.0177853604878942e-06,
+        "relative_to_initial": 8.884042745460205e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-64x4",
+      "binary_sha256": "9079ea9fc92172312fbe43f00b35de146478715776e3e5f9eec154e4603a9db9",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.4648752304584678e-11,
+        "initial_correction_norm": 52.65489107265979,
+        "source_load_norm": 7783.244464757372,
+        "declared_roundoff_bound": 7.783244464757372e-07,
+        "relative_to_initial": 4.681189496825899e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-64x4",
+      "binary_sha256": "bf60df385144c3df3282e4fb67b8cf204252a9cc79803676f3db27eb815ed790",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.116640144288419e-11,
+        "initial_correction_norm": 53.826809863758086,
+        "source_load_norm": 7712.220324554685,
+        "declared_roundoff_bound": 7.712220324554686e-07,
+        "relative_to_initial": 7.647936325240367e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-64x4",
+      "binary_sha256": "742918301022a6ac8549180feec25b785cead18fde8671337cb46ffd94627ece",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.662250413316683e-11,
+        "initial_correction_norm": 52.63265726603309,
+        "source_load_norm": 7777.620566572956,
+        "declared_roundoff_bound": 7.777620566572957e-07,
+        "relative_to_initial": 5.058172153194301e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-64x8",
+      "binary_sha256": "4a6693ef8bb63b23619b1335d2f8fc268d06493eb0c64cb9f1748f721b191a71",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.078055098357291e-12,
+        "initial_correction_norm": 18.117955235899473,
+        "source_load_norm": 5696.314806038925,
+        "declared_roundoff_bound": 5.696314806038925e-07,
+        "relative_to_initial": 5.01052959904093e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-64x8",
+      "binary_sha256": "b8ce053ae2b35624bc3100d484e60f8dd9dc54ca6d8d9522f519ba6f6f43f475",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.0709581366089167e-11,
+        "initial_correction_norm": 18.747517523842262,
+        "source_load_norm": 5648.051749562952,
+        "declared_roundoff_bound": 5.648051749562952e-07,
+        "relative_to_initial": 5.71253306069414e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-64x8",
+      "binary_sha256": "7d56a4f1172bf7be8b1bf735e9d1d2864a169c175ef8f46169b0977e8eafdde2",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2617411073262284e-11,
+        "initial_correction_norm": 18.123326880080782,
+        "source_load_norm": 5694.671817334669,
+        "declared_roundoff_bound": 5.694671817334669e-07,
+        "relative_to_initial": 6.961972907485319e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-64x16",
+      "binary_sha256": "52662edde3cbab93657098c52a4a5e0997cd857fd0af0d0dd29101242a1eb80a",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.070132858619248e-12,
+        "initial_correction_norm": 5.540049850286019,
+        "source_load_norm": 4098.624851340103,
+        "declared_roundoff_bound": 4.0986248513401036e-07,
+        "relative_to_initial": 5.541706196850817e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-64x16",
+      "binary_sha256": "e25dd8d229a703793cfa49b9567bf96d1001e6298417782f7d6a65c62b43b652",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.743737383872927e-12,
+        "initial_correction_norm": 6.015809892107779,
+        "source_load_norm": 4061.6168036388794,
+        "declared_roundoff_bound": 4.0616168036388793e-07,
+        "relative_to_initial": 7.885450951660389e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-64x16",
+      "binary_sha256": "b95a79da987a15618374e20adff15ef9a0f31496e34a83b6902ed9f19d24d9eb",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.483859232631248e-12,
+        "initial_correction_norm": 5.542839378695349,
+        "source_load_norm": 4092.880657043645,
+        "declared_roundoff_bound": 4.092880657043645e-07,
+        "relative_to_initial": 9.89359217896373e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-64x32",
+      "binary_sha256": "ab1cd76c83f0defd26542f30fdd0292271c8e0cd5ef5a3b970a20ce3b7e81d29",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.61704257555763e-13,
+        "initial_correction_norm": 1.3232720321252673,
+        "source_load_norm": 2928.140508032462,
+        "declared_roundoff_bound": 2.9281405080324623e-07,
+        "relative_to_initial": 7.267623241543153e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-64x32",
+      "binary_sha256": "2e11b5eaaa9433fba3ba112167a316cebdfa4d7e262b6823627ebaf3f499bca8",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2458961356143672e-12,
+        "initial_correction_norm": 1.6188725926695742,
+        "source_load_norm": 2895.883204410954,
+        "declared_roundoff_bound": 2.895883204410954e-07,
+        "relative_to_initial": 7.696072817934632e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-64x32",
+      "binary_sha256": "b6d5d2fbf0ad29141a82ca4dab4a95fe1c951bb17206815f2f7b5a34856c209b",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2868754493666495e-12,
+        "initial_correction_norm": 1.3285703987646347,
+        "source_load_norm": 2921.675770657022,
+        "declared_roundoff_bound": 2.9216757706570223e-07,
+        "relative_to_initial": 9.686166804282595e-13
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "p1-fit-64x64",
+      "binary_sha256": "f42705d63a6e180abcd5599d6915a3ebfebccb2a30477e6315edf14cddfb4d49",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.373863046246325e-13,
+        "initial_correction_norm": 0.3282232203921397,
+        "source_load_norm": 2056.111574278109,
+        "declared_roundoff_bound": 2.056111574278109e-07,
+        "relative_to_initial": 1.6372586436224664e-12
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "ruled-fit-64x64",
+      "binary_sha256": "11b7e80f277102cd8a21ef825dde92fc4c2eb55640488e2430fd6231dbb8fc07",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 0.0,
+        "initial_correction_norm": 0.0,
+        "source_load_norm": 2056.1059615431127,
+        "declared_roundoff_bound": 2.056105961543113e-07,
+        "relative_to_initial": null
+      }
+    },
+    {
+      "case_id": "exeter-centre",
+      "id": "hybrid-fit-64x64",
+      "binary_sha256": "11b7e80f277102cd8a21ef825dde92fc4c2eb55640488e2430fd6231dbb8fc07",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 0.0,
+        "initial_correction_norm": 0.0,
+        "source_load_norm": 2056.1059615431127,
+        "declared_roundoff_bound": 2.056105961543113e-07,
+        "relative_to_initial": null
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-1x1",
+      "binary_sha256": "6f75034826e9ef61156e98306d04503749a78db93d902dc6b70f2277d4be240a",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.744600910443703e-09,
+        "initial_correction_norm": 625.8868225717995,
+        "source_load_norm": 109982.31621533194,
+        "declared_roundoff_bound": 1.0998231621533194e-05,
+        "relative_to_initial": 4.385139311874316e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-1x1",
+      "binary_sha256": "82b0f94c08d544cfc3c02a32fbfb3d0e56dcd8c7bcdaae3cc96745148bc6b586",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.619939457172111e-09,
+        "initial_correction_norm": 719.8056458658644,
+        "source_load_norm": 104347.94344931465,
+        "declared_roundoff_bound": 1.0434794344931466e-05,
+        "relative_to_initial": 5.02905121398101e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-1x1",
+      "binary_sha256": "6f75034826e9ef61156e98306d04503749a78db93d902dc6b70f2277d4be240a",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.744600910443703e-09,
+        "initial_correction_norm": 625.8868225717995,
+        "source_load_norm": 109982.31621533194,
+        "declared_roundoff_bound": 1.0998231621533194e-05,
+        "relative_to_initial": 4.385139311874316e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-1x2",
+      "binary_sha256": "c9258c0ed332a870210caf9a42ec6344ed6cd1e36f198a82f6a20b2489f20320",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.628636295508361e-10,
+        "initial_correction_norm": 624.1810918484192,
+        "source_load_norm": 95291.68830647212,
+        "declared_roundoff_bound": 9.529168830647213e-06,
+        "relative_to_initial": 1.5426030075654151e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-1x2",
+      "binary_sha256": "d53dab304d8806bc43043cb5f5bd59a597548a3c7b30c48429b7e65c1f098cd5",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.460188300447089e-09,
+        "initial_correction_norm": 735.0849947201567,
+        "source_load_norm": 90400.688590699,
+        "declared_roundoff_bound": 9.040068859069901e-06,
+        "relative_to_initial": 1.9864210410157746e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-1x2",
+      "binary_sha256": "c9258c0ed332a870210caf9a42ec6344ed6cd1e36f198a82f6a20b2489f20320",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.628636295508361e-10,
+        "initial_correction_norm": 624.1810918484192,
+        "source_load_norm": 95291.68830647212,
+        "declared_roundoff_bound": 9.529168830647213e-06,
+        "relative_to_initial": 1.5426030075654151e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-1x4",
+      "binary_sha256": "fc86cfceba1a5e04f70b59aa549297a8941f99291ea34d460ead3c8a291af755",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.855558977164318e-10,
+        "initial_correction_norm": 286.589182105769,
+        "source_load_norm": 71809.51555470734,
+        "declared_roundoff_bound": 7.180951555470734e-06,
+        "relative_to_initial": 1.3453260687772158e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-1x4",
+      "binary_sha256": "978dc2a764d32f63d5e5e5e570003df8d1d0b29725147569f0591edabf56fc06",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.656745683855154e-10,
+        "initial_correction_norm": 330.7819822385639,
+        "source_load_norm": 69035.14536814347,
+        "declared_roundoff_bound": 6.903514536814347e-06,
+        "relative_to_initial": 1.7101130011898415e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-1x4",
+      "binary_sha256": "39c7acc7e19668f8ba2310d385a176cb3611f1f8d451a039d57e2f46c939aaaf",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.875743587234914e-10,
+        "initial_correction_norm": 250.3479832742483,
+        "source_load_norm": 71270.04877156501,
+        "declared_roundoff_bound": 7.1270048771565015e-06,
+        "relative_to_initial": 1.548142524075842e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-1x8",
+      "binary_sha256": "9e4318b2a5f7ddca3881426a0d93866ca6c58c4801489aa0589184215bf984da",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.486697590241767e-11,
+        "initial_correction_norm": 222.26973634313813,
+        "source_load_norm": 52218.251444024354,
+        "declared_roundoff_bound": 5.221825144402436e-06,
+        "relative_to_initial": 4.268101337735104e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-1x8",
+      "binary_sha256": "94c59c0b0fec4ac386262b9d9be12880819bd7cb2ace6c42de840af004266253",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.888176033909506e-10,
+        "initial_correction_norm": 270.9535343720186,
+        "source_load_norm": 50530.35244789133,
+        "declared_roundoff_bound": 5.053035244789133e-06,
+        "relative_to_initial": 6.968634080694605e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-1x8",
+      "binary_sha256": "02549e395a219841ecdd7cfedab4318134494ef5a565f2b90e270360bb7fe17e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.3139245812767345e-10,
+        "initial_correction_norm": 228.97734813633866,
+        "source_load_norm": 52025.28135639527,
+        "declared_roundoff_bound": 5.2025281356395275e-06,
+        "relative_to_initial": 5.738229532182336e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-1x16",
+      "binary_sha256": "d1b1bdb55a4783fc5ea27409e20eb880023a47a0b68a6f644b0251b840cd3c12",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.95227559142443e-11,
+        "initial_correction_norm": 253.6669272807395,
+        "source_load_norm": 37276.43308342368,
+        "declared_roundoff_bound": 3.7276433083423683e-06,
+        "relative_to_initial": 3.529145753209178e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-1x16",
+      "binary_sha256": "c57404a60912d79ad476e1d2d0522c226ecc51ac3e42dac280e14d0d86644625",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.202330114158525e-11,
+        "initial_correction_norm": 267.6972406060566,
+        "source_load_norm": 36324.26666617902,
+        "declared_roundoff_bound": 3.632426666617902e-06,
+        "relative_to_initial": 3.064032373134947e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-1x16",
+      "binary_sha256": "2e550d34b5fa624168ad3bbbd6a16f38c2a5a6c0d6ac6d6ee61b04bb68f961ed",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.609702498926348e-11,
+        "initial_correction_norm": 252.9812363630636,
+        "source_load_norm": 37161.545297847115,
+        "declared_roundoff_bound": 3.7161545297847114e-06,
+        "relative_to_initial": 3.798583103268211e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-1x32",
+      "binary_sha256": "80a84e97e0c05836afa0a4cbf954b1bc295b48341c9582982a78cb06565e0612",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.508403732528462e-11,
+        "initial_correction_norm": 207.5902616834096,
+        "source_load_norm": 26503.9654071549,
+        "declared_roundoff_bound": 2.6503965407154902e-06,
+        "relative_to_initial": 4.580370801318935e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-1x32",
+      "binary_sha256": "9505c4f57adb87c9432e041f20a8671547385b7c1bf0f48c9fe8b6ee0b7029e8",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.588440685840425e-11,
+        "initial_correction_norm": 212.66980568917447,
+        "source_load_norm": 25892.723569353417,
+        "declared_roundoff_bound": 2.5892723569353417e-06,
+        "relative_to_initial": 3.568179630037015e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-1x32",
+      "binary_sha256": "17749788a9528750cf362e6957df6bb5677d6e0a377c0bc38011c18b02114cc2",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.296056941598526e-11,
+        "initial_correction_norm": 207.67929905562025,
+        "source_load_norm": 26502.033205605992,
+        "declared_roundoff_bound": 2.6502033205605993e-06,
+        "relative_to_initial": 3.513136347616674e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-1x64",
+      "binary_sha256": "cf38140f535018ffdab7635083fe7ae9a5435e3f8fe72500e9ded74668faffb2",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.155463765605906e-10,
+        "initial_correction_norm": 156.89946063451453,
+        "source_load_norm": 18598.593270197394,
+        "declared_roundoff_bound": 1.8598593270197396e-06,
+        "relative_to_initial": 7.364357792774519e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-1x64",
+      "binary_sha256": "2f556c470683f0aefa684aadc28663440d9087eaf7847c97b6de8bff3c73808f",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.54623241979216e-10,
+        "initial_correction_norm": 158.79170736421082,
+        "source_load_norm": 18381.902156276243,
+        "declared_roundoff_bound": 1.8381902156276243e-06,
+        "relative_to_initial": 9.73748847126923e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-1x64",
+      "binary_sha256": "011fd812648ba164d7c3d9641d20035837b389262bf85185f86ee28b3d344356",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.0329979036464082e-10,
+        "initial_correction_norm": 156.92060803634763,
+        "source_load_norm": 18598.35459305312,
+        "declared_roundoff_bound": 1.8598354593053123e-06,
+        "relative_to_initial": 6.582933348098767e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-2x1",
+      "binary_sha256": "2843dea525b80d8e11f659cf2825c014719dc3229128820d801808e5621707a9",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.406133665194705e-10,
+        "initial_correction_norm": 299.31986270492763,
+        "source_load_norm": 92039.64333480851,
+        "declared_roundoff_bound": 9.203964333480851e-06,
+        "relative_to_initial": 3.1425023318507136e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-2x1",
+      "binary_sha256": "38d3830678a4a0a8e25d40d18991432a3e981378323a07d16a3b36abf4ac0393",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.537604567753395e-09,
+        "initial_correction_norm": 484.4130733188206,
+        "source_load_norm": 90395.42847076648,
+        "declared_roundoff_bound": 9.039542847076648e-06,
+        "relative_to_initial": 3.1741599317684137e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-2x1",
+      "binary_sha256": "2843dea525b80d8e11f659cf2825c014719dc3229128820d801808e5621707a9",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.406133665194705e-10,
+        "initial_correction_norm": 299.31986270492763,
+        "source_load_norm": 92039.64333480851,
+        "declared_roundoff_bound": 9.203964333480851e-06,
+        "relative_to_initial": 3.1425023318507136e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-2x2",
+      "binary_sha256": "290702fba414adeceee7d7e45277c026d71d3af00891e9ce2fcacfc7b8828f3e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.5294618871090916e-10,
+        "initial_correction_norm": 285.06090890710993,
+        "source_load_norm": 81531.47907686509,
+        "declared_roundoff_bound": 8.153147907686509e-06,
+        "relative_to_initial": 1.2381430693673974e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-2x2",
+      "binary_sha256": "ca639b24b31decf95f8b48788c19de97666a7232ffd1646006284177b8885e80",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.085647648181848e-10,
+        "initial_correction_norm": 390.193286425374,
+        "source_load_norm": 78310.00838864538,
+        "declared_roundoff_bound": 7.831000838864538e-06,
+        "relative_to_initial": 1.5596495019003233e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-2x2",
+      "binary_sha256": "290702fba414adeceee7d7e45277c026d71d3af00891e9ce2fcacfc7b8828f3e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.5294618871090916e-10,
+        "initial_correction_norm": 285.06090890710993,
+        "source_load_norm": 81531.47907686509,
+        "declared_roundoff_bound": 8.153147907686509e-06,
+        "relative_to_initial": 1.2381430693673974e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-2x4",
+      "binary_sha256": "91c82f1f35247608f350339bb3ed60f7c6758947e5991246c2180c963b4ec477",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2771270525281837e-10,
+        "initial_correction_norm": 190.75561744434248,
+        "source_load_norm": 61492.97374106413,
+        "declared_roundoff_bound": 6.149297374106413e-06,
+        "relative_to_initial": 6.695095377208569e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-2x4",
+      "binary_sha256": "d56cbf0b94940a450bf5280453430fc9ae0eca114b60b7fdefe7dd83e3e768ed",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.4984665796631456e-10,
+        "initial_correction_norm": 214.2418299287303,
+        "source_load_norm": 59803.27875980106,
+        "declared_roundoff_bound": 5.980327875980107e-06,
+        "relative_to_initial": 1.166189898814011e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-2x4",
+      "binary_sha256": "91c82f1f35247608f350339bb3ed60f7c6758947e5991246c2180c963b4ec477",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2771270525281837e-10,
+        "initial_correction_norm": 190.75561744434248,
+        "source_load_norm": 61492.97374106413,
+        "declared_roundoff_bound": 6.149297374106413e-06,
+        "relative_to_initial": 6.695095377208569e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-2x8",
+      "binary_sha256": "e0455ed3bf428433c0bcd0e8d2a0a0c179b33c05503fdcd848c53eabd63a2686",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.780934726922631e-11,
+        "initial_correction_norm": 157.9333118042327,
+        "source_load_norm": 44468.24808023885,
+        "declared_roundoff_bound": 4.446824808023885e-06,
+        "relative_to_initial": 5.559900331734383e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-2x8",
+      "binary_sha256": "aa313c3a6078d48c96f7e1312a494ef36ac489ae2919f241b02bf8740f1d8666",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.0789825840056822e-10,
+        "initial_correction_norm": 165.48304896674742,
+        "source_load_norm": 43773.34445141902,
+        "declared_roundoff_bound": 4.3773344451419025e-06,
+        "relative_to_initial": 6.520200049145189e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-2x8",
+      "binary_sha256": "db956157ad1de3490b66ec850a62f0aeaaead82573c25175b9e287a7978303fe",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.776322626504567e-11,
+        "initial_correction_norm": 157.6704564795757,
+        "source_load_norm": 44417.68195972249,
+        "declared_roundoff_bound": 4.441768195972249e-06,
+        "relative_to_initial": 6.200478418587551e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-2x16",
+      "binary_sha256": "a0d0882bc4db372030c335eb1106be1c594a42ecd0644ca5c7e9aa84ebc19bb4",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.43022353572465e-11,
+        "initial_correction_norm": 150.15024851044353,
+        "source_load_norm": 32309.85649021368,
+        "declared_roundoff_bound": 3.230985649021368e-06,
+        "relative_to_initial": 4.28252606939735e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-2x16",
+      "binary_sha256": "ac7380fff7a257b12037f9a40afbf081f98a184404584e391ab6d39671643535",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.164282464526143e-11,
+        "initial_correction_norm": 141.97250506705032,
+        "source_load_norm": 31466.93985520835,
+        "declared_roundoff_bound": 3.146693985520835e-06,
+        "relative_to_initial": 5.04624642718153e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-2x16",
+      "binary_sha256": "2a45a62f2ca9f98173dcdeb174688b1fdf61517c9683fe5c6cb01a4a747d2f6a",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.260885097653835e-11,
+        "initial_correction_norm": 149.94323614305537,
+        "source_load_norm": 32289.955489260363,
+        "declared_roundoff_bound": 3.2289955489260364e-06,
+        "relative_to_initial": 2.841665424366778e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-2x32",
+      "binary_sha256": "9e3a94745542a1613cab15a092ee9499e48f5d5dede573cbe7f5d3d858b7f3c2",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.862855821988756e-11,
+        "initial_correction_norm": 111.80418661089098,
+        "source_load_norm": 22735.413816513952,
+        "declared_roundoff_bound": 2.2735413816513954e-06,
+        "relative_to_initial": 6.138281606460197e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-2x32",
+      "binary_sha256": "8907f4982fb44bec1f3468662bcaf2a6ac31b476e11c65b6eefddd8c369aef0d",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.721198224103305e-11,
+        "initial_correction_norm": 112.3011711588654,
+        "source_load_norm": 22430.338216917153,
+        "declared_roundoff_bound": 2.243033821691715e-06,
+        "relative_to_initial": 8.656364064406183e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-2x32",
+      "binary_sha256": "306ba57cff25d5adce90783a808d8fefb8e5fe5645eac534ad848534b1da35bd",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.0969295331846354e-10,
+        "initial_correction_norm": 111.76037290613158,
+        "source_load_norm": 22729.411341390674,
+        "declared_roundoff_bound": 2.2729411341390674e-06,
+        "relative_to_initial": 9.81501318097744e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-2x64",
+      "binary_sha256": "82a4a6d3fed2a3826218468eb57adef922dd8853c96949e9168596308ecf9f5c",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.9642505025969336e-11,
+        "initial_correction_norm": 84.18861497138985,
+        "source_load_norm": 16116.903911858772,
+        "declared_roundoff_bound": 1.6116903911858773e-06,
+        "relative_to_initial": 5.896581745980682e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-2x64",
+      "binary_sha256": "1ba814bb74bdb187c157c40e562b8dcc04499c62421d47f9363957b218de1aeb",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.564545620708048e-11,
+        "initial_correction_norm": 83.70600937356825,
+        "source_load_norm": 15923.870700332694,
+        "declared_roundoff_bound": 1.5923870700332694e-06,
+        "relative_to_initial": 7.842382727160479e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-2x64",
+      "binary_sha256": "d08368f9ad5639f88dc7759d03127f3da316726328daa2f457189eed33ee957f",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.053691225399404e-11,
+        "initial_correction_norm": 84.17000425087434,
+        "source_load_norm": 16099.992274304966,
+        "declared_roundoff_bound": 1.6099992274304968e-06,
+        "relative_to_initial": 4.81607582354054e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-4x1",
+      "binary_sha256": "58d69cc9b08b61b58a3797cc5246ff0e08a1bc3199a4156c6f5f5aefe5895be1",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.245002697979844e-10,
+        "initial_correction_norm": 270.03162292219224,
+        "source_load_norm": 71729.81149990148,
+        "declared_roundoff_bound": 7.172981149990148e-06,
+        "relative_to_initial": 1.5720391012140872e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-4x1",
+      "binary_sha256": "eee0ae49866b5db3bfd8414b89f07bcc3e563e66e8e78da1f4326126afa9b5b4",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.166769143468288e-10,
+        "initial_correction_norm": 362.64227482646857,
+        "source_load_norm": 69037.08644579847,
+        "declared_roundoff_bound": 6.9037086445798475e-06,
+        "relative_to_initial": 1.7005102746002815e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-4x1",
+      "binary_sha256": "e4a487e9a7418f69b7425f0b39681db7caedc58285879eeac9dab75f9b95d19c",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.948199013753111e-10,
+        "initial_correction_norm": 283.6289009040811,
+        "source_load_norm": 71186.61138896178,
+        "declared_roundoff_bound": 7.118661138896179e-06,
+        "relative_to_initial": 6.868831094233101e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-4x2",
+      "binary_sha256": "69fbfcba3155365ff6807812191d020e409b2b91e3500d4953a553361fd79d33",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.4424566599128905e-10,
+        "initial_correction_norm": 259.6403043891154,
+        "source_load_norm": 61836.63314642278,
+        "declared_roundoff_bound": 6.183663314642278e-06,
+        "relative_to_initial": 5.555596090162961e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-4x2",
+      "binary_sha256": "28a05f8f3b3d63da908bc3d8308cd81484d451891a55914cb8829b184788c6b7",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.507149563422503e-10,
+        "initial_correction_norm": 261.0881686346648,
+        "source_load_norm": 59807.25251313761,
+        "declared_roundoff_bound": 5.980725251313761e-06,
+        "relative_to_initial": 9.602693130575003e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-4x2",
+      "binary_sha256": "69fbfcba3155365ff6807812191d020e409b2b91e3500d4953a553361fd79d33",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.4424566599128905e-10,
+        "initial_correction_norm": 259.6403043891154,
+        "source_load_norm": 61836.63314642278,
+        "declared_roundoff_bound": 6.183663314642278e-06,
+        "relative_to_initial": 5.555596090162961e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-4x4",
+      "binary_sha256": "47b1cf514c2abe01deb75752477fbc91140ce41af027894d154ded134b57bf53",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.056182738584726e-11,
+        "initial_correction_norm": 163.32554737001328,
+        "source_load_norm": 46169.68526591525,
+        "declared_roundoff_bound": 4.616968526591525e-06,
+        "relative_to_initial": 4.3203178267016465e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-4x4",
+      "binary_sha256": "155eef720f188698adef92f17b5e43c482c09676e461b5b7ce80163819aa5b9e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.733309247072057e-11,
+        "initial_correction_norm": 186.02775051807382,
+        "source_load_norm": 45673.2154948877,
+        "declared_roundoff_bound": 4.56732154948877e-06,
+        "relative_to_initial": 5.23218133851831e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-4x4",
+      "binary_sha256": "47b1cf514c2abe01deb75752477fbc91140ce41af027894d154ded134b57bf53",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.056182738584726e-11,
+        "initial_correction_norm": 163.32554737001328,
+        "source_load_norm": 46169.68526591525,
+        "declared_roundoff_bound": 4.616968526591525e-06,
+        "relative_to_initial": 4.3203178267016465e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-4x8",
+      "binary_sha256": "4d7503c82e27ba4b37f6b1fc5e4305fde79d01ab91ef083b7b4a7fe780f1a933",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.440521536260939e-11,
+        "initial_correction_norm": 110.99167139248053,
+        "source_load_norm": 33805.99136743894,
+        "declared_roundoff_bound": 3.380599136743894e-06,
+        "relative_to_initial": 8.505612554367315e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-4x8",
+      "binary_sha256": "822c63d6921e28c42d7a3ceb9563fe052a4ddd5cde4eac1d37d9ece56a61f972",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.0475120275902726e-11,
+        "initial_correction_norm": 119.67783640377638,
+        "source_load_norm": 33430.9632319566,
+        "declared_roundoff_bound": 3.34309632319566e-06,
+        "relative_to_initial": 3.382006350728576e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-4x8",
+      "binary_sha256": "fb0c8364f835bcada02ec05c174be8d3781760a9def029221ed8e98cc0820334",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.827213770377423e-11,
+        "initial_correction_norm": 112.8957149253428,
+        "source_load_norm": 33845.68867149387,
+        "declared_roundoff_bound": 3.384568867149387e-06,
+        "relative_to_initial": 7.818909492016417e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-4x16",
+      "binary_sha256": "dad88475d0d96314377a27df7a94b6b374fcfb68e3ca90192e7eba26b7a5f982",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.811497925530454e-11,
+        "initial_correction_norm": 83.35114625964853,
+        "source_load_norm": 24388.968833266812,
+        "declared_roundoff_bound": 2.4388968833266814e-06,
+        "relative_to_initial": 3.373076498279112e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-4x16",
+      "binary_sha256": "9fedb7873b36d353720cab7dc00cc29472263aa4fe986df618dca9df986ea2ef",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.10322695588943e-11,
+        "initial_correction_norm": 84.16902220221476,
+        "source_load_norm": 24032.31435594923,
+        "declared_roundoff_bound": 2.4032314355949232e-06,
+        "relative_to_initial": 7.251155824558023e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-4x16",
+      "binary_sha256": "4e39eac99cbf3e604a5a74e4094e1585e50c8cfba9c14d7aa7d65cac946dc026",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.580080718162429e-11,
+        "initial_correction_norm": 83.61002254970172,
+        "source_load_norm": 24389.085529476797,
+        "declared_roundoff_bound": 2.4389085529476797e-06,
+        "relative_to_initial": 4.2818798619917373e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-4x32",
+      "binary_sha256": "9b76709151eb323e9a7faad90bf9b0ab938b4f7ba9f4b7ffa5f6706a8eeb1706",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.015874365826195e-11,
+        "initial_correction_norm": 61.6484036839734,
+        "source_load_norm": 17321.356504311476,
+        "declared_roundoff_bound": 1.7321356504311477e-06,
+        "relative_to_initial": 6.514157911391618e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-4x32",
+      "binary_sha256": "4544634ee17f0e543a23abe1208aff63e75ada3fe318b7986d534521421a59fe",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.7341959199626463e-11,
+        "initial_correction_norm": 61.55051874842814,
+        "source_load_norm": 17130.801574546527,
+        "declared_roundoff_bound": 1.7130801574546528e-06,
+        "relative_to_initial": 4.442198011584543e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-4x32",
+      "binary_sha256": "d489182a7470667ea1b434697282f64e5a9f0c1aa61c94e39d745250bcd717ba",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.748906091560619e-11,
+        "initial_correction_norm": 61.61577818661255,
+        "source_load_norm": 17306.264446987698,
+        "declared_roundoff_bound": 1.7306264446987698e-06,
+        "relative_to_initial": 6.084328076173118e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-4x64",
+      "binary_sha256": "6995299f385a23035ea23f95572eac76545f7fd4f8a4474fccc5e446ccfda77b",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.326369519301041e-11,
+        "initial_correction_norm": 46.12717250158297,
+        "source_load_norm": 12270.192231669855,
+        "declared_roundoff_bound": 1.2270192231669856e-06,
+        "relative_to_initial": 5.043382009207709e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-4x64",
+      "binary_sha256": "75231fac941abd8a7905f1a25cfd71f7552568e6011225ad2341ab5430eca069",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.292265635299266e-11,
+        "initial_correction_norm": 46.24605013670426,
+        "source_load_norm": 12161.59900503639,
+        "declared_roundoff_bound": 1.2161599005036391e-06,
+        "relative_to_initial": 7.119020166192057e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-4x64",
+      "binary_sha256": "46c98e9c7de88bc25ab676762de8446b2ce21e8333c27f1727bffe0672b7a2a2",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.4891647482129706e-11,
+        "initial_correction_norm": 46.119616359426736,
+        "source_load_norm": 12258.045517117835,
+        "declared_roundoff_bound": 1.2258045517117835e-06,
+        "relative_to_initial": 7.565467849993929e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-8x1",
+      "binary_sha256": "a82a40ce0bd481dbda5e47a7e66f953e1b933dad7fb01e003bf6bcf28fd898c8",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.1509830510742811e-10,
+        "initial_correction_norm": 258.5814542040279,
+        "source_load_norm": 52175.350065868406,
+        "declared_roundoff_bound": 5.217535006586841e-06,
+        "relative_to_initial": 4.451143082234055e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-8x1",
+      "binary_sha256": "8734fce73f469c0b49248fd307aa005430a3be3b697250f577217fc037548aa6",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.0337452581975252e-10,
+        "initial_correction_norm": 297.1839327850283,
+        "source_load_norm": 50524.40034149065,
+        "declared_roundoff_bound": 5.0524400341490645e-06,
+        "relative_to_initial": 6.84338900538294e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-8x1",
+      "binary_sha256": "4d3cf30b2278fbf293065d5c31a4404429e51d7b8bb43bc5819fe0cef6bc5fa5",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.0973633077360148e-10,
+        "initial_correction_norm": 255.18771057115225,
+        "source_load_norm": 51080.71106873433,
+        "declared_roundoff_bound": 5.1080711068734335e-06,
+        "relative_to_initial": 4.3002200430417844e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-8x2",
+      "binary_sha256": "596f709d772dc4b1e28a259a9c0e40cd3d295e04a36c06de3857c826a5a53c88",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.9179310815592828e-10,
+        "initial_correction_norm": 331.69165062006897,
+        "source_load_norm": 44660.90196817854,
+        "declared_roundoff_bound": 4.466090196817854e-06,
+        "relative_to_initial": 5.782271208738224e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-8x2",
+      "binary_sha256": "3038229265de2c6cc1dc6f90516b179c2f148b72b0c0dbe907e50c5e04826c9f",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.973437571782102e-11,
+        "initial_correction_norm": 353.78248192904204,
+        "source_load_norm": 43770.27732441029,
+        "declared_roundoff_bound": 4.377027732441029e-06,
+        "relative_to_initial": 2.5364278985362254e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-8x2",
+      "binary_sha256": "5b477e79db782b6ba7c5498d432188645cb9f40da9e36fbfe860265c99aec656",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.112080599157643e-11,
+        "initial_correction_norm": 334.13361195086026,
+        "source_load_norm": 44509.94793662461,
+        "declared_roundoff_bound": 4.450994793662461e-06,
+        "relative_to_initial": 2.1285139671023545e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-8x4",
+      "binary_sha256": "04ff4922eaa429c3c41099a42472256287e42dd5f10f4d05e6bb292392fa99be",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.5349509647435433e-11,
+        "initial_correction_norm": 137.57292471500676,
+        "source_load_norm": 33760.13651319297,
+        "declared_roundoff_bound": 3.376013651319297e-06,
+        "relative_to_initial": 3.2963978734464315e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-8x4",
+      "binary_sha256": "9da3ba9fd8c786a57f8eb9f02bd0ade662d6626a6fdcd4284e0a84dd2193a6ce",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2375242437033617e-10,
+        "initial_correction_norm": 149.30283139369627,
+        "source_load_norm": 33426.05732190894,
+        "declared_roundoff_bound": 3.342605732190894e-06,
+        "relative_to_initial": 8.288685701077812e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-8x4",
+      "binary_sha256": "3d1b405e8726c5ca18b36d48ce96a4a7e9c4e012997c1f08f0c52fa7124f4bd8",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.63179824431022e-11,
+        "initial_correction_norm": 135.65813835785593,
+        "source_load_norm": 33725.63676715763,
+        "declared_roundoff_bound": 3.3725636767157632e-06,
+        "relative_to_initial": 4.888610683139435e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-8x8",
+      "binary_sha256": "45be4c945fae3da4730e9fdc832153e1e2912ab240d56d134280b78804fa04d1",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.3250782380710707e-11,
+        "initial_correction_norm": 62.19277110632348,
+        "source_load_norm": 24929.632215340538,
+        "declared_roundoff_bound": 2.492963221534054e-06,
+        "relative_to_initial": 8.562214134127304e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-8x8",
+      "binary_sha256": "3b092d47dd6cdd9398e408eaa10224c1ffdc7d8e7f358fc9e26c123325d100f7",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.224752675908471e-11,
+        "initial_correction_norm": 72.18770136598478,
+        "source_load_norm": 24466.64309003423,
+        "declared_roundoff_bound": 2.446664309003423e-06,
+        "relative_to_initial": 4.467177392945762e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-8x8",
+      "binary_sha256": "f66daff1df77fe136636d9ee6601f0a9fb2a014cb2035d98cc2cfc6c12910f5a",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.9783409054377534e-11,
+        "initial_correction_norm": 62.23496666494896,
+        "source_load_norm": 24862.499223675877,
+        "declared_roundoff_bound": 2.486249922367588e-06,
+        "relative_to_initial": 7.999266605603533e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-8x16",
+      "binary_sha256": "76674b49aee860df0dc18c31e4d23a4d34c0607bbd8b0ee888b954936b5b2576",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.474468434115229e-11,
+        "initial_correction_norm": 38.16022507322378,
+        "source_load_norm": 17934.66265922875,
+        "declared_roundoff_bound": 1.793466265922875e-06,
+        "relative_to_initial": 3.8638882010940556e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-8x16",
+      "binary_sha256": "14689584bc601c6dd2c8ab756001ad06900e368fea50f73d255a6d8cb83b1c42",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.7317621201819932e-11,
+        "initial_correction_norm": 40.40624655730297,
+        "source_load_norm": 17588.269787448902,
+        "declared_roundoff_bound": 1.7588269787448903e-06,
+        "relative_to_initial": 6.760742095427961e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-8x16",
+      "binary_sha256": "a2e0272cebb283602d9b6880edbe10b283f3f3dfa5bf8f4649e93fa94566aa5b",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.126438162963676e-11,
+        "initial_correction_norm": 38.404731982191784,
+        "source_load_norm": 17888.818946686068,
+        "declared_roundoff_bound": 1.7888818946686068e-06,
+        "relative_to_initial": 8.140762873734937e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-8x32",
+      "binary_sha256": "a0401bbc9df78bc61d281bb3aa19d26a1aac7dccdfae01d606c3374a25f7f6fe",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.1796107721042401e-11,
+        "initial_correction_norm": 27.283748968310473,
+        "source_load_norm": 12666.404297595405,
+        "declared_roundoff_bound": 1.2666404297595407e-06,
+        "relative_to_initial": 4.323492249816308e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-8x32",
+      "binary_sha256": "31b4cc701562238ba4bfcf7d81a14b8989b455460d4c56eb7a4339908ae06907",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.0345632280648076e-11,
+        "initial_correction_norm": 28.18247357828838,
+        "source_load_norm": 12537.354089538618,
+        "declared_roundoff_bound": 1.2537354089538619e-06,
+        "relative_to_initial": 7.219250015130764e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-8x32",
+      "binary_sha256": "f48d27a676dc9ac7856b5dc3ec796b04fd74cf3f583fa2010fa54afe19032555",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.8275019842415736e-11,
+        "initial_correction_norm": 27.272848605619732,
+        "source_load_norm": 12653.670732507302,
+        "declared_roundoff_bound": 1.2653670732507303e-06,
+        "relative_to_initial": 6.700810797831386e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-8x64",
+      "binary_sha256": "40e683c520608411eaa76df4ed651664be4583b974ba8ae26bdb8bf6334948b6",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.226869549499091e-12,
+        "initial_correction_norm": 20.453581079227206,
+        "source_load_norm": 8978.001989821689,
+        "declared_roundoff_bound": 8.978001989821689e-07,
+        "relative_to_initial": 4.511126689140007e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-8x64",
+      "binary_sha256": "3b8bcd931a1740468c88d2b42e3d4128c9aaace85b3fe91a7eb0f15a8d16546f",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.1936484403466589e-11,
+        "initial_correction_norm": 20.899388935923426,
+        "source_load_norm": 8900.59748306218,
+        "declared_roundoff_bound": 8.90059748306218e-07,
+        "relative_to_initial": 5.711403543932938e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-8x64",
+      "binary_sha256": "e768b30219cdf809a42e1fce46430080dccc4f7f290a9b53efe4815860e45def",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.6176630353143888e-11,
+        "initial_correction_norm": 20.450743632298572,
+        "source_load_norm": 8967.659324880162,
+        "declared_roundoff_bound": 8.967659324880162e-07,
+        "relative_to_initial": 7.910045054594285e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-16x1",
+      "binary_sha256": "ffec46e7bd32c9a31e2c3309d0ea759587b6a0a29c2ce7fa638062955bd58c05",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.9918934117943433e-10,
+        "initial_correction_norm": 255.47179714818122,
+        "source_load_norm": 37025.05692934102,
+        "declared_roundoff_bound": 3.7025056929341025e-06,
+        "relative_to_initial": 7.79692096751872e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-16x1",
+      "binary_sha256": "a652f804247c3a6c6d8574115ce8cc20f5cd3ecb90529486578108cb24f160f6",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.338782318905864e-10,
+        "initial_correction_norm": 275.95663309499577,
+        "source_load_norm": 36314.817322692725,
+        "declared_roundoff_bound": 3.6314817322692727e-06,
+        "relative_to_initial": 4.851422862682193e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-16x1",
+      "binary_sha256": "ffec46e7bd32c9a31e2c3309d0ea759587b6a0a29c2ce7fa638062955bd58c05",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.9918934117943433e-10,
+        "initial_correction_norm": 255.47179714818122,
+        "source_load_norm": 37025.05692934102,
+        "declared_roundoff_bound": 3.7025056929341025e-06,
+        "relative_to_initial": 7.79692096751872e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-16x2",
+      "binary_sha256": "e91d86f996cea833424eb07f2e462cf89fcba9c02fe6b7a53033d45d6f447b5c",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 7.206284580018788e-11,
+        "initial_correction_norm": 275.41787296374486,
+        "source_load_norm": 31763.6247028865,
+        "declared_roundoff_bound": 3.17636247028865e-06,
+        "relative_to_initial": 2.6164912619768144e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-16x2",
+      "binary_sha256": "bd9f52f8a05ad20411cc115a2014dbbeca5d148efe88dd648aac91a56ef1d0dd",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.145467862628401e-11,
+        "initial_correction_norm": 279.2222694524177,
+        "source_load_norm": 31460.579774112754,
+        "declared_roundoff_bound": 3.1460579774112753e-06,
+        "relative_to_initial": 3.2753361257909555e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-16x2",
+      "binary_sha256": "0c54b66ab43571ca0078b9d3f21ebbdb993dc6d8929d1909f84fbe9a27510b1c",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.0742087655437115e-10,
+        "initial_correction_norm": 275.36675709443,
+        "source_load_norm": 31744.140819826116,
+        "declared_roundoff_bound": 3.1744140819826118e-06,
+        "relative_to_initial": 7.532531477038147e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-16x4",
+      "binary_sha256": "c9688696688c1c8936fccf259b3e25ae127fcc239824b604585f3318883b1e14",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.355145945162361e-11,
+        "initial_correction_norm": 97.39235948893284,
+        "source_load_norm": 24446.58824722231,
+        "declared_roundoff_bound": 2.444658824722231e-06,
+        "relative_to_initial": 8.578851553659911e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-16x4",
+      "binary_sha256": "d13eafc150dbbd4ae25a3f1a1f9edc2e5e84d8cb34dbe4651b5011f932acc3ad",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.297784377354582e-11,
+        "initial_correction_norm": 102.22459080844139,
+        "source_load_norm": 24025.50973642801,
+        "declared_roundoff_bound": 2.402550973642801e-06,
+        "relative_to_initial": 8.1172096769786e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-16x4",
+      "binary_sha256": "ab6103258bb2c33f399693aaf885b97a697695b8d5318aa375b097f47a3984b1",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.04319750905163e-11,
+        "initial_correction_norm": 97.62098841313674,
+        "source_load_norm": 24402.692068375494,
+        "declared_roundoff_bound": 2.4402692068375496e-06,
+        "relative_to_initial": 8.239209251818297e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-16x8",
+      "binary_sha256": "87842ea909adafce8938e3569378e440406f4db26a9f26ab34f95537dacdfd16",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.499514402372765e-11,
+        "initial_correction_norm": 37.257880452334206,
+        "source_load_norm": 17776.66382283055,
+        "declared_roundoff_bound": 1.777666382283055e-06,
+        "relative_to_initial": 4.024690573290034e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-16x8",
+      "binary_sha256": "81767264c2e5b0237e478919c9a2962caff7bf0403286fdbd9971a202616d9b5",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.083359307648932e-11,
+        "initial_correction_norm": 39.76191574697718,
+        "source_load_norm": 17585.785976020987,
+        "declared_roundoff_bound": 1.7585785976020987e-06,
+        "relative_to_initial": 5.239584835163067e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-16x8",
+      "binary_sha256": "a8e06c0476dedce2222cb51e9f5b3a044fdd86dcc6445fb612a29a50e4fc5a8f",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.9174975876316804e-11,
+        "initial_correction_norm": 37.03223507294322,
+        "source_load_norm": 17761.482910340772,
+        "declared_roundoff_bound": 1.7761482910340772e-06,
+        "relative_to_initial": 5.177914818953656e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-16x16",
+      "binary_sha256": "a46dad04a24278bcb6360891373ce0bf0bd9d88f1fb2be7141bf2ad29fe73e85",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2192057797220075e-11,
+        "initial_correction_norm": 17.170653008287655,
+        "source_load_norm": 12816.856029719578,
+        "declared_roundoff_bound": 1.2816856029719578e-06,
+        "relative_to_initial": 7.100520749755649e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-16x16",
+      "binary_sha256": "ae3a189dcaf7745ef9c74f917d8341e9d37adb2e0f0be7840b8a76867d807a83",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.693743113714186e-12,
+        "initial_correction_norm": 18.248380470234093,
+        "source_load_norm": 12641.854788750583,
+        "declared_roundoff_bound": 1.2641854788750583e-06,
+        "relative_to_initial": 5.312111466289388e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-16x16",
+      "binary_sha256": "a45d76fd57da84fdc43f4a8e03c249c1c68d9b5ef79d8024feb62210913b6465",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.1587959278549813e-11,
+        "initial_correction_norm": 17.263431514815753,
+        "source_load_norm": 12802.957680790669,
+        "declared_roundoff_bound": 1.2802957680790669e-06,
+        "relative_to_initial": 6.712430995312166e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-16x32",
+      "binary_sha256": "783e7b3bc8a76d973bbc76967f32872c19bfe6d79e62146049dbfbbd99df4bdd",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.219823734538676e-12,
+        "initial_correction_norm": 8.91005387022469,
+        "source_load_norm": 9116.535923017773,
+        "declared_roundoff_bound": 9.116535923017773e-07,
+        "relative_to_initial": 5.858352609945606e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-16x32",
+      "binary_sha256": "4a7acce25bd12ae1d4e3cbdeae1ed61c78fd5ee41dc4cca8768cdd542ae6f78f",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.041041813901187e-12,
+        "initial_correction_norm": 9.70883523878524,
+        "source_load_norm": 9011.424418202223,
+        "declared_roundoff_bound": 9.011424418202223e-07,
+        "relative_to_initial": 6.222210662066026e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-16x32",
+      "binary_sha256": "d0fcd99bb46fb7b648f83906d439d8896b9f0f6ce66e38b5a81525e9437f39b2",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.097997861144222e-12,
+        "initial_correction_norm": 8.937450440554379,
+        "source_load_norm": 9106.14572346815,
+        "declared_roundoff_bound": 9.106145723468149e-07,
+        "relative_to_initial": 9.060747150438927e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-16x64",
+      "binary_sha256": "effeed8da596ee792dbd5a4cc59caa44d7da6ed34bccc279e68d2a21578faee6",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.814038969021776e-12,
+        "initial_correction_norm": 6.647071372528386,
+        "source_load_norm": 6465.671350260421,
+        "declared_roundoff_bound": 6.465671350260421e-07,
+        "relative_to_initial": 5.737923899515776e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-16x64",
+      "binary_sha256": "74f074bb3d3e168a157820eee2cc8f6fe70f33bbc143cf9353c85f0a93081fac",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.932449614742682e-12,
+        "initial_correction_norm": 6.897520341905299,
+        "source_load_norm": 6397.4463495963955,
+        "declared_roundoff_bound": 6.397446349596395e-07,
+        "relative_to_initial": 7.151047579774436e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-16x64",
+      "binary_sha256": "10591ca4782be0f5935b176f05260ddffcf2f6a7af194f9c15800510f6f9155e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.5682657126496626e-12,
+        "initial_correction_norm": 6.63554563172097,
+        "source_load_norm": 6454.831725044281,
+        "declared_roundoff_bound": 6.454831725044281e-07,
+        "relative_to_initial": 6.88453665484756e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-32x1",
+      "binary_sha256": "01eef5bf091f891d8d0c83ddf554c3f1e17a0c22969d5f868795ad7d8f84951b",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.215535007104923e-11,
+        "initial_correction_norm": 215.22100560386693,
+        "source_load_norm": 26495.431143276706,
+        "declared_roundoff_bound": 2.6495431143276706e-06,
+        "relative_to_initial": 4.2818938519722936e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-32x1",
+      "binary_sha256": "e34ea04f54d7c3b3c07f7d574154eb381b092d602bd8980e5fabe3325216dabe",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.5671715858237726e-10,
+        "initial_correction_norm": 220.52692425156027,
+        "source_load_norm": 25883.966241144088,
+        "declared_roundoff_bound": 2.588396624114409e-06,
+        "relative_to_initial": 7.106486390006795e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-32x1",
+      "binary_sha256": "ff159de8a50115ec5e10ce7861e366ce0a916e219380a0e4a6a52733971cef29",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.4383094419814e-11,
+        "initial_correction_norm": 213.7585671578747,
+        "source_load_norm": 26227.209327333025,
+        "declared_roundoff_bound": 2.6227209327333027e-06,
+        "relative_to_initial": 4.41540639398588e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-32x2",
+      "binary_sha256": "955fcd35b5fb159a1e22aae5fff4afbe9d4c49efe315763262d4c557e27eb33c",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.053136395815273e-10,
+        "initial_correction_norm": 206.4443171903536,
+        "source_load_norm": 22690.92996446356,
+        "declared_roundoff_bound": 2.2690929964463563e-06,
+        "relative_to_initial": 9.945230867857518e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-32x2",
+      "binary_sha256": "8b3e8be4844d41e725828d5206f1eecedc10f76fa7e2a68a0e3f867e5931df64",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2324222619985892e-10,
+        "initial_correction_norm": 206.63304212853092,
+        "source_load_norm": 22424.156139895153,
+        "declared_roundoff_bound": 2.2424156139895154e-06,
+        "relative_to_initial": 5.964303914337145e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-32x2",
+      "binary_sha256": "ae7ab84bbc11c673317630f65d7a030a7929c15f0bc8009f8c069853eceac0d1",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.508114984628152e-11,
+        "initial_correction_norm": 206.05601160285232,
+        "source_load_norm": 22691.87808913196,
+        "declared_roundoff_bound": 2.269187808913196e-06,
+        "relative_to_initial": 4.129030217777145e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-32x4",
+      "binary_sha256": "fb3ba06f1405f288c3e6121c86bee99feaa81cc7d1060c04faf8707609c2f5ac",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.2809279844987754e-11,
+        "initial_correction_norm": 72.06357110565132,
+        "source_load_norm": 17281.569405793973,
+        "declared_roundoff_bound": 1.7281569405793973e-06,
+        "relative_to_initial": 4.552824588291158e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-32x4",
+      "binary_sha256": "9fe6cd249064b4cc730317f3964ac08ed652accf7b352ccfe0ed3c82d626f7d3",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.908380274389728e-11,
+        "initial_correction_norm": 74.09510090720465,
+        "source_load_norm": 17124.651038335116,
+        "declared_roundoff_bound": 1.7124651038335116e-06,
+        "relative_to_initial": 9.323666733434451e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-32x4",
+      "binary_sha256": "7c7617117743aaf7e76538f877a1cd54d8c62078ec74c0e01af158884d036423",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.754901612348037e-11,
+        "initial_correction_norm": 72.02626812144203,
+        "source_load_norm": 17276.240893598166,
+        "declared_roundoff_bound": 1.7276240893598166e-06,
+        "relative_to_initial": 9.378386231199338e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-32x8",
+      "binary_sha256": "374055869eda18fc7af7717b8071709578150f5ec743bda8c500c6afbc5ec74b",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.3973488613335255e-11,
+        "initial_correction_norm": 27.081355609289265,
+        "source_load_norm": 12665.410055137547,
+        "declared_roundoff_bound": 1.2665410055137548e-06,
+        "relative_to_initial": 5.159818738372965e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-32x8",
+      "binary_sha256": "55b4d49ba8b4c045eb6a56d2d31e50f7258e4a9440924df1d62420a797f83d20",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.8365965882478477e-11,
+        "initial_correction_norm": 27.07067364195758,
+        "source_load_norm": 12534.600134294038,
+        "declared_roundoff_bound": 1.2534600134294038e-06,
+        "relative_to_initial": 6.784450998667636e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-32x8",
+      "binary_sha256": "63309a15ed5be64ed3fada04d2c95a1737a4a84d071068e3dbc8167d435ffb49",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.8476036827323518e-11,
+        "initial_correction_norm": 26.907165383040113,
+        "source_load_norm": 12653.276917648625,
+        "declared_roundoff_bound": 1.2653276917648627e-06,
+        "relative_to_initial": 6.866586117231498e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-32x16",
+      "binary_sha256": "86d521fd875e0607fe1231a1d6b87db9ce5533ee8800382737cff224ca06f0bf",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.873155712653513e-12,
+        "initial_correction_norm": 9.26657727130784,
+        "source_load_norm": 9119.790756211507,
+        "declared_roundoff_bound": 9.119790756211508e-07,
+        "relative_to_initial": 7.417146063126142e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-32x16",
+      "binary_sha256": "53866ef52e106a233c579bc02cb01c6229a21cf59829130a7861d42e1ca38fe1",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 6.426533981114729e-12,
+        "initial_correction_norm": 9.741668103060432,
+        "source_load_norm": 9010.719833557565,
+        "declared_roundoff_bound": 9.010719833557565e-07,
+        "relative_to_initial": 6.596954354353107e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-32x16",
+      "binary_sha256": "4eb89e0eaa133ba0a63c5b0e8cf6f1b3ab2eb6cf7d3dd90d418ed9a9f93c0bf2",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.345127499135705e-12,
+        "initial_correction_norm": 9.256774637939774,
+        "source_load_norm": 9107.83403920247,
+        "declared_roundoff_bound": 9.107834039202469e-07,
+        "relative_to_initial": 1.0095446702174005e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-32x32",
+      "binary_sha256": "425e9c32f8bbf1eb7960f3c8865313e4800a86c36c953703785c9af3eee2b3c2",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.4322446487143747e-12,
+        "initial_correction_norm": 2.971870619918536,
+        "source_load_norm": 6498.814528106018,
+        "declared_roundoff_bound": 6.498814528106018e-07,
+        "relative_to_initial": 8.184221185177458e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-32x32",
+      "binary_sha256": "330d904fab5d962d5cdff265424f2ce82db7cb42bc5fce75699a45944f3de628",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.0104745211873693e-12,
+        "initial_correction_norm": 3.451096396138821,
+        "source_load_norm": 6423.064250011999,
+        "declared_roundoff_bound": 6.423064250011999e-07,
+        "relative_to_initial": 5.825611024475416e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-32x32",
+      "binary_sha256": "566757a07035ace0faf1eff3e6a892dcfff8196616bdd5ba1a48e90e2f6a477f",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.596206616682351e-12,
+        "initial_correction_norm": 2.9785590669923225,
+        "source_load_norm": 6487.722869690364,
+        "declared_roundoff_bound": 6.487722869690364e-07,
+        "relative_to_initial": 8.716317381289801e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-32x64",
+      "binary_sha256": "f55850c2435c7015adf1f5e04379dc3ee36af391933817a43d0b4f4ca8860310",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.7180525966960904e-12,
+        "initial_correction_norm": 1.761841360511448,
+        "source_load_norm": 4609.4021374557915,
+        "declared_roundoff_bound": 4.609402137455792e-07,
+        "relative_to_initial": 9.751460234747547e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-32x64",
+      "binary_sha256": "96ddadcb514e7b3be3009ed065f1c68332d53f2ffe72fe5f631ddd99538eff59",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.4625258695768644e-12,
+        "initial_correction_norm": 1.937768925050346,
+        "source_load_norm": 4559.902834233655,
+        "declared_roundoff_bound": 4.559902834233655e-07,
+        "relative_to_initial": 7.547473027718544e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-32x64",
+      "binary_sha256": "4f9b55cc9d163d450759830b43e31d08cc5a319c59165201c7d00ed4f8ef8959",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.1284203349078402e-12,
+        "initial_correction_norm": 1.7668718017621645,
+        "source_load_norm": 4601.468424851898,
+        "declared_roundoff_bound": 4.601468424851898e-07,
+        "relative_to_initial": 1.2046263530750169e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-64x1",
+      "binary_sha256": "99e409ffd07eebc16d815d482340633aa447875b58505dd8596ac2dbb5f63f0c",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 8.788420928004115e-11,
+        "initial_correction_norm": 161.6357170652562,
+        "source_load_norm": 18717.30744709273,
+        "declared_roundoff_bound": 1.8717307447092731e-06,
+        "relative_to_initial": 5.437177554300093e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-64x1",
+      "binary_sha256": "81e7275b2010bd469efc4b1152b787edaba6465b2f7e64220844fc127945144e",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.533986421213074e-11,
+        "initial_correction_norm": 163.27014628980993,
+        "source_load_norm": 18374.916610947716,
+        "declared_roundoff_bound": 1.8374916610947717e-06,
+        "relative_to_initial": 5.839393568184799e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-64x1",
+      "binary_sha256": "909c72e177329beb7bec23c02d0050fb8cfc482cbf01e23983d2bb68505e10bc",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.304882809569506e-11,
+        "initial_correction_norm": 161.52261412295496,
+        "source_load_norm": 18701.470069565952,
+        "declared_roundoff_bound": 1.8701470069565953e-06,
+        "relative_to_initial": 5.760730694023069e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-64x2",
+      "binary_sha256": "5ccd7c1be9b48c37cf7ac4dfa7e3fcda28ebef54518a6fceea0f6670175189f4",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.512501045445783e-10,
+        "initial_correction_norm": 153.2908713408496,
+        "source_load_norm": 16121.611232893778,
+        "declared_roundoff_bound": 1.612161123289378e-06,
+        "relative_to_initial": 9.866869646025198e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-64x2",
+      "binary_sha256": "d804bc4263d1604ecdee17aecbc620e9ef53c97f13a34b25b11351908d87ce57",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.1137911458059589e-10,
+        "initial_correction_norm": 151.3029298991908,
+        "source_load_norm": 15918.862728160868,
+        "declared_roundoff_bound": 1.591886272816087e-06,
+        "relative_to_initial": 7.361332305647015e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-64x2",
+      "binary_sha256": "620f59460d2f52c25c51d32e216ea174e3480fa40a16a9d063f1686185a3f9bd",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.96371098693106e-11,
+        "initial_correction_norm": 153.36219026113872,
+        "source_load_norm": 16110.33866208341,
+        "declared_roundoff_bound": 1.611033866208341e-06,
+        "relative_to_initial": 3.8886448979219077e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-64x4",
+      "binary_sha256": "7e2ba2c1f5e872dea0109af97fd36c8650f2e0b60f029042b38703787ee4e040",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 2.9894506027769335e-11,
+        "initial_correction_norm": 53.577602089241566,
+        "source_load_norm": 12281.272735549046,
+        "declared_roundoff_bound": 1.2281272735549047e-06,
+        "relative_to_initial": 5.579664796863348e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-64x4",
+      "binary_sha256": "214684a463b3b05e51d56fa2b3af7d37e23d2ffccf03abc5c97c97e6edc9474c",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 3.4152130120179845e-11,
+        "initial_correction_norm": 53.59744526437655,
+        "source_load_norm": 12156.75045492059,
+        "declared_roundoff_bound": 1.215675045492059e-06,
+        "relative_to_initial": 6.371969774253213e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-64x4",
+      "binary_sha256": "a87346a11ce6da83a02251e93b9cef53bdda4bac1eec6dddae4d3c26eceec043",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.1555313049984065e-11,
+        "initial_correction_norm": 53.548743482205666,
+        "source_load_norm": 12278.963096152396,
+        "declared_roundoff_bound": 1.2278963096152396e-06,
+        "relative_to_initial": 9.627735348657803e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-64x8",
+      "binary_sha256": "067e84d0cd0c41a057070aa1020b3a11449d88e629ce02808acfa98749f52d8c",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.991096066359156e-12,
+        "initial_correction_norm": 20.09694338055943,
+        "source_load_norm": 8989.62635857406,
+        "declared_roundoff_bound": 8.98962635857406e-07,
+        "relative_to_initial": 4.971450571943164e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-64x8",
+      "binary_sha256": "15a4c435e3c14e84dbc1dbea966bce1cd090377ff54b6bd878a7cb0a4daa2afb",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.84234162224702e-11,
+        "initial_correction_norm": 19.879422297836708,
+        "source_load_norm": 8898.275614976099,
+        "declared_roundoff_bound": 8.898275614976099e-07,
+        "relative_to_initial": 9.26758129408773e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-64x8",
+      "binary_sha256": "5ff8a4d27a0f20bb8fbfe7aec507ab874fcd5b712623b83a25424de137c4322d",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.6895984765467235e-11,
+        "initial_correction_norm": 20.122674013279006,
+        "source_load_norm": 8983.084507011105,
+        "declared_roundoff_bound": 8.983084507011104e-07,
+        "relative_to_initial": 8.396490821407498e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-64x16",
+      "binary_sha256": "9f55da3034ee37c2d9939c1ecdcffb43341b95867b07cfff8f7cbc920ca02b71",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 4.342603236536932e-12,
+        "initial_correction_norm": 6.655205703332762,
+        "source_load_norm": 6465.44416647004,
+        "declared_roundoff_bound": 6.46544416647004e-07,
+        "relative_to_initial": 6.525122483234836e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-64x16",
+      "binary_sha256": "5900743d70760b1b4032cc508bf23905e82a80fd5440a88c88235565970a094a",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.6347625069824145e-12,
+        "initial_correction_norm": 6.713520663783428,
+        "source_load_norm": 6396.680921539533,
+        "declared_roundoff_bound": 6.396680921539534e-07,
+        "relative_to_initial": 8.393155825645324e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-64x16",
+      "binary_sha256": "6e30ff8180b24b9da9b4fd7369a59e828decc1dd7985985f75b684bebb9fc628",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 5.0833143785678495e-12,
+        "initial_correction_norm": 6.654698663724121,
+        "source_load_norm": 6456.791253386721,
+        "declared_roundoff_bound": 6.456791253386721e-07,
+        "relative_to_initial": 7.63868453770544e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-64x32",
+      "binary_sha256": "616a5947fdb90a3d79c5600a5855adcd8f317985b90f9f89a70667052399a89d",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.2924977106248315e-12,
+        "initial_correction_norm": 1.591227951620356,
+        "source_load_norm": 4618.047705805016,
+        "declared_roundoff_bound": 4.6180477058050165e-07,
+        "relative_to_initial": 8.122643329063407e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-64x32",
+      "binary_sha256": "a3c1aaa8c12c7011b104dfbecff14358698e3a913f16aee1237d1d328d64af9d",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.3616493728686647e-12,
+        "initial_correction_norm": 1.827135861700256,
+        "source_load_norm": 4559.7136041358035,
+        "declared_roundoff_bound": 4.559713604135804e-07,
+        "relative_to_initial": 7.452370682503988e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-64x32",
+      "binary_sha256": "76039a5db6dba0e7fca9b192eaed7e13ffe42f3e4ef931f965620b06f559a233",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 1.474155675413675e-12,
+        "initial_correction_norm": 1.5969082821911889,
+        "source_load_norm": 4605.420667316513,
+        "declared_roundoff_bound": 4.605420667316513e-07,
+        "relative_to_initial": 9.23131085143425e-13
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "p1-fit-64x64",
+      "binary_sha256": "872857d101cb971f09f524675244e82a674fa8cb0c4db145a5c1d1cb0409187a",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 9.543095884916227e-13,
+        "initial_correction_norm": 0.3199363645625359,
+        "source_load_norm": 3237.073856866627,
+        "declared_roundoff_bound": 3.2370738568666274e-07,
+        "relative_to_initial": 2.9828106279712698e-12
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "ruled-fit-64x64",
+      "binary_sha256": "3e323677ef5cc64fb71c5871696a44f77eefb8298421f9bf0d7339c5cfda59e4",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 0.0,
+        "initial_correction_norm": 0.0,
+        "source_load_norm": 3237.061753921908,
+        "declared_roundoff_bound": 3.237061753921908e-07,
+        "relative_to_initial": null
+      }
+    },
+    {
+      "case_id": "exeter-north-quarter",
+      "id": "hybrid-fit-64x64",
+      "binary_sha256": "3e323677ef5cc64fb71c5871696a44f77eefb8298421f9bf0d7339c5cfda59e4",
+      "whole_domain_integral_verified": true,
+      "unfitted_integral_verified": true,
+      "galerkin": {
+        "galerkin_residual_norm": 0.0,
+        "initial_correction_norm": 0.0,
+        "source_load_norm": 3237.061753921908,
+        "declared_roundoff_bound": 3.237061753921908e-07,
+        "relative_to_initial": null
+      }
+    }
+  ],
+  "fitted_models": 294,
+  "unfitted_models": 294,
+  "independent_decisions": 96,
+  "auditor_sha256": "0b4014f197775f0484a2436e3723b782354f978a1c6538fd8d4221e9341c19f5"
+}

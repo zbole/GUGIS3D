@@ -4,6 +4,7 @@ import workspaces from '../../../shared/city-workspaces.json';
 import './DatasetExplorer.css';
 import CityDatasetCard from './CityDatasetCard';
 import CityPicker from '../studio/CityPicker';
+import exeterResearch from '../../../shared/exeter-source-brief-v1.json';
 
 const TerrainViewer=lazy(()=>import('./PublicTerrainViewer'));
 const RuledTileExplorer=lazy(()=>import('./RuledTileExplorer'));
@@ -23,6 +24,7 @@ export default function DatasetExplorer(){
         {!source?<div className="dataset-pending"><strong>尚无已核验的公开 DTM</strong><p>本城建筑样本工作区已有独立入口。地形完成独立核验并公开前，不显示替代数据或虚构精度。</p><a href={`/?city=${cityId}&cities=${cityId}&view_mode=tiles&tile_profile=economy`}>浏览本城建筑样本 ↗</a></div>:<>
           <div className="dataset-terrain-heading"><h3>裸地地形与原生面带</h3><button className="dataset-primary" type="button" aria-expanded={view} onClick={()=>setView(v=>!v)}>{view?'关闭三维预览':'打开只读三维预览'}</button></div><dl className="dataset-metrics"><div><dt>源栅格 / EPSG:27700</dt><dd>{source.width.toLocaleString()} × {source.height.toLocaleString()}</dd></div><div><dt>高程 / ODN 米</dt><dd>{source.min_height_m.toFixed(2)} – {source.max_height_m.toFixed(2)}</dd></div><div><dt>原生粗预览控制点</dt><dd>{source.preview_points.toLocaleString()}</dd></div><div><dt>{source.sample_audit.requested.toLocaleString()} 点相对源 RMSE</dt><dd>{source.sample_audit.rmse_m.toFixed(3)} m</dd></div><div><dt>抽查最大绝对差</dt><dd className="dataset-error-value">{source.sample_audit.max_absolute_m.toFixed(3)} m</dd></div><div><dt>源像元 / 缺测</dt><dd>{source.valid_pixels.toLocaleString()} / {source.nodata_pixels}</dd></div></dl>
           <div className="dataset-quality"><strong>20 像元采样预览，保持原生函数查询。</strong><p>抽查命中 {source.sample_audit.hits.toLocaleString()} / {source.sample_audit.requested.toLocaleString()}。源 DTM 参与预览构建；这些是相对源栅格的差异，不能作为独立地面精度或连续误差保证。</p></div>
+          {cityId==='exeter'&&<div className="dataset-research-link"><strong>本城新增研究验证 · 冻结方法用于新的源样区</strong><p>{exeterResearch.windows} 个固定窗口，{exeterResearch.fitted_models} 个拟合模型及对应原插值对照。{exeterResearch.default_budget_bytes.toLocaleString()} B 上限下 {exeterResearch.hybrid_wins}/{exeterResearch.windows} 混合 E₂ 更低；全部预算的 {exeterResearch.all_budget_losses} 组失利也公开。原二十样区结论保持原样。</p><a href={exeterResearch.href}>查看本城完整对比与同点查询 ↗</a></div>}
           {view&&<Suspense fallback={<p role="status">正在载入只读三维预览模块…</p>}><TerrainViewer key={cityId} cityId={cityId}/></Suspense>}
           {cityId==='manchester'&&<Suspense fallback={<p role="status">正在载入原始一米面带瓦片资料…</p>}><RuledTileExplorer/></Suspense>}
           <figure className="dataset-source-figure"><img key={cityId} src={`/research/${cityId}-terrain/${cityId}-source-preview.png`} alt={`${workspace.name}真实源 DTM 高程及固定4,096源像元抽查误差分布，大误差未隐藏`} loading="lazy"/><figcaption>源地形与原生粗预览误差，ODN 米。源图显示抽稀不改变存档的 1 m 像元；误差色带饱和点保留在原记录。图中 English 标签用于科研复核。</figcaption></figure>
