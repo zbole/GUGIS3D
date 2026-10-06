@@ -26,11 +26,11 @@ ZIP 为 6,421,796 B，SHA-256：`793c24669d78715f68cfe4e86a52cfe72bfa7142b843643
 复现顺序：
 
 ```powershell
-.venv/Scripts/python.exe data-pipeline/exeter_source_fit_benchmark.py
-.venv/Scripts/python.exe data-pipeline/audit_exeter_source_fit.py
+.venv/Scripts/python.exe data-pipeline/exeter_source_fit_benchmark.py .local/research/exeter-source-fit-reproduction-1
+.venv/Scripts/python.exe data-pipeline/audit_exeter_source_fit.py .local/research/exeter-source-fit-reproduction-1
 cd frontend
-node scripts/audit-source-fit.mjs ../.local/research/exeter-source-fit-v1
-node scripts/audit-exeter-source-controls.mjs
+node scripts/audit-source-fit.mjs ../.local/research/exeter-source-fit-reproduction-1
+node scripts/audit-exeter-source-controls.mjs ../.local/research/exeter-source-fit-reproduction-1
 ```
 
 生成器只接受冻结输入，拒绝覆盖已有研究输出；具体参数以脚本帮助和发布包中的完整协议为准。正式城市、草稿和历史均不参与此次试验。

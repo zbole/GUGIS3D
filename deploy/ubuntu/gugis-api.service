@@ -1,0 +1,28 @@
+[Unit]
+Description=GUGIS3D production API
+After=network.target
+
+[Service]
+Type=simple
+User=gugis
+Group=gugis
+WorkingDirectory=/opt/gugis/current/backend
+Environment=PYTHONPATH=/opt/gugis/current
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/gugis/current/.server-venv/bin/python -m uvicorn deploy.server:application --factory --host 127.0.0.1 --port 8001 --workers 1 --limit-concurrency 12 --backlog 64 --timeout-keep-alive 5 --timeout-graceful-shutdown 120
+Restart=always
+RestartSec=5
+TimeoutStopSec=130
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/gugis
+MemoryHigh=700M
+MemoryMax=950M
+TasksMax=64
+
+[Install]
+WantedBy=multi-user.target
