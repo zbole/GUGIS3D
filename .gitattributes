@@ -51,3 +51,4 @@ frontend/public/research/source-native-bands-v1/** -text whitespace=cr-at-eol
 frontend/public/research/source-native-bands-v1/*.svg whitespace=-blank-at-eol
 frontend/public/research/source-multipatch-v1/** -text whitespace=cr-at-eol
 frontend/public/research/source-multipatch-v1/*.svg whitespace=-blank-at-eol
+frontend/public/research/ruled-terrain-tiles-v1/** -text whitespace=cr-at-eol

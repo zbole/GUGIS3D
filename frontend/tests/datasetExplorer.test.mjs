@@ -1,12 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {build} from 'esbuild';
+import {bundleWorkspaceModule} from './bundleWorkspaceModule.mjs';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import React from 'react';
 import {create,act} from 'react-test-renderer';
 const file=p=>new URL(p,import.meta.url),text=n=>typeof n==='string'?n:(n?.children??[]).map(text).join('');
-async function bundle(name,entry,plugins=[]){const outfile=fileURLToPath(file(`../node_modules/.cache/gugis-tests/${name}.mjs`));await build({entryPoints:[fileURLToPath(file(entry))],outfile,bundle:true,platform:'node',format:'esm',packages:'external',loader:{'.css':'empty'},define:{'import.meta.env':'{}'},plugins});return import(pathToFileURL(outfile).href);}
+async function bundle(name,entry,plugins=[]){const outfile=fileURLToPath(file(`../node_modules/.cache/gugis-tests/${name}.mjs`));await bundleWorkspaceModule(fileURLToPath(file(entry)),outfile,{define:{'import.meta.env':'{}'},plugins});return import(pathToFileURL(outfile).href);}
 const {loadPublicTerrain}=await bundle('load-public-terrain','../src/datasets/loadPublicTerrain.ts');
 const {boundedTerrainDisplay}=await bundle('bounded-terrain-display','../src/datasets/boundedTerrainDisplay.ts');
 const {patchFaces,ruledPoint}=await import('../src/studio/terrainMath.ts');
@@ -71,9 +71,10 @@ test('dataset catalogue opens viewers only explicitly, clears them on city switc
   try{
     globalThis.window={location:{href:'http://localhost/datasets?dataset=manchester',search:'?dataset=manchester'},history:{pushState:(_,__,url)=>{globalThis.window.location.href=String(url);globalThis.window.location.search=new URL(String(url)).search;}},addEventListener:(name,fn)=>listeners.set(name,fn),removeEventListener:name=>listeners.delete(name)};
     globalThis.document={title:''};await act(async()=>r=create(React.createElement(Explorer)));
+    assert.equal(r.root.findAllByProps({'aria-label':'展开一米面带瓦片查询'}).length,1);assert.equal(r.root.findAllByProps({className:'rt-query'}).length,0);
     assert.match(text(r.toJSON()),/5\.511 m/);assert.equal(r.root.findAllByProps({'data-test-city':'manchester'}).length,0);
     await act(async()=>r.root.findByProps({className:'dataset-primary'}).props.onClick());assert.equal(r.root.findByProps({'data-test-city':'manchester'}).props.children,'test-only viewer');
-    act(()=>r.root.findAllByType('button').find(b=>text(b).includes('约克')).props.onClick());assert.match(text(r.toJSON()),/4\.683 m/);assert.equal(r.root.findAllByProps({'data-test-city':'manchester'}).length,0);assert.match(window.location.search,/dataset=york/);
+    act(()=>r.root.findAllByType('button').find(b=>text(b).includes('约克')).props.onClick());assert.match(text(r.toJSON()),/4\.683 m/);assert.equal(r.root.findAllByProps({'data-test-city':'manchester'}).length,0);assert.match(window.location.search,/dataset=york/);assert.equal(r.root.findAllByProps({'aria-label':'展开一米面带瓦片查询'}).length,0);
     act(()=>r.root.findAllByType('button').find(b=>text(b).includes('爱丁堡')).props.onClick());assert.match(text(r.toJSON()),/尚无已核验/);assert.equal(r.root.findAllByProps({className:'dataset-primary'}).length,0);
     act(()=>r.root.findAllByType('button').find(b=>text(b).includes('牛津')).props.onClick());assert.match(text(r.toJSON()),/6,594/);assert.match(text(r.toJSON()),/0\.264 m/);assert.match(text(r.toJSON()),/3\.550 m/);assert.equal(r.root.findAllByProps({'data-test-city':'oxford'}).length,0);
     await act(async()=>r.root.findByProps({className:'dataset-primary'}).props.onClick());assert.equal(r.root.findByProps({'data-test-city':'oxford'}).props.children,'test-only viewer');

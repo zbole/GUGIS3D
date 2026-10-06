@@ -17,6 +17,6 @@ export default function SourceFormatProof({siteId}:{siteId:string}){
         <p className="cr-hash">格式报告 SHA-256：{report.report_sha256}<br/>ZIP SHA-256：{report.package.sha256}</p>
       </details>
     </div>
-    <div className="cr-actions"><a download href={base+site.id+'/'+site.package.filename}>当前 MultiPatch 五文件 ZIP ↓</a><a download href={'/research/source-native-bands-v1/'+site.id+'/source_p1.bin'}>同几何 GUGIS P1 ↓</a><a download href={base+report.package.filename}>20 样区格式证据 ZIP ↓</a></div>
+    <div className="cr-actions"><a download href={base+site.id+'/'+site.package.filename}>当前 MultiPatch 五文件 ZIP ↓</a><a download href={'/research/source-native-bands-v1/'+site.id+'/source_p1.bin'}>同几何 GUGIS P1 ↓</a><a download href={base+report.package.filename}>20 样区格式证据 ZIP ↓</a><a href="/datasets?dataset=manchester#ruled-terrain-tiles">验证 512 米一米面带分块 ↗</a></div>
   </div>;
 }
