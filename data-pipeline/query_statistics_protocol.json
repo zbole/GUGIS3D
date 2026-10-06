@@ -1,0 +1,15 @@
+{
+  "schema": "gugis-native-query-statistics-protocol-v1",
+  "source_summary": "shared/native-query-performance-v1.json",
+  "source_report_sha256": "df7e009f07fe0267fb939d5141a54b4f2d7cacc6cd027a0b5c44bf5aacd852bf",
+  "source_trials_sha256": "b70b376c452f9da47e707de8c620d1aaefa1934b0e39b36d07c010adc5519aa0",
+  "cases": ["extruded-quadratic", "modulated-quadratic", "piecewise-8", "piecewise-32", "piecewise-128"],
+  "paired_trials": 17,
+  "implementation": "prepared",
+  "bootstrap_resamples": 50000,
+  "seed": 61006,
+  "rng": "NumPy PCG64, seed + fixed case ordinal",
+  "bootstrap": "Paired percentile resampling, stratified by which method ran first. Preserve 9 ruled-first and 8 triangle-first pairs in each replicate. Statistic is median(triangle ns)/median(ruled ns), not median of paired speed ratios. Linear 2.5/97.5 quantiles. Exploratory 95% resampling interval.",
+  "sign_test": "Two-sided exact paired sign test under null equal win probability. Exclude exact latency ties. Holm familywise adjustment across all five fixed cases at alpha 0.05. Independently report ruled-first/triangle-first median ratios and wins/losses.",
+  "scope": "Secondary statistical analysis of the already published 17-pair CPU measurements, not preregistration before those timings and not a new timed run. Conditional on sufficiently independent/representative paired timing trials; serial dependence or runtime drift can affect inference. No cross-device, GPU, ArcGIS software or real-DTM performance claim. Keep all five cases and every nonsignificant outcome; do not change the source timings or raw records."
+}
