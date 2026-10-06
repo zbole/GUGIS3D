@@ -1,0 +1,1150 @@
+{
+  "schema": "gugis-paper-adaptive-projection-native-audit-v1",
+  "report_sha256": "fa525d897e68c2ee1b0f6428c28c296e6e10ed549180c0fc3f80e18cb5514163",
+  "scripts": {
+    "frontend/scripts/audit-adaptive-projection.mjs": "cde794a28b37e10016a918155cbf4f556e58684352f7b73b76ff90c684432c99",
+    "frontend/tests/bundleWorkspaceModule.mjs": "3b47c503aebc59f32f5a96b68ea3ea06809899196077abd630a71cb374285b13",
+    "frontend/src/compare/principalRuledMath.ts": "4bd434697148e8e9ac5fc387e3f93c3f980c4af0ca604acc750f4c96555ea466",
+    "frontend/src/compare/curvedRuledMath.ts": "20dbf6c48c4b6d4c76510d0679637220fc8aeb735e2e792e21ca7313d7e3b8c7",
+    "frontend/src/compare/terrainOrderMath.ts": "927aeb6c12fe87c9866b4b47fc397e742f2b098435ae0038936f96e2b4091407",
+    "frontend/src/compare/preparedOrderQuery.ts": "1e65054a8db9fa6ac9c64f33fc9d9cf45ba48518917050c2683fa4ddbc92b605"
+  },
+  "native_models": 126,
+  "queries": 129528,
+  "models": [
+    {
+      "case_id": "published-quartic-00",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "3e571143fec28988bb6e6c8cd8e65743740571dd1cf2f044f2800e4dd58f8c6c",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "a8a1e363afb5254c8c0484274352db7d118641d59e32b657262ed184e0a18a02",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "66ffb140f9494ce25e83fe3f06c8ef59d453bf1627d6d7375005ef283f7ad4c6",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "ce5f762ffc6f7b20727670a7374d747d25b0df77aae615a37b1df5e07b4c3a54",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "60a6782ee12f919bb038e1402f90d0d879d119d288998820a3642d066cb389ba",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "2d0daf277ba2b05e00881604f7acc51dfd6b4e29f0d3e44448f69701f0488aeb",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "c1a2aa2cc7467eb3d8248a5f1858af769ac89c79bb6e7ae1901685126f2f879d",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "ee3695e6d953f105745bf92f0ccdb5acfe0a480a9aeed66ef852ba3279b6dba4",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-00",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "724684987ac1242172a446e63cc3268270757dbd9d5c88fb38fcfd016c21313a",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "a4705ccc441908793021f6dad63204546e2589845b38fb98b4286db0d674c96d",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "dd7397aaddada3c7f1c2a5b7d39215088aaae94c0adb25b5e4ab5ad6e184748e",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "ed0c57381ac56ca38b93b39d795d63ca4284020941282890ed112a2f884655c5",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "c0887a52f7357de91905764d98676bbdc81b9a4f00027acb95c2568e70fd6d25",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "69b216bca5a99285b840204d6452daf26aac3406b72026970f4fc41ace524e39",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "1e81e78b7d5fd1187ea98611f53a8c7912c46418378260301285f7500f1f3b5a",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 8.326672684688674e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "0513ded979abc337fb119b886b16541eefdd6524c05504d3304c7885e928f607",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "7baaf95f4466a1ae9aea1fa423d00520528ce9ba662d490fd228e2d49698876f",
+      "queries": 1028,
+      "height_difference_m": 0,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-15",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "dc2cf5a79d5c8fa10085f51b78832f10aa3d4f82b25b45c7c427c934fd2f8799",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 8.326672684688674e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "1e5ab49c9ef05af43b15f1a54eba3bcd0695ca90a212846b9d32f23a1291252b",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "a338b9e3de88c11421d99320b89d59473796c8fb063a0d62dae7838a182343e1",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "cd727c5cb427d7d4001d604aa6f52e3f5a6016e7074eb684653c9443cc52bfb7",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "26b962da72340c28ffef9bd2c63e65b561fb08f97412aeaddd44fc2c8d3c9c15",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "f1efbf7327fa18916d86973326c6496164082b691697273c8b27200c41aab1de",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "995a1141934ec6c3730cb491057c5ebbc07c82b9290627da139f7f6139e06cff",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "6612310f96f87443fd283cb7d80f546d254d707caf26ef28ad6a43c9cee4651d",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "b2e675c0b941b38486033ad04ee246ed790af199e630cb90610e6b66f337fef8",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-30",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "fbd302ffdfc6053f85c08b73c580dbb3c31eea57c32568c918ec38539fe4505f",
+      "queries": 1028,
+      "height_difference_m": 0,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "31a7452e4955454c4de84a6070a33ae7987b38c81b6be6699ac2c2fad8b38b48",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "ce7c3382f3744c48f0660c68cbc34f415a402cbd2471ecbf62e0c2af9d1feb29",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "ed036da4c53a6dba3d31d40cb9664a277077ee7683632170cddc5bcb3242a305",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "c2f5ed67e23dbcec71211239f4e076bc5dc56345dfbe3db5f4d4fd2914f4785c",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "79f9558833175c4190b68076492fc6ced4b58cfc5c706e370e6100aff7d579a7",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "9b649ae3d3068554559751b9327a8b2a3adff657251b6eec3f3d9c04cb242692",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "712912eb5cfadf0aa1242bb206df5ad60dafc91fcf4f714290a60462b917fe1b",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "ede62cc5f903326a6114edca9e7ed4a2ee492c6d32e0b607c5757e5c4c97a170",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-45",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "7aed688e36b646af04b8d2d8b7e7b6a87782660ec4ec48d935def4599d508ca0",
+      "queries": 1028,
+      "height_difference_m": 0,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "ca3a13231145443cf2960ee9e28ab219c681e99b32637739d14dad0d72602a05",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "0719787f2532cbe42c378f346cc9bdcccc7cfd8b50b4f44c446326175e64e739",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "39a31c224d30affc3243843313cf34f56093aa9934d6a1022ea9c398fa49e8a8",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "bead97aff847f1eeabfbedb9211ffea8002fdfdbbe701ea0c18be727f8385d17",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "ae701bbae2c8b6b845cff4f1adb42c11c231c1df7a7cfa12fa95c93af8b25ae3",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "1ff0c70fcbdc74ba1e3fa0048011de37c0e2a1e33eb412c466d015921b072daa",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "03710c4b8096dde8c249d601e14d23d4fea44703f3b231e0e3be1f13be0328fd",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "eb5eb0d1a421c88561ce69b2c4feed414cfee6278b98fa7be8072350000492c1",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-60",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "114527ab653052da93e174cf6fc9be1183dfdb2ff0ab5f4788f96e3d38b8389c",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "18a19c44eadf491e5d17cfc87e5ed5d8cf568fd0a8575e1e65a2086ea9833928",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "db7088542afd718a01015bcfa91b32c283ebd18793d7b5be31e8377d53866118",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "9e37001969396e118c03e5caccc208b2842d8667463201864a24a0df005ff50f",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "63d527e3dc9011e728a765952f21e17f8b467fe42d006e00c57a7ca045d7ee74",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "08c36cb2d23aa06fe9f19f058a5eb7dece18945b7f8cf4199148e3f397f9a904",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "4d1a499b096df97088ba07d946347dde5958f9f1b0ff4013579735626ab8a4e9",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "589a3ab708c7a5489d8a52dd0f073e7dadf55d973edec3baf4f6031a235cdc9b",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "92ef07706dc7284080abd26f90c8c6e8c585f7c49d2e62872761b20fd200fb7d",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-75",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "d48626d53fd84dafa2bc6bf9066633e37d1e258f3dd94b076979fe513139049c",
+      "queries": 1028,
+      "height_difference_m": 0,
+      "gradient_difference": 8.326672684688674e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "50a5dd596924af9ca25b6b28b3f003c72e331b8ddf318a399b73087f088a7a30",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "7c8cefb61f20d84e5d0b48a557a9721fdda782c015918eb1fc39b3ef45fda0ca",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "9c13d8aef946aeb5371a13e3535f1c28831d0d269a4864ef56f9104aec48d35d",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "1d122561955bc6e61dfae04a87aa8ed70e684bb8370763e2750e668c6799a93d",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "929a535971d98646efdb33c230b44499af2e511c12ccf8cba9de79b9fa76301f",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "1fc42e7cde4723d95ac13d30b9164caf815d1bce5095a03077a0f7d1fe02a073",
+      "queries": 1028,
+      "height_difference_m": 0,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "9ea08f20b0f1ac81d5c8b331a11839c06f9f6afa400b7d410d53a44999e2f040",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "1c0fa09981695350e553c4be10f14311b05fa85f2a9c46bf81270f1790721d49",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "published-quartic-90",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "4501fc7e638a1a656dd8634187229ea16b262af8b18fcb1b8394684aa2bcc990",
+      "queries": 1028,
+      "height_difference_m": 0,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "e65f4e9a2bdd105b63c316c606d093cedec056dd40326f1811b4f449f26f0907",
+      "queries": 1028,
+      "height_difference_m": 1.0658141036401503e-14,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "bca09c86aa952813cc3bdc51ffdf8afa3a6f6a11a125fd2a2f857ad1af219063",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "1c3a754c579c6e3598bc9cc819ec5a215b6dfea425b9224d74a85abe567e87ed",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "1b0df25ae894ebf67e4617ec942a66a31a004d55ebd911685355351c6f2cd8c0",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "e5888388d6c5d88e9e21fba2d299b1dbaef5cf477ff29aa5c4d26ac77953f204",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "6233288724ee1734a85c66ffb6406307e8902432c969cc17733a48740aab6fe8",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "8c87a0ccabaf17b196bd436d7c2d03a214ff261102706836bbe56081f02db636",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "e73d8ce20dbc0c547af8f8345bac57333ba9968f51d0685cce26d32ae152e749",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-00",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "4cdf67a9fec0c89fc99ab4656062076290a9f500decc278dc2f456f8aeb31af2",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "0e716c6884d20347bde49bfc3b93a03f6a56bdb13bf85c6b3da3d478969a66d6",
+      "queries": 1028,
+      "height_difference_m": 1.0658141036401503e-14,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "ec33d2440c3b8500e35039d6ae15df52e9189a88a60f3f5dfc0c146a69351375",
+      "queries": 1028,
+      "height_difference_m": 1.0658141036401503e-14,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "a5d5caf9b8214c7810e9957c2724c064005ce7bf050f3616d9784a6d5ef6f5c4",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "7b473b9a796c9ded0910fd0096d96b454533bf0e6563e8fb366055303c1b6cb6",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "f40cedcb60067e04796bb371c009467c9bc0477896c4281e5bae95ca1690f13a",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "84b777394f72037b86e6ef3953060a712cd102330b83ba12e3c14fa346ea126a",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "11fc6ec3700fca845dd9191fc3b95e77cbd446dec48b44bfd0a04eeac903f6d2",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "a10fa16d7393a7819580f945209d7ac7c42678a8f68d0b17fc6baec2c6576880",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-15",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "a8feead526fb2db09e0afb540f8d0669c359f2a72ebac9dd5393d1b16835308d",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "79e7fb49b5e066787ae0112e28d564400e5e498dd04b4ef6664f1f8708051e5e",
+      "queries": 1028,
+      "height_difference_m": 1.4210854715202004e-14,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "52bfda1b0737490b0e3fed19d0b9e0f9441b81ccf56f1aba62ea00cc6d4f1970",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "dc94390c3a93400fa2a6797f4a74ba0201b8b9af8e7a601c4fc6a493c96b17f0",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "96dccf3bfff5faca015932e09fb4c7310796e5bc400c9351265e34b807cbe1b4",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "2a73d06a87d4fd18ecc061be058c62a4aa24fb9e1401cd1ee4fb83780035ac5c",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "3d31f9f38551aa8c6cae0db07975a8932c64746260cc8b5ca4f0824addd39f6b",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "a4004873b35ecb86ffc3eb5a157f6278dd81f95d25dcd9f0ebf359c7900cb731",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "59671bb8215ba0d85262ed2bd312bf9c81f6e34f8e885d26c85ee923ac36615e",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-30",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "2f54ad0c25d6b49b3a994084f18a2800c920d3793fb614213bfffbe889bf0dbf",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "f7f9e6588c090eebe7885b6d7e58f1b7ee886945306f29b6675a4fc17ca54a34",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.3877787807814457e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "26051742acfc3b54b74b04f23e29915ddd9787c84c3fb3dfd56b761d559f06e5",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "fee4093b15237437118f311a8a3ef502f1cb13ec19e201c7b84d892e2d298ad2",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "9916b6604a86922f81771bc1fd30babee082fe446d3654004bed639c86ac9c9d",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "d8493b84ef179d2339d2614323c6fb08e24b2867a8c3ff36f841c980a28e850b",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "a8eae4a3810cd760a2084a413913f63a0df6bbdd603079b1b449bf44aa2b817e",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "95bc6014d420e1c7193ea5b17536b877cef0482abb521d6835a9f77f3adaf75e",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "b53c4dae383acb770b09619e34f893c2eea4b837eab8cd045f8c66dc682f352e",
+      "queries": 1028,
+      "height_difference_m": 3.552713678800501e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-45",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "11d6c65951cd2a8bd972a99ebc034725c5353dae81857499554bd604ab3fbe95",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "b6721205cf4bf578e7b1f3acb7672840cefecdf95e60f1b27d7f521f368709f1",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "9c546298fc6c14a69cee26992788782fb202397c73edfd24a9071cbab5117721",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "a8f7a7836607dbda1bd49691ba6819d3b8138e1ba5831bcfd901c3cd5bdf4807",
+      "queries": 1028,
+      "height_difference_m": 1.4210854715202004e-14,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "25e63d8916df2a8aa1bbe1d134ac6573473cfe692f447ce375f42b8a813981e5",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "f6b3d9af8176151ac052af75ea3024e1b8e5c33405d828dac0e43dd1da032616",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "1f4efca7a501d3688e10b823be556831794c7db126017f3c87e9c227b16d6023",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.6653345369377348e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "cfc154a0c388a04a77d297cf5f9e037153f744d6a99be9501173c626d97ff2a1",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "62325e1be43040d5bcde020d2645850ac80f2a2674fcd927cc3bdb7977bd633d",
+      "queries": 1028,
+      "height_difference_m": 1.4210854715202004e-14,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-60",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "82444f832fd4fc309be03ed97e76071b622012bb9187a3d3f583806ba20300d4",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "650e646b912b05e88c2c56ed376e1266b853d6016226dcfa1a136153d94b02f0",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "7025a69e5e0bf1f4ec79a75780de68b75b454b188133db98f46151d1b209211b",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "39e2400c49b59c8642428f2db98de2b25b2171cd9a1b1f916ff607148435ae92",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "22107b00c95a377b8e1b535f9dfc863950e4683ce5c666ce6156f0c974bcdc2e",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "6c6f607df388109ec0f429a3c002b2024b194c4f94815f20eec83446844cf900",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "08040c29842840edaaff1cb7a55e28a0539db424abb36c71b815fa4de8c0b8a9",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "a5f8f31b913aa5648c7c4c5410b02d227be2191654886606c1696820d3d7097f",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "1b781ea2cef6d8988da1c42e70d8b8fd5b289a8b4926b23fd9940a3a0d0cc1f9",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-75",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "117107986c60b02ff388b678012c68bf926c4cb0816d8d70952228dbe895a72c",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 2.220446049250313e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "adaptive-pt-8.json",
+      "binary_sha256": "d7b604a30dcfd89eba44a84aa7a68e221b6bbc77dad9f468cef2a4bfdd0503a6",
+      "queries": 1028,
+      "height_difference_m": 1.4210854715202004e-14,
+      "gradient_difference": 2.7755575615628914e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "adaptive-pt-16.json",
+      "binary_sha256": "227168b32c790d7dc1d8d2f13c75a8b144f2b621917ea9c6726be4331c9208ac",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "adaptive-pt-32.json",
+      "binary_sha256": "d1d626e6405e43e3e3bdb3008076e738e61761930e19252453409f4e2fdb4e5c",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 5.551115123125783e-17,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "adaptive-pt-64.json",
+      "binary_sha256": "cd567c3ea938f5713bc96e08d2baac1663a413e02bb17fd75d3acf7905f97428",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "adaptive-pt-128.json",
+      "binary_sha256": "6272a5b93b15e893b6be528732e8d32d307d89acf92077d8bd9b3cbbe955f14a",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "adaptive-pt-256.json",
+      "binary_sha256": "b92e2847a7f3032f4cb31166833e4032364942aff4da246abf97a9bba48e24c2",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "adaptive-pt-512.json",
+      "binary_sha256": "a8e5fb36450f6a3985aeb8c71a166341fbc7177be99ed9cd2361e0059bd14312",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "adaptive-pt-1024.json",
+      "binary_sha256": "973496c50c93094ef62f142598fa409779d7d412ec7fc08bf99096b7b0189fc8",
+      "queries": 1028,
+      "height_difference_m": 0,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    },
+    {
+      "case_id": "anisotropic-quartic-90",
+      "filename": "adaptive-pt-2048.json",
+      "binary_sha256": "7aa2818f883a9ed653c4b2a2649440e61653d086b2c50cdc24be62bbe25c903a",
+      "queries": 1028,
+      "height_difference_m": 7.105427357601002e-15,
+      "gradient_difference": 1.1102230246251565e-16,
+      "outside_rejected": true
+    }
+  ]
+}

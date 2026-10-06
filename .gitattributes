@@ -77,3 +77,5 @@ frontend/public/research/paper-finite-frontier-v1/** -text
 backend/data/cities/exeter* -text
 frontend/tests/fixtures/render-manifests/exeter.json -text
 frontend/public/research/exeter-terrain/** -text
+
+frontend/public/research/paper-coordinate-sharing-v1/** -text

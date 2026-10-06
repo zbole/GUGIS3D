@@ -2,15 +2,18 @@ import {useEffect,useMemo,useState} from 'react';
 import {loadProjectionModel} from './loadProjectionModel';
 import {loadVariableModel} from './loadVariableModel';
 import {loadAdaptiveProjectionModel} from './loadAdaptiveProjectionModel';
+import {loadCompactProjectionModel} from './loadCompactProjectionModel';
 import {preparePrincipalQuery,type PrincipalModel} from './principalRuledMath';
-export type ProjectionReceipt={method:string;previous:boolean;package?:'variable-curvature-v1'|'paper-projection-stable-v1'|'paper-adaptive-projection-v1';binary_filename:string;binary_bytes:number;binary_sha256:string;e2_m2:number;points:number;records:number;fit?:{accepted:boolean;fallback_reason:string|null;active_controls:number;weak_controls_held_at_original_z:number;inactive_controls_held_at_original_z:number;iterations:number;relative_restricted_galerkin_residual:number}};
+export type ProjectionReceipt={method:string;previous:boolean;package?:'variable-curvature-v1'|'paper-projection-stable-v1'|'paper-adaptive-projection-v1'|'paper-coordinate-sharing-v1';encoding?:'GPC1';original?:{binary_sha256:string};binary_filename:string;binary_bytes:number;binary_sha256:string;e2_m2:number;points:number;records:number;fit?:{accepted:boolean;fallback_reason:string|null;active_controls:number;weak_controls_held_at_original_z:number;inactive_controls_held_at_original_z:number;iterations:number;relative_restricted_galerkin_residual:number}};
 export type ProjectionCase={id:string;name:string;field:{id:string;quadratic:number[];quartic:number[]};angle_degrees:number;source_frame:number[][];models:Record<string,ProjectionReceipt>;pairs:{budget:number;p1:string;before:string;p2:string;pt:string;fitted:string}[]};
+export function projectionReceiptUrl(siteId:string,e:ProjectionReceipt){const folder=e.package??(e.previous?'variable-curvature-v1':'paper-projection-stable-v1');return `/research/${folder}/${e.encoding==='GPC1'?'native/':''}${siteId}/${e.binary_filename}`;}
 export function projectionSourceHeight(site:ProjectionCase,x:number,y:number){const frame=site.source_frame,u=x*frame[0][0]+y*frame[1][0],v=x*frame[0][1]+y*frame[1][1];return 30+site.field.quadratic[0]*u*u+site.field.quadratic[1]*v*v+site.field.quartic[0]*u**4+site.field.quartic[1]*v**4;}
 const coords=Array.from({length:17},(_,i)=>Number((-50+(i+.5)*100/17).toFixed(2)));
 function colour(value:number,scale:number){const t=Math.min(1,Math.abs(value)/scale),zero=[248,250,247],end=value<0?[94,142,174]:[190,113,72];return `rgb(${zero.map((v,i)=>Math.round(v+(end[i]-v)*t)).join(',')})`;}
 export default function ProjectionNativeDemo({site,entries}:{site:ProjectionCase;entries:{label:string;model:ProjectionReceipt}[]}){
   const [loaded,setLoaded]=useState<{models:PrincipalModel[];key:string;id:string}|null>(null),[error,setError]=useState(''),[retry,setRetry]=useState(0),[x,setX]=useState(.27),[y,setY]=useState(-1.41),key=entries.map(e=>e.model.binary_sha256).join(',');
   useEffect(()=>{const controller=new AbortController();setLoaded(null);setError('');Promise.all(entries.map(({model:e})=>{
+    if(e.encoding==='GPC1')return loadCompactProjectionModel(projectionReceiptUrl(site.id,e),e.binary_bytes,e.binary_sha256,e.original?.binary_sha256??'',controller.signal);
     const folder=e.package??(e.previous?'variable-curvature-v1':'paper-projection-stable-v1'),loader=folder==='paper-adaptive-projection-v1'?loadAdaptiveProjectionModel:e.previous?loadVariableModel:loadProjectionModel;
     return loader(`/research/${folder}/${site.id}/${e.binary_filename}`,e.binary_bytes,e.binary_sha256,controller.signal);
   })).then(models=>{if(!controller.signal.aborted)setLoaded({models,key,id:site.id});}).catch(e=>{if(!controller.signal.aborted)setError(e instanceof Error?e.message:'拟合原生模型读取失败');});return()=>controller.abort();},[site.id,key,retry]);

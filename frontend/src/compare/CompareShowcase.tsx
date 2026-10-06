@@ -27,6 +27,8 @@ const SourceFunctionResults = lazy(() => import('./SourceFunctionResults'));
 const ResultFocusSummary = lazy(() => import('./ResultFocusSummary'));
 const PaperFrontierDisclosure = lazy(() => import('./PaperFrontierDisclosure'));
 const frontierResults = <Suspense fallback={<p role="status">正在载入同误差与同空间对照…</p>}><PaperFrontierDisclosure/></Suspense>;
+const PaperCoordinateDisclosure = lazy(() => import('./PaperCoordinateDisclosure'));
+const coordinateResults = <Suspense fallback={<p role="status">正在载入统一编码后的对照…</p>}><PaperCoordinateDisclosure/></Suspense>;
 const advantageSummary = <Suspense fallback={<p role="status" className="cr-scope">正在载入三条已核验结果主线…</p>}><ResultFocusSummary/></Suspense>;
 const principalResults = <Suspense fallback={<p role="status" className="cr-scope">正在载入完整方向适配结果…</p>}><PrincipalDirectionResults/></Suspense>;
 const sourceResults = <Suspense fallback={<p role="status" className="cr-scope">正在载入真实 DTM 同函数结果…</p>}><SourceFunctionResults/></Suspense>;
@@ -148,7 +150,7 @@ export default function CompareShowcase({ workspace = defaultCityWorkspace, api 
     <a href="/compare">查看布里斯托已核验的对比证据 →</a>
     <a href="#real-terrain-results">查看固定样区真实地形结果 →</a>
     <a href="/datasets">查看城市与裸地数据集 →</a>
-  </div>{advantageSummary}{frontierResults}{principalResults}{sourceResults}{nativeResults}<PaperTerrainResults/>{functionControls}<RealTerrainResultSummary/><EvidenceDisclosure group="supplementary" title="补充研究实验" note="跨城市公开地形数据与既有方法实验">{researchSection}</EvidenceDisclosure></div>;
+  </div>{advantageSummary}{coordinateResults}{frontierResults}{principalResults}{sourceResults}{nativeResults}<PaperTerrainResults/>{functionControls}<RealTerrainResultSummary/><EvidenceDisclosure group="supplementary" title="补充研究实验" note="跨城市公开地形数据与既有方法实验">{researchSection}</EvidenceDisclosure></div>;
   return <BristolComparison api={api} />;
 }
 
@@ -199,13 +201,13 @@ function BristolComparison({ api }: { api?: CityApi }) {
     <div className="compare-page">
       <header className="cmp-header">
         <a href="/" className="cmp-logo" aria-label="返回 GUGIS3D 城市工作台"><span className="cmp-logo-mark">G<span>3</span></span><span>GUGIS<em>3D</em></span></a>
-        <nav aria-label="对比展示导航"><a href="#validated-advantages">核心结果</a><a href="#source-fit-results">真实地形</a><a href="#source-query-results">查询效率</a><a href="#paper-frontier-results">论文对照</a><a href="/datasets">数据集</a><a href="#supplementary-evidence">完整证据</a></nav>
+        <nav aria-label="对比展示导航"><a href="#validated-advantages">核心结果</a><a href="#source-fit-results">真实地形</a><a href="#source-query-results">查询效率</a><a href="#paper-coordinate-results">论文对照</a><a href="/datasets">数据集</a><a href="#supplementary-evidence">完整证据</a></nav>
         <a href="/" className="cmp-header-action">进入三维工作台 <ArrowUpRight size={16}/></a>
       </header>
       <main>
         <section className="cmp-results-hero" aria-labelledby="cmp-title"><span className="paper-eyebrow">GUGIS3D / TERRAIN RESEARCH RESULTS</span><h1 id="cmp-title">顺着地形表达，<br/>用结果证明收益。</h1><p>三条已核验主线：与论文完整自适应 Pₜ 方法对照曲面精度；与同等共享拟合的双对角线三角带对照真实地形；从保存的面带直接查询高程与梯度。每条结论都对应完整模型、全部结果和适用范围。</p></section>
         {advantageSummary}
-        {frontierResults}
+        {coordinateResults}{frontierResults}
         {principalResults}
         {sourceResults}
         {nativeResults}
