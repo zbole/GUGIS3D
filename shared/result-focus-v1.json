@@ -1,0 +1,318 @@
+{
+  "schema": "gugis-result-focus-v1",
+  "inputs": [
+    {
+      "path": "shared/principal-ruled-display-v1.json",
+      "sha256": "d061cabf0f401867e0149e66dc0e630a3d6ffdd56a7fb61862adcead924bde7c"
+    },
+    {
+      "path": "frontend/public/research/principal-ruled-v1/results.json",
+      "sha256": "62ea95e97f6120dcc2109d7bf0478b0aa7ec24266e60b3d38de6291e85cb3797"
+    },
+    {
+      "path": "shared/source-native-bands-v1.json",
+      "sha256": "2d99182356a62e1bdaaa72b801d6c8d8330eb92a425ae6098c340c5658425977"
+    },
+    {
+      "path": "frontend/public/research/source-native-bands-v1/results.json",
+      "sha256": "71b46d1f7eafcd3e13fd4de9eaa0d1790d19e0dd072f8c290b4fae9101460857"
+    },
+    {
+      "path": "shared/source-multipatch-v1.json",
+      "sha256": "7e5238e190b1ee16179447eb00ad0dda4fecff3582356ddf6652d26f72a61d2d"
+    },
+    {
+      "path": "frontend/public/research/source-multipatch-v1/results.json",
+      "sha256": "11f4ae81f3d4a1b392800e09b8b3a2fb29db3706b821bf8a98fc4283cc4c1241"
+    },
+    {
+      "path": "shared/native-query-performance-v1.json",
+      "sha256": "2fab6fee7ed36f38c0efe6f22119a2ae098bf417ef627053daab8c38a643687c"
+    },
+    {
+      "path": "frontend/public/research/native-query-v1/results.json",
+      "sha256": "df7e009f07fe0267fb939d5141a54b4f2d7cacc6cd027a0b5c44bf5aacd852bf"
+    },
+    {
+      "path": "shared/variable-curvature-display-v1.json",
+      "sha256": "2e1d094bb367fc8a65ed998ef500c4bafb6d3152902066d3c3406d73dbd0e0c6"
+    },
+    {
+      "path": "frontend/public/research/variable-curvature-v1/results.json",
+      "sha256": "7e100295d0d3426b5d7c61d0cc99cb32a2ed41f854b7a1a85816fd66901d6e72"
+    },
+    {
+      "path": "frontend/public/research/variable-curvature-v1/variable-curvature-evidence.zip",
+      "sha256": "26a8c1a50fcb462062fa591e128c5756661f792ccaf9febf95b4109db37e34c4"
+    },
+    {
+      "path": "shared/hybrid-source-display-v1.json",
+      "sha256": "cdd256c2c51477dbad01d4ea7a3cc11a9bd23a51131acb3bbcc9cf30600df28a"
+    },
+    {
+      "path": "frontend/public/research/hybrid-source-v1/results.json",
+      "sha256": "b21a22efdbaddf5aabe56a264a3681966fc6ffb09d1cdfb60d25b5d008901b62"
+    },
+    {
+      "path": "frontend/public/research/hybrid-source-v1/hybrid-source-evidence.zip",
+      "sha256": "ebd5e8eb9f7c0429c44da2ad08a639c9f213c431419e98ca7128ba5358972d0d"
+    },
+    {
+      "path": "shared/native-query-repeat-display-v1.json",
+      "sha256": "6a7e775f335894e67fc648d33b4fed90189685e984b2a7f884d979676a758b9c"
+    },
+    {
+      "path": "frontend/public/research/native-query-repeat-v1/results.json",
+      "sha256": "a3d61be59737f528335c4ab1b610dabfdd2e281c355fa95e12fcededb3ce8735"
+    },
+    {
+      "path": "frontend/public/research/native-query-repeat-v1/native-repeat-evidence.zip",
+      "sha256": "37f2f36b205e6359421b37ff6d3335505375cf5769955208250a28ebec761e5a"
+    }
+  ],
+  "stories": [
+    {
+      "id": "variable-paper",
+      "category": "论文式 P1 精度",
+      "headline": "方向变化后，依然更低误差",
+      "value": 63.603564959763126,
+      "unit": "%",
+      "value_note": "全域 E₂ 降低",
+      "context": "强方向性四次曲面 · 30° · N=2,048",
+      "baseline": "论文式 L₂ 贪心 P1 / L₁ 选边 · 同 N 与完整文件预算",
+      "coverage": "63/63 组有收益；全档降幅 33.81%–90.16%",
+      "metrics": [
+        {
+          "label": "论文式 P1",
+          "value": 0.2624299388977723,
+          "unit": "m² E₂",
+          "tone": "reference"
+        },
+        {
+          "label": "GUGIS 面带",
+          "value": 0.09551514223706101,
+          "unit": "m² E₂",
+          "tone": "gugis"
+        },
+        {
+          "label": "P₂ 控制",
+          "value": 0.017889492689622342,
+          "unit": "m² E₂",
+          "tone": "control"
+        }
+      ],
+      "controls": "另一四次曲面仅 31/63 组获益；当前 P₂ 控制误差更低。",
+      "report_sha256": "7e100295d0d3426b5d7c61d0cc99cb32a2ed41f854b7a1a85816fd66901d6e72",
+      "detail_href": "#variable-curvature-results",
+      "package_url": "/research/variable-curvature-v1/variable-curvature-evidence.zip",
+      "package_bytes": 18475635,
+      "package_sha256": "26a8c1a50fcb462062fa591e128c5756661f792ccaf9febf95b4109db37e34c4"
+    },
+    {
+      "id": "real-hybrid",
+      "category": "真实 DTM 混合",
+      "headline": "面带与三角带，共享边界",
+      "value": 20,
+      "unit": "/20",
+      "value_note": "固定预算下误差更低",
+      "context": "十城二十固定 1 m 源样区 · 完整文件 ≤ 8,192 B",
+      "baseline": "同源 Float32 双线性函数 · 本次固定网格 P1 三角带",
+      "coverage": "E₂ 降低 3.01%–18.09%；全部十档 179/200 组更低",
+      "points": [
+        {
+          "id": "manchester-centre",
+          "name": "曼彻斯特 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 4.376908673756718
+        },
+        {
+          "id": "manchester-north-quarter",
+          "name": "曼彻斯特 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 4.505914678291667
+        },
+        {
+          "id": "york-centre",
+          "name": "约克 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 11.772794577311673
+        },
+        {
+          "id": "york-north-quarter",
+          "name": "约克 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 6.133057269245256
+        },
+        {
+          "id": "bath-centre",
+          "name": "巴斯 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 14.277417438120011
+        },
+        {
+          "id": "bath-north-quarter",
+          "name": "巴斯 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 7.77918656513773
+        },
+        {
+          "id": "oxford-centre",
+          "name": "牛津 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 10.879997013297249
+        },
+        {
+          "id": "oxford-north-quarter",
+          "name": "牛津 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 9.753687750061024
+        },
+        {
+          "id": "cambridge-centre",
+          "name": "剑桥 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 10.905870979897914
+        },
+        {
+          "id": "cambridge-north-quarter",
+          "name": "剑桥 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 4.924651440336659
+        },
+        {
+          "id": "liverpool-centre",
+          "name": "利物浦 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 11.323876160808243
+        },
+        {
+          "id": "liverpool-north-quarter",
+          "name": "利物浦 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 18.085295541195556
+        },
+        {
+          "id": "sheffield-centre",
+          "name": "谢菲尔德 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 6.4042573440229456
+        },
+        {
+          "id": "sheffield-north-quarter",
+          "name": "谢菲尔德 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 18.04657645189969
+        },
+        {
+          "id": "leeds-centre",
+          "name": "利兹 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 6.78495853427169
+        },
+        {
+          "id": "leeds-north-quarter",
+          "name": "利兹 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 14.39585053075646
+        },
+        {
+          "id": "nottingham-centre",
+          "name": "诺丁汉 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 6.766243222264013
+        },
+        {
+          "id": "nottingham-north-quarter",
+          "name": "诺丁汉 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 9.89220348325891
+        },
+        {
+          "id": "newcastle-centre",
+          "name": "纽卡斯尔 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 6.668442941425912
+        },
+        {
+          "id": "newcastle-north-quarter",
+          "name": "纽卡斯尔 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 3.0097274297018695
+        }
+      ],
+      "controls": "共享线性边界保持 C⁰；额外混合记录计入文件。固定网格对照与论文贪心 P1 分开。",
+      "report_sha256": "b21a22efdbaddf5aabe56a264a3681966fc6ffb09d1cdfb60d25b5d008901b62",
+      "detail_href": "#hybrid-source-results",
+      "package_url": "/research/hybrid-source-v1/hybrid-source-evidence.zip",
+      "package_bytes": 23980677,
+      "package_sha256": "ebd5e8eb9f7c0429c44da2ad08a639c9f213c431419e98ca7128ba5358972d0d"
+    },
+    {
+      "id": "cpu-repeat",
+      "category": "独立 CPU 复测",
+      "headline": "换三个新进程，重新测量",
+      "value": 15,
+      "unit": "/15",
+      "value_note": "耗时中位数对比有收益",
+      "context": "五个固定同函数样例 · 三次新 Node 进程",
+      "baseline": "相同函数的 P₂ / P₃ 三角查询 · 同点定位、高程与解析梯度",
+      "coverage": "完整范围 1.024–1.408×；保留全部 255 对准备后测量",
+      "points": [
+        {
+          "id": "extruded-quadratic",
+          "name": "二次轮廓沿直线延展",
+          "minimum": 1.0242234093671367,
+          "maximum": 1.0822457770501983
+        },
+        {
+          "id": "modulated-quadratic",
+          "name": "二次轮廓随母线线性变化",
+          "minimum": 1.1930693528059537,
+          "maximum": 1.2258354860362428
+        },
+        {
+          "id": "piecewise-8",
+          "name": "8 条连续直纹面带",
+          "minimum": 1.3673663471511543,
+          "maximum": 1.408176426242325
+        },
+        {
+          "id": "piecewise-32",
+          "name": "32 条连续直纹面带",
+          "minimum": 1.1679300806634363,
+          "maximum": 1.2346511176605646
+        },
+        {
+          "id": "piecewise-128",
+          "name": "128 条连续直纹面带",
+          "minimum": 1.1901244233566415,
+          "maximum": 1.2185604827972578
+        }
+      ],
+      "controls": "本机 i7-14650HX / Node v24.13.0。三次范围不是置信区间，也不代表 GPU 或 ArcGIS 软件性能。",
+      "report_sha256": "a3d61be59737f528335c4ab1b610dabfdd2e281c355fa95e12fcededb3ce8735",
+      "detail_href": "#native-query-repeat",
+      "package_url": "/research/native-query-repeat-v1/native-repeat-evidence.zip",
+      "package_bytes": 376360,
+      "package_sha256": "37f2f36b205e6359421b37ff6d3335505375cf5769955208250a28ebec761e5a"
+    }
+  ],
+  "secondary": [
+    {
+      "id": "source-function",
+      "kind": "file-percent",
+      "value": 80.48204431028722,
+      "label": "保留同一源函数的矢量文件减少",
+      "baseline": "逐格共享 XYZ 的 P2 三角函数",
+      "context": "真实 1 m DTM · 十城二十固定样区",
+      "evidence": "20/20 同函数全域积分核验通过",
+      "metric_unit": "完整文件 / B",
+      "gugis_metric": 135528,
+      "baseline_metric": 694376,
+      "detail_href": "#source-function-results",
+      "scope": "原始 Float32 源函数；规则栅格与 GeoTIFF 更小的控制同样公开。",
+      "report_sha256": "71b46d1f7eafcd3e13fd4de9eaa0d1790d19e0dd072f8c290b4fae9101460857",
+      "package_url": "/research/source-native-bands-v1/source-native-bands-evidence.zip",
+      "package_sha256": "4831e19bd1b77a8ea8ca4c9ca81c905c517a2d3096d1d87a19752e5d9f946e37",
+      "package_bytes": 11006037
+    },
+    {
+      "id": "multipatch-format",
+      "kind": "file-percent",
+      "value": 32.58587928650305,
+      "label": "ArcGIS 兼容同几何文件减少",
+      "baseline": "实际 MultiPatch SHP/SHX/DBF/PRJ/CPG",
+      "context": "20 个真实源样区 · 相同 P1 三角表面",
+      "evidence": "163,840 个源三角面独立读回一致",
+      "metric_unit": "完整文件 / B",
+      "gugis_metric": 135528,
+      "baseline_metric": 201038,
+      "detail_href": "#source-format-results",
+      "scope": "省略可选 M 的真实五文件；这是格式比较，未运行 ArcGIS 软件。",
+      "report_sha256": "11f4ae81f3d4a1b392800e09b8b3a2fb29db3706b821bf8a98fc4283cc4c1241",
+      "package_url": "/research/source-multipatch-v1/source-multipatch-evidence.zip",
+      "package_sha256": "781e84242f7f41ee8a66349e6724457931602e3aa2ce39d61816abfb3d0d1c7b",
+      "package_bytes": 4367605
+    }
+  ]
+}
