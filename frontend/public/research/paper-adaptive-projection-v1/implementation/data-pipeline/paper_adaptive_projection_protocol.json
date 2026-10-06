@@ -1,0 +1,20 @@
+{
+  "schema": "gugis-paper-adaptive-projection-protocol-v1",
+  "paper": "https://arxiv.org/pdf/1101.1452",
+  "sections": "2.1 operator PT, 2.4 local-L2 region priority and equation (2.18) IT child-L1 edge choice",
+  "source_report": "frontend/public/research/variable-curvature-v1/results.json",
+  "source_report_sha256": "7e100295d0d3426b5d7c61d0cc99cb32a2ed41f854b7a1a85816fd66901d6e72",
+  "fitted_report": "frontend/public/research/paper-projection-stable-v1/results.json",
+  "fitted_report_sha256": "4477be89825c6ab77f00ef3226248f05dc90c6339b71f85b843db3071faab7e5",
+  "coverage": "All existing fourteen fields/angles, nine original budgets; 126 saved PT-driven adaptive native models. Do not reselect existing ruled/P2 models after seeing this stronger control.",
+  "budgets": [8,16,32,64,128,256,512,1024,2048],
+  "observations_disclosure": "All prior IT-greedy, fixed-mesh PT and repaired ruled-fitting outcomes have already been observed. Mathematical validation of the new routine also evaluated published-quartic 30 degrees at N8/16/32 and 45 degrees at N8/16/32/64. This complete study is prospectively fixed after that disclosed numerical pilot, not preregistration before any data observation. No full new comparison against fitted ruled models has been computed.",
+  "initial_partition": "The same two diagonal triangles of [-50,50]^2 in the same insertion order as the original IT study.",
+  "region_priority": "Largest actual PT local squared L2 error; exact numerical ties choose earliest insertion ID. PT coefficients use seven-node Gauss-Duffy local barycentric mass inverse, exact for the fixed quartic fields up to Float64 rounding.",
+  "edge_decision": "Equation (2.18): choose minimum sum of the two children IT L1 interpolation errors, even though the region priority and saved planes use PT. Strict convexity gives nonnegative interpolation-minus-source, integrated by seven-node quadrature. Exact numerical ties choose smallest local edge index. PT L1 error is NOT used for edge selection.",
+  "refinement": "Bisection from the edge midpoint to the opposite vertex. No conformity closure; independent projected planes may be discontinuous, as permitted in the paper. Every chosen region, edge, three costs and child IDs are retained. Check nested PT squared error cannot increase beyond 1e-10*max(1,parent squared error).",
+  "comparison": "All 126 original pairs: actual new adaptive PT error, original IT, old fixed-mesh PT, original ruled, repaired fitted ruled, and original selected P2. N is the actual PT triangle count and prior nominal primitive ceiling; original ruled models retain the stricter prior IT binary budget, topology and actual bytes. Do not describe distinct actual file sizes as equal or independent-plane XYZ encoding as globally optimal.",
+  "native_encoding": "Unchanged GPR3 48-byte header, Float64 XYZ, one three-index triangle record per independent PT plane; deduplicate only exactly equal XYZ triples. Entire bytes, shared points, records and indices count. Existing native capacity and coordinate bounds unchanged.",
+  "independent_verification": "Independent five-node saved-plane E2 and orthogonality, independently reconstructed IT-L1 costs and full greedy trace; unchanged TypeScript native decode/re-encode and 1028 height/gradient queries/model plus outside rejection. Preserve all negative comparisons.",
+  "scope": "A local finite implementation of the explicitly specified paper PT-priority / IT-L1-decision variant, not the original author software, copied paper numeric tables, a new optimality theorem, measured ground accuracy, continuous maximum-error certificate, optimal plane encoding, RAM/GPU/ArcGIS software timing, or superiority to all higher-order methods."
+}

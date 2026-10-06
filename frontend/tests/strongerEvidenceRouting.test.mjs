@@ -18,7 +18,7 @@ function environment(hash){
   globalThis.fetch=()=>assert.fail('Closed native examples must not request models or city APIs');
   return {listeners,scrolled,emit:(type,event)=>{for(const fn of [...(listeners.get(type)??[])])fn(event);},restore:()=>Object.assign(globalThis,old)};
 }
-for(const [i,anchor,inner] of [[0,'paper-projection-results','paper-projection-evidence'],[1,'diagonal-hybrid-results','diagonal-hybrid-evidence']]){
+for(const [i,anchor,inner] of [[0,'paper-projection-results','paper-projection-evidence'],[0,'paper-adaptive-results','paper-adaptive-evidence'],[1,'diagonal-hybrid-results','diagonal-hybrid-evidence']]){
   test(`${anchor} deep link opens its parent and new lazy disclosure without unrelated data fetches`,async()=>{
     const e=environment('#'+anchor);let r;
     try{await act(async()=>r=create(React.createElement(components[i])));await wait(()=>r.root.findAllByProps({id:anchor}).length===1);assert.equal(r.root.findByProps({id:inner}).props.open,true);assert.ok(e.scrolled.includes(anchor));assert.equal(r.root.findAllByType('canvas').length,0);}

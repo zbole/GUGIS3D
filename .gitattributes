@@ -65,3 +65,5 @@ frontend/public/research/paper-projection-stable-v1/*.svg whitespace=-blank-at-e
 frontend/public/research/paper-projection-prototype-audit-v1/** -text whitespace=cr-at-eol
 frontend/public/research/diagonal-hybrid-v1/** -text whitespace=cr-at-eol
 frontend/public/research/diagonal-hybrid-v1/*.svg whitespace=-blank-at-eol
+frontend/public/research/paper-adaptive-projection-v1/** -text whitespace=cr-at-eol
+frontend/public/research/paper-adaptive-projection-v1/*.svg whitespace=-blank-at-eol

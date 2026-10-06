@@ -1,7 +1,7 @@
 import {lazy,Suspense,useEffect,useState} from 'react';
 import './VariableCurvatureResults.css';
 const Results=lazy(()=>import('./VariableCurvatureResults'));
-const matches=(hash:string)=>['#variable-curvature-results','#variable-curvature-evidence','#paper-projection-results','#paper-projection-evidence'].includes(hash);
+const matches=(hash:string)=>['#variable-curvature-results','#variable-curvature-evidence','#paper-projection-results','#paper-projection-evidence','#paper-adaptive-results','#paper-adaptive-evidence'].includes(hash);
 export default function VariableCurvatureDisclosure(){
   const [open,setOpen]=useState(()=>typeof window!=='undefined'&&matches(window.location?.hash??''));
   useEffect(()=>{if(typeof window==='undefined')return;
