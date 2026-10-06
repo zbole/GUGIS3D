@@ -7,6 +7,7 @@ import SourceQueryDisclosure from './SourceQueryDisclosure';
 import {useComparisonAnchor} from './useComparisonAnchor';
 import SourceFormatProof from './SourceFormatProof';
 import HybridSourceDisclosure from './HybridSourceDisclosure';
+import SourceFitDisclosure from './SourceFitDisclosure';
 import './SourceFunctionResults.css';
 const base='/research/source-native-bands-v1/';
 type Site=typeof report.cases[number];
@@ -57,6 +58,7 @@ export default function SourceFunctionResults(){
     <p className="sf-control">规则高程格与无损 GeoTIFF 在这些规则样区中更小。本节验证面带相对通用共享 XYZ 的逐格 P2 矢量表示的优势，不是优于所有栅格或最优三角编码。完整文件字节数也不等于运行内存。</p>
     <SourceQueryDisclosure/>
     <SourceFormatProof siteId={siteId}/>
+    <SourceFitDisclosure/>
     <HybridSourceDisclosure/>
     <div className="cr-actions"><button aria-label="展开真实源函数同点查询" aria-expanded={demo} onClick={()=>setDemo(v=>!v)}>{demo?'收起真实源函数同点查询':'验证实际高程与精细函数结构'}</button><a download href={`${base}${site.id}/${site.source_geotiff.filename}`}>当前原始像素 GeoTIFF ↓</a><a download href={`${base}${site.id}/${r.binary_filename}`}>当前 GUGIS 原生面带 ↓</a><a download href={`${base}${report.package.filename}`}>20 样区完整证据 ZIP ↓</a></div>
     {demo&&<SourceQueryDemo key={site.id} site={site}/>}
