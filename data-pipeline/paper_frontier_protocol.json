@@ -1,0 +1,22 @@
+{
+  "schema": "gugis-paper-finite-frontier-protocol-v1",
+  "paper": "https://arxiv.org/pdf/1101.1452",
+  "input": "frontend/public/research/paper-adaptive-projection-v1/results.json",
+  "input_sha256": "fa525d897e68c2ee1b0f6428c28c296e6e10ed549180c0fc3f80e18cb5514163",
+  "methods": ["p1", "fixed_pt", "adaptive_pt", "before", "fitted", "p2"],
+  "original_N": [8,16,32,64,128,256,512,1024,2048],
+  "byte_ceilings": [512,1024,2048,4096,8192,16384,32768,65536,131072,262144],
+  "e2_targets_m2": [0.01,0.025,0.05,0.1,0.25,0.5,1,2,4,8,16,32,64],
+  "default_case": "anisotropic-quartic-30",
+  "default_byte_ceiling": 65536,
+  "default_e2_target_m2": 0.1,
+  "observation_disclosure": "Post-hoc analysis of fully observed and published outcomes. No claim of preregistration before data observation. These ceilings, targets, all fourteen cases and six archived methods are frozen before generating the new frontier tables. No new fitting, timing, mesh generation, or tuning is performed.",
+  "candidate_universe": "Only the complete nine archived selections per method/case, deduplicated by native filename. Not all possible grids, meshes, orders or encodings. Retain original N provenance even when actual record counts differ. All 126 original rows for every method remain available.",
+  "same_bytes": "Among candidates with full native binary bytes <= ceiling, select minimum E2; ties use fewer bytes then lexical native filename. Missing candidates remain null. Do not interpolate unmeasured points or substitute an over-budget model.",
+  "same_error": "Among candidates with saved full-domain E2 <= target, select minimum full binary bytes; ties use smaller E2 then lexical filename. Missing candidates remain null and no percentage saving is computed for missing pairs. E2 is not pointwise maximum error or measured terrain accuracy.",
+  "pareto": "A candidate is dominated only if another candidate has no more full bytes and no larger E2, with at least one strict inequality. Plot all archived candidates including dominated ones. No extrapolation beyond the finite archive.",
+  "summary": "For every case/threshold, compare fitted ruled against freshly adaptive PT only when both eligible. Publish wins, exact numeric ties, losses, neither eligible and one-sided availability separately for each field. Keep stronger P2 and all other controls visible. Never count missing baselines as wins.",
+  "encoding": "All native headers, Float64 coordinates, record and index payloads count. PT uses published independent-XYZ GPR3 plane encoding, not the theoretically smallest plane-coefficient representation. Costs are actual files for these implementations, not optimal representation lower bounds, RAM or ArcGIS software measurements.",
+  "verification": "Validate every selected JSON/binary byte count and SHA against the immutable report, preserve prior native and independent integral audit hashes, independently reconstruct all selections and dominance using a separate audit implementation, verify exact CSV and downloadable ZIP membership. No changes to old mathematical kernels or published scientific evidence.",
+  "scope": "Two own strictly convex quartic functions, seven orientations, 100x100 m domain, finite archived models. This re-expresses prior independently audited experiments in decision-relevant terms; it does not defeat the paper theorem or demonstrate universal superiority."
+}
