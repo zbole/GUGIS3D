@@ -42,7 +42,7 @@ class BudgetTests(unittest.IsolatedAsyncioTestCase):
         await entered.wait()
         first.cancel()
         await asyncio.sleep(0)
-        await guarded({'type': 'http', 'path': '/city/current', 'method': 'GET'}, receive, send)
+        await guarded({'type': 'http', 'path': '/city/current', 'method': 'POST'}, receive, send)
         self.assertEqual(out[0]['status'], 503)
         release.set()
         with self.assertRaises(asyncio.CancelledError): await first
@@ -52,6 +52,30 @@ class BudgetTests(unittest.IsolatedAsyncioTestCase):
         async def app(scope, receive, send): raise RuntimeError('Invalid input')
         guarded = ResourceBudget(app)
         with self.assertRaises(RuntimeError): await guarded({'type': 'http', 'path': '/city/validate'}, None, None)
+        self.assertFalse(guarded.lock.locked())
+
+    async def test_parallel_initial_reads_queue_with_a_finite_limit_and_execute_serially(self):
+        entered, release = asyncio.Event(), asyncio.Event()
+        active, maximum = 0, 0
+        async def app(scope, receive, send):
+            nonlocal active, maximum
+            active += 1; maximum = max(maximum, active)
+            entered.set(); await release.wait(); active -= 1
+        guarded = ResourceBudget(app)
+        async def receive(): self.fail('Test request body is not needed')
+        output = []
+        async def send(value): output.append(value)
+        scope = {'type': 'http', 'path': '/city/current', 'method': 'GET'}
+        first = asyncio.create_task(guarded(scope, receive, send)); await entered.wait()
+        second = asyncio.create_task(guarded(scope, receive, send))
+        third = asyncio.create_task(guarded(scope, receive, send))
+        await asyncio.sleep(0)
+        self.assertEqual(guarded.waiting_reads, 2)
+        await guarded(scope, receive, send)
+        self.assertEqual(output[0]['status'], 503)
+        release.set(); await asyncio.gather(first, second, third)
+        self.assertEqual(maximum, 1)
+        self.assertEqual(guarded.waiting_reads, 0)
         self.assertFalse(guarded.lock.locked())
 
 
