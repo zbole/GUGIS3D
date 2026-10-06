@@ -541,6 +541,41 @@
       "source_retrieved_at": "2026-10-05T15:15:01.134244+00:00",
       "quality_warnings": [],
       "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "exeter",
+      "name": "埃克塞特",
+      "bytes": 24210432,
+      "sha256": "d236ddec7ba795e6b92bef41f97b0de60d5b9ee9ea8dd1b080a95841e7aa18a8",
+      "building_count": 13396,
+      "road_count": 1889,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Exeter city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -3.552,
+        50.707,
+        -3.51,
+        50.736
+      ],
+      "actual_data_bbox_wgs84": [
+        -3.5603861,
+        50.705747,
+        -3.5055989,
+        50.7420561
+      ],
+      "height_counts": {
+        "height-tag": 3,
+        "levels-derived": 4434,
+        "assumed": 8959
+      },
+      "height_policy": "{\"height-tag\":3,\"levels-derived\":4434,\"assumed\":8959}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-06T10:33:12.648127+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
     }
   ],
   "builder_sha256": "d3f04a245c027d7000f7f36da37d4c080d80aabf87683cb163c767e5fcaf7d04"

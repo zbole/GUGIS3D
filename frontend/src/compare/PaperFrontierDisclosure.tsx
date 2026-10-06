@@ -3,9 +3,10 @@ import './PaperFrontierResults.css';
 const Results=lazy(()=>import('./PaperFrontierResults'));
 export const paperFrontierHash=(hash:string)=>['#paper-frontier-results','#paper-frontier-evidence'].includes(hash);
 export default function PaperFrontierDisclosure(){
-  const [open,setOpen]=useState(()=>typeof window!=='undefined'&&paperFrontierHash(window.location.hash));
+  const [open,setOpen]=useState(()=>typeof window!=='undefined'&&paperFrontierHash(window.location?.hash??''));
   useEffect(()=>{
-    const follow=()=>{if(paperFrontierHash(window.location.hash))setOpen(true);};
+    if(typeof window==='undefined')return;
+    const follow=()=>{if(paperFrontierHash(window.location?.hash??''))setOpen(true);};
     const click=(e:MouseEvent)=>{const hash=(e.target as Element|null)?.closest?.('a[href^="#"]')?.getAttribute('href');if(hash&&paperFrontierHash(hash))setOpen(true);};
     window.addEventListener('hashchange',follow);window.addEventListener('click',click);
     return()=>{window.removeEventListener('hashchange',follow);window.removeEventListener('click',click);};

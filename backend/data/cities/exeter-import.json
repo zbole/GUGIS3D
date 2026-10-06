@@ -1,0 +1,46 @@
+{
+  "city_id": "exeter",
+  "source_sha256": "14ed299b48d6ea1d9e2ddc345fec4ddf01a2622ccc109f18d008f13314caafe0",
+  "source_building_ways": 13400,
+  "imported_buildings": 13396,
+  "imported_roads": 1889,
+  "query_bbox_wgs84": [
+    -3.552,
+    50.707,
+    -3.51,
+    50.736
+  ],
+  "actual_data_bbox_wgs84": [
+    -3.5603861,
+    50.705747,
+    -3.5055989,
+    50.7420561
+  ],
+  "height_policy": {
+    "height-tag": 3,
+    "levels-derived": 4434,
+    "assumed": 8959
+  },
+  "omitted_buildings": [
+    {
+      "osm_way": 28230540,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 84837821,
+      "reason": "Footprint must have 3–120 non-collinear vertices"
+    },
+    {
+      "osm_way": 224418232,
+      "reason": "OSM building:levels is not a supported finite number; not replaced by an assumption"
+    },
+    {
+      "osm_way": 1286556146,
+      "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+    }
+  ],
+  "omitted_roads": [],
+  "license": "ODbL 1.0",
+  "gugis_bytes": 24210432,
+  "gugis_sha256": "d236ddec7ba795e6b92bef41f97b0de60d5b9ee9ea8dd1b080a95841e7aa18a8"
+}

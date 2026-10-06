@@ -1,0 +1,17 @@
+{
+  "schema": "gugis-additional-city-sample-plan-v1",
+  "scope": "Explicit bounded samples, not municipal coverage, conservation-area boundaries or detailed building reconstructions.",
+  "cities": [
+    {
+      "id": "exeter",
+      "name": "埃克塞特",
+      "city_name": "Exeter",
+      "coverage_label": "埃克塞特中心及埃克斯河沿岸样本（非全城覆盖）",
+      "query_bbox_wgs84": [-3.552,50.707,-3.510,50.736],
+      "related_registry_id": "uk-eng-exeter"
+    }
+  ],
+  "context_sources": {
+    "exeter": "https://azure.exeter.gov.uk/planning-services/heritage/historic-environment-record/"
+  }
+}

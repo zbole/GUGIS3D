@@ -1,0 +1,930 @@
+{
+  "schema": "gugis-additional-city-publication-v1",
+  "city_id": "exeter",
+  "plan_sha256": "79f09c62617d135fbe49ac34b099a96bc4910b46abeb0201de5e4ddb986be60a",
+  "previous_workspaces": [
+    {
+      "id": "bristol",
+      "name": "布里斯托",
+      "city_name": "Bristol",
+      "coverage_label": "布里斯托中心样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -2.621,
+        51.443,
+        -2.587,
+        51.466
+      ],
+      "related_registry_id": "uk-eng-bristol"
+    },
+    {
+      "id": "london",
+      "name": "伦敦",
+      "city_name": "London",
+      "coverage_label": "伦敦 Westminster 中心样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -0.151,
+        51.491,
+        -0.114,
+        51.513
+      ],
+      "related_registry_id": "uk-eng-westminster"
+    },
+    {
+      "id": "birmingham",
+      "name": "伯明翰",
+      "city_name": "Birmingham",
+      "coverage_label": "伯明翰中心样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.927,
+        52.469,
+        -1.888,
+        52.494
+      ],
+      "related_registry_id": "uk-eng-birmingham"
+    },
+    {
+      "id": "manchester",
+      "name": "曼彻斯特",
+      "city_name": "Manchester",
+      "coverage_label": "曼彻斯特中心样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -2.263,
+        53.471,
+        -2.228,
+        53.492
+      ],
+      "related_registry_id": "uk-eng-manchester"
+    },
+    {
+      "id": "edinburgh",
+      "name": "爱丁堡",
+      "city_name": "Edinburgh",
+      "coverage_label": "爱丁堡 Old Town / New Town 样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -3.21,
+        55.938,
+        -3.177,
+        55.96
+      ],
+      "related_registry_id": "uk-sct-edinburgh"
+    },
+    {
+      "id": "cardiff",
+      "name": "卡迪夫",
+      "city_name": "Cardiff",
+      "coverage_label": "卡迪夫中心样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -3.19,
+        51.47,
+        -3.166,
+        51.491
+      ],
+      "related_registry_id": "uk-wls-cardiff"
+    },
+    {
+      "id": "york",
+      "name": "约克",
+      "city_name": "York",
+      "coverage_label": "约克中心样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.1,
+        53.947,
+        -1.066,
+        53.972
+      ],
+      "related_registry_id": "uk-eng-york"
+    },
+    {
+      "id": "bath",
+      "name": "巴斯",
+      "city_name": "Bath",
+      "coverage_label": "巴斯中心与北侧坡地样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -2.377,
+        51.373,
+        -2.347,
+        51.395
+      ],
+      "related_registry_id": "uk-eng-bath"
+    },
+    {
+      "id": "oxford",
+      "name": "牛津",
+      "city_name": "Oxford",
+      "coverage_label": "牛津中心与北侧学院区样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.273,
+        51.741,
+        -1.235,
+        51.768
+      ],
+      "related_registry_id": "uk-eng-oxford"
+    },
+    {
+      "id": "cambridge",
+      "name": "剑桥",
+      "city_name": "Cambridge",
+      "coverage_label": "剑桥中心与学院区样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        0.106,
+        52.189,
+        0.147,
+        52.218
+      ],
+      "related_registry_id": "uk-eng-cambridge"
+    },
+    {
+      "id": "liverpool",
+      "name": "利物浦",
+      "city_name": "Liverpool",
+      "coverage_label": "利物浦中心与滨水区样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -3.006,
+        53.391,
+        -2.969,
+        53.416
+      ],
+      "related_registry_id": "uk-eng-liverpool"
+    },
+    {
+      "id": "sheffield",
+      "name": "谢菲尔德",
+      "city_name": "Sheffield",
+      "coverage_label": "谢菲尔德中心样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.494,
+        53.369,
+        -1.451,
+        53.391
+      ],
+      "related_registry_id": "uk-eng-sheffield"
+    },
+    {
+      "id": "leeds",
+      "name": "利兹",
+      "city_name": "Leeds",
+      "coverage_label": "利兹中心样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.57,
+        53.783,
+        -1.521,
+        53.811
+      ],
+      "related_registry_id": "uk-eng-leeds"
+    },
+    {
+      "id": "nottingham",
+      "name": "诺丁汉",
+      "city_name": "Nottingham",
+      "coverage_label": "诺丁汉中心样本街区（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.172,
+        52.939,
+        -1.123,
+        52.967
+      ],
+      "related_registry_id": "uk-eng-nottingham"
+    },
+    {
+      "id": "newcastle",
+      "name": "纽卡斯尔",
+      "city_name": "Newcastle upon Tyne",
+      "coverage_label": "纽卡斯尔中心及泰恩河沿岸样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.637,
+        54.962,
+        -1.588,
+        54.987
+      ],
+      "related_registry_id": "uk-eng-newcastle-upon-tyne"
+    }
+  ],
+  "previous_profiles": {
+    "schema": "gugis-render-package-profiles-v1",
+    "tile_size_m": {
+      "bristol": 125,
+      "london": 175,
+      "birmingham": 175,
+      "manchester": 250,
+      "edinburgh": 250,
+      "cardiff": 175,
+      "york": 125,
+      "bath": 125,
+      "oxford": 125,
+      "cambridge": 125,
+      "liverpool": 125,
+      "sheffield": 125,
+      "leeds": 125,
+      "nottingham": 125,
+      "newcastle": 125
+    }
+  },
+  "previous_public_sources": [
+    {
+      "city_id": "bristol",
+      "name": "布里斯托",
+      "bytes": 52031635,
+      "sha256": "898801e2b879fbf792fc33b364d3be4f6be4cd62c5f55e201fcd8c8aaff3899c",
+      "building_count": 10907,
+      "road_count": 1794,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Bristol expanded district 中心街区样本（非全城覆盖） · 保留原项目对象的扩展",
+      "query_bbox_wgs84": [
+        -2.621,
+        51.443,
+        -2.587,
+        51.466
+      ],
+      "actual_data_bbox_wgs84": null,
+      "height_counts": null,
+      "height_policy": "保留 615 栋原项目对象及其高度依据；新增 10292 栋：23 高度标签 / 1279 楼层推算 / 8990 假设9.6m / 0 其他依据；均未整体实测核验",
+      "source": "保留原项目对象 + 新增 © OpenStreetMap contributors · ODbL 1.0",
+      "license": "新增 OSM 数据：ODbL 1.0；保留对象沿用其原来源许可",
+      "source_retrieved_at": "2026-10-04T11:55:56.827806+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "london",
+      "name": "伦敦",
+      "bytes": 11395674,
+      "sha256": "1dac757d9fa98e710a924a1b41383dd4e397854d1066c037838dc246591ed2ff",
+      "building_count": 5372,
+      "road_count": 3416,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "London expanded district 中心街区样本（非全城覆盖） · 保留原项目对象的扩展",
+      "query_bbox_wgs84": [
+        -0.151,
+        51.491,
+        -0.114,
+        51.513
+      ],
+      "actual_data_bbox_wgs84": null,
+      "height_counts": null,
+      "height_policy": "保留 823 栋原项目对象及其高度依据；新增 4549 栋：28 高度标签 / 1763 楼层推算 / 2758 假设9.6m / 0 其他依据；均未整体实测核验",
+      "source": "保留原项目对象 + 新增 © OpenStreetMap contributors · ODbL 1.0",
+      "license": "新增 OSM 数据：ODbL 1.0；保留对象沿用其原来源许可",
+      "source_retrieved_at": "2026-10-04T11:56:02.295668+00:00",
+      "quality_warnings": [
+        {
+          "code": "source-height-substituted",
+          "message": "扩展保留的原项目对象：本保留版本将 2 个来源标注 0.5 米的对象按 9.6 米建模，尚未替换为修正数据",
+          "osm_ids": [
+            951721975,
+            1149973649
+          ]
+        },
+        {
+          "code": "unsupported-vertical-semantics",
+          "message": "扩展保留的原项目对象：本保留版本有 9 个建筑部件或带起始高度/楼层的对象被按地面体量显示，相关竖向关系尚未修正",
+          "osm_ids": [
+            235693291,
+            297204228,
+            547238370,
+            547238381,
+            825208756,
+            1149973649,
+            1487538311,
+            1487538312,
+            1487538313
+          ]
+        }
+      ],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "birmingham",
+      "name": "伯明翰",
+      "bytes": 8287105,
+      "sha256": "3de7da99e96f58992902d94798fd8e7702218ed5ceb3c9b0d01ac659f1e67c1c",
+      "building_count": 4126,
+      "road_count": 2131,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Birmingham expanded district 中心街区样本（非全城覆盖） · 保留原项目对象的扩展",
+      "query_bbox_wgs84": [
+        -1.927,
+        52.469,
+        -1.888,
+        52.494
+      ],
+      "actual_data_bbox_wgs84": null,
+      "height_counts": null,
+      "height_policy": "保留 809 栋原项目对象及其高度依据；新增 3317 栋：224 高度标签 / 423 楼层推算 / 2670 假设9.6m / 0 其他依据；均未整体实测核验",
+      "source": "保留原项目对象 + 新增 © OpenStreetMap contributors · ODbL 1.0",
+      "license": "新增 OSM 数据：ODbL 1.0；保留对象沿用其原来源许可",
+      "source_retrieved_at": "2026-10-04T11:56:05.988761+00:00",
+      "quality_warnings": [
+        {
+          "code": "source-height-substituted",
+          "message": "扩展保留的原项目对象：本保留版本的 The Octagon 来源标注 155 米，却按 9.6 米显示；尚未替换为修正数据",
+          "osm_ids": [
+            1436375109
+          ]
+        },
+        {
+          "code": "unsupported-vertical-semantics",
+          "message": "扩展保留的原项目对象：本保留版本有 5 个建筑部件或带起始高度/楼层的对象被按地面体量显示，相关竖向关系尚未修正",
+          "osm_ids": [
+            29997398,
+            37716925,
+            49023587,
+            195934961,
+            883020076
+          ]
+        }
+      ],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "manchester",
+      "name": "曼彻斯特",
+      "bytes": 7212296,
+      "sha256": "fad3dc2e480cf06824efee76ad88d6fc976dc0ae8589e0f9f21d6bd6078700b6",
+      "building_count": 3430,
+      "road_count": 2756,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Manchester city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -2.263,
+        53.471,
+        -2.228,
+        53.492
+      ],
+      "actual_data_bbox_wgs84": [
+        -2.2675808,
+        53.4688492,
+        -2.2243831,
+        53.4972127
+      ],
+      "height_counts": {
+        "height-tag": 68,
+        "levels-derived": 1226,
+        "assumed": 2136
+      },
+      "height_policy": "{\"height-tag\":68,\"levels-derived\":1226,\"assumed\":2136}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-04T11:44:50.540472+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "edinburgh",
+      "name": "爱丁堡",
+      "bytes": 14745197,
+      "sha256": "49adc2dddfc7fb7992f6389ee3d51da928f52e4d11a518c9325515cf507a69e5",
+      "building_count": 6543,
+      "road_count": 1888,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Edinburgh city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -3.21,
+        55.938,
+        -3.177,
+        55.96
+      ],
+      "actual_data_bbox_wgs84": [
+        -3.2120842,
+        55.9314456,
+        -3.1706592,
+        55.9612877
+      ],
+      "height_counts": {
+        "height-tag": 100,
+        "levels-derived": 2249,
+        "assumed": 4194
+      },
+      "height_policy": "{\"height-tag\":100,\"levels-derived\":2249,\"assumed\":4194}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-04T11:45:00.978672+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "cardiff",
+      "name": "卡迪夫",
+      "bytes": 8940081,
+      "sha256": "ddfaec4d489990702d7bb65311098f28d3313a442028aa8369aa2be4b7470189",
+      "building_count": 4472,
+      "road_count": 1040,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Cardiff city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -3.19,
+        51.47,
+        -3.166,
+        51.491
+      ],
+      "actual_data_bbox_wgs84": [
+        -3.2001608,
+        51.4646377,
+        -3.1630368,
+        51.4972265
+      ],
+      "height_counts": {
+        "height-tag": 58,
+        "levels-derived": 1032,
+        "assumed": 3382
+      },
+      "height_policy": "{\"height-tag\":58,\"levels-derived\":1032,\"assumed\":3382}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-04T11:45:08.370009+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "york",
+      "name": "约克",
+      "bytes": 11849348,
+      "sha256": "143816c82b7d621f4f506970d3a88e986c07258535b5b71e4e8a07ee6d6affb5",
+      "building_count": 6092,
+      "road_count": 1853,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "York city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.1,
+        53.947,
+        -1.066,
+        53.972
+      ],
+      "actual_data_bbox_wgs84": [
+        -1.1051514,
+        53.944665,
+        -1.060182,
+        53.9763925
+      ],
+      "height_counts": {
+        "height-tag": 465,
+        "levels-derived": 2357,
+        "assumed": 3270
+      },
+      "height_policy": "{\"height-tag\":465,\"levels-derived\":2357,\"assumed\":3270}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-04T16:11:13.901276+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "bath",
+      "name": "巴斯",
+      "bytes": 13385613,
+      "sha256": "6db3eebf5a651261fb1b53a71b3ca05847c92f824fe76d7196c7016e81b86196",
+      "building_count": 7877,
+      "road_count": 967,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Bath city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -2.377,
+        51.373,
+        -2.347,
+        51.395
+      ],
+      "actual_data_bbox_wgs84": [
+        -2.3829226,
+        51.370903,
+        -2.3416261,
+        51.3998275
+      ],
+      "height_counts": {
+        "height-tag": 2,
+        "levels-derived": 1409,
+        "assumed": 6466
+      },
+      "height_policy": "{\"height-tag\":2,\"levels-derived\":1409,\"assumed\":6466}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-05T11:28:49.659621+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "oxford",
+      "name": "牛津",
+      "bytes": 13046989,
+      "sha256": "69b079c6c0dd7cb147b2da34e61eddc7ba5761bad2d1d702f7f6624126619594",
+      "building_count": 6594,
+      "road_count": 1123,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Oxford city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.273,
+        51.741,
+        -1.235,
+        51.768
+      ],
+      "actual_data_bbox_wgs84": [
+        -1.2779238,
+        51.7362408,
+        -1.2284337,
+        51.7721437
+      ],
+      "height_counts": {
+        "height-tag": 11,
+        "levels-derived": 682,
+        "assumed": 5901
+      },
+      "height_policy": "{\"height-tag\":11,\"levels-derived\":682,\"assumed\":5901}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-05T12:11:38.184979+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "cambridge",
+      "name": "剑桥",
+      "bytes": 18417340,
+      "sha256": "f6fba9b06291d5c4b309272d723d9628ee3ee40c16e5f7c7ee6761220e8cd5a8",
+      "building_count": 9838,
+      "road_count": 1501,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Cambridge city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        0.106,
+        52.189,
+        0.147,
+        52.218
+      ],
+      "actual_data_bbox_wgs84": [
+        0.0956414,
+        52.1839678,
+        0.1543402,
+        52.2209898
+      ],
+      "height_counts": {
+        "height-tag": 4,
+        "levels-derived": 2541,
+        "assumed": 7293
+      },
+      "height_policy": "{\"height-tag\":4,\"levels-derived\":2541,\"assumed\":7293}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-05T12:42:15.446688+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "liverpool",
+      "name": "利物浦",
+      "bytes": 6588341,
+      "sha256": "1c627bae18128bd9eff98094f4910d832a04377f8d499321fb535ee1559c79c0",
+      "building_count": 3401,
+      "road_count": 1419,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Liverpool city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -3.006,
+        53.391,
+        -2.969,
+        53.416
+      ],
+      "actual_data_bbox_wgs84": [
+        -3.0251771,
+        53.3869328,
+        -2.961707,
+        53.4216978
+      ],
+      "height_counts": {
+        "height-tag": 46,
+        "levels-derived": 196,
+        "assumed": 3159
+      },
+      "height_policy": "{\"height-tag\":46,\"levels-derived\":196,\"assumed\":3159}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-05T13:17:48.331944+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "sheffield",
+      "name": "谢菲尔德",
+      "bytes": 9103469,
+      "sha256": "855f2377ec4cc4506c4bb319cbf81ea6da25256e08b0d2a0f47eb8d3844b3845",
+      "building_count": 4324,
+      "road_count": 2407,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Sheffield city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.494,
+        53.369,
+        -1.451,
+        53.391
+      ],
+      "actual_data_bbox_wgs84": [
+        -1.4978856,
+        53.364912,
+        -1.4411137,
+        53.3929093
+      ],
+      "height_counts": {
+        "height-tag": 61,
+        "levels-derived": 847,
+        "assumed": 3416
+      },
+      "height_policy": "{\"height-tag\":61,\"levels-derived\":847,\"assumed\":3416}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-05T13:47:14.280894+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "leeds",
+      "name": "利兹",
+      "bytes": 11446925,
+      "sha256": "ed6d14d0af02be6d35b18d16a97674d56a27563cf80b9cb49bcf111bb4710dc1",
+      "building_count": 6049,
+      "road_count": 2924,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Leeds city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.57,
+        53.783,
+        -1.521,
+        53.811
+      ],
+      "actual_data_bbox_wgs84": [
+        -1.5894071,
+        53.7805565,
+        -1.5089375,
+        53.8164085
+      ],
+      "height_counts": {
+        "height-tag": 37,
+        "levels-derived": 1139,
+        "assumed": 4873
+      },
+      "height_policy": "{\"height-tag\":37,\"levels-derived\":1139,\"assumed\":4873}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-05T14:13:21.414176+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "nottingham",
+      "name": "诺丁汉",
+      "bytes": 30922073,
+      "sha256": "858b1578db64b0845a004b15be0c8cc24119f960b5b5c158a897bd76efb1ef01",
+      "building_count": 17134,
+      "road_count": 2941,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Nottingham city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.172,
+        52.939,
+        -1.123,
+        52.967
+      ],
+      "actual_data_bbox_wgs84": [
+        -1.1770676,
+        52.9345439,
+        -1.1173373,
+        52.9698999
+      ],
+      "height_counts": {
+        "height-tag": 36,
+        "levels-derived": 881,
+        "assumed": 16217
+      },
+      "height_policy": "{\"height-tag\":36,\"levels-derived\":881,\"assumed\":16217}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-05T14:46:49.158744+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    },
+    {
+      "city_id": "newcastle",
+      "name": "纽卡斯尔",
+      "bytes": 7073977,
+      "sha256": "f05d9401a907296333bb1e7c1852d0f0148aaae9d3105f1f950e5aa8830117cf",
+      "building_count": 3560,
+      "road_count": 1950,
+      "feature_count": 0,
+      "terrain_included": false,
+      "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+      "coverage_label": "Newcastle upon Tyne city centre 中心街区样本（非全城覆盖）",
+      "query_bbox_wgs84": [
+        -1.637,
+        54.962,
+        -1.588,
+        54.987
+      ],
+      "actual_data_bbox_wgs84": [
+        -1.6478735,
+        54.9564571,
+        -1.5721692,
+        54.9913634
+      ],
+      "height_counts": {
+        "height-tag": 9,
+        "levels-derived": 384,
+        "assumed": 3167
+      },
+      "height_policy": "{\"height-tag\":9,\"levels-derived\":384,\"assumed\":3167}",
+      "source": "© OpenStreetMap contributors · ODbL 1.0",
+      "license": "ODbL 1.0",
+      "source_retrieved_at": "2026-10-05T15:15:01.134244+00:00",
+      "quality_warnings": [],
+      "scope": "Immutable public seed, not the local saved project or its history."
+    }
+  ],
+  "previous_catalogue_sha256": "6ff6c4de58bfd1d68cf845b12a29d26ce88cc0f57e77d6200c6030770e3cafcc",
+  "previous_profiles_sha256": "2a61735ad15c7c263ddbf66df0bb42a4045ab5408185cd43bcdfb205aae4b536",
+  "previous_public_manifest_sha256": "575dbfc0071cc90376fb15e9336c86892d2fc1d0d1bbf8e94795434eb8dfcc15",
+  "previous_seeds": {
+    "bristol": {
+      "bytes": 52031635,
+      "sha256": "898801e2b879fbf792fc33b364d3be4f6be4cd62c5f55e201fcd8c8aaff3899c"
+    },
+    "london": {
+      "bytes": 11395674,
+      "sha256": "1dac757d9fa98e710a924a1b41383dd4e397854d1066c037838dc246591ed2ff"
+    },
+    "birmingham": {
+      "bytes": 8287105,
+      "sha256": "3de7da99e96f58992902d94798fd8e7702218ed5ceb3c9b0d01ac659f1e67c1c"
+    },
+    "manchester": {
+      "bytes": 7212296,
+      "sha256": "fad3dc2e480cf06824efee76ad88d6fc976dc0ae8589e0f9f21d6bd6078700b6"
+    },
+    "edinburgh": {
+      "bytes": 14745197,
+      "sha256": "49adc2dddfc7fb7992f6389ee3d51da928f52e4d11a518c9325515cf507a69e5"
+    },
+    "cardiff": {
+      "bytes": 8940081,
+      "sha256": "ddfaec4d489990702d7bb65311098f28d3313a442028aa8369aa2be4b7470189"
+    },
+    "york": {
+      "bytes": 11849348,
+      "sha256": "143816c82b7d621f4f506970d3a88e986c07258535b5b71e4e8a07ee6d6affb5"
+    },
+    "bath": {
+      "bytes": 13385613,
+      "sha256": "6db3eebf5a651261fb1b53a71b3ca05847c92f824fe76d7196c7016e81b86196"
+    },
+    "oxford": {
+      "bytes": 13046989,
+      "sha256": "69b079c6c0dd7cb147b2da34e61eddc7ba5761bad2d1d702f7f6624126619594"
+    },
+    "cambridge": {
+      "bytes": 18417340,
+      "sha256": "f6fba9b06291d5c4b309272d723d9628ee3ee40c16e5f7c7ee6761220e8cd5a8"
+    },
+    "liverpool": {
+      "bytes": 6588341,
+      "sha256": "1c627bae18128bd9eff98094f4910d832a04377f8d499321fb535ee1559c79c0"
+    },
+    "sheffield": {
+      "bytes": 9103469,
+      "sha256": "855f2377ec4cc4506c4bb319cbf81ea6da25256e08b0d2a0f47eb8d3844b3845"
+    },
+    "leeds": {
+      "bytes": 11446925,
+      "sha256": "ed6d14d0af02be6d35b18d16a97674d56a27563cf80b9cb49bcf111bb4710dc1"
+    },
+    "nottingham": {
+      "bytes": 30922073,
+      "sha256": "858b1578db64b0845a004b15be0c8cc24119f960b5b5c158a897bd76efb1ef01"
+    },
+    "newcastle": {
+      "bytes": 7073977,
+      "sha256": "f05d9401a907296333bb1e7c1852d0f0148aaae9d3105f1f950e5aa8830117cf"
+    }
+  },
+  "new_source": {
+    "city_id": "exeter",
+    "name": "埃克塞特",
+    "bytes": 24210432,
+    "sha256": "d236ddec7ba795e6b92bef41f97b0de60d5b9ee9ea8dd1b080a95841e7aa18a8",
+    "building_count": 13396,
+    "road_count": 1889,
+    "feature_count": 0,
+    "terrain_included": false,
+    "terrain_note": "No terrain in this seed; DTM is a separate dataset.",
+    "coverage_label": "Exeter city centre 中心街区样本（非全城覆盖）",
+    "query_bbox_wgs84": [
+      -3.552,
+      50.707,
+      -3.51,
+      50.736
+    ],
+    "actual_data_bbox_wgs84": [
+      -3.5603861,
+      50.705747,
+      -3.5055989,
+      50.7420561
+    ],
+    "height_counts": {
+      "height-tag": 3,
+      "levels-derived": 4434,
+      "assumed": 8959
+    },
+    "height_policy": "{\"height-tag\":3,\"levels-derived\":4434,\"assumed\":8959}",
+    "source": "© OpenStreetMap contributors · ODbL 1.0",
+    "license": "ODbL 1.0",
+    "source_retrieved_at": "2026-10-06T10:33:12.648127+00:00",
+    "quality_warnings": [],
+    "scope": "Immutable public seed, not the local saved project or its history."
+  },
+  "import_report": {
+    "city_id": "exeter",
+    "source_sha256": "14ed299b48d6ea1d9e2ddc345fec4ddf01a2622ccc109f18d008f13314caafe0",
+    "source_building_ways": 13400,
+    "imported_buildings": 13396,
+    "imported_roads": 1889,
+    "query_bbox_wgs84": [
+      -3.552,
+      50.707,
+      -3.51,
+      50.736
+    ],
+    "actual_data_bbox_wgs84": [
+      -3.5603861,
+      50.705747,
+      -3.5055989,
+      50.7420561
+    ],
+    "height_policy": {
+      "height-tag": 3,
+      "levels-derived": 4434,
+      "assumed": 8959
+    },
+    "omitted_buildings": [
+      {
+        "osm_way": 28230540,
+        "reason": "Footprint must have 3–120 non-collinear vertices"
+      },
+      {
+        "osm_way": 84837821,
+        "reason": "Footprint must have 3–120 non-collinear vertices"
+      },
+      {
+        "osm_way": 224418232,
+        "reason": "OSM building:levels is not a supported finite number; not replaced by an assumption"
+      },
+      {
+        "osm_way": 1286556146,
+        "reason": "OSM building:min_level '1' has unsupported vertical semantics; not grounded"
+      }
+    ],
+    "omitted_roads": [],
+    "license": "ODbL 1.0",
+    "gugis_bytes": 24210432,
+    "gugis_sha256": "d236ddec7ba795e6b92bef41f97b0de60d5b9ee9ea8dd1b080a95841e7aa18a8"
+  },
+  "files": {
+    "exeter-osm.json": {
+      "bytes": 7207391,
+      "sha256": "14ed299b48d6ea1d9e2ddc345fec4ddf01a2622ccc109f18d008f13314caafe0"
+    },
+    "exeter-source.json": {
+      "bytes": 1978,
+      "sha256": "e6a7b559e85c0c0329f51d4ccd732cdb2da42b46fa142937252b38d3c0c902ff"
+    },
+    "exeter.gugis.json": {
+      "bytes": 24210432,
+      "sha256": "d236ddec7ba795e6b92bef41f97b0de60d5b9ee9ea8dd1b080a95841e7aa18a8"
+    },
+    "exeter-import.json": {
+      "bytes": 1157,
+      "sha256": "e38612a3859935f1c767825151f01e67831d65468bb2e7d1b20ff5c5ffdda9df"
+    }
+  },
+  "scope": "Only public seed/catalogue additions. No local formal city, draft, history or original research evidence modified."
+}

@@ -193,5 +193,18 @@
       54.987
     ],
     "related_registry_id": "uk-eng-newcastle-upon-tyne"
+  },
+  {
+    "id": "exeter",
+    "name": "埃克塞特",
+    "city_name": "Exeter",
+    "coverage_label": "埃克塞特中心及埃克斯河沿岸样本（非全城覆盖）",
+    "query_bbox_wgs84": [
+      -3.552,
+      50.707,
+      -3.51,
+      50.736
+    ],
+    "related_registry_id": "uk-eng-exeter"
   }
 ]

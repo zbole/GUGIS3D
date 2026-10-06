@@ -1,0 +1,32 @@
+{
+  "schema": "gugis-exeter-render-audit-v1",
+  "source_revision": "d236ddec7ba795e6b92bef41f97b0de60d5b9ee9ea8dd1b080a95841e7aa18a8",
+  "package_sha256": "2e68af9833e7387a93aa472372dd734c24bcf242a3874f4644bdc61c48fdd4be",
+  "counts": {
+    "assets": 13396,
+    "buildings": 13396,
+    "full_fallback_buildings": 13396,
+    "overview_buildings": 0,
+    "primitives": 13396,
+    "source_roads": 1889,
+    "tile_building_references": 16521,
+    "tile_bytes": 16358617,
+    "tile_primitive_references": 16521,
+    "tiles": 602
+  },
+  "grid": {
+    "coordinate_system": "ECEF_ENU",
+    "origin_wgs84": [
+      -3.5310447849264706,
+      50.72134634618442,
+      0
+    ],
+    "tile_size_m": 125.0
+  },
+  "manifest_bytes": 331521,
+  "max_tile_bytes": 141141,
+  "manifest_sha256": "74e52fab0c0d4da3c97a9717fbd4cec90d052187251e9d3f2c547e92bc838a68",
+  "all_tile_hashes_valid": true,
+  "all_cross_tile_duplicates_identical": true,
+  "formal_city_created": false
+}
