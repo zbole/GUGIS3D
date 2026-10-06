@@ -4,6 +4,7 @@ import {type OrderModel} from './terrainOrderMath';
 import {prepareOrderQuery} from './preparedOrderQuery';
 import {loadOrderModel} from './loadOrderModel';
 import {useComparisonAnchor} from './useComparisonAnchor';
+import QueryStatisticsDisclosure from './QueryStatisticsDisclosure';
 import './NativeQueryResults.css';
 const base='/research/native-query-v1/';
 const DemCurvedGridControl=lazy(()=>import('./DemCurvedGridControl'));
@@ -63,5 +64,6 @@ export default function NativeQueryResults(){
       <p>测试环境：{report.environment.cpu_model} · {report.environment.platform} {report.environment.architecture} · Node {report.environment.node} / V8 {report.environment.v8}。准备耗时仅单次记录，不用于延迟结论。</p>
       <p className="cr-hash">完整计时记录 SHA-256：{report.report_sha256}<br/>完整证据 ZIP SHA-256：{report.package.sha256}</p>
     </details>
+    <QueryStatisticsDisclosure/>
   </section>;
 }

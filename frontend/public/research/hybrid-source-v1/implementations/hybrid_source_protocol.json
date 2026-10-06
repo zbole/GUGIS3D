@@ -1,0 +1,14 @@
+{
+  "schema": "gugis-hybrid-source-protocol-v1",
+  "source_report": "frontend/public/research/source-native-bands-v1/results.json",
+  "fixed_cases": "All twenty existing original Float32 65x65 windows, without selecting winners or expanding/altering source windows.",
+  "axis_cells": [1, 2, 4, 8, 16, 32, 64],
+  "methods": ["ruled", "p1", "hybrid"],
+  "byte_ceilings": [256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 135528],
+  "height_targets_m": [0.01, 0.025, 0.05, 0.1, 0.25, 0.5],
+  "selection": "For each family, minimum whole-domain E2 under fixed complete GPR4 byte ceiling; separately minimum complete file satisfying guarded continuous source-relative maximum-error target. Ties resolve by bytes, E2, nx, ny. Every grid and all losses retained. This is a finite tensor-grid candidate comparison, not a paper-style P1 algorithm or global optimal encoding.",
+  "hybrid": "On every tensor rectangle, choose the lower whole-cell L2-squared residual of bilinear ruled and two antidiagonal P1 triangles, with ruled as exact tie choice. Adjacent same-family runs share row band/triangle-strip records. All metadata and split-run overhead count in real files. Cell choice minimizes E2 at this grid, not maximum error or total file bytes.",
+  "continuity": "One global integer tensor grid; all cells pass through shared corner nodes and have the same linear edge functions. Ruled and P1 may meet without T junctions and are C0 in real arithmetic. Gradient is one-sided and may jump; no C1 claim.",
+  "metrics": "Source is the exact original-node bilinear function, not surveyed ground. Ruled residual on each 1m source cell is bilinear, maximum at a source-cell corner; P1 residual is bilinear minus plane, with interior saddles and linear axis edges. Also check extrema on every clipped antidiagonal segment. Whole E2 uses exact bilinear mass matrices, with degree-exact three-node Gauss-Duffy on diagonal cuts; independent five-node release integrals. Float64 guard, not interval proof.",
+  "reporting": "All 20 x 49 x 3 = 2940 native candidates, 200 byte pairs and 120 maximum-target selections. Shared georeferenced GPR4 header and point pool, no source-precision rounding. Existing paper, P2, raster and negative controls remain. No ArcGIS software/CPU/GPU/RAM superiority claim."
+}

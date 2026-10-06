@@ -1,0 +1,198 @@
+{
+  "schema": "gugis-native-query-statistics-v1",
+  "protocol_sha256": "05b73cd18cd4852febb58f0fa6ad7c6a347e470f6e9304f0a419c5f49b1a1aff",
+  "source_summary_sha256": "2fab6fee7ed36f38c0efe6f22119a2ae098bf417ef627053daab8c38a643687c",
+  "source_report_sha256": "df7e009f07fe0267fb939d5141a54b4f2d7cacc6cd027a0b5c44bf5aacd852bf",
+  "source_trials_sha256": "b70b376c452f9da47e707de8c620d1aaefa1934b0e39b36d07c010adc5519aa0",
+  "source_environment": {
+    "node": "v24.13.0",
+    "v8": "13.6.233.17-node.37",
+    "platform": "win32",
+    "architecture": "x64",
+    "cpu_model": "Intel(R) Core(TM) i7-14650HX",
+    "logical_cores": 24,
+    "total_memory_bytes": 16890322944
+  },
+  "analysis_environment": {
+    "python_numpy": "2.3.5",
+    "rng": "PCG64",
+    "secondary_analysis": true
+  },
+  "scripts": {
+    "data-pipeline/query_statistics.py": "9828ffef7143d0544d248624bf410adb0ea446eb9e7d09d022da0de33937d2b5",
+    "data-pipeline/query_statistics_protocol.json": "05b73cd18cd4852febb58f0fa6ad7c6a347e470f6e9304f0a419c5f49b1a1aff"
+  },
+  "scope": "Secondary statistical analysis of the already published 17-pair CPU measurements, not preregistration before those timings and not a new timed run. Conditional on sufficiently independent/representative paired timing trials; serial dependence or runtime drift can affect inference. No cross-device, GPU, ArcGIS software or real-DTM performance claim. Keep all five cases and every nonsignificant outcome; do not change the source timings or raw records.",
+  "cases": [
+    {
+      "id": "extruded-quadratic",
+      "name": "二次轮廓沿直线延展",
+      "pairs": 17,
+      "ruled_median_ns": 23.330879211425785,
+      "triangles_median_ns": 25.488471984863462,
+      "median_ratio": 1.092477988244054,
+      "bootstrap": {
+        "low": 1.0638101008777705,
+        "high": 1.1251961938395083,
+        "resamples": 50000,
+        "distribution_sha256": "5017eb8ca498f2486de0a184043ff5c66f40fa77ee307f035a86a789a49933b4"
+      },
+      "wins": 16,
+      "losses": 1,
+      "ties": 0,
+      "sign_two_sided_p": 0.000274658203125,
+      "execution_orders": [
+        {
+          "first": "ruled",
+          "pairs": 9,
+          "median_ratio": 1.1165989781213135
+        },
+        {
+          "first": "triangles",
+          "pairs": 8,
+          "median_ratio": 1.0671684117796159
+        }
+      ],
+      "bootstrap_filename": "extruded-quadratic-bootstrap.f64",
+      "holm_adjusted_p": 0.000823974609375,
+      "significant_holm_005": true,
+      "resampling_interval_above_one": true
+    },
+    {
+      "id": "modulated-quadratic",
+      "name": "二次轮廓随母线线性变化",
+      "pairs": 17,
+      "ruled_median_ns": 43.42422485351626,
+      "triangles_median_ns": 51.07517242431553,
+      "median_ratio": 1.1761907690144926,
+      "bootstrap": {
+        "low": 1.1027230159477712,
+        "high": 1.2000880524400959,
+        "resamples": 50000,
+        "distribution_sha256": "6a1b431e0491af0cf366afd7f3f544b1af04172dc2409385c9c961c19ab1ada1"
+      },
+      "wins": 16,
+      "losses": 1,
+      "ties": 0,
+      "sign_two_sided_p": 0.000274658203125,
+      "execution_orders": [
+        {
+          "first": "ruled",
+          "pairs": 9,
+          "median_ratio": 1.195283222910334
+        },
+        {
+          "first": "triangles",
+          "pairs": 8,
+          "median_ratio": 1.1185091220809007
+        }
+      ],
+      "bootstrap_filename": "modulated-quadratic-bootstrap.f64",
+      "holm_adjusted_p": 0.000823974609375,
+      "significant_holm_005": true,
+      "resampling_interval_above_one": true
+    },
+    {
+      "id": "piecewise-8",
+      "name": "8 条连续直纹面带",
+      "pairs": 17,
+      "ruled_median_ns": 70.00357560285543,
+      "triangles_median_ns": 96.00205308809134,
+      "median_ratio": 1.371387850711092,
+      "bootstrap": {
+        "low": 1.3345086806255524,
+        "high": 1.3921141325680775,
+        "resamples": 50000,
+        "distribution_sha256": "1550f326dabca3dfb17b4491ecea2f468fe414092f08fd0dd99f71c1c3777664"
+      },
+      "wins": 17,
+      "losses": 0,
+      "ties": 0,
+      "sign_two_sided_p": 1.52587890625e-05,
+      "execution_orders": [
+        {
+          "first": "ruled",
+          "pairs": 9,
+          "median_ratio": 1.37527358006111
+        },
+        {
+          "first": "triangles",
+          "pairs": 8,
+          "median_ratio": 1.3575466535325014
+        }
+      ],
+      "bootstrap_filename": "piecewise-8-bootstrap.f64",
+      "holm_adjusted_p": 7.62939453125e-05,
+      "significant_holm_005": true,
+      "resampling_interval_above_one": true
+    },
+    {
+      "id": "piecewise-32",
+      "name": "32 条连续直纹面带",
+      "pairs": 17,
+      "ruled_median_ns": 100.34775152438401,
+      "triangles_median_ns": 113.47269197789838,
+      "median_ratio": 1.13079456444348,
+      "bootstrap": {
+        "low": 1.0956638592064927,
+        "high": 1.196268192330178,
+        "resamples": 50000,
+        "distribution_sha256": "bf87e685b6d8922dccb1f4283b6e8e3ddef09d00d1fa77a7310813f108ae49ed"
+      },
+      "wins": 16,
+      "losses": 1,
+      "ties": 0,
+      "sign_two_sided_p": 0.000274658203125,
+      "execution_orders": [
+        {
+          "first": "ruled",
+          "pairs": 9,
+          "median_ratio": 1.138709943595312
+        },
+        {
+          "first": "triangles",
+          "pairs": 8,
+          "median_ratio": 1.131999848639713
+        }
+      ],
+      "bootstrap_filename": "piecewise-32-bootstrap.f64",
+      "holm_adjusted_p": 0.000823974609375,
+      "significant_holm_005": true,
+      "resampling_interval_above_one": true
+    },
+    {
+      "id": "piecewise-128",
+      "name": "128 条连续直纹面带",
+      "pairs": 17,
+      "ruled_median_ns": 112.39304315475566,
+      "triangles_median_ns": 140.83891369047365,
+      "median_ratio": 1.253092804832684,
+      "bootstrap": {
+        "low": 1.2191921097307912,
+        "high": 1.3135340134725062,
+        "resamples": 50000,
+        "distribution_sha256": "aa3eb2261634b72b40620af74223113ce40cb37827ea98e0eb22fc71dff16732"
+      },
+      "wins": 17,
+      "losses": 0,
+      "ties": 0,
+      "sign_two_sided_p": 1.52587890625e-05,
+      "execution_orders": [
+        {
+          "first": "ruled",
+          "pairs": 9,
+          "median_ratio": 1.2807363761945325
+        },
+        {
+          "first": "triangles",
+          "pairs": 8,
+          "median_ratio": 1.2355663509247914
+        }
+      ],
+      "bootstrap_filename": "piecewise-128-bootstrap.f64",
+      "holm_adjusted_p": 7.62939453125e-05,
+      "significant_holm_005": true,
+      "resampling_interval_above_one": true
+    }
+  ]
+}

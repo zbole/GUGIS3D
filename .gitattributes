@@ -54,3 +54,7 @@ frontend/public/research/source-multipatch-v1/*.svg whitespace=-blank-at-eol
 frontend/public/research/ruled-terrain-tiles-v1/** -text whitespace=cr-at-eol
 frontend/public/research/variable-curvature-v1/** -text whitespace=cr-at-eol
 frontend/public/research/variable-curvature-v1/*.svg whitespace=-blank-at-eol
+frontend/public/research/hybrid-source-v1/** -text whitespace=cr-at-eol
+frontend/public/research/hybrid-source-v1/*.svg whitespace=-blank-at-eol
+frontend/public/research/query-statistics-v1/** -text whitespace=cr-at-eol
+frontend/public/research/query-statistics-v1/*.svg whitespace=-blank-at-eol

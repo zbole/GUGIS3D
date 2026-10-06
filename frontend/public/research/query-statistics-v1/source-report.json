@@ -1,0 +1,2706 @@
+{
+  "schema": "gugis-native-query-performance-v1",
+  "generated_utc": "2026-10-05T17:55:48.461Z",
+  "parent_publication_sha256": "aa0ff0edfa871faba019705257c5caeb2ec2ce05022fa65ce4dfd69e53750b98",
+  "piecewise_report_sha256": "6bc880d754f63355952734038aeec2fd5082d2ea470f43554d7669d2e060a065",
+  "fixture": {
+    "filename": "query-fixture.json",
+    "bytes": 163527,
+    "sha256": "2aaf4ee958be2c019c7aea584ecb25dc62bd5464e6433ccd98ef2b6640ca2c9c",
+    "points": 4096
+  },
+  "scripts": {
+    "frontend/scripts/benchmark-order-query.mjs": "fb527900d8793f2203426be0006509877db4d074b16c1f236e3965c13cc35108",
+    "frontend/src/compare/preparedOrderQuery.ts": "1e65054a8db9fa6ac9c64f33fc9d9cf45ba48518917050c2683fa4ddbc92b605",
+    "frontend/src/compare/terrainOrderMath.ts": "927aeb6c12fe87c9866b4b47fc397e742f2b098435ae0038936f96e2b4091407",
+    "frontend/src/compare/curvedRuledMath.ts": "20dbf6c48c4b6d4c76510d0679637220fc8aeb735e2e792e21ca7313d7e3b8c7"
+  },
+  "environment": {
+    "node": "v24.13.0",
+    "v8": "13.6.233.17-node.37",
+    "platform": "win32",
+    "architecture": "x64",
+    "cpu_model": "Intel(R) Core(TM) i7-14650HX",
+    "logical_cores": 24,
+    "total_memory_bytes": 16890322944
+  },
+  "protocol": {
+    "operation": "CPU point location + native height + analytic Cartesian gradient + consumed checksum",
+    "preparation": "Both families validated, polynomial coefficients compiled once. Both scan directly for <=8 patches, otherwise use the same 32x32 bounding-box index; P2 omits known cubic terms. Saved binary files unchanged.",
+    "warmup_batches_per_method": 5,
+    "prepared_trials": 17,
+    "legacy_trials": 5,
+    "calibration_target_fast_ms": 30,
+    "max_batch_loops": 128,
+    "order": "Alternate GUGIS/triangle and triangle/GUGIS each trial. Common loop count per case from faster calibrated median; no file I/O, decoding, preparation or correctness assertions inside timed blocks.",
+    "variation": "p10/p90 are observed trial quantiles, NOT confidence intervals or cross-device guarantees.",
+    "limits": "Node CPU measurements on this machine and five fixed exact analytic structure fixtures, including C0 piecewise surfaces. Not browser/GPU rendering, ArcGIS software, memory consumption, paper-author timing or general optimality."
+  },
+  "cases": [
+    {
+      "id": "extruded-quadratic",
+      "name": "二次轮廓沿直线延展",
+      "strips": 1,
+      "triangle_degree": 2,
+      "loops": 128,
+      "legacy_loops": 30,
+      "queries_per_trial": 524288,
+      "calibration_ms_per_4096": [
+        0.08670000000000755,
+        0.12830000000002428
+      ],
+      "legacy_calibration_ms_per_4096": [
+        1.0171000000000276,
+        26.4418
+      ],
+      "methods": [
+        {
+          "family": "ruled",
+          "binary_filename": "ruled.bin",
+          "binary_bytes": 196,
+          "binary_sha256": "796bb40e48883f2c54ac9c59595730a1a1c8ad89964a2072ffeb90fbf6669de2",
+          "controls": 6,
+          "patches": 1,
+          "e2_m2": 3.2756277856887136e-13,
+          "prepare_ms": 0.5263000000000062,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 4.163336342344337e-17,
+            "max_prepared_legacy_difference": 1.4210854715202004e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 23.330879211425785,
+            "p10": 21.946525573730487,
+            "p90": 25.010490417480504,
+            "minimum": 21.65279388427737,
+            "maximum": 25.24871826171883
+          },
+          "legacy_ns_per_query": {
+            "median": 272.177734375,
+            "p10": 164.3977864583331,
+            "p90": 278.4342447916662,
+            "minimum": 164.3977864583331,
+            "maximum": 281.77246093750165
+          }
+        },
+        {
+          "family": "triangles",
+          "binary_filename": "p2-triangles.bin",
+          "binary_bytes": 304,
+          "binary_sha256": "5b8853bfeedc4cc839e169d6aada6b05576ff616260f6e5d6569523e35798162",
+          "controls": 9,
+          "patches": 2,
+          "e2_m2": 5.523329699857391e-13,
+          "prepare_ms": 0.7828000000000088,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 8.326672684688674e-17,
+            "max_prepared_legacy_difference": 1.7763568394002505e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 25.488471984863462,
+            "p10": 23.840141296386715,
+            "p90": 26.39598846435531,
+            "minimum": 23.018836975097603,
+            "maximum": 30.05962371826164
+          },
+          "legacy_ns_per_query": {
+            "median": 7270.341796875002,
+            "p10": 6134.557291666669,
+            "p90": 10804.824218749998,
+            "minimum": 6134.557291666669,
+            "maximum": 10946.712239583338
+          }
+        }
+      ],
+      "paired_speed_ratio": {
+        "median": 1.0926382848796459,
+        "p10": 1.017253882879069,
+        "p90": 1.1585418693437761,
+        "minimum": 0.9128211722171332,
+        "maximum": 1.388256124309606
+      },
+      "ruled_vs_prepared_triangle_median_ratio": 1.092477988244054,
+      "scope": "Purpose-built ruled structure, not one of the strict-convex paper fixtures.",
+      "rows": [
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 0,
+          "execution_order": 0,
+          "elapsed_ms": 12.232100000000003,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 23.330879211425785
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 0,
+          "execution_order": 1,
+          "elapsed_ms": 14.171400000000006,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 27.029800415039073
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 1,
+          "execution_order": 0,
+          "elapsed_ms": 12.068499999999972,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 23.018836975097603
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 1,
+          "execution_order": 1,
+          "elapsed_ms": 13.221100000000035,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 25.21724700927741
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 2,
+          "execution_order": 0,
+          "elapsed_ms": 12.11809999999997,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 23.1134414672851
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 2,
+          "execution_order": 1,
+          "elapsed_ms": 13.240700000000004,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 25.254631042480476
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 3,
+          "execution_order": 0,
+          "elapsed_ms": 13.238099999999974,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 25.249671936035107
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 3,
+          "execution_order": 1,
+          "elapsed_ms": 12.675700000000006,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 24.176979064941417
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 4,
+          "execution_order": 0,
+          "elapsed_ms": 11.352300000000014,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 21.65279388427737
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 4,
+          "execution_order": 1,
+          "elapsed_ms": 15.75989999999996,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 30.05962371826164
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 5,
+          "execution_order": 0,
+          "elapsed_ms": 13.352800000000002,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 25.468444824218754
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 5,
+          "execution_order": 1,
+          "elapsed_ms": 12.444799999999987,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 23.736572265624975
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 6,
+          "execution_order": 0,
+          "elapsed_ms": 12.232799999999997,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 23.332214355468746
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 6,
+          "execution_order": 1,
+          "elapsed_ms": 13.839099999999917,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 26.39598846435531
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 7,
+          "execution_order": 0,
+          "elapsed_ms": 13.764299999999935,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 26.25331878662097
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 7,
+          "execution_order": 1,
+          "elapsed_ms": 12.415099999999939,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 23.67992401123035
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 8,
+          "execution_order": 0,
+          "elapsed_ms": 13.112700000000018,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 25.010490417480504
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 8,
+          "execution_order": 1,
+          "elapsed_ms": 13.516300000000001,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 25.780296325683597
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 9,
+          "execution_order": 0,
+          "elapsed_ms": 13.466000000000008,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 25.68435668945314
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 9,
+          "execution_order": 1,
+          "elapsed_ms": 13.237600000000043,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 25.24871826171883
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 10,
+          "execution_order": 0,
+          "elapsed_ms": 12.558999999999969,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 23.954391479492127
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 10,
+          "execution_order": 1,
+          "elapsed_ms": 12.99210000000005,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 24.780464172363377
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 11,
+          "execution_order": 0,
+          "elapsed_ms": 12.750800000000027,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 24.320220947265675
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 11,
+          "execution_order": 1,
+          "elapsed_ms": 12.11489999999992,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 23.107337951660003
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 12,
+          "execution_order": 0,
+          "elapsed_ms": 12.212800000000016,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 23.29406738281253
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 12,
+          "execution_order": 1,
+          "elapsed_ms": 13.835000000000036,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 26.38816833496101
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 13,
+          "execution_order": 0,
+          "elapsed_ms": 13.291600000000017,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 25.351715087890657
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 13,
+          "execution_order": 1,
+          "elapsed_ms": 11.960399999999936,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 22.812652587890504
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 14,
+          "execution_order": 0,
+          "elapsed_ms": 11.50630000000001,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 21.946525573730487
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 14,
+          "execution_order": 1,
+          "elapsed_ms": 13.363300000000095,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 25.488471984863462
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 15,
+          "execution_order": 0,
+          "elapsed_ms": 12.499099999999999,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 23.840141296386715
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 15,
+          "execution_order": 1,
+          "elapsed_ms": 12.090199999999982,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 23.060226440429652
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 16,
+          "execution_order": 0,
+          "elapsed_ms": 12.000499999999988,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 22.889137268066385
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 16,
+          "execution_order": 1,
+          "elapsed_ms": 13.636799999999994,
+          "queries": 524288,
+          "checksum": 16966681.666030023,
+          "ns_per_query": 26.01013183593749
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 0,
+          "execution_order": 0,
+          "elapsed_ms": 33.4452,
+          "queries": 122880,
+          "checksum": 3976566.0154753737,
+          "ns_per_query": 272.177734375
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 0,
+          "execution_order": 1,
+          "elapsed_ms": 760.0970999999998,
+          "queries": 122880,
+          "checksum": 3976566.0154753737,
+          "ns_per_query": 6185.686035156249
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 1,
+          "execution_order": 0,
+          "elapsed_ms": 753.8144000000002,
+          "queries": 122880,
+          "checksum": 3976566.0154753737,
+          "ns_per_query": 6134.557291666669
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 1,
+          "execution_order": 1,
+          "elapsed_ms": 21.228300000000218,
+          "queries": 122880,
+          "checksum": 3976566.0154753737,
+          "ns_per_query": 172.75634765625176
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 2,
+          "execution_order": 0,
+          "elapsed_ms": 20.20119999999997,
+          "queries": 122880,
+          "checksum": 3976566.0154753737,
+          "ns_per_query": 164.3977864583331
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 2,
+          "execution_order": 1,
+          "elapsed_ms": 893.3796000000002,
+          "queries": 122880,
+          "checksum": 3976566.0154753737,
+          "ns_per_query": 7270.341796875002
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 3,
+          "execution_order": 0,
+          "elapsed_ms": 1345.1320000000005,
+          "queries": 122880,
+          "checksum": 3976566.0154753737,
+          "ns_per_query": 10946.712239583338
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 3,
+          "execution_order": 1,
+          "elapsed_ms": 34.21399999999994,
+          "queries": 122880,
+          "checksum": 3976566.0154753737,
+          "ns_per_query": 278.4342447916662
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 4,
+          "execution_order": 0,
+          "elapsed_ms": 34.6242000000002,
+          "queries": 122880,
+          "checksum": 3976566.0154753737,
+          "ns_per_query": 281.77246093750165
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 4,
+          "execution_order": 1,
+          "elapsed_ms": 1327.6967999999997,
+          "queries": 122880,
+          "checksum": 3976566.0154753737,
+          "ns_per_query": 10804.824218749998
+        }
+      ]
+    },
+    {
+      "id": "modulated-quadratic",
+      "name": "二次轮廓随母线线性变化",
+      "strips": 1,
+      "triangle_degree": 3,
+      "loops": 128,
+      "legacy_loops": 15,
+      "queries_per_trial": 524288,
+      "calibration_ms_per_4096": [
+        0.17529999999987922,
+        0.19089999999960128
+      ],
+      "legacy_calibration_ms_per_4096": [
+        2.0529999999998836,
+        84.04989999999998
+      ],
+      "methods": [
+        {
+          "family": "ruled",
+          "binary_filename": "ruled.bin",
+          "binary_bytes": 196,
+          "binary_sha256": "697becd31a0702c6cfce385ccca85fac34639b364e65f941744ac5b650d33018",
+          "controls": 6,
+          "patches": 1,
+          "e2_m2": 3.2265563267088906e-13,
+          "prepare_ms": 1.7986999999993714,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 5.551115123125783e-17,
+            "max_prepared_legacy_difference": 1.4210854715202004e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 43.42422485351626,
+            "p10": 40.96488952636673,
+            "p90": 46.23813629150292,
+            "minimum": 38.592338562012245,
+            "maximum": 47.81646728515589
+          },
+          "legacy_ns_per_query": {
+            "median": 343.658854166673,
+            "p10": 332.8369140625102,
+            "p90": 356.77571614582956,
+            "minimum": 332.8369140625102,
+            "maximum": 366.6276041666805
+          }
+        },
+        {
+          "family": "triangles",
+          "binary_filename": "p3-triangles.bin",
+          "binary_bytes": 504,
+          "binary_sha256": "a721820fa7910e6de82c60e00ff90cc4122366f9b0e32aaac775d3e833cf9caa",
+          "controls": 16,
+          "patches": 2,
+          "e2_m2": 1.0601279722947796e-12,
+          "prepare_ms": 1.1548000000002503,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 1.4210854715202004e-14,
+            "max_gradient": 4.0939474033052647e-16,
+            "max_prepared_legacy_difference": 3.907985046680551e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 51.07517242431553,
+            "p10": 45.872879028321236,
+            "p90": 53.509140014649375,
+            "minimum": 42.649841308594475,
+            "maximum": 54.83016967773591
+          },
+          "legacy_ns_per_query": {
+            "median": 20585.667317708336,
+            "p10": 20358.694661458307,
+            "p90": 20664.97721354167,
+            "minimum": 20358.694661458307,
+            "maximum": 20689.296874999978
+          }
+        }
+      ],
+      "paired_speed_ratio": {
+        "median": 1.1466796438715026,
+        "p10": 1.0297498979049207,
+        "p90": 1.2160975870073347,
+        "minimum": 0.9591434931991856,
+        "maximum": 1.288829063912685
+      },
+      "ruled_vs_prepared_triangle_median_ratio": 1.1761907690144926,
+      "scope": "Purpose-built ruled structure, not one of the strict-convex paper fixtures.",
+      "rows": [
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 0,
+          "execution_order": 0,
+          "elapsed_ms": 24.911799999999857,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 47.51548767089817
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 0,
+          "execution_order": 1,
+          "elapsed_ms": 27.079499999999825,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 51.65004730224576
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 1,
+          "execution_order": 0,
+          "elapsed_ms": 28.16730000000007,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 53.72486114501966
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 1,
+          "execution_order": 1,
+          "elapsed_ms": 22.76680000000033,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 43.42422485351626
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 2,
+          "execution_order": 0,
+          "elapsed_ms": 23.793499999999767,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 45.38249969482378
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 2,
+          "execution_order": 1,
+          "elapsed_ms": 27.269800000000032,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 52.01301574707038
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 3,
+          "execution_order": 0,
+          "elapsed_ms": 25.302300000000287,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 48.260307312012266
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 3,
+          "execution_order": 1,
+          "elapsed_ms": 21.47739999999976,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 40.96488952636673
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 4,
+          "execution_order": 0,
+          "elapsed_ms": 22.655299999999443,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 43.211555480955965
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 4,
+          "execution_order": 1,
+          "elapsed_ms": 24.538300000000163,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 46.80309295654328
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 5,
+          "execution_order": 0,
+          "elapsed_ms": 25.76380000000063,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 49.14054870605589
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 5,
+          "execution_order": 1,
+          "elapsed_ms": 22.363800000000083,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 42.655563354492344
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 6,
+          "execution_order": 0,
+          "elapsed_ms": 25.06959999999981,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 47.81646728515589
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 6,
+          "execution_order": 1,
+          "elapsed_ms": 28.746800000000803,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 54.83016967773591
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 7,
+          "execution_order": 0,
+          "elapsed_ms": 24.963300000000345,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 47.61371612548894
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 7,
+          "execution_order": 1,
+          "elapsed_ms": 24.242099999999482,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 46.23813629150292
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 8,
+          "execution_order": 0,
+          "elapsed_ms": 22.712000000000444,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 43.319702148438346
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 8,
+          "execution_order": 1,
+          "elapsed_ms": 25.36750000000029,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 48.38466644287165
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 9,
+          "execution_order": 0,
+          "elapsed_ms": 26.966199999999844,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 51.43394470214814
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 9,
+          "execution_order": 1,
+          "elapsed_ms": 22.882300000000214,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 43.644523620605874
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 10,
+          "execution_order": 0,
+          "elapsed_ms": 22.27900000000045,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 42.49382019043055
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 10,
+          "execution_order": 1,
+          "elapsed_ms": 26.985899999999674,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 51.47151947021422
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 11,
+          "execution_order": 0,
+          "elapsed_ms": 26.77809999999954,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 51.07517242431553
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 11,
+          "execution_order": 1,
+          "elapsed_ms": 23.60900000000038,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 45.03059387207104
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 12,
+          "execution_order": 0,
+          "elapsed_ms": 22.48660000000018,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 42.889785766601904
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 12,
+          "execution_order": 1,
+          "elapsed_ms": 27.345899999999347,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 52.1581649780261
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 13,
+          "execution_order": 0,
+          "elapsed_ms": 25.90639999999985,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 49.41253662109346
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 13,
+          "execution_order": 1,
+          "elapsed_ms": 23.363800000000083,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 44.562911987304844
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 14,
+          "execution_order": 0,
+          "elapsed_ms": 20.233500000000276,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 38.592338562012245
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 14,
+          "execution_order": 1,
+          "elapsed_ms": 24.050600000000486,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 45.872879028321236
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 15,
+          "execution_order": 0,
+          "elapsed_ms": 22.36080000000038,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 42.649841308594475
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 15,
+          "execution_order": 1,
+          "elapsed_ms": 23.3132999999998,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 44.46659088134727
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 16,
+          "execution_order": 0,
+          "elapsed_ms": 21.76720000000023,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 41.51763916015669
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 16,
+          "execution_order": 1,
+          "elapsed_ms": 28.054200000000492,
+          "queries": 524288,
+          "checksum": 16577626.587830272,
+          "ns_per_query": 53.509140014649375
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 0,
+          "execution_order": 0,
+          "elapsed_ms": 20.749000000000706,
+          "queries": 61440,
+          "checksum": 1942690.6157616035,
+          "ns_per_query": 337.7115885416781
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 0,
+          "execution_order": 1,
+          "elapsed_ms": 1269.6562000000004,
+          "queries": 61440,
+          "checksum": 1942690.6157616035,
+          "ns_per_query": 20664.97721354167
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 1,
+          "execution_order": 0,
+          "elapsed_ms": 1264.7834000000003,
+          "queries": 61440,
+          "checksum": 1942690.6157616035,
+          "ns_per_query": 20585.667317708336
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 1,
+          "execution_order": 1,
+          "elapsed_ms": 22.52560000000085,
+          "queries": 61440,
+          "checksum": 1942690.6157616035,
+          "ns_per_query": 366.6276041666805
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 2,
+          "execution_order": 0,
+          "elapsed_ms": 20.449500000000626,
+          "queries": 61440,
+          "checksum": 1942690.6157616035,
+          "ns_per_query": 332.8369140625102
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 2,
+          "execution_order": 1,
+          "elapsed_ms": 1250.8381999999983,
+          "queries": 61440,
+          "checksum": 1942690.6157616035,
+          "ns_per_query": 20358.694661458307
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 3,
+          "execution_order": 0,
+          "elapsed_ms": 1251.9634000000005,
+          "queries": 61440,
+          "checksum": 1942690.6157616035,
+          "ns_per_query": 20377.008463541675
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 3,
+          "execution_order": 1,
+          "elapsed_ms": 21.92029999999977,
+          "queries": 61440,
+          "checksum": 1942690.6157616035,
+          "ns_per_query": 356.77571614582956
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 4,
+          "execution_order": 0,
+          "elapsed_ms": 21.114400000000387,
+          "queries": 61440,
+          "checksum": 1942690.6157616035,
+          "ns_per_query": 343.658854166673
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 4,
+          "execution_order": 1,
+          "elapsed_ms": 1271.1503999999986,
+          "queries": 61440,
+          "checksum": 1942690.6157616035,
+          "ns_per_query": 20689.296874999978
+        }
+      ]
+    },
+    {
+      "id": "piecewise-8",
+      "name": "8 条连续直纹面带",
+      "strips": 8,
+      "triangle_degree": 3,
+      "loops": 127,
+      "legacy_loops": 17,
+      "queries_per_trial": 520192,
+      "calibration_ms_per_4096": [
+        0.23699999999917054,
+        0.38099999999940337
+      ],
+      "legacy_calibration_ms_per_4096": [
+        1.7788999999993393,
+        80.1372999999985
+      ],
+      "methods": [
+        {
+          "family": "ruled",
+          "binary_filename": "ruled.bin",
+          "binary_bytes": 1120,
+          "binary_sha256": "216644adf878d57709f59c72f3ec97445b67e37e67cfdbf89d2200d64ac7a149",
+          "controls": 34,
+          "patches": 8,
+          "e2_m2": 2.2968685360250405e-13,
+          "prepare_ms": 0.3188000000009197,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 1.4085954624931674e-15,
+            "max_prepared_legacy_difference": 1.0658141036401503e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 70.00357560285543,
+            "p10": 68.3807132750969,
+            "p90": 73.1614480807104,
+            "minimum": 67.2909233513768,
+            "maximum": 75.38274329478666
+          },
+          "legacy_ns_per_query": {
+            "median": 433.81491268386605,
+            "p10": 415.4411764705866,
+            "p90": 479.2394301470558,
+            "minimum": 415.4411764705866,
+            "maximum": 499.66394761030386
+          }
+        },
+        {
+          "family": "triangles",
+          "binary_filename": "p3-triangles.bin",
+          "binary_bytes": 3248,
+          "binary_sha256": "73784ca1be8300741ccbffbdc3fab9149f28d4567fc658cdccd0dfade355a338",
+          "controls": 100,
+          "patches": 16,
+          "e2_m2": 1.0100230712964312e-12,
+          "prepare_ms": 4.043099999998958,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 1.0658141036401503e-14,
+            "max_gradient": 1.7659484985443896e-15,
+            "max_prepared_legacy_difference": 3.907985046680551e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 96.00205308809134,
+            "p10": 92.09984005905677,
+            "p90": 99.92002952755936,
+            "minimum": 90.93277097686966,
+            "maximum": 104.73940391240114
+          },
+          "legacy_ns_per_query": {
+            "median": 20350.91768152571,
+            "p10": 20061.042336856637,
+            "p90": 20367.796415441186,
+            "minimum": 20061.042336856637,
+            "maximum": 20570.835248161762
+          }
+        }
+      ],
+      "paired_speed_ratio": {
+        "median": 1.364289269128282,
+        "p10": 1.260563324694439,
+        "p90": 1.4532852467475361,
+        "minimum": 1.2487397289838837,
+        "maximum": 1.4755362089877047
+      },
+      "ruled_vs_prepared_triangle_median_ratio": 1.371387850711092,
+      "scope": "Fixed purpose-built C0 piecewise P2xP1 fields. Gradient has one-sided limits at internal strip boundaries. Both models preserve exactly the same piecewise polynomial. Not real DEM, C2 paper theorem, optimal global encoding or measured RAM.",
+      "rows": [
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 0,
+          "execution_order": 0,
+          "elapsed_ms": 35.571099999999205,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 68.3807132750969
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 0,
+          "execution_order": 1,
+          "elapsed_ms": 47.30249999999978,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 90.93277097686966
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 1,
+          "execution_order": 0,
+          "elapsed_ms": 49.61769999999888,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 95.38343534694665
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 1,
+          "execution_order": 1,
+          "elapsed_ms": 36.368899999999485,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 69.91437776820767
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 2,
+          "execution_order": 0,
+          "elapsed_ms": 38.006500000001324,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 73.06244617372302
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 2,
+          "execution_order": 1,
+          "elapsed_ms": 47.909600000000864,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 92.09984005905677
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 3,
+          "execution_order": 0,
+          "elapsed_ms": 49.944000000001324,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 96.01070374016003
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 3,
+          "execution_order": 1,
+          "elapsed_ms": 36.72310000000107,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 70.59528020423433
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 4,
+          "execution_order": 0,
+          "elapsed_ms": 35.657900000000154,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 68.54757474163416
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 4,
+          "execution_order": 1,
+          "elapsed_ms": 51.821099999999205,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 99.61917907234098
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 5,
+          "execution_order": 0,
+          "elapsed_ms": 49.55329999999958,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 95.25963490403463
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 5,
+          "execution_order": 1,
+          "elapsed_ms": 36.31790000000001,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 69.81633704478348
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 6,
+          "execution_order": 0,
+          "elapsed_ms": 35.0041999999994,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 67.2909233513768
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 6,
+          "execution_order": 1,
+          "elapsed_ms": 50.08100000000013,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 96.27406803641757
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 7,
+          "execution_order": 0,
+          "elapsed_ms": 49.60809999999947,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 95.36498062253835
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 7,
+          "execution_order": 1,
+          "elapsed_ms": 37.18050000000039,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 71.47457092765823
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 8,
+          "execution_order": 0,
+          "elapsed_ms": 36.52419999999984,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 70.2129213828737
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 8,
+          "execution_order": 1,
+          "elapsed_ms": 49.93950000000041,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 96.00205308809134
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 9,
+          "execution_order": 0,
+          "elapsed_ms": 48.896600000000035,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 93.99721641240164
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 9,
+          "execution_order": 1,
+          "elapsed_ms": 36.00749999999971,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 69.2196342888774
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 10,
+          "execution_order": 0,
+          "elapsed_ms": 36.41530000000057,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 70.00357560285543
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 10,
+          "execution_order": 1,
+          "elapsed_ms": 48.897399999999834,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 93.99875430610204
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 11,
+          "execution_order": 0,
+          "elapsed_ms": 48.60119999999915,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 93.42934916338419
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 11,
+          "execution_order": 1,
+          "elapsed_ms": 38.92020000000048,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 74.8189130167332
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 12,
+          "execution_order": 0,
+          "elapsed_ms": 35.69970000000103,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 68.62792968750198
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 12,
+          "execution_order": 1,
+          "elapsed_ms": 52.67619999999988,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 101.26299520177142
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 13,
+          "execution_order": 0,
+          "elapsed_ms": 51.977600000000166,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 99.92002952755936
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 13,
+          "execution_order": 1,
+          "elapsed_ms": 38.0580000000009,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 73.1614480807104
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 14,
+          "execution_order": 0,
+          "elapsed_ms": 36.93950000000041,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 71.01128045029607
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 14,
+          "execution_order": 1,
+          "elapsed_ms": 54.48459999999977,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 104.73940391240114
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 15,
+          "execution_order": 0,
+          "elapsed_ms": 50.259000000000015,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 96.61624938484255
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 15,
+          "execution_order": 1,
+          "elapsed_ms": 36.27679999999964,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 69.73732775590483
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 16,
+          "execution_order": 0,
+          "elapsed_ms": 39.21350000000166,
+          "queries": 520192,
+          "checksum": 15618599.05186817,
+          "ns_per_query": 75.38274329478666
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 16,
+          "execution_order": 1,
+          "elapsed_ms": 51.42399999999907,
+          "queries": 520192,
+          "checksum": 15618599.051868172,
+          "ns_per_query": 98.85580708661239
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 0,
+          "execution_order": 0,
+          "elapsed_ms": 34.792600000000675,
+          "queries": 69632,
+          "checksum": 2090678.6132421615,
+          "ns_per_query": 499.66394761030386
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 0,
+          "execution_order": 1,
+          "elapsed_ms": 1402.1918000000005,
+          "queries": 69632,
+          "checksum": 2090678.6132421622,
+          "ns_per_query": 20137.17543658089
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 1,
+          "execution_order": 0,
+          "elapsed_ms": 1396.8905000000013,
+          "queries": 69632,
+          "checksum": 2090678.6132421622,
+          "ns_per_query": 20061.042336856637
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 1,
+          "execution_order": 1,
+          "elapsed_ms": 29.02059999999983,
+          "queries": 69632,
+          "checksum": 2090678.6132421615,
+          "ns_per_query": 416.7710248161741
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 2,
+          "execution_order": 0,
+          "elapsed_ms": 30.207400000002963,
+          "queries": 69632,
+          "checksum": 2090678.6132421615,
+          "ns_per_query": 433.81491268386605
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 2,
+          "execution_order": 1,
+          "elapsed_ms": 1432.3883999999998,
+          "queries": 69632,
+          "checksum": 2090678.6132421622,
+          "ns_per_query": 20570.835248161762
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 3,
+          "execution_order": 0,
+          "elapsed_ms": 1418.2504000000008,
+          "queries": 69632,
+          "checksum": 2090678.6132421622,
+          "ns_per_query": 20367.796415441186
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 3,
+          "execution_order": 1,
+          "elapsed_ms": 28.927999999999884,
+          "queries": 69632,
+          "checksum": 2090678.6132421615,
+          "ns_per_query": 415.4411764705866
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 4,
+          "execution_order": 0,
+          "elapsed_ms": 33.37039999999979,
+          "queries": 69632,
+          "checksum": 2090678.6132421615,
+          "ns_per_query": 479.2394301470558
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 4,
+          "execution_order": 1,
+          "elapsed_ms": 1417.0750999999982,
+          "queries": 69632,
+          "checksum": 2090678.6132421622,
+          "ns_per_query": 20350.91768152571
+        }
+      ]
+    },
+    {
+      "id": "piecewise-32",
+      "name": "32 条连续直纹面带",
+      "strips": 32,
+      "triangle_degree": 3,
+      "loops": 82,
+      "legacy_loops": 8,
+      "queries_per_trial": 335872,
+      "calibration_ms_per_4096": [
+        0.41010000000096625,
+        0.36969999999928405
+      ],
+      "legacy_calibration_ms_per_4096": [
+        3.9305999999996857,
+        83.40239999999903
+      ],
+      "methods": [
+        {
+          "family": "ruled",
+          "binary_filename": "ruled.bin",
+          "binary_bytes": 4288,
+          "binary_sha256": "8c1696b08e580c31540b3c4addfab3d70c6f43bbe35c4375fc3eae0534a8efe0",
+          "controls": 130,
+          "patches": 32,
+          "e2_m2": 2.3931000738327033e-13,
+          "prepare_ms": 3.3976000000002387,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 4.524158825347513e-15,
+            "max_prepared_legacy_difference": 1.0658141036401503e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 100.34775152438401,
+            "p10": 93.17269674161336,
+            "p90": 102.26217130335834,
+            "minimum": 88.04842320883158,
+            "maximum": 111.19831364328955
+          },
+          "legacy_ns_per_query": {
+            "median": 991.046142578167,
+            "p10": 973.2727050781875,
+            "p90": 1041.586303710984,
+            "minimum": 973.2727050781875,
+            "maximum": 1167.4194335936638
+          }
+        },
+        {
+          "family": "triangles",
+          "binary_filename": "p3-triangles.bin",
+          "binary_bytes": 12656,
+          "binary_sha256": "b34fb81f8042ef0ac8e6d7d000023ce6965bc2c94d2a741f20a51200d23eff0a",
+          "controls": 388,
+          "patches": 64,
+          "e2_m2": 1.0119637946613428e-12,
+          "prepare_ms": 2.4301999999988766,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 1.0658141036401503e-14,
+            "max_gradient": 7.0915495697931874e-15,
+            "max_prepared_legacy_difference": 4.0908249010485065e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 113.47269197789838,
+            "p10": 105.8674137766762,
+            "p90": 118.94233517530886,
+            "minimum": 104.50379906631417,
+            "maximum": 139.8756073742356
+          },
+          "legacy_ns_per_query": {
+            "median": 21191.125488281283,
+            "p10": 20696.417236328092,
+            "p90": 21632.82165527347,
+            "minimum": 20696.417236328092,
+            "maximum": 22227.23083496092
+          }
+        }
+      ],
+      "paired_speed_ratio": {
+        "median": 1.1500774014829358,
+        "p10": 1.0352548985354808,
+        "p90": 1.2578932430840568,
+        "minimum": 0.9994569863278119,
+        "maximum": 1.39457138232343
+      },
+      "ruled_vs_prepared_triangle_median_ratio": 1.13079456444348,
+      "scope": "Fixed purpose-built C0 piecewise P2xP1 fields. Gradient has one-sided limits at internal strip boundaries. Both models preserve exactly the same piecewise polynomial. Not real DEM, C2 paper theorem, optimal global encoding or measured RAM.",
+      "rows": [
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 0,
+          "execution_order": 0,
+          "elapsed_ms": 33.93340000000171,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 101.03074980945632
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 0,
+          "execution_order": 1,
+          "elapsed_ms": 38.66790000000037,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 115.12689357850721
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 1,
+          "execution_order": 0,
+          "elapsed_ms": 35.55789999999979,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 105.8674137766762
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 1,
+          "execution_order": 1,
+          "elapsed_ms": 34.34700000000157,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 102.26217130335834
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 2,
+          "execution_order": 0,
+          "elapsed_ms": 29.572999999996682,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 88.04842320883158
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 2,
+          "execution_order": 1,
+          "elapsed_ms": 38.640299999999115,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 115.0447194169181
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 3,
+          "execution_order": 0,
+          "elapsed_ms": 37.70060000000012,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 112.24692740091498
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 3,
+          "execution_order": 1,
+          "elapsed_ms": 32.30069999999978,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 96.16967177972495
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 4,
+          "execution_order": 0,
+          "elapsed_ms": 33.413000000000466,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 99.48135003811115
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 4,
+          "execution_order": 1,
+          "elapsed_ms": 37.26759999999922,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 110.9577458079245
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 5,
+          "execution_order": 0,
+          "elapsed_ms": 37.08780000000115,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 110.42242282774734
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 5,
+          "execution_order": 1,
+          "elapsed_ms": 34.12930000000051,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 101.61400771722714
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 6,
+          "execution_order": 0,
+          "elapsed_ms": 37.19980000000214,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 110.75588319360395
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 6,
+          "execution_order": 1,
+          "elapsed_ms": 37.17959999999948,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 110.69574123475455
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 7,
+          "execution_order": 0,
+          "elapsed_ms": 36.478800000000774,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 108.60923208841695
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 7,
+          "execution_order": 1,
+          "elapsed_ms": 31.294099999999162,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 93.17269674161336
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 8,
+          "execution_order": 0,
+          "elapsed_ms": 33.1388999999981,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 98.66526533917119
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 8,
+          "execution_order": 1,
+          "elapsed_ms": 38.11230000000069,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 113.47269197789838
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 9,
+          "execution_order": 0,
+          "elapsed_ms": 39.94940000000133,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 118.94233517530886
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 9,
+          "execution_order": 1,
+          "elapsed_ms": 33.703999999997905,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 100.34775152438401
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 10,
+          "execution_order": 0,
+          "elapsed_ms": 32.27000000000044,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 96.07826791158666
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 10,
+          "execution_order": 1,
+          "elapsed_ms": 38.95650000000023,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 115.98614948551898
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 11,
+          "execution_order": 0,
+          "elapsed_ms": 35.09990000000107,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 104.50379906631417
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 11,
+          "execution_order": 1,
+          "elapsed_ms": 32.363499999999476,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 96.35664777057771
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 12,
+          "execution_order": 0,
+          "elapsed_ms": 37.348399999998946,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 111.19831364328955
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 12,
+          "execution_order": 1,
+          "elapsed_ms": 46.98029999999926,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 139.8756073742356
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 13,
+          "execution_order": 0,
+          "elapsed_ms": 43.93890000000101,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 130.8203720464969
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 13,
+          "execution_order": 1,
+          "elapsed_ms": 31.5070999999989,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 93.80686690167356
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 14,
+          "execution_order": 0,
+          "elapsed_ms": 34.28060000000187,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 102.06447694360313
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 14,
+          "execution_order": 1,
+          "elapsed_ms": 38.91600000000108,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 115.86556783536906
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 15,
+          "execution_order": 0,
+          "elapsed_ms": 39.72259999999733,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 118.26707793444325
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 15,
+          "execution_order": 1,
+          "elapsed_ms": 33.97279999999955,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 101.14805640243769
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 16,
+          "execution_order": 0,
+          "elapsed_ms": 34.26480000000083,
+          "queries": 335872,
+          "checksum": 10063930.336358035,
+          "ns_per_query": 102.01743521341712
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 16,
+          "execution_order": 1,
+          "elapsed_ms": 37.797599999998056,
+          "queries": 335872,
+          "checksum": 10063930.336358078,
+          "ns_per_query": 112.53572789633567
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 0,
+          "execution_order": 0,
+          "elapsed_ms": 31.89220000000205,
+          "queries": 32768,
+          "checksum": 981846.8620835947,
+          "ns_per_query": 973.2727050781875
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 0,
+          "execution_order": 1,
+          "elapsed_ms": 690.3352000000014,
+          "queries": 32768,
+          "checksum": 981846.8620835955,
+          "ns_per_query": 21067.35839843754
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 1,
+          "execution_order": 0,
+          "elapsed_ms": 694.390800000001,
+          "queries": 32768,
+          "checksum": 981846.8620835955,
+          "ns_per_query": 21191.125488281283
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 1,
+          "execution_order": 1,
+          "elapsed_ms": 32.474600000001374,
+          "queries": 32768,
+          "checksum": 981846.8620835947,
+          "ns_per_query": 991.046142578167
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 2,
+          "execution_order": 0,
+          "elapsed_ms": 32.319400000000314,
+          "queries": 32768,
+          "checksum": 981846.8620835947,
+          "ns_per_query": 986.3098144531345
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 2,
+          "execution_order": 1,
+          "elapsed_ms": 728.3418999999994,
+          "queries": 32768,
+          "checksum": 981846.8620835955,
+          "ns_per_query": 22227.23083496092
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 3,
+          "execution_order": 0,
+          "elapsed_ms": 708.8643000000011,
+          "queries": 32768,
+          "checksum": 981846.8620835955,
+          "ns_per_query": 21632.82165527347
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 3,
+          "execution_order": 1,
+          "elapsed_ms": 38.25399999999718,
+          "queries": 32768,
+          "checksum": 981846.8620835947,
+          "ns_per_query": 1167.4194335936638
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 4,
+          "execution_order": 0,
+          "elapsed_ms": 34.130700000001525,
+          "queries": 32768,
+          "checksum": 981846.8620835947,
+          "ns_per_query": 1041.586303710984
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 4,
+          "execution_order": 1,
+          "elapsed_ms": 678.1801999999989,
+          "queries": 32768,
+          "checksum": 981846.8620835955,
+          "ns_per_query": 20696.417236328092
+        }
+      ]
+    },
+    {
+      "id": "piecewise-128",
+      "name": "128 条连续直纹面带",
+      "strips": 128,
+      "triangle_degree": 3,
+      "loops": 63,
+      "legacy_loops": 3,
+      "queries_per_trial": 258048,
+      "calibration_ms_per_4096": [
+        0.47660000000178115,
+        0.527700000002369
+      ],
+      "legacy_calibration_ms_per_4096": [
+        12.064800000000105,
+        87.00960000000123
+      ],
+      "methods": [
+        {
+          "family": "ruled",
+          "binary_filename": "ruled.bin",
+          "binary_bytes": 16960,
+          "binary_sha256": "e4008eab3b59602204c0f699cf233b3a37cdcdd832e61ccf8391b2fd0c1543d4",
+          "controls": 514,
+          "patches": 128,
+          "e2_m2": 2.316054923862486e-13,
+          "prepare_ms": 3.6970000000001164,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 2.0039525594484076e-14,
+            "max_prepared_legacy_difference": 1.0658141036401503e-14
+          },
+          "prepared_ns_per_query": {
+            "median": 112.39304315475566,
+            "p10": 99.18542286706486,
+            "p90": 117.66686817955599,
+            "minimum": 98.55453249008755,
+            "maximum": 119.5308624752041
+          },
+          "legacy_ns_per_query": {
+            "median": 2724.308268229336,
+            "p10": 2581.339518229105,
+            "p90": 2734.676106770806,
+            "minimum": 2581.339518229105,
+            "maximum": 2886.4583333332303
+          }
+        },
+        {
+          "family": "triangles",
+          "binary_filename": "p3-triangles.bin",
+          "binary_bytes": 50288,
+          "binary_sha256": "e1347fd24530a13aaba3a5f8d2bce1354541fa77fd16bfbd759a264b24e00186",
+          "controls": 1540,
+          "patches": 256,
+          "e2_m2": 1.0080539840109231e-12,
+          "prepare_ms": 18.068500000001222,
+          "correctness": {
+            "requested": 4100,
+            "hits": 4100,
+            "max_height_m": 7.105427357601002e-15,
+            "max_gradient": 2.4369395390522186e-14,
+            "max_prepared_legacy_difference": 1.5040052536718918e-13
+          },
+          "prepared_ns_per_query": {
+            "median": 140.83891369047365,
+            "p10": 128.33542596727085,
+            "p90": 148.41153583830138,
+            "minimum": 126.48770771328708,
+            "maximum": 151.82330419146896
+          },
+          "legacy_ns_per_query": {
+            "median": 19441.463216145927,
+            "p10": 18244.067382812664,
+            "p90": 19791.357421875175,
+            "minimum": 18244.067382812664,
+            "maximum": 19861.31184895849
+          }
+        }
+      ],
+      "paired_speed_ratio": {
+        "median": 1.2650909322184827,
+        "p10": 1.1726260913543016,
+        "p90": 1.3306121175970214,
+        "minimum": 1.168592049475072,
+        "maximum": 1.3508247479554512
+      },
+      "ruled_vs_prepared_triangle_median_ratio": 1.253092804832684,
+      "scope": "Fixed purpose-built C0 piecewise P2xP1 fields. Gradient has one-sided limits at internal strip boundaries. Both models preserve exactly the same piecewise polynomial. Not real DEM, C2 paper theorem, optimal global encoding or measured RAM.",
+      "rows": [
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 0,
+          "execution_order": 0,
+          "elapsed_ms": 29.002799999998388,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 112.39304315475566
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 0,
+          "execution_order": 1,
+          "elapsed_ms": 39.177700000000186,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 151.82330419146896
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 1,
+          "execution_order": 0,
+          "elapsed_ms": 36.34360000000015,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 140.84046378968313
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 1,
+          "execution_order": 1,
+          "elapsed_ms": 29.761600000001636,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 115.3335813492127
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 2,
+          "execution_order": 0,
+          "elapsed_ms": 29.687200000000303,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 115.04526289682657
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 2,
+          "execution_order": 1,
+          "elapsed_ms": 36.34319999999934,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 140.83891369047365
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 3,
+          "execution_order": 0,
+          "elapsed_ms": 37.29750000000058,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 144.53706287202607
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 3,
+          "execution_order": 1,
+          "elapsed_ms": 29.50010000000111,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 114.32020399305986
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 4,
+          "execution_order": 0,
+          "elapsed_ms": 30.844700000001467,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 119.5308624752041
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 4,
+          "execution_order": 1,
+          "elapsed_ms": 36.16929999999775,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 140.16500806050715
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 5,
+          "execution_order": 0,
+          "elapsed_ms": 37.79320000000007,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 146.45802331349233
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 5,
+          "execution_order": 1,
+          "elapsed_ms": 29.873899999998685,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 115.7687717013838
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 6,
+          "execution_order": 0,
+          "elapsed_ms": 28.376800000001822,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 109.96713789683245
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 6,
+          "execution_order": 1,
+          "elapsed_ms": 38.297300000002,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 148.41153583830138
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 7,
+          "execution_order": 0,
+          "elapsed_ms": 35.63749999999709,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 138.10415116566332
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 7,
+          "execution_order": 1,
+          "elapsed_ms": 30.496100000000297,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 118.17995101686624
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 8,
+          "execution_order": 0,
+          "elapsed_ms": 30.36369999999806,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 117.66686817955599
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 8,
+          "execution_order": 1,
+          "elapsed_ms": 37.92459999999846,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 146.96723090277183
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 9,
+          "execution_order": 0,
+          "elapsed_ms": 38.514500000001135,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 149.25323970734567
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 9,
+          "execution_order": 1,
+          "elapsed_ms": 29.208200000000943,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 113.18901909722588
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 10,
+          "execution_order": 0,
+          "elapsed_ms": 28.123599999998987,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 108.98592509920242
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 10,
+          "execution_order": 1,
+          "elapsed_ms": 36.9903000000013,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 143.34658668155265
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 11,
+          "execution_order": 0,
+          "elapsed_ms": 36.194400000000314,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 140.2622767857155
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 11,
+          "execution_order": 1,
+          "elapsed_ms": 28.160900000002584,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 109.13047185020844
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 12,
+          "execution_order": 0,
+          "elapsed_ms": 27.833000000002357,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 107.85977802580278
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 12,
+          "execution_order": 1,
+          "elapsed_ms": 32.639899999998306,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 126.48770771328708
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 13,
+          "execution_order": 0,
+          "elapsed_ms": 34.14579999999842,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 132.3234437003907
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 13,
+          "execution_order": 1,
+          "elapsed_ms": 27.082000000002154,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 104.94946676588135
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 14,
+          "execution_order": 0,
+          "elapsed_ms": 25.431800000002113,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 98.55453249008755
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 14,
+          "execution_order": 1,
+          "elapsed_ms": 33.11670000000231,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 128.33542596727085
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 15,
+          "execution_order": 0,
+          "elapsed_ms": 34.13060000000041,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 132.26453993055713
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 15,
+          "execution_order": 1,
+          "elapsed_ms": 25.650300000001153,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 99.40127418155208
+        },
+        {
+          "implementation": "prepared",
+          "family": "ruled",
+          "trial": 16,
+          "execution_order": 0,
+          "elapsed_ms": 25.594600000000355,
+          "queries": 258048,
+          "checksum": 7479805.005665852,
+          "ns_per_query": 99.18542286706486
+        },
+        {
+          "implementation": "prepared",
+          "family": "triangles",
+          "trial": 16,
+          "execution_order": 1,
+          "elapsed_ms": 33.28350000000137,
+          "queries": 258048,
+          "checksum": 7479805.005665848,
+          "ns_per_query": 128.98181733631483
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 0,
+          "execution_order": 0,
+          "elapsed_ms": 31.719499999999243,
+          "queries": 12288,
+          "checksum": 356181.1907459825,
+          "ns_per_query": 2581.339518229105
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 0,
+          "execution_order": 1,
+          "elapsed_ms": 224.183100000002,
+          "queries": 12288,
+          "checksum": 356181.19074598333,
+          "ns_per_query": 18244.067382812664
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 1,
+          "execution_order": 0,
+          "elapsed_ms": 231.03380000000107,
+          "queries": 12288,
+          "checksum": 356181.19074598333,
+          "ns_per_query": 18801.578776041755
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 1,
+          "execution_order": 1,
+          "elapsed_ms": 32.48999999999796,
+          "queries": 12288,
+          "checksum": 356181.1907459825,
+          "ns_per_query": 2644.042968749834
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 2,
+          "execution_order": 0,
+          "elapsed_ms": 33.476300000002084,
+          "queries": 12288,
+          "checksum": 356181.1907459825,
+          "ns_per_query": 2724.308268229336
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 2,
+          "execution_order": 1,
+          "elapsed_ms": 238.89670000000115,
+          "queries": 12288,
+          "checksum": 356181.19074598333,
+          "ns_per_query": 19441.463216145927
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 3,
+          "execution_order": 0,
+          "elapsed_ms": 244.0558000000019,
+          "queries": 12288,
+          "checksum": 356181.19074598333,
+          "ns_per_query": 19861.31184895849
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 3,
+          "execution_order": 1,
+          "elapsed_ms": 35.46879999999874,
+          "queries": 12288,
+          "checksum": 356181.1907459825,
+          "ns_per_query": 2886.4583333332303
+        },
+        {
+          "implementation": "legacy",
+          "family": "ruled",
+          "trial": 4,
+          "execution_order": 0,
+          "elapsed_ms": 33.60369999999966,
+          "queries": 12288,
+          "checksum": 356181.1907459825,
+          "ns_per_query": 2734.676106770806
+        },
+        {
+          "implementation": "legacy",
+          "family": "triangles",
+          "trial": 4,
+          "execution_order": 1,
+          "elapsed_ms": 243.19620000000214,
+          "queries": 12288,
+          "checksum": 356181.19074598333,
+          "ns_per_query": 19791.357421875175
+        }
+      ]
+    }
+  ],
+  "trials_csv": {
+    "filename": "trials.csv",
+    "bytes": 21833,
+    "sha256": "b70b376c452f9da47e707de8c620d1aaefa1934b0e39b36d07c010adc5519aa0"
+  }
+}
