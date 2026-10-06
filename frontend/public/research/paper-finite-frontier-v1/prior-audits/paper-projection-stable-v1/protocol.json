@@ -1,0 +1,15 @@
+{
+  "schema": "gugis-paper-projection-stable-protocol-v1",
+  "paper": "https://arxiv.org/pdf/1101.1452",
+  "input": "frontend/public/research/variable-curvature-v1/results.json",
+  "input_sha256": "7e100295d0d3426b5d7c61d0cc99cb32a2ed41f854b7a1a85816fd66901d6e72",
+  "prototype_report": ".local/research/paper-projection-2026-10-06-fixed/results.json",
+  "prototype_report_fallback": "frontend/public/research/paper-projection-stable-v1/prototype/results.json",
+  "prototype_report_sha256": "fcd8e7401c3bc1ce2cf77e2e6c323fcd60359b2394947ed424a2f83446681505",
+  "observations_disclosure": "All 126 unconstrained prototype pairs have already been observed. Two published-quartic 45-degree fits (N256/N512) had coefficients above 1e45 due to negligible-support controls at a clipped corner; solver residual alone did not protect saved-function energy. This repair is prospectively fixed after that disclosed full prototype, not preregistration before observing data. Keep the entire prototype and failed files.",
+  "coverage": "All original fourteen fields/angles and all nine budgets, 126 pairs; unchanged meshes, fields, selected ruled topologies and P2 controls. No case or budget re-search.",
+  "pt_control": "Exactly the previously computed local L2 projection onto P1 on the saved interpolation-greedy mesh. It is a paper-permitted stronger operator control, not a PT-driven re-adaptive mesh or original author implementation.",
+  "fitter": "Shared Bezier Z Galerkin assembly with seven-node clipped-domain quadrature. Hold zero or weak diagonal controls at original Z when diagonal <=1e-14*maximum diagonal. This is a rank-aware constrained subspace containing the original model, not unconstrained exact full-space projection. Preserve every XY, index, patch, clip and C0 boundary. Matrix-free Jacobi PCG, tolerance1e-12, limit4096, independently recomputed restricted residual <=1e-11.",
+  "saved_function_gate": "Retain the exact original model and explicitly record a fallback if iteration/positivity/residual fails, saved XYZ exceeds the unchanged 10000-m GPR3 capacity, or actual saved seven-node integrated squared error is worse than original by >1e-10*max(1, original L2 squared). Fallbacks remain as ties; no dropping them.",
+  "reporting": "Actual saved whole-domain E2 and full native bytes. All 126 pairs, prototype losses, fitting fallbacks and higher-order P2 controls remain visible. PT's discontinuous per-face Z duplicates XYZ in this actual protocol; not optimal plane-coefficient encoding. Not a new P1 theorem, globally best mesh/ruled-space search, ground-truth error, continuous maximum-error certificate, CPU/GPU/RAM/ArcGIS timing, or universal high-order superiority."
+}

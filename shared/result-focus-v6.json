@@ -1,0 +1,510 @@
+{
+  "schema": "gugis-result-focus-v6",
+  "inputs": [
+    {
+      "path": "shared/principal-ruled-display-v1.json",
+      "sha256": "d061cabf0f401867e0149e66dc0e630a3d6ffdd56a7fb61862adcead924bde7c"
+    },
+    {
+      "path": "frontend/public/research/principal-ruled-v1/results.json",
+      "sha256": "62ea95e97f6120dcc2109d7bf0478b0aa7ec24266e60b3d38de6291e85cb3797"
+    },
+    {
+      "path": "shared/source-native-bands-v1.json",
+      "sha256": "2d99182356a62e1bdaaa72b801d6c8d8330eb92a425ae6098c340c5658425977"
+    },
+    {
+      "path": "frontend/public/research/source-native-bands-v1/results.json",
+      "sha256": "71b46d1f7eafcd3e13fd4de9eaa0d1790d19e0dd072f8c290b4fae9101460857"
+    },
+    {
+      "path": "shared/source-multipatch-v1.json",
+      "sha256": "7e5238e190b1ee16179447eb00ad0dda4fecff3582356ddf6652d26f72a61d2d"
+    },
+    {
+      "path": "frontend/public/research/source-multipatch-v1/results.json",
+      "sha256": "11f4ae81f3d4a1b392800e09b8b3a2fb29db3706b821bf8a98fc4283cc4c1241"
+    },
+    {
+      "path": "shared/native-query-performance-v1.json",
+      "sha256": "2fab6fee7ed36f38c0efe6f22119a2ae098bf417ef627053daab8c38a643687c"
+    },
+    {
+      "path": "frontend/public/research/native-query-v1/results.json",
+      "sha256": "df7e009f07fe0267fb939d5141a54b4f2d7cacc6cd027a0b5c44bf5aacd852bf"
+    },
+    {
+      "path": "shared/variable-curvature-display-v1.json",
+      "sha256": "2e1d094bb367fc8a65ed998ef500c4bafb6d3152902066d3c3406d73dbd0e0c6"
+    },
+    {
+      "path": "frontend/public/research/variable-curvature-v1/results.json",
+      "sha256": "7e100295d0d3426b5d7c61d0cc99cb32a2ed41f854b7a1a85816fd66901d6e72"
+    },
+    {
+      "path": "frontend/public/research/variable-curvature-v1/variable-curvature-evidence.zip",
+      "sha256": "26a8c1a50fcb462062fa591e128c5756661f792ccaf9febf95b4109db37e34c4"
+    },
+    {
+      "path": "shared/hybrid-source-display-v1.json",
+      "sha256": "cdd256c2c51477dbad01d4ea7a3cc11a9bd23a51131acb3bbcc9cf30600df28a"
+    },
+    {
+      "path": "frontend/public/research/hybrid-source-v1/results.json",
+      "sha256": "b21a22efdbaddf5aabe56a264a3681966fc6ffb09d1cdfb60d25b5d008901b62"
+    },
+    {
+      "path": "frontend/public/research/hybrid-source-v1/hybrid-source-evidence.zip",
+      "sha256": "ebd5e8eb9f7c0429c44da2ad08a639c9f213c431419e98ca7128ba5358972d0d"
+    },
+    {
+      "path": "shared/native-query-repeat-display-v1.json",
+      "sha256": "6a7e775f335894e67fc648d33b4fed90189685e984b2a7f884d979676a758b9c"
+    },
+    {
+      "path": "frontend/public/research/native-query-repeat-v1/results.json",
+      "sha256": "a3d61be59737f528335c4ab1b610dabfdd2e281c355fa95e12fcededb3ce8735"
+    },
+    {
+      "path": "frontend/public/research/native-query-repeat-v1/native-repeat-evidence.zip",
+      "sha256": "37f2f36b205e6359421b37ff6d3335505375cf5769955208250a28ebec761e5a"
+    },
+    {
+      "path": "shared/paper-projection-ui-v1.json",
+      "sha256": "e121d642733b03abab23f127ce508566fca963044f3ff5a31d668bd19df6b96d"
+    },
+    {
+      "path": "frontend/public/research/paper-projection-stable-v1/results.json",
+      "sha256": "4477be89825c6ab77f00ef3226248f05dc90c6339b71f85b843db3071faab7e5"
+    },
+    {
+      "path": "frontend/public/research/paper-projection-stable-v1/paper-projection-evidence.zip",
+      "sha256": "24cb8f53dec7f7f75a3c20ad71ce1ffd4438b5b4147158193eb3259cb49272ff"
+    },
+    {
+      "path": "shared/diagonal-hybrid-ui-v1.json",
+      "sha256": "932b8af78a2702b8205a666219e2b9b19ddb06a61a5d83dbc0aea9cae301fabe"
+    },
+    {
+      "path": "frontend/public/research/diagonal-hybrid-v1/results.json",
+      "sha256": "6a46d03e3ac044fac59d6713215eea3a0fc3ebe36d4408bcf131217575c17c4b"
+    },
+    {
+      "path": "frontend/public/research/diagonal-hybrid-v1/diagonal-hybrid-evidence.zip",
+      "sha256": "d01b95ef7c2665187332a9867d2bd60a446e119e8145fcc4fb87cfb4e6faa3a8"
+    },
+    {
+      "path": "shared/paper-projection-display-v1.json",
+      "sha256": "019a3a3765f748eef007b264eedeba9ab50b0d6f879b3af8a13bad48120d721f"
+    },
+    {
+      "path": "shared/diagonal-hybrid-display-v1.json",
+      "sha256": "d2c8e420f80d98593b497106135f172d8a3dd36da89d956417abb84e289033ce"
+    },
+    {
+      "path": "shared/paper-projection-prototype-audit-v1.json",
+      "sha256": "f1447deb7764363f54da0e570092be65c1646326e5beffbd0339c12722546671"
+    },
+    {
+      "path": "shared/paper-adaptive-projection-ui-v1.json",
+      "sha256": "fa511afe7a23ab2b5fc24d36481d6743bd5843c37ddf2c69cde84e419501cd00"
+    },
+    {
+      "path": "shared/paper-adaptive-projection-display-v1.json",
+      "sha256": "5c46642e9ffbee7757274287acfffa254c2df067d99675a51f9722031b038000"
+    },
+    {
+      "path": "frontend/public/research/paper-adaptive-projection-v1/results.json",
+      "sha256": "fa525d897e68c2ee1b0f6428c28c296e6e10ed549180c0fc3f80e18cb5514163"
+    },
+    {
+      "path": "frontend/public/research/paper-adaptive-projection-v1/adaptive-projection-evidence.zip",
+      "sha256": "cfef1e9e6e6ef3ffd3bfd59145a28bf7fffe8b8c359e9297cc5877f967a90937"
+    },
+    {
+      "path": "shared/source-query-display-v1.json",
+      "sha256": "ca4c141c11d6974ad128cdad935ba8aa4564b51551a3cacb175e4735fdc68aab"
+    },
+    {
+      "path": "frontend/public/research/source-query-v1/results.json",
+      "sha256": "04831cb2f089577d81ec295612689bbcd936e894c8adc857a2c8c170c12dbcf5"
+    },
+    {
+      "path": "frontend/public/research/source-query-v1/source-query-evidence.zip",
+      "sha256": "1b716208e8257c0732e1117eb199407b43b33a906c69e617477f7031dbb6183f"
+    },
+    {
+      "path": "shared/source-global-fit-display-v1.json",
+      "sha256": "68f500aff84b50ee8e1eedcb940fad3b502b4bbd5e8e17f4a3cf46607867b89f"
+    },
+    {
+      "path": "frontend/public/research/source-global-fit-v1/results.json",
+      "sha256": "893e55b29874ef7e47ef13c986270f8560b1436548b4b9e125446f6dffb25716"
+    },
+    {
+      "path": "frontend/public/research/source-global-fit-v1/source-global-fit-evidence.zip",
+      "sha256": "2f4607f5738aa0515ad47742b7871355e8f5d17daa250dbdc424eb59ccb44e50"
+    },
+    {
+      "path": "shared/paper-finite-frontier-v1.json",
+      "sha256": "6ecc93fc2be112e700ad33ebda5796e075ec02fe9368bb6e4af4e6b807e3da1c"
+    },
+    {
+      "path": "frontend/public/research/paper-finite-frontier-v1/results.json",
+      "sha256": "484d573e47eaadc4f28c180763b5d9847038bf98a40a63f981a458d073c72e04"
+    },
+    {
+      "path": "frontend/public/research/paper-finite-frontier-v1/finite-frontier-evidence.zip",
+      "sha256": "6137cc832a37d45a5d9ab96b52a8c3d97374c755da15be73db5134dc4233c00a"
+    }
+  ],
+  "stories": [
+    {
+      "id": "paper-file-frontier",
+      "category": "论文对照 / 同一误差门槛",
+      "headline": "达到同一误差门槛，文件更小",
+      "value": 77.10063507572058,
+      "unit": "%",
+      "value_note": "比本次完整自适应 Pₜ 的达标文件小",
+      "context": "强各向异性四次曲面 · 30° · 全域 E₂ ≤ 0.1 m²",
+      "baseline": "论文 Pₜ 区域贪心 / 插值 L₁ 选边；双方各在原九档实际保存文件内选择",
+      "coverage": "强各向异性全七方向：同误差门槛 69/69 个成对结果文件更小；另 22 组缺少成对候选，不计获益。",
+      "controls": "P₂ 达标文件仅 23,688 B，仍更小。较均衡曲面同空间上限仅 58/63 个成对结果误差更低，含 5 组失利。Pₜ 独立 XYZ 编码并非最小平面系数编码；这是已观察数据的有限档案分析。",
+      "metrics": [
+        {
+          "label": "旧固定 Pₜ",
+          "value": 196512,
+          "unit": "B",
+          "tone": "baseline"
+        },
+        {
+          "label": "完整自适应 Pₜ",
+          "value": 196512,
+          "unit": "B",
+          "tone": "baseline"
+        },
+        {
+          "label": "原方向面带",
+          "value": 45000,
+          "unit": "B",
+          "tone": "baseline"
+        },
+        {
+          "label": "GUGIS 共享拟合",
+          "value": 45000,
+          "unit": "B",
+          "tone": "gugis"
+        },
+        {
+          "label": "P₂ 高阶控制",
+          "value": 23688,
+          "unit": "B",
+          "tone": "control"
+        }
+      ],
+      "metric_caption": "达标完整文件 / B · P₂ 控制仍更小；Iₜ 原九档没有达标文件",
+      "report_sha256": "484d573e47eaadc4f28c180763b5d9847038bf98a40a63f981a458d073c72e04",
+      "detail_href": "#paper-frontier-results",
+      "package_url": "/research/paper-finite-frontier-v1/finite-frontier-evidence.zip",
+      "package_bytes": 11296058,
+      "package_sha256": "6137cc832a37d45a5d9ab96b52a8c3d97374c755da15be73db5134dc4233c00a"
+    },
+    {
+      "id": "real-hybrid",
+      "category": "真实地形 / 同等共享拟合",
+      "headline": "同等优化条件，混合仍有优势",
+      "value": 17,
+      "unit": "/20",
+      "value_note": "真实样区的 E₂ 低于同等拟合 P1",
+      "context": "20 个原始源 DTM 窗口 · 完整文件上限 8,192 B",
+      "baseline": "两种对角线的 P1 三角带，同样优化全部共享角点高程；计入全部分组成本",
+      "coverage": "全部十档预算 138/200 更低；相对同等拟合纯面带，固定上限 20/20 更低。",
+      "controls": "3/20 组三角带更低，混合最差高 0.4128%；最好降低 3.4366%。2,900/2,940 个模型拟合后 E₂ 下降、文件不增，但 144 个最大差增加；不是独立地面精度或最优拓扑。",
+      "points": [
+        {
+          "id": "manchester-centre",
+          "name": "曼彻斯特 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 0.8499790610999036
+        },
+        {
+          "id": "manchester-north-quarter",
+          "name": "曼彻斯特 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 1.9598453885298128
+        },
+        {
+          "id": "york-centre",
+          "name": "约克 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 1.0182287233321263
+        },
+        {
+          "id": "york-north-quarter",
+          "name": "约克 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 0.669196435090047
+        },
+        {
+          "id": "bath-centre",
+          "name": "巴斯 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 3.436597822806542
+        },
+        {
+          "id": "bath-north-quarter",
+          "name": "巴斯 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 1.8537491989295107
+        },
+        {
+          "id": "oxford-centre",
+          "name": "牛津 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 0.6712525737719743
+        },
+        {
+          "id": "oxford-north-quarter",
+          "name": "牛津 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": -0.4128375565410902
+        },
+        {
+          "id": "cambridge-centre",
+          "name": "剑桥 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 0.615798250909283
+        },
+        {
+          "id": "cambridge-north-quarter",
+          "name": "剑桥 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 0.5733641500464293
+        },
+        {
+          "id": "liverpool-centre",
+          "name": "利物浦 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 2.8047357846027743
+        },
+        {
+          "id": "liverpool-north-quarter",
+          "name": "利物浦 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 0.22461589321073339
+        },
+        {
+          "id": "sheffield-centre",
+          "name": "谢菲尔德 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": -0.06846115587646473
+        },
+        {
+          "id": "sheffield-north-quarter",
+          "name": "谢菲尔德 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": -0.08674758351283618
+        },
+        {
+          "id": "leeds-centre",
+          "name": "利兹 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 0.4244645873289876
+        },
+        {
+          "id": "leeds-north-quarter",
+          "name": "利兹 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 0.33335734404880135
+        },
+        {
+          "id": "nottingham-centre",
+          "name": "诺丁汉 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 1.2482087108367512
+        },
+        {
+          "id": "nottingham-north-quarter",
+          "name": "诺丁汉 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 1.162554599084431
+        },
+        {
+          "id": "newcastle-centre",
+          "name": "纽卡斯尔 · 英国环境署裸地 DTM · 源栅格中心",
+          "reduction_percent": 0.4264183176373004
+        },
+        {
+          "id": "newcastle-north-quarter",
+          "name": "纽卡斯尔 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "reduction_percent": 0.19817263940444807
+        }
+      ],
+      "report_sha256": "893e55b29874ef7e47ef13c986270f8560b1436548b4b9e125446f6dffb25716",
+      "detail_href": "#source-fit-results",
+      "package_url": "/research/source-global-fit-v1/source-global-fit-evidence.zip",
+      "package_bytes": 35167420,
+      "package_sha256": "2f4607f5738aa0515ad47742b7871355e8f5d17daa250dbdc424eb59ccb44e50"
+    },
+    {
+      "id": "real-source-query",
+      "category": "真实地形 CPU 查询",
+      "headline": "保存的面带，直接算出地形",
+      "value": 3.9226639597308375,
+      "unit": "×",
+      "value_note": "相对当前精确 P₂ 查询实现的最低实测比值",
+      "context": "20 个真实 1 m DTM 窗口 · 三次新 Node 进程",
+      "baseline": "同一双线性源函数的精确 P₂ 原生查询 · 相同点定位、高度与解析梯度",
+      "coverage": "60/60 组更快；全部范围 3.923–4.730×；保留 5,760 条计时记录。",
+      "points": [
+        {
+          "id": "manchester-centre",
+          "name": "曼彻斯特 · 英国环境署裸地 DTM · 源栅格中心",
+          "minimum": 3.9226639597308375,
+          "maximum": 4.263408726903401
+        },
+        {
+          "id": "manchester-north-quarter",
+          "name": "曼彻斯特 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "minimum": 4.142822035980944,
+          "maximum": 4.461739964580998
+        },
+        {
+          "id": "york-centre",
+          "name": "约克 · 英国环境署裸地 DTM · 源栅格中心",
+          "minimum": 4.248291985140043,
+          "maximum": 4.457430826494819
+        },
+        {
+          "id": "york-north-quarter",
+          "name": "约克 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "minimum": 4.2329327342526515,
+          "maximum": 4.297638336525058
+        },
+        {
+          "id": "bath-centre",
+          "name": "巴斯 · 英国环境署裸地 DTM · 源栅格中心",
+          "minimum": 4.25118820437159,
+          "maximum": 4.586112655615404
+        },
+        {
+          "id": "bath-north-quarter",
+          "name": "巴斯 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "minimum": 4.380700236707722,
+          "maximum": 4.5172771023064815
+        },
+        {
+          "id": "oxford-centre",
+          "name": "牛津 · 英国环境署裸地 DTM · 源栅格中心",
+          "minimum": 4.169631575780497,
+          "maximum": 4.298823317253298
+        },
+        {
+          "id": "oxford-north-quarter",
+          "name": "牛津 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "minimum": 4.280495781280825,
+          "maximum": 4.444825603680207
+        },
+        {
+          "id": "cambridge-centre",
+          "name": "剑桥 · 英国环境署裸地 DTM · 源栅格中心",
+          "minimum": 4.221050016046522,
+          "maximum": 4.405503105703534
+        },
+        {
+          "id": "cambridge-north-quarter",
+          "name": "剑桥 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "minimum": 4.184885716390011,
+          "maximum": 4.658384365201142
+        },
+        {
+          "id": "liverpool-centre",
+          "name": "利物浦 · 英国环境署裸地 DTM · 源栅格中心",
+          "minimum": 4.339159044668298,
+          "maximum": 4.558905570205181
+        },
+        {
+          "id": "liverpool-north-quarter",
+          "name": "利物浦 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "minimum": 4.2937170756773035,
+          "maximum": 4.729613095238494
+        },
+        {
+          "id": "sheffield-centre",
+          "name": "谢菲尔德 · 英国环境署裸地 DTM · 源栅格中心",
+          "minimum": 4.267982467934185,
+          "maximum": 4.549099022409874
+        },
+        {
+          "id": "sheffield-north-quarter",
+          "name": "谢菲尔德 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "minimum": 4.156760156291372,
+          "maximum": 4.416294211182288
+        },
+        {
+          "id": "leeds-centre",
+          "name": "利兹 · 英国环境署裸地 DTM · 源栅格中心",
+          "minimum": 4.172757912970656,
+          "maximum": 4.38509981897435
+        },
+        {
+          "id": "leeds-north-quarter",
+          "name": "利兹 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "minimum": 4.236660097195182,
+          "maximum": 4.623607351281422
+        },
+        {
+          "id": "nottingham-centre",
+          "name": "诺丁汉 · 英国环境署裸地 DTM · 源栅格中心",
+          "minimum": 4.258396450982523,
+          "maximum": 4.425190608802571
+        },
+        {
+          "id": "nottingham-north-quarter",
+          "name": "诺丁汉 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "minimum": 4.226670155241326,
+          "maximum": 4.360682102127215
+        },
+        {
+          "id": "newcastle-centre",
+          "name": "纽卡斯尔 · 英国环境署裸地 DTM · 源栅格中心",
+          "minimum": 4.192121638439605,
+          "maximum": 4.304147990581759
+        },
+        {
+          "id": "newcastle-north-quarter",
+          "name": "纽卡斯尔 · 英国环境署裸地 DTM · 源栅格北侧四分位",
+          "minimum": 4.072210732357612,
+          "maximum": 4.29673805886865
+        }
+      ],
+      "controls": "旧面带 / 新路径为 2.84–3.53×。规则栅格仍更快（栅格 / 面带 0.488–0.650）；实测范围不是置信区间；同设备、当前实现、固定窗口，非 GPU 或 ArcGIS 软件性能。",
+      "report_sha256": "04831cb2f089577d81ec295612689bbcd936e894c8adc857a2c8c170c12dbcf5",
+      "detail_href": "#source-query-results",
+      "package_url": "/research/source-query-v1/source-query-evidence.zip",
+      "package_bytes": 4750520,
+      "package_sha256": "1b716208e8257c0732e1117eb199407b43b33a906c69e617477f7031dbb6183f"
+    }
+  ],
+  "secondary": [
+    {
+      "id": "source-function",
+      "kind": "file-percent",
+      "value": 80.48204431028722,
+      "label": "保留同一源函数的矢量文件减少",
+      "baseline": "逐格共享 XYZ 的 P2 三角函数",
+      "context": "真实 1 m DTM · 十城二十固定样区",
+      "evidence": "20/20 同函数全域积分核验通过",
+      "metric_unit": "完整文件 / B",
+      "gugis_metric": 135528,
+      "baseline_metric": 694376,
+      "detail_href": "#source-function-results",
+      "scope": "原始 Float32 源函数；规则栅格与 GeoTIFF 更小的控制同样公开。",
+      "report_sha256": "71b46d1f7eafcd3e13fd4de9eaa0d1790d19e0dd072f8c290b4fae9101460857",
+      "package_url": "/research/source-native-bands-v1/source-native-bands-evidence.zip",
+      "package_sha256": "4831e19bd1b77a8ea8ca4c9ca81c905c517a2d3096d1d87a19752e5d9f946e37",
+      "package_bytes": 11006037
+    },
+    {
+      "id": "multipatch-format",
+      "kind": "file-percent",
+      "value": 32.58587928650305,
+      "label": "ArcGIS 兼容同几何文件减少",
+      "baseline": "实际 MultiPatch SHP/SHX/DBF/PRJ/CPG",
+      "context": "20 个真实源样区 · 相同 P1 三角表面",
+      "evidence": "163,840 个源三角面独立读回一致",
+      "metric_unit": "完整文件 / B",
+      "gugis_metric": 135528,
+      "baseline_metric": 201038,
+      "detail_href": "#source-format-results",
+      "scope": "省略可选 M 的真实五文件；这是格式比较，未运行 ArcGIS 软件。",
+      "report_sha256": "11f4ae81f3d4a1b392800e09b8b3a2fb29db3706b821bf8a98fc4283cc4c1241",
+      "package_url": "/research/source-multipatch-v1/source-multipatch-evidence.zip",
+      "package_sha256": "781e84242f7f41ee8a66349e6724457931602e3aa2ce39d61816abfb3d0d1c7b",
+      "package_bytes": 4367605
+    }
+  ],
+  "previous_version": "shared/result-focus-v5.json"
+}

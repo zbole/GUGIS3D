@@ -71,3 +71,5 @@ frontend/public/research/source-query-v1/** -text whitespace=cr-at-eol
 frontend/public/research/source-query-v1/*.svg whitespace=-blank-at-eol
 frontend/public/research/source-global-fit-v1/** -text whitespace=cr-at-eol
 frontend/public/research/source-global-fit-v1/*.svg whitespace=-blank-at-eol
+
+frontend/public/research/paper-finite-frontier-v1/** -text
