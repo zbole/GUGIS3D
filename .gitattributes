@@ -45,3 +45,5 @@ frontend/public/research/native-query-v1/** -text whitespace=cr-at-eol
 frontend/public/research/native-query-v1/*.svg whitespace=-blank-at-eol
 frontend/public/research/dem-curved-grid-v1/** -text whitespace=cr-at-eol
 frontend/public/research/dem-curved-grid-v1/*.svg whitespace=-blank-at-eol
+frontend/public/research/principal-ruled-v1/** -text whitespace=cr-at-eol
+frontend/public/research/principal-ruled-v1/*.svg whitespace=-blank-at-eol

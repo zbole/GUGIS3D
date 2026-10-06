@@ -22,6 +22,8 @@ import PaperTerrainResults, {RealTerrainResultSummary} from './PaperTerrainResul
 import CurvedRuledResults from './CurvedRuledResults';
 const TerrainOrderControls = lazy(() => import('./TerrainOrderControls'));
 const NativeQueryResults = lazy(() => import('./NativeQueryResults'));
+const PrincipalDirectionResults = lazy(() => import('./PrincipalDirectionResults'));
+const principalResults = <Suspense fallback={<p role="status" className="cr-scope">正在载入完整方向适配结果…</p>}><PrincipalDirectionResults/></Suspense>;
 const orderControls = <><Suspense fallback={<p role="status" className="cr-scope">正在载入同精度结构与高阶控制结果…</p>}><TerrainOrderControls/></Suspense><Suspense fallback={<p role="status" className="cr-scope">正在载入面带规模与原生查询结果…</p>}><NativeQueryResults/></Suspense></>;
 import {currentTerrainResultLink,rememberTerrainResult} from './terrainResultLink';
 import EvidenceDisclosure from './EvidenceDisclosure';
@@ -138,7 +140,7 @@ export default function CompareShowcase({ workspace = defaultCityWorkspace, api 
     <a href="/compare">查看布里斯托已核验的对比证据 →</a>
     <a href="#real-terrain-results">查看固定样区真实地形结果 →</a>
     <a href="/datasets">查看城市与裸地数据集 →</a>
-  </div><CurvedRuledResults/>{orderControls}<PaperTerrainResults/><RealTerrainResultSummary/><EvidenceDisclosure group="supplementary" title="补充研究实验" note="跨城市公开地形数据与既有方法实验">{researchSection}</EvidenceDisclosure></div>;
+  </div>{principalResults}<CurvedRuledResults/>{orderControls}<PaperTerrainResults/><RealTerrainResultSummary/><EvidenceDisclosure group="supplementary" title="补充研究实验" note="跨城市公开地形数据与既有方法实验">{researchSection}</EvidenceDisclosure></div>;
   return <BristolComparison api={api} />;
 }
 
@@ -189,11 +191,12 @@ function BristolComparison({ api }: { api?: CityApi }) {
     <div className="compare-page">
       <header className="cmp-header">
         <a href="/" className="cmp-logo" aria-label="返回 GUGIS3D 城市工作台"><span className="cmp-logo-mark">G<span>3</span></span><span>GUGIS<em>3D</em></span></a>
-        <nav aria-label="对比展示导航"><a href="#gugis-function-results">GUGIS 优势</a><a href="#order-structure-results">结构收益</a><a href="#native-query-results">查询效率</a><a href="#paper-results">论文复现</a><a href="#real-terrain-results">真实地形结果</a><a href="/datasets">数据集</a><a href="#supplementary-evidence">补充实验</a></nav>
+        <nav aria-label="对比展示导航"><a href="#principal-direction-results">方向优势</a><a href="#gugis-function-results">函数优势</a><a href="#order-structure-results">结构收益</a><a href="#native-query-results">查询效率</a><a href="#paper-results">论文复现</a><a href="#real-terrain-results">真实地形结果</a><a href="/datasets">数据集</a><a href="#supplementary-evidence">补充实验</a></nav>
         <a href="/" className="cmp-header-action">进入三维工作台 <ArrowUpRight size={16}/></a>
       </header>
       <main>
-        <section className="cmp-results-hero" aria-labelledby="cmp-title"><span className="paper-eyebrow">GUGIS3D / TERRAIN RESEARCH RESULTS</span><h1 id="cmp-title">更低误差，更少数据。</h1><p>GUGIS 函数型直纹面带与论文式三角网直接对照。先看同一文件预算下的精度收益，再检验九档预算、负面结果与真实地形；所有主要结果提供原生模型和核验记录。</p></section>
+        <section className="cmp-results-hero" aria-labelledby="cmp-title"><span className="paper-eyebrow">GUGIS3D / TERRAIN RESEARCH RESULTS</span><h1 id="cmp-title">更低误差，更少数据。</h1><p>先看七个固定方向下的面带精度与完整文件收益，再看同函数结构和本机查询效率。GUGIS 函数面带与论文式 P1 三角网直接对照；高阶三角控制、真实地形边界、原生模型及完整核验记录一并公开。</p></section>
+        {principalResults}
         <CurvedRuledResults />
         {orderControls}
         <PaperTerrainResults />

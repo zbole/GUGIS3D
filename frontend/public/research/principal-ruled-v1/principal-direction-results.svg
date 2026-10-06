@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1000" height="650" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1000 650" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1000" height="650"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-650)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1000" height="650" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="25" y="620" style="font-family: Helvetica-Bold; font-size: 18px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,1240) scale(1,-1)">Principal-axis ruled strips: seven fixed rotation angles</text>
+			<text x="25" y="598" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,1196) scale(1,-1)">Same 100 x 100 m square; N = 2048 P1 triangles; ruled models fit both N and complete binary-byte ceilings.</text>
+			<path d="M 75,190 L 520,190 Z" style="stroke: rgb(86%,90%,87%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="44.99" y="187.0" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,374) scale(1,-1)">1e-4</text>
+			<path d="M 75,270 L 520,270 Z" style="stroke: rgb(86%,90%,87%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="44.99" y="267.0" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,534) scale(1,-1)">1e-3</text>
+			<path d="M 75,350 L 520,350 Z" style="stroke: rgb(86%,90%,87%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="44.99" y="347.0" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,694) scale(1,-1)">1e-2</text>
+			<path d="M 75,430 L 520,430 Z" style="stroke: rgb(86%,90%,87%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="44.99" y="427.0" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,854) scale(1,-1)">1e-1</text>
+			<path d="M 75,510 L 520,510 Z" style="stroke: rgb(86%,90%,87%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="48.32" y="507.0" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,1014) scale(1,-1)">1e0</text>
+			<text x="72.22" y="170" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,340) scale(1,-1)">0</text>
+			<text x="143.60666666666668" y="170" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,340) scale(1,-1)">15</text>
+			<text x="217.77333333333334" y="170" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,340) scale(1,-1)">30</text>
+			<text x="291.94" y="170" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,340) scale(1,-1)">45</text>
+			<text x="366.1066666666667" y="170" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,340) scale(1,-1)">60</text>
+			<text x="440.2733333333333" y="170" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,340) scale(1,-1)">75</text>
+			<text x="514.44" y="170" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,340) scale(1,-1)">90</text>
+			<path d="M 75,190 L 75,510 Z" style="stroke: rgb(49%,58%,52%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="75" y="535" style="font-family: Helvetica-Bold; font-size: 12px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,1070) scale(1,-1)">Whole-square E2 / m2 (log scale)</text>
+			<text x="216.915" y="147" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,294) scale(1,-1)">Hessian principal direction / degrees</text>
+			<circle cx="75.0" cy="453.94682921535315" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<circle cx="149.16666666666669" cy="447.60486446439427" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<circle cx="223.33333333333334" cy="448.1133028567129" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<circle cx="297.5" cy="459.00974290628596" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<circle cx="371.6666666666667" cy="448.1133028567129" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<circle cx="445.8333333333333" cy="447.60486446439427" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<circle cx="520.0" cy="453.94682921535315" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<polyline points="75 453.9468, 149.1667 447.6049, 223.3333 448.1133, 297.5 459.0097, 371.6667 448.1133, 445.8333 447.6049, 520 453.9468" style="stroke: rgb(31%,48%,57%); stroke-linecap: butt; stroke-width: 2; fill: None; fill-rule: evenodd;"/>
+			<circle cx="75.0" cy="193.76155466033907" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(74%,59%,37%); fill-rule: evenodd;"/>
+			<circle cx="149.16666666666669" cy="264.37145141156174" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(74%,59%,37%); fill-rule: evenodd;"/>
+			<circle cx="223.33333333333334" cy="306.62373333757034" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(74%,59%,37%); fill-rule: evenodd;"/>
+			<circle cx="297.5" cy="330.02486491697124" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(74%,59%,37%); fill-rule: evenodd;"/>
+			<circle cx="371.6666666666667" cy="306.6237333378364" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(74%,59%,37%); fill-rule: evenodd;"/>
+			<circle cx="445.8333333333333" cy="264.37145141204445" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(74%,59%,37%); fill-rule: evenodd;"/>
+			<circle cx="520.0" cy="193.76155465969393" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(74%,59%,37%); fill-rule: evenodd;"/>
+			<polyline points="75 193.7616, 149.1667 264.3715, 223.3333 306.6237, 297.5 330.0249, 371.6667 306.6237, 445.8333 264.3715, 520 193.7616" style="stroke: rgb(74%,59%,37%); stroke-linecap: butt; stroke-width: 2; fill: None; fill-rule: evenodd;"/>
+			<circle cx="75.0" cy="193.76155466033907" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<circle cx="149.16666666666669" cy="207.84887035195266" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<circle cx="223.33333333333334" cy="215.43502955834597" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<circle cx="297.5" cy="217.84395433169774" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<circle cx="371.6666666666667" cy="215.43502956028095" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<circle cx="445.8333333333333" cy="207.84887035205793" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<circle cx="520.0" cy="193.76155465974523" r="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<polyline points="75 193.7616, 149.1667 207.8489, 223.3333 215.435, 297.5 217.844, 371.6667 215.435, 445.8333 207.8489, 520 193.7616" style="stroke: rgb(12%,53%,44%); stroke-linecap: butt; stroke-width: 2; fill: None; fill-rule: evenodd;"/>
+			<path d="M 75,563 L 95,563 Z" style="stroke: rgb(31%,48%,57%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="101" y="560" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,1120) scale(1,-1)">Paper-style P1</text>
+			<path d="M 241,563 L 261,563 Z" style="stroke: rgb(74%,59%,37%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="267" y="560" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,1120) scale(1,-1)">World-axis ruled</text>
+			<path d="M 407,563 L 427,563 Z" style="stroke: rgb(12%,53%,44%); stroke-linecap: butt; stroke-width: 2;"/>
+			<text x="433" y="560" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,1120) scale(1,-1)">Principal-axis ruled</text>
+			<text x="610" y="535" style="font-family: Helvetica-Bold; font-size: 12px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,1070) scale(1,-1)">Complete GPR3 files / decimal kB</text>
+			<text x="567.98" y="489" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,978) scale(1,-1)">0 deg</text>
+			<rect x="610" y="487" width="235.91999999999996" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<text x="852.92" y="488" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,976) scale(1,-1)">47.184</text>
+			<rect x="610" y="473" width="138.84000000000003" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<text x="755.84" y="474" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,948) scale(1,-1)">27.768</text>
+			<text x="562.42" y="448" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,896) scale(1,-1)">15 deg</text>
+			<rect x="610" y="446" width="240.07999999999993" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<text x="857.0799999999999" y="447" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,894) scale(1,-1)">48.016</text>
+			<rect x="610" y="432" width="138.84000000000003" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<text x="755.84" y="433" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,866) scale(1,-1)">27.768</text>
+			<text x="562.42" y="407" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,814) scale(1,-1)">30 deg</text>
+			<rect x="610" y="405" width="243.55999999999995" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<text x="860.56" y="406" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,812) scale(1,-1)">48.712</text>
+			<rect x="610" y="391" width="138.84000000000003" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<text x="755.84" y="392" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,784) scale(1,-1)">27.768</text>
+			<text x="562.42" y="366" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,732) scale(1,-1)">45 deg</text>
+			<rect x="610" y="364" width="231.72000000000003" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<text x="848.72" y="365" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,730) scale(1,-1)">46.344</text>
+			<rect x="610" y="350" width="138.84000000000003" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<text x="755.84" y="351" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,702) scale(1,-1)">27.768</text>
+			<text x="562.42" y="325" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,650) scale(1,-1)">60 deg</text>
+			<rect x="610" y="323" width="238.76" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<text x="855.76" y="324" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,648) scale(1,-1)">47.752</text>
+			<rect x="610" y="309" width="138.84000000000003" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<text x="755.84" y="310" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,620) scale(1,-1)">27.768</text>
+			<text x="562.42" y="284" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,568) scale(1,-1)">75 deg</text>
+			<rect x="610" y="282" width="244.24" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<text x="861.24" y="283" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,566) scale(1,-1)">48.848</text>
+			<rect x="610" y="268" width="138.84000000000003" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<text x="755.84" y="269" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,538) scale(1,-1)">27.768</text>
+			<text x="562.42" y="243" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,486) scale(1,-1)">90 deg</text>
+			<rect x="610" y="241" width="229.27999999999997" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(31%,48%,57%); fill-rule: evenodd;"/>
+			<text x="846.28" y="242" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,484) scale(1,-1)">45.856</text>
+			<rect x="610" y="227" width="138.84000000000003" height="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(12%,53%,44%); fill-rule: evenodd;"/>
+			<text x="755.84" y="228" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,456) scale(1,-1)">27.768</text>
+			<text x="610" y="179" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,358) scale(1,-1)">All overhanging controls and clip metadata included.</text>
+			<text x="25" y="116" style="font-family: Helvetica-Bold; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,232) scale(1,-1)">Higher-order control: 2 P2 triangles / 9 shared nodes / 336 bytes; whole-domain E2 &lt; 1e-8 m2 for all seven fields.</text>
+			<text x="25" y="95" style="font-family: Helvetica; font-size: 10px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,190) scale(1,-1)">P2 represents these global quadratics exactly in real arithmetic. No advantage over general P2 triangles is claimed.</text>
+			<text x="25" y="64" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,128) scale(1,-1)">Finite analytic SPD-quadratic study (curvature ratio 100:1), not real DTM, author-original software or ArcGIS timing.</text>
+			<text x="25" y="45" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,90) scale(1,-1)">Principal frame comes from the constant exact Hessian. Saved functions integrated after clipping; Float64, not interval proof.</text>
+			<text x="25" y="26" style="font-family: Helvetica; font-size: 9px;fill: rgb(25%,38%,31%); stroke:none;" transform="translate(0,52) scale(1,-1)">Full seven-angle / nine-budget records, native models and independent query checks accompany this figure.</text>
+		</g>
+	</g>
+</svg>
