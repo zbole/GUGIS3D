@@ -10,6 +10,7 @@ WorkingDirectory=/opt/gugis/current/backend
 Environment=PYTHONPATH=/opt/gugis/current
 Environment=PYTHONDONTWRITEBYTECODE=1
 Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=/etc/gugis/site.env
 ExecStart=/opt/gugis/current/.server-venv/bin/python -m uvicorn deploy.server:application --factory --host 127.0.0.1 --port 8001 --workers 1 --limit-concurrency 12 --backlog 64 --timeout-keep-alive 5 --timeout-graceful-shutdown 120
 Restart=always
 RestartSec=5

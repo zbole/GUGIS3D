@@ -6,7 +6,7 @@ release="$(realpath -e -- "${1:?Fresh release directory required}")"
 case "$release" in /opt/gugis/releases/*) ;; *) echo 'Release must be inside /opt/gugis/releases'; exit 1 ;; esac
 test ! -e "$release/.local" || { echo 'Release already configured; choose a fresh release.'; exit 1; }
 password_file="${2:-/root/gugis-site-password}"
-if ! test -s /etc/nginx/gugis.htpasswd; then
+if ! test -s /etc/gugis/site.env; then
     test -f "$password_file" || { echo 'Provide a separately uploaded website password file.'; exit 1; }
     test "$(stat -c %a "$password_file")" = 600 || { echo 'Password file must be chmod 600.'; exit 1; }
 fi
@@ -34,12 +34,17 @@ if test -e /var/lib/gugis/render-cache && ! test -L /var/lib/gugis/render-cache;
     echo 'An existing render-cache directory needs review; it was not overwritten.'; exit 1
 fi
 ln -sfn /opt/gugis/current/render-cache /var/lib/gugis/render-cache
-if ! test -s /etc/nginx/gugis.htpasswd; then
-    password_hash="$(openssl passwd -6 -stdin < "$password_file")"
-    printf 'gugis:%s\n' "$password_hash" > /etc/nginx/gugis.htpasswd
-    chown root:www-data /etc/nginx/gugis.htpasswd
-    chmod 640 /etc/nginx/gugis.htpasswd
-    unset password_hash
+if ! test -s /etc/gugis/site.env; then
+    install -d -m 750 -o root -g gugis /etc/gugis
+    python3 - "$password_file" <<'PY'
+from pathlib import Path
+import hashlib,secrets,sys
+password=Path(sys.argv[1]).read_bytes()
+assert 20 <= len(password) <= 128
+Path('/etc/gugis/site.env').write_text('GUGIS_LOGIN_HASH='+hashlib.sha256(password).hexdigest()+'\nGUGIS_SESSION_KEY='+secrets.token_hex(32)+'\n')
+PY
+    chown root:gugis /etc/gugis/site.env
+    chmod 640 /etc/gugis/site.env
 fi
 # Reuse the existing valid IP certificate and its active renewal timer.
 # Existing HTTP GUGIS and HTTPS shop listeners remain unchanged.

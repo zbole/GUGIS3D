@@ -1,5 +1,6 @@
 """One large operation at a time on the 2 GiB demonstration server."""
 import asyncio
+import os
 
 
 class ResourceBudget:
@@ -39,4 +40,6 @@ class ResourceBudget:
 
 def application():
     from app.main import app
-    return ResourceBudget(app)
+    from deploy.login import LoginGateway
+    return LoginGateway(ResourceBudget(app), os.environ.get('GUGIS_LOGIN_HASH', ''),
+                        os.environ.get('GUGIS_SESSION_KEY', ''))
