@@ -1,0 +1,21 @@
+{
+  "schema": "gugis-compact-principal-audit-protocol-v1",
+  "input": "shared/paper-finite-frontier-v1.json",
+  "input_sha256": "484d573e47eaadc4f28c180763b5d9847038bf98a40a63f981a458d073c72e04",
+  "methods": ["p1", "fixed_pt", "adaptive_pt", "before", "fitted", "p2"],
+  "byte_ceilings": [512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144],
+  "e2_targets_m2": [0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64],
+  "codec": {
+    "magic": "GPC1",
+    "version": 1,
+    "header_bytes": 64,
+    "header": "16-byte wrapper followed by the original 48-byte GPR3 header verbatim",
+    "dictionary": "First occurrence order of distinct 16-byte little-endian Float64 XY pairs, equality by exact bits including signed zero; each dictionary record 16 bytes",
+    "point_record": "Original point order, UInt32 XY dictionary index + original 8-byte Float64 Z; 12 bytes per point",
+    "topology": "Original GPR3 patch records copied verbatim; no welding of XYZ points or discontinuous PT elevations",
+    "roundtrip": "All original GPR3 bytes, node order, Z values, topology, bounds, reserved fields and SHA-256 must restore exactly",
+    "bounds": "At most 20000 points, 8192 records, 2000000 original/compact bytes; reject malformed or unused/repeated dictionary entries and trailing bytes"
+  },
+  "selection": "Apply this identical lossless codec to every distinct binary in all six methods and both fields/seven directions. Recompute finite minima using actual complete compact file bytes, retain original E2 only after exact full-byte restoration. Same eligibility and tie rules as the frozen finite-frontier protocol; no interpolation or missing-baseline wins.",
+  "scope": "Post-hoc encoding fairness audit on a fully observed archive, fixed before new compact-file measurements. No new fitting, meshes, error experiments, ArcGIS run or theoretical minimum plane-coefficient claim. The codec can increase file size; retain increases and all P2/loss controls. No memory or CPU performance inference."
+}
