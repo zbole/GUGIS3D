@@ -3,6 +3,7 @@ import report from '../../../shared/principal-ruled-display-v1.json';
 import {preparePrincipalQuery,type PrincipalModel} from './principalRuledMath';
 import {loadPrincipalModel} from './loadPrincipalModel';
 import {useComparisonAnchor} from './useComparisonAnchor';
+import VariableCurvatureDisclosure from './VariableCurvatureDisclosure';
 import './PrincipalDirectionResults.css';
 const base='/research/principal-ruled-v1/';
 type Case=typeof report.cases[number];type Pair=Case['pairs'][number];
@@ -41,5 +42,6 @@ export default function PrincipalDirectionResults(){
     {demo&&<StructureDemo item={item} pair={pair}/>}
     <details className="cr-details"><summary>七个固定方向在当前预算下的完整结果</summary><div className="cr-table"><table><caption>N = {budget.toLocaleString()} · 双方覆盖同一 10,000 m² · 纳入全部方向</caption><thead><tr><th>角度</th><th>GUGIS / P1 全域 E₂ m²</th><th>E₂ 降低</th><th>GUGIS / P1 完整文件 B</th><th>文件减少</th></tr></thead><tbody>{report.cases.map(c=>{const p=c.pairs.find(p=>p.budget===budget)!;return <tr key={c.id}><th>{c.angle_degrees}°</th><td>{scientific(p.principal.e2_m2)} / {scientific(p.p1.e2_m2)}</td><td>{percent(p.principal.e2_m2,p.p1.e2_m2).toFixed(2)}%</td><td>{p.principal.binary_bytes.toLocaleString()} / {p.p1.binary_bytes.toLocaleString()}</td><td>{percent(p.principal.binary_bytes,p.p1.binary_bytes).toFixed(1)}%</td></tr>;})}</tbody></table></div><p>预算很小时完整文件可能一样大；方向与坐标轴一致时，方向适配没有额外误差收益。两种情况都保留在表中。</p><img src={`${base}principal-direction-results.svg`} loading="lazy" width="1000" height="650" alt="全部七个旋转方向在N等于2048时的全域E2及完整文件比较，同时注明336字节的精确P2高阶控制"/></details>
     <details className="cr-details"><summary>全域积分、原生核验与复现实验条件</summary><p>每个方向检查 36 个固定候选：两个世界坐标轴方向和一个主曲率方向，每种采用 1–2,048 条面带的 12 档密度。主方向由 Q 的特征向量计算。选择同时满足 P1 完整文件字节数和 N 面数预算的最小全域 E₂ 候选；这是有限候选池，不是全局最优面带证明。</p><p>双方完整 GPR3 文件保留 Float64 XYZ 点池、12 B 原生面记录以及包含裁剪矩形的相同 48 B 头部。旋转网格超出方形的全部控制点也计入文件。面带与方形求交后逐片作完整多项式积分；发布时另用五阶求积复核，并重新积分已保存 P1 三角带。原生 TypeScript 对全部 174 个 JSON / 二进制模型执行 712,704 次内部高程与梯度查询，另核验四个覆盖角点、越界拒绝及面带最大误差见证点。</p><p>P1 采用论文式 L₂ 贪心与 L₁ 选边，未添加一致细化闭合。P2 控制由两个共享节点的 Lagrange 三角形表示全局二次函数。误差积分、系数界和数值余量均为 Float64 计算，不是区间算术证明。此试验没有测量查询耗时、GPU 帧率或运行内存。</p><div className="cr-actions"><a download href={`${base}pairs.csv`}>全部 63 组结果 CSV ↓</a><a download href={`${base}results.json`}>全部候选与对照记录 ↓</a><a download href={`${base}native-audit.json`}>全部原生函数审计 ↓</a><a download href={`${base}principal-direction-results.svg`}>科学图 SVG ↓</a></div><p className="cr-hash">完整记录 SHA-256：{report.report_sha256}<br/>证据 ZIP SHA-256：{report.package.sha256}</p></details>
+    <VariableCurvatureDisclosure/>
   </section>;
 }

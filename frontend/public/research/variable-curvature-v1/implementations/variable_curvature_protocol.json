@@ -1,0 +1,19 @@
+{
+  "schema": "gugis-variable-curvature-protocol-v1",
+  "domain_m": [-50, -50, 50, 50],
+  "angles_degrees": [0, 15, 30, 45, 60, 75, 90],
+  "fields": [
+    {"id": "published-quartic", "name": "既有变曲率严格凸四次曲面", "quadratic": [0.0001, 0.0001], "quartic": [0.0000005, 0.00000008]},
+    {"id": "anisotropic-quartic", "name": "100:1 系数四次扩展", "quadratic": [0.004, 0.00004], "quartic": [0.0000005, 0.000000005]}
+  ],
+  "budgets": [8, 16, 32, 64, 128, 256, 512, 1024, 2048],
+  "p2_hierarchy_budgets": [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048],
+  "ruling_segments": [1, 2, 4, 8, 16, 32],
+  "across_segments": [1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
+  "frames": ["world-x", "world-y", "mean-hessian"],
+  "selection": "Minimum full-domain E2 under both current paper-style P1 complete GPR3 binary-byte budget and native primitive count N. Full overhanging controls counted. P2 is selected from the fixed P1 bisection hierarchy under the same two budgets, not a globally optimal P2 mesh.",
+  "integration": "Degree-exact five-node Gauss-Duffy integration of saved residual squared on the common physical square; independent seven-node release recheck. Float64, not interval proof.",
+  "baseline": "Reuse immutable paper quartic metrics in rotated polynomial coordinates; L2 greedy region priority and L1 edge choice, no C0 closure. For the unrotated published polynomial every budget must match the prior paper report.",
+  "direction": "Eigenvectors of analytic domain-mean Hessian. The local Hessian varies and may change its dominant direction. No noisy-DTM Hessian estimation claim.",
+  "reporting": "Keep all 14 fields/rotations and 126 budget pairs, including losses and exact ties. This is a finite approximation-space and direction comparison, not a new P1 optimality theorem, original author numbers, or ArcGIS performance."
+}

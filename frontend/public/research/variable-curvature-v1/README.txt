@@ -1,0 +1,6 @@
+Prerecorded fixed 2 fields x 7 rotations x 9 P1 budgets = 126 pairs. All 2520 candidates remain in the raw report; only candidates infeasible for every budget are not evaluated. All 2071 evaluated P1/P2/ruled files and independent native queries retained.
+Every method covers the same 100x100m physical square. Same GPR3 encoding, complete Float64 control points, indices, patch records and clipping header; overhanging controls count. Ruled and P2 selections obey BOTH P1 file bytes and primitive budget.
+P1 follows the frozen L2 greedy / L1 edge-decision bisection, without C0 closure. P2 is nodal interpolation on this fixed P1 hierarchy, not a globally optimal P2 algorithm.
+Ruled method uses P2xP1 quadratic boundaries with 1..32 segments, 1..512 cross-band intervals; fixed world axes or analytic domain-mean Hessian. Mean direction is not always better on nonconstant-curvature surfaces.
+Whole-domain E2 is square root of integrated squared height residual, in m2. Five-node producer integrals independently checked at seven nodes using saved functions and separate basis evaluation/clipping. Float64, not interval proof. Query RMS/max are sampled diagnostics, not integral error/global maximum.
+No author-original execution, ArcGIS performance, GPU/CPU timings, RAM or surveyed ground accuracy. All losses and ties remain visible.
