@@ -1,0 +1,85 @@
+{
+  "schema": "gugis-exeter-source-fit-protocol-v1",
+  "raster": "backend/data/terrain/exeter-ea-dtm-1m.tif",
+  "inputs": {
+    "backend/data/terrain/exeter-ea-dtm-1m.tif": "8b0a2576758d79569a4bf88e1e815896e804cfc1b29c9ea550800fa145d586b0",
+    "shared/public-terrain-sources-v9.json": "c708164ab2dfaaf16e291c858dc28d547c4a28d9561d7a950cfffa7c661f83db",
+    "data-pipeline/source_fit_protocol.json": "7b0874c09db246a28bab6e366b79d350dca47e485b570e4040e3c57017a5dbae",
+    "frontend/public/research/source-global-fit-v1/results.json": "893e55b29874ef7e47ef13c986270f8560b1436548b4b9e125446f6dffb25716"
+  },
+  "code": {
+    "data-pipeline/exeter_source_fit_benchmark.py": "ef8fea4474f5075147a3996618e2a55a27f5927203f7677664ce8ffb4b576772",
+    "data-pipeline/audit_exeter_source_fit.py": "0b4014f197775f0484a2436e3723b782354f978a1c6538fd8d4221e9341c19f5",
+    "data-pipeline/source_global_fit_math.py": "1ad1a70027f31491aae0d588bc3263e62e45a3b26ad46707a79a9bb8d9c249cb",
+    "data-pipeline/source_fit_metrics.py": "e715e6c5f8c57ae2278f4775b7dee1055ca7d46068030c49a6606059ddfb8ed3",
+    "data-pipeline/source_fit_galerkin_audit.py": "40270b30918a82058ed8ab93d797f9a515ca208675d4323ec1180eb01b34cf5e",
+    "data-pipeline/diagonal_hybrid_audit.py": "6f325cc3c603acc4cdb74c9fa750d3a567621eeaf2369625008b5246f4871907",
+    "data-pipeline/hybrid_source_audit.py": "4e8ac705ea9008f8cf653ef55bd0400e0b9f5aacc69f54137a46b09d477f1c61",
+    "data-pipeline/diagonal_hybrid_math.py": "e2effc9ad3209739dd59a496aa71b9c1aa78fb6bb675934eafd5ce9472614144",
+    "data-pipeline/hybrid_source_math.py": "bda053825ac070cafcf0b559b1bb1f7464bcb0ff8568a2372b121a1b06530a6d",
+    "data-pipeline/hybrid_source_benchmark.py": "d28b15421ba042b3d4ce00b76a809f90c383c8093e8f5e759f998c960d81a60e",
+    "data-pipeline/source_band_benchmark.py": "1699581dca13194fb7b74f6af64b7ac4ba64f6cb3853c2806ea484525ac4a0a4",
+    "frontend/scripts/audit-source-fit.mjs": "416b7382cba9be3228886ef777dcd3504fa65cb05a0c300640e229e845c31b5c",
+    "frontend/tests/bundleWorkspaceModule.mjs": "3b47c503aebc59f32f5a96b68ea3ea06809899196077abd630a71cb374285b13",
+    "frontend/src/compare/sourceRuledBandMath.ts": "b7638874da0835ab928a937aab2cac02145f27416dc62ed546f4e9183196d46c",
+    "frontend/src/compare/principalRuledMath.ts": "4bd434697148e8e9ac5fc387e3f93c3f980c4af0ca604acc750f4c96555ea466",
+    "frontend/src/compare/curvedRuledMath.ts": "20dbf6c48c4b6d4c76510d0679637220fc8aeb735e2e792e21ca7313d7e3b8c7",
+    "frontend/src/compare/terrainOrderMath.ts": "927aeb6c12fe87c9866b4b47fc397e742f2b098435ae0038936f96e2b4091407",
+    "frontend/src/compare/preparedOrderQuery.ts": "1e65054a8db9fa6ac9c64f33fc9d9cf45ba48518917050c2683fa4ddbc92b605"
+  },
+  "windows": [
+    {
+      "id": "exeter-centre",
+      "name": "埃克塞特 · 源栅格中心",
+      "left": 1484,
+      "top": 1611,
+      "width": 65,
+      "height": 65
+    },
+    {
+      "id": "exeter-north-quarter",
+      "name": "埃克塞特 · 源栅格北侧四分位",
+      "left": 1484,
+      "top": 789,
+      "width": 65,
+      "height": 65
+    }
+  ],
+  "axis_cells": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "methods": [
+    "p1-fit",
+    "ruled-fit",
+    "hybrid-fit"
+  ],
+  "byte_ceilings": [
+    256,
+    512,
+    1024,
+    2048,
+    4096,
+    8192,
+    16384,
+    32768,
+    65536,
+    135528
+  ],
+  "height_targets_m": [
+    0.01,
+    0.025,
+    0.05,
+    0.1,
+    0.25,
+    0.5
+  ],
+  "scope": "New Exeter source-relative validation after the original 20-site method was frozen. Two 65x65 original Float32 windows selected solely by raster dimensions (centre and north quarter); full 4096 m2 per window. The coarse city preview has been observed, but no full fitting outcomes for these windows have been measured before this protocol. This is not a fully blinded study or independent surveyed ground truth. Original twenty-site reports and all published kernels remain unchanged.",
+  "method": "Use frozen diagonal_hybrid_math local types/orientations and shared coefficient fit. Every one of 49 dyadic grids and three methods saved (294 fitted plus 294 unfitted models). Same source-dependent local type selection as prior method; no re-selection after fitting. Jacobi CG tolerance 1e-12/4096 iterations/true residual 1e-11; keep failures and original fallback, preserve complete GPR4 byte cost. Same analytic source-cell integral and continuous maximum, guard 1e-9+max|Z|*1e-12; independent GL5 and Galerkin audits. All original source P1/P2/ruled and implicit Float32 grid controls retained.",
+  "reporting": "Report every ten byte ceilings and six maximum-error targets, missing candidates, losses and maximum-error increases. Default 8192 B chosen before measurement. No quota-driven outcome selection, ArcGIS software measurement, universal superiority or altered 20-site denominator."
+}
