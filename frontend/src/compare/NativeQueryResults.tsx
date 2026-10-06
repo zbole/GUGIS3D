@@ -1,4 +1,4 @@
-import {useEffect,useMemo,useState} from 'react';
+import {lazy,Suspense,useEffect,useMemo,useState} from 'react';
 import report from '../../../shared/native-query-performance-v1.json';
 import {type OrderModel} from './terrainOrderMath';
 import {prepareOrderQuery} from './preparedOrderQuery';
@@ -6,6 +6,7 @@ import {loadOrderModel} from './loadOrderModel';
 import {useComparisonAnchor} from './useComparisonAnchor';
 import './NativeQueryResults.css';
 const base='/research/native-query-v1/';
+const DemCurvedGridControl=lazy(()=>import('./DemCurvedGridControl'));
 type Case=typeof report.cases[number];
 function NativeDemo({item}:{item:Case}){
   const [models,setModels]=useState<OrderModel[]|null>(null),[error,setError]=useState(''),[retry,setRetry]=useState(0),[x,setX]=useState(13);
@@ -35,7 +36,7 @@ function NativeDemo({item}:{item:Case}){
 }
 export default function NativeQueryResults(){
   useComparisonAnchor('native-query-results');
-  const [id,setId]=useState('piecewise-128'),[demo,setDemo]=useState(false);
+  const [id,setId]=useState('piecewise-128'),[demo,setDemo]=useState(false),[dtmOpen,setDtmOpen]=useState(false);
   const item=report.cases.find(c=>c.id===id)!,[a,b]=item.methods,ratio=item.ruled_vs_prepared_triangle_median_ratio;
   return <section id="native-query-results" className="nq-results" aria-labelledby="nq-title">
     <div className="cr-heading"><div><span className="cr-eyebrow">同函数 / 同精度 / 同机查询</span><h2 id="nq-title">结构更紧凑，原生查询也更快。</h2><p>从一条直纹面到 128 条连续面带，五组固定解析结构都保留同一函数。双方预计算系数并采用相同空间索引策略，再交替执行高程与梯度查询。</p></div>
@@ -51,6 +52,9 @@ export default function NativeQueryResults(){
       <p>p10–p90 是这次试验的观测分位数，不是置信区间或跨设备保证。单轮未必更快；全部轮次、顺序、查询次数和校验和均提供下载。</p>
       <img src={`${base}native-query-results.png`} loading="lazy" width="1870" height="782" alt="五组同函数结构的完整二进制代价与本机查询中位数，误差棒为17次试验的观测p10至p90"/>
       <div className="cr-actions"><a download href={`${base}trials.csv`}>全部 220 条计时记录 CSV ↓</a><a download href={`${base}results.json`}>完整计时与校验 JSON ↓</a><a download href={`${base}native-query-results.svg`}>科学图 SVG ↓</a></div>
+    </details>
+    <details className="cr-details" onToggle={e=>setDtmOpen(e.currentTarget.open)}><summary>适用范围：真实 DTM 的规则面带控制试验</summary>
+      {dtmOpen&&<Suspense fallback={<p role="status">正在载入全部固定真实样区结果…</p>}><DemCurvedGridControl/></Suspense>}
     </details>
     <details className="cr-details"><summary>复现实验条件、连续性和算法实现</summary>
       <p>固定 128 × 32 个内部坐标，覆盖最多 128 条面带。每个方法预热五批，共同查询一组坐标；每个结构进行 17 轮 GUGIS / 三角法交替计时。计时范围为点定位、高程、笛卡尔解析梯度和累加校验和，不含磁盘读取、解码及预计算。旧版查询另测五轮，仅用于实现优化回归，双方准备充分的查询才用于上方方法对照。</p>

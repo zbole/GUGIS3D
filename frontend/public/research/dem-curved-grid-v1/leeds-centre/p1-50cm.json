@@ -1,0 +1,1 @@
+{"format":"gugis-research-surface","version":1,"coordinate_system":"LOCAL_METERS","points":[[-32.0,-32.0,36.927],[32.0,-32.0,37.22],[-32.0,32.0,40.151],[32.0,32.0,39.799],[0.0,0.0,38.692],[32.0,0.0,38.217]],"patches":[{"kind":"triangle-strip","indices":[0,1,4,5,3]},{"kind":"triangle-strip","indices":[0,4,2,3]}]}
