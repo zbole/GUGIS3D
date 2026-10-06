@@ -1,0 +1,29 @@
+{
+  "city_id": "exeter",
+  "name": "埃克塞特",
+  "url": "https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=13787b9a-26a4-4775-8523-806d13af58fc__Lidar_Composite_Elevation_DTM_1m&subset=E%28290508%2C293540%29&subset=N%2890794%2C94081%29&format=image%2Ftiff",
+  "bbox_bng": [
+    290508,
+    90794,
+    293540,
+    94081
+  ],
+  "query_bbox_wgs84": [
+    -3.552,
+    50.707,
+    -3.51,
+    50.736
+  ],
+  "bytes": 44040947,
+  "sha256": "3bba332b7200fea83eeedcb2ac480773e7be4c2954e20b52c3aeafa1f4e9a345",
+  "content_type": "image/tiff",
+  "retrieved_utc": "2026-10-06T10:44:08.458740+00:00",
+  "width": 3032,
+  "height": 3287,
+  "valid_pixels": 9966184,
+  "nodata_pixels": 0,
+  "minimum_m": 1.4119999408721924,
+  "maximum_m": 90.427001953125,
+  "grid_audit": "One Float32 band, EPSG:27700, exact requested integer BNG extent, 1m, scale1/offset0",
+  "scope": "Independent Exeter centre and riverside sample, not all-city coverage; acquisition alone does not publish or replace terrain."
+}

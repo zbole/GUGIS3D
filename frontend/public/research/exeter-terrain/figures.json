@@ -1,0 +1,15 @@
+{
+  "raster_sha256": "8b0a2576758d79569a4bf88e1e815896e804cfc1b29c9ea550800fa145d586b0",
+  "audit_sha256": "51ee407645d30486c5b5dab02415bcb20768ced3e77ee7fbae0cda736a22ff02",
+  "plotter_sha256": "f33786dde04697a4f958eb155a7bbeb215d5814716e86413a3fe53225299837f",
+  "files": {
+    "exeter-source-preview.png": {
+      "bytes": 497568,
+      "sha256": "4d92c7bc0c613a2d084307b9314a5d9caa7da0196a91d51c42b237fb7429886a"
+    },
+    "exeter-source-preview.svg": {
+      "bytes": 832149,
+      "sha256": "bd1c51f35072c2a546e4422c2bf7b12fc9db3a8a1ab1bf34e26d7ec7f678bc41"
+    }
+  }
+}
