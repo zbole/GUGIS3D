@@ -27,22 +27,32 @@ def file_digest(path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--release', required=True)
+    parser.add_argument('--prepared-tree', type=Path, help='Reuse mutable local staging after an interrupted build; every source is rechecked')
     args = parser.parse_args()
     if not args.release or any(c not in 'abcdefghijklmnopqrstuvwxyz0123456789-' for c in args.release):
         raise ValueError('Use a simple lowercase release identifier')
     output = ROOT/'.local/deploy/releases'/args.release
     output.mkdir(parents=True, exist_ok=False)
-    tree = output/'tree'
-    tree.mkdir()
+    git = ['git', '-c', 'safe.directory='+ROOT.as_posix()]
+    commit = subprocess.check_output(git+['rev-parse', 'HEAD'], cwd=ROOT).decode().strip()
+    tree = args.prepared_tree.resolve(strict=True) if args.prepared_tree else output/'tree'
+    if args.prepared_tree:
+        tree.relative_to((ROOT/'.local/deploy/releases').resolve())
+        if tree.name != 'tree' or tree.is_symlink(): raise ValueError('Only local mutable release staging can be reused')
+    else:
+        tree.mkdir()
     def copy(source, relative):
         if source.is_symlink() or not source.is_file():
             raise ValueError('Only regular source files may be bundled')
         target = tree/relative
         target.parent.mkdir(parents=True, exist_ok=True)
+        if target.is_symlink(): raise ValueError('No linked staging targets')
         if str(relative).replace('\\', '/').startswith(('backend/app/', 'deploy/', 'data-pipeline/')) and source.suffix in ('.py', '.sh', '.conf', '.service', '.txt'):
-            target.write_bytes(source.read_bytes().replace(b'\r\n', b'\n'))
+            raw = source.read_bytes().replace(b'\r\n', b'\n')
+            if not target.exists() or target.read_bytes() != raw: target.write_bytes(raw)
         else:
-            shutil.copyfile(source, target)
+            if not target.exists() or source.stat().st_size != target.stat().st_size or file_digest(source) != file_digest(target):
+                shutil.copyfile(source, target)
     # Runtime source sets are explicit; no local database, venv, git, or credentials.
     for directory in ('backend/app', 'shared', 'frontend/dist', 'deploy'):
         for p in sorted((ROOT/directory).rglob('*')):
@@ -82,18 +92,31 @@ def main():
     # Deterministic compressed HTTP sidecars reduce CPU and bandwidth. Originals
     # retain their exact hashes; browser Content-Encoding restores those bytes.
     for p in list((tree/'frontend/dist').rglob('*')):
-        if p.is_file() and p.suffix in ('.js', '.css', '.json', '.svg') and p.stat().st_size >= 1024:
+        if p.is_file() and p.suffix in ('.js', '.css', '.json', '.svg') and p.stat().st_size >= 32768:
             raw = p.read_bytes()
+            sidecar = p.with_name(p.name+'.gz')
+            if sidecar.exists():
+                try:
+                    if gzip.decompress(sidecar.read_bytes()) == raw: continue
+                except (OSError, EOFError): pass
             compressed = gzip.compress(raw, compresslevel=6, mtime=0)
             if len(compressed) < len(raw)*.94:
-                p.with_name(p.name+'.gz').write_bytes(compressed)
+                sidecar.write_bytes(compressed)
+    for p in (tree/'frontend/dist').rglob('*.gz'):
+        original = p.with_name(p.name[:-3])
+        if not original.is_file(): raise ValueError('Unexpected compressed sidecar')
+        raw = original.read_bytes()
+        try: valid = gzip.decompress(p.read_bytes()) == raw
+        except (OSError, EOFError): valid = False
+        if not valid: p.write_bytes(gzip.compress(raw, compresslevel=6, mtime=0))
+    print('Original bytes and compressed sidecars verified; collecting receipts', flush=True)
     entries = []
     for p in sorted(tree.rglob('*')):
-        if p.is_file():
+        if p.is_file() and p.name != 'release-manifest.json':
             entries.append({'path': p.relative_to(tree).as_posix(), 'bytes': p.stat().st_size,
                             'sha256': digest(p.read_bytes())})
-    commit = subprocess.check_output(['git', '-c', 'safe.directory='+ROOT.as_posix(),
-        'rev-parse', 'HEAD'], cwd=ROOT).decode().strip()
+    if subprocess.check_output(git+['rev-parse', 'HEAD'], cwd=ROOT).decode().strip() != commit:
+        raise ValueError('Source commit changed during release assembly')
     report = {'schema': 'gugis-server-release-v1', 'release': args.release,
               'source_commit': commit, 'total_bytes': sum(e['bytes'] for e in entries),
               'public_cities': len(catalogue['sources']), 'files': entries}
