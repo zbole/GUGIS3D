@@ -1,9 +1,27 @@
 import asyncio
 import unittest
+from unittest.mock import patch
 from deploy.server import ResourceBudget
 
 
 class BudgetTests(unittest.IsolatedAsyncioTestCase):
+    async def test_queued_read_timeout_rejects_without_releasing_another_operation(self):
+        async def app(scope, receive, send):
+            self.fail('A timed-out read must not start the application')
+        guarded = ResourceBudget(app)
+        await guarded.lock.acquire()
+        original_wait = asyncio.wait_for
+        async def short_wait(awaitable, timeout):
+            return await original_wait(awaitable, timeout=0.01)
+        output = []
+        async def send(value): output.append(value)
+        with patch('deploy.server.asyncio.wait_for', short_wait):
+            await guarded({'type': 'http', 'path': '/city/current', 'method': 'GET'}, None, send)
+        self.assertEqual(output[0]['status'], 503)
+        self.assertEqual(guarded.waiting_reads, 0)
+        self.assertTrue(guarded.lock.locked())
+        guarded.lock.release()
+
     async def test_busy_request_never_reads_body_or_runs_mutation_and_health_stays_available(self):
         entered, release = asyncio.Event(), asyncio.Event()
         calls = []

@@ -31,7 +31,7 @@ class ResourceBudget:
             self.waiting_reads += 1
             try:
                 await asyncio.wait_for(self.lock.acquire(), timeout=120)
-            except TimeoutError:
+            except asyncio.TimeoutError:
                 return await busy()
             finally:
                 self.waiting_reads -= 1
